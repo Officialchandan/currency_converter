@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 
 class SettingScreen extends StatefulWidget {
   SettingScreen({Key? key}) : super(key: key);
@@ -11,12 +13,18 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  Color color = Colors.red;
+
   bool isSwitched = false;
   bool checkBoxValue1 = true;
   bool checkBoxValue2 = false;
   bool fontsmall = false;
   bool fontmedium = true;
   bool fontlarge = false;
+  bool displaycode = false;
+  bool displaysymbol = true;
+  bool displayflag = true;
+
   double _value = 1.0;
   int x = 0;
 
@@ -48,9 +56,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold))),
             Container(
-              margin: EdgeInsets.only(right: 20),
-              width: width*.92,
-              height: height*.078,
+              // margin: EdgeInsets.only(right: 20),
+              width: width * .92,
+              height: height * .078,
               padding: EdgeInsets.only(top: 10, left: 15, right: 2, bottom: 0),
               decoration: BoxDecoration(
                   color: Colors.black26,
@@ -62,30 +70,27 @@ class _SettingScreenState extends State<SettingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                          text: TextSpan(
-                            children: [
-                             TextSpan(
-                               text: "Support our project  with a small yearly",
-                               style: TextStyle(
-                                   fontWeight: FontWeight.normal, fontSize: 14),
-                             ),
-                              TextSpan(
-                                text: "\n subscription",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.normal, fontSize: 14),
-                              )
-                            ]
-                              )),
-                    //   Text("Support our project  with a small yearly ",
-                    //       style: GoogleFonts.roboto(
-                    //         fontSize: 15,
-                    //         color: Colors.white,
-                    //       )),
-                    //   Text("subscription",
-                    //       style: GoogleFonts.roboto(
-                    //           fontSize: 16, color: Colors.white))
-
-                     ],
+                          text: TextSpan(children: [
+                        TextSpan(
+                          text: "Support our project  with a small yearly",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 14),
+                        ),
+                        TextSpan(
+                          text: "\n subscription",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 14),
+                        )
+                      ])),
+                      //   Text("Support our project  with a small yearly ",
+                      //       style: GoogleFonts.roboto(
+                      //         fontSize: 15,
+                      //         color: Colors.white,
+                      //       )),
+                      //   Text("subscription",
+                      //       style: GoogleFonts.roboto(
+                      //           fontSize: 16, color: Colors.white))
+                    ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -121,9 +126,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         fontWeight: FontWeight.bold))),
             Container(
 
-                margin: EdgeInsets.only(right: 22),
+                // margin: EdgeInsets.only(right: 22),
                 height: 55,
-                width: 380,
+                width: width * .92,
                 padding:
                     EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 0),
                 decoration: BoxDecoration(
@@ -160,27 +165,60 @@ class _SettingScreenState extends State<SettingScreen> {
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold))),
-            Container(
-                margin: EdgeInsets.only(right: 22),
-                height: 50,
-                width: 380,
-                padding:
-                    EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-                decoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Container(
+            InkWell(
+              onTap: () {
+                print("vivek");
+                Color pickerColor = Color(0xff443a49);
+                Color currentColor = Color(0xff443a49);
+
+                void changeColor(Color color) {
+                  setState(() => pickerColor = color);
+                }
+
+
+            com.example.currency_converte    showDialog(
+                  context: context,
+                  builder: (context) =>
+                      AlertDialog(
+
+                        content: Container(
+                          width: width*7.2,
+                          height: height*0.60,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text("Unlocked",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),)
+                            ],
+                          ),
+
+                        ),
+
+                      )
+                );
+
+              },
+              child: Container(
+                  // margin: EdgeInsets.only(right: 22),
+                  height: 50,
+                  width: width * .92,
+                  padding:
+                      EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xff49599a), Color(0xff7986cb)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: [0.1, 0.8]),
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(width: 1.2, color: Colors.white),
-                  ),
-                  child: Text(""),
-                )),
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Color(0xff49599a), Color(0xff7986cb)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.1, 0.8]),
+                      borderRadius: BorderRadius.circular(7),
+                      border: Border.all(width: 1.2, color: Colors.white),
+                    ),
+                    child: Text(""),
+                  )),
+            ),
             Container(
                 margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
                 child: Text("Theme",
@@ -189,9 +227,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold))),
             Container(
-                margin: EdgeInsets.only(right: 22, bottom: 24),
+                margin: EdgeInsets.only(bottom: 24),
                 height: 55,
-                width: 380,
+                width: width * .92,
                 padding:
                     EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
                 decoration: BoxDecoration(
@@ -278,11 +316,10 @@ class _SettingScreenState extends State<SettingScreen> {
               ],
             ),
             Container(
-
               margin: EdgeInsets.only(right: 0, top: 15),
-              height: height*.193,
-              width: width*.92,
-              padding: EdgeInsets.only(top: 15, left: 0, right: 10, bottom: 10),
+              height: height * .193,
+              width: width * .92,
+              padding: EdgeInsets.only(top: 10, left: 0, right: 10, bottom: 10),
               decoration: BoxDecoration(
                   color: Colors.black26,
                   borderRadius: BorderRadius.circular(10)),
@@ -292,7 +329,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Row(
                       children: [
                         Container(
-                          width: 130,
+                          width: width * 0.31,
                           child: Slider(
                             activeColor: Colors.white,
                             inactiveColor: Colors.white,
@@ -318,12 +355,10 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                   ),
                   Container(
-
-                    width: 195,
+                    width: width * 0.5,
                     margin: EdgeInsets.only(left: 5),
                     decoration: BoxDecoration(
-
-
+                        color: Colors.white.withOpacity(0.69),
                         borderRadius: BorderRadius.circular(10),
                         gradient: LinearGradient(
                             colors: [Color(0xff49599a), Color(0xff7986cb)],
@@ -390,11 +425,13 @@ class _SettingScreenState extends State<SettingScreen> {
                         SizedBox(
                           height: 2,
                         ),
-                        Text("  By: Currency.wiki",
-                            style: GoogleFonts.roboto(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold))
+                        AutoSizeText(
+                          "  By: Currency.wiki",
+                          style: GoogleFonts.roboto(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                          maxFontSize: 18,
+                          minFontSize: 16,
+                        )
                       ],
                     ),
                   )
@@ -409,9 +446,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold))),
             Container(
-                margin: EdgeInsets.only(right: 22),
+                //  margin: EdgeInsets.only(right: 22),
                 height: 50,
-                width: 380,
+                width: width * .92,
                 padding:
                     EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
                 decoration: BoxDecoration(
@@ -584,10 +621,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                 fontWeight: FontWeight.normal, fontSize: 11),
                           )
                         ])),
-
                   ],
                 )),
-
             Container(
                 margin: EdgeInsets.only(left: 10, bottom: 5, top: 25),
                 child: Text("Display",
@@ -597,19 +632,205 @@ class _SettingScreenState extends State<SettingScreen> {
                         fontWeight: FontWeight.bold))),
             Container(
                 margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
-                height: height*.17,
-                width: width*.92,
-                padding:
-                EdgeInsets.only(top: 15, left: 10, right: 20, bottom: 15),
+                height: height * .205,
+                width: width * .92,
+                padding: EdgeInsets.only(top: 5, left: 10, right: 5, bottom: 5),
                 decoration: BoxDecoration(
                     color: Colors.black26,
                     borderRadius: BorderRadius.circular(10)),
-                child: Text("")),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(top: 12),
+                          child: Text("Display Currency Code",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal)),
+                        ),
+                        Switch(
+                          inactiveTrackColor: Colors.grey,
+                          value: displaycode,
+                          onChanged: (value) {
+                            setState(() {
+                              if (displayflag) {
+                                if (displaysymbol) {
+                                  displaysymbol = false;
+                                  displaycode = true;
+                                } else
+                                  displaycode = !displaycode;
+                              } else if (displaycode) {
+                              } else {
+                                displaycode = true;
+                                displaysymbol = false;
+                              }
 
-
+                              // print(isSwitched);
+                            });
+                          },
+                          activeTrackColor: Color(0xff7986cb),
+                          activeColor: Colors.white,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(top: 12),
+                          child: Text("Display Currency Symbol",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal)),
+                        ),
+                        Switch(
+                          inactiveTrackColor: Colors.grey,
+                          value: displaysymbol,
+                          onChanged: (value) {
+                            setState(() {
+                              if (displayflag) {
+                                if (displaycode) {
+                                  displaysymbol = true;
+                                  displaycode = false;
+                                } else
+                                  displaysymbol = !displaysymbol;
+                              } else if (displaysymbol) {
+                              } else if (displaysymbol && !displayflag) {
+                              } else {
+                                displaysymbol = true;
+                                displaycode = false;
+                              }
+                            });
+                          },
+                          activeTrackColor: Color(0xff7986cb),
+                          activeColor: Colors.white,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(top: 12),
+                          child: Text("Display Currency Flag",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal)),
+                        ),
+                        Switch(
+                          inactiveTrackColor: Colors.grey,
+                          value: displayflag,
+                          onChanged: (value) {
+                            setState(() {
+                              if (!displaycode && !displaysymbol) {
+                              } else
+                                displayflag = !displayflag;
+                              // print(isSwitched);
+                            });
+                          },
+                          activeTrackColor: Color(0xff7986cb),
+                          activeColor: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
+            Container(
+                margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
+                child: Text("Data Format",
+                    style: GoogleFonts.roboto(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold))),
+            Container(
+                margin: EdgeInsets.only(bottom: 24),
+                height: 55,
+                width: width * .92,
+                padding:
+                    EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
+                decoration: BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Transform.scale(
+                      scale: 1.1,
+                      child: Checkbox(
+                        side: BorderSide(color: Colors.white),
+                        value: checkBoxValue1,
+                        onChanged: (value) {
+                          setState(() {
+                            if (checkBoxValue2) {
+                              checkBoxValue1 = !checkBoxValue1;
+                              checkBoxValue2 = !checkBoxValue2;
+                            }
+                          });
+                        },
+                        activeColor: Colors.white,
+                        checkColor: Colors.black,
+                        tristate: false,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                    Text("mm/dd/yy",
+                        style: GoogleFonts.roboto(
+                          fontSize: 16,
+                          color: Colors.white,
+                        )),
+                    SizedBox(
+                      width: 35,
+                    ),
+                    Transform.scale(
+                      scale: 1.1,
+                      child: Checkbox(
+                        side: BorderSide(color: Colors.white),
+                        value: checkBoxValue2,
+                        onChanged: (value) {
+                          setState(() {
+                            if (checkBoxValue1) {
+                              checkBoxValue2 = !checkBoxValue2;
+                              checkBoxValue1 = !checkBoxValue1;
+                            }
+                          });
+                        },
+                        activeColor: Colors.white,
+                        checkColor: Colors.black,
+                        tristate: false,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                    Text(
+                      "dd/mm/yy",
+                      style:
+                          GoogleFonts.roboto(fontSize: 16, color: Colors.white),
+                    )
+                  ],
+                )),
           ],
         ),
       ),
     ));
   }
 }
+// content: SingleChildScrollView(
+//   child: BlockPicker(
+//
+//     pickerColor: currentColor,
+//     onColorChanged: changeColor,
+//
+//   ),
+// ),
