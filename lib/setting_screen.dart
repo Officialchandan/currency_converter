@@ -176,25 +176,34 @@ class _SettingScreenState extends State<SettingScreen> {
                 }
 
 
-            com.example.currency_converte    showDialog(
-                  context: context,
-                  builder: (context) =>
-                      AlertDialog(
 
-                        content: Container(
-                          width: width*7.2,
-                          height: height*0.60,
+                showGeneralDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    barrierLabel: MaterialLocalizations.of(context)
+                        .modalBarrierDismissLabel,
+                    barrierColor: Colors.black45,
+                    transitionDuration: const Duration(milliseconds: 200),
+                    pageBuilder: (BuildContext buildContext,
+                        Animation animation,
+                        Animation secondaryAnimation) {
+                      return Center(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 100   ,left: 10,right: 10  ),
+                          width: width,
+                          height: width+200,
+                          padding: EdgeInsets.all(20),
+                          color: Colors.white,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text("Unlocked",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),)
-                            ],
+
+                            ]
                           ),
-
                         ),
+                      );
+                    });
 
-                      )
-                );
+
 
               },
               child: Container(
@@ -827,7 +836,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 }
 // content: SingleChildScrollView(
-//   child: BlockPicker(
+   //child: BlockPicker(
 //
 //     pickerColor: currentColor,
 //     onColorChanged: changeColor,
