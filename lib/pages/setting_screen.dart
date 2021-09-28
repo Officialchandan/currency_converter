@@ -6,13 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 
 class SettingScreen extends StatefulWidget {
-  SettingScreen({Key? key}) : super(key: key);
+  const SettingScreen({Key? key}) : super(key: key);
 
   @override
   _SettingScreenState createState() => _SettingScreenState();
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  List<Color> unlockedcolor = [Colors.green, Colors.blue, Colors.red, Colors.black26,Colors.yellow,Colors.cyan,Colors.green, Colors.blue, Colors.red, Colors.black26,Colors.yellow,Colors.cyan,Colors.green, Colors.blue, Colors.red, Colors.black26,Colors.yellow,Colors.cyan,Colors.green, Colors.blue, Colors.red, Colors.black26,Colors.yellow,Colors.cyan];
   Color color = Colors.red;
 
   bool isSwitched = false;
@@ -36,7 +37,7 @@ class _SettingScreenState extends State<SettingScreen> {
         body: Container(
       height: height,
       width: width,
-      padding: EdgeInsets.only(top: 60, left: 20),
+      padding: const EdgeInsets.only(top: 5, left: 20),
       decoration: const BoxDecoration(
           gradient: LinearGradient(
               colors: [Color(0xff49599a), Color(0xff7986cb)],
@@ -49,7 +50,7 @@ class _SettingScreenState extends State<SettingScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                margin: EdgeInsets.only(left: 10, bottom: 13),
+                margin: const EdgeInsets.only(left: 10, bottom: 13),
                 child: Text("Remove Ads",
                     style: GoogleFonts.roboto(
                         fontSize: 20,
@@ -59,7 +60,8 @@ class _SettingScreenState extends State<SettingScreen> {
               // margin: EdgeInsets.only(right: 20),
               width: width * .92,
               height: height * .078,
-              padding: EdgeInsets.only(top: 10, left: 15, right: 2, bottom: 0),
+              padding:
+                  const EdgeInsets.only(top: 10, left: 7, right: 2, bottom: 0),
               decoration: BoxDecoration(
                   color: Colors.black26,
                   borderRadius: BorderRadius.circular(10)),
@@ -70,26 +72,19 @@ class _SettingScreenState extends State<SettingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                          text: TextSpan(children: [
+                          text: const TextSpan(children: [
                         TextSpan(
                           text: "Support our project  with a small yearly",
                           style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 14),
+                              fontWeight: FontWeight.normal, fontSize: 15),
                         ),
                         TextSpan(
                           text: "\n subscription",
                           style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 14),
+                              fontWeight: FontWeight.normal, fontSize: 15),
                         )
                       ])),
-                      //   Text("Support our project  with a small yearly ",
-                      //       style: GoogleFonts.roboto(
-                      //         fontSize: 15,
-                      //         color: Colors.white,
-                      //       )),
-                      //   Text("subscription",
-                      //       style: GoogleFonts.roboto(
-                      //           fontSize: 16, color: Colors.white))
+
                     ],
                   ),
                   Column(
@@ -98,7 +93,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       Container(
                         width: 30,
                         height: 10,
-                        margin: EdgeInsets.only(top: 15, left: 2),
+                        margin: const EdgeInsets.only(top: 10, left: 2),
                         child: Switch(
                           inactiveTrackColor: Colors.grey,
                           value: isSwitched,
@@ -108,7 +103,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               // print(isSwitched);
                             });
                           },
-                          activeTrackColor: Color(0xff7986cb),
+                          activeTrackColor: const Color(0xff7986cb),
                           activeColor: Colors.white,
                         ),
                       ),
@@ -129,8 +124,8 @@ class _SettingScreenState extends State<SettingScreen> {
                 // margin: EdgeInsets.only(right: 22),
                 height: 55,
                 width: width * .92,
-                padding:
-                    EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 0),
+                padding: const EdgeInsets.only(
+                    top: 10, left: 15, right: 15, bottom: 0),
                 decoration: BoxDecoration(
                     color: Colors.black26,
                     borderRadius: BorderRadius.circular(10)),
@@ -145,13 +140,13 @@ class _SettingScreenState extends State<SettingScreen> {
                               color: Colors.white,
                             )),
                         //  SizedBox(width: 245 ,),
-                        Icon(
+                        const Icon(
                           Icons.expand_more_outlined,
                           color: Colors.white,
                         ),
                       ],
                     ),
-                    Divider(
+                    const Divider(
                       height: 2,
                       color: Colors.white,
                       thickness: 1.2,
@@ -159,7 +154,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ],
                 )),
             Container(
-                margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
+                margin: const EdgeInsets.only(left: 10, bottom: 13, top: 20),
                 child: Text("Color Selection",
                     style: GoogleFonts.roboto(
                         fontSize: 20,
@@ -168,14 +163,12 @@ class _SettingScreenState extends State<SettingScreen> {
             InkWell(
               onTap: () {
                 print("vivek");
-                Color pickerColor = Color(0xff443a49);
-                Color currentColor = Color(0xff443a49);
+                Color pickerColor = const Color(0xff443a49);
+                Color currentColor = const Color(0xff443a49);
 
                 void changeColor(Color color) {
                   setState(() => pickerColor = color);
                 }
-
-
 
                 showGeneralDialog(
                     context: context,
@@ -185,26 +178,71 @@ class _SettingScreenState extends State<SettingScreen> {
                     barrierColor: Colors.black45,
                     transitionDuration: const Duration(milliseconds: 200),
                     pageBuilder: (BuildContext buildContext,
-                        Animation animation,
-                        Animation secondaryAnimation) {
-                      return Center(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 100   ,left: 10,right: 10  ),
-                          width: width,
-                          height: width+200,
-                          padding: EdgeInsets.all(20),
-                          color: Colors.white,
-                          child: Column(
-                            children: [
+                        Animation animation, Animation secondaryAnimation) {
+                      return DefaultTextStyle(
+                        style: TextStyle(decoration: TextDecoration.none),
+                        child: Center(
+                          child: Container(
+                              margin:const  EdgeInsets.only(
+                                  top: 30, right: 10, bottom: 0, left: 10),
+                              width: width,
+                              height: height * 0.79,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15, top: 30,bottom: 10),
+                                    child: const Text(
+                                      "Unlocked ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.black),
+                                    ),
+                                  ),
 
-                            ]
-                          ),
+
+                                SizedBox(
+                                  height: 70,
+
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                        // physics: NeverScrollableScrollPhysics(),
+                                        // shrinkWrap: true,
+                                        itemCount: 3,
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                            width: 50,
+                                            height: 0,
+                                            margin: EdgeInsets.all(10),
+                                            color: unlockedcolor[index],
+
+                                            child: Text(""),
+                                          );
+                                        }),
+                                ),
+                                  Container(margin:EdgeInsets.all(20),child:Text("Locked",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),)
+                                    ,),
+                                  Container(
+                                    margin: EdgeInsets.only(left:40 ),
+
+                                    child: BlockPicker(
+                                      pickerColor: currentColor,
+                                      onColorChanged: changeColor,
+
+                                    ),
+                                  ),
+
+                                ],
+                              )),
                         ),
                       );
                     });
-
-
-
               },
               child: Container(
                   // margin: EdgeInsets.only(right: 22),
@@ -217,7 +255,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           colors: [Color(0xff49599a), Color(0xff7986cb)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -225,18 +263,18 @@ class _SettingScreenState extends State<SettingScreen> {
                       borderRadius: BorderRadius.circular(7),
                       border: Border.all(width: 1.2, color: Colors.white),
                     ),
-                    child: Text(""),
+                    child: const Text(""),
                   )),
             ),
             Container(
-                margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
+                margin: const EdgeInsets.only(left: 10, bottom: 13, top: 20),
                 child: Text("Theme",
                     style: GoogleFonts.roboto(
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold))),
             Container(
-                margin: EdgeInsets.only(bottom: 24),
+                margin: const EdgeInsets.only(bottom: 24),
                 height: 55,
                 width: width * .92,
                 padding:
@@ -326,9 +364,9 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             Container(
               margin: EdgeInsets.only(right: 0, top: 15),
-              height: height * .193,
+              height: height * .183,
               width: width * .92,
-              padding: EdgeInsets.only(top: 10, left: 0, right: 10, bottom: 10),
+              padding: EdgeInsets.only(top: 5, left: 0, right: 0, bottom: 5),
               decoration: BoxDecoration(
                   color: Colors.black26,
                   borderRadius: BorderRadius.circular(10)),
@@ -340,24 +378,23 @@ class _SettingScreenState extends State<SettingScreen> {
                         Container(
                           width: width * 0.31,
                           child: Slider(
-                            activeColor: Colors.white,
-                            inactiveColor: Colors.white,
-                            min: 0,
-                            max: 100,
-                            value: _value,
-                            onChanged: (value) {
-                              setState(() {
-                                x = _value.toInt();
-                                _value = value;
-                              });
-                            },
-                          ),
+                              activeColor: Colors.white,
+                              inactiveColor: Colors.white,
+                              min: 0,
+                              max: 100,
+                              value: _value,
+                              onChanged: (value) {
+                                setState(() {
+                                  x = _value.toInt();
+                                  _value = value;
+                                });
+                              }),
                         ),
                         Container(
                           width: 30,
                           child: Text(
                             "${x.toString()}",
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         )
                       ],
@@ -365,15 +402,19 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   Container(
                     width: width * 0.5,
-                    margin: EdgeInsets.only(left: 5),
+                    height: height * 1.9,
+                    margin: EdgeInsets.only(left: 0.0),
                     decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.69),
                         borderRadius: BorderRadius.circular(10),
                         gradient: LinearGradient(
-                            colors: [Color(0xff49599a), Color(0xff7986cb)],
+                            colors: const [
+                              Color(0xff49599a),
+                              Color(0xff7986cb)
+                            ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            stops: [0.1, 1.5]),
+                            stops: const [0.1, 1.5]),
                         border: Border.all(color: Colors.white, width: 3.9)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -415,8 +456,8 @@ class _SettingScreenState extends State<SettingScreen> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 50, top: 10),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 50, top: 0),
                           child: Text("0.7895",
                               style: TextStyle(
                                 color: Colors.white,
@@ -424,7 +465,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               )),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 80, top: 3),
+                          padding: EdgeInsets.only(left: 80, top: 0),
                           child: Text("-0.0400",
                               style: TextStyle(
                                 color: Colors.white,
@@ -617,7 +658,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             text: "Will open multi-converter by default. ",
                             style: TextStyle(
                                 fontWeight: FontWeight.normal, fontSize: 11),
-                            children: <TextSpan>[
+                            children: const <TextSpan>[
                           TextSpan(
                             text: "NOTE:",
                             style: TextStyle(
@@ -641,7 +682,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         fontWeight: FontWeight.bold))),
             Container(
                 margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
-                height: height * .205,
+                height: height * .25,
                 width: width * .92,
                 padding: EdgeInsets.only(top: 5, left: 10, right: 5, bottom: 5),
                 decoration: BoxDecoration(
@@ -836,7 +877,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 }
 // content: SingleChildScrollView(
-   //child: BlockPicker(
+//child: BlockPicker(
 //
 //     pickerColor: currentColor,
 //     onColorChanged: changeColor,
