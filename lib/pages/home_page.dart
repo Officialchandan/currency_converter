@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -23,16 +24,25 @@ bool isbool = true;
 TextEditingController tx1 = TextEditingController();
 
 class _HomePageState extends State<HomePage> {
+
+
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return  SafeArea(
       bottom: false,
       child: Scaffold(
+        //backgroundColor: MyColors.firstthemecolorgr,
         body: MyTabBarWidget(),
+
       ),
     );
+
   }
-}
+
+
+  }
+
+
 
 class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
@@ -55,14 +65,16 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     String textCurrency = "USA";
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
+     // backgroundColor: MyColors.firstthemecolorgr,
       appBar: AppBar(
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: MyColors.firstthemecolorgr,
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -102,7 +114,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       body: Container(
         height: appheight,
         width: appwidth,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
             MyColors.firstthemecolorgr1,
@@ -147,7 +159,7 @@ class _TapHomeState extends State<TapHome> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.transparent,
+     backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
         child: SingleChildScrollView(
@@ -197,7 +209,7 @@ class _TapHomeState extends State<TapHome> {
                         height: 35.0,
                         width: 60.0,
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
+                          gradient: LinearGradient(
                             colors: [
                               MyColors.firstthemecolorgr1,
                               MyColors.firstthemecolorgr,
@@ -311,7 +323,7 @@ class _TapHomeState extends State<TapHome> {
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(0.0),
-                                                side: const BorderSide(
+                                                side: BorderSide(
                                                     color: MyColors
                                                         .firstthemecolorgr,
                                                     width: 0.3,
