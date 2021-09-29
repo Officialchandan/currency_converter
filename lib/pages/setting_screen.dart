@@ -13,6 +13,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  List<Color> unlockedcolor = [Colors.green, Colors.blue, Colors.red, Colors.black26,Colors.yellow,Colors.cyan,Colors.green, Colors.blue, Colors.red, Colors.black26,Colors.yellow,Colors.cyan,Colors.green, Colors.blue, Colors.red, Colors.black26,Colors.yellow,Colors.cyan,Colors.green, Colors.blue, Colors.red, Colors.black26,Colors.yellow,Colors.cyan];
   Color color = Colors.red;
 
   bool isSwitched = false;
@@ -83,14 +84,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               fontWeight: FontWeight.normal, fontSize: 15),
                         )
                       ])),
-                      //   Text("Support our project  with a small yearly ",
-                      //       style: GoogleFonts.roboto(
-                      //         fontSize: 15,
-                      //         color: Colors.white,
-                      //       )),
-                      //   Text("subscription",
-                      //       style: GoogleFonts.roboto(
-                      //           fontSize: 16, color: Colors.white))
+
                     ],
                   ),
                   Column(
@@ -176,26 +170,79 @@ class _SettingScreenState extends State<SettingScreen> {
                   setState(() => pickerColor = color);
                 }
 
-                showDialog(
+                showGeneralDialog(
                     context: context,
-                    builder: (context) => AlertDialog(
-                          content: Container(
-                            width: width * 7.2,
-                            height: height * 0.60,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  "Unlocked",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                )
-                              ],
-                            ),
-                          ),
-                        ));
+                    barrierDismissible: true,
+                    barrierLabel: MaterialLocalizations.of(context)
+                        .modalBarrierDismissLabel,
+                    barrierColor: Colors.black45,
+                    transitionDuration: const Duration(milliseconds: 200),
+                    pageBuilder: (BuildContext buildContext,
+                        Animation animation, Animation secondaryAnimation) {
+                      return DefaultTextStyle(
+                        style: TextStyle(decoration: TextDecoration.none),
+                        child: Center(
+                          child: Container(
+                              margin:const  EdgeInsets.only(
+                                  top: 30, right: 10, bottom: 0, left: 10),
+                              width: width,
+                              height: height * 0.79,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15, top: 30,bottom: 10),
+                                    child: const Text(
+                                      "Unlocked ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+
+
+                                SizedBox(
+                                  height: 70,
+
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                        // physics: NeverScrollableScrollPhysics(),
+                                        // shrinkWrap: true,
+                                        itemCount: 3,
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                            width: 50,
+                                            height: 0,
+                                            margin: EdgeInsets.all(10),
+                                            color: unlockedcolor[index],
+
+                                            child: Text(""),
+                                          );
+                                        }),
+                                ),
+                                  Container(margin:EdgeInsets.all(20),child:Text("Locked",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),)
+                                    ,),
+                                  Container(
+                                    margin: EdgeInsets.only(left:40 ),
+
+                                    child: BlockPicker(
+                                      pickerColor: currentColor,
+                                      onColorChanged: changeColor,
+
+                                    ),
+                                  ),
+
+                                ],
+                              )),
+                        ),
+                      );
+                    });
               },
               child: Container(
                   // margin: EdgeInsets.only(right: 22),
@@ -317,7 +364,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             Container(
               margin: EdgeInsets.only(right: 0, top: 15),
-              height: height * .193,
+              height: height * .183,
               width: width * .92,
               padding: EdgeInsets.only(top: 5, left: 0, right: 0, bottom: 5),
               decoration: BoxDecoration(
@@ -830,7 +877,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 }
 // content: SingleChildScrollView(
-//   child: BlockPicker(
+//child: BlockPicker(
 //
 //     pickerColor: currentColor,
 //     onColorChanged: changeColor,
