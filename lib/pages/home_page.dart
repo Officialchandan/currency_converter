@@ -57,22 +57,22 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               // labelColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  icon: Image.asset("assets/tab-ic1.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic1.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic2.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic2.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic3.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic3.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic4.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic4.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic5.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic5.png", color: MyColors.textColor,scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic6.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic6.png", color: MyColors.textColor,scale: 4),
                 ),
               ],
             ),
