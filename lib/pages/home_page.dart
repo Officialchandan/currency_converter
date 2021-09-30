@@ -98,7 +98,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       body: Container(
         height: appheight,
         width: appwidth,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
             gradient: LinearGradient(
           colors: [
             MyColors.firstthemecolorgr1,
@@ -109,16 +109,16 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         )),
         child: TabBarView(
           controller: _tabController,
-          children: [
-            const TapHome(),
-            const SecondScreen(),
-            const Center(
+          children:  [
+            TapHome(),
+            SecondScreen(),
+            Center(
               child: Text("It's sunny here"),
             ),
-            const Center(
+            Center(
               child: Text("It's sunny here"),
             ),
-            const Center(
+            Center(
               child: Text("It's sunny here"),
             ),
             SettingScreen(onThemeChange),
@@ -128,10 +128,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     );
   }
 
-  void onThemeChange() {
+  onThemeChange() {
+    setState(() {
 
-    debugPrint("onTheme change -->");
-    setState(() {});
+    });
   }
 }
 
@@ -204,216 +204,207 @@ class _TapHomeState extends State<TapHome> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: MyColors.firstthemecolorgr,
-      body: Container(
-        height: appheight,
-        width: appwidth,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          colors: [
-            MyColors.firstthemecolorgr1,
-            MyColors.firstthemecolorgr,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        )),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  // color: Colors.red,
-                  width: appwidth - 20,
+      backgroundColor: Colors.transparent,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    // color: Colors.red,
+                    width: appwidth - 20,
 
-                  child: Row(
-                    children: const <Widget>[
-                      SizedBox(
-                        width: 110,
-                      ),
-                      Text("Updated:"),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text("09/23/2021"),
-                      SizedBox(
-                        width: 50.0,
-                      ),
-                      Icon(
-                        Icons.share,
-                        color: Colors.white,
-                      )
-                    ],
+                    child: Row(
+                      children: const <Widget>[
+                        SizedBox(
+                          width: 115,
+                        ),
+                        Text("Updated:"),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("09/23/2021"),
+                        SizedBox(
+                          width: 50.0,
+                        ),
+                        Icon(
+                          Icons.share,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 15.0,
-                ),
-                Container(
-                  width: appwidth - 20,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5),
+                  const SizedBox(
+                    height: 15.0,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Center(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 8.0),
-                          height: 35.0,
-                          width: 60.0,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                MyColors.firstthemecolorgr1,
-                                MyColors.firstthemecolorgr,
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
+                  Container(
+                    width: appwidth - 20,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 8.0),
+                            height: 35.0,
+                            width: 60.0,
+                            decoration: BoxDecoration(
+                              gradient:  LinearGradient(
+                                colors: [
+                                  MyColors.firstthemecolorgr1,
+                                  MyColors.firstthemecolorgr,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              borderRadius: BorderRadius.circular(7),
                             ),
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "$textCurrency!",
-                              style: const TextStyle(color: Colors.white),
+                            child: Center(
+                              child: Text(
+                                "$textCurrency!",
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Center(
-                        child: Container(
-                          width: MediaQuery.of(context).size.height * 0.24,
-                          // width: 150,
-                          child: TextField(
-                            controller: tx1,
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.none,
-                            showCursor: true,
-                            readOnly: true,
-                            decoration:
-                                const InputDecoration(border: InputBorder.none),
-                            onTap: () {
-                              showModalBottomSheet(
-                                  barrierColor: Colors.transparent,
-                                  // isDismissible: true,
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    buttonPressed(String buttonText) {
-                                      setState(() {
-                                        if (buttonText == "C") {
-                                          isbool = true;
-                                          equation = "0";
-                                          isbool = false;
-                                          equationFontSize = 38.0;
-                                          resultFontSize = 48.0;
-                                        } else if (buttonText == "⌫") {
-                                          equationFontSize = 48.0;
-                                          resultFontSize = 38.0;
-                                          equation = equation.substring(
-                                              0, equation.length - 1);
-                                          if (equation == "") {
+                        Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.height * 0.24,
+                            // width: 150,
+                            child: TextField(
+                              controller: tx1,
+                              textAlign: TextAlign.center,
+                              keyboardType: TextInputType.none,
+                              showCursor: true,
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none),
+                              onTap: () {
+                                showModalBottomSheet(
+                                    barrierColor: Colors.transparent,
+                                    // isDismissible: true,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      buttonPressed(String buttonText) {
+                                        setState(() {
+                                          if (buttonText == "C") {
+                                            isbool = true;
                                             equation = "0";
-                                          }
-                                        } else if (buttonText == "=") {
-                                          equationFontSize = 38.0;
-                                          resultFontSize = 48.0;
-                                          isbool = false;
+                                            isbool = false;
+                                            equationFontSize = 38.0;
+                                            resultFontSize = 48.0;
+                                          } else if (buttonText == "⌫") {
+                                            equationFontSize = 48.0;
+                                            resultFontSize = 38.0;
+                                            equation = equation.substring(
+                                                0, equation.length - 1);
+                                            if (equation == "") {
+                                              equation = "0";
+                                            }
+                                          } else if (buttonText == "=") {
+                                            equationFontSize = 38.0;
+                                            resultFontSize = 48.0;
+                                            isbool = false;
 
-                                          expression = equation;
-                                          expression =
-                                              expression.replaceAll('×', '*');
-                                          expression =
-                                              expression.replaceAll('÷', '/');
+                                            expression = equation;
+                                            expression =
+                                                expression.replaceAll('×', '*');
+                                            expression =
+                                                expression.replaceAll('÷', '/');
 
-                                          try {
-                                            Parser p = Parser();
-                                            Expression exp =
-                                                p.parse(expression);
+                                            try {
+                                              Parser p = Parser();
+                                              Expression exp =
+                                                  p.parse(expression);
 
-                                            ContextModel cm = ContextModel();
-                                            result =
-                                                '${exp.evaluate(EvaluationType.REAL, cm)}';
-                                          } catch (e) {
-                                            result = "";
-                                          }
-                                        } else {
-                                          equationFontSize = 48.0;
-                                          resultFontSize = 38.0;
-                                          if (equation == "0") {
-                                            equation = buttonText;
+                                              ContextModel cm = ContextModel();
+                                              result =
+                                                  '${exp.evaluate(EvaluationType.REAL, cm)}';
+                                            } catch (e) {
+                                              result = "";
+                                            }
                                           } else {
-                                            equation = equation + buttonText;
+                                            equationFontSize = 48.0;
+                                            resultFontSize = 38.0;
+                                            if (equation == "0") {
+                                              equation = buttonText;
+                                            } else {
+                                              equation = equation + buttonText;
+                                            }
                                           }
-                                        }
-                                        isbool
-                                            ? tx1.text = equation
-                                            : tx1.text = result;
-                                        isbool = true;
-                                      });
-                                    }
+                                          isbool
+                                              ? tx1.text = equation
+                                              : tx1.text = result;
+                                          isbool = true;
+                                        });
+                                      }
 
-                                    Widget buildButton(
-                                        String buttonText,
-                                        double buttonHeight,
-                                        Color buttonColor) {
-                                      return SingleChildScrollView(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context)
-                                                .viewInsets
-                                                .left,
-                                          ),
-                                          //**Alline height */
-                                          //This is grate
-                                          height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1 /
-                                                  1.5 *
-                                                  buttonHeight +
-                                              2.6,
+                                      Widget buildButton(
+                                          String buttonText,
+                                          double buttonHeight,
+                                          Color buttonColor) {
+                                        return SingleChildScrollView(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                  .viewInsets
+                                                  .left,
+                                            ),
+                                            //**Alline height */
+                                            //This is grate
+                                            height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.1 /
+                                                    1.5 *
+                                                    buttonHeight +
+                                                2.6,
 
-                                          color: buttonColor,
-                                          child: FlatButton(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          0.0),
-                                                  side: BorderSide(
-                                                      color: MyColors
-                                                          .firstthemecolorgr,
-                                                      width: 0.3,
-                                                      style:
-                                                          BorderStyle.solid)),
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              onPressed: () =>
-                                                  buttonPressed(buttonText),
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 0.0),
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.topCenter,
-                                                  child: Text(
-                                                    buttonText,
-                                                    style: const TextStyle(
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.white),
+                                            color: buttonColor,
+                                            child: FlatButton(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0.0),
+                                                    side:  BorderSide(
+                                                        color: MyColors
+                                                            .firstthemecolorgr,
+                                                        width: 0.3,
+                                                        style:
+                                                            BorderStyle.solid)),
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                onPressed: () =>
+                                                    buttonPressed(buttonText),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 0.0),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.topCenter,
+                                                    child: Text(
+                                                      buttonText,
+                                                      style: const TextStyle(
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.white),
+                                                    ),
                                                   ),
-                                                ),
-                                              )),
-                                        ),
-                                      );
-                                    }
+                                                )),
+                                          ),
+                                        );
+                                      }
 
                                       return Container(
                                           width: MediaQuery.of(context)
@@ -448,86 +439,86 @@ class _TapHomeState extends State<TapHome> {
                                                           buildButton(
                                                               "%",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "/",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "×",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "1",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "2",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "3",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "4",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "5",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "6",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "7",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "8",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "9",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               ".",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "0",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                           buildButton(
                                                               "C",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                       ],
                                                     ),
@@ -543,29 +534,29 @@ class _TapHomeState extends State<TapHome> {
                                                           buildButton(
                                                               "⌫",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "-",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "+",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "=",
                                                               2,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                       ]))
                                                 ],
@@ -595,21 +586,20 @@ class _TapHomeState extends State<TapHome> {
                     children: [
                       InkWell(
                         onTap: () {
-                          _isContainerVisible = true;
                           setState(() {
                             debugPrint("Hello");
-
+                            _isContainerVisible = !_isContainerVisible;
                             arrowPosition = !arrowPosition;
                           });
                           debugPrint("Hello1");
-                          // OpenContaner(_isContainerVisible, itemlist);
+                          OpenContaner(_isContainerVisible, itemlist);
 
                           debugPrint("Hello2");
-                          // log("===>1$_isContainerVisible");
-                          // _isContainerVisible == false
-                          //     ? OpenContaner(_isContainerVisible, itemlist)
-                          //     : OpenContaner(_isContainerVisible, itemlist);
-                          // log("===>2$_isContainerVisible");
+                          log("===>1$_isContainerVisible");
+                          _isContainerVisible == false
+                              ? OpenContaner(_isContainerVisible, itemlist)
+                              : OpenContaner(_isContainerVisible, itemlist);
+                          log("===>2$_isContainerVisible");
                         },
                         child: Container(
                           width: appwidth * 0.45,
@@ -630,16 +620,26 @@ class _TapHomeState extends State<TapHome> {
                       // ),
                       const Spacer(),
                       InkWell(
-                        onTap: () {
-                          _isContainerVisible = false;
-                          _isContainerVisibleTwo = true;
-                          setState(() {
-                            debugPrint("Hello");
-                            //  _isContainerVisibleTwo = !_isContainerVisibleTwo;
-                            arrowPositionTwo = !arrowPositionTwo;
-                          });
-                          debugPrint("Hello1");
-                          OpenContaner(_isContainerVisibleTwo, itemlist);
+                        onTap: () {},
+                        child: Container(
+                          width: appwidth * 0.45,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Align(
+                            alignment: const Alignment(0.9, 0),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  debugPrint("Hello");
+                                  _isContainerVisibleTwo =
+                                      !_isContainerVisibleTwo;
+                                  arrowPositionTwo = !arrowPositionTwo;
+                                });
+                                debugPrint("Hello1");
+                                OpenContaner(_isContainerVisibleTwo, itemlist);
 
                                 debugPrint("Hello2");
                                 log("===>1$_isContainerVisibleTwo");
@@ -674,7 +674,7 @@ class _TapHomeState extends State<TapHome> {
                   ///************************************Conte */
                 ],
               ),
-              _isContainerVisible
+              arrowPosition
                   ? const Positioned(
                       top: 138,
                       child: Icon(
@@ -682,17 +682,7 @@ class _TapHomeState extends State<TapHome> {
                         size: 50,
                         color: Colors.white,
                       ))
-                  : Container(),
-              _isContainerVisibleTwo
-                  ? Positioned(
-                      top: 138.0,
-                      left: 175.0,
-                      child: Icon(
-                        Icons.arrow_drop_up,
-                        size: 50,
-                        color: Colors.white,
-                      ))
-                  : Container(),
+                  : Container()
             ],
           ),
         ),
@@ -702,7 +692,7 @@ class _TapHomeState extends State<TapHome> {
 }
 
 class OpenContaner extends StatefulWidget {
-  OpenContaner(this._isContainerVisible, this.mylist);
+   OpenContaner(this._isContainerVisible, this.mylist);
   final bool _isContainerVisible;
   final List<String> mylist;
 
