@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:currency_converter/API/apis.dart';
-import 'package:currency_converter/Models.dart/model.dart';
+import 'package:currency_converter/Models/model.dart';
 import 'package:currency_converter/TapScreens/ReatingPop.dart';
 import 'package:currency_converter/TapScreens/TeramAndCondition.dart';
 import 'package:currency_converter/TapScreens/decimalSceen.dart';

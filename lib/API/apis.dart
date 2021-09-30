@@ -1,8 +1,9 @@
 import 'dart:developer';
 
+import 'package:currency_converter/Models/model.dart';
 import 'package:dio/dio.dart';
 
-import '../Models.dart/model.dart';
+
 
 class Apiclass {
   Map<String, double>? userList;
