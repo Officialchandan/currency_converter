@@ -247,7 +247,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
                                   MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
                                   MyColors.textColor=Colors.white;
-                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>HomePage()), (route) => false);
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
                                 }
                               });
                             },
@@ -277,7 +277,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
                                   MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
                                   MyColors.textColor=Colors.black;
-                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>HomePage()), (route) => false);
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
 
 
                                 }
@@ -870,7 +870,7 @@ class _SettingScreenState extends State<SettingScreen> {
     print("OnColorSelect-->");
     widget.onThemeChange;
 
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>HomePage()), (route) => false);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
 
 
 

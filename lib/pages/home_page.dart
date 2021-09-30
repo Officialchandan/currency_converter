@@ -17,24 +17,6 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/second_screen.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const SafeArea(
-      bottom: false,
-      child: (Scaffold(
-        body: MyTabBarWidget(),
-      )),
-    );
-  }
-}
 
 class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
@@ -43,8 +25,6 @@ class MyTabBarWidget extends StatefulWidget {
   State<MyTabBarWidget> createState() => _MyTabBarWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
-/// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _MyTabBarWidgetState extends State<MyTabBarWidget>
     with TickerProviderStateMixin {
   late TabController _tabController;
@@ -64,7 +44,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: MyColors.firstthemecolorgr,
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
