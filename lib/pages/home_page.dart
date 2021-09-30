@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:developer';
 
+import 'package:currency_converter/TapScreens/ReatingPop.dart';
+import 'package:currency_converter/TapScreens/TeramAndCondition.dart';
+import 'package:currency_converter/TapScreens/decimalSceen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -112,15 +115,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           children: const [
             TapHome(),
             SecondScreen(),
-            Center(
-              child: Text("It's sunny here"),
-            ),
-            Center(
-              child: Text("It's sunny here"),
-            ),
-            Center(
-              child: Text("It's sunny here"),
-            ),
+            DecimalScreens(),
+            ReatingPop(),
+            TeramAndCondition(),
             SettingScreen(),
           ],
         ),
@@ -147,6 +144,7 @@ class _TapHomeState extends State<TapHome> {
   bool arrowPositionTwo = false;
   bool indexTrue = true;
   bool starIndex = false;
+  bool contanerIndex = true;
   // StreamController<List<String>> streamController = StreamController();
 
   List<String> mylist = [];
@@ -433,86 +431,86 @@ class _TapHomeState extends State<TapHome> {
                                                           buildButton(
                                                               "%",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "/",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "×",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "1",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "2",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "3",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "4",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "5",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "6",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "7",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "8",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "9",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               ".",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "0",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "C",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                       ],
                                                     ),
@@ -528,29 +526,29 @@ class _TapHomeState extends State<TapHome> {
                                                           buildButton(
                                                               "⌫",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "-",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "+",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "=",
                                                               2,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                       ]))
                                                 ],
@@ -580,20 +578,21 @@ class _TapHomeState extends State<TapHome> {
                     children: [
                       InkWell(
                         onTap: () {
+                          _isContainerVisible = true;
                           setState(() {
                             debugPrint("Hello");
-                            _isContainerVisible = !_isContainerVisible;
+
                             arrowPosition = !arrowPosition;
                           });
                           debugPrint("Hello1");
-                          OpenContaner(_isContainerVisible, itemlist);
+                          // OpenContaner(_isContainerVisible, itemlist);
 
                           debugPrint("Hello2");
-                          log("===>1$_isContainerVisible");
-                          _isContainerVisible == false
-                              ? OpenContaner(_isContainerVisible, itemlist)
-                              : OpenContaner(_isContainerVisible, itemlist);
-                          log("===>2$_isContainerVisible");
+                          // log("===>1$_isContainerVisible");
+                          // _isContainerVisible == false
+                          //     ? OpenContaner(_isContainerVisible, itemlist)
+                          //     : OpenContaner(_isContainerVisible, itemlist);
+                          // log("===>2$_isContainerVisible");
                         },
                         child: Container(
                           width: appwidth * 0.45,
@@ -614,7 +613,26 @@ class _TapHomeState extends State<TapHome> {
                       // ),
                       const Spacer(),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          _isContainerVisible = false;
+                          _isContainerVisibleTwo = true;
+                          setState(() {
+                            debugPrint("Hello");
+                            //  _isContainerVisibleTwo = !_isContainerVisibleTwo;
+                            arrowPositionTwo = !arrowPositionTwo;
+                          });
+                          debugPrint("Hello1");
+                          OpenContaner(_isContainerVisibleTwo, itemlist);
+
+                          debugPrint("Hello2");
+                          log("===>1$_isContainerVisibleTwo");
+                          // _isContainerVisibleTwo == false
+                          //     ? OpenContaner(
+                          //         _isContainerVisibleTwo, itemlist)
+                          //     : OpenContaner(
+                          //         _isContainerVisibleTwo, itemlist);
+                          log("===>2$_isContainerVisibleTwo");
+                        },
                         child: Container(
                           width: appwidth * 0.45,
                           height: 50,
@@ -622,30 +640,9 @@ class _TapHomeState extends State<TapHome> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Align(
-                            alignment: const Alignment(0.9, 0),
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  debugPrint("Hello");
-                                  _isContainerVisibleTwo =
-                                      !_isContainerVisibleTwo;
-                                  arrowPositionTwo = !arrowPositionTwo;
-                                });
-                                debugPrint("Hello1");
-                                OpenContaner(_isContainerVisibleTwo, itemlist);
-
-                                debugPrint("Hello2");
-                                log("===>1$_isContainerVisibleTwo");
-                                _isContainerVisibleTwo == false
-                                    ? OpenContaner(
-                                        _isContainerVisibleTwo, itemlist)
-                                    : OpenContaner(
-                                        _isContainerVisibleTwo, itemlist);
-                                log("===>2$_isContainerVisibleTwo");
-                              },
-                              child: const Icon(Icons.keyboard_arrow_down),
-                            ),
+                          child: const Align(
+                            alignment: Alignment(0.9, 0),
+                            child: Icon(Icons.keyboard_arrow_down),
                           ),
                         ),
                       ),
@@ -654,8 +651,13 @@ class _TapHomeState extends State<TapHome> {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  OpenContaner(_isContainerVisible, itemlist),
-                  // OpenContanerTwo(_isContainerVisibleTwo),
+                  //**contanerIndex Open */
+
+                  _isContainerVisible
+                      ? OpenContaner(_isContainerVisible, itemlist)
+                      : _isContainerVisibleTwo
+                          ? OpenContanerTwo(_isContainerVisibleTwo)
+                          : Text("ghjh"),
 
                   const SizedBox(
                     height: 25.0,
@@ -668,7 +670,7 @@ class _TapHomeState extends State<TapHome> {
                   ///************************************Conte */
                 ],
               ),
-              arrowPosition
+              _isContainerVisible
                   ? const Positioned(
                       top: 138,
                       child: Icon(
@@ -676,7 +678,17 @@ class _TapHomeState extends State<TapHome> {
                         size: 50,
                         color: Colors.white,
                       ))
-                  : Container()
+                  : Container(),
+              _isContainerVisibleTwo
+                  ? Positioned(
+                      top: 138.0,
+                      left: 175.0,
+                      child: Icon(
+                        Icons.arrow_drop_up,
+                        size: 50,
+                        color: Colors.white,
+                      ))
+                  : Container(),
             ],
           ),
         ),
