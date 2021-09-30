@@ -2,84 +2,59 @@
 
 library block_colorpicker;
 
+import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_colorpicker/src/utils.dart';
-late Color _currentColor;
 
-const List<Color> _defaultColors = [
-
-
-
-  Color(0xffe8f5e9),
-  Color(0xffc8e6c9),
-  Color(0xffa5d6a7),
-  Color(0xff81c784),
-  Color(0xff66bb6a),
-  Color(0xff4caf50),
-  Color(0xff43a047),
-  Color(0xff388e3c),
-  Color(0xff2e7d32),
-  Color(0xff1b5e20),
-
-];
 
 typedef PickerLayoutBuilder = Widget Function(
-    BuildContext context, List<Color> colors, PickerItem child);
-typedef PickerItem = Widget Function(Color color);
+    BuildContext context, List<MColor> colors, PickerItem child);
+typedef PickerItem = Widget Function(MColor color);
 typedef PickerItemBuilder = Widget Function(
-    Color color, bool isCurrentColor, void Function() changeColor);
+    MColor color, bool isCurrentColor, void Function() changeColor);
 
-class DensityColorPicker extends StatefulWidget {
-  var color1;
-
-   DensityColorPicker({
+class UnlockColorPicker extends StatefulWidget {
+  const UnlockColorPicker({
     required this.pickerColor,
     required this.onColorChanged,
-    this.availableColors = _defaultColors,
+    required this.availableColors ,
     this.layoutBuilder = defaultLayoutBuilder,
     this.itemBuilder = defaultItemBuilder,
-    this.color1
   });
 
-  final Color pickerColor;
-  final ValueChanged<Color> onColorChanged;
-  final List<Color> availableColors;
+  final MColor pickerColor;
+  final ValueChanged<MColor> onColorChanged;
+  final List<MColor> availableColors;
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
 
   static Widget defaultLayoutBuilder(
-      BuildContext context, List<Color> colors, PickerItem child) {
-    print("unlock se aaya -> ${_currentColor.value.toRadixString(16)}");
+      BuildContext context, List<MColor> colors, PickerItem child) {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return Container(
-
-
-
-
-        child: ListView(
-
-          scrollDirection: Axis.horizontal,
-
-          children: colors.map((Color color) => child(color)).toList(),
-        ),
-
+      width: 400,
+      height: 60,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: colors.map((MColor color) => child(color)).toList(),
+      ),
     );
   }
 
   static Widget defaultItemBuilder(
-      Color color, bool isCurrentColor, void Function() changeColor) {
+      MColor color, bool isCurrentColor,  void Function() changeColor) {
     return Container(
       height: 60,
       width: 60,
       margin: EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
-        color: color,
+        color: color.mainColor,
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.8),
+            color: color.mainColor.withOpacity(0.8),
             offset: Offset(1.0, 2.0),
             blurRadius: 3.0,
           ),
@@ -89,13 +64,13 @@ class DensityColorPicker extends StatefulWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: changeColor,
-          borderRadius: BorderRadius.circular(50.0),
+          borderRadius: BorderRadius.circular(0.0),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
             child: Icon(
               Icons.done,
-              color: useWhiteForeground(color) ? Colors.white : Colors.black,
+              color: useWhiteForeground(color.mainColor) ? Colors.white : Colors.black,
             ),
           ),
         ),
@@ -104,11 +79,11 @@ class DensityColorPicker extends StatefulWidget {
   }
 
   @override
-  State<StatefulWidget> createState() => _DensityColorPickerState();
+  State<StatefulWidget> createState() => _UnlockColorPickerState();
 }
 
-class _DensityColorPickerState extends State<DensityColorPicker> {
-
+class _UnlockColorPickerState extends State<UnlockColorPicker> {
+  late MColor _currentColor;
 
   @override
   void initState() {
@@ -116,7 +91,7 @@ class _DensityColorPickerState extends State<DensityColorPicker> {
     super.initState();
   }
 
-  void changeColor(Color color) {
+  void changeColor(MColor color) {
     setState(() => _currentColor = color);
     widget.onColorChanged(color);
   }
@@ -126,8 +101,12 @@ class _DensityColorPickerState extends State<DensityColorPicker> {
     return widget.layoutBuilder(
       context,
       widget.availableColors,
-          (Color color, [bool? _, Function? __]) => widget.itemBuilder(
-          color, _currentColor.value == color.value, () => changeColor(color)),
+      (MColor color, [bool? _, Function? __]) => widget.itemBuilder(
+          color, _currentColor.mainColor == color.mainColor , () => changeColor(color)),
     );
   }
 }
+
+
+
+

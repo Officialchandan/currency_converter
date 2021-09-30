@@ -1,3 +1,4 @@
+import 'package:currency_converter/Themes/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'add_currency_screen.dart';
@@ -16,35 +17,48 @@ class _SecondScreenState extends State<SecondScreen> {
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
-        child: Column(
-          children: [
-            Container(
-              // color: Colors.red,
-              width: appwidth - 20,
+      body: Container(
+        height: appheight,
+        width: appwidth,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                MyColors.firstthemecolorgr1,
+                MyColors.firstthemecolorgr,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            )),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
+          child: Column(
+            children: [
+              Container(
+                // color: Colors.red,
+                width: appwidth - 20,
 
-              child: Row(
-                children: const <Widget>[
-                  SizedBox(
-                    width: 110,
-                  ),
-                  Text("Updated:"),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text("09/23/2021"),
-                  SizedBox(
-                    width: 50.0,
-                  ),
-                  Icon(
-                    Icons.share,
-                    color: Colors.white,
-                  )
-                ],
+                child: Row(
+                  children: const <Widget>[
+                    SizedBox(
+                      width: 110,
+                    ),
+                    Text("Updated:"),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("09/23/2021"),
+                    SizedBox(
+                      width: 50.0,
+                    ),
+                    Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
