@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:core';
 import 'dart:developer';
+import 'dart:ffi';
 
+import 'package:currency_converter/API/apis.dart';
+import 'package:currency_converter/Models.dart/model.dart';
 import 'package:currency_converter/TapScreens/ReatingPop.dart';
 import 'package:currency_converter/TapScreens/TeramAndCondition.dart';
 import 'package:currency_converter/TapScreens/decimalSceen.dart';
@@ -147,48 +150,25 @@ class _TapHomeState extends State<TapHome> {
   bool contanerIndex = true;
   // StreamController<List<String>> streamController = StreamController();
 
-  List<String> mylist = [];
+  List<DataClass> userList = [];
 
-  List<String> itemlist = [
-    "LED Submersible Lights",
-    "Portable Projector",
-    "Bluetooth Speaker",
-    "Smart Watch",
-    "Temporary Tattoos",
-    "Bookends",
-    "Vegetable Chopper",
-    "Neck Massager",
-    "Facial Cleanser",
-    "Back Cushion",
-    "Portable Blender",
-  ];
+  // List<String> itemlist = [
+  //   "LED Submersible Lights",
+  //   "Portable Projector",
+  //   "Bluetooth Speaker",
+  //   "Smart Watch",
+  //   "Temporary Tattoos",
+  //   "Bookends",
+  //   "Vegetable Chopper",
+  //   "Neck Massager",
+  //   "Facial Cleanser",
+  //   "Back Cushion",
+  //   "Portable Blender",
+  // ];
 
   TextEditingController tx1 = TextEditingController();
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
-  void getdata() async {
-    mylist = await itemlist;
-    // streamController.add(mylist);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getdata();
-  }
-
-  @override
-  void dispose() {
-    // streamController.close();
-    super.dispose();
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    starIndex = true;
-
-    super.setState(fn);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -578,7 +558,10 @@ class _TapHomeState extends State<TapHome> {
                     children: [
                       InkWell(
                         onTap: () {
-                          _isContainerVisible = true;
+                          if (_isContainerVisible) {
+                            _isContainerVisible = false;
+                          } else
+                            _isContainerVisible = true;
                           setState(() {
                             debugPrint("Hello");
 
@@ -614,15 +597,19 @@ class _TapHomeState extends State<TapHome> {
                       const Spacer(),
                       InkWell(
                         onTap: () {
-                          _isContainerVisible = false;
-                          _isContainerVisibleTwo = true;
+                          if (_isContainerVisibleTwo)
+                            _isContainerVisibleTwo = false;
+                          else {
+                            _isContainerVisible = false;
+                            _isContainerVisibleTwo = true;
+                          }
                           setState(() {
                             debugPrint("Hello");
                             //  _isContainerVisibleTwo = !_isContainerVisibleTwo;
                             arrowPositionTwo = !arrowPositionTwo;
                           });
                           debugPrint("Hello1");
-                          OpenContaner(_isContainerVisibleTwo, itemlist);
+                          //OpenContaner(_isContainerVisibleTwo, userList: userList,);
 
                           debugPrint("Hello2");
                           log("===>1$_isContainerVisibleTwo");
@@ -654,7 +641,10 @@ class _TapHomeState extends State<TapHome> {
                   //**contanerIndex Open */
 
                   _isContainerVisible
-                      ? OpenContaner(_isContainerVisible, itemlist)
+                      ? OpenContaner(
+                          _isContainerVisible,
+                          userList,
+                        )
                       : _isContainerVisibleTwo
                           ? OpenContanerTwo(_isContainerVisibleTwo)
                           : Text("ghjh"),
@@ -680,7 +670,7 @@ class _TapHomeState extends State<TapHome> {
                       ))
                   : Container(),
               _isContainerVisibleTwo
-                  ? Positioned(
+                  ? const Positioned(
                       top: 138.0,
                       left: 175.0,
                       child: Icon(
@@ -698,17 +688,42 @@ class _TapHomeState extends State<TapHome> {
 }
 
 class OpenContaner extends StatefulWidget {
-  OpenContaner(this._isContainerVisible, this.mylist);
+  OpenContaner(this._isContainerVisible, this.userList);
   final bool _isContainerVisible;
-  final List<String> mylist;
+  List<DataClass>? userList = [];
 
   @override
   State<OpenContaner> createState() => _OpenContanerState();
 }
 
 class _OpenContanerState extends State<OpenContaner> {
-  StreamController<List<String>> streamController = StreamController();
+  StreamController<List<DataClass>> streamController = StreamController();
+
   bool starIndex = false;
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    print("==========${widget.userList}");
+  }
+
+  Future getData() async {
+    widget.userList = await Apiclass().getUser();
+  }
+
+  @override
+  void dispose() {
+    streamController.close();
+    super.dispose();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    starIndex = true;
+
+    super.setState(fn);
+  }
+
   @override
   Widget build(BuildContext context) {
     log("===>${widget._isContainerVisible}");
@@ -733,9 +748,9 @@ class _OpenContanerState extends State<OpenContaner> {
                 padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
                 child: TextField(
                   onChanged: (String text) {
-                    List<String> searchList = [];
+                    List<DataClass> searchList = [];
 
-                    for (var element in widget.mylist) {
+                    for (var element in widget.userList!) {
                       if (element
                           .toString()
                           .toLowerCase()
@@ -760,9 +775,9 @@ class _OpenContanerState extends State<OpenContaner> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.48,
-                child: StreamBuilder<List<String>>(
+                child: StreamBuilder<List<DataClass>>(
                     stream: streamController.stream,
-                    initialData: widget.mylist,
+                    initialData: widget.userList,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         print("${snapshot.data}");
@@ -774,7 +789,7 @@ class _OpenContanerState extends State<OpenContaner> {
                                 title: Row(
                                   children: [
                                     Text(
-                                      "${snapshot.data![index]}",
+                                      "${snapshot.data![index].quotes}",
                                       style: TextStyle(color: Colors.black),
                                     ),
                                     const SizedBox(
@@ -804,27 +819,6 @@ class _OpenContanerState extends State<OpenContaner> {
                       return const Center(
                         child: Text("no data"),
                       );
-
-                      // child: ListView.builder(
-                      //     shrinkWrap: true,
-                      //     itemCount: itemlist.length,
-                      //     itemBuilder: (BuildContext context, int index) {
-                      //       return ListTile(
-                      //         leading: const Icon(Icons.list),
-                      //         title: Row(
-                      //           children:  [
-                      //             Text("${itemlist[index]}"),
-                      //             const SizedBox(
-                      //               height: 5.0,
-                      //             ),
-                      //             const Text("List item"),
-                      //           ],
-                      //         ),
-                      //         trailing: const Icon(
-                      //           Icons.star_border,
-                      //           size: 20,
-                      //         ),
-                      //       );
                     }),
               ),
             ],
@@ -836,9 +830,8 @@ class _OpenContanerState extends State<OpenContaner> {
 }
 
 class OpenContanerTwo extends StatelessWidget {
-  OpenContanerTwo(
-    this._isContainerVisibleTwo,
-  );
+  const OpenContanerTwo(this._isContainerVisibleTwo, {Key? key})
+      : super(key: key);
   final bool _isContainerVisibleTwo;
 
   @override

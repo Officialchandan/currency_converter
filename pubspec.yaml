@@ -39,6 +39,7 @@ dependencies:
   auto_size_text_pk: ^3.0.0
   flutter_colorpicker: ^0.6.0
   math_expressions: ^2.2.0
+  dio: ^4.0.0
 
   
 
