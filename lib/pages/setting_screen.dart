@@ -276,7 +276,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 if (MyColors.checkBoxValue1) {
                                   MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
                                   MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
-                                  MyColors.textColor=Colors.black;
+                                  MyColors.textColor=Colors.black45;
                                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
 
 
@@ -783,12 +783,13 @@ class _SettingScreenState extends State<SettingScreen> {
                           scale: 1.1,
                           child: Checkbox(
                             side: const BorderSide(color: Colors.white),
-                            value: checkBoxValue1,
+                            value: MyColors.datemm,
                             onChanged: (value) {
                               setState(() {
-                                if (checkBoxValue2) {
-                                  checkBoxValue1 = !checkBoxValue1;
-                                  checkBoxValue2 = !checkBoxValue2;
+                                if (MyColors.datedd) {
+                                  MyColors.datedd = !MyColors.datedd;
+                                  MyColors.datemm = !MyColors.datemm;
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
                                 }
                               });
                             },
@@ -811,12 +812,13 @@ class _SettingScreenState extends State<SettingScreen> {
                           scale: 1.1,
                           child: Checkbox(
                             side: BorderSide(color: Colors.white),
-                            value: checkBoxValue2,
+                            value: MyColors.datedd,
                             onChanged: (value) {
                               setState(() {
-                                if (checkBoxValue1) {
-                                  checkBoxValue2 = !checkBoxValue2;
-                                  checkBoxValue1 = !checkBoxValue1;
+                                if (MyColors.datemm) {
+                                  MyColors.datedd = !MyColors.datedd;
+                                  MyColors.datemm = !MyColors.datemm;
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
                                 }
                               });
                             },

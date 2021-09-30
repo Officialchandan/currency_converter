@@ -12,5 +12,8 @@ class MyColors {
   static int textSize=2;
 
   static bool checkBoxValue1=true;
-  static bool checkBoxValue2=false;
+    static bool checkBoxValue2=false;
+
+    static bool datemm=true;
+    static bool datedd=false;
 }

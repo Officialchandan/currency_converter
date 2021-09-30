@@ -161,6 +161,8 @@ class _TapHomeState extends State<TapHome> {
   TextEditingController tx1 = TextEditingController();
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
+  String convertedDateTime="";
+  DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +184,8 @@ class _TapHomeState extends State<TapHome> {
                     width: appwidth - 20,
 
                     child: Row(
-                      children: const <Widget>[
+                      children:  <Widget>[
+
                         SizedBox(
                           width: 115,
                         ),
@@ -190,7 +193,7 @@ class _TapHomeState extends State<TapHome> {
                         SizedBox(
                           width: 5,
                         ),
-                        Text("09/23/2021"),
+                       MyColors.datemm? Text("${now.month.toString().padLeft(2,'0')}/${now.day.toString().padLeft(2,'0')}/${now.year.toString()}"):Text("${now.day.toString().padLeft(2,'0')}/${now.month.toString().padLeft(2,'0')}/${now.year.toString()}"),
                         SizedBox(
                           width: 50.0,
                         ),
@@ -208,7 +211,7 @@ class _TapHomeState extends State<TapHome> {
                     width: appwidth - 20,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: MyColors.textColor,
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Row(
@@ -342,7 +345,7 @@ class _TapHomeState extends State<TapHome> {
                                                     side:  BorderSide(
                                                         color: MyColors
                                                             .firstthemecolorgr,
-                                                        width: 0.3,
+                                                        width: 0.6,
                                                         style:
                                                             BorderStyle.solid)),
                                                 padding:
@@ -519,7 +522,7 @@ class _TapHomeState extends State<TapHome> {
                                                           buildButton(
                                                               "=",
                                                               2,
-                                                              const Color(
+                                                               Color(
                                                                   0xFFB2BBF5)),
                                                         ]),
                                                       ]))
