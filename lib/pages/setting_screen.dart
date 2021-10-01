@@ -72,7 +72,11 @@ class _SettingScreenState extends State<SettingScreen> {
                     margin: const EdgeInsets.only(left: 10, bottom: 13),
                     child: Text("Remove Ads",
                         style: GoogleFonts.roboto(
-                            fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                            fontSize: fontsmall
+                                ? (MyColors.textSize - 20) * (-1)
+                                : fontlarge
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
@@ -91,19 +95,27 @@ class _SettingScreenState extends State<SettingScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RichText(
-                              text:  TextSpan(children: [
+                              text: TextSpan(children: [
                             TextSpan(
                               text: "Support our project  with a small yearly",
                               style: TextStyle(
                                   fontWeight: FontWeight.normal,
-                                  fontSize: fontsmall? (MyColors.textSize-15)*(-1):fontlarge?(MyColors.textSize+15):15,
-                                  color:MyColors.textColor),
+                                  fontSize: fontsmall
+                                      ? (MyColors.textSize - 15) * (-1)
+                                      : fontlarge
+                                          ? (MyColors.textSize + 15)
+                                          : 15,
+                                  color: MyColors.textColor),
                             ),
                             TextSpan(
                               text: "\n subscription",
                               style: TextStyle(
                                   fontWeight: FontWeight.normal,
-                                  fontSize: fontsmall? (MyColors.textSize-15)*(-1):fontlarge?(MyColors.textSize+20):15,
+                                  fontSize: fontsmall
+                                      ? (MyColors.textSize - 15) * (-1)
+                                      : fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 15,
                                   color: MyColors.textColor),
                             )
                           ])),
@@ -138,7 +150,11 @@ class _SettingScreenState extends State<SettingScreen> {
                     margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
                     child: Text("Select Language",
                         style: GoogleFonts.roboto(
-                            fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                            fontSize: fontsmall
+                                ? (MyColors.textSize - 20) * (-1)
+                                : fontlarge
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
@@ -158,7 +174,11 @@ class _SettingScreenState extends State<SettingScreen> {
                           children: [
                             Text("English",
                                 style: GoogleFonts.roboto(
-                                  fontSize: fontsmall? (MyColors.textSize-18)*(-1):fontlarge?(MyColors.textSize+18):18,
+                                  fontSize: fontsmall
+                                      ? (MyColors.textSize - 18) * (-1)
+                                      : fontlarge
+                                          ? (MyColors.textSize + 18)
+                                          : 18,
                                   color: MyColors.textColor,
                                 )),
                             //  SizedBox(width: 245 ,),
@@ -180,12 +200,15 @@ class _SettingScreenState extends State<SettingScreen> {
                         const EdgeInsets.only(left: 10, bottom: 13, top: 20),
                     child: Text("Color Selection",
                         style: GoogleFonts.roboto(
-                            fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                            fontSize: fontsmall
+                                ? (MyColors.textSize - 20) * (-1)
+                                : fontlarge
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 InkWell(
                   onTap: () {
-
                     showColorPickerDialog(context);
                   },
                   child: Container(
@@ -218,7 +241,11 @@ class _SettingScreenState extends State<SettingScreen> {
                         const EdgeInsets.only(left: 10, bottom: 13, top: 20),
                     child: Text("Theme",
                         style: GoogleFonts.roboto(
-                            fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                            fontSize: fontsmall
+                                ? (MyColors.textSize - 20) * (-1)
+                                : fontlarge
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
@@ -244,10 +271,16 @@ class _SettingScreenState extends State<SettingScreen> {
                             onChanged: (value) {
                               setState(() {
                                 if (MyColors.checkBoxValue2) {
-                                  MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
-                                  MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
-                                  MyColors.textColor=Colors.white;
-                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
+                                  MyColors.checkBoxValue1 =
+                                      !MyColors.checkBoxValue1;
+                                  MyColors.checkBoxValue2 =
+                                      !MyColors.checkBoxValue2;
+                                  MyColors.textColor = Colors.white;
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => MyTabBarWidget()),
+                                      (route) => false);
                                 }
                               });
                             },
@@ -260,8 +293,12 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                         Text("Light",
                             style: GoogleFonts.roboto(
-                              fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
-                              color:MyColors.textColor,
+                              fontSize: fontsmall
+                                  ? (MyColors.textSize - 20) * (-1)
+                                  : fontlarge
+                                      ? (MyColors.textSize + 20)
+                                      : 20,
+                              color: MyColors.textColor,
                             )),
                         SizedBox(
                           width: 50,
@@ -274,12 +311,16 @@ class _SettingScreenState extends State<SettingScreen> {
                             onChanged: (value) {
                               setState(() {
                                 if (MyColors.checkBoxValue1) {
-                                  MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
-                                  MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
-                                  MyColors.textColor=Colors.black;
-                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
-
-
+                                  MyColors.checkBoxValue2 =
+                                      !MyColors.checkBoxValue2;
+                                  MyColors.checkBoxValue1 =
+                                      !MyColors.checkBoxValue1;
+                                  MyColors.textColor = Colors.black;
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => MyTabBarWidget()),
+                                      (route) => false);
                                 }
                               });
                             },
@@ -293,7 +334,12 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "Dark",
                           style: GoogleFonts.roboto(
-                              fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20, color: MyColors.textColor),
+                              fontSize: fontsmall
+                                  ? (MyColors.textSize - 20) * (-1)
+                                  : fontlarge
+                                      ? (MyColors.textSize + 20)
+                                      : 20,
+                              color: MyColors.textColor),
                         )
                       ],
                     )),
@@ -306,7 +352,11 @@ class _SettingScreenState extends State<SettingScreen> {
                         child: Text(
                           "Widget Transparency  ",
                           style: GoogleFonts.roboto(
-                              fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                              fontSize: fontsmall
+                                  ? (MyColors.textSize - 20) * (-1)
+                                  : fontlarge
+                                      ? (MyColors.textSize + 20)
+                                      : 20,
                               color: MyColors.textColor,
                               fontWeight: FontWeight.bold),
                         )),
@@ -349,8 +399,13 @@ class _SettingScreenState extends State<SettingScreen> {
                               width: 30,
                               child: Text(
                                 "${x.toString()}",
-                                style:  TextStyle(color: MyColors.textColor,
-                                    fontSize: fontsmall? (MyColors.textSize-15)*(-1):fontlarge?(MyColors.textSize+15):15,
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: fontsmall
+                                      ? (MyColors.textSize - 15) * (-1)
+                                      : fontlarge
+                                          ? (MyColors.textSize + 15)
+                                          : 15,
                                 ),
                               ),
                             )
@@ -388,7 +443,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                 Text(
                                   "USD",
                                   style: GoogleFonts.roboto(
-                                      fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                                      fontSize: fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -396,7 +455,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                 Text(
                                   "/",
                                   style: GoogleFonts.roboto(
-                                      fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                                      fontSize: fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -408,18 +471,26 @@ class _SettingScreenState extends State<SettingScreen> {
                                 Text(
                                   "EUR",
                                   style: GoogleFonts.roboto(
-                                      fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
-                                      color:MyColors.textColor,
+                                      fontSize: fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
+                                      color: MyColors.textColor,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                             Padding(
+                            Padding(
                               padding: EdgeInsets.only(left: 50, top: 0),
                               child: Text("0.7895",
                                   style: TextStyle(
                                     color: MyColors.textColor,
-                                    fontSize: fontsmall? (MyColors.textSize-21)*(-1):fontlarge?(MyColors.textSize+20):21,
+                                    fontSize: fontsmall
+                                        ? (MyColors.textSize - 21) * (-1)
+                                        : fontlarge
+                                            ? (MyColors.textSize + 20)
+                                            : 21,
                                   )),
                             ),
                             Padding(
@@ -427,21 +498,26 @@ class _SettingScreenState extends State<SettingScreen> {
                               child: Text("-0.0400",
                                   style: TextStyle(
                                     color: MyColors.textColor,
-                                    fontSize: fontsmall? (MyColors.textSize-16)*(-1):fontlarge?(MyColors.textSize+16):16,
+                                    fontSize: fontsmall
+                                        ? (MyColors.textSize - 16) * (-1)
+                                        : fontlarge
+                                            ? (MyColors.textSize + 16)
+                                            : 16,
                                   )),
                             ),
                             SizedBox(
                               height: 2,
                             ),
-                            Text(
-                              "  By: Currency.wiki",
-                              style: GoogleFonts.roboto(
+                            Text("  By: Currency.wiki",
+                                style: GoogleFonts.roboto(
                                   color: MyColors.textColor,
                                   fontWeight: FontWeight.bold,
-                              fontSize: fontsmall? (MyColors.textSize-18)*(-1):fontlarge?(MyColors.textSize+18):18,)
-
-
-                            )
+                                  fontSize: fontsmall
+                                      ? (MyColors.textSize - 18) * (-1)
+                                      : fontlarge
+                                          ? (MyColors.textSize + 18)
+                                          : 18,
+                                ))
                           ],
                         ),
                       )
@@ -452,7 +528,11 @@ class _SettingScreenState extends State<SettingScreen> {
                     margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
                     child: Text("Visual Size",
                         style: GoogleFonts.roboto(
-                            fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                            fontSize: fontsmall
+                                ? (MyColors.textSize - 20) * (-1)
+                                : fontlarge
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
@@ -560,7 +640,11 @@ class _SettingScreenState extends State<SettingScreen> {
                     margin: EdgeInsets.only(left: 10, bottom: 5, top: 25),
                     child: Text("App Logo Launcher",
                         style: GoogleFonts.roboto(
-                            fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                            fontSize: fontsmall
+                                ? (MyColors.textSize - 20) * (-1)
+                                : fontlarge
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
@@ -584,7 +668,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                 margin: EdgeInsets.only(bottom: 5, left: 2),
                                 child: Text("Multi-Convertor",
                                     style: GoogleFonts.roboto(
-                                        fontSize: fontsmall? (MyColors.textSize-18)*(-1):fontlarge?(MyColors.textSize+18):18,
+                                        fontSize: fontsmall
+                                            ? (MyColors.textSize - 18) * (-1)
+                                            : fontlarge
+                                                ? (MyColors.textSize + 18)
+                                                : 18,
                                         color: MyColors.textColor,
                                         fontWeight: FontWeight.bold))),
                             Container(
@@ -620,18 +708,21 @@ class _SettingScreenState extends State<SettingScreen> {
                                     fontWeight: FontWeight.normal,
                                     fontSize: 11,
                                     color: MyColors.textColor),
-                                children:  <TextSpan>[
+                                children: <TextSpan>[
                               TextSpan(
                                 text: "NOTE:",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12,color: MyColors.textColor),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: MyColors.textColor),
                               ),
                               TextSpan(
                                 text:
                                     "This feature only works with app logo launcher",
                                 style: TextStyle(
                                     fontWeight: FontWeight.normal,
-                                    fontSize: 11,color: MyColors.textColor),
+                                    fontSize: 11,
+                                    color: MyColors.textColor),
                               )
                             ])),
                       ],
@@ -641,7 +732,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Text("Display",
                         style: GoogleFonts.roboto(
                             fontSize: 20,
-                            color:MyColors.textColor,
+                            color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
                     margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
@@ -662,7 +753,11 @@ class _SettingScreenState extends State<SettingScreen> {
                               padding: EdgeInsets.only(top: 12),
                               child: Text("Display Currency Code",
                                   style: GoogleFonts.roboto(
-                                      fontSize: fontsmall? (MyColors.textSize-18)*(-1):fontlarge?(MyColors.textSize+18):18,
+                                      fontSize: fontsmall
+                                          ? (MyColors.textSize - 18) * (-1)
+                                          : fontlarge
+                                              ? (MyColors.textSize + 18)
+                                              : 18,
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.normal)),
                             ),
@@ -699,7 +794,11 @@ class _SettingScreenState extends State<SettingScreen> {
                               padding: EdgeInsets.only(top: 12),
                               child: Text("Display Currency Symbol",
                                   style: GoogleFonts.roboto(
-                                      fontSize: fontsmall? (MyColors.textSize-18)*(-1):fontlarge?(MyColors.textSize+18):18,
+                                      fontSize: fontsmall
+                                          ? (MyColors.textSize - 18) * (-1)
+                                          : fontlarge
+                                              ? (MyColors.textSize + 18)
+                                              : 18,
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.normal)),
                             ),
@@ -735,7 +834,11 @@ class _SettingScreenState extends State<SettingScreen> {
                               padding: EdgeInsets.only(top: 12),
                               child: Text("Display Currency Flag",
                                   style: GoogleFonts.roboto(
-                                      fontSize: fontsmall? (MyColors.textSize-18)*(-1):fontlarge?(MyColors.textSize+18):18,
+                                      fontSize: fontsmall
+                                          ? (MyColors.textSize - 18) * (-1)
+                                          : fontlarge
+                                              ? (MyColors.textSize + 18)
+                                              : 18,
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.normal)),
                             ),
@@ -761,7 +864,11 @@ class _SettingScreenState extends State<SettingScreen> {
                     margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
                     child: Text("Data Format",
                         style: GoogleFonts.roboto(
-                            fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                            fontSize: fontsmall
+                                ? (MyColors.textSize - 20) * (-1)
+                                : fontlarge
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
@@ -801,7 +908,11 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                         Text("mm/dd/yy",
                             style: GoogleFonts.roboto(
-                              fontSize: fontsmall? (MyColors.textSize-16)*(-1):fontlarge?(MyColors.textSize+16):16,
+                              fontSize: fontsmall
+                                  ? (MyColors.textSize - 16) * (-1)
+                                  : fontlarge
+                                      ? (MyColors.textSize + 16)
+                                      : 16,
                               color: MyColors.textColor,
                             )),
                         const SizedBox(
@@ -830,7 +941,12 @@ class _SettingScreenState extends State<SettingScreen> {
                         Text(
                           "dd/mm/yy",
                           style: GoogleFonts.roboto(
-                              fontSize: fontsmall? (MyColors.textSize-16)*(-1):fontlarge?(MyColors.textSize+16):16, color: MyColors.textColor),
+                              fontSize: fontsmall
+                                  ? (MyColors.textSize - 16) * (-1)
+                                  : fontlarge
+                                      ? (MyColors.textSize + 16)
+                                      : 16,
+                              color: MyColors.textColor),
                         )
                       ],
                     )),
@@ -865,15 +981,12 @@ class _SettingScreenState extends State<SettingScreen> {
         "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
-  void onColorSelect(Color themeColor,BuildContext context) {
-
+  void onColorSelect(Color themeColor, BuildContext context) {
     print("OnColorSelect-->");
     widget.onThemeChange;
 
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
-
-
-
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
   }
 
   void showColorPickerDialog(BuildContext context) async {
@@ -990,19 +1103,22 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.cyan.shade200,
       Colors.cyan,
       Colors.cyan.shade900
-    ]), MColor(mainColor: Colors.red, densityColors: [
+    ]),
+    MColor(mainColor: Colors.red, densityColors: [
       Colors.red.shade50,
       Colors.red.shade100,
       Colors.red.shade200,
       Colors.red,
       Colors.red.shade900
-    ]),MColor(mainColor: Colors.yellow, densityColors: [
+    ]),
+    MColor(mainColor: Colors.yellow, densityColors: [
       Colors.yellow.shade50,
       Colors.yellow.shade100,
       Colors.yellow.shade200,
       Colors.yellow,
       Colors.yellow.shade900
-    ]),MColor(mainColor: Colors.pink, densityColors: [
+    ]),
+    MColor(mainColor: Colors.pink, densityColors: [
       Colors.pink.shade50,
       Colors.pink.shade100,
       Colors.pink.shade200,
@@ -1101,12 +1217,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               width: 100,
               child: ElevatedButton(
                 onPressed: () {
-
                   var code = (selectedColor.mainColor.value.toRadixString(16));
                   MyColors.firstthemecolorgr = Color(int.parse("0x$code"));
                   // Navigator.pop(context);
-                  widget.onColorSelect(selectedColor.mainColor,context);
-
+                  widget.onColorSelect(selectedColor.mainColor, context);
                 },
                 child: Text("Add"),
               ),

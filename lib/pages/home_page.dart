@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:core';
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Models/model.dart';
@@ -10,13 +9,30 @@ import 'package:currency_converter/TapScreens/TeramAndCondition.dart';
 import 'package:currency_converter/TapScreens/decimalSceen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/second_screen.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return const SafeArea(
+      bottom: false,
+      child: (Scaffold(
+        body: MyTabBarWidget(),
+      )),
+    );
+  }
+}
 
 class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
@@ -25,6 +41,8 @@ class MyTabBarWidget extends StatefulWidget {
   State<MyTabBarWidget> createState() => _MyTabBarWidgetState();
 }
 
+/// This is the private State class that goes with MyStatefulWidget.
+/// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _MyTabBarWidgetState extends State<MyTabBarWidget>
     with TickerProviderStateMixin {
   late TabController _tabController;
@@ -44,7 +62,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.firstthemecolorgr,
+        backgroundColor: Colors.indigoAccent,
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -57,22 +75,22 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               // labelColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  icon: Image.asset("assets/tab-ic1.png",color: MyColors.textColor, scale: 4),
+                  icon: Image.asset("assets/tab-ic1.png", scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic2.png",color: MyColors.textColor, scale: 4),
+                  icon: Image.asset("assets/tab-ic2.png", scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic3.png",color: MyColors.textColor, scale: 4),
+                  icon: Image.asset("assets/tab-ic3.png", scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic4.png",color: MyColors.textColor, scale: 4),
+                  icon: Image.asset("assets/tab-ic4.png", scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic5.png", color: MyColors.textColor,scale: 4),
+                  icon: Image.asset("assets/tab-ic5.png", scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic6.png", color: MyColors.textColor,scale: 4),
+                  icon: Image.asset("assets/tab-ic6.png", scale: 4),
                 ),
               ],
             ),
@@ -84,7 +102,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       body: Container(
         height: appheight,
         width: appwidth,
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
             MyColors.firstthemecolorgr1,
@@ -95,18 +113,12 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         )),
         child: TabBarView(
           controller: _tabController,
-          children:  [
+          children: [
             TapHome(),
             SecondScreen(),
-            Center(
-              child: Text("It's sunny here"),
-            ),
-            Center(
-              child: Text("It's sunny here"),
-            ),
-            Center(
-              child: Text("It's sunny here"),
-            ),
+            DecimalScreens(),
+            ReatingPop(),
+            TeramAndCondition(),
             SettingScreen(onThemeChange),
           ],
         ),
@@ -115,9 +127,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   onThemeChange() {
-    setState(() {
-
-    });
+    setState(() {});
   }
 }
 
@@ -141,8 +151,6 @@ class _TapHomeState extends State<TapHome> {
   bool starIndex = false;
   bool contanerIndex = true;
   // StreamController<List<String>> streamController = StreamController();
-
-  List<DataClass> userList = [];
 
   // List<String> itemlist = [
   //   "LED Submersible Lights",
@@ -220,7 +228,7 @@ class _TapHomeState extends State<TapHome> {
                             height: 35.0,
                             width: 60.0,
                             decoration: BoxDecoration(
-                              gradient:  LinearGradient(
+                              gradient: LinearGradient(
                                 colors: [
                                   MyColors.firstthemecolorgr1,
                                   MyColors.firstthemecolorgr,
@@ -339,7 +347,7 @@ class _TapHomeState extends State<TapHome> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             0.0),
-                                                    side:  BorderSide(
+                                                    side: BorderSide(
                                                         color: MyColors
                                                             .firstthemecolorgr,
                                                         width: 0.3,
@@ -403,86 +411,86 @@ class _TapHomeState extends State<TapHome> {
                                                           buildButton(
                                                               "%",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "/",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "×",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "1",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "2",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "3",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "4",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "5",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "6",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "7",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "8",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "9",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               ".",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "0",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                           buildButton(
                                                               "C",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                       ],
                                                     ),
@@ -498,29 +506,29 @@ class _TapHomeState extends State<TapHome> {
                                                           buildButton(
                                                               "⌫",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "-",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "+",
                                                               1,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
                                                               "=",
                                                               2,
-                                                              const Color(
-                                                                  0xFFB2BBF5)),
+                                                              MyColors
+                                                                  .calcuColor),
                                                         ]),
                                                       ]))
                                                 ],
@@ -635,11 +643,10 @@ class _TapHomeState extends State<TapHome> {
                   _isContainerVisible
                       ? OpenContaner(
                           _isContainerVisible,
-                          userList,
                         )
                       : _isContainerVisibleTwo
                           ? OpenContanerTwo(_isContainerVisibleTwo)
-                          : Text("ghjh"),
+                          : const Text(""),
 
                   const SizedBox(
                     height: 25.0,
@@ -680,33 +687,33 @@ class _TapHomeState extends State<TapHome> {
 }
 
 class OpenContaner extends StatefulWidget {
-  OpenContaner(this._isContainerVisible, this.userList);
+  OpenContaner(this._isContainerVisible);
   final bool _isContainerVisible;
-  List<DataClass>? userList = [];
 
   @override
   State<OpenContaner> createState() => _OpenContanerState();
 }
 
 class _OpenContanerState extends State<OpenContaner> {
-  StreamController<List<DataClass>> streamController = StreamController();
-
+  StreamController<List<CurrencyData>> streamController = StreamController();
   bool starIndex = false;
+  Map<String, double> currencyMap = {};
+  List<CurrencyData> currencyList = [];
+
   @override
   void initState() {
     super.initState();
     getData();
-    print("==========${widget.userList}");
   }
 
   Future getData() async {
-    widget.userList = await Apiclass().getUser();
-  }
+    currencyMap = await Apiclass.getUser();
 
-  @override
-  void dispose() {
-    streamController.close();
-    super.dispose();
+    currencyMap.forEach((key, value) {
+      currencyList.add(CurrencyData(key: key.toString(), value: value));
+    });
+
+    streamController.add(currencyList);
   }
 
   @override
@@ -714,6 +721,12 @@ class _OpenContanerState extends State<OpenContaner> {
     starIndex = true;
 
     super.setState(fn);
+  }
+
+  @override
+  void dispose() {
+    streamController.close();
+    super.dispose();
   }
 
   @override
@@ -740,10 +753,10 @@ class _OpenContanerState extends State<OpenContaner> {
                 padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
                 child: TextField(
                   onChanged: (String text) {
-                    List<DataClass> searchList = [];
+                    List<CurrencyData> searchList = [];
 
-                    for (var element in widget.userList!) {
-                      if (element
+                    for (var element in currencyList) {
+                      if (element.key
                           .toString()
                           .toLowerCase()
                           .contains(text.trim().toLowerCase())) {
@@ -767,12 +780,11 @@ class _OpenContanerState extends State<OpenContaner> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.48,
-                child: StreamBuilder<List<DataClass>>(
+                child: StreamBuilder<List<CurrencyData>>(
                     stream: streamController.stream,
-                    initialData: widget.userList,
+                    initialData: currencyList,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        print("${snapshot.data}");
                         return ListView.builder(
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
@@ -781,13 +793,17 @@ class _OpenContanerState extends State<OpenContaner> {
                                 title: Row(
                                   children: [
                                     Text(
-                                      "${snapshot.data![index].quotes}",
-                                      style: TextStyle(color: Colors.black),
+                                      snapshot.data![index].key,
+                                      style:
+                                          const TextStyle(color: Colors.black),
                                     ),
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    const Text(""),
+                                    Text(
+                                      snapshot.data![index].value
+                                          .toStringAsFixed(3),
+                                    ),
                                   ],
                                 ),
                                 trailing: starIndex
@@ -891,4 +907,10 @@ class OpenContanerTwo extends StatelessWidget {
       ),
     );
   }
+}
+
+class CurrencyData {
+  String key;
+  double value;
+  CurrencyData({required this.key, required this.value});
 }
