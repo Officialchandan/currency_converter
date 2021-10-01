@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Models/model.dart';
@@ -9,30 +10,13 @@ import 'package:currency_converter/TapScreens/TeramAndCondition.dart';
 import 'package:currency_converter/TapScreens/decimalSceen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/second_screen.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const SafeArea(
-      bottom: false,
-      child: (Scaffold(
-        body: MyTabBarWidget(),
-      )),
-    );
-  }
-}
 
 class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
@@ -41,8 +25,6 @@ class MyTabBarWidget extends StatefulWidget {
   State<MyTabBarWidget> createState() => _MyTabBarWidgetState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
-/// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _MyTabBarWidgetState extends State<MyTabBarWidget>
     with TickerProviderStateMixin {
   late TabController _tabController;
@@ -62,7 +44,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: MyColors.firstthemecolorgr,
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -75,22 +57,22 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               // labelColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  icon: Image.asset("assets/tab-ic1.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic1.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic2.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic2.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic3.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic3.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic4.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic4.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic5.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic5.png",color: MyColors.textColor, scale: 4),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic6.png", scale: 4),
+                  icon: Image.asset("assets/tab-ic6.png", color: MyColors.textColor,scale: 4),
                 ),
               ],
             ),
@@ -169,6 +151,8 @@ class _TapHomeState extends State<TapHome> {
   TextEditingController tx1 = TextEditingController();
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
+  String convertedDateTime="";
+  DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +174,8 @@ class _TapHomeState extends State<TapHome> {
                     width: appwidth - 20,
 
                     child: Row(
-                      children: const <Widget>[
+                      children:  <Widget>[
+
                         SizedBox(
                           width: 115,
                         ),
@@ -198,7 +183,7 @@ class _TapHomeState extends State<TapHome> {
                         SizedBox(
                           width: 5,
                         ),
-                        Text("09/23/2021"),
+                       MyColors.datemm? Text("${now.month.toString().padLeft(2,'0')}/${now.day.toString().padLeft(2,'0')}/${now.year.toString()}"):Text("${now.day.toString().padLeft(2,'0')}/${now.month.toString().padLeft(2,'0')}/${now.year.toString()}"),
                         SizedBox(
                           width: 50.0,
                         ),
@@ -216,7 +201,7 @@ class _TapHomeState extends State<TapHome> {
                     width: appwidth - 20,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: MyColors.textColor,
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Row(
@@ -347,10 +332,10 @@ class _TapHomeState extends State<TapHome> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             0.0),
-                                                    side: BorderSide(
+                                                    side:  BorderSide(
                                                         color: MyColors
                                                             .firstthemecolorgr,
-                                                        width: 0.3,
+                                                        width: 0.6,
                                                         style:
                                                             BorderStyle.solid)),
                                                 padding:
@@ -520,8 +505,8 @@ class _TapHomeState extends State<TapHome> {
                                                           buildButton(
                                                               "+",
                                                               1,
-                                                              MyColors
-                                                                  .calcuColor),
+                                                              const Color(
+                                                                  0xFFB2BBF5)),
                                                         ]),
                                                         TableRow(children: [
                                                           buildButton(
@@ -643,10 +628,11 @@ class _TapHomeState extends State<TapHome> {
                   _isContainerVisible
                       ? OpenContaner(
                           _isContainerVisible,
+
                         )
                       : _isContainerVisibleTwo
                           ? OpenContanerTwo(_isContainerVisibleTwo)
-                          : const Text(""),
+                          : Text("ghjh"),
 
                   const SizedBox(
                     height: 25.0,
@@ -689,6 +675,7 @@ class _TapHomeState extends State<TapHome> {
 class OpenContaner extends StatefulWidget {
   OpenContaner(this._isContainerVisible);
   final bool _isContainerVisible;
+  List<DataClass>? userList = [];
 
   @override
   State<OpenContaner> createState() => _OpenContanerState();
