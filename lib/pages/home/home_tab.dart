@@ -6,6 +6,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
@@ -41,15 +42,47 @@ class _TapHomeState extends State<TapHome> {
   String convertedDateTime = "";
   DateTime now = DateTime.now();
 
-  String currencyCodeFrom = "USD";
-  String currencyCodeTo = "EUR";
+  String currencyCodeFrom = "";
+  String currencyCodeTo = "";
   Map<String, double> cresult = {};
   @override
   void initState() {
+    loadcurrencyCodeFrom();
+    loadcurrencyCodeTo();
     super.initState();
     setState(() {
       getConverterAPI(
           currencyCodeFrom, currencyCodeTo, conversionRate.toString());
+    });
+  }
+
+  void loadcurrencyCodeFrom() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString('currencycodefromsave', currencyCodeFrom);
+    });
+  }
+
+  void loadcurrencyCodeTo() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString('currencycodetosave', currencyCodeTo);
+    });
+  }
+
+  void currencyCodeFromSave() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      currencyCodeFrom = (prefs.getString('currencycodefromsave') ?? "");
+      prefs.setString('currencycodefromsave', currencyCodeFrom);
+    });
+  }
+
+  void currencyCodeToSave() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      currencyCodeTo = (prefs.getString('currencycodetosave') ?? "");
+      prefs.setString('currencycodetosave', currencyCodeTo);
     });
   }
 
@@ -160,9 +193,10 @@ class _TapHomeState extends State<TapHome> {
                           child: Center(
                             child: InkWell(
                               onTap: () {
-                                String s = edtFrom.text;
-                                edtFrom.text = edtTo.text;
-                                edtTo.text = s;
+                                String s = currencyCodeFrom;
+                                currencyCodeFrom = currencyCodeTo;
+                                currencyCodeTo = s;
+
                                 setState(() {});
                               },
                               child: Icon(
