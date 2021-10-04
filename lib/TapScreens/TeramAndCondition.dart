@@ -10,6 +10,8 @@ class TeramAndCondition extends StatefulWidget {
 class _TeramAndConditionState extends State<TeramAndCondition> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+    );
   }
 }

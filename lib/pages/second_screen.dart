@@ -20,15 +20,7 @@ class _SecondScreenState extends State<SecondScreen> {
       body: Container(
         height: appheight,
         width: appwidth,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                MyColors.firstthemecolorgr1,
-                MyColors.firstthemecolorgr,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )),
+
         child: Padding(
           padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
           child: Column(

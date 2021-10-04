@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/Themes/sharepref.dart';
 import 'package:currency_converter/pages/home_page.dart';
+import 'package:currency_converter/customcolorpicker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -37,6 +38,8 @@ class _SettingScreenState extends State<SettingScreen> {
   bool displaysymbol = true;
   bool displayflag = true;
 
+  bool customcolorbool=false;
+
   Color unlockCurrentColor = MyColors.firstthemecolorgr;
   Color lockCurrentColor = const Color(0xff443a49);
   Color densityCurrentColor = MyColors.firstthemecolorgr;
@@ -55,14 +58,8 @@ class _SettingScreenState extends State<SettingScreen> {
           width: width,
           padding: const EdgeInsets.only(top: 5, left: 20),
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [
-                    MyColors.firstthemecolorgr1,
-                    MyColors.firstthemecolorgr,
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0.001, 1.5])),
+
+              ),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -118,6 +115,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             margin: const EdgeInsets.only(top: 10, left: 2),
                             child: Switch(
                               inactiveTrackColor: Colors.grey,
+                              inactiveThumbColor: MyColors.textColor,
                               value: isSwitched,
                               onChanged: (value) {
                                 setState(() {
@@ -126,7 +124,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 });
                               },
                               activeTrackColor: const Color(0xff7986cb),
-                              activeColor: Colors.white,
+                              activeColor: MyColors.textColor,
                             ),
                           ),
                         ],
@@ -162,15 +160,15 @@ class _SettingScreenState extends State<SettingScreen> {
                                   color: MyColors.textColor,
                                 )),
                             //  SizedBox(width: 245 ,),
-                            const Icon(
+                             Icon(
                               Icons.expand_more_outlined,
-                              color: Colors.white,
+                              color: MyColors.textColor,
                             ),
                           ],
                         ),
-                        const Divider(
+                         Divider(
                           height: 2,
-                          color: Colors.white,
+                          color: MyColors.textColor,
                           thickness: 1.2,
                         )
                       ],
@@ -184,9 +182,14 @@ class _SettingScreenState extends State<SettingScreen> {
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 InkWell(
-                  onTap: () {
+                  onTap: () async{
 
-                    showColorPickerDialog(context);
+                     int x=await showColorPickerDialog(context);
+                     print(x);
+                   if(x==1) showCustomColorPickerDialog(context);
+
+
+
                   },
                   child: Container(
                       // margin: EdgeInsets.only(right: 22),
@@ -208,7 +211,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               end: Alignment.centerRight,
                               stops: [0.0, 0.9]),
                           borderRadius: BorderRadius.circular(7),
-                          border: Border.all(width: 1.2, color: Colors.white),
+                          border: Border.all(width: 1.2, color: MyColors.textColor),
                         ),
                         child: const Text(""),
                       )),
@@ -239,8 +242,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         Transform.scale(
                           scale: 1.1,
                           child: Checkbox(
-                            side: BorderSide(color: Colors.white),
+                            side: BorderSide(color: MyColors.textColor),
                             value: MyColors.checkBoxValue1,
+
                             onChanged: (value) {
                               setState(() {
                                 if (MyColors.checkBoxValue2) {
@@ -251,7 +255,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 }
                               });
                             },
-                            activeColor: Colors.white,
+                            activeColor: MyColors.checkBoxValue2?Colors.black45:Colors.white,
                             checkColor: Colors.black,
                             tristate: false,
                             shape: RoundedRectangleBorder(
@@ -269,21 +273,21 @@ class _SettingScreenState extends State<SettingScreen> {
                         Transform.scale(
                           scale: 1.1,
                           child: Checkbox(
-                            side: BorderSide(color: Colors.white),
+                            side: BorderSide(color: MyColors.textColor),
                             value: MyColors.checkBoxValue2,
                             onChanged: (value) {
                               setState(() {
                                 if (MyColors.checkBoxValue1) {
                                   MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
                                   MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
-                                  MyColors.textColor=Colors.black;
+                                  MyColors.textColor=Colors.black54;
                                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
 
 
                                 }
                               });
                             },
-                            activeColor: Colors.white,
+                            activeColor: MyColors.checkBoxValue2?Colors.black45:Colors.white,
                             checkColor: Colors.black,
                             tristate: false,
                             shape: RoundedRectangleBorder(
@@ -333,8 +337,8 @@ class _SettingScreenState extends State<SettingScreen> {
                             Container(
                               width: width * 0.31,
                               child: Slider(
-                                  activeColor: Colors.white,
-                                  inactiveColor: Colors.white,
+                                  activeColor: MyColors.textColor,
+                                  inactiveColor: MyColors.textColor,
                                   min: 0,
                                   max: 100,
                                   value: _value,
@@ -373,7 +377,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 end: Alignment.bottomCenter,
                                 stops: const [0.1, 1.5]),
                             border:
-                                Border.all(color: Colors.white, width: 3.9)),
+                                Border.all(color: MyColors.textColor, width: 3.9)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -403,6 +407,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 SizedBox(width: 8),
                                 Icon(
                                   Icons.flag,
+
                                   size: 30,
                                 ),
                                 Text(
@@ -438,7 +443,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               style: GoogleFonts.roboto(
                                   color: MyColors.textColor,
                                   fontWeight: FontWeight.bold,
-                              fontSize: fontsmall? (MyColors.textSize-18)*(-1):fontlarge?(MyColors.textSize+18):18,)
+                              fontSize: fontsmall? (MyColors.textSize-16)*(-1):fontlarge?(MyColors.textSize+16):16,)
 
 
                             )
@@ -484,7 +489,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 }
                               });
                             },
-                            activeColor: Colors.white,
+                            activeColor: MyColors.checkBoxValue2?Colors.black45:Colors.white,
                             checkColor: Colors.black,
                             tristate: false,
                             shape: RoundedRectangleBorder(
@@ -502,7 +507,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Transform.scale(
                           scale: 1.1,
                           child: Checkbox(
-                            side: BorderSide(color: Colors.white),
+                            side: BorderSide(color: MyColors.textColor),
                             value: fontmedium,
                             onChanged: (value) {
                               setState(() {
@@ -513,7 +518,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 }
                               });
                             },
-                            activeColor: Colors.white,
+                            activeColor: MyColors.checkBoxValue2?Colors.black45:Colors.white,
                             checkColor: Colors.black,
                             tristate: false,
                             shape: RoundedRectangleBorder(
@@ -542,7 +547,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 }
                               });
                             },
-                            activeColor: Colors.white,
+                            activeColor: MyColors.checkBoxValue2?Colors.black45:Colors.white,
                             checkColor: Colors.black,
                             tristate: false,
                             shape: RoundedRectangleBorder(
@@ -593,6 +598,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               margin: EdgeInsets.only(top: 2, left: 2),
                               child: Switch(
                                 inactiveTrackColor: Colors.grey,
+                                inactiveThumbColor: MyColors.textColor,
                                 value: isSwitched,
                                 onChanged: (value) {
                                   setState(() {
@@ -601,7 +607,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   });
                                 },
                                 activeTrackColor: Color(0xff7986cb),
-                                activeColor: Colors.white,
+                                activeColor: MyColors.textColor,
                               ),
                             ),
                           ],
@@ -645,7 +651,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             fontWeight: FontWeight.bold))),
                 Container(
                     margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
-                    height: height * .25,
+
                     width: width * .92,
                     padding:
                         EdgeInsets.only(top: 5, left: 10, right: 5, bottom: 5),
@@ -668,6 +674,8 @@ class _SettingScreenState extends State<SettingScreen> {
                             ),
                             Switch(
                               inactiveTrackColor: Colors.grey,
+                              inactiveThumbColor: MyColors.textColor,
+
                               value: displaycode,
                               onChanged: (value) {
                                 setState(() {
@@ -687,7 +695,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 });
                               },
                               activeTrackColor: Color(0xff7986cb),
-                              activeColor: Colors.white,
+                              activeColor: MyColors.textColor,
                             ),
                           ],
                         ),
@@ -705,6 +713,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             ),
                             Switch(
                               inactiveTrackColor: Colors.grey,
+                              inactiveThumbColor: MyColors.textColor,
                               value: displaysymbol,
                               onChanged: (value) {
                                 setState(() {
@@ -723,7 +732,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 });
                               },
                               activeTrackColor: Color(0xff7986cb),
-                              activeColor: Colors.white,
+                              activeColor: MyColors.textColor,
                             ),
                           ],
                         ),
@@ -741,6 +750,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             ),
                             Switch(
                               inactiveTrackColor: Colors.grey,
+                              inactiveThumbColor: MyColors.textColor,
                               value: displayflag,
                               onChanged: (value) {
                                 setState(() {
@@ -751,7 +761,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 });
                               },
                               activeTrackColor: Color(0xff7986cb),
-                              activeColor: Colors.white,
+                              activeColor: MyColors.textColor,
                             ),
                           ],
                         ),
@@ -782,17 +792,19 @@ class _SettingScreenState extends State<SettingScreen> {
                         Transform.scale(
                           scale: 1.1,
                           child: Checkbox(
-                            side: const BorderSide(color: Colors.white),
-                            value: checkBoxValue1,
+                            side:  BorderSide(color:MyColors.textColor),
+
+                            value: MyColors.datedd ,
                             onChanged: (value) {
                               setState(() {
-                                if (checkBoxValue2) {
-                                  checkBoxValue1 = !checkBoxValue1;
-                                  checkBoxValue2 = !checkBoxValue2;
+                                if ( MyColors.datemm) {
+                                  MyColors.datemm = ! MyColors.datemm;
+                                  MyColors.datedd = ! MyColors.datedd;
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
                                 }
                               });
                             },
-                            activeColor: Colors.white,
+                            activeColor: MyColors.checkBoxValue2?Colors.black45:Colors.white,
                             checkColor: Colors.black,
                             tristate: false,
                             shape: RoundedRectangleBorder(
@@ -810,17 +822,19 @@ class _SettingScreenState extends State<SettingScreen> {
                         Transform.scale(
                           scale: 1.1,
                           child: Checkbox(
-                            side: BorderSide(color: Colors.white),
-                            value: checkBoxValue2,
+                            side: BorderSide(color: MyColors.textColor),
+                            value: MyColors.datemm,
                             onChanged: (value) {
                               setState(() {
-                                if (checkBoxValue1) {
-                                  checkBoxValue2 = !checkBoxValue2;
-                                  checkBoxValue1 = !checkBoxValue1;
+                                if (MyColors.datedd ) {
+                                  MyColors.datedd  = !MyColors.datedd ;
+                                  MyColors.datemm  = !MyColors.datemm;
+
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
                                 }
                               });
                             },
-                            activeColor: Colors.white,
+                            activeColor: MyColors.checkBoxValue2?Colors.black45:Colors.white,
                             checkColor: Colors.black,
                             tristate: false,
                             shape: RoundedRectangleBorder(
@@ -876,8 +890,8 @@ class _SettingScreenState extends State<SettingScreen> {
 
   }
 
-  void showColorPickerDialog(BuildContext context) async {
-    showGeneralDialog(
+   showColorPickerDialog(BuildContext context) async {
+    return showGeneralDialog(
         context: context,
         barrierDismissible: true,
         barrierLabel:
@@ -910,6 +924,37 @@ class _SettingScreenState extends State<SettingScreen> {
                     lockCurrentColor: lockCurrentColor,
                     unlockCurrentColor: unlockCurrentColor,
                   )),
+            ),
+          );
+        });
+  }
+  void showCustomColorPickerDialog(BuildContext context) async {
+    showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel:
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          double width = MediaQuery.of(context).size.width;
+          double height = MediaQuery.of(context).size.height;
+
+          return DefaultTextStyle(
+            style: const TextStyle(decoration: TextDecoration.none),
+            child: Center(
+              child: Container(
+                margin: const EdgeInsets.only(
+                    top: 15, right: 10, bottom: 0, left: 10),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.57,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:CustomColorPicker(),
+              ),
             ),
           );
         });
@@ -1008,6 +1053,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.pink.shade200,
       Colors.pink,
       Colors.pink.shade900
+    ]),MColor(mainColor: Colors.black, densityColors: [
+      Colors.black12,
+      Colors.black26,
+      Colors.black45,
+      Colors.black54,
+      Colors.black87
     ]),
   ];
 
@@ -1088,9 +1139,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               width: 100,
               child: ElevatedButton(
                 onPressed: () {
-                  var code = (selectedColor.mainColor.value.toRadixString(16));
-                  print(code);
-                  MyColors.firstthemecolorgr = Color(int.parse("0x$code"));
+                  Navigator.pop(context,1);
+
 
                   setState(() {});
                 },
@@ -1116,6 +1166,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       ],
     );
   }
+
 
   void unlockchangeColor(MColor color) {
     selectedColor = color;

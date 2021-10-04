@@ -7,7 +7,7 @@ import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Models/model.dart';
 import 'package:currency_converter/TapScreens/ReatingPop.dart';
 import 'package:currency_converter/TapScreens/TeramAndCondition.dart';
-import 'package:currency_converter/TapScreens/decimalSceen.dart';
+import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +31,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
 
   @override
   void initState() {
+
+
     super.initState();
     _tabController = TabController(length: 6, vsync: this);
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -39,6 +41,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+
     String textCurrency = "USA";
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
@@ -86,13 +89,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         width: appwidth,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [
-            MyColors.firstthemecolorgr1,
-            MyColors.firstthemecolorgr,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        )),
+              colors: [
+                MyColors.firstthemecolorgr1,
+                MyColors.firstthemecolorgr,
+              ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.001, 1.5]
+            )),
         child: TabBarView(
           controller: _tabController,
           children: [
@@ -179,17 +183,17 @@ class _TapHomeState extends State<TapHome> {
                         SizedBox(
                           width: 115,
                         ),
-                        Text("Updated:"),
+                        Text("Updated:",style: TextStyle(color: MyColors.textColor),),
                         SizedBox(
                           width: 5,
                         ),
-                       MyColors.datemm? Text("${now.month.toString().padLeft(2,'0')}/${now.day.toString().padLeft(2,'0')}/${now.year.toString()}"):Text("${now.day.toString().padLeft(2,'0')}/${now.month.toString().padLeft(2,'0')}/${now.year.toString()}"),
+                       MyColors.datemm? Text("${now.month.toString().padLeft(2,'0')}/${now.day.toString().padLeft(2,'0')}/${now.year.toString()}",style: TextStyle(color: MyColors.textColor),):Text("${now.day.toString().padLeft(2,'0')}/${now.month.toString().padLeft(2,'0')}/${now.year.toString()}",style: TextStyle(color: MyColors.textColor),),
                         SizedBox(
                           width: 50.0,
                         ),
                         Icon(
                           Icons.share,
-                          color: Colors.white,
+                          color: MyColors.textColor,
                         )
                       ],
                     ),
@@ -566,7 +570,7 @@ class _TapHomeState extends State<TapHome> {
                           width: appwidth * 0.45,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: MyColors.textColor,
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: const Align(
@@ -609,7 +613,7 @@ class _TapHomeState extends State<TapHome> {
                           width: appwidth * 0.45,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: MyColors.textColor,
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: const Align(
