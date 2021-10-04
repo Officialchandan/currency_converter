@@ -1,20 +1,19 @@
-import 'dart:developer';
+
 
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/Themes/sharepref.dart';
-import 'package:currency_converter/pages/home_page.dart';
-import 'package:currency_converter/customcolorpicker.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:auto_size_text_pk/auto_size_text_pk.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../colors_properties/lockcolorpicker.dart';
 import '../colors_properties/densitycolorpicker.dart';
 import '../colors_properties/unlockcolorpicker.dart';
+import '../customcolorpicker.dart';
+import 'home/home_page.dart';
 
 class SettingScreen extends StatefulWidget {
   final Function onThemeChange;
@@ -136,7 +135,11 @@ class _SettingScreenState extends State<SettingScreen> {
                     margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
                     child: Text("Select Language",
                         style: GoogleFonts.roboto(
-                            fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
+                            fontSize: fontsmall
+                                ? (MyColors.textSize - 20) * (-1)
+                                : fontlarge
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
@@ -489,7 +492,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 }
                               });
                             },
-                            activeColor: MyColors.checkBoxValue2?Colors.black45:Colors.white,
+                            activeColor: Colors.white,
                             checkColor: Colors.black,
                             tristate: false,
                             shape: RoundedRectangleBorder(
