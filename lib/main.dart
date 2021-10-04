@@ -1,14 +1,14 @@
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/pages/home_page.dart';
+import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 void main() {
-  SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
-    systemNavigationBarColor: MyColors.firstthemecolorgr, // navigation bar color
-    statusBarColor:  MyColors.firstthemecolorgr, // status bar color
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor:
+        MyColors.firstthemecolorgr, // navigation bar color
+    statusBarColor: MyColors.firstthemecolorgr, // status bar color
   ));
   runApp(const MyApp());
 }
