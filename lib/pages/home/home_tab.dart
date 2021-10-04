@@ -193,10 +193,19 @@ class _TapHomeState extends State<TapHome> {
                           child: Center(
                             child: InkWell(
                               onTap: () {
+<<<<<<< HEAD
                                 String s = currencyCodeFrom;
                                 currencyCodeFrom = currencyCodeTo;
                                 currencyCodeTo = s;
 
+=======
+                                String s = edtFrom.text;
+                                edtFrom.text = edtTo.text;
+                                edtTo.text = s;
+                                 s = currencyCodeFrom;
+                                currencyCodeFrom=currencyCodeTo;
+                                currencyCodeTo = s;
+>>>>>>> 85585e73ef659c43780cd5e54cae2ddb86bc993d
                                 setState(() {});
                               },
                               child: Icon(

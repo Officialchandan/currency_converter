@@ -10,6 +10,8 @@ class ReatingPop extends StatefulWidget {
 class _ReatingPopState extends State<ReatingPop> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+    );
   }
 }
