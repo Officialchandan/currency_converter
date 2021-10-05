@@ -12,13 +12,13 @@ import 'package:google_fonts/google_fonts.dart';
 import '../colors_properties/lockcolorpicker.dart';
 import '../colors_properties/densitycolorpicker.dart';
 import '../colors_properties/unlockcolorpicker.dart';
-import '../customcolorpicker.dart';
+import '../colors_properties/customcolorpicker.dart';
 import 'home/home_page.dart';
 
 class SettingScreen extends StatefulWidget {
   final Function onThemeChange;
 
-  SettingScreen(this.onThemeChange, {Key? key}) : super(key: key);
+  const SettingScreen(this.onThemeChange, {Key? key}) : super(key: key);
 
   @override
   _SettingScreenState createState() => _SettingScreenState();
@@ -56,7 +56,7 @@ class _SettingScreenState extends State<SettingScreen> {
           height: height,
           width: width,
           padding: const EdgeInsets.only(top: 5, left: 20),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
 
               ),
           child: SingleChildScrollView(
@@ -86,7 +86,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          RichText(
+                              RichText(
                               text:  TextSpan(children: [
                             TextSpan(
                               text: "Support our project  with a small yearly",
@@ -132,7 +132,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
+                    margin: const EdgeInsets.only(left: 10, bottom: 13, top: 20),
                     child: Text("Select Language",
                         style: GoogleFonts.roboto(
                             fontSize: fontsmall
@@ -198,7 +198,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       // margin: EdgeInsets.only(right: 22),
                       height: 50,
                       width: width * .92,
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           top: 15, left: 15, right: 15, bottom: 15),
                       decoration: BoxDecoration(
                           color: Colors.black26,
@@ -212,7 +212,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               ],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
-                              stops: [0.0, 0.9]),
+                              stops: const [0.0, 0.9]),
                           borderRadius: BorderRadius.circular(7),
                           border: Border.all(width: 1.2, color: MyColors.textColor),
                         ),
@@ -232,14 +232,14 @@ class _SettingScreenState extends State<SettingScreen> {
                     height: 55,
                     width: width * .92,
                     padding:
-                        EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
+                        const EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
                     decoration: BoxDecoration(
                         color: Colors.black26,
                         borderRadius: BorderRadius.circular(10)),
                     child: Row(
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 50,
                         ),
                         Transform.scale(
@@ -254,6 +254,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                   MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
                                   MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
                                   MyColors.textColor=Colors.white;
+                                  MyColors.insideTextFieldColor=Colors.black54;
+                                  MyColors.calcuColor=MyColors.firstthemecolorgr;
+
                                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
                                 }
                               });
@@ -270,7 +273,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               fontSize: fontsmall? (MyColors.textSize-20)*(-1):fontlarge?(MyColors.textSize+20):20,
                               color:MyColors.textColor,
                             )),
-                        SizedBox(
+                        const SizedBox(
                           width: 50,
                         ),
                         Transform.scale(
@@ -284,6 +287,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                   MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
                                   MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
                                   MyColors.textColor=Colors.black54;
+                                  MyColors.insideTextFieldColor=Colors.white;
+                                  MyColors.calcuColor=Colors.black87;
+
                                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MyTabBarWidget()), (route) => false);
 
 
@@ -307,7 +313,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Row(
                   children: [
                     Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           left: 10,
                         ),
                         child: Text(
@@ -324,50 +330,48 @@ class _SettingScreenState extends State<SettingScreen> {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(right: 0, top: 15),
+                  margin: const EdgeInsets.only(right: 0, top: 15),
                   height: height * .183,
                   width: width * .92,
                   padding:
-                      EdgeInsets.only(top: 5, left: 0, right: 0, bottom: 5),
+                      const EdgeInsets.only(top: 5, left: 0, right: 0, bottom: 5),
                   decoration: BoxDecoration(
                       color: Colors.black26,
                       borderRadius: BorderRadius.circular(10)),
                   child: Row(
                     children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              width: width * 0.31,
-                              child: Slider(
-                                  activeColor: MyColors.textColor,
-                                  inactiveColor: MyColors.textColor,
-                                  min: 0,
-                                  max: 100,
-                                  value: _value,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      x = _value.toInt();
-                                      _value = value;
-                                    });
-                                  }),
-                            ),
-                            Container(
-                              width: 30,
-                              child: Text(
-                                "${x.toString()}",
-                                style:  TextStyle(color: MyColors.textColor,
-                                    fontSize: fontsmall? (MyColors.textSize-15)*(-1):fontlarge?(MyColors.textSize+15):15,
-                                ),
+                      Row(
+                        children: [
+                          Container(
+                            width: width * 0.31,
+                            child: Slider(
+                                activeColor: MyColors.textColor,
+                                inactiveColor: MyColors.textColor,
+                                min: 0,
+                                max: 100,
+                                value: _value,
+                                onChanged: (value) {
+                                  setState(() {
+                                    x = _value.toInt();
+                                    _value = value;
+                                  });
+                                }),
+                          ),
+                          SizedBox(
+                            width: 30,
+                            child: Text(
+                              x.toString(),
+                              style:  TextStyle(color: MyColors.textColor,
+                                  fontSize: fontsmall? (MyColors.textSize-15)*(-1):fontlarge?(MyColors.textSize+15):15,
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                       Container(
                         width: width * 0.5,
                         height: height * 1.9,
-                        margin: EdgeInsets.only(left: 0.0),
+                        margin: const EdgeInsets.only(left: 0.0),
                         decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.69),
                             borderRadius: BorderRadius.circular(10),
@@ -385,10 +389,10 @@ class _SettingScreenState extends State<SettingScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.flag,
                                   size: 30,
                                 ),
@@ -399,7 +403,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 Text(
                                   "/",
                                   style: GoogleFonts.roboto(
@@ -407,8 +411,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(width: 8),
-                                Icon(
+                                const SizedBox(width: 8),
+                                const Icon(
                                   Icons.flag,
 
                                   size: 30,
@@ -572,7 +576,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
-                    margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
+                    margin: EdgeInsets.only(right: 15, top: 8, bottom: 5),
                     height: 85,
                     width: 380,
                     padding: EdgeInsets.only(
@@ -913,7 +917,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   margin: const EdgeInsets.only(
                       top: 15, right: 10, bottom: 0, left: 10),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.82,
+                  height: MediaQuery.of(context).size.height * 0.85,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -951,7 +955,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 margin: const EdgeInsets.only(
                     top: 15, right: 10, bottom: 0, left: 10),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.57,
+                height: MediaQuery.of(context).size.height * 0.77,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -1157,6 +1161,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
                   var code = (selectedColor.mainColor.value.toRadixString(16));
                   MyColors.firstthemecolorgr = Color(int.parse("0x$code"));
+                  MyColors.calcuColor = Color(int.parse("0x$code"));
+
                   // Navigator.pop(context);
                   widget.onColorSelect(selectedColor.mainColor,context);
 

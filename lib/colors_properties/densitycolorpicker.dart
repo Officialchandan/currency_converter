@@ -34,21 +34,14 @@ class DensityColorPicker extends StatefulWidget {
 
   static Widget defaultLayoutBuilder(
       BuildContext context, List<Color> colors, PickerItem child) {
-    print("unlock se aaya -> ${_currentColor.value.toRadixString(16)}");
+
     Orientation orientation = MediaQuery.of(context).orientation;
 
-    return Container(
+    return ListView(
 
+      scrollDirection: Axis.horizontal,
 
-
-
-        child: ListView(
-
-          scrollDirection: Axis.horizontal,
-
-          children: colors.map((Color color) => child(color)).toList(),
-        ),
-
+      children: colors.map((Color color) => child(color)).toList(),
     );
   }
 
@@ -57,14 +50,14 @@ class DensityColorPicker extends StatefulWidget {
     return Container(
       height: 60,
       width: 60,
-      margin: EdgeInsets.all(5.0),
+      margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
         color: color,
         boxShadow: [
           BoxShadow(
             color: color.withOpacity(0.8),
-            offset: Offset(1.0, 2.0),
+            offset: const Offset(1.0, 2.0),
             blurRadius: 3.0,
           ),
         ],

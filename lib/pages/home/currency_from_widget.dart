@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:currency_converter/API/apis.dart';
-import 'package:currency_converter/Models/model.dart';
+
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 

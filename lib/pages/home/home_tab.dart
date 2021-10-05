@@ -1,5 +1,4 @@
-import 'dart:developer';
-import 'dart:io';
+
 
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -119,15 +118,15 @@ class _TapHomeState extends State<TapHome> {
                                   MyColors.firstthemecolorgr1,
                                   MyColors.firstthemecolorgr,
                                 ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
                               ),
                               borderRadius: BorderRadius.circular(7),
                             ),
                             child: Center(
                               child: Text(
                                 currencyCodeFrom,
-                                style: const TextStyle(color: Colors.white),
+                                style:  TextStyle(color: Colors.white),
                               ),
                             ),
                           ),
@@ -137,6 +136,7 @@ class _TapHomeState extends State<TapHome> {
                             width: MediaQuery.of(context).size.height * 0.24,
                             // width: 150,
                             child: TextField(
+                              style: TextStyle(color: MyColors.insideTextFieldColor),
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.none,
@@ -170,6 +170,7 @@ class _TapHomeState extends State<TapHome> {
                               },
                               child: Icon(
                                 Icons.compare_arrows_outlined,
+                                color: MyColors.insideTextFieldColor,
                               ),
                             ),
                           ),
@@ -189,10 +190,12 @@ class _TapHomeState extends State<TapHome> {
                             width: appwidth * 0.45,
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextFormField(
+                              style: TextStyle(color: MyColors.insideTextFieldColor),
+
                               controller: edtFrom,
                               showCursor: false,
                               readOnly: true,
@@ -216,16 +219,16 @@ class _TapHomeState extends State<TapHome> {
 
                                 debugPrint("Hello2");
                               },
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.ac_unit_outlined,
-                                  color: Colors.black,
+                                  color: MyColors.insideTextFieldColor,
                                   size: 25.0,
                                 ),
                                 suffixIcon: Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: Colors.black,
+                                  color: MyColors.insideTextFieldColor,
                                   size: 25.0,
                                 ),
                               ),
@@ -237,10 +240,12 @@ class _TapHomeState extends State<TapHome> {
                             width: appwidth * 0.45,
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+
+                              color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextField(
+                              style:TextStyle(color: MyColors.insideTextFieldColor),
                               controller: edtTo,
                               showCursor: false,
                               readOnly: true,
@@ -262,16 +267,19 @@ class _TapHomeState extends State<TapHome> {
 
                                 debugPrint("Hello2");
                               },
-                              decoration: const InputDecoration(
+
+                              decoration:  InputDecoration(
+
+
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.ac_unit_outlined,
-                                  color: Colors.black,
+                                  color: MyColors.insideTextFieldColor,
                                   size: 25.0,
                                 ),
                                 suffixIcon: Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: Colors.black,
+                                  color: MyColors.insideTextFieldColor,
                                   size: 25.0,
                                 ),
                               ),
@@ -311,7 +319,9 @@ class _TapHomeState extends State<TapHome> {
                   ),
                   Center(
                     //***Currency Text*/
-                    child: Text(conversionRate.toStringAsFixed(3)),
+                    child: Text(conversionRate.toStringAsFixed(3),style: TextStyle(
+                      color: MyColors.insideTextFieldColor
+                    ),),
                   ),
                 ],
               ),
@@ -531,7 +541,7 @@ class _TapHomeState extends State<TapHome> {
                               buildButton("-", 1, MyColors.calcuColor),
                             ]),
                             TableRow(children: [
-                              buildButton("+", 1, const Color(0xFFB2BBF5)),
+                              buildButton("+", 1, MyColors.calcuColor),
                             ]),
                             TableRow(children: [
                               buildButton("=", 2, MyColors.calcuColor),

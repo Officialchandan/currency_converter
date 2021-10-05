@@ -41,6 +41,9 @@ dependencies:
   math_expressions: ^2.2.0
   shared_preferences:
   dio: ^4.0.0
+  smooth_star_rating: ^1.1.1
+  rating_bar: ^0.2.0
+  url_launcher: ^6.0.12
 
   
 

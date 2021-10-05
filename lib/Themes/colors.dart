@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 class MyColors {
@@ -9,6 +11,7 @@ class MyColors {
 
   static Color calcuColor = Color(0xFFB2BBF5);
   static Color textColor =Colors.white;
+  static Color insideTextFieldColor=Colors.black;
 
   static int textSize=2;
 
@@ -17,4 +20,6 @@ class MyColors {
 
     static bool datemm=true;
     static bool datedd=false;
+
+
 }

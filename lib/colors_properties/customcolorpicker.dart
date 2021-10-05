@@ -53,18 +53,19 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               children: [
                 Container(
                   margin:EdgeInsets.all(10),
-            width: 180,
+            width: 150,
                   child:
 
                     ElevatedButton(child: Text("Select"),onPressed: (){
 
                       MyColors.firstthemecolorgr=currentColor;
+                      MyColors.calcuColor=currentColor;
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const MyTabBarWidget()), (route) => false);
 
                     },),
     ),
 
-                    Container(width:180,child: ElevatedButton(onPressed: (){}, child: Text("Unlock")))
+                    Container(width:150,child: ElevatedButton(onPressed: (){}, child: Text("Unlock")))
 
 
 

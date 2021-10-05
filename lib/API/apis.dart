@@ -1,9 +1,9 @@
-import 'dart:developer';
+
 
 import 'package:currency_converter/Models/model.dart';
 import 'package:dio/dio.dart';
 
-class Apiclass {
+class  Apiclass {
   static Future<Map<String, double>> getUser() async {
     String url =
         "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
@@ -17,15 +17,12 @@ class Apiclass {
         Map<String, double> userList = userResponse.quotes!;
         return userList;
 
-        log("89089493894${userList}");
-
-        print('------->>>>$userList');
       } else {
         return {};
-        print("Invelid API");
+
       }
     } on DioError catch (e) {
-      print(e);
+
       return {};
     }
   }

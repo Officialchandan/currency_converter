@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: Colors.white,
         fontFamily: GoogleFonts.roboto().fontFamily,
       ),
-      home: const MyTabBarWidget(),
+      home:  MyTabBarWidget(),
     );
   }
 }
