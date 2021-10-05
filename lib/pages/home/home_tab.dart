@@ -2,9 +2,11 @@
 
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
@@ -40,16 +42,39 @@ class _TapHomeState extends State<TapHome> {
   String convertedDateTime = "";
   DateTime now = DateTime.now();
 
-  String currencyCodeFrom = "USD";
-  String currencyCodeTo = "EUR";
+  String currencyCodeFrom = "";
+  String currencyCodeTo = "";
   Map<String, double> cresult = {};
   @override
   void initState() {
+    getCurrencyCode();
+
     super.initState();
-    setState(() {
+  }
+
+  getCurrencyCode() async {
+    final prefs = await SharedPreferences.getInstance();
+    currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "";
+    currencyCodeTo = prefs.getString(Constants.currencyCodeFrom) ?? "";
+
+    if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
+      edtFrom.text = currencyCodeFrom;
+      edtTo.text = currencyCodeTo;
+
       getConverterAPI(
           currencyCodeFrom, currencyCodeTo, conversionRate.toString());
-    });
+    }
+    setState(() {});
+  }
+
+  void currencyCodeFromSave(String code) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constants.currencyCodeFrom, code);
+  }
+
+  void currencyCodeToSave(String code) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constants.currencyCodeTo, code);
   }
 
   @override
@@ -160,15 +185,22 @@ class _TapHomeState extends State<TapHome> {
                           child: Center(
                             child: InkWell(
                               onTap: () {
-                                String s = edtFrom.text;
-                                edtFrom.text = edtTo.text;
-                                edtTo.text = s;
-                                 s = currencyCodeFrom;
-                                currencyCodeFrom=currencyCodeTo;
-                                currencyCodeTo = s;
+                                String temp = "";
+                                temp = currencyCodeFrom;
+                                currencyCodeFrom = currencyCodeTo;
+                                currencyCodeTo = temp;
+
+                                edtFrom.text = currencyCodeFrom;
+                                edtTo.text = currencyCodeTo;
+
+                                currencyCodeFromSave(currencyCodeFrom);
+                                currencyCodeToSave(currencyCodeTo);
                                 setState(() {});
+
+                                getConverterAPI(currencyCodeFrom,
+                                    currencyCodeTo, calculateCurrency.text);
                               },
-                              child: Icon(
+                              child: const Icon(
                                 Icons.compare_arrows_outlined,
                                 color: MyColors.insideTextFieldColor,
                               ),
@@ -297,6 +329,8 @@ class _TapHomeState extends State<TapHome> {
                           isContainerVisible: _isContainerVisible,
                           onSelect: (String currencyCode) {
                             currencyCodeFrom = currencyCode;
+
+                            currencyCodeFromSave(currencyCodeFrom);
                             edtFrom.text = currencyCode;
                             edtCurrency.text = currencyCode;
                             _isContainerVisible = false;
@@ -308,6 +342,7 @@ class _TapHomeState extends State<TapHome> {
                               isContainerVisibleTwo: _isContainerVisibleTwo,
                               onSelect: (String currencyCode) {
                                 currencyCodeTo = currencyCode;
+                                currencyCodeToSave(currencyCodeTo);
                                 edtTo.text = currencyCode;
                                 _isContainerVisibleTwo = false;
                                 setState(() {});

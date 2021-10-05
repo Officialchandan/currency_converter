@@ -5,10 +5,13 @@ import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:flutter/cupertino.dart';
 
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 
+import 'package:currency_converter/TapScreens/ReatingPop.dart';
+import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
 import 'package:currency_converter/TapScreens/TeramAndCondition.dart';
 
 import 'package:currency_converter/Themes/colors.dart';
@@ -324,6 +327,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
 class CurrencyData {
   String key;
   double value;
-
-  CurrencyData({required this.key, required this.value});
+  bool favorite = false;
+  bool isSelected = false;
+  CurrencyData({
+    required this.key,
+    required this.value,
+  });
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:currency_converter/Models/model.dart';
 import 'package:dio/dio.dart';
 
@@ -16,13 +14,10 @@ class  Apiclass {
         DataClass userResponse = DataClass.fromJson(response.toString());
         Map<String, double> userList = userResponse.quotes!;
         return userList;
-
       } else {
         return {};
-
       }
-    } on DioError catch (e) {
-
+    } catch (e) {
       return {};
     }
   }
