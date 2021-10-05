@@ -41,7 +41,9 @@ dependencies:
   math_expressions: ^2.2.0
   shared_preferences:
   dio: ^4.0.0
-
+  webview_flutter: ^2.1.1
+   
+  
   
 
 

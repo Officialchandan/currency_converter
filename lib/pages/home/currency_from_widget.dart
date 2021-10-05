@@ -17,15 +17,22 @@ class CurrencyFromWidget extends StatefulWidget {
 }
 
 class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
+  int indexForSelectedCurrency = 0;
   final StreamController<List<CurrencyData>> streamController =
       StreamController();
   TextEditingController edtCurrencyCode = TextEditingController();
   bool starIndex = false;
   bool _isDisposed = false;
   bool _isExpanded = false;
+  Map<String, double> from = {};
+  Map<String, double> to = {};
   Map<String, double> currencyMap = {};
   List<CurrencyData> currencyList = [];
 
+  List<CurrencyData> favoriteList = [];
+
+  List<CurrencyData> formList = [];
+  List<CurrencyData> toList = [];
   @override
   void initState() {
     if (edtCurrencyCode.text.isEmpty) {
@@ -39,7 +46,10 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
     currencyMap = await Apiclass.getUser();
 
     currencyMap.forEach((key, value) {
-      currencyList.add(CurrencyData(key: key.toString(), value: value));
+      currencyList.add(CurrencyData(
+        key: key.toString(),
+        value: value,
+      ));
     });
 
     streamController.add(currencyList);
@@ -116,6 +126,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
+                            shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               return InkWell(
@@ -134,33 +145,41 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                     borderRadius: BorderRadius.circular(7),
                                   ),
                                   child: ListTile(
-                                    leading: const Icon(Icons.image),
-                                    title: Row(
-                                      children: [
-                                        Text(
-                                          snapshot.data![index].key,
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          snapshot.data![index].value
-                                              .toStringAsFixed(3),
-                                        ),
-                                      ],
-                                    ),
-                                    trailing: starIndex
-                                        ? const Icon(
-                                            Icons.star_sharp,
-                                            size: 30.0,
-                                          )
-                                        : const Icon(
-                                            Icons.star,
-                                            size: 30.0,
+                                      leading: const Icon(Icons.image),
+                                      title: Row(
+                                        children: [
+                                          Text(
+                                            snapshot.data![index].key,
+                                            style: const TextStyle(
+                                                color: Colors.black),
                                           ),
-                                  ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            snapshot.data![index].value
+                                                .toStringAsFixed(3),
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: IconButton(
+                                        onPressed: () {
+                                          currencyfavorite();
+
+                                          snapshot.data![index].isSelected =
+                                              !snapshot.data![index].isSelected;
+                                          setState(() {});
+                                        },
+                                        icon: snapshot.data![index].isSelected
+                                            ? const Icon(
+                                                Icons.star_sharp,
+                                                size: 30.0,
+                                              )
+                                            : const Icon(
+                                                Icons.star_border,
+                                                size: 30.0,
+                                              ),
+                                      )),
                                 ),
                               );
                             });
@@ -181,5 +200,34 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
         ),
       ),
     );
+  }
+
+  void currencyfavorite() {
+    from.forEach((key, value) {
+      formList.add(CurrencyData(key: key, value: value));
+    });
+    debugPrint("--->>>>>>>from$from");
+
+    debugPrint("--->>>>>>>$formList");
+
+    for (var element in favoriteList) {
+      int i = formList.indexWhere((element1) => element.key == element1.value);
+      CurrencyData c = formList.removeAt(i);
+      formList.insert(0, c);
+      debugPrint("---C >>>>>>>$c");
+    }
+    for (int i = 0; i < formList.length; i++) {
+      formList[i].favorite = !formList[i].favorite;
+
+      if (formList[i].favorite) {
+        favoriteList = formList.where((element) => element.favorite).toList();
+        for (var element in favoriteList) {
+          int i =
+              formList.indexWhere((element1) => element.key == element1.key);
+          CurrencyData c = formList.removeAt(i);
+          formList.insert(0, c);
+        }
+      }
+    }
   }
 }

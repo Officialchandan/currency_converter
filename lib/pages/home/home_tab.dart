@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -47,43 +48,34 @@ class _TapHomeState extends State<TapHome> {
   Map<String, double> cresult = {};
   @override
   void initState() {
-    loadcurrencyCodeFrom();
-    loadcurrencyCodeTo();
+    getCurrencyCode();
+
     super.initState();
-    setState(() {
+  }
+
+  getCurrencyCode() async {
+    final prefs = await SharedPreferences.getInstance();
+    currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "";
+    currencyCodeTo = prefs.getString(Constants.currencyCodeFrom) ?? "";
+
+    if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
+      edtFrom.text = currencyCodeFrom;
+      edtTo.text = currencyCodeTo;
+
       getConverterAPI(
           currencyCodeFrom, currencyCodeTo, conversionRate.toString());
-    });
+    }
+    setState(() {});
   }
 
-  void loadcurrencyCodeFrom() async {
+  void currencyCodeFromSave(String code) async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.setString('currencycodefromsave', currencyCodeFrom);
-    });
+    prefs.setString(Constants.currencyCodeFrom, code);
   }
 
-  void loadcurrencyCodeTo() async {
+  void currencyCodeToSave(String code) async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.setString('currencycodetosave', currencyCodeTo);
-    });
-  }
-
-  void currencyCodeFromSave() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      currencyCodeFrom = (prefs.getString('currencycodefromsave') ?? "");
-      prefs.setString('currencycodefromsave', currencyCodeFrom);
-    });
-  }
-
-  void currencyCodeToSave() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      currencyCodeTo = (prefs.getString('currencycodetosave') ?? "");
-      prefs.setString('currencycodetosave', currencyCodeTo);
-    });
+    prefs.setString(Constants.currencyCodeTo, code);
   }
 
   @override
@@ -193,22 +185,22 @@ class _TapHomeState extends State<TapHome> {
                           child: Center(
                             child: InkWell(
                               onTap: () {
-<<<<<<< HEAD
-                                String s = currencyCodeFrom;
+                                String temp = "";
+                                temp = currencyCodeFrom;
                                 currencyCodeFrom = currencyCodeTo;
-                                currencyCodeTo = s;
+                                currencyCodeTo = temp;
 
-=======
-                                String s = edtFrom.text;
-                                edtFrom.text = edtTo.text;
-                                edtTo.text = s;
-                                 s = currencyCodeFrom;
-                                currencyCodeFrom=currencyCodeTo;
-                                currencyCodeTo = s;
->>>>>>> 85585e73ef659c43780cd5e54cae2ddb86bc993d
+                                edtFrom.text = currencyCodeFrom;
+                                edtTo.text = currencyCodeTo;
+
+                                currencyCodeFromSave(currencyCodeFrom);
+                                currencyCodeToSave(currencyCodeTo);
                                 setState(() {});
+
+                                getConverterAPI(currencyCodeFrom,
+                                    currencyCodeTo, calculateCurrency.text);
                               },
-                              child: Icon(
+                              child: const Icon(
                                 Icons.compare_arrows_outlined,
                               ),
                             ),
@@ -329,6 +321,8 @@ class _TapHomeState extends State<TapHome> {
                           isContainerVisible: _isContainerVisible,
                           onSelect: (String currencyCode) {
                             currencyCodeFrom = currencyCode;
+
+                            currencyCodeFromSave(currencyCodeFrom);
                             edtFrom.text = currencyCode;
                             edtCurrency.text = currencyCode;
                             _isContainerVisible = false;
@@ -340,6 +334,7 @@ class _TapHomeState extends State<TapHome> {
                               isContainerVisibleTwo: _isContainerVisibleTwo,
                               onSelect: (String currencyCode) {
                                 currencyCodeTo = currencyCode;
+                                currencyCodeToSave(currencyCodeTo);
                                 edtTo.text = currencyCode;
                                 _isContainerVisibleTwo = false;
                                 setState(() {});

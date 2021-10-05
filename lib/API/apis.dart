@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:currency_converter/Models/model.dart';
 import 'package:dio/dio.dart';
 
@@ -16,16 +14,10 @@ class Apiclass {
         DataClass userResponse = DataClass.fromJson(response.toString());
         Map<String, double> userList = userResponse.quotes!;
         return userList;
-
-        log("89089493894${userList}");
-
-        print('------->>>>$userList');
       } else {
         return {};
-        print("Invelid API");
       }
-    } on DioError catch (e) {
-      print(e);
+    } catch (e) {
       return {};
     }
   }
