@@ -168,6 +168,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     var rating = 0.0;
     return showModalBottomSheet(
         isDismissible: false,
+        shape:RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
+        ),
         backgroundColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
@@ -181,7 +186,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               .height;
           return Container(
             width: width,
-            height: height * 0.35,
+            height: height * 0.39,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -192,8 +197,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+
             ),
             child: Column(
               children: [
