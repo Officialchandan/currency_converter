@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 
-import 'package:currency_converter/TapScreens/ReatingPop.dart';
+
 import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
-import 'package:currency_converter/TapScreens/TeramAndCondition.dart';
+
 
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/second_screen.dart';

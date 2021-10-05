@@ -200,7 +200,7 @@ class _TapHomeState extends State<TapHome> {
                                 getConverterAPI(currencyCodeFrom,
                                     currencyCodeTo, calculateCurrency.text);
                               },
-                              child: const Icon(
+                              child:  Icon(
                                 Icons.compare_arrows_outlined,
                                 color: MyColors.insideTextFieldColor,
                               ),
