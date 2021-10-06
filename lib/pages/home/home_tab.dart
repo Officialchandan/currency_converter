@@ -1,3 +1,5 @@
+
+
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -43,7 +45,6 @@ class _TapHomeState extends State<TapHome> {
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   Map<String, double> cresult = {};
-
   @override
   void initState() {
     getCurrencyCode();
@@ -142,7 +143,6 @@ class _TapHomeState extends State<TapHome> {
                   const SizedBox(
                     height: 15.0,
                   ),
-
                   Container(
                     width: appwidth - 20,
                     height: 50,
@@ -200,7 +200,11 @@ class _TapHomeState extends State<TapHome> {
                               decoration: const InputDecoration(
                                   border: InputBorder.none),
                               onTap: () {
+                                _isContainerVisible = false;
+
+                                _isContainerVisibleTwo = false;
                                 showCalculator(context);
+                                setState(() {});
                               },
                               onChanged: (text) {
                                 debugPrint("onchange -> $text");
@@ -240,7 +244,6 @@ class _TapHomeState extends State<TapHome> {
                       ],
                     ),
                   ),
-
                   const SizedBox(
                     height: 15.0,
                   ),
@@ -256,6 +259,8 @@ class _TapHomeState extends State<TapHome> {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextFormField(
+                              style: TextStyle(
+                                  color: MyColors.insideTextFieldColor),
                               style: TextStyle(
                                   color: MyColors.insideTextFieldColor,fontSize: MyColors.fontsmall
                                   ? (MyColors.textSize - 14) * (-1)
@@ -276,14 +281,11 @@ class _TapHomeState extends State<TapHome> {
                                 if (_isContainerVisibleTwo) {
                                   _isContainerVisibleTwo = false;
                                 }
-                                setState(() {
-                                  debugPrint("Hello");
+                                //*d
 
+                                setState(() {
                                   arrowPosition = !arrowPosition;
                                 });
-                                debugPrint("Hello1");
-
-                                debugPrint("Hello2");
                               },
                               decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -306,6 +308,7 @@ class _TapHomeState extends State<TapHome> {
                             width: appwidth * 0.45,
                             height: 50,
                             decoration: BoxDecoration(
+
                               color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -316,6 +319,7 @@ class _TapHomeState extends State<TapHome> {
                                   : MyColors.fontlarge
                                   ? (MyColors.textSize + 14)
                                   : 14,),
+
                               controller: edtTo,
                               showCursor: false,
                               readOnly: true,
@@ -384,32 +388,46 @@ class _TapHomeState extends State<TapHome> {
                               },
                             )
                           : const Text(""),
-                  const SizedBox(
-                    height: 25.0,
-                  ),
                   Center(
-                    //***Currency Text*/
-                    child: Text(
-                      conversionRate.toStringAsFixed(3),
-                      style: TextStyle(color: MyColors.insideTextFieldColor),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          conversionRate.toStringAsFixed(3),
+                          style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          edtTo.text,
+                          style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
               _isContainerVisible
-                  ? const Positioned(
-                      top: 138,
-                      child: Icon(
+                  ? Positioned(
+                      top: MediaQuery.of(context).size.height * 00.232,
+                      child: const Icon(
                         Icons.arrow_drop_up,
                         size: 50,
                         color: Colors.white,
                       ))
                   : Container(),
               _isContainerVisibleTwo
-                  ? const Positioned(
-                      top: 138.0,
-                      left: 175.0,
-                      child: Icon(
+                  ? Positioned(
+                      top: MediaQuery.of(context).size.height * 00.232,
+                      left: MediaQuery.of(context).size.width * 00.480,
+                      child: const Icon(
                         Icons.arrow_drop_up,
                         size: 50,
                         color: Colors.white,

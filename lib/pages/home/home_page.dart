@@ -51,14 +51,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   @override
   Widget build(BuildContext context) {
     String textCurrency = "USA";
-    var appheight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var appwidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var appheight = MediaQuery.of(context).size.height;
+    var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.firstthemecolorgr,
@@ -167,16 +161,16 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   ratingBottomSheet(BuildContext context) {
     var rating = 0.0;
     return showModalBottomSheet(
-      
+
         isDismissible: false,
 
         backgroundColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
-         
+
           return IntrinsicHeight(
             child: Container(
-            
+
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30), topRight: Radius.circular(30)),
@@ -189,7 +183,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
-               
+
               ),
               child: Column(
                 children: [
@@ -325,7 +319,7 @@ class CurrencyData {
   String key;
   double value;
   bool favorite = false;
-  bool isSelected = false;
+
   CurrencyData({
     required this.key,
     required this.value,

@@ -52,12 +52,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
       ));
     });
 
-    streamController.add(currencyList);
+    streamController.sink.add(currencyList);
   }
 
   @override
   void dispose() {
-    streamController.close();
+    streamController.sink.close();
     super.dispose();
   }
 
@@ -164,13 +164,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                       ),
                                       trailing: IconButton(
                                         onPressed: () {
+                                          snapshot.data![index].favorite =
+                                              !snapshot.data![index].favorite;
                                           currencyfavorite();
-
-                                          snapshot.data![index].isSelected =
-                                              !snapshot.data![index].isSelected;
                                           setState(() {});
                                         },
-                                        icon: snapshot.data![index].isSelected
+                                        icon: snapshot.data![index].favorite
                                             ? const Icon(
                                                 Icons.star_sharp,
                                                 size: 30.0,
@@ -210,12 +209,6 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
 
     debugPrint("--->>>>>>>$formList");
 
-    for (var element in favoriteList) {
-      int i = formList.indexWhere((element1) => element.key == element1.value);
-      CurrencyData c = formList.removeAt(i);
-      formList.insert(0, c);
-      debugPrint("---C >>>>>>>$c");
-    }
     for (int i = 0; i < formList.length; i++) {
       formList[i].favorite = !formList[i].favorite;
 
@@ -228,6 +221,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
           formList.insert(0, c);
         }
       }
+    }
+    for (var element in favoriteList) {
+      int i = formList.indexWhere((element1) => element.key == element1.value);
+      CurrencyData c = formList.removeAt(i);
+      formList.insert(0, c);
+      debugPrint("---C >>>>>>>$c");
     }
   }
 }
