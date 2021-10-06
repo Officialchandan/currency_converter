@@ -4,6 +4,7 @@ library block_colorpicker;
 
 
 
+import 'package:currency_converter/Themes/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_colorpicker/src/utils.dart';
@@ -95,7 +96,10 @@ class LockColorPicker extends StatefulWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: changeColor,
+
+          onTap: (){changeColor();
+
+          },
           borderRadius: BorderRadius.circular(50.0),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),

@@ -50,13 +50,14 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           ),
 
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   margin:EdgeInsets.all(10),
             width: 150,
                   child:
 
-                    ElevatedButton(child: Text("Select"),onPressed: (){
+                    ElevatedButton(child: const Text("Try this Color"),onPressed: (){
 
                       MyColors.firstthemecolorgr=currentColor;
                       MyColors.calcuColor=currentColor;

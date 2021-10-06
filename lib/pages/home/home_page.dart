@@ -1,20 +1,23 @@
 import 'dart:core';
 import 'dart:developer';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:flutter/cupertino.dart';
+
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 
+
 import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
+
 
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/second_screen.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
@@ -105,8 +108,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                       ratingBottomSheet(context);
                     },
                     icon: Image.asset(
-                      "assets/tab-ic4.png",
-                      color: MyColors.textColor,
+                      "assets/tab-ic4.png",color: MyColors.textColor,scale: 4
                     ),
                   ),
                 ),
@@ -130,13 +132,13 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         width: appwidth,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [
-            MyColors.firstthemecolorgr1,
-            MyColors.firstthemecolorgr,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        )),
+              colors: [
+                MyColors.firstthemecolorgr1,
+                MyColors.firstthemecolorgr,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            )),
         child: TabBarView(
           controller: _tabController,
           children: [
@@ -159,135 +161,137 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   ratingBottomSheet(BuildContext context) {
     var rating = 0.0;
     return showModalBottomSheet(
+
         isDismissible: false,
+
         backgroundColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
-          var width = MediaQuery.of(context).size.width;
-          var height = MediaQuery.of(context).size.height;
-          return Container(
-            width: width,
-            height: height * 0.35,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.white12,
-                  MyColors.firstthemecolorgr,
-                ],
-                stops: const [0.0, 0.5],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+
+          return IntrinsicHeight(
+            child: Container(
+
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white12,
+                    MyColors.firstthemecolorgr,
+                  ],
+                  stops: const [0.0, 0.5],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+
               ),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-            ),
-            child: Column(
-              children: [
-                Container(
-                  width: 60,
-                  height: 60,
-                  margin: const EdgeInsets.only(top: 10, bottom: 8),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset("assets/app-icon.png")),
-                ),
-                Text(
-                  "Please rate our app!",
-                  style: GoogleFonts.roboto(
-                      fontSize: 17,
-                      color: MyColors.textColor,
-                      fontWeight: FontWeight.normal),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
-                  child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(children: [
-                        TextSpan(
-                            text:
-                                "Tap on stars and open with Google Play Store to rate",
-                            style: GoogleFonts.roboto(
-                              fontSize: 18,
-                              color: MyColors.textColor,
-                              fontWeight: FontWeight.normal,
-                            )),
-                      ])),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                InkWell(
-                  onTap: () {
-                    _launchURL(
-                        "https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
-                  },
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 105,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                      Icon(
-                        Icons.star_border_purple500_sharp,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                      Icon(
-                        Icons.star_border_purple500_sharp,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                    ],
+              child: Column(
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    margin: const EdgeInsets.only(top: 10, bottom: 8),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.asset("assets/app-icon.png")),
                   ),
-                ),
-                Container(
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
-                    child: Divider(
-                      color: MyColors.textColor,
-                      height: 22.2,
-                      thickness: 1.2,
-                    )),
-                Container(
-                  width: 130,
-                  height: 40,
-                  margin: const EdgeInsets.only(top: 5),
-                  child: ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(primary: MyColors.textColor),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      if (_tabController.previousIndex == 2 ||
-                          _tabController.previousIndex == 4)
-                        _tabController.animateTo(_tabController.previousIndex);
+                  Text(
+                    "Please rate our app!",
+                    style: GoogleFonts.roboto(
+                        fontSize: 17,
+                        color: MyColors.textColor,
+                        fontWeight: FontWeight.normal),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text:
+                              "Tap on stars and open with Google Play Store to rate",
+                              style: GoogleFonts.roboto(
+                                fontSize: 18,
+                                color: MyColors.textColor,
+                                fontWeight: FontWeight.normal,
+                              )),
+                        ])),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+
+                      _launchURL("https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
                     },
-                    child: Text(
-                      "NOT NOW",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: MyColors.insideTextFieldColor,
-                          fontWeight: FontWeight.bold),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 105,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                        Icon(
+                          Icons.star_border_purple500_sharp,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                        Icon(
+                          Icons.star_border_purple500_sharp,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
+                  Container(
+                      margin:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                      child: Divider(
+                        color: MyColors.textColor,
+                        height: 22.2,
+                        thickness: 1.2,
+                      )),
+                  Container(
+                    width: 130,
+                    height: 40,
+                    margin: const EdgeInsets.only(top: 5),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: MyColors.textColor),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        if (_tabController.previousIndex == 2 ||
+                            _tabController.previousIndex == 4)
+                          _tabController.animateTo(_tabController.previousIndex);
+                      },
+                      child: Text(
+                        "NOT NOW",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: MyColors.insideTextFieldColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         });
@@ -304,7 +308,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
-    } else {
+    }
+    else {
       throw 'Could not launch $url';
     }
   }

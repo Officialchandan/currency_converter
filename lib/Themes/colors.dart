@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class MyColors {
   static Color firstthemecolorgr = const Color(0xFF3350E0);
 
-  static Color firstthemecolorgr1 = Colors.black54;
+  static Color firstthemecolorgr1 = Colors.grey;
 
 
 
