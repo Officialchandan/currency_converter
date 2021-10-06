@@ -1,5 +1,3 @@
-
-
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -121,7 +119,6 @@ class _TapHomeState extends State<TapHome> {
                   const SizedBox(
                     height: 15.0,
                   ),
-
                   Container(
                     width: appwidth - 20,
                     height: 50,
@@ -143,15 +140,15 @@ class _TapHomeState extends State<TapHome> {
                                   MyColors.firstthemecolorgr1,
                                   MyColors.firstthemecolorgr,
                                 ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
                               ),
                               borderRadius: BorderRadius.circular(7),
                             ),
                             child: Center(
                               child: Text(
                                 currencyCodeFrom,
-                                style:  TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                           ),
@@ -161,7 +158,8 @@ class _TapHomeState extends State<TapHome> {
                             width: MediaQuery.of(context).size.height * 0.24,
                             // width: 150,
                             child: TextField(
-                              style: TextStyle(color: MyColors.insideTextFieldColor),
+                              style: TextStyle(
+                                  color: MyColors.insideTextFieldColor),
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.none,
@@ -170,7 +168,11 @@ class _TapHomeState extends State<TapHome> {
                               decoration: const InputDecoration(
                                   border: InputBorder.none),
                               onTap: () {
+                                _isContainerVisible = false;
+
+                                _isContainerVisibleTwo = false;
                                 showCalculator(context);
+                                setState(() {});
                               },
                               onChanged: (text) {
                                 debugPrint("onchange -> $text");
@@ -200,7 +202,7 @@ class _TapHomeState extends State<TapHome> {
                                 getConverterAPI(currencyCodeFrom,
                                     currencyCodeTo, calculateCurrency.text);
                               },
-                              child:  Icon(
+                              child: Icon(
                                 Icons.compare_arrows_outlined,
                                 color: MyColors.insideTextFieldColor,
                               ),
@@ -210,7 +212,6 @@ class _TapHomeState extends State<TapHome> {
                       ],
                     ),
                   ),
-
                   const SizedBox(
                     height: 15.0,
                   ),
@@ -226,8 +227,8 @@ class _TapHomeState extends State<TapHome> {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextFormField(
-                              style: TextStyle(color: MyColors.insideTextFieldColor),
-
+                              style: TextStyle(
+                                  color: MyColors.insideTextFieldColor),
                               controller: edtFrom,
                               showCursor: false,
                               readOnly: true,
@@ -242,16 +243,13 @@ class _TapHomeState extends State<TapHome> {
                                 if (_isContainerVisibleTwo) {
                                   _isContainerVisibleTwo = false;
                                 }
-                                setState(() {
-                                  debugPrint("Hello");
+                                //*d
 
+                                setState(() {
                                   arrowPosition = !arrowPosition;
                                 });
-                                debugPrint("Hello1");
-
-                                debugPrint("Hello2");
                               },
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.ac_unit_outlined,
@@ -272,12 +270,12 @@ class _TapHomeState extends State<TapHome> {
                             width: appwidth * 0.45,
                             height: 50,
                             decoration: BoxDecoration(
-
                               color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextField(
-                              style:TextStyle(color: MyColors.insideTextFieldColor),
+                              style: TextStyle(
+                                  color: MyColors.insideTextFieldColor),
                               controller: edtTo,
                               showCursor: false,
                               readOnly: true,
@@ -299,10 +297,7 @@ class _TapHomeState extends State<TapHome> {
 
                                 debugPrint("Hello2");
                               },
-
-                              decoration:  InputDecoration(
-
-
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.ac_unit_outlined,
@@ -322,8 +317,6 @@ class _TapHomeState extends State<TapHome> {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  //**contanerIndex Open */
-
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
@@ -349,31 +342,46 @@ class _TapHomeState extends State<TapHome> {
                               },
                             )
                           : const Text(""),
-                  const SizedBox(
-                    height: 25.0,
-                  ),
                   Center(
-                    //***Currency Text*/
-                    child: Text(conversionRate.toStringAsFixed(3),style: TextStyle(
-                      color: MyColors.insideTextFieldColor
-                    ),),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          conversionRate.toStringAsFixed(3),
+                          style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          edtTo.text,
+                          style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
               _isContainerVisible
-                  ? const Positioned(
-                      top: 138,
-                      child: Icon(
+                  ? Positioned(
+                      top: MediaQuery.of(context).size.height * 00.232,
+                      child: const Icon(
                         Icons.arrow_drop_up,
                         size: 50,
                         color: Colors.white,
                       ))
                   : Container(),
               _isContainerVisibleTwo
-                  ? const Positioned(
-                      top: 138.0,
-                      left: 175.0,
-                      child: Icon(
+                  ? Positioned(
+                      top: MediaQuery.of(context).size.height * 00.232,
+                      left: MediaQuery.of(context).size.width * 00.480,
+                      child: const Icon(
                         Icons.arrow_drop_up,
                         size: 50,
                         color: Colors.white,
@@ -422,7 +430,7 @@ class _TapHomeState extends State<TapHome> {
     return cresult;
   }
 
-  void showCalculator(BuildContext context) {
+  showCalculator(BuildContext context) {
     showModalBottomSheet(
         barrierColor: Colors.transparent,
         // isDismissible: true,
@@ -495,7 +503,7 @@ class _TapHomeState extends State<TapHome> {
                         0.1 /
                         1.5 *
                         buttonHeight +
-                    2.6,
+                    (buttonHeight == 1 ? 2.6 : 5.0),
 
                 color: buttonColor,
                 child: FlatButton(
@@ -507,85 +515,82 @@ class _TapHomeState extends State<TapHome> {
                             style: BorderStyle.solid)),
                     padding: const EdgeInsets.all(10.0),
                     onPressed: () => buttonPressed(buttonText),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 0.0),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Text(
-                          buttonText,
-                          style: const TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.white),
-                        ),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        buttonText,
+                        style: const TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white),
                       ),
                     )),
               ),
             );
           }
 
-          return Container(
-              width: MediaQuery.of(context).size.width * .75,
-              height: MediaQuery.of(context).size.height * 0.35,
+          return IntrinsicHeight(
+              // width: MediaQuery.of(context).size.width * .75,
+              // height: MediaQuery.of(context).size.height * 0.35,
               child: Column(
+            children: <Widget>[
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width * .75,
-                        height: MediaQuery.of(context).size.height * 0.35,
-                        child: Table(
-                          children: [
-                            TableRow(children: [
-                              buildButton("%", 1, MyColors.calcuColor),
-                              buildButton("/", 1, MyColors.calcuColor),
-                              buildButton("×", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton("1", 1, MyColors.calcuColor),
-                              buildButton("2", 1, MyColors.calcuColor),
-                              buildButton("3", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton("4", 1, MyColors.calcuColor),
-                              buildButton("5", 1, MyColors.calcuColor),
-                              buildButton("6", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton("7", 1, MyColors.calcuColor),
-                              buildButton("8", 1, MyColors.calcuColor),
-                              buildButton("9", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton(".", 1, MyColors.calcuColor),
-                              buildButton("0", 1, MyColors.calcuColor),
-                              buildButton("c", 1, MyColors.calcuColor),
-                            ]),
-                          ],
-                        ),
-                      ),
-                      Container(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: Table(children: [
-                            TableRow(children: [
-                              buildButton("⌫", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton("+", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton("=", 2, MyColors.calcuColor),
-                            ]),
-                          ]))
-                    ],
+                  Container(
+                    width: MediaQuery.of(context).size.width * .75,
+                    // height: MediaQuery.of(context).size.height * 0.35,
+                    child: Table(
+                      children: [
+                        TableRow(children: [
+                          buildButton("%", 1, MyColors.calcuColor),
+                          buildButton("/", 1, MyColors.calcuColor),
+                          buildButton("×", 1, MyColors.calcuColor),
+                        ]),
+                        TableRow(children: [
+                          buildButton("1", 1, MyColors.calcuColor),
+                          buildButton("2", 1, MyColors.calcuColor),
+                          buildButton("3", 1, MyColors.calcuColor),
+                        ]),
+                        TableRow(children: [
+                          buildButton("4", 1, MyColors.calcuColor),
+                          buildButton("5", 1, MyColors.calcuColor),
+                          buildButton("6", 1, MyColors.calcuColor),
+                        ]),
+                        TableRow(children: [
+                          buildButton("7", 1, MyColors.calcuColor),
+                          buildButton("8", 1, MyColors.calcuColor),
+                          buildButton("9", 1, MyColors.calcuColor),
+                        ]),
+                        TableRow(children: [
+                          buildButton(".", 1, MyColors.calcuColor),
+                          buildButton("0", 1, MyColors.calcuColor),
+                          buildButton("C", 1, MyColors.calcuColor),
+                        ]),
+                      ],
+                    ),
                   ),
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      child: Table(children: [
+                        TableRow(children: [
+                          buildButton("⌫", 1, MyColors.calcuColor),
+                        ]),
+                        TableRow(children: [
+                          buildButton("-", 1, MyColors.calcuColor),
+                        ]),
+                        TableRow(children: [
+                          buildButton("+", 1, MyColors.calcuColor),
+                        ]),
+                        TableRow(children: [
+                          buildButton("=", 2, MyColors.calcuColor),
+                        ]),
+                      ]))
                 ],
-              ));
+              ),
+            ],
+          ));
         });
   }
 }

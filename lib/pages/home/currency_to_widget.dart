@@ -45,7 +45,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
 
   @override
   void dispose() {
-    streamController.close();
+    streamController.sink.close();
 
     super.dispose();
   }
