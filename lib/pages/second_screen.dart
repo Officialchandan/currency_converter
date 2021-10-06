@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'add_currency_screen.dart';
@@ -20,7 +19,6 @@ class _SecondScreenState extends State<SecondScreen> {
       body: Container(
         height: appheight,
         width: appwidth,
-
         child: Padding(
           padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
           child: Column(
@@ -28,21 +26,32 @@ class _SecondScreenState extends State<SecondScreen> {
               Container(
                 // color: Colors.red,
                 width: appwidth - 20,
-
                 child: Row(
-                  children: const <Widget>[
+                  children: <Widget>[
                     SizedBox(
-                      width: 110,
+                      width: appwidth * 0.255,
                     ),
-                    Text("Updated:"),
-                    SizedBox(
+                    const Center(
+                      child: Text(
+                        "Updated:",
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    const SizedBox(
                       width: 5,
                     ),
-                    Text("09/23/2021"),
-                    SizedBox(
-                      width: 50.0,
+                    const Center(
+                      child: Text(
+                        "09/23/2021",
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.w500),
+                      ),
                     ),
-                    Icon(
+                    SizedBox(
+                      width: appwidth * 0.15,
+                    ),
+                    const Icon(
                       Icons.share,
                       color: Colors.white,
                     )
