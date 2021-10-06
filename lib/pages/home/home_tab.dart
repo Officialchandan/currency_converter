@@ -1,5 +1,3 @@
-
-
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -45,6 +43,7 @@ class _TapHomeState extends State<TapHome> {
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   Map<String, double> cresult = {};
+
   @override
   void initState() {
     getCurrencyCode();
@@ -99,15 +98,37 @@ class _TapHomeState extends State<TapHome> {
                         const SizedBox(
                           width: 115,
                         ),
-                        const Text("Updated:"),
+                         Text("Updated:",style: TextStyle(color: MyColors.textColor,fontSize: MyColors.fontsmall
+                            ? (MyColors.textSize - 18) * (-1)
+                            : MyColors.fontlarge
+                            ? (MyColors.textSize + 18)
+                            : 18,),),
                         const SizedBox(
                           width: 5,
                         ),
                         MyColors.datemm
                             ? Text(
-                                "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}")
+                                "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 18) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 18)
+                                          : 18,
+                                ),
+                              )
                             : Text(
-                                "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}"),
+                                "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 18) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 18)
+                                          : 18,
+                                ),
+                              ),
                         const SizedBox(
                           width: 50.0,
                         ),
@@ -143,15 +164,19 @@ class _TapHomeState extends State<TapHome> {
                                   MyColors.firstthemecolorgr1,
                                   MyColors.firstthemecolorgr,
                                 ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
                               ),
                               borderRadius: BorderRadius.circular(7),
                             ),
                             child: Center(
                               child: Text(
                                 currencyCodeFrom,
-                                style:  TextStyle(color: Colors.white),
+                                style: TextStyle(color: Colors.white,fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 14) * (-1)
+                                    : MyColors.fontlarge
+                                    ? (MyColors.textSize + 14)
+                                    : 14,),
                               ),
                             ),
                           ),
@@ -161,7 +186,12 @@ class _TapHomeState extends State<TapHome> {
                             width: MediaQuery.of(context).size.height * 0.24,
                             // width: 150,
                             child: TextField(
-                              style: TextStyle(color: MyColors.insideTextFieldColor),
+                              style: TextStyle(
+                                  color: MyColors.insideTextFieldColor,fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 14) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 14)
+                                  : 14,),
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.none,
@@ -200,7 +230,7 @@ class _TapHomeState extends State<TapHome> {
                                 getConverterAPI(currencyCodeFrom,
                                     currencyCodeTo, calculateCurrency.text);
                               },
-                              child:  Icon(
+                              child: Icon(
                                 Icons.compare_arrows_outlined,
                                 color: MyColors.insideTextFieldColor,
                               ),
@@ -226,8 +256,12 @@ class _TapHomeState extends State<TapHome> {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextFormField(
-                              style: TextStyle(color: MyColors.insideTextFieldColor),
-
+                              style: TextStyle(
+                                  color: MyColors.insideTextFieldColor,fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 14) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 14)
+                                  : 14,),
                               controller: edtFrom,
                               showCursor: false,
                               readOnly: true,
@@ -251,7 +285,7 @@ class _TapHomeState extends State<TapHome> {
 
                                 debugPrint("Hello2");
                               },
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.ac_unit_outlined,
@@ -272,12 +306,16 @@ class _TapHomeState extends State<TapHome> {
                             width: appwidth * 0.45,
                             height: 50,
                             decoration: BoxDecoration(
-
                               color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextField(
-                              style:TextStyle(color: MyColors.insideTextFieldColor),
+                              style: TextStyle(
+                                  color: MyColors.insideTextFieldColor,fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 14) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 14)
+                                  : 14,),
                               controller: edtTo,
                               showCursor: false,
                               readOnly: true,
@@ -299,10 +337,7 @@ class _TapHomeState extends State<TapHome> {
 
                                 debugPrint("Hello2");
                               },
-
-                              decoration:  InputDecoration(
-
-
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.ac_unit_outlined,
@@ -354,9 +389,10 @@ class _TapHomeState extends State<TapHome> {
                   ),
                   Center(
                     //***Currency Text*/
-                    child: Text(conversionRate.toStringAsFixed(3),style: TextStyle(
-                      color: MyColors.insideTextFieldColor
-                    ),),
+                    child: Text(
+                      conversionRate.toStringAsFixed(3),
+                      style: TextStyle(color: MyColors.insideTextFieldColor),
+                    ),
                   ),
                 ],
               ),
