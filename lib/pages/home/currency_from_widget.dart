@@ -140,7 +140,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                       const EdgeInsets.fromLTRB(10, 2, 10, 0),
                                   decoration: BoxDecoration(
                                     // color: MyColors.textColor,
-                                    color: Colors.black45,
+                                    color: MyColors.,
 
                                     borderRadius: BorderRadius.circular(7),
                                   ),

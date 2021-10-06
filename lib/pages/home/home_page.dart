@@ -198,7 +198,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   Text(
                     "Please rate our app!",
                     style: GoogleFonts.roboto(
-                        fontSize: 17,
+                        fontSize: MyColors.fontsmall
+                            ? (MyColors.textSize - 17) * (-1)
+                            : MyColors.fontlarge
+                            ? (MyColors.textSize + 17)
+                            : 17,
                         color: MyColors.textColor,
                         fontWeight: FontWeight.normal),
                   ),
@@ -214,7 +218,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                               text:
                               "Tap on stars and open with Google Play Store to rate",
                               style: GoogleFonts.roboto(
-                                fontSize: 18,
+                                fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 18) * (-1)
+                                    : MyColors.fontlarge
+                                    ? (MyColors.textSize + 18)
+                                    : 18,
                                 color: MyColors.textColor,
                                 fontWeight: FontWeight.normal,
                               )),
@@ -284,7 +292,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                       child: Text(
                         "NOT NOW",
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: MyColors.fontsmall
+                                ? (MyColors.textSize - 18) * (-1)
+                                : MyColors.fontlarge
+                                ? (MyColors.textSize + 18)
+                                : 18,
                             color: MyColors.insideTextFieldColor,
                             fontWeight: FontWeight.bold),
                       ),

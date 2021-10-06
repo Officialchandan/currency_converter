@@ -1,5 +1,3 @@
-
-
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -45,6 +43,7 @@ class _TapHomeState extends State<TapHome> {
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   Map<String, double> cresult = {};
+
   @override
   void initState() {
     getCurrencyCode();
@@ -99,11 +98,17 @@ class _TapHomeState extends State<TapHome> {
                         const SizedBox(
                           width: 115,
                         ),
-                         Text("Updated:",style: TextStyle(color: MyColors.textColor,fontSize: MyColors.fontsmall
-                            ? (MyColors.textSize - 18) * (-1)
-                            : MyColors.fontlarge
-                            ? (MyColors.textSize + 18)
-                            : 18,),),
+                        Text(
+                          "Updated:",
+                          style: TextStyle(
+                            color: MyColors.textColor,
+                            fontSize: MyColors.fontsmall
+                                ? (MyColors.textSize - 18) * (-1)
+                                : MyColors.fontlarge
+                                    ? (MyColors.textSize + 18)
+                                    : 18,
+                          ),
+                        ),
                         const SizedBox(
                           width: 5,
                         ),
@@ -172,11 +177,14 @@ class _TapHomeState extends State<TapHome> {
                             child: Center(
                               child: Text(
                                 currencyCodeFrom,
-                                style: TextStyle(color: Colors.white,fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 14) * (-1)
-                                    : MyColors.fontlarge
-                                    ? (MyColors.textSize + 14)
-                                    : 14,),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 14) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 14)
+                                          : 14,
+                                ),
                               ),
                             ),
                           ),
@@ -187,11 +195,13 @@ class _TapHomeState extends State<TapHome> {
                             // width: 150,
                             child: TextField(
                               style: TextStyle(
-                                  color: MyColors.insideTextFieldColor,fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 14) * (-1)
-                                  : MyColors.fontlarge
-                                  ? (MyColors.textSize + 14)
-                                  : 14,),
+                                color: MyColors.insideTextFieldColor,
+                                fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 14) * (-1)
+                                    : MyColors.fontlarge
+                                        ? (MyColors.textSize + 14)
+                                        : 14,
+                              ),
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.none,
@@ -260,13 +270,13 @@ class _TapHomeState extends State<TapHome> {
                             ),
                             child: TextFormField(
                               style: TextStyle(
-                                  color: MyColors.insideTextFieldColor),
-                              style: TextStyle(
-                                  color: MyColors.insideTextFieldColor,fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 14) * (-1)
-                                  : MyColors.fontlarge
-                                  ? (MyColors.textSize + 14)
-                                  : 14,),
+                                color: MyColors.insideTextFieldColor,
+                                fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 18) * (-1)
+                                    : MyColors.fontlarge
+                                        ? (MyColors.textSize + 18)
+                                        : 18,
+                              ),
                               controller: edtFrom,
                               showCursor: false,
                               readOnly: true,
@@ -308,18 +318,18 @@ class _TapHomeState extends State<TapHome> {
                             width: appwidth * 0.45,
                             height: 50,
                             decoration: BoxDecoration(
-
                               color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextField(
                               style: TextStyle(
-                                  color: MyColors.insideTextFieldColor,fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 14) * (-1)
-                                  : MyColors.fontlarge
-                                  ? (MyColors.textSize + 14)
-                                  : 14,),
-
+                                color: MyColors.insideTextFieldColor,
+                                fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 16) * (-1)
+                                    : MyColors.fontlarge
+                                        ? (MyColors.textSize + 16)
+                                        : 16,
+                              ),
                               controller: edtTo,
                               showCursor: false,
                               readOnly: true,
@@ -396,7 +406,11 @@ class _TapHomeState extends State<TapHome> {
                           conversionRate.toStringAsFixed(3),
                           style: TextStyle(
                               color: MyColors.textColor,
-                              fontSize: 30.0,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 25) * (-1)
+                                  : MyColors.fontlarge
+                                      ? (MyColors.textSize + 25)
+                                      : 25,
                               fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
@@ -406,7 +420,11 @@ class _TapHomeState extends State<TapHome> {
                           edtTo.text,
                           style: TextStyle(
                               color: MyColors.textColor,
-                              fontSize: 30.0,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 25) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 25)
+                                  : 25,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
