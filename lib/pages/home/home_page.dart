@@ -114,7 +114,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                       ratingBottomSheet(context);
                     },
                     icon: Image.asset(
-                      "assets/tab-ic4.png",color: MyColors.textColor,
+                      "assets/tab-ic4.png",color: MyColors.textColor,scale: 4
                     ),
                   ),
                 ),
@@ -167,144 +167,137 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   ratingBottomSheet(BuildContext context) {
     var rating = 0.0;
     return showModalBottomSheet(
+      
         isDismissible: false,
-        shape:RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-        ),
+
         backgroundColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
-          var width = MediaQuery
-              .of(context)
-              .size
-              .width;
-          var height = MediaQuery
-              .of(context)
-              .size
-              .height;
-          return Container(
-            width: width,
-            height: height * 0.39,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.white12,
-                  MyColors.firstthemecolorgr,
-                ],
-                stops: const [0.0, 0.5],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+         
+          return IntrinsicHeight(
+            child: Container(
+            
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white12,
+                    MyColors.firstthemecolorgr,
+                  ],
+                  stops: const [0.0, 0.5],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+               
               ),
-
-            ),
-            child: Column(
-              children: [
-                Container(
-                  width: 60,
-                  height: 60,
-                  margin: const EdgeInsets.only(top: 10, bottom: 8),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset("assets/app-icon.png")),
-                ),
-                Text(
-                  "Please rate our app!",
-                  style: GoogleFonts.roboto(
-                      fontSize: 17,
-                      color: MyColors.textColor,
-                      fontWeight: FontWeight.normal),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
-                  child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(children: [
-                        TextSpan(
-                            text:
-                            "Tap on stars and open with Google Play Store to rate",
-                            style: GoogleFonts.roboto(
-                              fontSize: 18,
-                              color: MyColors.textColor,
-                              fontWeight: FontWeight.normal,
-                            )),
-                      ])),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                InkWell(
-                  onTap: () {
-
-                    _launchURL("https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
-                  },
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 105,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                      Icon(
-                        Icons.star_border_purple500_sharp,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                      Icon(
-                        Icons.star_border_purple500_sharp,
-                        size: 40,
-                        color: MyColors.textColor,
-                      ),
-                    ],
+              child: Column(
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    margin: const EdgeInsets.only(top: 10, bottom: 8),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.asset("assets/app-icon.png")),
                   ),
-                ),
-                Container(
-                    margin:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
-                    child: Divider(
-                      color: MyColors.textColor,
-                      height: 22.2,
-                      thickness: 1.2,
-                    )),
-                Container(
-                  width: 130,
-                  height: 40,
-                  margin: const EdgeInsets.only(top: 5),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: MyColors.textColor),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      if (_tabController.previousIndex == 2 ||
-                          _tabController.previousIndex == 4)
-                        _tabController.animateTo(_tabController.previousIndex);
+                  Text(
+                    "Please rate our app!",
+                    style: GoogleFonts.roboto(
+                        fontSize: 17,
+                        color: MyColors.textColor,
+                        fontWeight: FontWeight.normal),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text:
+                              "Tap on stars and open with Google Play Store to rate",
+                              style: GoogleFonts.roboto(
+                                fontSize: 18,
+                                color: MyColors.textColor,
+                                fontWeight: FontWeight.normal,
+                              )),
+                        ])),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+
+                      _launchURL("https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
                     },
-                    child: Text(
-                      "NOT NOW",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: MyColors.insideTextFieldColor,
-                          fontWeight: FontWeight.bold),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 105,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                        Icon(
+                          Icons.star_border_purple500_sharp,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                        Icon(
+                          Icons.star_border_purple500_sharp,
+                          size: 40,
+                          color: MyColors.textColor,
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
+                  Container(
+                      margin:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                      child: Divider(
+                        color: MyColors.textColor,
+                        height: 22.2,
+                        thickness: 1.2,
+                      )),
+                  Container(
+                    width: 130,
+                    height: 40,
+                    margin: const EdgeInsets.only(top: 5),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: MyColors.textColor),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        if (_tabController.previousIndex == 2 ||
+                            _tabController.previousIndex == 4)
+                          _tabController.animateTo(_tabController.previousIndex);
+                      },
+                      child: Text(
+                        "NOT NOW",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: MyColors.insideTextFieldColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         });
