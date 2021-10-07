@@ -394,6 +394,7 @@ class _TapHomeState extends State<TapHome> {
                             _isContainerVisible = false;
                             setState(() {});
                           },
+
                         )
                       : _isContainerVisibleTwo
                           ? CurrencyToWidget(
