@@ -85,7 +85,6 @@ class _TeramAndConditionState extends State<TeramAndCondition>
             Expanded(
               child: TabBarView(
                   physics: const NeverScrollableScrollPhysics(),
-                  dragStartBehavior: DragStartBehavior.start,
                   controller: _tabControllers,
                   children: const [
                     SupportPage(),

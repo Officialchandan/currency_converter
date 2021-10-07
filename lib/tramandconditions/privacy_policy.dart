@@ -24,12 +24,13 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
       backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.only(top: 18),
-        child: Scrollbar(
-          controller: _scrollController,
-          thickness: 20.0,
-          child: const WebView(
-            initialUrl: 'https://www.currency.wiki/legal#privacy',
-          ),
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: const [
+            WebView(
+              initialUrl: 'https://www.currency.wiki/legal#privacy',
+            ),
+          ],
         ),
       ),
     );

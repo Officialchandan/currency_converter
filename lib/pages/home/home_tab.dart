@@ -78,6 +78,7 @@ class _TapHomeState extends State<TapHome> {
 
   @override
   Widget build(BuildContext context) {
+    var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -89,43 +90,18 @@ class _TapHomeState extends State<TapHome> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    // color: Colors.red,
-                    width: appwidth - 20,
-
+                  Container(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        const SizedBox(
-                          width: 115,
+                        SizedBox(
+                          width: appwidth * 0.14,
                         ),
-                        Text(
-                          "Updated:",
-                          style: TextStyle(
-                            color: MyColors.textColor,
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 18) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 18)
-                                    : 18,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        MyColors.datemm
-                            ? Text(
-                                "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                style: TextStyle(
-                                  color: MyColors.textColor,
-                                  fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 18) * (-1)
-                                      : MyColors.fontlarge
-                                          ? (MyColors.textSize + 18)
-                                          : 18,
-                                ),
-                              )
-                            : Text(
-                                "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                        Row(
+                          children: [
+                            Center(
+                              child: Text(
+                                "Updated:",
                                 style: TextStyle(
                                   color: MyColors.textColor,
                                   fontSize: MyColors.fontsmall
@@ -135,9 +111,42 @@ class _TapHomeState extends State<TapHome> {
                                           : 18,
                                 ),
                               ),
-                        const SizedBox(
-                          width: 50.0,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            MyColors.datemm
+                                ? Center(
+                                    child: Text(
+                                      "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                      style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 18) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 18)
+                                                : 18,
+                                      ),
+                                    ),
+                                  )
+                                : Center(
+                                    child: Text(
+                                      "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                      style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 18) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 18)
+                                                : 18,
+                                      ),
+                                    ),
+                                  ),
+                          ],
                         ),
+                        SizedBox(
+                            // width: appwidth * 0.05,
+                            ),
                         const Icon(
                           Icons.share,
                           color: Colors.white,
@@ -423,8 +432,8 @@ class _TapHomeState extends State<TapHome> {
                               fontSize: MyColors.fontsmall
                                   ? (MyColors.textSize - 25) * (-1)
                                   : MyColors.fontlarge
-                                  ? (MyColors.textSize + 25)
-                                  : 25,
+                                      ? (MyColors.textSize + 25)
+                                      : 25,
                               fontWeight: FontWeight.bold),
                         ),
                       ],

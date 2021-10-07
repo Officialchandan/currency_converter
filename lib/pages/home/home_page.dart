@@ -7,14 +7,11 @@ import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:flutter/cupertino.dart';
 
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 
-
 import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
-
 
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/second_screen.dart';
@@ -114,9 +111,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     onPressed: () {
                       ratingBottomSheet(context);
                     },
-                    icon: Image.asset(
-                      "assets/tab-ic4.png",color: MyColors.textColor,scale: 4
-                    ),
+                    icon: Image.asset("assets/tab-ic4.png",
+                        color: MyColors.textColor, scale: 4),
                   ),
                 ),
                 Tab(
@@ -139,13 +135,13 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         width: appwidth,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                MyColors.firstthemecolorgr1,
-                MyColors.firstthemecolorgr,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )),
+          colors: [
+            MyColors.firstthemecolorgr1,
+            MyColors.firstthemecolorgr,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )),
         child: TabBarView(
           controller: _tabController,
           children: [
@@ -168,19 +164,16 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   ratingBottomSheet(BuildContext context) {
 
     return showModalBottomSheet(
-
         isDismissible: false,
-
         backgroundColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
-
           return IntrinsicHeight(
             child: Container(
-
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
                 gradient: LinearGradient(
                   colors: [
                     Colors.white12,
@@ -190,7 +183,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
-
               ),
               child: Column(
                 children: [
@@ -208,8 +200,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                         fontSize: MyColors.fontsmall
                             ? (MyColors.textSize - 17) * (-1)
                             : MyColors.fontlarge
-                            ? (MyColors.textSize + 17)
-                            : 17,
+                                ? (MyColors.textSize + 17)
+                                : 17,
                         color: MyColors.textColor,
                         fontWeight: FontWeight.normal),
                   ),
@@ -223,13 +215,13 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                         text: TextSpan(children: [
                           TextSpan(
                               text:
-                              "Tap on stars and open with Google Play Store to rate",
+                                  "Tap on stars and open with Google Play Store to rate",
                               style: GoogleFonts.roboto(
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 18) * (-1)
                                     : MyColors.fontlarge
-                                    ? (MyColors.textSize + 18)
-                                    : 18,
+                                        ? (MyColors.textSize + 18)
+                                        : 18,
                                 color: MyColors.textColor,
                                 fontWeight: FontWeight.normal,
                               )),
@@ -240,8 +232,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   ),
                   InkWell(
                     onTap: () {
-
-                      _launchURL("https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
+                      _launchURL(
+                          "https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -277,8 +269,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     ),
                   ),
                   Container(
-                      margin:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 30),
                       child: Divider(
                         color: MyColors.textColor,
                         height: 22.2,
@@ -289,12 +281,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     height: 40,
                     margin: const EdgeInsets.only(top: 5),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: MyColors.textColor),
+                      style:
+                          ElevatedButton.styleFrom(primary: MyColors.textColor),
                       onPressed: () {
                         Navigator.pop(context);
                         if (_tabController.previousIndex == 2 ||
                             _tabController.previousIndex == 4)
-                          _tabController.animateTo(_tabController.previousIndex);
+                          _tabController
+                              .animateTo(_tabController.previousIndex);
                       },
                       child: Text(
                         "NOT NOW",
@@ -302,8 +296,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 18) * (-1)
                                 : MyColors.fontlarge
-                                ? (MyColors.textSize + 18)
-                                : 18,
+                                    ? (MyColors.textSize + 18)
+                                    : 18,
                             color: MyColors.insideTextFieldColor,
                             fontWeight: FontWeight.bold),
                       ),
@@ -327,8 +321,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
-    }
-    else {
+    } else {
       throw 'Could not launch $url';
     }
   }
@@ -351,6 +344,7 @@ class CurrencyData {
   String key;
   double value;
   bool favorite = false;
+  bool changeIcon = false;
 
   CurrencyData({
     required this.key,
