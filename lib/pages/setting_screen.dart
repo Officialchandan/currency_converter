@@ -1,12 +1,14 @@
 import 'dart:ui';
 
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/utils/constants.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../colors_properties/lockcolorpicker.dart';
 import '../colors_properties/densitycolorpicker.dart';
@@ -77,7 +79,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Container(
                   // margin: EdgeInsets.only(right: 20),
                   width: width * .92,
-                  height: height * .098,
+
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                       color: Colors.black26,
@@ -90,7 +92,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         child: RichText(
                             text: TextSpan(children: [
                           TextSpan(
-                            text: "Support our project  with a small yearly",
+                            text: "Support our project  with a small yearly Subscription",
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: MyColors.fontsmall
@@ -100,17 +102,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         : 15,
                                 color: MyColors.textColor),
                           ),
-                          TextSpan(
-                            text: "\nSubscription",
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 15) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 15)
-                                        : 15,
-                                color: MyColors.textColor),
-                          )
+
                         ])),
                       ),
                       Container(
@@ -372,7 +364,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(right: 0, top: 15),
-                  height: height * .183,
+
                   width: width * .92,
                   padding: const EdgeInsets.only(
                       top: 5, left: 0, right: 0, bottom: 5),
@@ -380,8 +372,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       color: Colors.black26,
                       borderRadius: BorderRadius.circular(10)),
                   child: Row(
-                    children: [
-                      Row(
+
                         children: [
                           Container(
                             width: width * 0.31,
@@ -411,13 +402,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                         : 15,
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+
                       Container(
                         width: width * 0.5,
-                        height: height * 1.9,
-                        margin: const EdgeInsets.only(left: 0.0),
+
+
                         decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.69),
                             borderRadius: BorderRadius.circular(10),
@@ -458,10 +448,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                   "/",
                                   style: GoogleFonts.roboto(
                                       fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 20) * (-1)
+                                          ? (MyColors.textSize - 18) * (-1)
                                           : MyColors.fontlarge
-                                              ? (MyColors.textSize + 20)
-                                              : 20,
+                                              ? (MyColors.textSize + 18)
+                                              : 18,
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -489,10 +479,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                   style: TextStyle(
                                     color: MyColors.textColor,
                                     fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 21) * (-1)
+                                        ? (MyColors.textSize - 20) * (-1)
                                         : MyColors.fontlarge
                                             ? (MyColors.textSize + 20)
-                                            : 21,
+                                            : 20,
                                   )),
                             ),
                             Padding(
@@ -507,9 +497,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             : 16,
                                   )),
                             ),
-                            SizedBox(
-                              height: 2,
-                            ),
+
                             Text("  By: Currency.wiki",
                                 style: GoogleFonts.roboto(
                                   color: MyColors.textColor,
@@ -890,87 +878,91 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.black26,
                         borderRadius: BorderRadius.circular(10)),
                     child: Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Transform.scale(
-                          scale: 1.1,
-                          child: Checkbox(
-                            side: BorderSide(color: MyColors.textColor),
-                            value: MyColors.datedd,
-                            onChanged: (value) {
-                              setState(() {
-                                if (MyColors.datemm) {
-                                  MyColors.datemm = !MyColors.datemm;
-                                  MyColors.datedd = !MyColors.datedd;
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => MyTabBarWidget()),
-                                      (route) => false);
-                                }
-                              });
-                            },
-                            activeColor: MyColors.checkBoxValue2
-                                ? Colors.black45
-                                : Colors.white,
-                            checkColor: Colors.black,
-                            tristate: false,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ),
-                        Text("mm/dd/yy",
-                            style: GoogleFonts.roboto(
-                              fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 16) * (-1)
-                                  : MyColors.fontlarge
-                                      ? (MyColors.textSize + 16)
-                                      : 16,
-                              color: MyColors.textColor,
-                            )),
-                        const SizedBox(
-                          width: 35,
-                        ),
-                        Transform.scale(
-                          scale: 1.1,
-                          child: Checkbox(
-                            side: BorderSide(color: MyColors.textColor),
-                            value: MyColors.datemm,
-                            onChanged: (value) {
-                              setState(() {
-                                if (MyColors.datedd) {
-                                  MyColors.datedd = !MyColors.datedd;
-                                  MyColors.datemm = !MyColors.datemm;
 
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => MyTabBarWidget()),
-                                      (route) => false);
-                                }
-                              });
-                            },
-                            activeColor: MyColors.checkBoxValue2
-                                ? Colors.black45
-                                : Colors.white,
-                            checkColor: Colors.black,
-                            tristate: false,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
+                        Row(
+                          children: [
+                            Transform.scale(
+                              scale: 1.1,
+                              child: Checkbox(
+                                side: BorderSide(color: MyColors.textColor),
+                                value: MyColors.datedd,
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (MyColors.datemm) {
+                                      MyColors.datemm = !MyColors.datemm;
+                                      MyColors.datedd = !MyColors.datedd;
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => MyTabBarWidget()),
+                                          (route) => false);
+                                    }
+                                  });
+                                },
+                                activeColor: MyColors.checkBoxValue2
+                                    ? Colors.black45
+                                    : Colors.white,
+                                checkColor: Colors.black,
+                                tristate: false,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                            ),
+                            Text("mm/dd/yy",
+                                style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 16) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 16)
+                                          : 16,
+                                  color: MyColors.textColor,
+                                )),
+                          ],
                         ),
-                        Text(
-                          "dd/mm/yy",
-                          style: GoogleFonts.roboto(
-                              fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 16) * (-1)
-                                  : MyColors.fontlarge
-                                      ? (MyColors.textSize + 16)
-                                      : 16,
-                              color: MyColors.textColor),
+
+                        Row(
+                          children: [
+                            Transform.scale(
+                              scale: 1.1,
+                              child: Checkbox(
+                                side: BorderSide(color: MyColors.textColor),
+                                value: MyColors.datemm,
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (MyColors.datedd) {
+                                      MyColors.datedd = !MyColors.datedd;
+                                      MyColors.datemm = !MyColors.datemm;
+
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => MyTabBarWidget()),
+                                          (route) => false);
+                                    }
+                                  });
+                                },
+                                activeColor: MyColors.checkBoxValue2
+                                    ? Colors.black45
+                                    : Colors.white,
+                                checkColor: Colors.black,
+                                tristate: false,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                            ),
+                            Text(
+                              "dd/mm/yy",
+                              style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 16) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 16)
+                                          : 16,
+                                  color: MyColors.textColor),
+                            ),
+                          ],
                         )
                       ],
                     )),
@@ -1033,7 +1025,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   margin: const EdgeInsets.only(
                       top: 15, right: 10, bottom: 0, left: 10),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.95,
+                  height: MediaQuery.of(context).size.height * 0.85,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -1055,7 +1047,10 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   void showCustomColorPickerDialog(BuildContext context) async {
+
     showGeneralDialog(
+
+
         context: context,
         barrierDismissible: true,
         barrierLabel:
@@ -1064,6 +1059,7 @@ class _SettingScreenState extends State<SettingScreen> {
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (BuildContext buildContext, Animation animation,
             Animation secondaryAnimation) {
+
           double width = MediaQuery.of(context).size.width;
           double height = MediaQuery.of(context).size.height;
 
@@ -1071,13 +1067,14 @@ class _SettingScreenState extends State<SettingScreen> {
             style: const TextStyle(decoration: TextDecoration.none),
             child: Center(
               child: Container(
+
                 margin: const EdgeInsets.only(
-                    top: 15, right: 10, bottom: 0, left: 10),
+                    top: 60, right: 10, bottom: 80, left: 10),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.77,
+                height: MediaQuery.of(context).size.height * 6.77,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: CustomColorPicker(),
               ),
@@ -1197,13 +1194,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;
+  Color densitySelectedColor=Colors.red;
+  bool density=false;
+  bool lock=false;
   @override
   void initState() {
     unlockCurrentColor = widget.unlockCurrentColor;
     lockCurrentColor = widget.lockCurrentColor;
     densityCurrentColor = widget.densityCurrentColor;
     selectedColor = MColor(
-        mainColor: unlockCurrentColor, densityColors: [densityCurrentColor]);
+        mainColor: Colors.white, densityColors: [ Colors.lightBlue.shade50,
+      Colors.lightBlue.shade100,
+      Colors.lightBlue.shade200,
+      Colors.lightBlue.shade300,
+      Colors.lightBlue.shade400,
+      Colors.lightBlue.shade500,
+      Colors.lightBlue.shade600,
+      Colors.lightBlue.shade900]);
     super.initState();
   }
 
@@ -1275,14 +1282,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                      margin: EdgeInsets.only(top: 15),
+                      margin: EdgeInsets.only(top: 5),
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Colors.indigoAccent),
                         onPressed: () {
-                          if(widget.lockedColor) {
+                          if(lock) {
                             MyColors.firstthemecolorgr=lockSelectdColor!;
                             Navigator.pushAndRemoveUntil(
                                 context,
@@ -1290,15 +1297,18 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     builder: (_) => MyTabBarWidget()),
                                     (route) => false);
                           }
-                          // var code =
-                          //     (selectedColor.mainColor.value.toRadixString(16));
-                          // MyColors.firstthemecolorgr =
-                          //     Color(int.parse("0x$code"));
-                          // MyColors.calcuColor = Color(int.parse("0x$code"));
-                          //
-                          // // Navigator.pop(context);
-                          // widget.onColorSelect(
-                          //     selectedColor.mainColor, context);
+                          else if (density)
+                            {
+
+
+                              MyColors.firstthemecolorgr=densitySelectedColor;
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => MyTabBarWidget()),
+                                      (route) => false);
+                            }
+
                         },
                         child: Text(
                           "Try this color",
@@ -1306,7 +1316,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         ),
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: 15),
+                      margin: EdgeInsets.only(top: 5),
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
@@ -1325,8 +1335,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              margin: EdgeInsets.only(left: 10,top: 30, ),
-              width: width * 0.25,
+              margin: EdgeInsets.only(left: 10,top: 10, ),
+
+              width: width * 0.31,
               height: height * 0.05,
               child: GestureDetector(
                 onTap: () {
@@ -1344,12 +1355,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               ),
             ),
             widget.unlockColorSelect? Container(
-              margin: EdgeInsets.only(top: 30, ),
+              margin: EdgeInsets.only(top: 10, ),
               width: width * 0.25,
               height: height * 0.05,
               child: GestureDetector(
                 onTap: () {
                 MyColors.firstthemecolorgr=unlockSelectdColor!;
+               // themepicker(unlockSelectdColor!.value.toString());
+
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -1386,6 +1399,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void lockchangeColor(Color color) {
+    lock=true;
    widget.lockedColor=true;
    var code = (color.value.toRadixString(16));
 lockSelectdColor = Color(int.parse("0x$code"));
@@ -1399,8 +1413,10 @@ lockSelectdColor = Color(int.parse("0x$code"));
   }
 
   void densitychangeColor(Color color) {
+    widget.lockedColor=true ;
+    density=true;
     var code = (color.value.toRadixString(16));
-    MyColors.firstthemecolorgr = Color(int.parse("0x$code"));
+densitySelectedColor = Color(int.parse("0x$code"));
 
     setState(
       () => unlockCurrentColor = color,
@@ -1409,6 +1425,10 @@ lockSelectdColor = Color(int.parse("0x$code"));
     widget.densitychangeColor(color);
     debugPrint(
         "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+  }
+  static void themepicker(String code) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constants.theme, code);
   }
 }
 

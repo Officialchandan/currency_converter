@@ -403,7 +403,7 @@ class _TapHomeState extends State<TapHome> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          conversionRate.toStringAsFixed(3),
+                          conversionRate.toStringAsFixed(MyColors.decimalformat ),
                           style: TextStyle(
                               color: MyColors.textColor,
                               fontSize: MyColors.fontsmall

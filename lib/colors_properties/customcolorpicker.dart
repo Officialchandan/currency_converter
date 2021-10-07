@@ -23,9 +23,11 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: Colors.transparent,
       body: Container(
+        color: Colors.transparent,
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.69,
+        height: MediaQuery.of(context).size.height * 0.79,
         child: Column(
 
           children:[Container( margin: const EdgeInsets.only(
@@ -50,10 +52,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           ),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  margin:EdgeInsets.all(10),
+
             width: 150,
                   child:
 

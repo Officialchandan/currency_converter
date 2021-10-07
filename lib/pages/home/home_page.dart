@@ -1,5 +1,7 @@
 import 'dart:core';
 import 'dart:developer';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
@@ -19,7 +21,7 @@ import 'package:currency_converter/pages/second_screen.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyTabBarWidget extends StatefulWidget {
+  class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
 
   @override
@@ -32,10 +34,15 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
+  String theme="";
+   Color? background;
 
   @override
   void initState() {
     super.initState();
+
+
+
     _tabController = TabController(length: 6, vsync: this, initialIndex: 0);
 
     _tabController.addListener(() {
@@ -159,7 +166,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   ratingBottomSheet(BuildContext context) {
-    var rating = 0.0;
+
     return showModalBottomSheet(
 
         isDismissible: false,
@@ -237,10 +244,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                       _launchURL("https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
                     },
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
                       children: [
-                        const SizedBox(
-                          width: 105,
-                        ),
+
                         Icon(
                           Icons.star,
                           size: 40,
@@ -325,6 +332,19 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       throw 'Could not launch $url';
     }
   }
+  // getCurrencyCode() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //    theme = prefs.getString(Constants.theme) ?? "";
+  //
+  //
+  //   if (theme.isNotEmpty ) {
+  //     int value=int.parse(theme);
+  //     var code = (value.toRadixString(16));
+  //     background= Color(int.parse("0x$code"));
+  //
+  //   }
+  //   setState(() {});
+  // }
 }
 
 class CurrencyData {
