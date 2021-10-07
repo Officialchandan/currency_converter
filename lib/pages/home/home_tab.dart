@@ -43,6 +43,7 @@ class _TapHomeState extends State<TapHome> {
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   Map<String, double> cresult = {};
+
   @override
   void initState() {
     getCurrencyCode();
@@ -77,6 +78,7 @@ class _TapHomeState extends State<TapHome> {
 
   @override
   Widget build(BuildContext context) {
+    var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -88,27 +90,63 @@ class _TapHomeState extends State<TapHome> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    // color: Colors.red,
-                    width: appwidth - 20,
-
+                  Container(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        const SizedBox(
-                          width: 115,
+                        SizedBox(
+                          width: appwidth * 0.14,
                         ),
-                        const Text("Updated:"),
-                        const SizedBox(
-                          width: 5,
+                        Row(
+                          children: [
+                            Center(
+                              child: Text(
+                                "Updated:",
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 18) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 18)
+                                          : 18,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            MyColors.datemm
+                                ? Center(
+                                    child: Text(
+                                      "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                      style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 18) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 18)
+                                                : 18,
+                                      ),
+                                    ),
+                                  )
+                                : Center(
+                                    child: Text(
+                                      "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                      style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 18) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 18)
+                                                : 18,
+                                      ),
+                                    ),
+                                  ),
+                          ],
                         ),
-                        MyColors.datemm
-                            ? Text(
-                                "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}")
-                            : Text(
-                                "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}"),
-                        const SizedBox(
-                          width: 50.0,
-                        ),
+                        SizedBox(
+                            // width: appwidth * 0.05,
+                            ),
                         const Icon(
                           Icons.share,
                           color: Colors.white,
@@ -148,7 +186,14 @@ class _TapHomeState extends State<TapHome> {
                             child: Center(
                               child: Text(
                                 currencyCodeFrom,
-                                style: const TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 14) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 14)
+                                          : 14,
+                                ),
                               ),
                             ),
                           ),
@@ -159,7 +204,13 @@ class _TapHomeState extends State<TapHome> {
                             // width: 150,
                             child: TextField(
                               style: TextStyle(
-                                  color: MyColors.insideTextFieldColor),
+                                color: MyColors.insideTextFieldColor,
+                                fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 14) * (-1)
+                                    : MyColors.fontlarge
+                                        ? (MyColors.textSize + 14)
+                                        : 14,
+                              ),
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.none,
@@ -228,7 +279,13 @@ class _TapHomeState extends State<TapHome> {
                             ),
                             child: TextFormField(
                               style: TextStyle(
-                                  color: MyColors.insideTextFieldColor),
+                                color: MyColors.insideTextFieldColor,
+                                fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 18) * (-1)
+                                    : MyColors.fontlarge
+                                        ? (MyColors.textSize + 18)
+                                        : 18,
+                              ),
                               controller: edtFrom,
                               showCursor: false,
                               readOnly: true,
@@ -275,7 +332,13 @@ class _TapHomeState extends State<TapHome> {
                             ),
                             child: TextField(
                               style: TextStyle(
-                                  color: MyColors.insideTextFieldColor),
+                                color: MyColors.insideTextFieldColor,
+                                fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 16) * (-1)
+                                    : MyColors.fontlarge
+                                        ? (MyColors.textSize + 16)
+                                        : 16,
+                              ),
                               controller: edtTo,
                               showCursor: false,
                               readOnly: true,
@@ -317,6 +380,8 @@ class _TapHomeState extends State<TapHome> {
                   const SizedBox(
                     height: 12.0,
                   ),
+                  //**contanerIndex Open */
+
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
@@ -350,7 +415,11 @@ class _TapHomeState extends State<TapHome> {
                           conversionRate.toStringAsFixed(3),
                           style: TextStyle(
                               color: MyColors.textColor,
-                              fontSize: 30.0,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 25) * (-1)
+                                  : MyColors.fontlarge
+                                      ? (MyColors.textSize + 25)
+                                      : 25,
                               fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
@@ -360,7 +429,11 @@ class _TapHomeState extends State<TapHome> {
                           edtTo.text,
                           style: TextStyle(
                               color: MyColors.textColor,
-                              fontSize: 30.0,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 25) * (-1)
+                                  : MyColors.fontlarge
+                                      ? (MyColors.textSize + 25)
+                                      : 25,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -430,7 +503,7 @@ class _TapHomeState extends State<TapHome> {
     return cresult;
   }
 
-  showCalculator(BuildContext context) {
+  void showCalculator(BuildContext context) {
     showModalBottomSheet(
         barrierColor: Colors.transparent,
         // isDismissible: true,
@@ -503,7 +576,7 @@ class _TapHomeState extends State<TapHome> {
                         0.1 /
                         1.5 *
                         buttonHeight +
-                    (buttonHeight == 1 ? 2.6 : 5.0),
+                    2.6,
 
                 color: buttonColor,
                 child: FlatButton(
@@ -515,82 +588,85 @@ class _TapHomeState extends State<TapHome> {
                             style: BorderStyle.solid)),
                     padding: const EdgeInsets.all(10.0),
                     onPressed: () => buttonPressed(buttonText),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        buttonText,
-                        style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 0.0),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          buttonText,
+                          style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white),
+                        ),
                       ),
                     )),
               ),
             );
           }
 
-          return IntrinsicHeight(
-              // width: MediaQuery.of(context).size.width * .75,
-              // height: MediaQuery.of(context).size.height * 0.35,
+          return Container(
+              width: MediaQuery.of(context).size.width * .75,
+              height: MediaQuery.of(context).size.height * 0.35,
               child: Column(
-            children: <Widget>[
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * .75,
-                    // height: MediaQuery.of(context).size.height * 0.35,
-                    child: Table(
-                      children: [
-                        TableRow(children: [
-                          buildButton("%", 1, MyColors.calcuColor),
-                          buildButton("/", 1, MyColors.calcuColor),
-                          buildButton("×", 1, MyColors.calcuColor),
-                        ]),
-                        TableRow(children: [
-                          buildButton("1", 1, MyColors.calcuColor),
-                          buildButton("2", 1, MyColors.calcuColor),
-                          buildButton("3", 1, MyColors.calcuColor),
-                        ]),
-                        TableRow(children: [
-                          buildButton("4", 1, MyColors.calcuColor),
-                          buildButton("5", 1, MyColors.calcuColor),
-                          buildButton("6", 1, MyColors.calcuColor),
-                        ]),
-                        TableRow(children: [
-                          buildButton("7", 1, MyColors.calcuColor),
-                          buildButton("8", 1, MyColors.calcuColor),
-                          buildButton("9", 1, MyColors.calcuColor),
-                        ]),
-                        TableRow(children: [
-                          buildButton(".", 1, MyColors.calcuColor),
-                          buildButton("0", 1, MyColors.calcuColor),
-                          buildButton("C", 1, MyColors.calcuColor),
-                        ]),
-                      ],
-                    ),
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * .75,
+                        height: MediaQuery.of(context).size.height * 0.35,
+                        child: Table(
+                          children: [
+                            TableRow(children: [
+                              buildButton("%", 1, MyColors.calcuColor),
+                              buildButton("/", 1, MyColors.calcuColor),
+                              buildButton("×", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("1", 1, MyColors.calcuColor),
+                              buildButton("2", 1, MyColors.calcuColor),
+                              buildButton("3", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("4", 1, MyColors.calcuColor),
+                              buildButton("5", 1, MyColors.calcuColor),
+                              buildButton("6", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("7", 1, MyColors.calcuColor),
+                              buildButton("8", 1, MyColors.calcuColor),
+                              buildButton("9", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton(".", 1, MyColors.calcuColor),
+                              buildButton("0", 1, MyColors.calcuColor),
+                              buildButton("c", 1, MyColors.calcuColor),
+                            ]),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: Table(children: [
+                            TableRow(children: [
+                              buildButton("⌫", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("-", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("+", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("=", 2, MyColors.calcuColor),
+                            ]),
+                          ]))
+                    ],
                   ),
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.25,
-                      child: Table(children: [
-                        TableRow(children: [
-                          buildButton("⌫", 1, MyColors.calcuColor),
-                        ]),
-                        TableRow(children: [
-                          buildButton("-", 1, MyColors.calcuColor),
-                        ]),
-                        TableRow(children: [
-                          buildButton("+", 1, MyColors.calcuColor),
-                        ]),
-                        TableRow(children: [
-                          buildButton("=", 2, MyColors.calcuColor),
-                        ]),
-                      ]))
                 ],
-              ),
-            ],
-          ));
+              ));
         });
   }
 }
