@@ -177,7 +177,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 gradient: LinearGradient(
                   colors: [
                     Colors.white12,
-                    MyColors.firstthemecolorgr,
+                    MyColors.firstthemecolorgr1,
                   ],
                   stops: const [0.0, 0.5],
                   begin: Alignment.topCenter,
