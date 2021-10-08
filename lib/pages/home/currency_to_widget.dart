@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:currency_converter/API/apis.dart';
+import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 
 import 'package:flutter/material.dart';
@@ -125,7 +126,8 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                       const EdgeInsets.fromLTRB(10, 2, 10, 0),
                                   decoration: BoxDecoration(
                                     // color: MyColors.textColor,
-                                    color: Colors.black45,
+                                    color: MyColors.textColor,
+
                                     borderRadius: BorderRadius.circular(7),
                                   ),
                                   child: ListTile(
@@ -134,8 +136,12 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                       children: [
                                         Text(
                                           snapshot.data![index].key,
-                                          style: const TextStyle(
-                                              color: Colors.black),
+                                          style:  TextStyle(
+                                            color: MyColors.insideTextFieldColor, fontSize: MyColors.fontsmall
+                                              ? (MyColors.textSize - 18) * (-1)
+                                              : MyColors.fontlarge
+                                              ? (MyColors.textSize + 18)
+                                              : 18,),
                                         ),
                                         const SizedBox(
                                           width: 5,

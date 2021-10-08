@@ -394,6 +394,7 @@ class _TapHomeState extends State<TapHome> {
                             _isContainerVisible = false;
                             setState(() {});
                           },
+
                         )
                       : _isContainerVisibleTwo
                           ? CurrencyToWidget(
@@ -412,7 +413,7 @@ class _TapHomeState extends State<TapHome> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          conversionRate.toStringAsFixed(3),
+                          conversionRate.toStringAsFixed(MyColors.decimalformat ),
                           style: TextStyle(
                               color: MyColors.textColor,
                               fontSize: MyColors.fontsmall

@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'dart:core';
 import 'dart:developer';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
@@ -29,10 +32,13 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
+  String theme = "";
+  Color? background;
 
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(length: 6, vsync: this, initialIndex: 0);
 
     _tabController.addListener(() {
@@ -138,7 +144,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         child: TabBarView(
           controller: _tabController,
           children: [
-            const TapHome(),
+            TapHome(),
             const SecondScreen(),
             const DecimalScreens(),
             const InkWell(),
@@ -155,7 +161,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   ratingBottomSheet(BuildContext context) {
-    var rating = 0.0;
     return showModalBottomSheet(
         isDismissible: false,
         backgroundColor: Colors.transparent,
@@ -229,10 +234,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                           "https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
                     },
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 105,
-                        ),
                         Icon(
                           Icons.star,
                           size: 40,
@@ -318,6 +321,19 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       throw 'Could not launch $url';
     }
   }
+  // getCurrencyCode() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //    theme = prefs.getString(Constants.theme) ?? "";
+  //
+  //
+  //   if (theme.isNotEmpty ) {
+  //     int value=int.parse(theme);
+  //     var code = (value.toRadixString(16));
+  //     background= Color(int.parse("0x$code"));
+  //
+  //   }
+  //   setState(() {});
+  // }
 }
 
 class CurrencyData {
@@ -326,8 +342,35 @@ class CurrencyData {
   bool favorite = false;
   bool changeIcon = false;
 
-  CurrencyData({
-    required this.key,
-    required this.value,
-  });
+  CurrencyData(
+      {required this.key,
+      required this.value,
+      this.favorite = false,
+      this.changeIcon = false});
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+
+    map["key"] = key;
+    map["value"] = value;
+    map["favorite"] = favorite;
+    map["changeIcon"] = changeIcon;
+
+    return map;
+  }
+
+  factory CurrencyData.fromMap(String data) {
+    Map map = jsonDecode(data);
+
+    return CurrencyData(
+        key: map["key"] ?? "",
+        value: map["value"] ?? "",
+        favorite: map["favorite"] ?? false,
+        changeIcon: map["changeIcon"] ?? false);
+  }
+
+  @override
+  String toString() {
+    return jsonEncode(toMap());
+  }
 }

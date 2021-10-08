@@ -28,6 +28,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         fontFamily: GoogleFonts.roboto().fontFamily,
+
       ),
       home:  MyTabBarWidget(),
     );
