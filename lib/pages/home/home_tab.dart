@@ -9,9 +9,9 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 
-import 'package:share/share.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'currency_from_widget.dart';
@@ -53,7 +53,7 @@ class _TapHomeState extends State<TapHome> {
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   Map<String, double> cresult = {};
-  String text = '';
+  //String text = '';
   @override
   void initState() {
     getCurrencyCode();
@@ -451,36 +451,7 @@ class _TapHomeState extends State<TapHome> {
                               ),
                             ],
                           ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          text ,
-                          style: TextStyle(
-                              color: MyColors.textColor,
-                              fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 25) * (-1)
-                                  : MyColors.fontlarge
-                                      ? (MyColors.textSize + 25)
-                                      : 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          edtTo.text,
-                          style: TextStyle(
-                              color: MyColors.textColor,
-                              fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 25) * (-1)
-                                  : MyColors.fontlarge
-                                      ? (MyColors.textSize + 25)
-                                      : 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+
                   ),
                 ],
               ),
@@ -567,8 +538,6 @@ class _TapHomeState extends State<TapHome> {
                 isbool = true;
                 calculateCurrency.text="";
                 equation = "0";
-                calculateCurrency.text = "0";
-
                 isbool = false;
                 equationFontSize = 38.0;
                 resultFontSize = 48.0;
@@ -660,7 +629,7 @@ class _TapHomeState extends State<TapHome> {
             );
           }
 
-          return SizedBox(
+          return Container(
               width: MediaQuery.of(context).size.width * .75,
               height: MediaQuery.of(context).size.height * 0.35,
               child: Column(
@@ -669,9 +638,9 @@ class _TapHomeState extends State<TapHome> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(
+                      Container(
                         width: MediaQuery.of(context).size.width * .75,
-                        height: MediaQuery.of(context).size.height * 0.36 / 2,
+                        height: MediaQuery.of(context).size.height * 0.35,
                         child: Table(
                           children: [
                             TableRow(children: [
@@ -702,7 +671,7 @@ class _TapHomeState extends State<TapHome> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      Container(
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: Table(children: [
                             TableRow(children: [
@@ -725,5 +694,53 @@ class _TapHomeState extends State<TapHome> {
                 ],
               ));
         });
+  }
+  format(double conversionRate){
+
+
+    int i = MyColors.monetaryformat;
+    int afterdecimal =MyColors.decimalformat;
+    double amount = conversionRate;
+    CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
+      decimalDigits: afterdecimal,
+      symbol: "",
+    );
+    if (i == 1) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(",", ",");
+      log(text);
+      text = text.replaceAll(".", ".");
+      log(text);
+    } else if (i == 2) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(".", " ");
+      log(text);
+      text = text.replaceAll(",", ".");
+      log(text);
+      text = text.replaceAll(" ", ",");
+
+      //text = text.replaceFirstMapped(".", (match) => "1");
+    } else if (i == 3) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      text = text.replaceAll(".", "=");
+      log(text);
+      text = text.replaceAll(",", ".");
+      log(text);
+      text = text.replaceAll(".", " ");
+      text = text.replaceAll("=", ".");
+
+      log(text);
+    } else if (i == 4) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(",", " ");
+      log(text);
+      text = text.replaceAll(".", ",");
+      log(text);
+    }
+
+    setState(() {});
   }
 }
