@@ -662,7 +662,9 @@ class _TapHomeState extends State<TapHome> {
                               buildButton("+", 1, MyColors.calcuColor),
                             ]),
                             TableRow(children: [
-                              buildButton("=", 2, MyColors.calcuColor),
+                              Center(
+                                  child:
+                                      buildButton("=", 2, MyColors.calcuColor)),
                             ]),
                           ]))
                     ],

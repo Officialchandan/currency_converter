@@ -1,6 +1,8 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_currency_screen.dart';
 
@@ -13,7 +15,33 @@ class SecondScreen extends StatefulWidget {
 
 class _SecondScreenState extends State<SecondScreen> {
   List<CurrencyData> selecteddata = [];
+  List<String> favList = [];
   DateTime now = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    getcurrencySaveDataListAdd();
+  }
+
+  void getcurrencySaveDataListAdd() async {
+    final prefs = await SharedPreferences.getInstance();
+    favList = prefs.getStringList(Constants.currencySaveData) ?? [];
+    debugPrint("$favList");
+    selecteddata.clear();
+    for (String element in favList) {
+      CurrencyData data = CurrencyData.fromMap(element);
+      selecteddata.add(data);
+    }
+    debugPrint("selected List $selecteddata");
+    setState(() {});
+  }
+
+  void setcurrencySaveListData(List<String> selected) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(Constants.currencySaveData, selected);
+  }
+
   @override
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
@@ -93,48 +121,109 @@ class _SecondScreenState extends State<SecondScreen> {
                   height: 12.0,
                 ),
                 Container(
-                  child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: selecteddata.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.only(top: 2),
-                          width: 32.0,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(7.0),
-                          ),
-                          child: ListTile(
-                            leading: const Icon(Icons.image),
-                            title: Row(
-                              children: [
-                                Text(selecteddata[index].key),
-                                const SizedBox(
-                                  width: 5,
+                  child: ReorderableListView.builder(
+                    itemCount: selecteddata.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        key: ValueKey(selecteddata[index].key),
+                        margin: const EdgeInsets.only(top: 2),
+                        width: 32.0,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(7.0),
+                        ),
+                        child: ListTile(
+                          leading: const Icon(Icons.image),
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                selecteddata[index].key,
+                                style: TextStyle(
+                                  color: MyColors.insideTextFieldColor,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 18) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 18)
+                                          : 18,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                Text(
-                                  selecteddata[index].value.toStringAsFixed(3),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                selecteddata[index].value.toStringAsFixed(3),
+                                style: TextStyle(
+                                  color: MyColors.insideTextFieldColor,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 18) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 18)
+                                          : 18,
                                 ),
-                              ],
-                            ),
-                            trailing: InkWell(
-                                onTap: () {
-                                  selecteddata[index].changeIcon =
-                                      !selecteddata[index].changeIcon;
-
-                                  selecteddata.removeAt(index);
-
-                                  setState(() {});
-                                },
-                                child: Icon(
-                                  Icons.remove_circle_rounded,
-                                  size: 29,
-                                  color: MyColors.colorPrimary,
-                                )),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: TextFormField(
+                                  cursorColor: Colors.black,
+                                  cursorWidth: 2.3,
+                                  // controller: calculateCurrency,
+                                  showCursor: true,
+                                  readOnly: true,
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.none,
+                                  style: TextStyle(
+                                    color: MyColors.insideTextFieldColor,
+                                    fontSize: MyColors.fontsmall
+                                        ? (MyColors.textSize - 18) * (-1)
+                                        : MyColors.fontlarge
+                                            ? (MyColors.textSize + 18)
+                                            : 18,
+                                  ),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                  onTap: () {
+                                    showCalculator(context);
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      }),
+                          trailing: InkWell(
+                              onTap: () {
+                                selecteddata[index].changeIcon =
+                                    !selecteddata[index].changeIcon;
+
+                                selecteddata.removeAt(index);
+                                favList.removeAt(index);
+
+                                setcurrencySaveListData(favList);
+                                setState(() {});
+                              },
+                              child: Icon(
+                                Icons.remove_circle_rounded,
+                                size: 29,
+                                color: MyColors.firstthemecolorgr,
+                              )),
+                        ),
+                      );
+                    },
+                    onReorder: (oldIndex, newIndex) {
+                      setState(() {
+                        if (newIndex > oldIndex) {
+                          newIndex = newIndex - 1;
+                        }
+                        final element = selecteddata.removeAt(oldIndex);
+                        selecteddata.insert(newIndex, element);
+                      });
+                    },
+                  ),
                 ),
               ],
             ),
@@ -156,4 +245,6 @@ class _SecondScreenState extends State<SecondScreen> {
       ),
     );
   }
+
+  void showCalculator(BuildContext context) {}
 }

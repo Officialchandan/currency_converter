@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:core';
 import 'dart:developer';
 import 'package:currency_converter/utils/constants.dart';
@@ -19,7 +20,7 @@ import 'package:currency_converter/pages/second_screen.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-  class MyTabBarWidget extends StatefulWidget {
+class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
 
   @override
@@ -34,7 +35,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   int previousIndex = 0;
   String theme="";
 
-  // ff673ab7
   @override
   void initState() {
     super.initState();
@@ -177,7 +177,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 gradient: LinearGradient(
                   colors: [
                     Colors.white12,
-                    MyColors.colorPrimary,
+                    MyColors.firstthemecolorgr,
                   ],
                   stops: const [0.0, 0.5],
                   begin: Alignment.topCenter,
@@ -291,7 +291,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                               .animateTo(_tabController.previousIndex);
                       },
                       child: Text(
-                        "buttonTextRatingPage".tr().toString(),
+                        "NOT NOW",
                         style: TextStyle(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 18) * (-1)
@@ -337,7 +337,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       debugPrint("color code ->>>>$code");
       MyColors.colorPrimary = Color(int.parse("0x$code"));
 
-     
+
 
     }
     else
@@ -355,8 +355,35 @@ class CurrencyData {
   bool favorite = false;
   bool changeIcon = false;
 
-  CurrencyData({
-    required this.key,
-    required this.value,
-  });
+  CurrencyData(
+      {required this.key,
+      required this.value,
+      this.favorite = false,
+      this.changeIcon = false});
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+
+    map["key"] = key;
+    map["value"] = value;
+    map["favorite"] = favorite;
+    map["changeIcon"] = changeIcon;
+
+    return map;
+  }
+
+  factory CurrencyData.fromMap(String data) {
+    Map map = jsonDecode(data);
+
+    return CurrencyData(
+        key: map["key"] ?? "",
+        value: map["value"] ?? "",
+        favorite: map["favorite"] ?? false,
+        changeIcon: map["changeIcon"] ?? false);
+  }
+
+  @override
+  String toString() {
+    return jsonEncode(toMap());
+  }
 }

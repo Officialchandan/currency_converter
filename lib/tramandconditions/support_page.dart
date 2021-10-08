@@ -20,17 +20,12 @@ class _SupportPageState extends State<SupportPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
-        padding: const EdgeInsets.only(top: 18),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: const [
-            WebView(
-              initialUrl: 'https://www.currency.wiki/legal#privacy',
-            ),
-          ],
+        padding: EdgeInsets.only(top: 18),
+        child: WebView(
+          initialUrl: 'https://www.currency.wiki/legal#privacy',
         ),
       ),
     );
