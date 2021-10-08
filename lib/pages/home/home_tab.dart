@@ -2,6 +2,7 @@ import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,7 +102,7 @@ class _TapHomeState extends State<TapHome> {
                           children: [
                             Center(
                               child: Text(
-                                "Updated:",
+                                "update".tr().toString(),
                                 style: TextStyle(
                                   color: MyColors.textColor,
                                   fontSize: MyColors.fontsmall
@@ -176,7 +177,7 @@ class _TapHomeState extends State<TapHome> {
                               gradient: LinearGradient(
                                 colors: [
                                   MyColors.firstthemecolorgr1,
-                                  MyColors.firstthemecolorgr,
+                                  MyColors.colorPrimary,
                                 ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
@@ -583,7 +584,7 @@ class _TapHomeState extends State<TapHome> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
                         side: BorderSide(
-                            color: MyColors.firstthemecolorgr,
+                            color: MyColors.colorPrimary,
                             width: 0.6,
                             style: BorderStyle.solid)),
                     padding: const EdgeInsets.all(10.0),

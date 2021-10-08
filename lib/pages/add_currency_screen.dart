@@ -72,7 +72,7 @@ class _AddCurrencyState extends State<AddCurrency> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: MyColors.firstthemecolorgr,
+        backgroundColor: MyColors.colorPrimary,
         appBar: AppBar(
           title: Text(
             "Add currency".toUpperCase(),
@@ -96,7 +96,7 @@ class _AddCurrencyState extends State<AddCurrency> {
               gradient: LinearGradient(
             colors: [
               MyColors.firstthemecolorgr1,
-              MyColors.firstthemecolorgr,
+              MyColors.colorPrimary,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -156,7 +156,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                             child: Icon(
                               Icons.remove_circle_rounded,
                               size: 29,
-                              color: MyColors.firstthemecolorgr,
+                              color: MyColors.colorPrimary,
                             )),
                       ),
                     );
@@ -220,12 +220,12 @@ class _AddCurrencyState extends State<AddCurrency> {
                                 ? Icon(
                                     Icons.check_sharp,
                                     size: 29,
-                                    color: MyColors.firstthemecolorgr,
+                                    color: MyColors.colorPrimary,
                                   )
                                 : Icon(
                                     Icons.add,
                                     size: 29,
-                                    color: MyColors.firstthemecolorgr,
+                                    color: MyColors.colorPrimary,
                                   )),
                       ),
                     );
@@ -238,4 +238,6 @@ class _AddCurrencyState extends State<AddCurrency> {
       ),
     );
   }
+
+  void addDataSelected() {}
 }

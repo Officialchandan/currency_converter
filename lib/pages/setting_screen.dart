@@ -1,7 +1,10 @@
 import 'dart:ui';
 
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
+import 'package:easy_localization/src/public_ext.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Color color = Colors.red;
 
   bool isSwitched = false;
-  bool checkBoxValue1 = true;
-  bool checkBoxValue2 = false;
+  bool isMultiConverter=true;
 
   bool displaycode = false;
   bool displaysymbol = true;
@@ -42,9 +44,9 @@ class _SettingScreenState extends State<SettingScreen> {
 
   bool customcolorbool = false;
 
-  Color unlockCurrentColor = MyColors.firstthemecolorgr;
+  Color unlockCurrentColor = MyColors.colorPrimary;
   Color lockCurrentColor = const Color(0xff443a49);
-  Color densityCurrentColor = MyColors.firstthemecolorgr;
+  Color densityCurrentColor = MyColors.colorPrimary;
 
   double _value = 1.0;
   int x = 0;
@@ -67,7 +69,7 @@ class _SettingScreenState extends State<SettingScreen> {
               children: [
                 Container(
                     margin: const EdgeInsets.only(left: 10, bottom: 13),
-                    child: Text("Remove Ads",
+                    child: Text("removeAds".tr().toString(),
                         style: GoogleFonts.roboto(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
@@ -92,7 +94,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         child: RichText(
                             text: TextSpan(children: [
                           TextSpan(
-                            text: "Support our project  with a small yearly Subscription",
+                            text: "removeAdsContent".tr().toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: MyColors.fontsmall
@@ -119,7 +121,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               // print(isSwitched);
                             });
                           },
-                          activeTrackColor: const Color(0xff7986cb),
+                          activeTrackColor: MyColors.colorPrimary,
                           activeColor: MyColors.textColor,
                         ),
                       ),
@@ -129,7 +131,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Container(
                     margin:
                         const EdgeInsets.only(left: 10, bottom: 13, top: 20),
-                    child: Text("Select Language",
+                      child: Text("selectLanguage".tr().toString(),
                         style: GoogleFonts.roboto(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
@@ -150,24 +152,30 @@ class _SettingScreenState extends State<SettingScreen> {
                         borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("English",
-                                style: GoogleFonts.roboto(
-                                  fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 18) * (-1)
-                                      : MyColors.fontlarge
-                                          ? (MyColors.textSize + 18)
-                                          : 18,
-                                  color: MyColors.textColor,
-                                )),
-                            //  SizedBox(width: 245 ,),
-                            Icon(
-                              Icons.expand_more_outlined,
-                              color: MyColors.textColor,
-                            ),
-                          ],
+                        GestureDetector(
+                          onTap:(){
+                            showBottomSheetForLanguage(context);
+                        }
+                          ,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("english".tr().toString(),
+                                  style: GoogleFonts.roboto(
+                                    fontSize: MyColors.fontsmall
+                                        ? (MyColors.textSize - 18) * (-1)
+                                        : MyColors.fontlarge
+                                            ? (MyColors.textSize + 18)
+                                            : 18,
+                                    color: MyColors.textColor,
+                                  )),
+                              //  SizedBox(width: 245 ,),
+                              Icon(
+                                Icons.expand_more_outlined,
+                                color: MyColors.textColor,
+                              ),
+                            ],
+                          ),
                         ),
                         Divider(
                           height: 2,
@@ -179,7 +187,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Container(
                     margin:
                         const EdgeInsets.only(left: 10, bottom: 13, top: 20),
-                    child: Text("Color Selection",
+                    child: Text("colorsSelection".tr().toString(),
                         style: GoogleFonts.roboto(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
@@ -208,7 +216,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           gradient: LinearGradient(
                               colors: [
                                 MyColors.firstthemecolorgr1,
-                                MyColors.firstthemecolorgr,
+                                MyColors.colorPrimary,
                               ],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
@@ -223,7 +231,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Container(
                     margin:
                         const EdgeInsets.only(left: 10, bottom: 13, top: 20),
-                    child: Text("Theme",
+                    child: Text("theme".tr().toString(),
                         style: GoogleFonts.roboto(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
@@ -242,100 +250,104 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.black26,
                         borderRadius: BorderRadius.circular(10)),
                     child: Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        Transform.scale(
-                          scale: 1.1,
-                          child: Checkbox(
-                            side: BorderSide(color: MyColors.textColor),
-                            value: MyColors.checkBoxValue1,
-                            onChanged: (value) {
-                              setState(() {
-                                if (MyColors.checkBoxValue2) {
-                                  MyColors.checkBoxValue1 =
-                                      !MyColors.checkBoxValue1;
-                                  MyColors.checkBoxValue2 =
-                                      !MyColors.checkBoxValue2;
-                                  MyColors.textColor = Colors.white;
-                                  MyColors.insideTextFieldColor =
-                                      Colors.black54;
-                                  MyColors.calcuColor =
-                                      MyColors.firstthemecolorgr;
 
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => MyTabBarWidget()),
-                                      (route) => false);
-                                }
-                              });
-                            },
-                            activeColor: MyColors.checkBoxValue2
-                                ? Colors.black45
-                                : Colors.white,
-                            checkColor: Colors.black,
-                            tristate: false,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ),
-                        Text("Light",
-                            style: GoogleFonts.roboto(
-                              fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 20) * (-1)
-                                  : MyColors.fontlarge
-                                      ? (MyColors.textSize + 20)
-                                      : 20,
-                              color: MyColors.textColor,
-                            )),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        Transform.scale(
-                          scale: 1.1,
-                          child: Checkbox(
-                            side: BorderSide(color: MyColors.textColor),
-                            value: MyColors.checkBoxValue2,
-                            onChanged: (value) {
-                              setState(() {
-                                if (MyColors.checkBoxValue1) {
-                                  MyColors.checkBoxValue2 =
-                                      !MyColors.checkBoxValue2;
-                                  MyColors.checkBoxValue1 =
-                                      !MyColors.checkBoxValue1;
-                                  MyColors.textColor = Colors.black54;
-                                  MyColors.insideTextFieldColor = Colors.white;
-                                  MyColors.calcuColor = Colors.black87;
+                        Row(
+                          children: [
+                            Transform.scale(
+                              scale: 1.1,
+                              child: Checkbox(
+                                side: BorderSide(color: MyColors.textColor),
+                                value: MyColors.checkBoxValue1,
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (MyColors.checkBoxValue2) {
+                                      MyColors.checkBoxValue1 =
+                                          !MyColors.checkBoxValue1;
+                                      MyColors.checkBoxValue2 =
+                                          !MyColors.checkBoxValue2;
+                                      MyColors.textColor = Colors.white;
+                                      MyColors.insideTextFieldColor =
+                                          Colors.black54;
+                                      MyColors.calcuColor =
+                                          MyColors.colorPrimary;
 
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => MyTabBarWidget()),
-                                      (route) => false);
-                                }
-                              });
-                            },
-                            activeColor: MyColors.checkBoxValue2
-                                ? Colors.black45
-                                : Colors.white,
-                            checkColor: Colors.black,
-                            tristate: false,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => MyTabBarWidget()),
+                                          (route) => false);
+                                    }
+                                  });
+                                },
+                                activeColor: MyColors.checkBoxValue2
+                                    ? Colors.black45
+                                    : Colors.white,
+                                checkColor: Colors.black,
+                                tristate: false,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                            ),
+                            Text("light".tr().toString(),
+                                style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
+                                  color: MyColors.textColor,
+                                )),
+                          ],
                         ),
-                        Text(
-                          "Dark",
-                          style: GoogleFonts.roboto(
-                              fontSize: MyColors.fontsmall
-                                  ? (MyColors.textSize - 20) * (-1)
-                                  : MyColors.fontlarge
-                                      ? (MyColors.textSize + 20)
-                                      : 20,
-                              color: MyColors.textColor),
+
+                        Row(
+                          children: [
+                            Transform.scale(
+                              scale: 1.1,
+                              child: Checkbox(
+                                side: BorderSide(color: MyColors.textColor),
+                                value: MyColors.checkBoxValue2,
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (MyColors.checkBoxValue1) {
+                                      MyColors.checkBoxValue2 =
+                                          !MyColors.checkBoxValue2;
+                                      MyColors.checkBoxValue1 =
+                                          !MyColors.checkBoxValue1;
+                                      MyColors.textColor = Colors.black54;
+                                      MyColors.insideTextFieldColor = Colors.white;
+                                      MyColors.calcuColor = Colors.black87;
+
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => MyTabBarWidget()),
+                                          (route) => false);
+                                    }
+                                  });
+                                },
+                                activeColor: MyColors.checkBoxValue2
+                                    ? Colors.black45
+                                    : Colors.white,
+                                checkColor: Colors.black,
+                                tristate: false,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                            ),
+                            Text(
+                              "dark".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
+                                  color: MyColors.textColor),
+                            ),
+                          ],
                         )
                       ],
                     )),
@@ -346,7 +358,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           left: 10,
                         ),
                         child: Text(
-                          "Widget Transparency  ",
+                          "widgetTransparency".tr().toString(),
                           style: GoogleFonts.roboto(
                               fontSize: MyColors.fontsmall
                                   ? (MyColors.textSize - 20) * (-1)
@@ -413,7 +425,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             borderRadius: BorderRadius.circular(10),
                             gradient: LinearGradient(
                                 colors: [
-                                  MyColors.firstthemecolorgr,
+                                  MyColors.colorPrimary,
                                   MyColors.firstthemecolorgr1,
                                 ],
                                 begin: Alignment.topCenter,
@@ -473,6 +485,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 5),
                             Padding(
                               padding: EdgeInsets.only(left: 50, top: 0),
                               child: Text("0.7895",
@@ -485,6 +498,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             : 20,
                                   )),
                             ),
+                            const SizedBox(height: 5),
                             Padding(
                               padding: EdgeInsets.only(left: 80, top: 0),
                               child: Text("-0.0400",
@@ -497,6 +511,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             : 16,
                                   )),
                             ),
+                            const SizedBox(height: 5),
 
                             Text("  By: Currency.wiki",
                                 style: GoogleFonts.roboto(
@@ -516,7 +531,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Container(
                     margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
-                    child: Text("Visual Size",
+                    child: Text("visualSize".tr().toString(),
                         style: GoogleFonts.roboto(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
@@ -535,104 +550,110 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.black26,
                         borderRadius: BorderRadius.circular(10)),
                     child: Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        SizedBox(
-                          width: 30,
+
+                        Row(
+                          children: [
+                            Transform.scale(
+                              scale: 1.1,
+                              child: Checkbox(
+                                side: BorderSide(color: MyColors.textColor),
+                                value: MyColors.fontsmall,
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (MyColors.fontlarge || MyColors.fontmedium) {
+                                      MyColors.fontsmall = true;
+                                      MyColors.fontlarge = false;
+                                      MyColors.fontmedium = false;
+                                    }
+                                  });
+                                },
+                                activeColor: Colors.white,
+                                checkColor: Colors.black,
+                                tristate: false,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                            ),
+                            Text("A".tr().toString(),
+                                style: GoogleFonts.roboto(
+                                  fontSize: 16,
+                                  color: MyColors.textColor,
+                                )),
+                          ],
                         ),
-                        Transform.scale(
-                          scale: 1.1,
-                          child: Checkbox(
-                            side: BorderSide(color: MyColors.textColor),
-                            value: MyColors.fontsmall,
-                            onChanged: (value) {
-                              setState(() {
-                                if (MyColors.fontlarge || MyColors.fontmedium) {
-                                  MyColors.fontsmall = true;
-                                  MyColors.fontlarge = false;
-                                  MyColors.fontmedium = false;
-                                }
-                              });
-                            },
-                            activeColor: Colors.white,
-                            checkColor: Colors.black,
-                            tristate: false,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
+
+                        Row(
+                          children: [
+                            Transform.scale(
+                              scale: 1.1,
+                              child: Checkbox(
+                                side: BorderSide(color: MyColors.textColor),
+                                value: MyColors.fontmedium,
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (MyColors.fontsmall || MyColors.fontlarge) {
+                                      MyColors.fontsmall = false;
+                                      MyColors.fontlarge = false;
+                                      MyColors.fontmedium = true;
+                                    }
+                                  });
+                                },
+                                activeColor: MyColors.checkBoxValue2
+                                    ? Colors.black45
+                                    : Colors.white,
+                                checkColor: Colors.black,
+                                tristate: false,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                            ),
+                            Text(
+                              "A".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18, color: MyColors.textColor),
+                            ),
+                          ],
                         ),
-                        Text("A",
-                            style: GoogleFonts.roboto(
-                              fontSize: 16,
-                              color: MyColors.textColor,
-                            )),
-                        SizedBox(
-                          width: 30,
-                        ),
-                        Transform.scale(
-                          scale: 1.1,
-                          child: Checkbox(
-                            side: BorderSide(color: MyColors.textColor),
-                            value: MyColors.fontmedium,
-                            onChanged: (value) {
-                              setState(() {
-                                if (MyColors.fontsmall || MyColors.fontlarge) {
-                                  MyColors.fontsmall = false;
-                                  MyColors.fontlarge = false;
-                                  MyColors.fontmedium = true;
-                                }
-                              });
-                            },
-                            activeColor: MyColors.checkBoxValue2
-                                ? Colors.black45
-                                : Colors.white,
-                            checkColor: Colors.black,
-                            tristate: false,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ),
-                        Text(
-                          "A",
-                          style: GoogleFonts.roboto(
-                              fontSize: 18, color: MyColors.textColor),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Transform.scale(
-                          scale: 1.1,
-                          child: Checkbox(
-                            side: BorderSide(color: MyColors.textColor),
-                            value: MyColors.fontlarge,
-                            onChanged: (value) {
-                              setState(() {
-                                if (MyColors.fontsmall || MyColors.fontmedium) {
-                                  MyColors.fontsmall = false;
-                                  MyColors.fontlarge = true;
-                                  MyColors.fontmedium = false;
-                                }
-                              });
-                            },
-                            activeColor: MyColors.checkBoxValue2
-                                ? Colors.black45
-                                : Colors.white,
-                            checkColor: Colors.black,
-                            tristate: false,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ),
-                        Text(
-                          "A",
-                          style: GoogleFonts.roboto(
-                              fontSize: 20, color: MyColors.textColor),
+
+                        Row(
+                          children: [
+                            Transform.scale(
+                              scale: 1.1,
+                              child: Checkbox(
+                                side: BorderSide(color: MyColors.textColor),
+                                value: MyColors.fontlarge,
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (MyColors.fontsmall || MyColors.fontmedium) {
+                                      MyColors.fontsmall = false;
+                                      MyColors.fontlarge = true;
+                                      MyColors.fontmedium = false;
+                                    }
+                                  });
+                                },
+                                activeColor: MyColors.checkBoxValue2
+                                    ? Colors.black45
+                                    : Colors.white,
+                                checkColor: Colors.black,
+                                tristate: false,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                            ),
+                            Text(
+                              "A".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 20, color: MyColors.textColor),
+                            ),
+                          ],
                         )
                       ],
                     )),
                 Container(
                     margin: EdgeInsets.only(left: 10, bottom: 5, top: 25),
-                    child: Text("App Logo Launcher",
+                    child: Text("appLogoLauncher".tr().toString(),
                         style: GoogleFonts.roboto(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
@@ -660,7 +681,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           children: [
                             Container(
                                 margin: EdgeInsets.only(bottom: 5, left: 2),
-                                child: Text("Multi-Convertor",
+                                child: Text("multiConverter".tr().toString(),
                                     style: GoogleFonts.roboto(
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 18) * (-1)
@@ -676,14 +697,14 @@ class _SettingScreenState extends State<SettingScreen> {
                               child: Switch(
                                 inactiveTrackColor: Colors.grey,
                                 inactiveThumbColor: MyColors.textColor,
-                                value: isSwitched,
+                                value: isMultiConverter,
                                 onChanged: (value) {
                                   setState(() {
-                                    isSwitched = value;
+                                    isMultiConverter = value;
                                     // print(isSwitched);
                                   });
                                 },
-                                activeTrackColor: Color(0xff7986cb),
+                                activeTrackColor: MyColors.colorPrimary,
                                 activeColor: MyColors.textColor,
                               ),
                             ),
@@ -698,14 +719,14 @@ class _SettingScreenState extends State<SettingScreen> {
                         // )
                         RichText(
                             text: TextSpan(
-                                text: "Will open multi-converter by default. ",
+                                text: "multiConverterContent1".tr().toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize: 11,
                                     color: MyColors.textColor),
                                 children: <TextSpan>[
                               TextSpan(
-                                text: "NOTE:",
+                                text: "multiConverterContent2".tr().toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12,
@@ -713,7 +734,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               ),
                               TextSpan(
                                 text:
-                                    "This feature only works with app logo launcher",
+                                    "TmultiConverterContent3".tr().toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize: 11,
@@ -724,7 +745,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     )),
                 Container(
                     margin: EdgeInsets.only(left: 10, bottom: 5, top: 25),
-                    child: Text("Display",
+                    child: Text("display".tr().toString(),
                         style: GoogleFonts.roboto(
                             fontSize: 20,
                             color: MyColors.textColor,
@@ -745,7 +766,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(top: 12),
-                              child: Text("Display Currency Code",
+                              child: Text("display1".tr().toString(),
                                   style: GoogleFonts.roboto(
                                       fontSize: MyColors.fontsmall
                                           ? (MyColors.textSize - 18) * (-1)
@@ -776,7 +797,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   // print(isSwitched);
                                 });
                               },
-                              activeTrackColor: Color(0xff7986cb),
+                              activeTrackColor: MyColors.colorPrimary,
                               activeColor: MyColors.textColor,
                             ),
                           ],
@@ -787,7 +808,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(top: 12),
-                              child: Text("Display Currency Symbol",
+                              child: Text("display2".tr().toString(),
                                   style: GoogleFonts.roboto(
                                       fontSize: MyColors.fontsmall
                                           ? (MyColors.textSize - 18) * (-1)
@@ -817,7 +838,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   }
                                 });
                               },
-                              activeTrackColor: Color(0xff7986cb),
+                              activeTrackColor: MyColors.colorPrimary,
                               activeColor: MyColors.textColor,
                             ),
                           ],
@@ -828,7 +849,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(top: 12),
-                              child: Text("Display Currency Flag",
+                              child: Text("display3".tr().toString(),
                                   style: GoogleFonts.roboto(
                                       fontSize: MyColors.fontsmall
                                           ? (MyColors.textSize - 18) * (-1)
@@ -850,7 +871,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   // print(isSwitched);
                                 });
                               },
-                              activeTrackColor: Color(0xff7986cb),
+                              activeTrackColor: MyColors.colorPrimary,
                               activeColor: MyColors.textColor,
                             ),
                           ],
@@ -859,7 +880,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     )),
                 Container(
                     margin: EdgeInsets.only(left: 10, bottom: 13, top: 20),
-                    child: Text("Data Format",
+                    child: Text("dateFormat".tr().toString(),
                         style: GoogleFonts.roboto(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
@@ -974,7 +995,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   void unlockchangeColor(Color color) {
     var code = (color.value.toRadixString(16));
-    MyColors.firstthemecolorgr = Color(int.parse("0x$code"));
+    MyColors.colorPrimary = Color(int.parse("0x$code"));
 
     setState(
       () => unlockCurrentColor = color,
@@ -1077,6 +1098,42 @@ class _SettingScreenState extends State<SettingScreen> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: CustomColorPicker(),
+              ),
+            ),
+          );
+        });
+  }
+
+  void showBottomSheetForLanguage(BuildContext context)async {
+    showGeneralDialog(
+
+
+        context: context,
+        barrierDismissible: true,
+        barrierLabel:
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+
+          double width = MediaQuery.of(context).size.width;
+          double height = MediaQuery.of(context).size.height;
+
+          return DefaultTextStyle(
+            style: const TextStyle(decoration: TextDecoration.none),
+            child: Center(
+              child: Container(
+
+                margin: const EdgeInsets.only(
+                    top: 60, right: 10, bottom: 80, left: 10),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 6.77,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child:Language(),
               ),
             ),
           );
@@ -1290,7 +1347,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             primary: Colors.indigoAccent),
                         onPressed: () {
                           if(lock) {
-                            MyColors.firstthemecolorgr=lockSelectdColor!;
+                            MyColors.colorPrimary=lockSelectdColor!;
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -1301,7 +1358,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             {
 
 
-                              MyColors.firstthemecolorgr=densitySelectedColor;
+                              MyColors.colorPrimary=densitySelectedColor;
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
@@ -1359,9 +1416,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               width: width * 0.25,
               height: height * 0.05,
               child: GestureDetector(
-                onTap: () {
-                MyColors.firstthemecolorgr=unlockSelectdColor!;
-               // themepicker(unlockSelectdColor!.value.toString());
+                onTap: () { 
+                MyColors.colorPrimary=unlockSelectdColor!;
+                Utility.setStringPreference(Constants.themeColor , unlockSelectdColor!.value.toString());
+                themepicker(unlockSelectdColor!.value.toString());
 
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -1388,6 +1446,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void unlockchangeColor(MColor color) {
+    widget.lockedColor=false;
     widget.unlockColorSelect=true;
     var code = (color.mainColor.value.toRadixString(16));
     unlockSelectdColor=Color(int.parse("0x$code"));
@@ -1400,6 +1459,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   void lockchangeColor(Color color) {
     lock=true;
+    widget.unlockColorSelect=false;
    widget.lockedColor=true;
    var code = (color.value.toRadixString(16));
 lockSelectdColor = Color(int.parse("0x$code"));
@@ -1428,7 +1488,7 @@ densitySelectedColor = Color(int.parse("0x$code"));
   }
   static void themepicker(String code) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(Constants.theme, code);
+    prefs.setString(Constants.themeColor, code);
   }
 }
 

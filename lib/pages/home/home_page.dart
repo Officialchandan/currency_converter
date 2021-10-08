@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:developer';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
@@ -33,11 +34,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   int escapeIndex = 0;
   int previousIndex = 0;
   String theme = "";
-  Color? background;
 
   @override
   void initState() {
     super.initState();
+    getColorTheme();
 
     _tabController = TabController(length: 6, vsync: this, initialIndex: 0);
 
@@ -58,7 +59,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.firstthemecolorgr,
+        backgroundColor: MyColors.colorPrimary,
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -136,7 +137,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
             gradient: LinearGradient(
           colors: [
             MyColors.firstthemecolorgr1,
-            MyColors.firstthemecolorgr,
+            MyColors.colorPrimary,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -144,7 +145,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         child: TabBarView(
           controller: _tabController,
           children: [
-            TapHome(),
+            const TapHome(),
             const SecondScreen(),
             const DecimalScreens(),
             const InkWell(),
@@ -175,7 +176,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 gradient: LinearGradient(
                   colors: [
                     Colors.white12,
-                    MyColors.firstthemecolorgr,
+                    MyColors.firstthemecolorgr1,
                   ],
                   stops: const [0.0, 0.5],
                   begin: Alignment.topCenter,
@@ -193,7 +194,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                         child: Image.asset("assets/app-icon.png")),
                   ),
                   Text(
-                    "Please rate our app!",
+                    "firstTextRatingPage".tr().toString(),
                     style: GoogleFonts.roboto(
                         fontSize: MyColors.fontsmall
                             ? (MyColors.textSize - 17) * (-1)
@@ -212,8 +213,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
                           TextSpan(
-                              text:
-                                  "Tap on stars and open with Google Play Store to rate",
+                              text: "secondTextRatingPage".tr().toString(),
                               style: GoogleFonts.roboto(
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 18) * (-1)
@@ -321,19 +321,23 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       throw 'Could not launch $url';
     }
   }
-  // getCurrencyCode() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //    theme = prefs.getString(Constants.theme) ?? "";
-  //
-  //
-  //   if (theme.isNotEmpty ) {
-  //     int value=int.parse(theme);
-  //     var code = (value.toRadixString(16));
-  //     background= Color(int.parse("0x$code"));
-  //
-  //   }
-  //   setState(() {});
-  // }
+
+  getColorTheme() async {
+    final prefs = await SharedPreferences.getInstance();
+    theme = prefs.getString(Constants.themeColor) ?? "";
+    debugPrint("color->>>> $theme");
+
+    if (theme.isNotEmpty) {
+      int value = int.parse(theme);
+      var code = (value.toRadixString(16));
+      debugPrint("color code ->>>>$code");
+      MyColors.colorPrimary = Color(int.parse("0x$code"));
+    } else {
+      debugPrint("color is empty");
+    }
+
+    setState(() {});
+  }
 }
 
 class CurrencyData {

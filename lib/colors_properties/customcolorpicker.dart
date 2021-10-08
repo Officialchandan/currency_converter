@@ -61,7 +61,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
 
                     ElevatedButton(child: const Text("Try this Color"),onPressed: (){
 
-                      MyColors.firstthemecolorgr=currentColor;
+                      MyColors.colorPrimary=currentColor;
                       MyColors.calcuColor=currentColor;
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const MyTabBarWidget()), (route) => false);
 
