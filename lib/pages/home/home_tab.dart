@@ -201,7 +201,6 @@ class _TapHomeState extends State<TapHome> {
                         Center(
                           child: SizedBox(
                             width: MediaQuery.of(context).size.height * 0.24,
-                            // width: 150,
                             child: TextField(
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
@@ -394,7 +393,6 @@ class _TapHomeState extends State<TapHome> {
                             _isContainerVisible = false;
                             setState(() {});
                           },
-
                         )
                       : _isContainerVisibleTwo
                           ? CurrencyToWidget(
@@ -413,7 +411,8 @@ class _TapHomeState extends State<TapHome> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          conversionRate.toStringAsFixed(MyColors.decimalformat ),
+                          conversionRate
+                              .toStringAsFixed(MyColors.decimalformat),
                           style: TextStyle(
                               color: MyColors.textColor,
                               fontSize: MyColors.fontsmall
@@ -504,7 +503,7 @@ class _TapHomeState extends State<TapHome> {
     return cresult;
   }
 
-  void showCalculator(BuildContext context) {
+  showCalculator(BuildContext context) {
     showModalBottomSheet(
         barrierColor: Colors.transparent,
         // isDismissible: true,

@@ -1,7 +1,11 @@
+import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_currency_screen.dart';
@@ -13,14 +17,60 @@ class SecondScreen extends StatefulWidget {
   _SecondScreenState createState() => _SecondScreenState();
 }
 
+TapHome tapHome = const TapHome();
+
 class _SecondScreenState extends State<SecondScreen> {
+  String equation = "0";
+  String result = "0";
+  String expression = "";
+  double equationFontSize = 38.0;
+  double resultFontSize = 48.0;
+  bool isbool = true;
+  double conversionRate = 0;
+
+  TextEditingController edtCurrency = TextEditingController();
+  TextEditingController calculateCurrency = TextEditingController();
+  TextEditingController edtFrom = TextEditingController();
+  TextEditingController edtTo = TextEditingController();
+  String convertedDateTime = "";
+  DateTime now = DateTime.now();
+
+  String currencyCodeFrom = "";
+  String currencyCodeTo = "";
+  Map<String, double> cresult = {};
+
+  getCurrencyCode() async {
+    final prefs = await SharedPreferences.getInstance();
+    currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "";
+    currencyCodeTo = prefs.getString(Constants.currencyCodeFrom) ?? "";
+
+    if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
+      edtFrom.text = currencyCodeFrom;
+      edtTo.text = currencyCodeTo;
+
+      getConverterAPI(
+          currencyCodeFrom, currencyCodeTo, conversionRate.toString());
+    }
+    setState(() {});
+  }
+
+  void currencyCodeFromSave(String code) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constants.currencyCodeFrom, code);
+  }
+
+  void currencyCodeToSave(String code) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constants.currencyCodeTo, code);
+  }
+
   List<CurrencyData> selecteddata = [];
   List<String> favList = [];
-  DateTime now = DateTime.now();
 
   @override
   void initState() {
     super.initState();
+    getCurrencyCode();
     getcurrencySaveDataListAdd();
   }
 
@@ -171,7 +221,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                 child: TextFormField(
                                   cursorColor: Colors.black,
                                   cursorWidth: 2.3,
-                                  // controller: calculateCurrency,
+                                  controller: calculateCurrency,
                                   showCursor: true,
                                   readOnly: true,
                                   textAlign: TextAlign.center,
@@ -246,5 +296,208 @@ class _SecondScreenState extends State<SecondScreen> {
     );
   }
 
-  void showCalculator(BuildContext context) {}
+  Future<Map<String, dynamic>> getConverterAPI(
+      String form, String to, String rate) async {
+    debugPrint("input from -> $form");
+    debugPrint("input to -> $to");
+    String url =
+        "https://www.currency.wiki/api/currency/quotes/$form/$to/784565d2-9c14-4b25-8235-06f6c5029b15";
+
+    Dio _dio = Dio();
+    try {
+      Response response = await _dio.get(url);
+      if (response.statusCode == 200) {
+        ConverterData converterData =
+            ConverterData.fromJson(response.toString());
+        debugPrint("last data from -> ${converterData.from.entries.last}");
+        debugPrint("last data to -> ${converterData.to!.entries.last}");
+
+        double a =
+            double.parse(converterData.from.entries.last.value.toString());
+        double b =
+            double.parse(converterData.to!.entries.last.value.toString());
+        conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
+
+        debugPrint("conversionRate $form to $to--> $conversionRate");
+
+        setState(() {});
+
+        return cresult;
+      } else {
+        print("NOT FOUND DATA");
+      }
+    } catch (e) {
+      print(e);
+    }
+    return cresult;
+  }
+
+  showCalculator(BuildContext context) {
+    showModalBottomSheet(
+        barrierColor: Colors.transparent,
+        // isDismissible: true,
+        context: context,
+        builder: (BuildContext context) {
+          buttonPressed(String buttonText) {
+            setState(() {
+              if (buttonText == "C") {
+                isbool = true;
+                equation = "0";
+                isbool = false;
+                equationFontSize = 38.0;
+                resultFontSize = 48.0;
+              } else if (buttonText == "⌫") {
+                equationFontSize = 48.0;
+                resultFontSize = 38.0;
+                equation = equation.substring(0, equation.length - 1);
+                if (equation == "") {
+                  equation = "0";
+                }
+              } else if (buttonText == "=") {
+                equationFontSize = 38.0;
+                resultFontSize = 48.0;
+                isbool = false;
+
+                expression = equation;
+                expression = expression.replaceAll('×', '*');
+                expression = expression.replaceAll('÷', '/');
+
+                try {
+                  Parser p = Parser();
+                  Expression exp = p.parse(expression);
+
+                  ContextModel cm = ContextModel();
+                  result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+                } catch (e) {
+                  result = "";
+                }
+              } else {
+                equationFontSize = 48.0;
+                resultFontSize = 38.0;
+                if (equation == "0") {
+                  equation = buttonText;
+                } else {
+                  equation = equation + buttonText;
+                }
+              }
+              isbool
+                  ? calculateCurrency.text = equation
+                  : calculateCurrency.text = result;
+
+              getConverterAPI(
+                  currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
+
+              isbool = true;
+            });
+          }
+
+          Widget buildButton(
+              String buttonText, double buttonHeight, Color buttonColor) {
+            return SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Container(
+                margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.left,
+                ),
+                //**Alline height */
+                //This is grate
+                height: MediaQuery.of(context).size.height *
+                        0.1 /
+                        1.5 *
+                        buttonHeight +
+                    2.6,
+
+                color: buttonColor,
+                child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        side: BorderSide(
+                            color: MyColors.firstthemecolorgr,
+                            width: 0.6,
+                            style: BorderStyle.solid)),
+                    padding: const EdgeInsets.all(10.0),
+                    onPressed: () => buttonPressed(buttonText),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 0.0),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          buttonText,
+                          style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white),
+                        ),
+                      ),
+                    )),
+              ),
+            );
+          }
+
+          return Container(
+              width: MediaQuery.of(context).size.width * .75,
+              height: MediaQuery.of(context).size.height * 0.35,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * .75,
+                        height: MediaQuery.of(context).size.height * 0.35,
+                        child: Table(
+                          children: [
+                            TableRow(children: [
+                              buildButton("%", 1, MyColors.calcuColor),
+                              buildButton("/", 1, MyColors.calcuColor),
+                              buildButton("×", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("1", 1, MyColors.calcuColor),
+                              buildButton("2", 1, MyColors.calcuColor),
+                              buildButton("3", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("4", 1, MyColors.calcuColor),
+                              buildButton("5", 1, MyColors.calcuColor),
+                              buildButton("6", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("7", 1, MyColors.calcuColor),
+                              buildButton("8", 1, MyColors.calcuColor),
+                              buildButton("9", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton(".", 1, MyColors.calcuColor),
+                              buildButton("0", 1, MyColors.calcuColor),
+                              buildButton("c", 1, MyColors.calcuColor),
+                            ]),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: Table(children: [
+                            TableRow(children: [
+                              buildButton("⌫", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("-", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("+", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              Center(
+                                  child:
+                                      buildButton("=", 2, MyColors.calcuColor)),
+                            ]),
+                          ]))
+                    ],
+                  ),
+                ],
+              ));
+        });
+  }
 }
