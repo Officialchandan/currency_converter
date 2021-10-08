@@ -1,11 +1,15 @@
 import 'dart:developer';
 
+import 'dart:io';
+
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
+
+import 'package:share/share.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,7 +53,7 @@ class _TapHomeState extends State<TapHome> {
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   Map<String, double> cresult = {};
-
+  String text = '';
   @override
   void initState() {
     getCurrencyCode();
@@ -96,7 +100,7 @@ class _TapHomeState extends State<TapHome> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -150,11 +154,11 @@ class _TapHomeState extends State<TapHome> {
                                   ),
                           ],
                         ),
-                        SizedBox(
-                            // width: appwidth * 0.05,
-                            ),
-                        const Icon(
-                          Icons.share,
+                        IconButton(
+                          onPressed: () async {
+                            _onShareWithEmptyOrigin(context);
+                          },
+                          icon: const Icon(Icons.share),
                           color: Colors.white,
                         )
                       ],
@@ -240,30 +244,29 @@ class _TapHomeState extends State<TapHome> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(right: 8.0),
+                          padding: const EdgeInsets.only(right: 8.0),
                           child: Center(
                             child: InkWell(
-                              onTap: () {
-                                String temp = "";
-                                temp = currencyCodeFrom;
-                                currencyCodeFrom = currencyCodeTo;
-                                currencyCodeTo = temp;
+                                onTap: () {
+                                  String temp = "";
+                                  temp = currencyCodeFrom;
+                                  currencyCodeFrom = currencyCodeTo;
+                                  currencyCodeTo = temp;
 
-                                edtFrom.text = currencyCodeFrom;
-                                edtTo.text = currencyCodeTo;
+                                  edtFrom.text = currencyCodeFrom;
+                                  edtTo.text = currencyCodeTo;
 
-                                currencyCodeFromSave(currencyCodeFrom);
-                                currencyCodeToSave(currencyCodeTo);
-                                setState(() {});
+                                  currencyCodeFromSave(currencyCodeFrom);
+                                  currencyCodeToSave(currencyCodeTo);
+                                  setState(() {});
 
-                                getConverterAPI(currencyCodeFrom,
-                                    currencyCodeTo, calculateCurrency.text);
-                              },
-                              child: Icon(
-                                Icons.compare_arrows_outlined,
-                                color: MyColors.insideTextFieldColor,
-                              ),
-                            ),
+                                  getConverterAPI(currencyCodeFrom,
+                                      currencyCodeTo, calculateCurrency.text);
+                                },
+                                child: Image.asset(
+                                  "assets/right-left.png",
+                                  scale: 8,
+                                )),
                           ),
                         ),
                       ],
@@ -415,6 +418,39 @@ class _TapHomeState extends State<TapHome> {
                             )
                           : const Text(""),
                   Center(
+                    child: _isContainerVisible || _isContainerVisibleTwo
+                        ? Container()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                conversionRate
+                                    .toStringAsFixed(MyColors.decimalformat),
+                                style: TextStyle(
+                                    color: MyColors.textColor,
+                                    fontSize: MyColors.fontsmall
+                                        ? (MyColors.textSize - 25) * (-1)
+                                        : MyColors.fontlarge
+                                            ? (MyColors.textSize + 25)
+                                            : 25,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                edtTo.text,
+                                style: TextStyle(
+                                    color: MyColors.textColor,
+                                    fontSize: MyColors.fontsmall
+                                        ? (MyColors.textSize - 25) * (-1)
+                                        : MyColors.fontlarge
+                                            ? (MyColors.textSize + 25)
+                                            : 25,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -449,9 +485,10 @@ class _TapHomeState extends State<TapHome> {
                 ],
               ),
               _isContainerVisible
-                  ? Positioned(
-                      top: MediaQuery.of(context).size.height * 00.232,
-                      child: const Icon(
+                  ? const Positioned(
+                      // top: MediaQuery.of(context).size.height * 00.232,
+                      top: 161,
+                      child: Icon(
                         Icons.arrow_drop_up,
                         size: 50,
                         color: Colors.white,
@@ -459,7 +496,8 @@ class _TapHomeState extends State<TapHome> {
                   : Container(),
               _isContainerVisibleTwo
                   ? Positioned(
-                      top: MediaQuery.of(context).size.height * 00.232,
+                      // top: MediaQuery.of(context).size.height * 00.232,
+                      top: 161,
                       left: MediaQuery.of(context).size.width * 00.480,
                       child: const Icon(
                         Icons.arrow_drop_up,
@@ -487,11 +525,11 @@ class _TapHomeState extends State<TapHome> {
       if (response.statusCode == 200) {
         ConverterData converterData =
             ConverterData.fromJson(response.toString());
-        debugPrint("last data from -> ${converterData.from.entries.last}");
+        debugPrint("last data from -> ${converterData.from!.entries.last}");
         debugPrint("last data to -> ${converterData.to!.entries.last}");
 
         double a =
-            double.parse(converterData.from.entries.last.value.toString());
+            double.parse(converterData.from!.entries.last.value.toString());
         double b =
             double.parse(converterData.to!.entries.last.value.toString());
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
@@ -512,10 +550,15 @@ class _TapHomeState extends State<TapHome> {
     return cresult;
   }
 
-  void showCalculator(BuildContext context) {
+  _onShareWithEmptyOrigin(BuildContext context) async {
+    await Share.share(
+        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+  }
+
+  showCalculator(BuildContext context) {
     showModalBottomSheet(
         barrierColor: Colors.transparent,
-        // isDismissible: true,
+        isDismissible: true,
         context: context,
         builder: (BuildContext context) {
           buttonPressed(String buttonText) {
@@ -524,6 +567,8 @@ class _TapHomeState extends State<TapHome> {
                 isbool = true;
                 calculateCurrency.text="";
                 equation = "0";
+                calculateCurrency.text = "0";
+
                 isbool = false;
                 equationFontSize = 38.0;
                 resultFontSize = 48.0;
@@ -615,7 +660,7 @@ class _TapHomeState extends State<TapHome> {
             );
           }
 
-          return Container(
+          return SizedBox(
               width: MediaQuery.of(context).size.width * .75,
               height: MediaQuery.of(context).size.height * 0.35,
               child: Column(
@@ -624,9 +669,9 @@ class _TapHomeState extends State<TapHome> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * .75,
-                        height: MediaQuery.of(context).size.height * 0.35,
+                        height: MediaQuery.of(context).size.height * 0.36 / 2,
                         child: Table(
                           children: [
                             TableRow(children: [
@@ -657,92 +702,28 @@ class _TapHomeState extends State<TapHome> {
                           ],
                         ),
                       ),
-
-
-                        Container(
-
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            child: Table(
-
-
-
-
-
-                                children: [
-                              TableRow(children: [
-                                buildButton("⌫", 1, MyColors.calcuColor),
-                              ]),
-                              TableRow(children: [
-                                buildButton("-", 1, MyColors.calcuColor),
-                              ]),
-                              TableRow(children: [
-                                buildButton("+", 1, MyColors.calcuColor),
-                              ]),
-
-                              TableRow(children: [
-                                Center(
-
-                                    child:
-                                        buildButton("=", 2, MyColors.calcuColor)),
-                              ]),
-                            ])),
-
-
-
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: Table(children: [
+                            TableRow(children: [
+                              buildButton("⌫", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("-", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              buildButton("+", 1, MyColors.calcuColor),
+                            ]),
+                            TableRow(children: [
+                              Center(
+                                  child:
+                                      buildButton("=", 2, MyColors.calcuColor)),
+                            ]),
+                          ]))
                     ],
                   ),
                 ],
               ));
         });
   }
-
-  format(double conversionRate){
-
-
-    int i = MyColors.monetaryformat;
-    int afterdecimal =MyColors.decimalformat;
-    double amount = conversionRate;
-    CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
-      decimalDigits: afterdecimal,
-      symbol: "",
-    );
-    if (i == 1) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(",", ",");
-      log(text);
-      text = text.replaceAll(".", ".");
-      log(text);
-    } else if (i == 2) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(".", " ");
-      log(text);
-      text = text.replaceAll(",", ".");
-      log(text);
-      text = text.replaceAll(" ", ",");
-
-      //text = text.replaceFirstMapped(".", (match) => "1");
-    } else if (i == 3) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      text = text.replaceAll(".", "=");
-      log(text);
-      text = text.replaceAll(",", ".");
-      log(text);
-      text = text.replaceAll(".", " ");
-      text = text.replaceAll("=", ".");
-
-      log(text);
-    } else if (i == 4) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(",", " ");
-      log(text);
-      text = text.replaceAll(".", ",");
-      log(text);
-    }
-
-    setState(() {});
-  }
-  }
-
+}

@@ -33,7 +33,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
-  String theme="";
+  String theme = "";
 
   @override
   void initState() {
@@ -164,7 +164,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   ratingBottomSheet(BuildContext context) {
-
     return showModalBottomSheet(
         isDismissible: false,
         backgroundColor: Colors.transparent,
@@ -217,8 +216,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
                           TextSpan(
-                              text:
-                                  "secondTextRatingPage".tr().toString(),
+                              text: "secondTextRatingPage".tr().toString(),
                               style: GoogleFonts.roboto(
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 18) * (-1)
@@ -240,9 +238,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-
                       children: [
-
                         Icon(
                           Icons.star,
                           size: 40,
@@ -328,25 +324,20 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       throw 'Could not launch $url';
     }
   }
+
   getColorTheme() async {
     final prefs = await SharedPreferences.getInstance();
-     theme = prefs.getString(Constants.themeColor) ?? "";
+    theme = prefs.getString(Constants.themeColor) ?? "";
     debugPrint("color->>>> $theme");
 
-    if (theme.isNotEmpty ) {
-
-      int value=int.parse(theme);
+    if (theme.isNotEmpty) {
+      int value = int.parse(theme);
       var code = (value.toRadixString(16));
       debugPrint("color code ->>>>$code");
       MyColors.colorPrimary = Color(int.parse("0x$code"));
-
-
-
+    } else {
+      debugPrint("color is empty");
     }
-    else
-      {
-        debugPrint("color is empty");
-      }
 
     setState(() {});
   }
@@ -357,6 +348,7 @@ class CurrencyData {
   double value;
   bool favorite = false;
   bool changeIcon = false;
+  TextEditingController controller = TextEditingController();
 
   CurrencyData(
       {required this.key,
