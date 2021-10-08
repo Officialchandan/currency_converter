@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,8 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
+
+  String text = "00.0";
   String equation = "0";
   String result = "0";
   String expression = "";
@@ -414,7 +419,7 @@ class _TapHomeState extends State<TapHome> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          conversionRate.toStringAsFixed(MyColors.decimalformat ),
+                          text ,
                           style: TextStyle(
                               color: MyColors.textColor,
                               fontSize: MyColors.fontsmall
@@ -490,6 +495,8 @@ class _TapHomeState extends State<TapHome> {
         double b =
             double.parse(converterData.to!.entries.last.value.toString());
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
+        format(conversionRate);
+
 
         debugPrint("conversionRate $form to $to--> $conversionRate");
 
@@ -513,8 +520,9 @@ class _TapHomeState extends State<TapHome> {
         builder: (BuildContext context) {
           buttonPressed(String buttonText) {
             setState(() {
-              if (buttonText == "C") {
+              if (buttonText == "c") {
                 isbool = true;
+                calculateCurrency.text="";
                 equation = "0";
                 isbool = false;
                 equationFontSize = 38.0;
@@ -649,28 +657,92 @@ class _TapHomeState extends State<TapHome> {
                           ],
                         ),
                       ),
-                      Container(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: Table(children: [
-                            TableRow(children: [
-                              buildButton("⌫", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              buildButton("+", 1, MyColors.calcuColor),
-                            ]),
-                            TableRow(children: [
-                              Center(
-                                  child:
-                                      buildButton("=", 2, MyColors.calcuColor)),
-                            ]),
-                          ]))
+
+
+                        Container(
+
+                            width: MediaQuery.of(context).size.width * 0.25,
+                            child: Table(
+
+
+
+
+
+                                children: [
+                              TableRow(children: [
+                                buildButton("⌫", 1, MyColors.calcuColor),
+                              ]),
+                              TableRow(children: [
+                                buildButton("-", 1, MyColors.calcuColor),
+                              ]),
+                              TableRow(children: [
+                                buildButton("+", 1, MyColors.calcuColor),
+                              ]),
+
+                              TableRow(children: [
+                                Center(
+
+                                    child:
+                                        buildButton("=", 2, MyColors.calcuColor)),
+                              ]),
+                            ])),
+
+
+
                     ],
                   ),
                 ],
               ));
         });
   }
-}
+
+  format(double conversionRate){
+
+
+    int i = MyColors.monetaryformat;
+    int afterdecimal =MyColors.decimalformat;
+    double amount = conversionRate;
+    CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
+      decimalDigits: afterdecimal,
+      symbol: "",
+    );
+    if (i == 1) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(",", ",");
+      log(text);
+      text = text.replaceAll(".", ".");
+      log(text);
+    } else if (i == 2) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(".", " ");
+      log(text);
+      text = text.replaceAll(",", ".");
+      log(text);
+      text = text.replaceAll(" ", ",");
+
+      //text = text.replaceFirstMapped(".", (match) => "1");
+    } else if (i == 3) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      text = text.replaceAll(".", "=");
+      log(text);
+      text = text.replaceAll(",", ".");
+      log(text);
+      text = text.replaceAll(".", " ");
+      text = text.replaceAll("=", ".");
+
+      log(text);
+    } else if (i == 4) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(",", " ");
+      log(text);
+      text = text.replaceAll(".", ",");
+      log(text);
+    }
+
+    setState(() {});
+  }
+  }
+

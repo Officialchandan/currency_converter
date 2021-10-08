@@ -13,7 +13,7 @@ void main() async {
 
   runApp( EasyLocalization(child: MyApp(),
     path: "assets/langs",
-    supportedLocales: const [Locals.hindi,Locals.english],
+    supportedLocales: const [Locals.english],
   ));
 }
 
@@ -47,8 +47,8 @@ class _MyAppState extends State<MyApp> {
       ),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      home:  const MyTabBarWidget(),
+        locale: context.locale,
+        home:  const MyTabBarWidget(),
     );
   }
 

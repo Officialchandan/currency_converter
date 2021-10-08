@@ -1,0 +1,35 @@
+{
+
+    "update": "अपडेट गरिएको",
+    "addCurrency": "मुद्रा जोड्नुहोस्",
+    "selectedCurrency": "चयनित मुद्रा",
+    "monetary": "मौद्रिक ढाँचा",
+    "decimal": "दशमलव ढाँचा",
+    "firstTextRatingPage": "कृपया अनुप्रयोग बाहिर मूल्या !्कन गर्नुहोस्!",
+    "secondTextRatingPage": "ताराहरु मा ट्याप गर्नुहोस् र रेट गर्न को लागी गुगल प्ले स्टोर संग खोल्नुहोस्",
+    "buttonTextRatingPage": "अब छैन",
+    "RemoveAds": "विज्ञापन हटाउनुहोस्",
+    "RemoveAdsContent": "एक सानो वार्षिक सदस्यता संग हाम्रो परियोजना को समर्थन",
+    "selectLanguage": "भाषा चयन गर्नुहोस्",
+    "english": "अंग्रेजी",
+    "colorsSelection": "रंग चयन",
+    "theme": "विषय",
+    "light": "प्रकाश",
+    "dark": "अँध्यारो",
+    "widgetTransparency": "विजेट पारदर्शिता",
+    "visualSize": "दृश्य आकार",
+    "A": "A",
+    "appLogoLauncher": "एप लोगो लन्चर",
+    "multiConverter": "बहु कनवर्टर",
+    "multiConverterContent1": "पूर्वनिर्धारित द्वारा बहु-कनवर्टर खोल्नेछ।",
+    "multiConverterContent2": "नोट:",
+    "multiConverterContent3": "यो सुविधा मात्र अनुप्रयोग लोगो लन्चर संग काम गर्दछ",
+    "display": "प्रदर्शन",
+    "display1": "प्रदर्शन मुद्रा कोड",
+    "display2": "प्रदर्शन मुद्रा प्रतीक",
+    "display3": "प्रदर्शन मुद्रा झण्डा",
+    "dateFormat": "डाटा ढाँचा"
+  
+  
+  
+  }

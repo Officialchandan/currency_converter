@@ -49,7 +49,7 @@ class DensityColorPicker extends StatefulWidget {
       Color color, bool isCurrentColor, void Function() changeColor) {
     return Container(
       height: 60,
-      width: 60,
+      width: 50,
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),

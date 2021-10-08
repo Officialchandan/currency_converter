@@ -136,8 +136,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
+
             MyColors.firstthemecolorgr1,
             MyColors.colorPrimary,
+
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -177,7 +179,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 gradient: LinearGradient(
                   colors: [
                     Colors.white12,
-                    MyColors.firstthemecolorgr1,
+                    MyColors.colorPrimary
+
                   ],
                   stops: const [0.0, 0.5],
                   begin: Alignment.topCenter,

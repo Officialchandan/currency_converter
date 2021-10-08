@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 
 class DecimalScreens extends StatefulWidget {
   const DecimalScreens({Key? key}) : super(key: key);
@@ -23,7 +26,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
     "1 234.56",
     "1 234,56",
   ];
-  List<bool> boolMonetaryFormate = [false, false, false, false];
+
 
   List<String> radiDecimalFormat = [
     ".02",
@@ -78,15 +81,18 @@ class _DecimalScreensState extends State<DecimalScreens> {
                             children: [
                               Checkbox(
                                 side: BorderSide(color: MyColors.textColor),
-                                value: boolMonetaryFormate[index],
+                                value: MyColors.boolMonetaryFormate[index],
                                 onChanged: (value) {
                                   int j = 0;
                                   setState(() {
-                                    boolMonetaryFormate.forEach((element) {
+                                    MyColors.boolMonetaryFormate.forEach((element) {
                                       if (index == j) {
-                                        boolMonetaryFormate[j] = true;
+                                        MyColors.monetaryformat=index+1;
+
+                                        MyColors.boolMonetaryFormate[j] = true;
                                       } else
-                                        boolMonetaryFormate[j] = false;
+                                        MyColors.boolMonetaryFormate[j] = false;
+                                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context)=>MyTabBarWidget()), (route) => false);
 
                                       j++;
                                     });
@@ -193,4 +199,103 @@ class _DecimalScreensState extends State<DecimalScreens> {
       ),
     );
   }
+
 }
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+/// This is the private State class that goes with MyStatefulWidget.
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+
+  TextEditingController controller = TextEditingController();
+  String text = "";
+  final CurrencyTextInputFormatter _formatter = CurrencyTextInputFormatter(
+    decimalDigits: 5,
+    symbol: "",
+  );
+  int i = 2;
+  int afterdecimal = MyColors.decimalformat;
+  double amount = 500010354.456;
+  @override
+  void initState() {
+    super.initState();
+      CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
+      decimalDigits: afterdecimal,
+      symbol: "",
+    );
+    if (i == 1) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(",", ",");
+      log(text);
+      text = text.replaceAll(".", ".");
+      log(text);
+    } else if (i == 2) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(".", " ");
+      log(text);
+      text = text.replaceAll(",", ".");
+      log(text);
+      text = text.replaceAll(" ", ",");
+
+      //text = text.replaceFirstMapped(".", (match) => "1");
+    } else if (i == 3) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      text = text.replaceAll(".", "=");
+      log(text);
+      text = text.replaceAll(",", ".");
+      log(text);
+      text = text.replaceAll(".", " ");
+      text = text.replaceAll("=", ".");
+
+      log(text);
+    } else if (i == 4) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(",", " ");
+      log(text);
+      text = text.replaceAll(".", ",");
+      log(text);
+    }
+
+    setState(() {});
+  }
+
+  final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter();
+  @override
+  Widget build(BuildContext context) {
+    print(formatter.getFormattedValue()); // $ 2,000
+    print(formatter.getUnformattedValue()); // 2000.00
+    print(formatter.format('2000'));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('BottomNavigationBar Sample'),
+      ),
+      body: Center(
+        child: Column(children: [
+          TextField(
+            controller: controller,
+            // inputFormatters: [CurrencyTextInputFormatter()],
+            keyboardType: TextInputType.number,
+            onChanged: (txt) {
+              text = _formatter.format(txt);
+              print("formated text -->$text");
+              setState(() {});
+            },
+          ),
+
+          Text("$text"),
+        ]),
+      ),
+
+    );
+  }
+}
+
+

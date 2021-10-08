@@ -9,7 +9,7 @@ class MyColors {
   static Color colorPrimary =  Colors.lightBlue; //{ this is a color ,which change whole theme }
   static Color firstthemecolorgr1 = Colors.grey;  //{ this is a gradient color of theme which is always with  'firstthemecolorgr' }
 
-  static Color calcuColor = Color(0xFFB2BBF5);  //{  this is a color of calculator button, we need to take this because some time it change some time not}
+  static Color calcuColor =colorPrimary;  //{  this is a color of calculator button, we need to take this because some time it change some time not}
   static Color textColor =Colors.white;  //{ this is color of all text except textfield text}
   static Color insideTextFieldColor=Colors.black;  //{ this is a color of text,which is inside textField }
 
@@ -25,12 +25,10 @@ class MyColors {
   static  bool fontlarge = false;  //{ this is for large font }
 
   static int decimalformat=2;
+  static int monetaryformat=2;
 
   static List <bool> boolDecimalFormate=[false,true,false,false,false,false];
-
-
-
-
+  static List <bool> boolMonetaryFormate=[false,true,false,false];
 
 
 

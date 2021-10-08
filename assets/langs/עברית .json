@@ -1,0 +1,34 @@
+{
+  "update": "עודכן",
+  "addCurrency": "הוסף מטבע",
+  "selectedCurrency": "מטבע נבחר",
+  "monetary": "פורמט כספי",
+  "decimal": "פורמט עשרוני",
+  "firstTextRatingPage": "אנא דרג את האפליקציה!",
+  "secondTextRatingPage": "הקש על כוכבים ופתח בחנות Google Play כדי לדרג",
+  "buttonTextRatingPage": "לא עכשיו",
+  "removeAds": "הסרת מודעות",
+  "removeAdsContent": "תמך בפרויקט שלנו עם מנוי שנתי קטן",
+  "selectLanguage": "בחר שפה",
+  "english":" אנגלית",
+  "colorsSelection": "בחירת צבעים",
+  "theme": "נושא",
+  "light ":"אור",
+  "dark": "כהה",
+  "widgetTransparency": "שקיפות ווידג'ט",
+  "visualSize": "גודל חזותי",
+  "A": "A",
+  "appLogoLauncher": "מפעיל לוגו אפליקציות",
+  "multiConverter": "Multi-Converter",
+  "multiConverterContent1": "ייפתח ברירת מחדל כברירת מחדל.",
+  "multiConverterContent2": "הערה:",
+  "multiConverterContent3": "תכונה זו פועלת רק עם משגר לוגו אפליקציות",
+  "display": "תצוגה",
+  "display1": "קוד מטבע להצגה",
+  "display2": "סמל מטבע להצגה",
+  "display3": "דגל מטבע לתצוגה",
+  "dateFormat": "פורמט נתונים"
+
+
+
+} 

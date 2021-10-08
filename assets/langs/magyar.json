@@ -1,0 +1,35 @@
+{
+
+    "update": "Frissítve",
+    "addCurrency": "Pénznem hozzáadása",
+    "selectedCurrency": "Kiválasztott pénznem",
+    "monetary": "Monetáris formátum",
+    "decimal": "Decimal Format",
+    "firstTextRatingPage": "Kérjük, értékelje az alkalmazást!",
+    "secondTextRatingPage": "Érintse meg a csillagokat, és nyissa meg a Google Play Áruházban az értékeléshez",
+    "buttonTextRatingPage": "NOT NOW",
+    "removeAds": "Hirdetések eltávolítása",
+    "removeAdsContent": "Támogassa projektünket éves előfizetéssel",
+    "selectLanguage": "Nyelv kiválasztása",
+    "english":" angol",
+    "colorsSelection": "Színválasztás",
+    "theme": "Téma",
+    "light": "Light",
+    "dark": "sötét",
+    "widgetTransparency": "Widget Transparency",
+    "visualSize": "Vizuális méret",
+    "A": "A",
+    "appLogoLauncher": "App Logo Launcher",
+    "multiConverter": "Multi-Converter",
+    "multiConverterContent1": "Alapértelmezés szerint megnyitja a több konvertert.",
+    "multiConverterContent2": "MEGJEGYZÉS:",
+    "multiConverterContent3": "Ez a funkció csak az alkalmazás logóindítójával működik",
+    "display": "Display",
+    "display1": "Kijelzett pénznem kódja",
+    "display2": "A megjelenített pénznem szimbóluma",
+    "display3": "Pénznemjelző megjelenítése",
+    "dateFormat": "Adatformátum"
+  
+  
+  
+  }
