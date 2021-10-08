@@ -1,6 +1,7 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 
 class DecimalScreens extends StatefulWidget {
@@ -30,7 +31,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
     ".0004",
     ".00005",
     ".0000006",
-    "Dont't show "
+    "Don't show "
   ];
 
   @override
@@ -53,19 +54,20 @@ class _DecimalScreensState extends State<DecimalScreens> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
+              Container(margin: EdgeInsets.only(top: 0),
                 width: 180,
                 child: Column(
+
                   children: [
                     Text(
-                      "Monetary Format",
+                      "monetary".tr().toString(),
                       style: TextStyle(color: MyColors.textColor, fontSize: 20),
                     ),
                     SizedBox(
                       height: 10,
                     ),
                     ListView.builder(
-                      padding: EdgeInsets.all(0),
+
                       shrinkWrap: true,
                       itemCount: num,
                       itemBuilder: (context, index) {
@@ -111,75 +113,79 @@ class _DecimalScreensState extends State<DecimalScreens> {
                   ],
                 ),
               ),
-              Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 40),
-                    width: 180,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Decimal Format",
-                          style: TextStyle(
-                              color: MyColors.textColor, fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ListView.builder(
-                          padding: EdgeInsets.all(0),
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              width: 150,
-                              height: 38,
-                              child: Row(
-                                children: [
-                                  Checkbox(
-                                    side: BorderSide(color: MyColors.textColor),
-                                    value: MyColors.boolDecimalFormate[index],
-                                    onChanged: (value) {
-                                      int i = 0;
-                                      setState(() {
-                                        MyColors.boolDecimalFormate
-                                            .forEach((element) {
-                                          if (index == i) {
-                                            MyColors.decimalformat = index + 2;
-                                            MyColors.boolDecimalFormate[i] = true;
-                                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context)=>MyTabBarWidget()), (route) => false);
+              Container(
+                margin: EdgeInsets.only(top: 40),
+                width: 180,
+                child: Column(
+                  children: [
 
-                                          } else {
-                                            MyColors.boolDecimalFormate[i] = false;
-                                          }
-
-                                          i++;
-                                        });
-                                      });
-                                    },
-                                    activeColor: MyColors.checkBoxValue2
-                                        ? Colors.black45
-                                        : Colors.white,
-                                    checkColor: Colors.black,
-                                    tristate: false,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                  ),
-                                  Text("${radiDecimalFormat[index]}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: MyColors.textColor)),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                    Text(
+                      "decimal".tr().toString(),
+                      style: TextStyle(
+                          color: MyColors.textColor, fontSize: 20),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ListView.builder(
+
+                      shrinkWrap: true,
+                      itemCount: 6,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: 150,
+                          height: 38,
+                          child: Row(
+                            children: [
+                              Checkbox(
+                                side: BorderSide(color: MyColors.textColor),
+                                value: MyColors.boolDecimalFormate[index],
+                                onChanged: (value) {
+                                  int i = 0;
+                                  setState(() {
+                                    MyColors.boolDecimalFormate
+                                        .forEach((element) {
+                                      if (index == i) {
+                                        if(index==5)
+                                          {
+                                            MyColors.decimalformat = 0;
+                                          }
+                                        else
+                                        {
+                                          MyColors.decimalformat = index + 2;
+                                          MyColors.boolDecimalFormate[i] = true;
+                                        }
+                                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context)=>MyTabBarWidget()), (route) => false);
+
+                                      } else {
+                                        MyColors.boolDecimalFormate[i] = false;
+                                      }
+
+                                      i++;
+                                    });
+                                  });
+                                },
+                                activeColor: MyColors.checkBoxValue2
+                                    ? Colors.black45
+                                    : Colors.white,
+                                checkColor: Colors.black,
+                                tristate: false,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(10)),
+                              ),
+                              Text("${radiDecimalFormat[index]}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: MyColors.textColor)),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               )
             ],
           ),

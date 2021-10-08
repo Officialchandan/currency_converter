@@ -130,7 +130,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                 child: Icon(
                                   Icons.remove_circle_rounded,
                                   size: 29,
-                                  color: MyColors.firstthemecolorgr,
+                                  color: MyColors.colorPrimary,
                                 )),
                           ),
                         );
