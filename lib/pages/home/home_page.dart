@@ -345,6 +345,7 @@ class CurrencyData {
   double value;
   bool favorite = false;
   bool changeIcon = false;
+  TextEditingController controller = TextEditingController();
 
   CurrencyData(
       {required this.key,

@@ -154,7 +154,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                               setState(() {});
                             },
                             child: Icon(
-                              Icons.remove_circle_rounded,
+                              Icons.close,
                               size: 29,
                               color: MyColors.colorPrimary,
                             )),

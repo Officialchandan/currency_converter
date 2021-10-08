@@ -4,13 +4,13 @@
 
 import 'dart:convert';
 
-class ConverterData {
-  ConverterData({
-    required this.from,
-    this.to,
-  });
+import 'package:flutter/widgets.dart';
 
-  Map<String, double> from;
+class ConverterData {
+  List<String> m = [];
+  ConverterData({this.from, this.to});
+
+  Map<String, double>? from;
   Map<String, double>? to;
 
   factory ConverterData.fromJson(String str) =>
@@ -32,7 +32,7 @@ class ConverterData {
   Map<String, dynamic> toMap() => {
         "from": from == null
             ? null
-            : Map.from(from).map((k, v) => MapEntry<String, dynamic>(k, v)),
+            : Map.from(from!).map((k, v) => MapEntry<String, dynamic>(k, v)),
         "to": to == null
             ? null
             : Map.from(to!).map((k, v) => MapEntry<String, dynamic>(k, v)),
