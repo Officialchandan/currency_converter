@@ -89,15 +89,16 @@ class _SecondScreenState extends State<SecondScreen> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.transparent,
+
+
       body: Container(
-        margin: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+        //margin: const EdgeInsets.fromLTRB(12, 12, 12, 10),
         height: appheight,
         width: appwidth,
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            MyColors.firstthemecolorgr1,
+            MyColors.colorPrimary.withOpacity(0.65),
             MyColors.colorPrimary,
           ],
           begin: Alignment.topCenter,

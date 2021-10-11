@@ -215,12 +215,12 @@ class _SettingScreenState extends State<SettingScreen> {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                               colors: [
-                                MyColors.firstthemecolorgr1,
+                                Colors.white60,
                                 MyColors.colorPrimary,
                               ],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
-                              stops: const [0.0, 0.9]),
+                              stops: const [0.0, 0.5]),
                           borderRadius: BorderRadius.circular(7),
                           border:
                               Border.all(width: 1.2, color: MyColors.textColor),

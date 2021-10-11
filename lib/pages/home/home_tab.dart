@@ -56,6 +56,7 @@ class _TapHomeState extends State<TapHome> {
   //String text = '';
   @override
   void initState() {
+    format(conversionRate);
     getCurrencyCode();
 
     super.initState();
@@ -424,8 +425,7 @@ class _TapHomeState extends State<TapHome> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                conversionRate
-                                    .toStringAsFixed(MyColors.decimalformat),
+                               text,
                                 style: TextStyle(
                                     color: MyColors.textColor,
                                     fontSize: MyColors.fontsmall
@@ -604,13 +604,28 @@ class _TapHomeState extends State<TapHome> {
                         buttonHeight +
                     2.6,
 
-                color: buttonColor,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+
+
+                      MyColors.colorPrimary.withOpacity(.4),
+                      MyColors.colorPrimary.withOpacity(.8),
+
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    //stops: [0.0,0.0]
+                  )
+                )
+                ,
                 child: FlatButton(
+
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
                         side: BorderSide(
-                            color: MyColors.colorPrimary,
-                            width: 0.6,
+                            //color: MyColors.colorPrimary,
+                            width: 0.3,
                             style: BorderStyle.solid)),
                     padding: const EdgeInsets.all(10.0),
                     onPressed: () => buttonPressed(buttonText),
@@ -693,7 +708,7 @@ class _TapHomeState extends State<TapHome> {
                           ]))
                     ],
                   ),
-                ],
+                ],  
               ));
         });
   }
