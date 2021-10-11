@@ -82,7 +82,7 @@ flutter:
   assets:
    - assets/
    - assets/langs/
-   - assets/images
+   - assets/images/
    - assets/images/@2x/
    - assets/images/@3x/
   

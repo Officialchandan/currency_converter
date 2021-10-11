@@ -38,10 +38,10 @@ class _TapHomeState extends State<TapHome> {
   String z = "";
   double conversionRate = 0;
 
-  TextEditingController edtCurrency = TextEditingController();
+  TextEditingController edtCurrency = TextEditingController(text: "USD");
   TextEditingController calculateCurrency = TextEditingController();
-  TextEditingController edtFrom = TextEditingController();
-  TextEditingController edtTo = TextEditingController();
+  TextEditingController edtFrom = TextEditingController(text: "USD");
+  TextEditingController edtTo = TextEditingController(text: "EUR");
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
   String convertedDateTime = "";
@@ -102,7 +102,7 @@ class _TapHomeState extends State<TapHome> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         SizedBox(
-                          width: appwidth * 0.5,
+                          width: appwidth * 0.15,
                         ),
                         Row(
                           children: [
@@ -286,7 +286,7 @@ class _TapHomeState extends State<TapHome> {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextFormField(
-                              initialValue: "USD",
+                              // initialValue: "USD",
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
                                 fontSize: MyColors.fontsmall
@@ -340,7 +340,7 @@ class _TapHomeState extends State<TapHome> {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextFormField(
-                              initialValue: "EUR",
+                              // initialValue: "EUR",
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
                                 fontSize: MyColors.fontsmall

@@ -53,12 +53,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
       ));
     });
 
-    streamController.sink.add(currencyList);
+    streamController.add(currencyList);
   }
 
   @override
   void dispose() {
-    streamController.sink.close();
+    streamController.close();
     super.dispose();
   }
 
@@ -151,12 +151,15 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                         children: [
                                           Text(
                                             snapshot.data![index].key,
-                                            style:  TextStyle(
-                                                color: MyColors.insideTextFieldColor, fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) * (-1)
-                                                : MyColors.fontlarge
-                                                ? (MyColors.textSize + 18)
-                                                : 18,
+                                            style: TextStyle(
+                                              color:
+                                                  MyColors.insideTextFieldColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
                                             ),
                                           ),
                                           const SizedBox(
