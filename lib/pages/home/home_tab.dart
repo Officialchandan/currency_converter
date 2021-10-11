@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'dart:io';
 
+import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -25,7 +27,6 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
-
   String text = "00.0";
   String equation = "0";
   String result = "0";
@@ -41,10 +42,10 @@ class _TapHomeState extends State<TapHome> {
   String z = "";
   double conversionRate = 0;
 
-  TextEditingController edtCurrency = TextEditingController();
+  TextEditingController edtCurrency = TextEditingController(text: "USD");
   TextEditingController calculateCurrency = TextEditingController();
-  TextEditingController edtFrom = TextEditingController();
-  TextEditingController edtTo = TextEditingController();
+  TextEditingController edtFrom = TextEditingController(text: "USD");
+  TextEditingController edtTo = TextEditingController(text: "EUR");
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
   String convertedDateTime = "";
@@ -94,7 +95,7 @@ class _TapHomeState extends State<TapHome> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
+        padding: const EdgeInsets.fromLTRB(12, 16, 12, 0),
         child: SingleChildScrollView(
           child: Stack(
             children: [
@@ -106,7 +107,7 @@ class _TapHomeState extends State<TapHome> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         SizedBox(
-                          width: appwidth * 0.14,
+                          width: appwidth * 0.17,
                         ),
                         Row(
                           children: [
@@ -155,18 +156,19 @@ class _TapHomeState extends State<TapHome> {
                                   ),
                           ],
                         ),
-                        IconButton(
-                          onPressed: () async {
-                            _onShareWithEmptyOrigin(context);
-                          },
-                          icon: const Icon(Icons.share),
-                          color: Colors.white,
-                        )
+                        InkWell(
+                            onTap: () async {
+                              _onShareWithEmptyOrigin(context);
+                            },
+                            child: const Icon(
+                              Icons.share,
+                              color: Colors.white,
+                            )),
                       ],
                     ),
                   ),
                   const SizedBox(
-                    height: 15.0,
+                    height: 16.0,
                   ),
                   Container(
                     width: appwidth - 20,
@@ -195,15 +197,16 @@ class _TapHomeState extends State<TapHome> {
                               borderRadius: BorderRadius.circular(7),
                             ),
                             child: Center(
-                              child: Text(
+                              child: AutoSizeText(
                                 currencyCodeFrom,
                                 style: TextStyle(
                                   color: Colors.white,
+                                  fontWeight: FontWeight.bold,
                                   fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 14) * (-1)
+                                      ? (MyColors.textSize - 20) * (-1)
                                       : MyColors.fontlarge
-                                          ? (MyColors.textSize + 14)
-                                          : 14,
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
                                 ),
                               ),
                             ),
@@ -213,14 +216,19 @@ class _TapHomeState extends State<TapHome> {
                           child: SizedBox(
                             width: MediaQuery.of(context).size.height * 0.24,
                             // width: 150,
-                            child: TextField(
+                            child: AutoSizeTextField(
+                              maxLength: 34,
+                              maxLines: 1,
+                              maxFontSize: 18.0,
+                              minFontSize: 7.0,
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
+                                fontWeight: FontWeight.bold,
                                 fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 14) * (-1)
+                                    ? (MyColors.textSize - 18) * (-1)
                                     : MyColors.fontlarge
-                                        ? (MyColors.textSize + 14)
-                                        : 14,
+                                        ? (MyColors.textSize + 18)
+                                        : 18,
                               ),
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
@@ -228,7 +236,7 @@ class _TapHomeState extends State<TapHome> {
                               showCursor: true,
                               readOnly: true,
                               decoration: const InputDecoration(
-                                  border: InputBorder.none),
+                                  isDense: true, border: InputBorder.none),
                               onTap: () {
                                 _isContainerVisible = false;
 
@@ -265,7 +273,7 @@ class _TapHomeState extends State<TapHome> {
                                       currencyCodeTo, calculateCurrency.text);
                                 },
                                 child: Image.asset(
-                                  "assets/right-left.png",
+                                  "assets/images/right-left.png",
                                   scale: 8,
                                 )),
                           ),
@@ -290,11 +298,12 @@ class _TapHomeState extends State<TapHome> {
                             child: TextFormField(
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
+                                fontWeight: FontWeight.bold,
                                 fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
+                                    ? (MyColors.textSize - 20) * (-1)
                                     : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
+                                        ? (MyColors.textSize + 20)
+                                        : 20,
                               ),
                               controller: edtFrom,
                               showCursor: false,
@@ -343,11 +352,12 @@ class _TapHomeState extends State<TapHome> {
                             child: TextField(
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
+                                fontWeight: FontWeight.bold,
                                 fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 16) * (-1)
+                                    ? (MyColors.textSize - 20) * (-1)
                                     : MyColors.fontlarge
-                                        ? (MyColors.textSize + 16)
-                                        : 16,
+                                        ? (MyColors.textSize + 20)
+                                        : 20,
                               ),
                               controller: edtTo,
                               showCursor: false,
@@ -387,9 +397,35 @@ class _TapHomeState extends State<TapHome> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
+                  const SizedBox(),
+                  _isContainerVisible
+                      ? Container(
+                          width: MediaQuery.of(context).size.width,
+                          constraints: const BoxConstraints(),
+                          margin: EdgeInsets.only(
+                              right: MediaQuery.of(context).size.width * 0.10),
+                          child: const Icon(
+                            Icons.arrow_drop_up,
+                            // size: 50,
+
+                            color: Colors.red,
+                          ),
+                        )
+                      : Container(),
+                  _isContainerVisibleTwo
+                      ? Container(
+                          constraints: const BoxConstraints(),
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.20),
+                          child: const Icon(
+                            Icons.arrow_drop_up,
+                            // size: 50,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Container(),
+
                   //**contanerIndex Open */
 
                   _isContainerVisible
@@ -404,7 +440,6 @@ class _TapHomeState extends State<TapHome> {
                             _isContainerVisible = false;
                             setState(() {});
                           },
-
                         )
                       : _isContainerVisibleTwo
                           ? CurrencyToWidget(
@@ -417,65 +452,56 @@ class _TapHomeState extends State<TapHome> {
                                 setState(() {});
                               },
                             )
-                          : const Text(""),
+                          : const SizedBox(
+                              height: 0,
+                              width: 0,
+                            ),
+
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+
                   Center(
                     child: _isContainerVisible || _isContainerVisibleTwo
                         ? Container()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                               text,
-                                style: TextStyle(
-                                    color: MyColors.textColor,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 25) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 25)
-                                            : 25,
-                                    fontWeight: FontWeight.bold),
+                        : Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: SizedBox(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AutoSizeText(
+                                    text,
+                                    style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 25) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 25)
+                                                : 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  AutoSizeText(
+                                    edtTo.text,
+                                    style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 20) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 20)
+                                                : 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                edtTo.text,
-                                style: TextStyle(
-                                    color: MyColors.textColor,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 25) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 25)
-                                            : 25,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                            ),
                           ),
-
                   ),
                 ],
               ),
-              _isContainerVisible
-                  ? const Positioned(
-                      // top: MediaQuery.of(context).size.height * 00.232,
-                      top: 161,
-                      child: Icon(
-                        Icons.arrow_drop_up,
-                        size: 50,
-                        color: Colors.white,
-                      ))
-                  : Container(),
-              _isContainerVisibleTwo
-                  ? Positioned(
-                      // top: MediaQuery.of(context).size.height * 00.232,
-                      top: 161,
-                      left: MediaQuery.of(context).size.width * 00.480,
-                      child: const Icon(
-                        Icons.arrow_drop_up,
-                        size: 50,
-                        color: Colors.white,
-                      ))
-                  : Container(),
             ],
           ),
         ),
@@ -506,7 +532,6 @@ class _TapHomeState extends State<TapHome> {
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
         format(conversionRate);
 
-
         debugPrint("conversionRate $form to $to--> $conversionRate");
 
         setState(() {});
@@ -519,8 +544,6 @@ class _TapHomeState extends State<TapHome> {
       print(e);
     }
     return cresult;
-
-
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
@@ -538,7 +561,7 @@ class _TapHomeState extends State<TapHome> {
             setState(() {
               if (buttonText == "c") {
                 isbool = true;
-                calculateCurrency.text="";
+                calculateCurrency.text = "";
                 equation = "0";
                 isbool = false;
                 equationFontSize = 38.0;
@@ -605,22 +628,17 @@ class _TapHomeState extends State<TapHome> {
                     2.6,
 
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
+                    gradient: LinearGradient(
+                  colors: [
+                    MyColors.colorPrimary.withOpacity(.4),
+                    MyColors.colorPrimary.withOpacity(.8),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  //stops: [0.0,0.0]
+                )),
 
-
-                      MyColors.colorPrimary.withOpacity(.4),
-                      MyColors.colorPrimary.withOpacity(.8),
-
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    //stops: [0.0,0.0]
-                  )
-                )
-                ,
                 child: FlatButton(
-
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
                         side: BorderSide(
@@ -646,7 +664,7 @@ class _TapHomeState extends State<TapHome> {
             );
           }
 
-          return Container(
+          return SizedBox(
               width: MediaQuery.of(context).size.width * .75,
               height: MediaQuery.of(context).size.height * 0.35,
               child: Column(
@@ -655,7 +673,7 @@ class _TapHomeState extends State<TapHome> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * .75,
                         height: MediaQuery.of(context).size.height * 0.35,
                         child: Table(
@@ -688,7 +706,7 @@ class _TapHomeState extends State<TapHome> {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: Table(children: [
                             TableRow(children: [
@@ -708,15 +726,14 @@ class _TapHomeState extends State<TapHome> {
                           ]))
                     ],
                   ),
-                ],  
+                ],
               ));
         });
   }
-  format(double conversionRate){
 
-
+  format(double conversionRate) {
     int i = MyColors.monetaryformat;
-    int afterdecimal =MyColors.decimalformat;
+    int afterdecimal = MyColors.decimalformat;
     double amount = conversionRate;
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,

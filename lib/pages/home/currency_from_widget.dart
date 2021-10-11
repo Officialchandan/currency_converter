@@ -52,8 +52,9 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
         value: value,
       ));
     });
-
-    streamController.sink.add(currencyList);
+    if (!streamController.isClosed) {
+      streamController.sink.add(currencyList);
+    }
   }
 
   @override
@@ -151,12 +152,15 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                         children: [
                                           Text(
                                             snapshot.data![index].key,
-                                            style:  TextStyle(
-                                                color: MyColors.insideTextFieldColor, fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) * (-1)
-                                                : MyColors.fontlarge
-                                                ? (MyColors.textSize + 18)
-                                                : 18,
+                                            style: TextStyle(
+                                              color:
+                                                  MyColors.insideTextFieldColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
                                             ),
                                           ),
                                           const SizedBox(

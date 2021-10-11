@@ -7,6 +7,7 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_currency_screen.dart';
@@ -89,10 +90,8 @@ class _SecondScreenState extends State<SecondScreen> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-
-
       body: Container(
-        //margin: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
         height: appheight,
         width: appwidth,
         decoration: BoxDecoration(
@@ -161,9 +160,14 @@ class _SecondScreenState extends State<SecondScreen> {
                             ),
                     ],
                   ),
-                  const Icon(
-                    Icons.share,
-                    color: Colors.white,
+                  InkWell(
+                    onTap: () {
+                      _onShareWithEmptyOrigin(context);
+                    },
+                    child: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
                   )
                 ],
               ),
@@ -180,7 +184,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         itemBuilder: (context, index) {
                           return Container(
                             key: ValueKey(selecteddata[index].key),
-                            margin: const EdgeInsets.only(top: 2),
+                            margin: const EdgeInsets.only(top: 1.1),
                             width: 32.0,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -243,16 +247,18 @@ class _SecondScreenState extends State<SecondScreen> {
                                       decoration: const InputDecoration(
                                         border: InputBorder.none,
                                       ),
-                                      onChanged: (text) {
+                                      onChanged: (String text) {
                                         getConverterAPI(
                                             currencyCodeFrom,
                                             currencyCodeTo,
                                             conversionRate.toString());
-                                        if (selecteddata[index].controller ==
-                                            true) {}
-                                        text =
-                                            selecteddata[index].controller.text;
-                                        debugPrint("onchange -> $text");
+                                        if (selecteddata[index].controller !=
+                                            true) {
+                                          text = selecteddata[index]
+                                              .controller
+                                              .text;
+                                          debugPrint("onchange -> $text");
+                                        }
 
                                         setState(() {});
                                       },
@@ -266,12 +272,12 @@ class _SecondScreenState extends State<SecondScreen> {
                                   ),
                                 ],
                               ),
-                              trailing: Container(
+                              trailing: SizedBox(
                                 width: 50,
                                 child: Row(
                                   children: [
                                     Image.asset(
-                                      "assets/up-down.png",
+                                      "assets/images/right-left.png",
                                       scale: 9,
                                     ),
                                     const SizedBox(
@@ -289,7 +295,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                         setState(() {});
                                       },
                                       child: Image.asset(
-                                        "assets/cross.png",
+                                        "assets/images/cross.png",
                                         scale: 9,
                                       ),
                                     ),
@@ -437,7 +443,16 @@ class _SecondScreenState extends State<SecondScreen> {
                         1.5 *
                         buttonHeight +
                     2.6,
-                color: buttonColor,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    const Color(0xff97aaca),
+                    MyColors.colorPrimary,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  //stops: [0.0,0.0]
+                )),
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
@@ -473,7 +488,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * .75,
                         height: MediaQuery.of(context).size.height * 0.35,
                         child: Table(
@@ -506,7 +521,7 @@ class _SecondScreenState extends State<SecondScreen> {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: Table(children: [
                             TableRow(children: [
@@ -520,7 +535,7 @@ class _SecondScreenState extends State<SecondScreen> {
                             ]),
                             TableRow(
                               children: [
-                                buildButton("=", 2, MyColors.calcuColor),
+                                buildButton("=", 2.7 * 3, MyColors.calcuColor),
                               ],
                             ),
                           ]))
@@ -529,5 +544,10 @@ class _SecondScreenState extends State<SecondScreen> {
                 ],
               ));
         });
+  }
+
+  _onShareWithEmptyOrigin(BuildContext context) async {
+    await Share.share(
+        "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 }
