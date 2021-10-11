@@ -6,6 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyColors {
 
+
+
+
   static Color colorPrimary =  Color(0xff29b6f6 ); //{ this is a color ,which change whole theme }
   static Color firstthemecolorgr1 = colorPrimary.withOpacity(0.5);  //{ this is a gradient color of theme which is always with  'firstthemecolorgr' }
 
