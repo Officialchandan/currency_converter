@@ -13,32 +13,20 @@ class Language extends StatefulWidget {
 }
 
 class _LanguageState extends State<Language> {
-  List<String> language=[
-    "ગુજરાત",
-    "தமிழ்",
-    "ქართული ",
-    "Indonesia",
-    "Catalan",
-    "Deutsch ",
-    "Eestikeel",
-    "English",
-    "Hindi",
-    "Hrvatski",
-    "Italiana",
-    "Latvietis",
-    "Magyar",
-    "Marathi",
-    "Melayu","Nederlands","Nepali","Norsk","Polskie","Portugues","Punjabi","Pyccknn","Romana","Slovenscina",
-    "Svenska","Tieng","Turk","Ελληνικά","български","Українська","Հայերեն","עברית ","हिन्दी","বাংলা ",
-    "తెలుగు","中国人","日本語",
 
-  ];
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.transparent,
+appBar: AppBar(
+  backgroundColor: Colors.white,
+  title: Text("Language",style: TextStyle(color:Colors.black87,fontSize: 22,fontWeight: FontWeight.bold ),)
+  ,   centerTitle: true,
+
+
+),
         body: Container(
           color: Colors.transparent,
           width: MediaQuery.of(context).size.width,
@@ -48,15 +36,18 @@ class _LanguageState extends State<Language> {
                   top: 15, right: 10, bottom: 0, left: 10),
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: language.length,
+                itemCount: Locals.language.length,
                   itemBuilder: (context,index){
 
                 return Column(
                   children: [
                     GestureDetector(
                       onTap:()async{
-                        await context.setLocale(Locals.english);
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext Context)=>MyTabBarWidget()), (route) => false);
+                        String name=Locals.language[index].keys.first;
+                        print("language=>>> $name");
+                         await context.setLocale(Locals.language[index].values.first);
+                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context )=>MyTabBarWidget()), (route) => false);
+
 
                       },
                       child: Container(
@@ -64,7 +55,7 @@ class _LanguageState extends State<Language> {
 
                         width: 300,
                         height: 20,
-                        child:Text("${language[index]}",style: TextStyle(fontSize: 18),)
+                        child:Text(Locals.language[index].keys.first,style: TextStyle(fontSize: 18),)
                       ),
                     ),
                     Divider(color: Colors.black,),

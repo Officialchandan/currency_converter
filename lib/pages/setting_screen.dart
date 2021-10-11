@@ -1117,6 +1117,7 @@ class _SettingScreenState extends State<SettingScreen> {
     showGeneralDialog(
 
 
+
         context: context,
         barrierDismissible: true,
         barrierLabel:
@@ -1130,12 +1131,13 @@ class _SettingScreenState extends State<SettingScreen> {
           double height = MediaQuery.of(context).size.height;
 
           return DefaultTextStyle(
+
             style: const TextStyle(decoration: TextDecoration.none),
             child: Center(
               child: Container(
 
                 margin: const EdgeInsets.only(
-                    top: 60, right: 10, bottom: 80, left: 10),
+                    top: 80, right: 10, bottom: 80, left: 10),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 6.77,
                 decoration: BoxDecoration(

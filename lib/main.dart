@@ -13,7 +13,7 @@ void main() async {
 
   runApp( EasyLocalization(child: MyApp(),
     path: "assets/langs",
-    supportedLocales: const [Locals.english],
+    supportedLocales: Locals.supportedLang
   ));
 }
 

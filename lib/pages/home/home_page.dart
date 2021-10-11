@@ -303,7 +303,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                                 : MyColors.fontlarge
                                     ? (MyColors.textSize + 18)
                                     : 18,
-                            color: MyColors.insideTextFieldColor,
+                            color: MyColors.colorPrimary,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
