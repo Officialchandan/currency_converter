@@ -179,6 +179,7 @@ class _TapHomeState extends State<TapHome> {
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Center(
                           child: Container(
@@ -201,7 +202,7 @@ class _TapHomeState extends State<TapHome> {
                                 currencyCodeFrom,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: MyColors.fontsmall
                                       ? (MyColors.textSize - 20) * (-1)
                                       : MyColors.fontlarge
@@ -217,27 +218,28 @@ class _TapHomeState extends State<TapHome> {
                             width: MediaQuery.of(context).size.height * 0.24,
                             // width: 150,
                             child: AutoSizeTextField(
-
+                              textAlignVertical: TextAlignVertical.center,
+                              autocorrect: true,
+                              maxLength: 34,
                               maxLines: 1,
                               maxFontSize: 18.0,
                               minFontSize: 7.0,
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 18) * (-1)
                                     : MyColors.fontlarge
                                         ? (MyColors.textSize + 18)
                                         : 18,
                               ),
-
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.none,
                               showCursor: true,
                               readOnly: true,
                               decoration: const InputDecoration(
-                                  isDense: true, border: InputBorder.none),
+                                  counter: Text(""), border: InputBorder.none),
                               onTap: () {
                                 _isContainerVisible = false;
 
@@ -404,14 +406,13 @@ class _TapHomeState extends State<TapHome> {
                   _isContainerVisible
                       ? Container(
                           width: MediaQuery.of(context).size.width,
+                          height: 10,
                           constraints: const BoxConstraints(),
                           margin: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.width * 0.10),
-                          child: const Icon(
-                            Icons.arrow_drop_up,
-                            // size: 50,
-
-                            color: Colors.red,
+                              right: MediaQuery.of(context).size.width * 0.8),
+                          child: Image.asset(
+                            "assets/images/tooltip.png",
+                            scale: 7,
                           ),
                         )
                       : Container(),
@@ -419,13 +420,10 @@ class _TapHomeState extends State<TapHome> {
                       ? Container(
                           constraints: const BoxConstraints(),
                           width: MediaQuery.of(context).size.width,
+                          height: 10,
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.20),
-                          child: const Icon(
-                            Icons.arrow_drop_up,
-                            // size: 50,
-                            color: Colors.white,
-                          ),
+                              left: MediaQuery.of(context).size.width * 0.2),
+                          child: Image.asset("assets/images/tooltip.png"),
                         )
                       : Container(),
 
@@ -470,11 +468,15 @@ class _TapHomeState extends State<TapHome> {
                         : Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: SizedBox(
+                              width: MediaQuery.of(context).size.width - 26,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AutoSizeText(
                                     text,
+                                    maxLines: 1,
+                                    maxFontSize: 18.0,
+                                    minFontSize: 7.0,
                                     style: TextStyle(
                                         color: MyColors.textColor,
                                         fontSize: MyColors.fontsmall
@@ -482,13 +484,15 @@ class _TapHomeState extends State<TapHome> {
                                             : MyColors.fontlarge
                                                 ? (MyColors.textSize + 25)
                                                 : 25,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   const SizedBox(
                                     width: 5,
                                   ),
                                   AutoSizeText(
                                     edtTo.text,
+                                    maxFontSize: 18.0,
+                                    minFontSize: 7.0,
                                     style: TextStyle(
                                         color: MyColors.textColor,
                                         fontSize: MyColors.fontsmall
@@ -496,7 +500,7 @@ class _TapHomeState extends State<TapHome> {
                                             : MyColors.fontlarge
                                                 ? (MyColors.textSize + 20)
                                                 : 20,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),
