@@ -277,7 +277,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                 child: Row(
                                   children: [
                                     Image.asset(
-                                      "assets/images/right-left.png",
+                                      "assets/images/up-down.png",
                                       scale: 9,
                                     ),
                                     const SizedBox(
