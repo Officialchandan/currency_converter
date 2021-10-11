@@ -72,8 +72,9 @@ class _AddCurrencyState extends State<AddCurrency> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: MyColors.colorPrimary,
+
         appBar: AppBar(
+          backgroundColor: MyColors.colorPrimary,
           title: Text(
             "Add currency".toUpperCase(),
             style: TextStyle(
@@ -95,7 +96,7 @@ class _AddCurrencyState extends State<AddCurrency> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              MyColors.firstthemecolorgr1,
+              MyColors.colorPrimary.withOpacity(0.7),
               MyColors.colorPrimary,
             ],
             begin: Alignment.topCenter,
@@ -110,6 +111,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                     "Selected".toUpperCase(),
                     style: TextStyle(
                       color: MyColors.textColor,
+                      fontWeight: FontWeight.bold,
                       fontSize: MyColors.fontsmall
                           ? (MyColors.textSize - 18) * (-1)
                           : MyColors.fontlarge
@@ -169,7 +171,10 @@ class _AddCurrencyState extends State<AddCurrency> {
                   "Currency List".toUpperCase(),
                   style: TextStyle(
                     color: MyColors.textColor,
+                    fontWeight: FontWeight.bold,
+
                     fontSize: MyColors.fontsmall
+
                         ? (MyColors.textSize - 18) * (-1)
                         : MyColors.fontlarge
                             ? (MyColors.textSize + 18)

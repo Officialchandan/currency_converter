@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyColors {
 
-  static Color colorPrimary =  Color(0xff4f7dcb); //{ this is a color ,which change whole theme }
+  static Color colorPrimary =  Color(0xff29b6f6 ); //{ this is a color ,which change whole theme }
   static Color firstthemecolorgr1 = colorPrimary.withOpacity(0.5);  //{ this is a gradient color of theme which is always with  'firstthemecolorgr' }
 
   static Color calcuColor =colorPrimary;  //{  this is a color of calculator button, we need to take this because some time it change some time not}

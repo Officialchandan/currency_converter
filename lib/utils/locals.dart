@@ -14,7 +14,7 @@ class Locals {
     static const Tamil = Locale('ta');
     static const Georgian = Locale('ena');
     static const Indonesia  = Locale('id');
-    static const marathi  = Locale('id');
+    static const marathi  = Locale('mr');
     static const melayu  = Locale('may');
     static const nederlands  = Locale('nl');
     static const norsk  = Locale('nn');
@@ -66,7 +66,7 @@ class Locals {
     {"български  ": Locals.Bulgarians},
     {"Українська  ": Locals.Ukraine},
     {"Հայերեն  ": Locals.Armenian},
-    {"Hebrew  ": Locals.Armenian},
+    {"Hebrew  ": Locals.Hebrew},
     {"বাংলা  ": Locals.Afar},
     {"తెలుగు  ": Locals.Dravidian},
     {"中国人  ": Locals.Chinese},

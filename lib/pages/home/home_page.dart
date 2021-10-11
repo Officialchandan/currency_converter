@@ -149,8 +149,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            MyColors.firstthemecolorgr1,
+            MyColors.colorPrimary.withOpacity(0.45),
             MyColors.colorPrimary,
+
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -195,12 +196,12 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 gradient: LinearGradient(
 
                   colors: [
-                    MyColors.colorPrimary.withOpacity(0.7),
+                    MyColors.colorPrimary.withOpacity(0.2),
                     MyColors.colorPrimary,
 
 
                   ],
-                 // stops: const [0.0, 0.0],
+
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -212,7 +213,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     height: 60,
                     margin: const EdgeInsets.only(top: 10, bottom: 8),
                     child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(20),
                         child: Image.asset("assets/images/app-icon.png")),
 
                   ),

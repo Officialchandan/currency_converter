@@ -217,7 +217,7 @@ class _TapHomeState extends State<TapHome> {
                             width: MediaQuery.of(context).size.height * 0.24,
                             // width: 150,
                             child: AutoSizeTextField(
-                              maxLength: 34,
+
                               maxLines: 1,
                               maxFontSize: 18.0,
                               minFontSize: 7.0,
@@ -230,6 +230,7 @@ class _TapHomeState extends State<TapHome> {
                                         ? (MyColors.textSize + 18)
                                         : 18,
                               ),
+
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.none,
@@ -298,7 +299,8 @@ class _TapHomeState extends State<TapHome> {
                             child: TextFormField(
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.5,
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 20) * (-1)
                                     : MyColors.fontlarge
@@ -352,7 +354,8 @@ class _TapHomeState extends State<TapHome> {
                             child: TextField(
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.5,
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 20) * (-1)
                                     : MyColors.fontlarge

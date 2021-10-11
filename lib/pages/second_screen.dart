@@ -5,6 +5,7 @@ import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
@@ -117,7 +118,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     children: [
                       Center(
                         child: Text(
-                          "Updated:",
+                  "update".tr().toString(),
                           style: TextStyle(
                             color: MyColors.textColor,
                             fontSize: MyColors.fontsmall

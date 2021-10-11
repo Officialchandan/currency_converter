@@ -1051,26 +1051,28 @@ class _SettingScreenState extends State<SettingScreen> {
           return DefaultTextStyle(
             style: const TextStyle(decoration: TextDecoration.none),
             child: Center(
-              child: Container(
-                  margin: const EdgeInsets.only(
-                      top: 15, right: 10, bottom: 0, left: 10),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.85,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ColorPickerDialog(
+              child: IntrinsicHeight(
+                child: Container(
+                    margin: const EdgeInsets.only(
+                        top: 15, right: 10, bottom: 0, left: 10),
+                    width: MediaQuery.of(context).size.width,
 
-                    lockedColor: lockedcolortry,
-                    onColorSelect: onColorSelect,
-                    densitychangeColor: densitychangeColor,
-                    lockchangeColor: lockchangeColor,
-                    unlockchangeColor: unlockchangeColor,
-                    densityCurrentColor: densityCurrentColor,
-                    lockCurrentColor: lockCurrentColor,
-                    unlockCurrentColor: unlockCurrentColor, unlockColorSelect: lockedcolortry,
-                  )),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ColorPickerDialog(
+
+                      lockedColor: lockedcolortry,
+                      onColorSelect: onColorSelect,
+                      densitychangeColor: densitychangeColor,
+                      lockchangeColor: lockchangeColor,
+                      unlockchangeColor: unlockchangeColor,
+                      densityCurrentColor: densityCurrentColor,
+                      lockCurrentColor: lockCurrentColor,
+                      unlockCurrentColor: unlockCurrentColor, unlockColorSelect: lockedcolortry,
+                    )),
+              ),
             ),
           );
         });
@@ -1099,9 +1101,9 @@ class _SettingScreenState extends State<SettingScreen> {
               child: Container(
 
                 margin: const EdgeInsets.only(
-                    top: 60, right: 10, bottom: 80, left: 10),
+                    top: 60, right: 10, bottom: 0, left: 10),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 6.77,
+                height: MediaQuery.of(context).size.height * 0.57,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -1171,7 +1173,7 @@ class ColorPickerDialog extends StatefulWidget {
    bool lockedColor;
    bool unlockColorSelect;
 
-   ColorPickerDialog(
+    ColorPickerDialog(
       {required this.onColorSelect,
       required this.lockchangeColor,
       required this.densitychangeColor,
@@ -1294,7 +1296,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           child: const Text(
             "Unlocked ",
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
+                fontWeight: FontWeight.w500, fontSize: 18, color: Colors.black),
           ),
         ),
         Container(
@@ -1302,6 +1304,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           width: MediaQuery.of(context).size.width * 0.87,
           height: MediaQuery.of(context).size.height * 0.089,
           child: Container(
+
             width: 400,
 
             child: UnlockColorPicker(
@@ -1312,11 +1315,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(left: 20, top: 5),
+          margin: EdgeInsets.only(left: 25, top: 5),
           child: const Text(
             "Locked",
             style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ),
         Center(
@@ -1403,7 +1406,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              margin: EdgeInsets.only(left: 10,top: 10, ),
+              margin: EdgeInsets.only(left: 25,top: 10, ),
 
               width: width * 0.31,
               height: height * 0.05,
@@ -1415,10 +1418,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 child: const Text(
                   "CUSTOM",
                   style: TextStyle(
-                      letterSpacing: 1.9,
+                      letterSpacing: 1.2,
                       color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
                 ),
               ),
             ),
