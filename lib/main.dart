@@ -11,7 +11,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  runApp( EasyLocalization(child: MyApp(),
+  runApp(EasyLocalization(
+    child: const MyApp(),
     path: "assets/langs",
     supportedLocales: const [Locals.english],
   ));
@@ -25,12 +26,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
-
     getTheme();
-
 
     super.initState();
   }
@@ -42,21 +40,18 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         fontFamily: GoogleFonts.roboto().fontFamily,
-
-
       ),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        home:  const MyTabBarWidget(),
+      locale: context.locale,
+      home: const MyTabBarWidget(),
     );
   }
 
-  void getTheme()async {
+  void getTheme() async {
     await Utility.getColorTheme();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor:
-      MyColors.colorPrimary, // navigation bar color
+      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
   }

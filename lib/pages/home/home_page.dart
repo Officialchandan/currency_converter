@@ -66,7 +66,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
             TabBar(
               controller: _tabController,
               indicatorWeight: 2.5,
-
               onTap: (_selectedIndex) {
                 index.add(_selectedIndex);
 
@@ -89,39 +88,52 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   _tabController.index = escapeIndex;
                 }
               },
-
               indicatorColor: Colors.white,
-
-              // labelColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  icon: Image.asset("assets/tab-ic1.png",
-                      color: MyColors.textColor, scale: 4),
+                  icon: Image.asset("assets/images/tab-ic1.png",
+                      // scale: 1,
+                      color: MyColors.textColor),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic2.png",
-                      color: MyColors.textColor, scale: 4),
-                ),
-                Tab(
-                  icon: Image.asset("assets/tab-ic3.png",
-                      color: MyColors.textColor, scale: 4),
-                ),
-                Tab(
-                  child: IconButton(
-                    onPressed: () {
-                      ratingBottomSheet(context);
-                    },
-                    icon: Image.asset("assets/tab-ic4.png",
-                        color: MyColors.textColor, scale: 4),
+                  icon: Image.asset(
+                    "assets/images/tab-ic2.png",
+                    // scale: 1,
+                    color: MyColors.textColor,
                   ),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic5.png",
-                      color: MyColors.textColor, scale: 4),
+                  icon: Image.asset(
+                    "assets/images/tab-ic3.png",
+                    // scale: 1,
+                    color: MyColors.textColor,
+                  ),
                 ),
                 Tab(
-                  icon: Image.asset("assets/tab-ic6.png",
-                      color: MyColors.textColor, scale: 4),
+                  icon: InkWell(
+                    onTap: () {
+                      ratingBottomSheet(context);
+                    },
+                    child: Image.asset(
+                      "assets/images/tab-ic4.png",
+                      // scale: 1,
+                      color: MyColors.textColor,
+                    ),
+                  ),
+                ),
+                Tab(
+                  icon: Image.asset(
+                    "assets/images/tab-ic5.png",
+                    // scale: 1,
+                    color: MyColors.textColor,
+                  ),
+                ),
+                Tab(
+                  icon: Image.asset(
+                    "assets/images/tab-ic6.png",
+                    // scale: 1,
+                    color: MyColors.textColor,
+                  ),
                 ),
               ],
             ),
@@ -136,10 +148,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-
             MyColors.firstthemecolorgr1,
             MyColors.colorPrimary,
-
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -176,11 +186,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),
                 gradient: LinearGradient(
-                  colors: [
-                    Colors.white12,
-                    MyColors.colorPrimary
-
-                  ],
+                  colors: [Colors.white12, MyColors.colorPrimary],
                   stops: const [0.0, 0.5],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -194,7 +200,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     margin: const EdgeInsets.only(top: 10, bottom: 8),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: Image.asset("assets/app-icon.png")),
+                        child: Image.asset("assets/images/app-icon.png")),
                   ),
                   Text(
                     "firstTextRatingPage".tr().toString(),

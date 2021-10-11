@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'dart:io';
-
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -25,7 +23,6 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
-
   String text = "00.0";
   String equation = "0";
   String result = "0";
@@ -105,7 +102,7 @@ class _TapHomeState extends State<TapHome> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         SizedBox(
-                          width: appwidth * 0.14,
+                          width: appwidth * 0.5,
                         ),
                         Row(
                           children: [
@@ -165,7 +162,7 @@ class _TapHomeState extends State<TapHome> {
                     ),
                   ),
                   const SizedBox(
-                    height: 15.0,
+                    height: 7.0,
                   ),
                   Container(
                     width: appwidth - 20,
@@ -198,6 +195,7 @@ class _TapHomeState extends State<TapHome> {
                                 currencyCodeFrom,
                                 style: TextStyle(
                                   color: Colors.white,
+                                  fontWeight: FontWeight.bold,
                                   fontSize: MyColors.fontsmall
                                       ? (MyColors.textSize - 14) * (-1)
                                       : MyColors.fontlarge
@@ -215,6 +213,7 @@ class _TapHomeState extends State<TapHome> {
                             child: TextField(
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
+                                fontWeight: FontWeight.bold,
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 14) * (-1)
                                     : MyColors.fontlarge
@@ -264,8 +263,8 @@ class _TapHomeState extends State<TapHome> {
                                       currencyCodeTo, calculateCurrency.text);
                                 },
                                 child: Image.asset(
-                                  "assets/right-left.png",
-                                  scale: 8,
+                                  "assets/images/right-left.png",
+                                  // scale: 8,
                                 )),
                           ),
                         ),
@@ -287,6 +286,7 @@ class _TapHomeState extends State<TapHome> {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: TextFormField(
+                              initialValue: "USD",
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
                                 fontSize: MyColors.fontsmall
@@ -339,7 +339,8 @@ class _TapHomeState extends State<TapHome> {
                               color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: TextField(
+                            child: TextFormField(
+                              initialValue: "EUR",
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
                                 fontSize: MyColors.fontsmall
@@ -403,7 +404,6 @@ class _TapHomeState extends State<TapHome> {
                             _isContainerVisible = false;
                             setState(() {});
                           },
-
                         )
                       : _isContainerVisibleTwo
                           ? CurrencyToWidget(
@@ -451,7 +451,6 @@ class _TapHomeState extends State<TapHome> {
                               ),
                             ],
                           ),
-
                   ),
                 ],
               ),
@@ -506,7 +505,6 @@ class _TapHomeState extends State<TapHome> {
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
         format(conversionRate);
 
-
         debugPrint("conversionRate $form to $to--> $conversionRate");
 
         setState(() {});
@@ -519,8 +517,6 @@ class _TapHomeState extends State<TapHome> {
       print(e);
     }
     return cresult;
-
-
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
@@ -538,7 +534,7 @@ class _TapHomeState extends State<TapHome> {
             setState(() {
               if (buttonText == "c") {
                 isbool = true;
-                calculateCurrency.text="";
+                calculateCurrency.text = "";
                 equation = "0";
                 isbool = false;
                 equationFontSize = 38.0;
@@ -604,7 +600,17 @@ class _TapHomeState extends State<TapHome> {
                         buttonHeight +
                     2.6,
 
-                color: buttonColor,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    const Color(0xff97aaca),
+                    MyColors.colorPrimary,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  //stops: [0.0,0.0]
+                )),
+
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
@@ -631,7 +637,7 @@ class _TapHomeState extends State<TapHome> {
             );
           }
 
-          return Container(
+          return SizedBox(
               width: MediaQuery.of(context).size.width * .75,
               height: MediaQuery.of(context).size.height * 0.35,
               child: Column(
@@ -640,7 +646,7 @@ class _TapHomeState extends State<TapHome> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * .75,
                         height: MediaQuery.of(context).size.height * 0.35,
                         child: Table(
@@ -673,7 +679,7 @@ class _TapHomeState extends State<TapHome> {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: Table(children: [
                             TableRow(children: [
@@ -697,11 +703,10 @@ class _TapHomeState extends State<TapHome> {
               ));
         });
   }
-  format(double conversionRate){
 
-
+  format(double conversionRate) {
     int i = MyColors.monetaryformat;
-    int afterdecimal =MyColors.decimalformat;
+    int afterdecimal = MyColors.decimalformat;
     double amount = conversionRate;
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,

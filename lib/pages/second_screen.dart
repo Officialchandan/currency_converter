@@ -179,7 +179,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         itemBuilder: (context, index) {
                           return Container(
                             key: ValueKey(selecteddata[index].key),
-                            margin: const EdgeInsets.only(top: 2),
+                            margin: const EdgeInsets.only(top: 1.1),
                             width: 32.0,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -242,16 +242,18 @@ class _SecondScreenState extends State<SecondScreen> {
                                       decoration: const InputDecoration(
                                         border: InputBorder.none,
                                       ),
-                                      onChanged: (text) {
+                                      onChanged: (String text) {
                                         getConverterAPI(
                                             currencyCodeFrom,
                                             currencyCodeTo,
                                             conversionRate.toString());
-                                        if (selecteddata[index].controller ==
-                                            true) {}
-                                        text =
-                                            selecteddata[index].controller.text;
-                                        debugPrint("onchange -> $text");
+                                        if (selecteddata[index].controller !=
+                                            true) {
+                                          text = selecteddata[index]
+                                              .controller
+                                              .text;
+                                          debugPrint("onchange -> $text");
+                                        }
 
                                         setState(() {});
                                       },
@@ -265,13 +267,13 @@ class _SecondScreenState extends State<SecondScreen> {
                                   ),
                                 ],
                               ),
-                              trailing: Container(
+                              trailing: SizedBox(
                                 width: 50,
                                 child: Row(
                                   children: [
                                     Image.asset(
-                                      "assets/up-down.png",
-                                      scale: 9,
+                                      "assets/images/up-down.png",
+                                      // scale: 9,
                                     ),
                                     const SizedBox(
                                       width: 7,
@@ -288,23 +290,14 @@ class _SecondScreenState extends State<SecondScreen> {
                                         setState(() {});
                                       },
                                       child: Image.asset(
-                                        "assets/cross.png",
-                                        scale: 9,
+                                        "assets/images/cross.png",
+                                        // scale: 9,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-
-
-
-
-
-
-
-
-
                           );
                         },
                         onReorder: (oldIndex, newIndex) {
@@ -445,7 +438,16 @@ class _SecondScreenState extends State<SecondScreen> {
                         1.5 *
                         buttonHeight +
                     2.6,
-                color: buttonColor,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    const Color(0xff97aaca),
+                    MyColors.colorPrimary,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  //stops: [0.0,0.0]
+                )),
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
@@ -481,7 +483,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * .75,
                         height: MediaQuery.of(context).size.height * 0.35,
                         child: Table(
@@ -514,7 +516,7 @@ class _SecondScreenState extends State<SecondScreen> {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: Table(children: [
                             TableRow(children: [
@@ -528,7 +530,7 @@ class _SecondScreenState extends State<SecondScreen> {
                             ]),
                             TableRow(
                               children: [
-                                buildButton("=", 2, MyColors.calcuColor),
+                                buildButton("=", 2.7 * 3, MyColors.calcuColor),
                               ],
                             ),
                           ]))
