@@ -46,11 +46,9 @@ dependencies:
   url_launcher: ^6.0.12
   easy_localization:
   currency_text_input_formatter: ^2.1.3
-
-
   share:
-  
   webview_flutter: ^2.1.1
+  auto_size_text_field: ^1.0.1
 
 
 

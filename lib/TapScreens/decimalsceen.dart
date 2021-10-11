@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter/painting.dart';
 
 class DecimalScreens extends StatefulWidget {
   const DecimalScreens({Key? key}) : super(key: key);
@@ -15,10 +17,12 @@ class DecimalScreens extends StatefulWidget {
 }
 
 class _DecimalScreensState extends State<DecimalScreens> {
+  String text="41354564561.223";
   int value = -1;
   int value1 = -1;
   int num = 4;
   int num1 = 6;
+  int x=41354561351;
 
   List<String> radiMonetaryFormat = [
     "12334.56",
@@ -26,6 +30,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
     "1 234.56",
     "1 234,56",
   ];
+
 
   List<String> radiDecimalFormat = [
     ".02",
@@ -42,9 +47,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
       backgroundColor: Colors.transparent,
       body: Column(
         children: [
-          const SizedBox(
-            height: 10,
-          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -53,22 +56,25 @@ class _DecimalScreensState extends State<DecimalScreens> {
                   icon: Icon(Icons.share, color: MyColors.textColor)),
             ],
           ),
+          Text("$text",style:TextStyle(color: MyColors.textColor,fontWeight: FontWeight.bold,fontSize: 22 ) ,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 0),
+              Container(margin: EdgeInsets.only(top: 20),
                 width: 180,
-                child: Column(
+                height: 255,
+                child: Column(mainAxisAlignment: MainAxisAlignment.start,
+
                   children: [
                     Text(
                       "monetary".tr().toString(),
-                      style: TextStyle(color: MyColors.textColor, fontSize: 20),
+                      style: TextStyle(color: MyColors.textColor, fontSize: 20,fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
                     ),
                     ListView.builder(
+
                       shrinkWrap: true,
                       itemCount: num,
                       itemBuilder: (context, index) {
@@ -83,20 +89,15 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                 onChanged: (value) {
                                   int j = 0;
                                   setState(() {
-                                    MyColors.boolMonetaryFormate
-                                        .forEach((element) {
-                                      if (index == j) {
-                                        MyColors.monetaryformat = index + 1;
+                                    MyColors.boolMonetaryFormate.forEach((element) {
+                                       if (index == j) {
+                                        MyColors.monetaryformat=index+1;
+                                        format( );
 
                                         MyColors.boolMonetaryFormate[j] = true;
                                       } else
                                         MyColors.boolMonetaryFormate[j] = false;
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  MyTabBarWidget()),
-                                          (route) => false);
+
 
                                       j++;
                                     });
@@ -124,18 +125,21 @@ class _DecimalScreensState extends State<DecimalScreens> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 40),
+                margin: EdgeInsets.only(top: 22  ),
                 width: 180,
                 child: Column(
                   children: [
+
                     Text(
                       "decimal".tr().toString(),
-                      style: TextStyle(color: MyColors.textColor, fontSize: 20),
+                      style: TextStyle(
+                          color: MyColors.textColor, fontSize: 20,fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
                     ),
                     ListView.builder(
+
                       shrinkWrap: true,
                       itemCount: 6,
                       itemBuilder: (context, index) {
@@ -153,19 +157,19 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                     MyColors.boolDecimalFormate
                                         .forEach((element) {
                                       if (index == i) {
-                                        if (index == 5) {
-                                          MyColors.decimalformat = 0;
-                                        } else {
+                                        if(index==5)
+                                          {  MyColors.boolDecimalFormate[i] = true;
+                                            MyColors.decimalformat = 0;
+                                            format();
+                                          }
+                                        else
+                                        {
                                           MyColors.decimalformat = index + 2;
                                           MyColors.boolDecimalFormate[i] = true;
+                                          format();
                                         }
-                                        Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        MyTabBarWidget()),
-                                            (route) => false);
+
+
                                       } else {
                                         MyColors.boolDecimalFormate[i] = false;
                                       }
@@ -180,7 +184,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                 checkColor: Colors.black,
                                 tristate: false,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius:
+                                        BorderRadius.circular(10)),
                               ),
                               Text("${radiDecimalFormat[index]}",
                                   style: TextStyle(
@@ -201,29 +206,12 @@ class _DecimalScreensState extends State<DecimalScreens> {
       ),
     );
   }
-}
+  format(){
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
 
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-/// This is the private State class that goes with MyStatefulWidget.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  TextEditingController controller = TextEditingController();
-  String text = "";
-  final CurrencyTextInputFormatter _formatter = CurrencyTextInputFormatter(
-    decimalDigits: 5,
-    symbol: "",
-  );
-  int i = 2;
-  int afterdecimal = MyColors.decimalformat;
-  double amount = 500010354.456;
-  @override
-  void initState() {
-    super.initState();
+    int i = MyColors.monetaryformat;
+    int afterdecimal =MyColors.decimalformat;
+    int amount = x;
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,
       symbol: "",
@@ -267,31 +255,5 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {});
   }
 
-  final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter();
-  @override
-  Widget build(BuildContext context) {
-    print(formatter.getFormattedValue()); // $ 2,000
-    print(formatter.getUnformattedValue()); // 2000.00
-    print(formatter.format('2000'));
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
-      body: Center(
-        child: Column(children: [
-          TextField(
-            controller: controller,
-            // inputFormatters: [CurrencyTextInputFormatter()],
-            keyboardType: TextInputType.number,
-            onChanged: (txt) {
-              text = _formatter.format(txt);
-              print("formated text -->$text");
-              setState(() {});
-            },
-          ),
-          Text("$text"),
-        ]),
-      ),
-    );
-  }
 }
+

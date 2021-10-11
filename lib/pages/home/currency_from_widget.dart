@@ -52,13 +52,14 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
         value: value,
       ));
     });
-
-    streamController.add(currencyList);
+    if (!streamController.isClosed) {
+      streamController.sink.add(currencyList);
+    }
   }
 
   @override
   void dispose() {
-    streamController.close();
+    streamController.sink.close();
     super.dispose();
   }
 

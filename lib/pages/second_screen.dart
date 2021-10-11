@@ -7,6 +7,7 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_currency_screen.dart';
@@ -89,15 +90,14 @@ class _SecondScreenState extends State<SecondScreen> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: Container(
-        margin: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
         height: appheight,
         width: appwidth,
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            MyColors.firstthemecolorgr1,
+            MyColors.colorPrimary.withOpacity(0.65),
             MyColors.colorPrimary,
           ],
           begin: Alignment.topCenter,
@@ -160,9 +160,14 @@ class _SecondScreenState extends State<SecondScreen> {
                             ),
                     ],
                   ),
-                  const Icon(
-                    Icons.share,
-                    color: Colors.white,
+                  InkWell(
+                    onTap: () {
+                      _onShareWithEmptyOrigin(context);
+                    },
+                    child: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
                   )
                 ],
               ),
@@ -272,8 +277,8 @@ class _SecondScreenState extends State<SecondScreen> {
                                 child: Row(
                                   children: [
                                     Image.asset(
-                                      "assets/images/up-down.png",
-                                      // scale: 9,
+                                      "assets/images/right-left.png",
+                                      scale: 9,
                                     ),
                                     const SizedBox(
                                       width: 7,
@@ -291,7 +296,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                       },
                                       child: Image.asset(
                                         "assets/images/cross.png",
-                                        // scale: 9,
+                                        scale: 9,
                                       ),
                                     ),
                                   ],
@@ -539,5 +544,10 @@ class _SecondScreenState extends State<SecondScreen> {
                 ],
               ));
         });
+  }
+
+  _onShareWithEmptyOrigin(BuildContext context) async {
+    await Share.share(
+        "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 }
