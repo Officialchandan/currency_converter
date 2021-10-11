@@ -35,7 +35,7 @@ class UnlockColorPicker extends StatefulWidget {
 
     return SizedBox(
       width: 400,
-      height: 60,
+
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: colors.map((MColor color) => child(color)).toList(),
@@ -46,7 +46,8 @@ class UnlockColorPicker extends StatefulWidget {
   static Widget defaultItemBuilder(
       MColor color, bool isCurrentColor,  void Function() changeColor) {
     return Container(
-      height: 60,
+
+      height: 40,
       width: 60,
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(

@@ -1,0 +1,39 @@
+{
+
+    "update": "अपडेट किया गया",
+  
+    "addCurrency": "मुद्रा जोड़ें",
+    "selectedCurrency": "चयनित मुद्रा",
+  
+    "monetary": "मौद्रिक प्रारूप",
+    "decimal": "दशमलव प्रारूप",
+  
+    "firstTextRatingPage": "कृपया ऐप को रेट करें!",
+    "secondTextRatingPage": "सितारों पर टैप करें और रेट करने के लिए Google Play Store से खोलें",
+    "buttonTextRatingPage": "अभी नहीं",
+  
+    "removeAds": "विज्ञापन हटाएं",
+    "removeAdsContent": "एक छोटी वार्षिक सदस्यता के साथ हमारे प्रोजेक्ट का समर्थन करें",
+    "selectLanguage": "भाषा चुनें",
+    "english ":"अंग्रेजी",
+    " colorsSelection": "रंग चयन",
+    "theme": "थीम",
+    "light":" प्रकाश",
+    "dark": "डार्क",
+    "widgetTransparency": "विजेट पारदर्शिता",
+    "visualSize": "विज़ुअल साइज़",
+    "A": "ए",
+    "appLogoLauncher": "ऐप लोगो लॉन्चर",
+    "multiConverter": "मल्टी-कन्वर्टर",
+    "multiConverterContent1": "डिफ़ॉल्ट रूप से मल्टी-कन्वर्टर खुलेगा।",
+    "multiConverterContent2": "नोट:",
+    "multiConverterContent3": "यह सुविधा केवल ऐप लोगो लॉन्चर के साथ काम करती है",
+    "display": "डिस्प्ले",
+    "display1": "डिस्प्ले करेंसी कोड",
+    "display2":"मुद्रा का प्रतीक प्रदर्शित करें",
+    "display3": "डिस्प्ले करेंसी फ्लैग",
+    "dateFormat": "डेटा फॉर्मेट"
+  
+  
+  
+  } 

@@ -1,0 +1,35 @@
+{
+
+    "update": "Đã cập nhật",
+    "addCurrency": "Thêm tiền tệ",
+    "selectCurrency": "Đơn vị tiền tệ đã chọn",
+    "monetary": "Định dạng tiền tệ",
+    "decimal": "Định dạng thập phân",
+    "firstTextRatingPage": "Vui lòng xếp hạng ứng dụng!",
+    "secondTextRatingPage": "Nhấn vào dấu sao và mở bằng Cửa hàng Google Play để xếp hạng",
+    "buttonTextRatingPage": "KHÔNG PHẢI BÂY GIỜ",
+    "removeAds": "Xóa Quảng cáo",
+    "removeAdsContent": "Hỗ trợ dự án của chúng tôi với một Đăng ký nhỏ hàng năm",
+    "selectLanguage": "Chọn Ngôn ngữ",
+    "english ": "tiếng Anh",
+    "ColorsSelection": "Lựa chọn màu",
+    "theme": "Chủ đề",
+    "light": "Nhẹ",
+    "dark": "Tối",
+    "widgetTransparency": "Tính trong suốt của tiện ích con",
+    "visualSize": "Kích thước hình ảnh",
+    "A": "A",
+    "appLogoLauncher": "Trình khởi chạy biểu trưng ứng dụng",
+    "multiConverter": "Đa chuyển đổi",
+    "multiConverterContent1": "Sẽ mở nhiều trình chuyển đổi theo mặc định.",
+    "multiConverterContent2": "LƯU Ý:",
+    "multiConverterContent3": "Tính năng này chỉ hoạt động với trình khởi chạy logo ứng dụng",
+    "display": "Hiển thị",
+    "display1": "Mã tiền tệ hiển thị",
+    "display2": "Hiển thị ký hiệu tiền tệ",
+    "display3": "Hiển thị Cờ tiền tệ",
+    "dateFormat": "Định dạng dữ liệu"
+  
+  
+  
+  } 
