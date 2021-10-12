@@ -429,9 +429,6 @@ class _TapHomeState extends State<TapHome> {
                           child: Image.asset("assets/images/tooltip.png"),
                         )
                       : Container(),
-
-                  //**contanerIndex Open */
-
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
@@ -460,11 +457,9 @@ class _TapHomeState extends State<TapHome> {
                               height: 0,
                               width: 0,
                             ),
-
                   const SizedBox(
                     height: 20.0,
                   ),
-
                   Center(
                     child: _isContainerVisible || _isContainerVisibleTwo
                         ? Container()

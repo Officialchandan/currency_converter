@@ -102,10 +102,13 @@ class _AddCurrencyState extends State<AddCurrency> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           )),
-          padding: const EdgeInsets.fromLTRB(10, 16, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(
+                  height: 16.0,
+                ),
                 Center(
                   child: Text(
                     "Selected".toUpperCase(),
@@ -126,40 +129,60 @@ class _AddCurrencyState extends State<AddCurrency> {
                 Column(
                   children: List.generate(selectedList.length, (index) {
                     return Container(
-                      margin: const EdgeInsets.only(top: 2),
+                      height: 45,
+                      margin: const EdgeInsets.only(top: 1.0),
+                      padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(7.0),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: ListTile(
-                        leading: const Icon(Icons.image),
-                        title: Row(
-                          children: [
-                            Text(selectedList[index].key),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              selectedList[index].value.toStringAsFixed(3),
-                            ),
-                          ],
-                        ),
-                        trailing: InkWell(
-                            onTap: () {
-                              selectedList[index].changeIcon =
-                                  !selectedList[index].changeIcon;
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.image),
+                              Text(
+                                selectedList[index].key,
+                                style: TextStyle(
+                                  color: MyColors.insideTextFieldColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                selectedList[index].value.toStringAsFixed(3),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              InkWell(
+                                  onTap: () {
+                                    selectedList[index].changeIcon =
+                                        !selectedList[index].changeIcon;
 
-                              selectedList.removeAt(index);
-                              favList.removeAt(index);
+                                    selectedList.removeAt(index);
+                                    favList.removeAt(index);
 
-                              setcurrencySaveListData(favList);
-                              setState(() {});
-                            },
-                            child: Icon(
-                              Icons.close,
-                              size: 29,
-                              color: MyColors.colorPrimary,
-                            )),
+                                    setcurrencySaveListData(favList);
+                                    setState(() {});
+                                  },
+                                  child: Icon(
+                                    Icons.close,
+                                    size: 29,
+                                    color: MyColors.colorPrimary,
+                                  )),
+                            ],
+                          )
+                        ],
                       ),
                     );
                   }),
@@ -172,6 +195,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                   style: TextStyle(
                     color: MyColors.textColor,
                     fontWeight: FontWeight.bold,
+
 
                     fontSize: MyColors.fontsmall
 
@@ -187,51 +211,74 @@ class _AddCurrencyState extends State<AddCurrency> {
                 Column(
                   children: List.generate(currencyList.length, (index) {
                     return Container(
-                      margin: const EdgeInsets.only(top: 2),
+                      height: 45,
+                      margin: const EdgeInsets.only(top: 1.0),
+                      padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(7.0),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: ListTile(
-                        leading: const Icon(Icons.image),
-                        title: Row(
-                          children: [
-                            Text(currencyList[index].key),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              currencyList[index].value.toStringAsFixed(3),
-                            ),
-                          ],
-                        ),
-                        trailing: IconButton(
-                            onPressed: () {
-                              debugPrint(
-                                  "currencyList[index].changeIcon ${currencyList[index].changeIcon}");
-                              if (!currencyList[index].changeIcon) {
-                                currencyList[index].changeIcon =
-                                    !currencyList[index].changeIcon;
-
-                                selectedList.add(currencyList[index]);
-                                favList.add(currencyList[index].toString());
-
-                                setcurrencySaveListData(favList);
-                                debugPrint("$favList");
-                                setState(() {});
-                              }
-                            },
-                            icon: currencyList[index].changeIcon
-                                ? Icon(
-                                    Icons.check_sharp,
-                                    size: 29,
-                                    color: MyColors.colorPrimary,
-                                  )
-                                : Icon(
-                                    Icons.add,
-                                    size: 29,
-                                    color: MyColors.colorPrimary,
+                      // alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.image),
+                              const SizedBox(
+                                width: 5.0,
+                              ),
+                              SizedBox(
+                                  width: 50.0,
+                                  child: Text(
+                                    currencyList[index].key,
+                                    style: TextStyle(
+                                      color: MyColors.insideTextFieldColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: MyColors.fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : MyColors.fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
+                                    ),
                                   )),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                currencyList[index].value.toStringAsFixed(3),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                              padding: const EdgeInsets.only(left: 10),
+                              onPressed: () {
+                                debugPrint(
+                                    "currencyList[index].changeIcon ${currencyList[index].changeIcon}");
+                                if (!currencyList[index].changeIcon) {
+                                  currencyList[index].changeIcon =
+                                      !currencyList[index].changeIcon;
+
+                                  selectedList.add(currencyList[index]);
+                                  favList.add(currencyList[index].toString());
+
+                                  setcurrencySaveListData(favList);
+                                  debugPrint("$favList");
+                                  setState(() {});
+                                }
+                              },
+                              icon: currencyList[index].changeIcon
+                                  ? Icon(
+                                      Icons.check_sharp,
+                                      size: 29,
+                                      color: MyColors.colorPrimary,
+                                    )
+                                  : Icon(
+                                      Icons.add,
+                                      size: 29,
+                                      color: MyColors.colorPrimary,
+                                    )),
+                        ],
                       ),
                     );
                   }),

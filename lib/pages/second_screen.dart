@@ -535,7 +535,7 @@ class _SecondScreenState extends State<SecondScreen> {
                             ]),
                             TableRow(
                               children: [
-                                buildButton("=", 2.7 * 3, MyColors.calcuColor),
+                                buildButton("=", 2 * 1.02, MyColors.calcuColor),
                               ],
                             ),
                           ]))

@@ -138,6 +138,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
+
         )),
         child: TabBarView(
           controller: _tabController,
