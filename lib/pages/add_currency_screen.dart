@@ -72,7 +72,6 @@ class _AddCurrencyState extends State<AddCurrency> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
         appBar: AppBar(
           backgroundColor: MyColors.colorPrimary,
           title: Text(
@@ -195,10 +194,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                   style: TextStyle(
                     color: MyColors.textColor,
                     fontWeight: FontWeight.bold,
-
-
                     fontSize: MyColors.fontsmall
-
                         ? (MyColors.textSize - 18) * (-1)
                         : MyColors.fontlarge
                             ? (MyColors.textSize + 18)
@@ -215,7 +211,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                       margin: const EdgeInsets.only(top: 1.0),
                       padding: const EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: MyColors.textColor,
                         borderRadius: BorderRadius.circular(4.0),
                       ),
                       // alignment: Alignment.center,

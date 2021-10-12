@@ -116,7 +116,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                     ),
                     hintText: "Search",
                     hintStyle:
-                        TextStyle(fontSize: 13, fontWeight: FontWeight.w700,color: Colors.black87),
+                        TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -139,7 +139,8 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                 },
                                 child: Container(
                                     margin:
-                                        const EdgeInsets.fromLTRB(10, 2, 10, 0),
+                                        const EdgeInsets.fromLTRB(10, 1, 10, 0),
+                                    padding: const EdgeInsets.only(left: 5),
                                     decoration: BoxDecoration(
                                       // color: MyColors.textColor,
                                       color: MyColors.textColor,
@@ -151,34 +152,40 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             const Icon(Icons.image),
                                             const SizedBox(
                                               width: 4,
                                             ),
-                                            Text(
-                                              snapshot.data![index].key,
-                                              style: TextStyle(
-                                                color: MyColors
-                                                    .insideTextFieldColor,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 18) *
-                                                        (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize +
-                                                            18)
-                                                        : 18,
+                                            Container(
+                                              width: 50,
+                                              child: Text(
+                                                snapshot.data![index].key,
+                                                style: TextStyle(
+                                                  color: MyColors
+                                                      .insideTextFieldColor,
+                                                  fontSize: MyColors.fontsmall
+                                                      ? (MyColors.textSize -
+                                                              18) *
+                                                          (-1)
+                                                      : MyColors.fontlarge
+                                                          ? (MyColors.textSize +
+                                                              18)
+                                                          : 18,
+                                                ),
                                               ),
                                             ),
                                             const SizedBox(
-                                              width: 5,
+                                              width: 15,
                                             ),
                                             Text(
                                               snapshot.data![index].value
                                                   .toStringAsFixed(3),
                                             ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
                                             IconButton(
                                               onPressed: () {
                                                 snapshot.data![index].favorite =
@@ -192,14 +199,16 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                                       ? const Icon(
                                                           Icons.star_sharp,
                                                           size: 30.0,
+                                                          color: Colors.blue,
                                                         )
                                                       : const Icon(
                                                           Icons.star_border,
                                                           size: 30.0,
+                                                          color: Colors.blue,
                                                         ),
                                             )
                                           ],
-                                        ),
+                                        )
                                       ],
                                     )),
                               );

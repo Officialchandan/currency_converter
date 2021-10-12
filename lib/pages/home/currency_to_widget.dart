@@ -117,65 +117,89 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
+                            shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
+                                  debugPrint(
+                                      "on tap -> ${snapshot.data![index].key}");
                                   widget.onSelect(snapshot.data![index].key);
                                 },
                                 child: Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(10, 2, 10, 0),
-                                  decoration: BoxDecoration(
-                                    // color: MyColors.textColor,
-                                    color: MyColors.textColor,
+                                    margin:
+                                        const EdgeInsets.fromLTRB(10, 1, 10, 0),
+                                    padding: const EdgeInsets.only(left: 5),
+                                    decoration: BoxDecoration(
+                                      // color: MyColors.textColor,
+                                      color: MyColors.textColor,
 
-                                    borderRadius: BorderRadius.circular(7),
-                                  ),
-                                  child: ListTile(
-
-                                    title: Row(
-                                      children: [
-                                        const Icon(Icons.image),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Container(
-
-                                          width: MediaQuery.of(context).size.width*0.15,
-                                          child: Text(
-                                            snapshot.data![index].key,
-                                            style: TextStyle(
-                                              color:
-                                              MyColors.insideTextFieldColor,
-                                              fontSize: MyColors.fontsmall
-                                                  ? (MyColors.textSize - 18) *
-                                                  (-1)
-                                                  : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 18)
-                                                  : 18,
-                                            ),
-                                          ),),
-                                        const SizedBox(
-                                          width: 35,
-                                        ),
-                                        Text(
-                                          snapshot.data![index].value
-                                              .toStringAsFixed(3),
-                                        ),
-                                      ],
+                                      borderRadius: BorderRadius.circular(7),
                                     ),
-                                    trailing: starIndex
-                                        ? const Icon(
-                                            Icons.star_sharp,
-                                            size: 30.0,
-                                          )
-                                        : const Icon(
-                                            Icons.star,
-                                            size: 30.0,
-                                          ),
-                                  ),
-                                ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const Icon(Icons.image),
+                                            const SizedBox(
+                                              width: 4,
+                                            ),
+                                            Container(
+                                              width: 50,
+                                              child: Text(
+                                                snapshot.data![index].key,
+                                                style: TextStyle(
+                                                  color: MyColors
+                                                      .insideTextFieldColor,
+                                                  fontSize: MyColors.fontsmall
+                                                      ? (MyColors.textSize -
+                                                              18) *
+                                                          (-1)
+                                                      : MyColors.fontlarge
+                                                          ? (MyColors.textSize +
+                                                              18)
+                                                          : 18,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              snapshot.data![index].value
+                                                  .toStringAsFixed(3),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                snapshot.data![index].favorite =
+                                                    !snapshot
+                                                        .data![index].favorite;
+
+                                                setState(() {});
+                                              },
+                                              icon:
+                                                  snapshot.data![index].favorite
+                                                      ? const Icon(
+                                                          Icons.star_sharp,
+                                                          size: 30.0,
+                                                          color: Colors.blue,
+                                                        )
+                                                      : const Icon(
+                                                          Icons.star_border,
+                                                          size: 30.0,
+                                                          color: Colors.blue,
+                                                        ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )),
                               );
                             });
                       }

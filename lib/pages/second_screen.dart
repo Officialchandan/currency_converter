@@ -1,3 +1,4 @@
+import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Models/model.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -20,7 +21,6 @@ class SecondScreen extends StatefulWidget {
   _SecondScreenState createState() => _SecondScreenState();
 }
 
-
 class _SecondScreenState extends State<SecondScreen> {
   String equation = "0";
   String result = "0";
@@ -36,7 +36,7 @@ class _SecondScreenState extends State<SecondScreen> {
   TextEditingController edtTo = TextEditingController();
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
-
+  var calculatorTextSize;
   Map<String, double> cresult = {};
 
   List<CurrencyData> selecteddata = [];
@@ -86,9 +86,16 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
+    calculatorTextSize = appheight * 0.050;
+    print(calculatorTextSize);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
@@ -117,7 +124,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     children: [
                       Center(
                         child: Text(
-                  "update".tr().toString(),
+                          "update".tr().toString(),
                           style: TextStyle(
                             color: MyColors.textColor,
                             fontSize: MyColors.fontsmall
@@ -183,126 +190,148 @@ class _SecondScreenState extends State<SecondScreen> {
                         itemCount: selecteddata.length,
                         itemBuilder: (context, index) {
                           return Container(
+                            height: 45.0,
+                            padding: const EdgeInsets.only(right: 10, left: 5),
                             key: ValueKey(selecteddata[index].key),
                             margin: const EdgeInsets.only(top: 1.1),
-                            width: 32.0,
+                            width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(7.0),
                             ),
-                            child: ListTile(
-                              leading: const Icon(Icons.image),
-                              title: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    selecteddata[index].key,
-                                    style: TextStyle(
-                                      color: MyColors.insideTextFieldColor,
-                                      fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 18) * (-1)
-                                          : MyColors.fontlarge
-                                              ? (MyColors.textSize + 18)
-                                              : 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    selecteddata[index]
-                                        .value
-                                        .toStringAsFixed(3),
-                                    style: TextStyle(
-                                      color: MyColors.insideTextFieldColor,
-                                      fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 18) * (-1)
-                                          : MyColors.fontlarge
-                                              ? (MyColors.textSize + 18)
-                                              : 18,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Expanded(
-                                    child: TextFormField(
-                                      cursorColor: Colors.black,
-                                      cursorWidth: 2.3,
-                                      controller:
-                                          selecteddata[index].controller,
-                                      showCursor: true,
-                                      readOnly: true,
-                                      textAlign: TextAlign.center,
-                                      keyboardType: TextInputType.none,
-                                      style: TextStyle(
-                                        color: MyColors.insideTextFieldColor,
-                                        fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 18) * (-1)
-                                            : MyColors.fontlarge
-                                                ? (MyColors.textSize + 18)
-                                                : 18,
-                                      ),
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
-                                      onChanged: (String text) {
-                                        getConverterAPI(
-                                            currencyCodeFrom,
-                                            currencyCodeTo,
-                                            conversionRate.toString());
-                                        if (selecteddata[index].controller !=
-                                            true) {
-                                          text = selecteddata[index]
-                                              .controller
-                                              .text;
-                                          debugPrint("onchange -> $text");
-                                        }
+                            child: selecteddata.isNotEmpty
+                                ? SizedBox(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Icon(Icons.image),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 8.0),
+                                          height: 35.0,
+                                          width: 60.0,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                MyColors.colorPrimary
+                                                    .withOpacity(0.45),
+                                                MyColors.colorPrimary,
+                                              ],
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              selecteddata[index].key,
+                                              style: TextStyle(
+                                                color: MyColors.textColor,
+                                                fontSize: MyColors.fontsmall
+                                                    ? (MyColors.textSize - 18) *
+                                                        (-1)
+                                                    : MyColors.fontlarge
+                                                        ? (MyColors.textSize +
+                                                            18)
+                                                        : 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Expanded(
+                                          child: AutoSizeTextField(
+                                            cursorColor: MyColors.colorPrimary,
+                                            cursorWidth: 2.3,
+                                            controller:
+                                                selecteddata[index].controller,
+                                            textAlign: TextAlign.center,
+                                            keyboardType: TextInputType.none,
+                                            showCursor: true,
+                                            readOnly: true,
+                                            decoration: const InputDecoration(
+                                                contentPadding: EdgeInsets.only(
+                                                    left: 1.0,
+                                                    right: 1.0,
+                                                    bottom: 15.0),
+                                                counterText: "",
+                                                border: InputBorder.none),
+                                            style: TextStyle(
+                                              color:
+                                                  MyColors.insideTextFieldColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
+                                            ),
+                                            onChanged: (String text) {
+                                              getConverterAPI(
+                                                  currencyCodeFrom,
+                                                  currencyCodeTo,
+                                                  conversionRate.toString());
+                                              text = selecteddata[index]
+                                                  .controller
+                                                  .text;
+                                              debugPrint("onchange -> $text");
 
-                                        setState(() {});
-                                      },
-                                      onTap: () async {
-                                        showCalculator(context,
-                                            selecteddata[index].controller);
+                                              setState(() {});
+                                            },
+                                            onTap: () async {
+                                              showCalculator(
+                                                  context,
+                                                  selecteddata[index]
+                                                      .controller);
 
-                                        setState(() {});
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              trailing: SizedBox(
-                                width: 50,
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      "assets/images/up-down.png",
-                                      scale: 9,
-                                    ),
-                                    const SizedBox(
-                                      width: 7,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        selecteddata[index].changeIcon =
-                                            !selecteddata[index].changeIcon;
+                                              setState(() {});
+                                            },
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 50,
+                                          child: Row(
+                                            children: [
+                                              Image.asset(
+                                                "assets/images/up-down.png",
+                                                scale: 9,
+                                              ),
+                                              const SizedBox(
+                                                width: 7,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  selecteddata[index]
+                                                          .changeIcon =
+                                                      !selecteddata[index]
+                                                          .changeIcon;
 
-                                        selecteddata.removeAt(index);
-                                        favList.removeAt(index);
+                                                  selecteddata.removeAt(index);
+                                                  favList.removeAt(index);
 
-                                        setcurrencySaveListData(favList);
-                                        setState(() {});
-                                      },
-                                      child: Image.asset(
-                                        "assets/images/cross.png",
-                                        scale: 9,
-                                      ),
+                                                  setcurrencySaveListData(
+                                                      favList);
+                                                  setState(() {});
+                                                },
+                                                child: Image.asset(
+                                                  "assets/images/cross.png",
+                                                  scale: 9,
+                                                  color: MyColors.colorPrimary,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                                  )
+                                : Container(),
                           );
                         },
                         onReorder: (oldIndex, newIndex) {
@@ -328,10 +357,10 @@ class _SecondScreenState extends State<SecondScreen> {
               MaterialPageRoute(builder: (context) => const AddCurrency()));
           setState(() {});
         },
-        child: const Icon(
+        child: Icon(
           Icons.add,
           size: 40,
-          color: Color(0xFF6A78CA),
+          color: MyColors.colorPrimary,
         ),
       ),
     );
@@ -430,8 +459,8 @@ class _SecondScreenState extends State<SecondScreen> {
             });
           }
 
-          Widget buildButton(
-              String buttonText, double buttonHeight, Color buttonColor) {
+          Widget buildButton(String buttonText, double buttonHeight,
+              Color buttonColor, double buttonTexth) {
             return SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: Container(
@@ -460,7 +489,7 @@ class _SecondScreenState extends State<SecondScreen> {
                             color: MyColors.colorPrimary,
                             width: 0.6,
                             style: BorderStyle.solid)),
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(0.0),
                     onPressed: () => buttonPressed(buttonText),
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 0.0),
@@ -468,8 +497,8 @@ class _SecondScreenState extends State<SecondScreen> {
                         alignment: Alignment.center,
                         child: Text(
                           buttonText,
-                          style: const TextStyle(
-                              fontSize: 25.0,
+                          style: TextStyle(
+                              fontSize: buttonTexth,
                               fontWeight: FontWeight.normal,
                               color: Colors.white),
                         ),
@@ -494,29 +523,31 @@ class _SecondScreenState extends State<SecondScreen> {
                         child: Table(
                           children: [
                             TableRow(children: [
-                              buildButton("%", 1, MyColors.calcuColor),
-                              buildButton("/", 1, MyColors.calcuColor),
-                              buildButton("×", 1, MyColors.calcuColor),
+                              buildButton("%", 1, MyColors.calcuColor,
+                                  calculatorTextSize),
+                              buildButton("/", 1, MyColors.calcuColor, 25),
+                              buildButton("×", 1, MyColors.calcuColor,
+                                  calculatorTextSize),
                             ]),
                             TableRow(children: [
-                              buildButton("1", 1, MyColors.calcuColor),
-                              buildButton("2", 1, MyColors.calcuColor),
-                              buildButton("3", 1, MyColors.calcuColor),
+                              buildButton("1", 1, MyColors.calcuColor, 25),
+                              buildButton("2", 1, MyColors.calcuColor, 25),
+                              buildButton("3", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton("4", 1, MyColors.calcuColor),
-                              buildButton("5", 1, MyColors.calcuColor),
-                              buildButton("6", 1, MyColors.calcuColor),
+                              buildButton("4", 1, MyColors.calcuColor, 25),
+                              buildButton("5", 1, MyColors.calcuColor, 25),
+                              buildButton("6", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton("7", 1, MyColors.calcuColor),
-                              buildButton("8", 1, MyColors.calcuColor),
-                              buildButton("9", 1, MyColors.calcuColor),
+                              buildButton("7", 1, MyColors.calcuColor, 25),
+                              buildButton("8", 1, MyColors.calcuColor, 25),
+                              buildButton("9", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton(".", 1, MyColors.calcuColor),
-                              buildButton("0", 1, MyColors.calcuColor),
-                              buildButton("c", 1, MyColors.calcuColor),
+                              buildButton(".", 1, MyColors.calcuColor, 25),
+                              buildButton("0", 1, MyColors.calcuColor, 25),
+                              buildButton("c", 1, MyColors.calcuColor, 25),
                             ]),
                           ],
                         ),
@@ -525,17 +556,28 @@ class _SecondScreenState extends State<SecondScreen> {
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: Table(children: [
                             TableRow(children: [
-                              buildButton("⌫", 1, MyColors.calcuColor),
+                              InkWell(
+                                  onLongPress: () {
+                                    setState(() {
+                                      equation == "";
+                                    });
+                                  },
+                                  child: buildButton("⌫", 1,
+                                      MyColors.calcuColor, calculatorTextSize)),
                             ]),
                             TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor),
+                              buildButton("-", 1, MyColors.calcuColor,
+                                  calculatorTextSize),
                             ]),
                             TableRow(children: [
-                              buildButton("+", 1, MyColors.calcuColor),
+                              buildButton("+", 1, MyColors.calcuColor,
+                                  calculatorTextSize),
                             ]),
                             TableRow(
                               children: [
-                                buildButton("=", 2 * 1.02, MyColors.calcuColor),
+                                Center(
+                                    child: buildButton("=", 2 * 1.02,
+                                        MyColors.calcuColor, 40)),
                               ],
                             ),
                           ]))

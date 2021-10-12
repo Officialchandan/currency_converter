@@ -20,7 +20,7 @@ import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
 
 class TapHome extends StatefulWidget {
-   TapHome({Key? key}) : super(key: key);
+  TapHome({Key? key}) : super(key: key);
 
   @override
   _TapHomeState createState() => _TapHomeState();
@@ -57,8 +57,7 @@ class _TapHomeState extends State<TapHome> {
   //String text = '';
   @override
   void initState() {
-
-    currencyCodeFrom="USD";
+    currencyCodeFrom = "USD";
     // format(conversionRate);
     getCurrencyCode();
 
@@ -217,16 +216,15 @@ class _TapHomeState extends State<TapHome> {
                         ),
                         Center(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.height * 0.24,
+                            width: MediaQuery.of(context).size.width * 0.50,
                             // width: 150,
                             child: AutoSizeTextField(
                               textAlignVertical: TextAlignVertical.center,
                               autocorrect: true,
-                              maxLength: 34,
+                              maxLength: 30,
                               maxLines: 1,
                               maxFontSize: 18.0,
                               minFontSize: 7.0,
-
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
                                 fontWeight: FontWeight.w600,
@@ -242,7 +240,10 @@ class _TapHomeState extends State<TapHome> {
                               showCursor: true,
                               readOnly: true,
                               decoration: const InputDecoration(
-                                  counterText: "", border: InputBorder.none),
+                                  contentPadding: EdgeInsets.only(
+                                      left: 1.0, right: 1.0, bottom: 15.0),
+                                  counterText: "",
+                                  border: InputBorder.none),
                               onTap: () {
                                 _isContainerVisible = false;
 
@@ -464,14 +465,15 @@ class _TapHomeState extends State<TapHome> {
                     child: _isContainerVisible || _isContainerVisibleTwo
                         ? Container()
                         : Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.only(top: 16.0),
                             child: SizedBox(
-                              width: MediaQuery.of(context).size.width - 26,
+                              width: MediaQuery.of(context).size.width,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AutoSizeText(
-                                  getFormatText(text),
+                                    getFormatText(text),
+                                    wrapWords: true,
                                     // conversionRate.toStringAsFixed(MyColors.decimalformat
                                     //),
                                     maxLines: 1,
@@ -480,11 +482,11 @@ class _TapHomeState extends State<TapHome> {
                                     style: TextStyle(
                                         color: MyColors.textColor,
                                         fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 25) * (-1)
+                                            ? (MyColors.textSize - 20) * (-1)
                                             : MyColors.fontlarge
-                                                ? (MyColors.textSize + 25)
-                                                : 25,
-                                        fontWeight: FontWeight.w600),
+                                                ? (MyColors.textSize + 20)
+                                                : 20,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                   const SizedBox(
                                     width: 5,
@@ -537,14 +539,13 @@ class _TapHomeState extends State<TapHome> {
         double b =
             double.parse(converterData.to!.entries.last.value.toString());
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
-        text = double.parse(conversionRate.toString()).toStringAsFixed(MyColors.decimalformat);
+        text = double.parse(conversionRate.toString())
+            .toStringAsFixed(MyColors.decimalformat);
         // format(conversionRate);
 
         debugPrint("conversionRate $form to $to--> $conversionRate");
 
         setState(() {});
-
-
 
         return cresult;
       } else {
@@ -621,8 +622,8 @@ class _TapHomeState extends State<TapHome> {
             });
           }
 
-          Widget buildButton(
-              String buttonText, double buttonHeight, Color buttonColor) {
+          Widget buildButton(String buttonText, double buttonHeight,
+              Color buttonColor, double buttonTexth) {
             return SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: Container(
@@ -651,20 +652,20 @@ class _TapHomeState extends State<TapHome> {
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
-                        side: BorderSide(
+                        side: const BorderSide(
                             //color: MyColors.colorPrimary,
                             width: 0.3,
                             style: BorderStyle.solid)),
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(0.0),
                     onPressed: () => buttonPressed(buttonText),
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 0.0),
                       child: Align(
-                        alignment: Alignment.topCenter,
+                        alignment: Alignment.center,
                         child: Text(
                           buttonText,
-                          style: const TextStyle(
-                              fontSize: 20.0,
+                          style: TextStyle(
+                              fontSize: buttonTexth,
                               fontWeight: FontWeight.normal,
                               color: Colors.white),
                         ),
@@ -689,29 +690,29 @@ class _TapHomeState extends State<TapHome> {
                         child: Table(
                           children: [
                             TableRow(children: [
-                              buildButton("%", 1, MyColors.calcuColor),
-                              buildButton("/", 1, MyColors.calcuColor),
-                              buildButton("×", 1, MyColors.calcuColor),
+                              buildButton("%", 1, MyColors.calcuColor, 25),
+                              buildButton("/", 1, MyColors.calcuColor, 25),
+                              buildButton("×", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton("1", 1, MyColors.calcuColor),
-                              buildButton("2", 1, MyColors.calcuColor),
-                              buildButton("3", 1, MyColors.calcuColor),
+                              buildButton("1", 1, MyColors.calcuColor, 25),
+                              buildButton("2", 1, MyColors.calcuColor, 25),
+                              buildButton("3", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton("4", 1, MyColors.calcuColor),
-                              buildButton("5", 1, MyColors.calcuColor),
-                              buildButton("6", 1, MyColors.calcuColor),
+                              buildButton("4", 1, MyColors.calcuColor, 25),
+                              buildButton("5", 1, MyColors.calcuColor, 25),
+                              buildButton("6", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton("7", 1, MyColors.calcuColor),
-                              buildButton("8", 1, MyColors.calcuColor),
-                              buildButton("9", 1, MyColors.calcuColor),
+                              buildButton("7", 1, MyColors.calcuColor, 25),
+                              buildButton("8", 1, MyColors.calcuColor, 25),
+                              buildButton("9", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton(".", 1, MyColors.calcuColor),
-                              buildButton("0", 1, MyColors.calcuColor),
-                              buildButton("c", 1, MyColors.calcuColor),
+                              buildButton(".", 1, MyColors.calcuColor, 25),
+                              buildButton("0", 1, MyColors.calcuColor, 25),
+                              buildButton("c", 1, MyColors.calcuColor, 25),
                             ]),
                           ],
                         ),
@@ -720,18 +721,18 @@ class _TapHomeState extends State<TapHome> {
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: Table(children: [
                             TableRow(children: [
-                              buildButton("⌫", 1, MyColors.calcuColor),
+                              buildButton("⌫", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor),
+                              buildButton("-", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              buildButton("+", 1, MyColors.calcuColor),
+                              buildButton("+", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
                               Center(
-                                  child:
-                                      buildButton("=", 2, MyColors.calcuColor)),
+                                  child: buildButton(
+                                      "=", 2 * 1.02, MyColors.calcuColor, 40)),
                             ]),
                           ]))
                     ],
@@ -744,7 +745,8 @@ class _TapHomeState extends State<TapHome> {
   format(double conversionRate) {
     int i = MyColors.monetaryformat;
     int afterdecimal = MyColors.decimalformat;
-    double amount = double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
+    double amount =
+        double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,
       symbol: "",
@@ -788,56 +790,56 @@ class _TapHomeState extends State<TapHome> {
     setState(() {});
   }
 
- String getFormatText(String text){
-
+  String getFormatText(String text) {
     debugPrint("MyColors.decimalformat-->${MyColors.decimalformat}");
-   int i = MyColors.monetaryformat;
-   int afterdecimal = MyColors.decimalformat;
-   double amount = double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
-   CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
-     decimalDigits: afterdecimal,
-     symbol: "",
-   );
-   if (i == 1) {
-     text = mformat.format(amount.toString().replaceAll(".", ""));
-     log(text);
-     text = text.replaceAll(",", ",");
-     log(text);
-     text = text.replaceAll(".", ".");
-     log(text);
-     return text;
-   } else if (i == 2) {
-     text = mformat.format(amount.toString().replaceAll(".", ""));
-     log(text);
-     text = text.replaceAll(".", " ");
-     log(text);
-     text = text.replaceAll(",", ".");
-     log(text);
-     text = text.replaceAll(" ", ",");
-     return text;
-     //text = text.replaceFirstMapped(".", (match) => "1");
-   } else if (i == 3) {
-     text = mformat.format(amount.toString().replaceAll(".", ""));
-     text = text.replaceAll(".", "=");
-     log(text);
-     text = text.replaceAll(",", ".");
-     log(text);
-     text = text.replaceAll(".", " ");
-     text = text.replaceAll("=", ".");
+    int i = MyColors.monetaryformat;
+    int afterdecimal = MyColors.decimalformat;
+    double amount =
+        double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
+    CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
+      decimalDigits: afterdecimal,
+      symbol: "",
+    );
+    if (i == 1) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(",", ",");
+      log(text);
+      text = text.replaceAll(".", ".");
+      log(text);
+      return text;
+    } else if (i == 2) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(".", " ");
+      log(text);
+      text = text.replaceAll(",", ".");
+      log(text);
+      text = text.replaceAll(" ", ",");
+      return text;
+      //text = text.replaceFirstMapped(".", (match) => "1");
+    } else if (i == 3) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      text = text.replaceAll(".", "=");
+      log(text);
+      text = text.replaceAll(",", ".");
+      log(text);
+      text = text.replaceAll(".", " ");
+      text = text.replaceAll("=", ".");
 
-     log(text);
-     return text;
-   } else if (i == 4) {
-     text = mformat.format(amount.toString().replaceAll(".", ""));
-     log(text);
-     text = text.replaceAll(",", " ");
-     log(text);
-     text = text.replaceAll(".", ",");
-     log(text);
-     return text;
-   }
-   return text;
+      log(text);
+      return text;
+    } else if (i == 4) {
+      text = mformat.format(amount.toString().replaceAll(".", ""));
+      log(text);
+      text = text.replaceAll(",", " ");
+      log(text);
+      text = text.replaceAll(".", ",");
+      log(text);
+      return text;
+    }
+    return text;
 
-   setState(() {});
- }
+    setState(() {});
+  }
 }
