@@ -50,17 +50,11 @@ class DensityColorPicker extends StatefulWidget {
     return Container(
       height: 60,
       width: 50,
-      margin: const EdgeInsets.all(5.0),
+      margin: const EdgeInsets.only(right: 10,top: 5,bottom: 5,left: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
         color: color,
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.8),
-            offset: const Offset(1.0, 2.0),
-            blurRadius: 3.0,
-          ),
-        ],
+       border: Border.all(color: Colors.black87,width: 0.8)
       ),
       child: Material(
         color: Colors.transparent,

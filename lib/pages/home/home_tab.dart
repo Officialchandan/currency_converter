@@ -44,8 +44,9 @@ class _TapHomeState extends State<TapHome> {
 
   TextEditingController edtCurrency = TextEditingController();
   TextEditingController calculateCurrency = TextEditingController();
-  TextEditingController edtFrom = TextEditingController();
-  TextEditingController edtTo = TextEditingController();
+  TextEditingController edtFrom = TextEditingController(text:"USD");
+  TextEditingController edtTo = TextEditingController(text:"INR");
+
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
   String convertedDateTime = "";

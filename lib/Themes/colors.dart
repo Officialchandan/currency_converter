@@ -14,7 +14,7 @@ class MyColors {
 
   static Color calcuColor =colorPrimary;  //{  this is a color of calculator button, we need to take this because some time it change some time not}
   static Color textColor =Colors.white;  //{ this is color of all text except textfield text}
-  static Color insideTextFieldColor=Colors.black;  //{ this is a color of text,which is inside textField }
+  static Color insideTextFieldColor=Colors.black; //{ this is a color of text,which is inside textField }
 
   static bool checkBoxValue1 = true; //{ this boolean for date format dd/mm/yy}
   static bool checkBoxValue2 = false; //{ this boolean for date format mm/dd/yy}
