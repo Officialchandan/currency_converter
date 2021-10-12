@@ -20,7 +20,7 @@ import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
 
 class TapHome extends StatefulWidget {
-  const TapHome({Key? key}) : super(key: key);
+   TapHome({Key? key}) : super(key: key);
 
   @override
   _TapHomeState createState() => _TapHomeState();
@@ -42,22 +42,24 @@ class _TapHomeState extends State<TapHome> {
   String z = "";
   double conversionRate = 0;
 
-  TextEditingController edtCurrency = TextEditingController(text: "USD");
+  TextEditingController edtCurrency = TextEditingController();
   TextEditingController calculateCurrency = TextEditingController();
-  TextEditingController edtFrom = TextEditingController(text: "USD");
-  TextEditingController edtTo = TextEditingController(text: "EUR");
+  TextEditingController edtFrom = TextEditingController();
+  TextEditingController edtTo = TextEditingController();
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
   String convertedDateTime = "";
   DateTime now = DateTime.now();
 
-  String currencyCodeFrom = "";
+  String currencyCodeFrom = "USD";
   String currencyCodeTo = "";
   Map<String, double> cresult = {};
   //String text = '';
   @override
   void initState() {
-    format(conversionRate);
+
+    currencyCodeFrom="USD";
+    // format(conversionRate);
     getCurrencyCode();
 
     super.initState();
@@ -65,7 +67,7 @@ class _TapHomeState extends State<TapHome> {
 
   getCurrencyCode() async {
     final prefs = await SharedPreferences.getInstance();
-    currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "";
+    currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "USD";
     currencyCodeTo = prefs.getString(Constants.currencyCodeFrom) ?? "";
 
     if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
@@ -189,7 +191,7 @@ class _TapHomeState extends State<TapHome> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  MyColors.firstthemecolorgr1,
+                                  MyColors.colorPrimary.withOpacity(0.45),
                                   MyColors.colorPrimary,
                                 ],
                                 begin: Alignment.topCenter,
@@ -224,6 +226,7 @@ class _TapHomeState extends State<TapHome> {
                               maxLines: 1,
                               maxFontSize: 18.0,
                               minFontSize: 7.0,
+
                               style: TextStyle(
                                 color: MyColors.insideTextFieldColor,
                                 fontWeight: FontWeight.w600,
@@ -239,7 +242,7 @@ class _TapHomeState extends State<TapHome> {
                               showCursor: true,
                               readOnly: true,
                               decoration: const InputDecoration(
-                                  counter: Text(""), border: InputBorder.none),
+                                  counterText: "", border: InputBorder.none),
                               onTap: () {
                                 _isContainerVisible = false;
 
@@ -473,7 +476,9 @@ class _TapHomeState extends State<TapHome> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AutoSizeText(
-                                    text,
+                                  getFormatText(text),
+                                    // conversionRate.toStringAsFixed(MyColors.decimalformat
+                                    //),
                                     maxLines: 1,
                                     maxFontSize: 18.0,
                                     minFontSize: 7.0,
@@ -537,7 +542,8 @@ class _TapHomeState extends State<TapHome> {
         double b =
             double.parse(converterData.to!.entries.last.value.toString());
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
-        format(conversionRate);
+        text = double.parse(conversionRate.toString()).toStringAsFixed(MyColors.decimalformat);
+        // format(conversionRate);
 
         debugPrint("conversionRate $form to $to--> $conversionRate");
 
@@ -741,7 +747,7 @@ class _TapHomeState extends State<TapHome> {
   format(double conversionRate) {
     int i = MyColors.monetaryformat;
     int afterdecimal = MyColors.decimalformat;
-    double amount = conversionRate;
+    double amount = double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,
       symbol: "",
@@ -784,4 +790,57 @@ class _TapHomeState extends State<TapHome> {
 
     setState(() {});
   }
+
+ String getFormatText(String text){
+
+    debugPrint("MyColors.decimalformat-->${MyColors.decimalformat}");
+   int i = MyColors.monetaryformat;
+   int afterdecimal = MyColors.decimalformat;
+   double amount = double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
+   CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
+     decimalDigits: afterdecimal,
+     symbol: "",
+   );
+   if (i == 1) {
+     text = mformat.format(amount.toString().replaceAll(".", ""));
+     log(text);
+     text = text.replaceAll(",", ",");
+     log(text);
+     text = text.replaceAll(".", ".");
+     log(text);
+     return text;
+   } else if (i == 2) {
+     text = mformat.format(amount.toString().replaceAll(".", ""));
+     log(text);
+     text = text.replaceAll(".", " ");
+     log(text);
+     text = text.replaceAll(",", ".");
+     log(text);
+     text = text.replaceAll(" ", ",");
+     return text;
+     //text = text.replaceFirstMapped(".", (match) => "1");
+   } else if (i == 3) {
+     text = mformat.format(amount.toString().replaceAll(".", ""));
+     text = text.replaceAll(".", "=");
+     log(text);
+     text = text.replaceAll(",", ".");
+     log(text);
+     text = text.replaceAll(".", " ");
+     text = text.replaceAll("=", ".");
+
+     log(text);
+     return text;
+   } else if (i == 4) {
+     text = mformat.format(amount.toString().replaceAll(".", ""));
+     log(text);
+     text = text.replaceAll(",", " ");
+     log(text);
+     text = text.replaceAll(".", ",");
+     log(text);
+     return text;
+   }
+   return text;
+
+   setState(() {});
+ }
 }

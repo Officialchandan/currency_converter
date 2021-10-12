@@ -20,7 +20,6 @@ class SecondScreen extends StatefulWidget {
   _SecondScreenState createState() => _SecondScreenState();
 }
 
-TapHome tapHome = const TapHome();
 
 class _SecondScreenState extends State<SecondScreen> {
   String equation = "0";
@@ -98,7 +97,7 @@ class _SecondScreenState extends State<SecondScreen> {
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            MyColors.colorPrimary.withOpacity(0.65),
+            MyColors.colorPrimary.withOpacity(0.45),
             MyColors.colorPrimary,
           ],
           begin: Alignment.topCenter,

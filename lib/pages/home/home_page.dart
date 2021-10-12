@@ -30,9 +30,7 @@ class MyTabBarWidget extends StatefulWidget {
 class _MyTabBarWidgetState extends State<MyTabBarWidget>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  List<int> index = [0];
-  int escapeIndex = 0;
-  int previousIndex = 0;
+
   String theme = "";
 
   @override
@@ -66,28 +64,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
             TabBar(
               controller: _tabController,
               indicatorWeight: 2.5,
-
               onTap: (_selectedIndex) {
-                index.add(_selectedIndex);
 
-                if (index.length > 2) {
-                  escapeIndex = index[index.length - 2];
+                if(_selectedIndex==3)
+                  {
+                    _tabController.index = _tabController.previousIndex;
+                    ratingBottomSheet(context);
+                  }
 
-                  log("previous ->>>>${index[index.length - 2]}");
-                } else if (index.length == 2) {
-                  escapeIndex = index[index.length - 2];
-
-                  log("previous->>>>${index[index.length - 2]}");
-                } else {
-                  escapeIndex = index[index.length - 1];
-
-                  log("previous->>>>${index[0]}");
-                }
-
-                if (_selectedIndex == 3) {
-                  ratingBottomSheet(context);
-                  _tabController.index = escapeIndex;
-                }
               },
               indicatorColor: Colors.white,
               tabs: <Widget>[
@@ -151,16 +135,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           colors: [
             MyColors.colorPrimary.withOpacity(0.45),
             MyColors.colorPrimary,
-
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-
         )),
         child: TabBarView(
           controller: _tabController,
           children: [
-            const TapHome(),
+            TapHome(),
             const SecondScreen(),
             const DecimalScreens(),
             const InkWell(),
@@ -177,14 +159,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   ratingBottomSheet(BuildContext context) {
-
     return showModalBottomSheet(
         isDismissible: false,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30)),),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ),
 
-          //backgroundColor: Colors.transparent,
+        //backgroundColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
           return IntrinsicHeight(
@@ -194,14 +176,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),
                 gradient: LinearGradient(
-
                   colors: [
-                    MyColors.colorPrimary.withOpacity(0.2),
+                    MyColors.colorPrimary.withOpacity(0.5),
                     MyColors.colorPrimary,
-
-
                   ],
-
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -215,7 +193,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.asset("assets/images/app-icon.png")),
-
                   ),
                   Text(
                     "firstTextRatingPage".tr().toString(),
@@ -333,9 +310,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   tabChangeListener(int index) {
     debugPrint("index ->$index");
 
-    if (index == 3) {
-      ratingBottomSheet(context);
-    }
+    setState(() {});
   }
 
   _launchURL(String url) async {

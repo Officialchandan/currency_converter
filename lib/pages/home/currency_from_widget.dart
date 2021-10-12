@@ -116,7 +116,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                     ),
                     hintText: "Search",
                     hintStyle:
-                        TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+                        TextStyle(fontSize: 13, fontWeight: FontWeight.w700,color: Colors.black87),
                   ),
                 ),
               ),
@@ -146,25 +146,35 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
 
                                     borderRadius: BorderRadius.circular(7),
                                   ),
-                                  child: ListTile(
-                                      leading: const Icon(Icons.image),
+                                  child: ListTile(contentPadding: EdgeInsets.all(0),
+
                                       title: Row(
                                         children: [
-                                          Text(
+                                          const Icon(Icons.image),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+
+                                          Container(
+
+                                            width: MediaQuery.of(context).size.width*0.15,
+                                            child: Text(
                                             snapshot.data![index].key,
                                             style: TextStyle(
                                               color:
-                                                  MyColors.insideTextFieldColor,
+                                              MyColors.insideTextFieldColor,
                                               fontSize: MyColors.fontsmall
                                                   ? (MyColors.textSize - 18) *
-                                                      (-1)
+                                                  (-1)
                                                   : MyColors.fontlarge
-                                                      ? (MyColors.textSize + 18)
-                                                      : 18,
+                                                  ? (MyColors.textSize + 18)
+                                                  : 18,
                                             ),
-                                          ),
+                                          ),),
+
+
                                           const SizedBox(
-                                            width: 5,
+                                            width: 35,
                                           ),
                                           Text(
                                             snapshot.data![index].value
@@ -172,14 +182,15 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                           ),
                                         ],
                                       ),
-                                      trailing: IconButton(
-                                        onPressed: () {
+                                      trailing: InkWell(
+
+                                        onTap: () {
                                           snapshot.data![index].favorite =
                                               !snapshot.data![index].favorite;
                                           currencyfavorite();
                                           setState(() {});
                                         },
-                                        icon: snapshot.data![index].favorite
+                                       child:  snapshot.data![index].favorite
                                             ? const Icon(
                                                 Icons.star_sharp,
                                                 size: 30.0,

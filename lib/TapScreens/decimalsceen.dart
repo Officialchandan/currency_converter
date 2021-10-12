@@ -47,7 +47,6 @@ class _DecimalScreensState extends State<DecimalScreens> {
       backgroundColor: Colors.transparent,
       body: Column(
         children: [
-
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -60,7 +59,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(margin: EdgeInsets.only(top: 20),
+              Container(margin: const EdgeInsets.only(top: 20),
                 width: 180,
                 height: 255,
                 child: Column(mainAxisAlignment: MainAxisAlignment.start,
@@ -92,7 +91,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                     MyColors.boolMonetaryFormate.forEach((element) {
                                        if (index == j) {
                                         MyColors.monetaryformat=index+1;
-                                        format( );
+                                        format();
 
                                         MyColors.boolMonetaryFormate[j] = true;
                                       } else
@@ -166,6 +165,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                         {
                                           MyColors.decimalformat = index + 2;
                                           MyColors.boolDecimalFormate[i] = true;
+                                          //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context)=>MyTabBarWidget()), (route) => false);
                                           format();
                                         }
 
