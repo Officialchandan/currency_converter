@@ -6,7 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyColors {
 
-  static Color colorPrimary =  Color(0xff4f7dcb); //{ this is a color ,which change whole theme }
+
+
+
+  static Color colorPrimary =  Color(0xff4e7dcb ); //{ this is a color ,which change whole theme }
   static Color firstthemecolorgr1 = colorPrimary.withOpacity(0.5);  //{ this is a gradient color of theme which is always with  'firstthemecolorgr' }
 
   static Color calcuColor =colorPrimary;  //{  this is a color of calculator button, we need to take this because some time it change some time not}
@@ -24,10 +27,10 @@ class MyColors {
   static bool fontmedium = true;  //{ this is also same like about but it is for medium font and it will be by default}
   static  bool fontlarge = false;  //{ this is for large font }
 
-  static int decimalformat=2;
+  static int decimalformat= 0;
   static int monetaryformat=2;
 
-  static List <bool> boolDecimalFormate=[false,true,false,false,false,false];
+  static List <bool> boolDecimalFormate=[false,false,false,false,false,true];
   static List <bool> boolMonetaryFormate=[false,true,false,false];
 
 

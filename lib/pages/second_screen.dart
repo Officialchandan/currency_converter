@@ -5,6 +5,7 @@ import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
@@ -19,7 +20,6 @@ class SecondScreen extends StatefulWidget {
   _SecondScreenState createState() => _SecondScreenState();
 }
 
-TapHome tapHome = const TapHome();
 
 class _SecondScreenState extends State<SecondScreen> {
   String equation = "0";
@@ -97,7 +97,7 @@ class _SecondScreenState extends State<SecondScreen> {
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            MyColors.colorPrimary.withOpacity(0.65),
+            MyColors.colorPrimary.withOpacity(0.45),
             MyColors.colorPrimary,
           ],
           begin: Alignment.topCenter,
@@ -117,7 +117,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     children: [
                       Center(
                         child: Text(
-                          "Updated:",
+                  "update".tr().toString(),
                           style: TextStyle(
                             color: MyColors.textColor,
                             fontSize: MyColors.fontsmall

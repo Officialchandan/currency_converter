@@ -116,7 +116,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                     ),
                     hintText: "Search",
                     hintStyle:
-                        TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+                        TextStyle(fontSize: 13, fontWeight: FontWeight.w700,color: Colors.black87),
                   ),
                 ),
               ),

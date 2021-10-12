@@ -133,24 +133,31 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                     borderRadius: BorderRadius.circular(7),
                                   ),
                                   child: ListTile(
-                                    leading: const Icon(Icons.image),
+
                                     title: Row(
                                       children: [
-                                        Text(
-                                          snapshot.data![index].key,
-                                          style: TextStyle(
-                                            color:
-                                                MyColors.insideTextFieldColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 18)
-                                                    : 18,
-                                          ),
-                                        ),
+                                        const Icon(Icons.image),
                                         const SizedBox(
                                           width: 5,
+                                        ),
+                                        Container(
+
+                                          width: MediaQuery.of(context).size.width*0.15,
+                                          child: Text(
+                                            snapshot.data![index].key,
+                                            style: TextStyle(
+                                              color:
+                                              MyColors.insideTextFieldColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                  (-1)
+                                                  : MyColors.fontlarge
+                                                  ? (MyColors.textSize + 18)
+                                                  : 18,
+                                            ),
+                                          ),),
+                                        const SizedBox(
+                                          width: 35,
                                         ),
                                         Text(
                                           snapshot.data![index].value

@@ -33,22 +33,25 @@ class UnlockColorPicker extends StatefulWidget {
       BuildContext context, List<MColor> colors, PickerItem child) {
     Orientation orientation = MediaQuery.of(context).orientation;
 
-    return SizedBox(
-      width: 400,
+    return Container(
 
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: colors.map((MColor color) => child(color)).toList(),
-      ),
+
+
+      padding: EdgeInsets.all(7),
+
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: colors.map((MColor color) => child(color)).toList(),
+        ),
+
     );
   }
 
   static Widget defaultItemBuilder(
       MColor color, bool isCurrentColor,  void Function() changeColor) {
     return Container(
+      padding: EdgeInsets.all(10),
 
-      height: 40,
-      width: 60,
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
