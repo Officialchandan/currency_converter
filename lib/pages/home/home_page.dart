@@ -66,7 +66,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
             TabBar(
               controller: _tabController,
               indicatorWeight: 2.5,
-
               onTap: (_selectedIndex) {
                 index.add(_selectedIndex);
 
@@ -154,7 +153,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-
         )),
         child: TabBarView(
           controller: _tabController,
@@ -176,14 +174,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   ratingBottomSheet(BuildContext context) {
-
     return showModalBottomSheet(
         isDismissible: false,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30)),),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ),
 
-          //backgroundColor: Colors.transparent,
+        //backgroundColor: Colors.transparent,
         context: context,
         builder: (BuildContext context) {
           return IntrinsicHeight(
@@ -193,14 +191,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),
                 gradient: LinearGradient(
-
                   colors: [
                     MyColors.colorPrimary.withOpacity(0.7),
                     MyColors.colorPrimary,
-
-
                   ],
-                 // stops: const [0.0, 0.0],
+                  // stops: const [0.0, 0.0],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -214,7 +209,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Image.asset("assets/images/app-icon.png")),
-
                   ),
                   Text(
                     "firstTextRatingPage".tr().toString(),

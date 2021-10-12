@@ -138,58 +138,70 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                   widget.onSelect(snapshot.data![index].key);
                                 },
                                 child: Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(10, 2, 10, 0),
-                                  decoration: BoxDecoration(
-                                    // color: MyColors.textColor,
-                                    color: MyColors.textColor,
+                                    margin:
+                                        const EdgeInsets.fromLTRB(10, 2, 10, 0),
+                                    decoration: BoxDecoration(
+                                      // color: MyColors.textColor,
+                                      color: MyColors.textColor,
 
-                                    borderRadius: BorderRadius.circular(7),
-                                  ),
-                                  child: ListTile(
-                                      leading: const Icon(Icons.image),
-                                      title: Row(
-                                        children: [
-                                          Text(
-                                            snapshot.data![index].key,
-                                            style: TextStyle(
-                                              color:
-                                                  MyColors.insideTextFieldColor,
-                                              fontSize: MyColors.fontsmall
-                                                  ? (MyColors.textSize - 18) *
-                                                      (-1)
-                                                  : MyColors.fontlarge
-                                                      ? (MyColors.textSize + 18)
-                                                      : 18,
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Icon(Icons.image),
+                                            const SizedBox(
+                                              width: 4,
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            snapshot.data![index].value
-                                                .toStringAsFixed(3),
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: IconButton(
-                                        onPressed: () {
-                                          snapshot.data![index].favorite =
-                                              !snapshot.data![index].favorite;
-                                          currencyfavorite();
-                                          setState(() {});
-                                        },
-                                        icon: snapshot.data![index].favorite
-                                            ? const Icon(
-                                                Icons.star_sharp,
-                                                size: 30.0,
-                                              )
-                                            : const Icon(
-                                                Icons.star_border,
-                                                size: 30.0,
+                                            Text(
+                                              snapshot.data![index].key,
+                                              style: TextStyle(
+                                                color: MyColors
+                                                    .insideTextFieldColor,
+                                                fontSize: MyColors.fontsmall
+                                                    ? (MyColors.textSize - 18) *
+                                                        (-1)
+                                                    : MyColors.fontlarge
+                                                        ? (MyColors.textSize +
+                                                            18)
+                                                        : 18,
                                               ),
-                                      )),
-                                ),
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              snapshot.data![index].value
+                                                  .toStringAsFixed(3),
+                                            ),
+                                            IconButton(
+                                              onPressed: () {
+                                                snapshot.data![index].favorite =
+                                                    !snapshot
+                                                        .data![index].favorite;
+                                                currencyfavorite();
+                                                setState(() {});
+                                              },
+                                              icon:
+                                                  snapshot.data![index].favorite
+                                                      ? const Icon(
+                                                          Icons.star_sharp,
+                                                          size: 30.0,
+                                                        )
+                                                      : const Icon(
+                                                          Icons.star_border,
+                                                          size: 30.0,
+                                                        ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    )),
                               );
                             });
                       }
