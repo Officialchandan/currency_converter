@@ -49,6 +49,9 @@ dependencies:
   share:
   webview_flutter: ^2.1.1
   auto_size_text_field: ^1.0.1
+  sqflite: ^1.1.0
+  path_provider:
+  path: ^1.8.0
 
 
 
