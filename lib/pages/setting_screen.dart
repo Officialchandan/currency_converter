@@ -60,7 +60,7 @@ class _SettingScreenState extends State<SettingScreen> {
         body: Container(
           height: height,
           width: width,
-          padding: const EdgeInsets.only(top: 5, left: 20),
+          padding: const EdgeInsets.only(top: 20, left: 10,right: 10),
           decoration: const BoxDecoration(),
           child: SingleChildScrollView(
             child: Column(
@@ -77,12 +77,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ? (MyColors.textSize + 20)
                                     : 20,
                             color: MyColors.textColor,
+
                             fontWeight: FontWeight.bold))),
                 Container(
                   // margin: EdgeInsets.only(right: 20),
-                  width: width * .92,
 
-                  padding: const EdgeInsets.all(10),
+
+                  padding: const EdgeInsets.only(left: 10,top: 5,bottom: 5,right: 20),
                   decoration: BoxDecoration(
                       color: Colors.black26,
                       borderRadius: BorderRadius.circular(10)),
@@ -96,7 +97,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           TextSpan(
                             text: "removeAdsContent".tr().toString(),
                             style: TextStyle(
-                                fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.w500,
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 15) * (-1)
                                     : MyColors.fontlarge
@@ -143,10 +144,10 @@ class _SettingScreenState extends State<SettingScreen> {
                 Container(
 
                     // margin: EdgeInsets.only(right: 22),
-                    height: 55,
-                    width: width * .92,
+
+
                     padding: const EdgeInsets.only(
-                        top: 10, left: 15, right: 15, bottom: 0),
+                        top: 10, left: 10, right: 10, bottom: 14),
                     decoration: BoxDecoration(
                         color: Colors.black26,
                         borderRadius: BorderRadius.circular(10)),
@@ -163,12 +164,14 @@ class _SettingScreenState extends State<SettingScreen> {
                               Text("english".tr().toString(),
                                   style: GoogleFonts.roboto(
                                     fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 18) * (-1)
+                                        ? (MyColors.textSize - 17) * (-1)
                                         : MyColors.fontlarge
-                                            ? (MyColors.textSize + 18)
-                                            : 18,
+                                            ? (MyColors.textSize + 17)
+                                            : 17,
                                     color: MyColors.textColor,
+                                    fontWeight: FontWeight.w500
                                   )),
+
                               //  SizedBox(width: 245 ,),
                               Icon(
                                 Icons.expand_more_outlined,
@@ -180,7 +183,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Divider(
                           height: 2,
                           color: MyColors.textColor,
-                          thickness: 1.2,
+                          thickness: 1.5,
                         )
                       ],
                     )),
@@ -205,7 +208,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   child: Container(
                       // margin: EdgeInsets.only(right: 22),
                       height: 50,
-                      width: width * .92,
+                      width: width * .95,
                       padding: const EdgeInsets.only(
                           top: 15, left: 15, right: 15, bottom: 15),
                       decoration: BoxDecoration(
@@ -242,8 +245,8 @@ class _SettingScreenState extends State<SettingScreen> {
                             fontWeight: FontWeight.bold))),
                 Container(
                     margin: const EdgeInsets.only(bottom: 24),
-                    height: 55,
-                    width: width * .92,
+                    height: 45,
+
                     padding: const EdgeInsets.only(
                         top: 0, left: 0, right: 15, bottom: 0),
                     decoration: BoxDecoration(
@@ -379,7 +382,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
                   width: width * .92,
                   padding: const EdgeInsets.only(
-                      top: 5, left: 0, right: 0, bottom: 5),
+                      top: 10, left: 0, right: 0, bottom: 10),
                   decoration: BoxDecoration(
                       color: Colors.black26,
                       borderRadius: BorderRadius.circular(10)),
@@ -420,20 +423,24 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: width * 0.5,
 
 
+
+
                           decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.69),
                               borderRadius: BorderRadius.circular(10),
                               gradient: LinearGradient(
                                   colors: [
+                                    Colors.white60,
                                     MyColors.colorPrimary,
-                                    MyColors.firstthemecolorgr1,
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
-                                  stops: const [0.1, 1.5]),
+                                  //stops: const [0.0, 0.0]
+                                  ),
                               border: Border.all(
                                   color: MyColors.textColor, width: 3.9)),
                           child: Container(
+                            margin: EdgeInsets.only(bottom: 5),
                             color: Colors.white.withOpacity(x as double),
                             child: AnimatedOpacity(
                               duration: Duration(milliseconds: 700),
@@ -455,10 +462,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                       "USD",
                                       style: GoogleFonts.roboto(
                                           fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 20) * (-1)
+                                              ? (MyColors.textSize - 18) * (-1)
                                               : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 20)
-                                                  : 20,
+                                                  ? (MyColors.textSize + 18)
+                                                  : 18,
                                           color: MyColors.textColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -483,10 +490,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                       "EUR",
                                       style: GoogleFonts.roboto(
                                           fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 20) * (-1)
+                                              ? (MyColors.textSize - 18) * (-1)
                                               : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 20)
-                                                  : 20,
+                                                  ? (MyColors.textSize + 18)
+                                                  : 18,
                                           color: MyColors.textColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -498,6 +505,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   child: Text("0.7895",
                                       style: TextStyle(
                                         color: MyColors.textColor,
+                                        fontWeight: FontWeight.bold,
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 20) * (-1)
                                             : MyColors.fontlarge
@@ -523,7 +531,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 Text("  By: Currency.wiki",
                                     style: GoogleFonts.roboto(
                                       color: MyColors.textColor,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.normal,
                                       fontSize: MyColors.fontsmall
                                           ? (MyColors.textSize - 16) * (-1)
                                           : MyColors.fontlarge
@@ -1296,11 +1304,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           child: const Text(
             "Unlocked ",
             style: TextStyle(
-                fontWeight: FontWeight.w500, fontSize: 18, color: Colors.black),
+                fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 25),
+          margin: const EdgeInsets.only(left: 15),
           width: MediaQuery.of(context).size.width * 0.87,
           height: MediaQuery.of(context).size.height * 0.089,
           child: Container(
@@ -1319,21 +1327,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           child: const Text(
             "Locked",
             style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
+                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ),
-        Center(
-          child: Container(
-            width: width * 0.8,
-            height: height * 0.35,
+        Container(
+          margin: EdgeInsets.only(left: 15, top: 5),
+          width: width * 0.8,
+          height: height * 0.29,
 
-              child: LockColorPicker(
-                pickerColor: lockCurrentColor,
-                onColorChanged: lockchangeColor,
-              ),
+            child: LockColorPicker(
+              pickerColor: lockCurrentColor,
+              onColorChanged: lockchangeColor,
             ),
-
-        ),
+          ),
         Center(
           child: Container(
             margin: EdgeInsets.only(top: 10),
@@ -1418,9 +1424,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 child: const Text(
                   "CUSTOM",
                   style: TextStyle(
-                      letterSpacing: 1.2,
+                      letterSpacing: 0.8,
                       color: Colors.black,
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500),
                 ),
               ),
@@ -1446,9 +1452,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 child: const Text(
                   "SELECT",
                   style: TextStyle(
-                      letterSpacing: 1.9,
+                      letterSpacing: 1.0,
                       color: Colors.black,
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
               ),

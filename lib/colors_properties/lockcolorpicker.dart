@@ -84,14 +84,9 @@ class LockColorPicker extends StatefulWidget {
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
+        border: Border.all(color: Colors.black87),
         color: color,
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.8),
-            offset: const Offset(1.0, 2.0),
-            blurRadius: 3.0,
-          ),
-        ],
+
       ),
       child: Material(
         color: Colors.transparent,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/tramandconditions/privacy_policy.dart';
 import 'package:currency_converter/tramandconditions/support_page.dart';
@@ -37,7 +38,7 @@ class _TeramAndConditionState extends State<TeramAndCondition>
         child: Column(
           children: [
             Container(
-              height: 45,
+              height: 40,
               decoration: BoxDecoration(
                 color: Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(
@@ -56,8 +57,8 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                     child: Text(
                       "Support",
                       style: TextStyle(
-                        color: MyColors.firstthemecolorgr1,
-                        fontWeight: FontWeight.w800,
+                        color: MyColors.colorPrimary,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -65,17 +66,18 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                     child: Text(
                       "Terms",
                       style: TextStyle(
-                        color: MyColors.firstthemecolorgr1,
-                        fontWeight: FontWeight.w800,
+                        color: MyColors.colorPrimary,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Tab(
-                    child: Text(
+                    child: AutoSizeText(
                       "Privacy Policy",
+                      maxLines: 1,
                       style: TextStyle(
-                        color: MyColors.firstthemecolorgr1,
-                        fontWeight: FontWeight.w800,
+                        color: MyColors.colorPrimary,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

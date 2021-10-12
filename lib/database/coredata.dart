@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:sqflite/sqflite.dart';
 class DatabaseHelper {
-  static final _dbName = 'currencyconverter.db';
+  static final _dbName = 'currencyconverter1.db';
   static final _dbVersion = 1;
   static final tableName = "conversion";
   static final  ColumnId="id";
@@ -15,6 +15,7 @@ class DatabaseHelper {
   static final currencyValue = "currencyValue";
   static final favCountry = "favCountry";
   static final selectedCountry = "selectedCountry";
+  static final countryName = "countryName";
 
 
   DatabaseHelper._p();
@@ -43,12 +44,13 @@ class DatabaseHelper {
             $countryCode TEXT NOT NULL,
             $countryImage TEXT NOT NULL,
             $currencyValue TEXT NOT NULL,
-            $favCountry INTEGER NOT NULL,
-            $selectedCountry INTEGER NOT NULL
+            $favCountry BOOLEAN NOT NULL,
+            $countryName TEXT NOT NULL,
+            $selectedCountry BOOLEAN NOT NULL
             )'''
     );
   }
-  Future<int> insert(Map<String, dynamic> row) async {
+  Future<int>insert(Map<String, dynamic> row) async {
     print("data->$row");
     Database db = await instance.database;
     return await db.insert(tableName, row);

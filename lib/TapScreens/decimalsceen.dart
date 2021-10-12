@@ -103,10 +103,11 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   });
                                 },
                                 activeColor: MyColors.checkBoxValue2
-                                    ? Colors.black45
+                                    ? Colors.black
                                     : Colors.white,
-                                checkColor: Colors.black,
+                                checkColor:MyColors.checkBoxValue2? Colors.white:Colors.black45,
                                 tristate: false,
+
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                               ),
@@ -148,6 +149,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                           child: Row(
                             children: [
                               Checkbox(
+
                                 side: BorderSide(color: MyColors.textColor),
                                 value: MyColors.boolDecimalFormate[index],
                                 onChanged: (value) {
@@ -179,9 +181,9 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   });
                                 },
                                 activeColor: MyColors.checkBoxValue2
-                                    ? Colors.black45
+                                    ? Colors.black
                                     : Colors.white,
-                                checkColor: Colors.black,
+                                checkColor:MyColors.checkBoxValue2? Colors.white:Colors.black45,
                                 tristate: false,
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
