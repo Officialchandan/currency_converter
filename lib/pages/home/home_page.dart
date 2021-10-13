@@ -76,21 +76,25 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  icon: Image.asset("assets/images/tab-ic1.png",
-                      // scale: 1,
-                      color: MyColors.textColor),
+                  icon: Container(
+                    width:40,
+                    height:35,
+                    child: Image.asset("assets/images/tab-ic1.png",fit: BoxFit.fill,
+                        //scale: 6,
+                        color: MyColors.textColor),
+                  ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic2.png",
-                    // scale: 1,
+                     scale: 7 ,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic3.png",
-                    // scale: 1,
+                       scale: 7,
                     color: MyColors.textColor,
                   ),
                 ),
@@ -101,7 +105,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     },
                     child: Image.asset(
                       "assets/images/tab-ic4.png",
-                      // scale: 1,
+                      scale: 7,
                       color: MyColors.textColor,
                     ),
                   ),
@@ -109,14 +113,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic5.png",
-                    // scale: 1,
+                    scale: 7,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic6.png",
-                    // scale: 1,
+                    scale: 7,
                     color: MyColors.textColor,
                   ),
                 ),

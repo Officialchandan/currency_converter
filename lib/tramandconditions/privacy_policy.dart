@@ -23,7 +23,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
     return  Scaffold(
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 5, top: 20, right: 5),
+          padding: const EdgeInsets.only(left: 5, top: 20, right: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

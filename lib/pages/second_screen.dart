@@ -258,7 +258,8 @@ class _SecondScreenState extends State<SecondScreen> {
                                                 contentPadding: EdgeInsets.only(
                                                     left: 1.0,
                                                     right: 1.0,
-                                                    bottom: 15.0),
+                                                    top: 1.0,
+                                                    bottom: 1.0),
                                                 counterText: "",
                                                 border: InputBorder.none),
                                             style: TextStyle(
