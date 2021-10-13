@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_colorpicker/src/utils.dart';
 
-
 typedef PickerLayoutBuilder = Widget Function(
     BuildContext context, List<MColor> colors, PickerItem child);
 typedef PickerItem = Widget Function(MColor color);
@@ -18,7 +17,7 @@ class UnlockColorPicker extends StatefulWidget {
   const UnlockColorPicker({
     required this.pickerColor,
     required this.onColorChanged,
-    required this.availableColors ,
+    required this.availableColors,
     this.layoutBuilder = defaultLayoutBuilder,
     this.itemBuilder = defaultItemBuilder,
   });
@@ -34,35 +33,22 @@ class UnlockColorPicker extends StatefulWidget {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return Container(
-
-
-
       padding: EdgeInsets.all(7),
-
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: colors.map((MColor color) => child(color)).toList(),
-        ),
-
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: colors.map((MColor color) => child(color)).toList(),
+      ),
     );
   }
 
   static Widget defaultItemBuilder(
-      MColor color, bool isCurrentColor,  void Function() changeColor) {
+      MColor color, bool isCurrentColor, void Function() changeColor) {
     return Container(
       padding: EdgeInsets.all(10),
-
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
         color: color.mainColor,
-        boxShadow: [
-          BoxShadow(
-            color: color.mainColor.withOpacity(0.8),
-            offset: const Offset(1.0, 2.0),
-            blurRadius: 3.0,
-          ),
-        ],
       ),
       child: Material(
         color: Colors.transparent,
@@ -74,7 +60,9 @@ class UnlockColorPicker extends StatefulWidget {
             opacity: isCurrentColor ? 1.0 : 0.0,
             child: Icon(
               Icons.done,
-              color: useWhiteForeground(color.mainColor) ? Colors.white : Colors.black,
+              color: useWhiteForeground(color.mainColor)
+                  ? Colors.white
+                  : Colors.black,
             ),
           ),
         ),
@@ -105,12 +93,8 @@ class _UnlockColorPickerState extends State<UnlockColorPicker> {
     return widget.layoutBuilder(
       context,
       widget.availableColors,
-      (MColor color, [bool? _, Function? __]) => widget.itemBuilder(
-          color, _currentColor.mainColor == color.mainColor , () => changeColor(color)),
+      (MColor color, [bool? _, Function? __]) => widget.itemBuilder(color,
+          _currentColor.mainColor == color.mainColor, () => changeColor(color)),
     );
   }
 }
-
-
-
-

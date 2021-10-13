@@ -94,7 +94,7 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
-    calculatorTextSize = appheight * 0.050;
+    calculatorTextSize = appheight * 0.030;
     print(calculatorTextSize);
     return Scaffold(
       body: Container(
@@ -124,7 +124,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     children: [
                       Center(
                         child: Text(
-                          "update".tr().toString(),
+                          "update:".tr().toString(),
                           style: TextStyle(
                             color: MyColors.textColor,
                             fontSize: MyColors.fontsmall
@@ -258,12 +258,12 @@ class _SecondScreenState extends State<SecondScreen> {
                                                 contentPadding: EdgeInsets.only(
                                                     left: 1.0,
                                                     right: 1.0,
-                                                    bottom: 15.0),
+                                                    bottom: 1.0,
+                                                    top: 1),
                                                 counterText: "",
                                                 border: InputBorder.none),
                                             style: TextStyle(
-                                              color:
-                                                  MyColors.insideTextFieldColor,
+                                              color: MyColors.colorPrimary,
                                               fontWeight: FontWeight.w600,
                                               fontSize: MyColors.fontsmall
                                                   ? (MyColors.textSize - 18) *
@@ -566,8 +566,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                       MyColors.calcuColor, calculatorTextSize)),
                             ]),
                             TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor,
-                                  calculatorTextSize),
+                              buildButton("-", 1, MyColors.calcuColor, 40),
                             ]),
                             TableRow(children: [
                               buildButton("+", 1, MyColors.calcuColor,

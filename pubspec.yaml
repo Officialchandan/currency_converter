@@ -52,6 +52,8 @@ dependencies:
   sqflite: ^1.1.0
   path_provider:
   path: ^1.8.0
+  flutter_hsvcolor_picker:
+  fluttertoast:
 
 
 
