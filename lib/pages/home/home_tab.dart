@@ -6,6 +6,8 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/database/coredata.dart';
+import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
@@ -27,6 +29,8 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
+  List<DataModel> countrycode = [];
+  final dbHelper = DatabaseHelper.instance;
   String text = "00.0";
   String equation = "0";
   String result = "0";
@@ -59,7 +63,10 @@ class _TapHomeState extends State<TapHome> {
   @override
   void initState() {
     currencyCodeFrom = "USD";
+
+
     // format(conversionRate);
+    Insert();
     getCurrencyCode();
 
     super.initState();
@@ -524,7 +531,51 @@ class _TapHomeState extends State<TapHome> {
       ),
     );
   }
+  Future<void> Insert() async {
+    print("Bobel");
 
+    String url =
+        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+
+    Dio _dio = Dio();
+    try {
+      Response response = await _dio.get(url);
+      if (response.statusCode == 200) {
+        //ConverterData converterData = ConverterData.fromJson(response.toString());
+        Map res = response.data!;
+        Map<String, dynamic> quotes = res["quotes"];
+        quotes.forEach((key, value) async {
+          DataModel currencyData = DataModel(
+              value: value.toString(),
+              code: key,
+              image: "",
+              name: "",
+              fav: 0,
+              selected: 0);
+
+          int id = await dbHelper.insert(currencyData.toMap());
+
+          print("id->>>>>$id");
+        });
+
+          showAll();
+
+      } else {
+        print("NOT FOUND DATA");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+  void showAll() async {
+    List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
+    allRows.forEach((element) {
+      debugPrint("element-->$element");
+      DataModel currencyData = DataModel.fromMap(element);
+      countrycode.add(currencyData);
+    });
+    print(countrycode);
+  }
   Future<Map<String, dynamic>> getConverterAPI(
       String form, String to, String rate) async {
     debugPrint("input from -> $form");

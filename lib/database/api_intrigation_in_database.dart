@@ -16,44 +16,62 @@ class Intrigation extends StatefulWidget {
 }
 
 class _IntrigationState extends State<Intrigation> {
-
   final dbHelper = DatabaseHelper.instance;
-  
-List<CurrencyData> countrycode=[];
+
+  List<DataModel> countrycode = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 100,
+            ),
             Container(
               child: ElevatedButton(
-                onPressed: (){
+                onPressed: () {
                   Insert();
                 },
                 child: Text("Click!!"),
-
               ),
             ),
             Container(
               child: ElevatedButton(
-                onPressed: (){
+                onPressed: () {
                   showAll();
                 },
-                child: Text("showall!!"),
-
+                child: const Text("showall!!"),
+              ),
+            ),
+            Container(
+              child: ElevatedButton(
+                onPressed: () {
+                  updateAll();
+                },
+                child: const Text("updateAll!!"),
               ),
             ),
           ],
         ),
       ),
-
     );
   }
 
-  Future<void> Insert() async {
+  updateAll() async {
+    DataModel currencyData = DataModel(
+        value: "2",
+        code: "USD",
+        image: "",
+        name: "american dollar",
+        fav: 1,
+        selected: 1);
+    await dbHelper.update(currencyData.toMap());
+  }
+
+   Future<void> Insert() async {
     print("Bobel");
 
     String url =
@@ -64,16 +82,21 @@ List<CurrencyData> countrycode=[];
       Response response = await _dio.get(url);
       if (response.statusCode == 200) {
         //ConverterData converterData = ConverterData.fromJson(response.toString());
-        Map res=response.data!;
-        Map<String,dynamic> quotes=res["quotes"];
+        Map res = response.data!;
+        Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
+          DataModel currencyData = DataModel(
+              value: value.toString(),
+              code: key,
+              image: "",
+              name: "",
+              fav: 0,
+              selected: 0);
 
-          CurrencyData currencyData=CurrencyData(value: value,code: key,image: "",name: "",fav: false,selected: false);
-
-       int id= await dbHelper.insert(currencyData.toMap());
-       print("id->>>>>$id");
-
+          int id = await dbHelper.insert(currencyData.toMap());
+          print("id->>>>>$id");
         });
+
 
 
       } else {
@@ -82,19 +105,15 @@ List<CurrencyData> countrycode=[];
     } catch (e) {
       print(e);
     }
-
-
   }
 
   void showAll() async {
-
     List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
     allRows.forEach((element) {
-      // CurrencyData currencyData=CurrencyData.fromJson(jsonEncode(element));
-      // countrycode.add(currencyData);
+      debugPrint("element-->$element");
+      DataModel currencyData = DataModel.fromMap(element);
+      countrycode.add(currencyData);
     });
     print(countrycode);
-
-
   }
 }
