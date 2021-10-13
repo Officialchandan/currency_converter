@@ -48,8 +48,8 @@ class _TapHomeState extends State<TapHome> {
 
   TextEditingController edtCurrency = TextEditingController();
   TextEditingController calculateCurrency = TextEditingController();
-  TextEditingController edtFrom = TextEditingController(text:"USD");
-  TextEditingController edtTo = TextEditingController(text:"INR");
+  TextEditingController edtFrom = TextEditingController(text: "USD");
+  TextEditingController edtTo = TextEditingController(text: "INR");
 
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
@@ -122,7 +122,7 @@ class _TapHomeState extends State<TapHome> {
                           children: [
                             Center(
                               child: Text(
-                                "update".tr().toString(),
+                                "update:".tr().toString(),
                                 style: TextStyle(
                                   color: MyColors.textColor,
                                   fontSize: MyColors.fontsmall
@@ -234,7 +234,7 @@ class _TapHomeState extends State<TapHome> {
                               maxFontSize: 18.0,
                               minFontSize: 7.0,
                               style: TextStyle(
-                                color: MyColors.insideTextFieldColor,
+                                color: MyColors.colorPrimary,
                                 fontWeight: FontWeight.w600,
                                 fontSize: MyColors.fontsmall
                                     ? (MyColors.textSize - 18) * (-1)
@@ -348,10 +348,13 @@ class _TapHomeState extends State<TapHome> {
                                   color: MyColors.insideTextFieldColor,
                                   size: 25.0,
                                 ),
-                                suffixIcon: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: MyColors.insideTextFieldColor,
-                                  size: 25.0,
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: MyColors.insideTextFieldColor,
+                                    size: 23.0,
+                                  ),
                                 ),
                               ),
                             )),
@@ -404,10 +407,13 @@ class _TapHomeState extends State<TapHome> {
                                   color: MyColors.insideTextFieldColor,
                                   size: 25.0,
                                 ),
-                                suffixIcon: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: MyColors.insideTextFieldColor,
-                                  size: 25.0,
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: MyColors.insideTextFieldColor,
+                                    size: 23.0,
+                                  ),
                                 ),
                               ),
                             )),
@@ -692,7 +698,7 @@ class _TapHomeState extends State<TapHome> {
                         0.1 /
                         1.5 *
                         buttonHeight +
-                    2.6,
+                    2.4,
 
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -708,9 +714,9 @@ class _TapHomeState extends State<TapHome> {
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
-                        side: const BorderSide(
-                            //color: MyColors.colorPrimary,
-                            width: 0.3,
+                        side: BorderSide(
+                            color: MyColors.colorPrimary,
+                            width: 0.4,
                             style: BorderStyle.solid)),
                     padding: const EdgeInsets.all(0.0),
                     onPressed: () => buttonPressed(buttonText),
@@ -746,9 +752,9 @@ class _TapHomeState extends State<TapHome> {
                         child: Table(
                           children: [
                             TableRow(children: [
-                              buildButton("%", 1, MyColors.calcuColor, 25),
-                              buildButton("/", 1, MyColors.calcuColor, 25),
-                              buildButton("×", 1, MyColors.calcuColor, 25),
+                              buildButton("%", 1, MyColors.calcuColor, 20),
+                              buildButton("/", 1, MyColors.calcuColor, 20),
+                              buildButton("×", 1, MyColors.calcuColor, 27),
                             ]),
                             TableRow(children: [
                               buildButton("1", 1, MyColors.calcuColor, 25),
@@ -777,10 +783,10 @@ class _TapHomeState extends State<TapHome> {
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: Table(children: [
                             TableRow(children: [
-                              buildButton("⌫", 1, MyColors.calcuColor, 25),
+                              buildButton("⌫", 1, MyColors.calcuColor, 20),
                             ]),
                             TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor, 25),
+                              buildButton("-", 1, MyColors.calcuColor, 35),
                             ]),
                             TableRow(children: [
                               buildButton("+", 1, MyColors.calcuColor, 25),

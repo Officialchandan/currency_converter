@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -33,6 +31,8 @@ class _SecondScreenState extends State<SecondScreen> {
   String convertedDateTime = "";
   DateTime now = DateTime.now();
   ConverterData data = ConverterData();
+  TextEditingController edtFrom = TextEditingController();
+  TextEditingController edtTo = TextEditingController();
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   var calculatorTextSize;
@@ -245,7 +245,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                       ),
                                       onChanged: (String text) {
                                         text = model.controller.text;
-                                        
+
                                         calculateExchangeRate(text,index,model);
 
 
@@ -585,6 +585,6 @@ class _SecondScreenState extends State<SecondScreen> {
     }
 
     streamController.add(selectedList);
-    
+
   }
 }

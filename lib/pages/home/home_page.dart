@@ -48,6 +48,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -63,14 +64,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
             TabBar(
               controller: _tabController,
               indicatorWeight: 2.5,
-              onTap: (_selectedIndex) async{
-
-                // if(_selectedIndex==3)
-                //   {
-                //     _tabController.index = await _tabController.previousIndex;
-                //     ratingBottomSheet(context);
-                //   }
-
+              onTap: (_selectedIndex) {
+                if (_selectedIndex == 3) {
+                  _tabController.index = _tabController.previousIndex;
+                  ratingBottomSheet(context);
+                }
               },
               indicatorColor: Colors.white,
               tabs: <Widget>[
@@ -191,12 +189,18 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               child: Column(
                 children: [
                   Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
                     width: 60,
                     height: 60,
-                    margin: const EdgeInsets.only(top: 10, bottom: 8),
+                    margin: const EdgeInsets.only(top: 15, bottom: 8),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.asset("assets/images/app-icon.png")),
+                        child: Image.asset(
+                          "assets/images/currency.png",
+                          fit: BoxFit.cover,
+                        )),
                   ),
                   Text(
                     "firstTextRatingPage".tr().toString(),
@@ -278,7 +282,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                         thickness: 1.2,
                       )),
                   Container(
-                    width: 130,
+                    width: 120,
                     height: 40,
                     margin: const EdgeInsets.only(top: 5),
                     child: ElevatedButton(
@@ -312,10 +316,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   tabChangeListener(int index) {
-    if (index == 3) {
-      ratingBottomSheet(context);
-    }
-
+    debugPrint("index ->$index");
 
     setState(() {});
   }
