@@ -1,71 +1,43 @@
-import 'package:currency_converter/API/apis.dart';
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/pages/home/home_page.dart';
-import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/database/coredata.dart';
+import 'package:currency_converter/database/currencydata.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AddCurrency extends StatefulWidget {
-  const AddCurrency({Key? key}) : super(key: key);
+
 
   @override
   _AddCurrencyState createState() => _AddCurrencyState();
 }
 
 class _AddCurrencyState extends State<AddCurrency> {
-  List<CurrencyData> currencyList = [];
-  List<String> favList = [];
-  Map<String, double> currencyMap = {};
-  List<CurrencyData> selectedList = [];
+  List<DataModel> unselectedList = [];
+  List<DataModel> selectedList = [];
+  final dbHelper = DatabaseHelper.instance;
+
+  StreamController<List<DataModel>> unselectedController = StreamController();
+  StreamController<List<DataModel>> selectedController = StreamController();
 
   @override
   void initState() {
     super.initState();
-    getcurrencySaveDataList();
+    getAllData();
   }
 
-  Future getData() async {
-    currencyMap = await Apiclass.getUser();
-    currencyMap.forEach((key, value) {
-      CurrencyData currency = CurrencyData(
-        key: key.toString(),
-        value: value,
-      );
-
-      int i = selectedList.indexWhere((element) => element.key == key);
-      if (i != -1) {
-        currency.changeIcon = true;
-        currencyList.add(currency);
-      } else {
-        currencyList.add(currency);
-      }
-    });
-    // setcurrencySaveListData(favList);
-    if (this.mounted) {
-      // check whether the state object is in tree
-      setState(() {
-        // make changes here
-      });
-    }
-  }
-
-  void getcurrencySaveDataList() async {
-    final prefs = await SharedPreferences.getInstance();
-    favList = prefs.getStringList(Constants.currencySaveData) ?? [];
-    debugPrint("$favList");
+  void getAllData() async {
     selectedList.clear();
-    for (String element in favList) {
-      CurrencyData data = CurrencyData.fromMap(element);
-      selectedList.add(data);
-    }
-    debugPrint("selected List $selectedList");
-    setState(() {});
-    getData();
-  }
+    selectedList = await dbHelper.getSelectedData();
+    unselectedList.addAll(selectedList);
+    List<DataModel> data = await dbHelper.getUnselectedData();
+    unselectedList.addAll(data);
+    selectedController.add(selectedList);
+    unselectedController.add(unselectedList);
 
-  void setcurrencySaveListData(List<String> selected) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(Constants.currencySaveData, selected);
+    debugPrint("selectedList $selectedList");
+    debugPrint("unselectedList $unselectedList");
   }
 
   @override
@@ -125,67 +97,88 @@ class _AddCurrencyState extends State<AddCurrency> {
                 const SizedBox(
                   height: 10,
                 ),
-                Column(
-                  children: List.generate(selectedList.length, (index) {
-                    return Container(
-                      height: 45,
-                      margin: const EdgeInsets.only(top: 1.0),
-                      padding: const EdgeInsets.only(left: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
+                StreamBuilder<List<DataModel>>(
+
+                    initialData: [],
+                    stream: selectedController.stream,
+                    builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: List.generate(snapshot.data!.length, (index) {
+                        DataModel data = snapshot.data![index];
+                        return Container(
+                          height: 45,
+                          margin: const EdgeInsets.only(top: 1.0),
+                          padding: const EdgeInsets.only(left: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Icon(Icons.image),
-                              Text(
-                                selectedList[index].key,
-                                style: TextStyle(
-                                  color: MyColors.insideTextFieldColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 20) * (-1)
-                                      : MyColors.fontlarge
-                                          ? (MyColors.textSize + 20)
-                                          : 20,
-                                ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.image),
+                                  Text(
+                                    data.code,
+                                    style: TextStyle(
+                                      color: MyColors.insideTextFieldColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: MyColors.fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : MyColors.fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    double.parse(data.value).toStringAsFixed(
+                                        MyColors.decimalformat),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                selectedList[index].value.toStringAsFixed(3),
-                              ),
+                              Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        data.iconForSelection =
+                                            !data.iconForSelection;
+                                        int i = unselectedList.indexWhere((element) => element.code==data.code);
+
+                                        unselectedList[i].iconForSelection = false;
+
+                                        data.iconForSelection = false;
+                                        data.selected = 0;
+                                        dbHelper.update(data.toMap());
+
+
+                                        selectedList.removeAt(index);
+                                        selectedController.add(selectedList);
+                                        unselectedController.add(unselectedList);
+
+
+
+                                      },
+                                      child: Icon(
+                                        Icons.close,
+                                        size: 29,
+                                        color: MyColors.colorPrimary,
+                                      )),
+                                ],
+                              )
                             ],
                           ),
-                          Row(
-                            children: [
-                              InkWell(
-                                  onTap: () {
-                                    selectedList[index].changeIcon =
-                                        !selectedList[index].changeIcon;
-
-                                    selectedList.removeAt(index);
-                                    favList.removeAt(index);
-
-                                    setcurrencySaveListData(favList);
-                                    setState(() {});
-                                  },
-                                  child: Icon(
-                                    Icons.close,
-                                    size: 29,
-                                    color: MyColors.colorPrimary,
-                                  )),
-                            ],
-                          )
-                        ],
-                      ),
+                        );
+                      }),
                     );
-                  }),
-                ),
+                  }
+
+                  return Container();
+                }),
                 const SizedBox(
                   height: 8.0,
                 ),
@@ -204,81 +197,98 @@ class _AddCurrencyState extends State<AddCurrency> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                Column(
-                  children: List.generate(currencyList.length, (index) {
-                    return Container(
-                      height: 45,
-                      margin: const EdgeInsets.only(top: 1.0),
-                      padding: const EdgeInsets.only(left: 5),
-                      decoration: BoxDecoration(
-                        color: MyColors.textColor,
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      // alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
+                StreamBuilder<List<DataModel>>(
+                    initialData: [],
+                  stream: unselectedController.stream,
+                    builder: (context, snapshot) {
+
+                  if(snapshot.hasError){
+                    log("snapshot error-->${snapshot.data}");
+                  }
+
+                  if (snapshot.hasData) {
+
+
+                    log("snapshot-->${snapshot.data}");
+
+
+                    return Column(
+                      children: List.generate(snapshot.data!.length, (index) {
+                        DataModel model = snapshot.data![index];
+                        return Container(
+                          height: 45,
+                          margin: const EdgeInsets.only(top: 1.0),
+                          padding: const EdgeInsets.only(left: 5),
+                          decoration: BoxDecoration(
+                            color: MyColors.textColor,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          // alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Icon(Icons.image),
-                              const SizedBox(
-                                width: 5.0,
+                              Row(
+                                children: [
+                                  const Icon(Icons.image),
+                                  const SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  SizedBox(
+                                      width: 50.0,
+                                      child: Text(
+                                        model.code,
+                                        style: TextStyle(
+                                          color: MyColors.insideTextFieldColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: MyColors.fontsmall
+                                              ? (MyColors.textSize - 20) * (-1)
+                                              : MyColors.fontlarge
+                                                  ? (MyColors.textSize + 20)
+                                                  : 20,
+                                        ),
+                                      )),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    double.parse(model.value)
+                                        .toStringAsFixed(3),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                  width: 50.0,
-                                  child: Text(
-                                    currencyList[index].key,
-                                    style: TextStyle(
-                                      color: MyColors.insideTextFieldColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 20) * (-1)
-                                          : MyColors.fontlarge
-                                              ? (MyColors.textSize + 20)
-                                              : 20,
-                                    ),
-                                  )),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                currencyList[index].value.toStringAsFixed(3),
-                              ),
+                              IconButton(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  onPressed: () async {
+                                    if (!model.iconForSelection) {
+                                      model.iconForSelection = true;
+                                      model.selected = 1;
+                                      dbHelper.update(model.toMap());
+                                      selectedList.add(model);
+                                      selectedController.add(selectedList);
+                                      unselectedList[index] = model;
+                                      unselectedController.add(unselectedList);
+                                    }
+                                  },
+                                  icon: model.iconForSelection
+                                      ? Icon(
+                                          Icons.check_sharp,
+                                          size: 29,
+                                          color: MyColors.colorPrimary,
+                                        )
+                                      : Icon(
+                                          Icons.add,
+                                          size: 29,
+                                          color: MyColors.colorPrimary,
+                                        )),
                             ],
                           ),
-                          IconButton(
-                              padding: const EdgeInsets.only(left: 10),
-                              onPressed: () {
-                                debugPrint(
-                                    "currencyList[index].changeIcon ${currencyList[index].changeIcon}");
-                                if (!currencyList[index].changeIcon) {
-                                  currencyList[index].changeIcon =
-                                      !currencyList[index].changeIcon;
-
-                                  selectedList.add(currencyList[index]);
-                                  favList.add(currencyList[index].toString());
-
-                                  setcurrencySaveListData(favList);
-                                  debugPrint("$favList");
-                                  setState(() {});
-                                }
-                              },
-                              icon: currencyList[index].changeIcon
-                                  ? Icon(
-                                      Icons.check_sharp,
-                                      size: 29,
-                                      color: MyColors.colorPrimary,
-                                    )
-                                  : Icon(
-                                      Icons.add,
-                                      size: 29,
-                                      color: MyColors.colorPrimary,
-                                    )),
-                        ],
-                      ),
+                        );
+                      }),
                     );
-                  }),
-                ),
+                  }
+
+                  return Container();
+                }),
               ],
             ),
           ),

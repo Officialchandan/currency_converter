@@ -49,15 +49,19 @@ class _IntrigationState extends State<Intrigation> {
             Container(
               child: ElevatedButton(
                 onPressed: () {
-                  updateAll();
+                  particularrow();
                 },
-                child: const Text("updateAll!!"),
+                child: const Text("particular row!!"),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+  void particularrow()async{
+    List<Map<String, dynamic>> row =await dbHelper.particular_row("INR");
+    print("->>>>>>>>>>>>>>${row.first.values.toList()[3]}");
   }
 
   updateAll() async {

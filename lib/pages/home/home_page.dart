@@ -48,7 +48,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -64,13 +63,13 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
             TabBar(
               controller: _tabController,
               indicatorWeight: 2.5,
-              onTap: (_selectedIndex) {
+              onTap: (_selectedIndex) async{
 
-                if(_selectedIndex==3)
-                  {
-                    _tabController.index = _tabController.previousIndex;
-                    ratingBottomSheet(context);
-                  }
+                // if(_selectedIndex==3)
+                //   {
+                //     _tabController.index = await _tabController.previousIndex;
+                //     ratingBottomSheet(context);
+                //   }
 
               },
               indicatorColor: Colors.white,
@@ -313,7 +312,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   tabChangeListener(int index) {
-    debugPrint("index ->$index");
+    if (index == 3) {
+      ratingBottomSheet(context);
+    }
+
 
     setState(() {});
   }

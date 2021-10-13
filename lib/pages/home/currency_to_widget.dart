@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/database/coredata.dart';
+import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 
 import 'package:flutter/material.dart';
 
 class CurrencyToWidget extends StatefulWidget {
   final Function(String currencyCode) onSelect;
+
   const CurrencyToWidget(
       {required this.isContainerVisibleTwo, Key? key, required this.onSelect})
       : super(key: key);
@@ -18,8 +21,10 @@ class CurrencyToWidget extends StatefulWidget {
 }
 
 class _CurrencyToWidgetState extends State<CurrencyToWidget> {
+  List<DataModel> countrycode = [];
+  final dbHelper = DatabaseHelper.instance;
   TextEditingController countryNameControllerTwo = TextEditingController();
-  StreamController<List<CurrencyData>> streamController = StreamController();
+  StreamController<List<DataModel>> streamController = StreamController();
   bool starIndex = false;
   bool _isDisposed = false;
   Map<String, double> currencyMap = {};
@@ -28,7 +33,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
   @override
   void initState() {
     super.initState();
-    getData();
+    showAll();
   }
 
   Future getData() async {
@@ -42,7 +47,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
     });
 
     if (!streamController.isClosed) {
-      streamController.sink.add(currencyList);
+      // streamController.sink.add(currencyList);
     }
   }
 
@@ -84,10 +89,10 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                 padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
                 child: TextField(
                   onChanged: (String text) {
-                    List<CurrencyData> searchList = [];
+                    List<DataModel> searchList = [];
 
-                    for (var element in currencyList) {
-                      if (element.key
+                    for (var element in countrycode) {
+                      if (element.code
                           .toString()
                           .toLowerCase()
                           .contains(text.trim().toLowerCase())) {
@@ -111,95 +116,112 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.48,
-                child: StreamBuilder<List<CurrencyData>>(
+                child: StreamBuilder<List<DataModel>>(
                     stream: streamController.stream,
-                    initialData: currencyList,
+                    initialData: countrycode,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  debugPrint(
-                                      "on tap -> ${snapshot.data![index].key}");
-                                  widget.onSelect(snapshot.data![index].key);
-                                },
-                                child: Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(10, 1, 10, 0),
-                                    padding: const EdgeInsets.only(left: 5),
-                                    decoration: BoxDecoration(
-                                      // color: MyColors.textColor,
-                                      color: MyColors.textColor,
+                              return Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      debugPrint(
+                                          "on tap -> ${snapshot.data![index].code}");
+                                      widget.onSelect(snapshot.data![index].code);
+                                    },
+                                    child: Container(
+                                        margin:
+                                            const EdgeInsets.fromLTRB(10, 1, 10, 0),
+                                        padding: const EdgeInsets.only(left: 5),
+                                        decoration: BoxDecoration(
+                                          // color: MyColors.textColor,
+                                          color: MyColors.textColor,
 
-                                      borderRadius: BorderRadius.circular(7),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Icon(Icons.image),
-                                            const SizedBox(
-                                              width: 4,
-                                            ),
-                                            Container(
-                                              width: 50,
-                                              child: Text(
-                                                snapshot.data![index].key,
-                                                style: TextStyle(
-                                                  color: MyColors
-                                                      .insideTextFieldColor,
-                                                  fontSize: MyColors.fontsmall
-                                                      ? (MyColors.textSize -
-                                                              18) *
-                                                          (-1)
-                                                      : MyColors.fontlarge
-                                                          ? (MyColors.textSize +
-                                                              18)
-                                                          : 18,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 15,
-                                            ),
-                                            Text(
-                                              snapshot.data![index].value
-                                                  .toStringAsFixed(3),
-                                            ),
-                                          ],
+                                          borderRadius: BorderRadius.circular(7),
                                         ),
-                                        Row(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                snapshot.data![index].favorite =
-                                                    !snapshot
-                                                        .data![index].favorite;
+                                            Row(
+                                              children: [
+                                                const Icon(Icons.image),
+                                                const SizedBox(
+                                                  width: 4,
+                                                ),
+                                                Container(
+                                                  width: 50,
+                                                  child: Text(
+                                                    snapshot.data![index].code,
+                                                    style: TextStyle(
+                                                      color: MyColors
+                                                          .insideTextFieldColor,
+                                                      fontSize: MyColors.fontsmall
+                                                          ? (MyColors.textSize -
+                                                                  18) *
+                                                              (-1)
+                                                          : MyColors.fontlarge
+                                                              ? (MyColors.textSize +
+                                                                  18)
+                                                              : 18,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 15,
+                                                ),
+                                                Text(
+                                                  double.parse(snapshot
+                                                          .data![index].value)
+                                                      .toStringAsFixed(3),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {
+                                                    if (snapshot.data![index].fav ==
+                                                        0) {
+                                                      snapshot.data![index].fav = 1;
+                                                    } else {
+                                                      snapshot.data![index].fav = 0;
+                                                    }
+                                                    updateAll(snapshot.data![index].value,
+                                                        snapshot.data![index].code,
+                                                        snapshot.data![index].fav!,
 
-                                                setState(() {});
-                                              },
-                                              icon:
-                                                  snapshot.data![index].favorite
-                                                      ? const Icon(
-                                                          Icons.star_sharp,
-                                                          size: 30.0,
-                                                          color: Colors.blue,
-                                                        )
-                                                      : const Icon(
-                                                          Icons.star_border,
-                                                          size: 30.0,
-                                                          color: Colors.blue,
-                                                        ),
+
+                                                        );
+
+                                                    setState(() {});
+                                                  },
+                                                  icon:
+                                                      snapshot.data![index].fav == 1
+                                                          ?  Icon(
+                                                              Icons.star_sharp,
+                                                              size: 30.0,
+                                                              color: MyColors.colorPrimary,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.star_border,
+                                                              size: 30.0,
+                                                              color: Colors.grey,
+                                                            ),
+                                                )
+                                              ],
                                             )
                                           ],
-                                        )
-                                      ],
-                                    )),
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Divider(height: 0.7,color:Colors.grey,thickness: 0.7,))
+                                ],
                               );
                             });
                       }
@@ -219,5 +241,28 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
         ),
       ),
     );
+  }
+
+  updateAll(String value, String code, int fav, ) async {
+    DataModel currencyData = DataModel(
+        value: value,
+        code: code,
+
+        fav: fav,
+        );
+    await dbHelper.update(currencyData.toMap());
+  }
+
+  void showAll() async {
+    List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
+    allRows.forEach((element) {
+      debugPrint("element-->$element");
+      DataModel currencyData = DataModel.fromMap(element);
+      countrycode.add(currencyData);
+    });
+    if (!streamController.isClosed) {
+      streamController.sink.add(countrycode);
+    }
+    print(countrycode);
   }
 }

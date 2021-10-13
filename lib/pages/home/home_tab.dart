@@ -260,7 +260,7 @@ class _TapHomeState extends State<TapHome> {
                                 setState(() {});
                               },
                               onChanged: (text) {
-                                debugPrint("onchange -> $text");
+                                print("onchange -> $text");
                                 getConverterAPI(currencyCodeFrom,
                                     currencyCodeTo, conversionRate.toString());
                               },
@@ -549,7 +549,7 @@ class _TapHomeState extends State<TapHome> {
 
           int id = await dbHelper.insert(currencyData.toMap());
 
-          print("id->>>>>$id");
+         // print("id->>>>>$id");
         });
 
           showAll();
@@ -564,32 +564,38 @@ class _TapHomeState extends State<TapHome> {
   void showAll() async {
     List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
     allRows.forEach((element) {
-      debugPrint("element-->$element");
+     // debugPrint("element-->$element");
       DataModel currencyData = DataModel.fromMap(element);
       countrycode.add(currencyData);
     });
-    print(countrycode);
+
+  }
+  void particularrow()async{
+
+
   }
   Future<Map<String, dynamic>> getConverterAPI(
       String form, String to, String rate) async {
     debugPrint("input from -> $form");
     debugPrint("input to -> $to");
-    String url =
-        "https://www.currency.wiki/api/currency/quotes/$form/$to/784565d2-9c14-4b25-8235-06f6c5029b15";
+    List<Map<String, dynamic>> formRow =await dbHelper.particular_row("$form");
+    List<Map<String, dynamic>> toRow =await dbHelper.particular_row("$to");
+    print("->>>>>>>>>>>>>>${formRow.first.values.toList()[3]}");
+    print("->>>>>>>>>>>>>>${toRow.first.values.toList()[3]}");
 
-    Dio _dio = Dio();
+
+
+
     try {
-      Response response = await _dio.get(url);
-      if (response.statusCode == 200) {
-        ConverterData converterData =
-            ConverterData.fromJson(response.toString());
-        debugPrint("last data from -> ${converterData.from!.entries.last}");
-        debugPrint("last data to -> ${converterData.to!.entries.last}");
+
+
+
+
 
         double a =
-            double.parse(converterData.from!.entries.last.value.toString());
+            double.parse(formRow.first.values.toList()[3]);
         double b =
-            double.parse(converterData.to!.entries.last.value.toString());
+            double.parse(toRow.first.values.toList()[3]);
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
         text = double.parse(conversionRate.toString())
             .toStringAsFixed(MyColors.decimalformat);
@@ -600,9 +606,7 @@ class _TapHomeState extends State<TapHome> {
         setState(() {});
 
         return cresult;
-      } else {
-        print("NOT FOUND DATA");
-      }
+
     } catch (e) {
       print(e);
     }

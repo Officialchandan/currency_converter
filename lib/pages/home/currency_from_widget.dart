@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/database/coredata.dart';
+import 'package:currency_converter/database/currencydata.dart';
 
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +20,10 @@ class CurrencyFromWidget extends StatefulWidget {
 }
 
 class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
+  List<DataModel> countrycode = [];
+  final dbHelper = DatabaseHelper.instance;
   int indexForSelectedCurrency = 0;
-  final StreamController<List<CurrencyData>> streamController =
+  final StreamController<List<DataModel>> streamController =
       StreamController();
   TextEditingController edtCurrencyCode = TextEditingController();
   bool starIndex = false;
@@ -36,6 +40,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
   List<CurrencyData> toList = [];
   @override
   void initState() {
+    showAll();
     if (edtCurrencyCode.text.isEmpty) {
       edtCurrencyCode.text = "";
     }
@@ -52,9 +57,9 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
         value: value,
       ));
     });
-    if (!streamController.isClosed) {
-      streamController.sink.add(currencyList);
-    }
+    // if (!streamController.isClosed) {
+    //   streamController.sink.add(currencyList);
+    // }
   }
 
   @override
@@ -95,10 +100,10 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                 padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
                 child: TextField(
                   onChanged: (String text) {
-                    List<CurrencyData> searchList = [];
+                    List<DataModel> searchList = [];
 
-                    for (var element in currencyList) {
-                      if (element.key
+                    for (var element in countrycode) {
+                      if (element.code
                           .toString()
                           .toLowerCase()
                           .contains(text.trim().toLowerCase())) {
@@ -122,9 +127,9 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.48,
-                child: StreamBuilder<List<CurrencyData>>(
+                child: StreamBuilder<List<DataModel>>(
                     stream: streamController.stream,
-                    initialData: currencyList,
+                    initialData: countrycode,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
@@ -134,8 +139,8 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                               return InkWell(
                                 onTap: () {
                                   debugPrint(
-                                      "on tap -> ${snapshot.data![index].key}");
-                                  widget.onSelect(snapshot.data![index].key);
+                                      "on tap -> ${snapshot.data![index].code}");
+                                  widget.onSelect(snapshot.data![index].code);
                                 },
                                 child: Container(
                                     margin:
@@ -160,7 +165,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             Container(
                                               width: 50,
                                               child: Text(
-                                                snapshot.data![index].key,
+                                                snapshot.data![index].code,
                                                 style: TextStyle(
                                                   color: MyColors
                                                       .insideTextFieldColor,
@@ -179,8 +184,10 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                               width: 15,
                                             ),
                                             Text(
-                                              snapshot.data![index].value
-                                                  .toStringAsFixed(3),
+                                                double.parse(snapshot
+                                                    .data![index].value)
+                                                    .toStringAsFixed(3),
+
                                             ),
                                           ],
                                         ),
@@ -188,23 +195,40 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                           children: [
                                             IconButton(
                                               onPressed: () {
-                                                snapshot.data![index].favorite =
-                                                    !snapshot
-                                                        .data![index].favorite;
+                                                if( snapshot.data![index].fav==0)
+                                                  {
+                                                    snapshot.data![index].fav =
+                                                    1;
+
+
+                                                  }
+                                                else{
+                                                  snapshot.data![index].fav =
+                                                  0;
+
+                                                }
+                                                updateAll(snapshot.data![index].value,
+                                                  snapshot.data![index].code,
+                                                  snapshot.data![index].fav!,
+
+
+                                                );
+
+
                                                 currencyfavorite();
                                                 setState(() {});
                                               },
                                               icon:
-                                                  snapshot.data![index].favorite
-                                                      ? const Icon(
+                                                  snapshot.data![index].fav==1
+                                                      ?  Icon(
                                                           Icons.star_sharp,
                                                           size: 30.0,
-                                                          color: Colors.blue,
+                                                          color: MyColors.colorPrimary,
                                                         )
                                                       : const Icon(
                                                           Icons.star_border,
                                                           size: 30.0,
-                                                          color: Colors.blue,
+                                                          color: Colors.grey,
                                                         ),
                                             )
                                           ],
@@ -230,6 +254,27 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
         ),
       ),
     );
+  }
+  updateAll(String value, String code, int fav, ) async {
+    DataModel currencyData = DataModel(
+      value: value,
+      code: code,
+
+      fav: fav,
+    );
+    await dbHelper.update(currencyData.toMap());
+  }
+  void showAll() async {
+    List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
+    allRows.forEach((element) {
+      debugPrint("element-->$element");
+      DataModel currencyData = DataModel.fromMap(element);
+      countrycode.add(currencyData);
+    });
+    if (!streamController.isClosed) {
+      streamController.sink.add(countrycode);
+    }
+    print(countrycode);
   }
 
   void currencyfavorite() {

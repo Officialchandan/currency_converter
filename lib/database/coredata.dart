@@ -54,28 +54,24 @@ class DatabaseHelper {
   }
 
   Future<int> insert(Map<String, dynamic> row) async {
-    print("data->$row");
+    //print("data->$row");
     Database db = await instance.database;
 
     Map<String, dynamic> existData = await isExist(row["countryCode"]);
-    if(existData.isNotEmpty){
-
+    if (existData.isNotEmpty) {
       DataModel data = DataModel.fromMap(existData);
       data.value = row["currencyValue"].toString();
       return update(data.toMap());
-
-    }else{
+    } else {
       return await db.insert(tableName, row);
     }
-
-
   }
 
   Future<List<Map<String, dynamic>>> queryAll() async {
     Database db = await instance.database;
     List<Map<String, dynamic>> data = await db.query(tableName);
 
-    print("data--->$data");
+    //print("data--->$data");
 
     return data;
   }
@@ -89,11 +85,10 @@ class DatabaseHelper {
     List<Map<String, dynamic>> data = await db
         .query(tableName, where: '$countryCode =  ?', whereArgs: [code]);
 
-    log("isExist - data -->$data");
+    // log("isExist - data -->$data");
 
     if (data.isNotEmpty) {
-      currencyData =  data[0];
-
+      currencyData = data[0];
     }
     return currencyData;
   }
@@ -103,5 +98,59 @@ class DatabaseHelper {
     String code = row["countryCode"];
     return await db
         .update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
+  }
+
+  Future<List<Map<String, dynamic>>> particular_row(String conCode) async {
+    Database db = await instance.database;
+    List<Map<String, dynamic>> data = await db
+        .query(tableName, where: '$countryCode =  ?', whereArgs: [conCode]);
+
+    print("data--->${data.first.values.toList()[3]}");
+
+    return data;
+  }
+
+  Future<List<DataModel>> getSelectedData() async {
+    List<DataModel> dataList = [];
+
+    try {
+      Database db = await instance.database;
+      List<Map<String, dynamic>> data = await db
+          .query(tableName, where: "$selectedCountry = ?", whereArgs: [1]);
+
+      log("getSelectedData-->$data");
+
+      if (data.isNotEmpty) {
+        for (var element in data) {
+          DataModel model = DataModel.fromMap(element);
+          model.iconForSelection = true;
+          dataList.add(model);
+        }
+      }
+    } catch (exception) {
+      debugPrint("exception in getSelectedData --> $exception");
+    }
+
+    return dataList;
+  }
+  Future<List<DataModel>> getUnselectedData() async {
+    List<DataModel> dataList = [];
+
+    try {
+      Database db = await instance.database;
+      List<Map<String, dynamic>> data = await db
+          .query(tableName, where: "$selectedCountry = ?", whereArgs: [0]);
+
+      if (data.isNotEmpty) {
+        for (var element in data) {
+          DataModel model = DataModel.fromMap(element);
+          dataList.add(model);
+        }
+      }
+    } catch (exception) {
+      debugPrint("exception in getSelectedData --> $exception");
+    }
+
+    return dataList;
   }
 }

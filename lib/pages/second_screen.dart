@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Models/converter_data.dart';
-import 'package:currency_converter/Models/model.dart';
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/pages/home/home_page.dart';
-import 'package:currency_converter/pages/home/home_tab.dart';
+import 'package:currency_converter/database/coredata.dart';
+import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
@@ -32,58 +33,31 @@ class _SecondScreenState extends State<SecondScreen> {
   String convertedDateTime = "";
   DateTime now = DateTime.now();
   ConverterData data = ConverterData();
-  TextEditingController edtFrom = TextEditingController();
-  TextEditingController edtTo = TextEditingController();
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   var calculatorTextSize;
+
   Map<String, double> cresult = {};
 
-  List<CurrencyData> selecteddata = [];
-
-  List<CurrencyData> liveData = [];
-
-  List<String> favList = [];
+  List<DataModel> selectedList = [];
+  final dbHelper = DatabaseHelper.instance;
+  StreamController<List<DataModel>> streamController = StreamController();
+  int currentIndex = -1;
 
   @override
   void initState() {
     super.initState();
-    getCurrencyCode();
-    getcurrencySaveDataListAdd();
+    getSelectedList();
   }
 
-  getCurrencyCode() async {
-    // final prefs = await SharedPreferences.getInstance();
-    // currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "";
-    // currencyCodeTo = prefs.getString(Constants.currencyCodeFrom) ?? "";
-
-    if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
-      edtFrom.text = currencyCodeFrom;
-      edtTo.text = currencyCodeTo;
-
-      getConverterAPI(
-          currencyCodeFrom, currencyCodeTo, conversionRate.toString());
-    }
-    setState(() {});
+  void getSelectedList() async {
+    selectedList.clear();
+    selectedList = await dbHelper.getSelectedData();
+    debugPrint("selectedList-->$selectedList");
+    streamController.add(selectedList);
   }
 
-  void getcurrencySaveDataListAdd() async {
-    final prefs = await SharedPreferences.getInstance();
-    favList = prefs.getStringList(Constants.currencySaveData) ?? [];
-    debugPrint("$favList");
-    selecteddata.clear();
-    for (String element in favList) {
-      CurrencyData data = CurrencyData.fromMap(element);
-      selecteddata.add(data);
-    }
-    debugPrint("selected List $selecteddata");
-    setState(() {});
-  }
 
-  void setcurrencySaveListData(List<String> selected) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(Constants.currencySaveData, selected);
-  }
 
   @override
   void dispose() {
@@ -181,158 +155,149 @@ class _SecondScreenState extends State<SecondScreen> {
               const SizedBox(
                 height: 12.0,
               ),
-              selecteddata.isNotEmpty
-                  ? SizedBox(
-                      child: ReorderableListView.builder(
+              StreamBuilder<List<DataModel>>(
+                  stream: streamController.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ReorderableListView.builder(
                         scrollDirection: Axis.vertical,
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: selecteddata.length,
+                        itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
+                          DataModel model = snapshot.data![index];
+
                           return Container(
                             height: 45.0,
                             padding: const EdgeInsets.only(right: 10, left: 5),
-                            key: ValueKey(selecteddata[index].key),
+                            key: ValueKey(model.code),
                             margin: const EdgeInsets.only(top: 1.1),
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(7.0),
                             ),
-                            child: selecteddata.isNotEmpty
-                                ? SizedBox(
+                            child: SizedBox(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Icon(Icons.image),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 8.0),
+                                    height: 35.0,
+                                    width: 60.0,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          MyColors.colorPrimary
+                                              .withOpacity(0.45),
+                                          MyColors.colorPrimary,
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        model.code,
+                                        style: TextStyle(
+                                          color: MyColors.textColor,
+                                          fontSize: MyColors.fontsmall
+                                              ? (MyColors.textSize - 18) * (-1)
+                                              : MyColors.fontlarge
+                                                  ? (MyColors.textSize + 18)
+                                                  : 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Expanded(
+                                    child: AutoSizeTextField(
+                                      cursorColor: MyColors.colorPrimary,
+                                      cursorWidth: 2.3,
+                                      controller: model.controller,
+                                      textAlign: TextAlign.center,
+                                      keyboardType: TextInputType.none,
+                                      showCursor: true,
+                                      readOnly: true,
+                                      decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.only(
+                                              left: 1.0,
+                                              right: 1.0,
+                                              top: 1.0,
+                                              bottom: 1.0),
+                                          counterText: "",
+                                          border: InputBorder.none),
+                                      style: TextStyle(
+                                        color: MyColors.insideTextFieldColor,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 18) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 18)
+                                                : 18,
+                                      ),
+                                      onChanged: (String text) {
+                                        text = model.controller.text;
+                                        
+                                        calculateExchangeRate(text,index,model);
+
+
+                                      },
+                                      onTap: () async {
+                                        currentIndex = index;
+                                        showCalculator(
+                                            context,
+                                            model.controller,
+                                            (text){
+                                              calculateExchangeRate(text,index,model);
+                                            }
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 50,
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Icon(Icons.image),
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 8.0),
-                                          height: 35.0,
-                                          width: 60.0,
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                MyColors.colorPrimary
-                                                    .withOpacity(0.45),
-                                                MyColors.colorPrimary,
-                                              ],
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(7),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              selecteddata[index].key,
-                                              style: TextStyle(
-                                                color: MyColors.textColor,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 18) *
-                                                        (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize +
-                                                            18)
-                                                        : 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
+                                        Image.asset(
+                                          "assets/images/up-down.png",
+                                          scale: 9,
                                         ),
                                         const SizedBox(
-                                          width: 5,
+                                          width: 7,
                                         ),
-                                        Expanded(
-                                          child: AutoSizeTextField(
-                                            cursorColor: MyColors.colorPrimary,
-                                            cursorWidth: 2.3,
-                                            controller:
-                                                selecteddata[index].controller,
-                                            textAlign: TextAlign.center,
-                                            keyboardType: TextInputType.none,
-                                            showCursor: true,
-                                            readOnly: true,
-                                            decoration: const InputDecoration(
-                                                contentPadding: EdgeInsets.only(
-                                                    left: 1.0,
-                                                    right: 1.0,
-                                                    top: 1.0,
-                                                    bottom: 1.0),
-                                                counterText: "",
-                                                border: InputBorder.none),
-                                            style: TextStyle(
-                                              color:
-                                                  MyColors.insideTextFieldColor,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: MyColors.fontsmall
-                                                  ? (MyColors.textSize - 18) *
-                                                      (-1)
-                                                  : MyColors.fontlarge
-                                                      ? (MyColors.textSize + 18)
-                                                      : 18,
-                                            ),
-                                            onChanged: (String text) {
-                                              getConverterAPI(
-                                                  currencyCodeFrom,
-                                                  currencyCodeTo,
-                                                  conversionRate.toString());
-                                              text = selecteddata[index]
-                                                  .controller
-                                                  .text;
-                                              debugPrint("onchange -> $text");
+                                        InkWell(
+                                          onTap: () {
+                                            model.selected = 0;
+                                            dbHelper.update(model.toMap());
+                                            selectedList.removeAt(index);
 
-                                              setState(() {});
-                                            },
-                                            onTap: () async {
-                                              showCalculator(
-                                                  context,
-                                                  selecteddata[index]
-                                                      .controller);
 
-                                              setState(() {});
-                                            },
+
+
+                                            setState(() {
+
+                                            });
+                                          },
+                                          child: Image.asset(
+                                            "assets/images/cross.png",
+                                            scale: 9,
+                                            color: MyColors.colorPrimary,
                                           ),
                                         ),
-                                        Container(
-                                          width: 50,
-                                          child: Row(
-                                            children: [
-                                              Image.asset(
-                                                "assets/images/up-down.png",
-                                                scale: 9,
-                                              ),
-                                              const SizedBox(
-                                                width: 7,
-                                              ),
-                                              InkWell(
-                                                onTap: () {
-                                                  selecteddata[index]
-                                                          .changeIcon =
-                                                      !selecteddata[index]
-                                                          .changeIcon;
-
-                                                  selecteddata.removeAt(index);
-                                                  favList.removeAt(index);
-
-                                                  setcurrencySaveListData(
-                                                      favList);
-                                                  setState(() {});
-                                                },
-                                                child: Image.asset(
-                                                  "assets/images/cross.png",
-                                                  scale: 9,
-                                                  color: MyColors.colorPrimary,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
                                       ],
                                     ),
                                   )
-                                : Container(),
+                                ],
+                              ),
+                            ),
                           );
                         },
                         onReorder: (oldIndex, newIndex) {
@@ -340,13 +305,14 @@ class _SecondScreenState extends State<SecondScreen> {
                             if (newIndex > oldIndex) {
                               newIndex = newIndex - 1;
                             }
-                            final element = selecteddata.removeAt(oldIndex);
-                            selecteddata.insert(newIndex, element);
+                            final element = selectedList.removeAt(oldIndex);
+                            selectedList.insert(newIndex, element);
                           });
                         },
-                      ),
-                    )
-                  : Container()
+                      );
+                    }
+                    return Container();
+                  })
             ],
           ),
         ),
@@ -354,9 +320,11 @@ class _SecondScreenState extends State<SecondScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () async {
-          selecteddata = await Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddCurrency()));
-          setState(() {});
+          selectedList = await Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddCurrency()));
+          setState(() {
+
+          });
         },
         child: Icon(
           Icons.add,
@@ -403,7 +371,7 @@ class _SecondScreenState extends State<SecondScreen> {
     return cresult;
   }
 
-  showCalculator(BuildContext context, TextEditingController controller) {
+  showCalculator(BuildContext context, TextEditingController controller, Function(String changeValue) onChange) {
     showModalBottomSheet(
         barrierColor: Colors.transparent,
         isDismissible: true,
@@ -452,6 +420,8 @@ class _SecondScreenState extends State<SecondScreen> {
                 }
               }
               isbool ? controller.text = equation : controller.text = result;
+              isbool ? onChange(equation) : onChange(result);
+
 
               // getConverterAPI(
               //     currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
@@ -592,5 +562,29 @@ class _SecondScreenState extends State<SecondScreen> {
   _onShareWithEmptyOrigin(BuildContext context) async {
     await Share.share(
         "https://play.google.com/store/apps/details?id=com.tencent.ig");
+  }
+
+  void calculateExchangeRate(String text, int index, DataModel model) {
+
+
+    debugPrint("onchange$text");
+    double d = double.parse(text);
+    debugPrint("d$d");
+    for (DataModel element in selectedList) {
+      if(element.code!=model.code){
+        double conversionRate =
+            ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) *
+                (d);
+
+        debugPrint("conversionRate->$conversionRate");
+
+
+        element.controller.text = conversionRate.toStringAsFixed(MyColors.decimalformat);
+        element.exchangeValue = conversionRate.toStringAsFixed(MyColors.decimalformat);
+      }
+    }
+
+    streamController.add(selectedList);
+    
   }
 }

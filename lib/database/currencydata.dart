@@ -1,13 +1,21 @@
 import 'dart:convert';
 
+import 'package:currency_converter/Themes/colors.dart';
+import 'package:flutter/cupertino.dart';
+
 class DataModel{
+
   String? name;
   String? image;
   String code;
   String value;
   int? selected;
   int? fav;
-  DataModel({required this.value,required this.code,this.image,this.name,this.fav=0,this.selected=0});
+  bool iconForSelection=false;
+  TextEditingController controller = TextEditingController(text:"00.0");
+  String exchangeValue ="0";
+
+  DataModel({required this.value,required this.code,this.image,this.name,this.fav=0,this.selected=0,this.iconForSelection=false});
 
   factory DataModel.fromMap(Map<String, dynamic> json) => DataModel(
       name: json["countryName"]??"",
