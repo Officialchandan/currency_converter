@@ -29,6 +29,9 @@ class MyTabBarWidget extends StatefulWidget {
 
 class _MyTabBarWidgetState extends State<MyTabBarWidget>
     with TickerProviderStateMixin {
+  List<int> index = [0];
+  int escapeIndex = 0;
+  int previousIndex = 0;
   late TabController _tabController;
 
   String theme = "";
@@ -36,7 +39,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   @override
   void initState() {
     super.initState();
-    getColorTheme();
+  //  getColorTheme();
 
     _tabController = TabController(length: 6, vsync: this, initialIndex: 0);
 
@@ -62,12 +65,30 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TabBar(
+              indicator: BoxDecoration(border: Border(bottom: BorderSide(width: 2.9,color:MyColors.textColor),)),
+
               controller: _tabController,
               indicatorWeight: 2.5,
               onTap: (_selectedIndex) {
+                index.add(_selectedIndex);
+
+                if (index.length > 2) {
+                  escapeIndex = index[index.length - 2];
+
+                  log("previous ->>>>${index[index.length - 2]}");
+                } else if (index.length == 2) {
+                  escapeIndex = index[index.length - 2];
+
+                  log("previous->>>>${index[index.length - 2]}");
+                } else {
+                  escapeIndex = index[index.length - 1];
+
+                  log("previous->>>>${index[0]}");
+                }
+
                 if (_selectedIndex == 3) {
-                  _tabController.index = _tabController.previousIndex;
                   ratingBottomSheet(context);
+                  _tabController.index = escapeIndex;
                 }
               },
               indicatorColor: Colors.white,
@@ -317,6 +338,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
 
   tabChangeListener(int index) {
     debugPrint("index ->$index");
+    if (index == 3) {
+      ratingBottomSheet(context);
+    }
 
     setState(() {});
   }

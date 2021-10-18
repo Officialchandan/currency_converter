@@ -1,7 +1,14 @@
+import 'dart:developer';
+
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/database/coredata.dart';
+import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/locals.dart';
 import 'package:currency_converter/utils/utility.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,12 +17,15 @@ import 'package:google_fonts/google_fonts.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await insertData();
 
   runApp(EasyLocalization(
-    child: const MyApp(),
-    path: "assets/langs",
-    supportedLocales: Locals.supportedLang
-  ));
+      child: const MyApp(),
+      path: "assets/langs",
+      fallbackLocale: Locale('en'),
+useFallbackTranslations: true,
+      useOnlyLangCode: true,
+      supportedLocales: Locals.supportedLang));
 }
 
 class MyApp extends StatefulWidget {
@@ -54,5 +64,42 @@ class _MyAppState extends State<MyApp> {
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
+  }
+}
+
+Future<void> insertData() async {
+
+
+  String url =
+      "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+
+  Dio _dio = Dio();
+  try {
+    DatabaseHelper dbHelper = DatabaseHelper.instance;
+    Response response = await _dio.get(url);
+    if (response.statusCode == 200) {
+
+      Map res = response.data!;
+      Map<String, dynamic> quotes = res["quotes"];
+      quotes.forEach((key, value) async {
+      //   Map<String,dynamic> map =   Constants.countryList.singleWhere((element) => element["code"]);
+
+        DataModel currencyData = DataModel(
+            value: value.toString(),
+            code: key,
+           //  image: map["image"],
+            // name: map["country_name"],
+            fav: 0,
+            selected: 0);
+
+        int id = await dbHelper.insert(currencyData.toMap());
+
+         log("$id");
+      });
+    } else {
+      print("NOT FOUND DATA");
+    }
+  } catch (e) {
+    print(e);
   }
 }

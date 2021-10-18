@@ -54,6 +54,7 @@ dependencies:
   path: ^1.8.0
   flutter_hsvcolor_picker:
   fluttertoast:
+  flutter_svg: ^0.23.0+1
 
 
 
@@ -86,6 +87,7 @@ flutter:
    - assets/
    - assets/langs/
    - assets/images/
+   - assets/images/countyImage/
    - assets/images/@2x/
    - assets/images/@3x/
   

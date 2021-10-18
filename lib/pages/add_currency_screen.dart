@@ -55,7 +55,7 @@ class _AddCurrencyState extends State<AddCurrency> {
             ),
           ),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon:  Icon(Icons.arrow_back_ios,color: MyColors.textColor,),
             onPressed: () {
               Navigator.pop(context, selectedList);
             },
@@ -111,7 +111,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                           margin: const EdgeInsets.only(top: 1.0),
                           padding: const EdgeInsets.only(left: 5),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: MyColors.textColor,
                             borderRadius: BorderRadius.circular(4.0),
                           ),
                           child: Row(
@@ -136,8 +136,9 @@ class _AddCurrencyState extends State<AddCurrency> {
                                     width: 5,
                                   ),
                                   Text(
-                                    double.parse(data.value).toStringAsFixed(
-                                        MyColors.decimalformat),
+                                  "  ${double.parse(data.value).toStringAsFixed(MyColors.decimalformat)}",
+
+                                    style: TextStyle(color: MyColors.insideTextFieldColor),
                                   ),
                                 ],
                               ),
@@ -252,7 +253,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                   ),
                                   Text(
                                     double.parse(model.value)
-                                        .toStringAsFixed(3),
+                                        .toStringAsFixed(MyColors.decimalformat),style: TextStyle(color: MyColors.insideTextFieldColor),
                                   ),
                                 ],
                               ),

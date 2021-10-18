@@ -100,6 +100,15 @@ class DatabaseHelper {
         .update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
   }
 
+ Future<List<Map<String, dynamic>>> order()async{
+    Database db = await instance.database;
+
+    List<Map<String, dynamic>> data= await db.rawQuery("SELECT * FROM " + tableName +" ORDER BY " + favCountry + " DESC",null);
+    print("bnbbfsdbfsdbjsdbsdk->>>$data");
+    return data;
+
+  }
+
   Future<List<Map<String, dynamic>>> particular_row(String conCode) async {
     Database db = await instance.database;
     List<Map<String, dynamic>> data = await db
@@ -153,4 +162,5 @@ class DatabaseHelper {
 
     return dataList;
   }
+
 }

@@ -57,16 +57,12 @@ class _TapHomeState extends State<TapHome> {
   DateTime now = DateTime.now();
 
   String currencyCodeFrom = "USD";
-  String currencyCodeTo = "";
+  String currencyCodeTo = "INR";
   Map<String, double> cresult = {};
-  //String text = '';
+
   @override
   void initState() {
-    currencyCodeFrom = "USD";
-
-
-    // format(conversionRate);
-    Insert();
+    // Insert();
     getCurrencyCode();
 
     super.initState();
@@ -75,7 +71,7 @@ class _TapHomeState extends State<TapHome> {
   getCurrencyCode() async {
     final prefs = await SharedPreferences.getInstance();
     currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "USD";
-    currencyCodeTo = prefs.getString(Constants.currencyCodeFrom) ?? "";
+    currencyCodeTo = prefs.getString(Constants.currencyCodeTo) ?? "INR";
 
     if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
       edtFrom.text = currencyCodeFrom;
@@ -122,7 +118,7 @@ class _TapHomeState extends State<TapHome> {
                           children: [
                             Center(
                               child: Text(
-                                "update:".tr().toString(),
+                                "update".tr().toString()+":",
                                 style: TextStyle(
                                   color: MyColors.textColor,
                                   fontSize: MyColors.fontsmall
@@ -169,9 +165,9 @@ class _TapHomeState extends State<TapHome> {
                             onTap: () async {
                               _onShareWithEmptyOrigin(context);
                             },
-                            child: const Icon(
+                            child:  Icon(
                               Icons.share,
-                              color: Colors.white,
+                              color: MyColors.textColor,
                             )),
                       ],
                     ),
@@ -210,7 +206,7 @@ class _TapHomeState extends State<TapHome> {
                               child: AutoSizeText(
                                 currencyCodeFrom,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: MyColors.textColor,
                                   fontWeight: FontWeight.w600,
                                   fontSize: MyColors.fontsmall
                                       ? (MyColors.textSize - 20) * (-1)
@@ -454,6 +450,9 @@ class _TapHomeState extends State<TapHome> {
                             edtFrom.text = currencyCode;
                             edtCurrency.text = currencyCode;
                             _isContainerVisible = false;
+                            getConverterAPI(currencyCodeFrom,
+                                currencyCodeTo, conversionRate.toString());
+
                             setState(() {});
                           },
                         )
@@ -465,6 +464,8 @@ class _TapHomeState extends State<TapHome> {
                                 currencyCodeToSave(currencyCodeTo);
                                 edtTo.text = currencyCode;
                                 _isContainerVisibleTwo = false;
+                                getConverterAPI(currencyCodeFrom,
+                                    currencyCodeTo, conversionRate.toString());
                                 setState(() {});
                               },
                             )
@@ -491,15 +492,15 @@ class _TapHomeState extends State<TapHome> {
                                     // conversionRate.toStringAsFixed(MyColors.decimalformat
                                     //),
                                     maxLines: 1,
-                                    maxFontSize: 18.0,
-                                    minFontSize: 7.0,
+                                    maxFontSize: 25.0,
+                                    minFontSize: 15.0,
                                     style: TextStyle(
                                         color: MyColors.textColor,
                                         fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 20) * (-1)
+                                            ? (MyColors.textSize - 25) * (-1)
                                             : MyColors.fontlarge
-                                                ? (MyColors.textSize + 20)
-                                                : 20,
+                                                ? (MyColors.textSize + 25)
+                                                : 25,
                                         fontWeight: FontWeight.w400),
                                   ),
                                   const SizedBox(
@@ -545,6 +546,7 @@ class _TapHomeState extends State<TapHome> {
         Map res = response.data!;
         Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
+
           DataModel currencyData = DataModel(
               value: value.toString(),
               code: key,
@@ -584,10 +586,10 @@ class _TapHomeState extends State<TapHome> {
       String form, String to, String rate) async {
     debugPrint("input from -> $form");
     debugPrint("input to -> $to");
-    List<Map<String, dynamic>> formRow =await dbHelper.particular_row("$form");
-    List<Map<String, dynamic>> toRow =await dbHelper.particular_row("$to");
-    print("->>>>>>>>>>>>>>${formRow.first.values.toList()[3]}");
-    print("->>>>>>>>>>>>>>${toRow.first.values.toList()[3]}");
+
+    List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
+    List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
+
 
 
 
@@ -729,7 +731,7 @@ class _TapHomeState extends State<TapHome> {
                           style: TextStyle(
                               fontSize: buttonTexth,
                               fontWeight: FontWeight.normal,
-                              color: Colors.white),
+                              color: MyColors.textColor),
                         ),
                       ),
                     )),

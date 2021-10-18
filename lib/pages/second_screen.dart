@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -145,9 +147,9 @@ class _SecondScreenState extends State<SecondScreen> {
                     onTap: () {
                       _onShareWithEmptyOrigin(context);
                     },
-                    child: const Icon(
+                    child:  Icon(
                       Icons.share,
-                      color: Colors.white,
+                      color: MyColors.textColor,
                     ),
                   )
                 ],
@@ -235,7 +237,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                           counterText: "",
                                           border: InputBorder.none),
                                       style: TextStyle(
-                                        color: MyColors.insideTextFieldColor,
+                                        color: MyColors.colorPrimary,
                                         fontWeight: FontWeight.w600,
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 18) * (-1)
@@ -318,10 +320,11 @@ class _SecondScreenState extends State<SecondScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
+        backgroundColor: MyColors.textColor,
         onPressed: () async {
           selectedList = await Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddCurrency()));
+
           setState(() {
 
           });
@@ -495,10 +498,10 @@ class _SecondScreenState extends State<SecondScreen> {
                           children: [
                             TableRow(children: [
                               buildButton("%", 1, MyColors.calcuColor,
-                                  calculatorTextSize),
+                                  30),
                               buildButton("/", 1, MyColors.calcuColor, 25),
                               buildButton("×", 1, MyColors.calcuColor,
-                                  calculatorTextSize),
+                                  35),
                             ]),
                             TableRow(children: [
                               buildButton("1", 1, MyColors.calcuColor, 25),
@@ -534,7 +537,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                     });
                                   },
                                   child: buildButton("⌫", 1,
-                                      MyColors.calcuColor, calculatorTextSize)),
+                                      MyColors.calcuColor, 30)),
                             ]),
                             TableRow(children: [
                               buildButton("-", 1, MyColors.calcuColor,
@@ -542,7 +545,7 @@ class _SecondScreenState extends State<SecondScreen> {
                             ]),
                             TableRow(children: [
                               buildButton("+", 1, MyColors.calcuColor,
-                                  calculatorTextSize),
+                                  30),
                             ]),
                             TableRow(
                               children: [

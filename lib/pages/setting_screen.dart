@@ -5,7 +5,7 @@ import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -65,6 +65,7 @@ class _SettingScreenState extends State<SettingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 Container(
                     margin: const EdgeInsets.only(bottom: 13),
                     child: Text("removeAds".tr().toString(),
@@ -260,12 +261,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                           !MyColors.checkBoxValue2;
                                       MyColors.textColor = Colors.white;
                                       MyColors.insideTextFieldColor =
-                                          Colors.black54;
+                                          Colors.black;
                                       MyColors.calcuColor =
                                           MyColors.colorPrimary;
 
                                       Navigator.pushAndRemoveUntil(
-                                          context,
+                                           context,
                                           MaterialPageRoute(
                                               builder: (_) => MyTabBarWidget()),
                                           (route) => false);
@@ -306,10 +307,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                           !MyColors.checkBoxValue2;
                                       MyColors.checkBoxValue1 =
                                           !MyColors.checkBoxValue1;
-                                      MyColors.textColor = Colors.black54;
+                                      MyColors.textColor = Colors.black;
                                       MyColors.insideTextFieldColor =
                                           Colors.white;
-                                      MyColors.calcuColor = Colors.black87;
+                                      MyColors.calcuColor = Colors.black;
 
                                       Navigator.pushAndRemoveUntil(
                                           context,
@@ -421,8 +422,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               border: Border.all(
                                   color: MyColors.textColor, width: 3.9)),
                           child: Container(
-                            margin: EdgeInsets.only(bottom: 5),
-                            color: Colors.white.withOpacity(x as double),
+                            padding: EdgeInsets.only(bottom: 5),
+                            color: MyColors.textColor.withOpacity(x as double),
                             child: AnimatedOpacity(
                               duration: Duration(milliseconds: 700),
                               opacity: 1,
@@ -433,9 +434,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                   const SizedBox(height: 5),
                                   Row(
                                     children: [
-                                      const Icon(
+                                       Icon(
                                         Icons.flag,
                                         size: 30,
+                                        color: MyColors.insideTextFieldColor,
                                       ),
                                       Text(
                                         "USD",
@@ -463,9 +465,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       const SizedBox(width: 8),
-                                      const Icon(
+                                       Icon(
                                         Icons.flag,
                                         size: 30,
+                                         color: MyColors.insideTextFieldColor,
                                       ),
                                       Text(
                                         "EUR",
@@ -700,7 +703,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     isMultiConverter = value;
                                     // print(isSwitched);
                                   });
-                                },
+                                  },
                                 activeTrackColor: MyColors.colorPrimary,
                                 activeColor: MyColors.textColor,
                               ),
@@ -1077,18 +1080,21 @@ class _SettingScreenState extends State<SettingScreen> {
 
           return DefaultTextStyle(
             style: const TextStyle(decoration: TextDecoration.none),
-            child: Center(
-              child: Container(
-                margin: const EdgeInsets.only(
-                    top: 60, right: 10, bottom: 0, left: 10),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.60,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children:[
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 100, right: 10, bottom: 100, left: 10),
+                  width: MediaQuery.of(context).size.width,
+
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: CustomColorPicker(),
                 ),
-                child: CustomColorPicker(),
-              ),
+
+              ]
             ),
           );
         });
@@ -1112,7 +1118,7 @@ class _SettingScreenState extends State<SettingScreen> {
             child: Center(
               child: Container(
                 margin: const EdgeInsets.only(
-                    top: 80, right: 10, bottom: 80, left: 10),
+                    top: 200, right: 10, bottom: 80, left: 10),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 6.77,
                 decoration: BoxDecoration(
@@ -1336,7 +1342,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 MaterialPageRoute(
                                     builder: (_) => MyTabBarWidget()),
                                 (route) => false);
-                          } else if (density) {
+                          }  if (density) {
+                            Utility.setStringPreference(Constants.themeColor,
+                                densitySelectedColor.value.toString());
+                            themepicker(densitySelectedColor.value.toString());
                             MyColors.colorPrimary = densitySelectedColor;
                             Navigator.pushAndRemoveUntil(
                                 context,
@@ -1447,6 +1456,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     widget.lockedColor = true;
     var code = (color.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
+    MyColors.colorPrimary=lockSelectdColor!;
 
     setState(
       () => lockCurrentColor = color,
@@ -1454,6 +1464,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void densitychangeColor(Color color) {
+    lock=false;
     widget.lockedColor = true;
     density = true;
     var code = (color.value.toRadixString(16));

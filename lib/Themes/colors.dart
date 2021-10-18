@@ -27,12 +27,12 @@ class MyColors {
   static bool fontmedium = true;  //{ this is also same like about but it is for medium font and it will be by default}
   static  bool fontlarge = false;  //{ this is for large font }
 
-  static int decimalformat= 0;
+  static int decimalformat= 2;
   static int monetaryformat=2;
 
-  static List <bool> boolDecimalFormate=[false,false,false,false,false,true];
+  static List <bool> boolDecimalFormate=[false,true,false,false,false,false];
   static List <bool> boolMonetaryFormate=[false,true,false,false];
-
+static int count =0;
 
 
 

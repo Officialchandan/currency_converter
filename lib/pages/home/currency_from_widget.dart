@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 class CurrencyFromWidget extends StatefulWidget {
   final Function(String currencyCode) onSelect;
+
   const CurrencyFromWidget(
       {required this.isContainerVisible, required this.onSelect, Key? key})
       : super(key: key);
@@ -23,8 +24,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
   int indexForSelectedCurrency = 0;
-  final StreamController<List<DataModel>> streamController =
-      StreamController();
+  final StreamController<List<DataModel>> streamController = StreamController();
   TextEditingController edtCurrencyCode = TextEditingController();
   bool starIndex = false;
   bool _isDisposed = false;
@@ -38,9 +38,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
 
   List<CurrencyData> formList = [];
   List<CurrencyData> toList = [];
+
   @override
   void initState() {
-    showAll();
+    orderedData();
+
+    // showAll();
     if (edtCurrencyCode.text.isEmpty) {
       edtCurrencyCode.text = "";
     }
@@ -136,11 +139,11 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
+                              DataModel model1 = snapshot.data![index];
                               return InkWell(
                                 onTap: () {
-                                  debugPrint(
-                                      "on tap -> ${snapshot.data![index].code}");
-                                  widget.onSelect(snapshot.data![index].code);
+                                  debugPrint("on tap -> ${model1.code}");
+                                  widget.onSelect(model1.code);
                                 },
                                 child: Container(
                                     margin:
@@ -165,7 +168,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             Container(
                                               width: 50,
                                               child: Text(
-                                                snapshot.data![index].code,
+                                                model1.code,
                                                 style: TextStyle(
                                                   color: MyColors
                                                       .insideTextFieldColor,
@@ -184,52 +187,43 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                               width: 15,
                                             ),
                                             Text(
-                                                double.parse(snapshot
-                                                    .data![index].value)
-                                                    .toStringAsFixed(3),
-
+                                              double.parse(model1.value)
+                                                  .toStringAsFixed(3),
                                             ),
                                           ],
                                         ),
                                         Row(
                                           children: [
                                             IconButton(
-                                              onPressed: () {
-                                                if( snapshot.data![index].fav==0)
-                                                  {
-                                                    snapshot.data![index].fav =
-                                                    1;
+                                              onPressed: () async {
+                                                if (model1.fav == 0) {
+                                                  model1.fav = 1;
 
-
-                                                  }
-                                                else{
-                                                  snapshot.data![index].fav =
-                                                  0;
-
+                                                } else {
+                                                  model1.fav = 0;
                                                 }
-                                                updateAll(snapshot.data![index].value,
-                                                  snapshot.data![index].code,
-                                                  snapshot.data![index].fav!,
-
-
+                                                updateAll(
+                                                  model1.value,
+                                                  model1.code,
+                                                  model1.fav!,
                                                 );
+                                                countrycode=[];
+                                                orderedData();
 
-
-                                                currencyfavorite();
                                                 setState(() {});
                                               },
-                                              icon:
-                                                  snapshot.data![index].fav==1
-                                                      ?  Icon(
-                                                          Icons.star_sharp,
-                                                          size: 30.0,
-                                                          color: MyColors.colorPrimary,
-                                                        )
-                                                      : const Icon(
-                                                          Icons.star_border,
-                                                          size: 30.0,
-                                                          color: Colors.grey,
-                                                        ),
+                                              icon: model1.fav == 1
+                                                  ? Icon(
+                                                      Icons.star_sharp,
+                                                      size: 30.0,
+                                                      color:
+                                                          MyColors.colorPrimary,
+                                                    )
+                                                  : const Icon(
+                                                      Icons.star_border,
+                                                      size: 30.0,
+                                                      color: Colors.grey,
+                                                    ),
                                             )
                                           ],
                                         )
@@ -255,15 +249,32 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
       ),
     );
   }
-  updateAll(String value, String code, int fav, ) async {
+
+  updateAll(
+    String value,
+    String code,
+    int fav,
+  ) async {
     DataModel currencyData = DataModel(
       value: value,
       code: code,
-
       fav: fav,
     );
     await dbHelper.update(currencyData.toMap());
   }
+
+  void orderedData() async {
+    List<Map<String, dynamic>> orderableData = await dbHelper.order();
+    orderableData.forEach((element) {
+      DataModel currencyData = DataModel.fromMap(element);
+      countrycode.add(currencyData);
+    });
+    if (!streamController.isClosed) {
+      streamController.sink.add(countrycode);
+    }
+    print(countrycode);
+  }
+
   void showAll() async {
     List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
     allRows.forEach((element) {

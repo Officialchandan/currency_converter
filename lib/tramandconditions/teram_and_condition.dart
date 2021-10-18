@@ -49,9 +49,9 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                 controller: _tabControllers,
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(7), // Creates border
-                    color: Colors.white),
+                    color: MyColors.textColor),
                 labelColor: Colors.white,
-                unselectedLabelColor: Colors.grey.shade900,
+                unselectedLabelColor: Colors.grey,
                 tabs: <Widget>[
                   Tab(
                     child: Text(

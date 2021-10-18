@@ -1,4 +1,4 @@
-{
+  {
     
 "update": "আপডেট করা",
 "addCurrency": "মুদ্রা যোগ করুন",
@@ -8,8 +8,8 @@
 "firstTextRatingPage": "অনুগ্রহ করে অ্যাপটিকে রেট দিন!",
 "secondTextRatingPage": "তারকাদের উপর আলতো চাপুন এবং Google Play Store দিয়ে রেট দিন",
 "buttonTextRatingPage": "এখন নয়",
-"RemoveAds": "বিজ্ঞাপন সরান",
-"RemoveAdsContent": "একটি ছোট বার্ষিক সাবস্ক্রিপশন দিয়ে আমাদের প্রকল্প সমর্থন করুন",
+"removeAds": "বিজ্ঞাপন সরান",
+"removeAdsContent": "একটি ছোট বার্ষিক সাবস্ক্রিপশন দিয়ে আমাদের প্রকল্প সমর্থন করুন",
 "selectLanguage": "ভাষা নির্বাচন করুন",
 "english ":"ইংরেজী",
 "colorsSelection": "রঙ নির্বাচন",

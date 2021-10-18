@@ -33,7 +33,7 @@ class UnlockColorPicker extends StatefulWidget {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return Container(
-      padding: EdgeInsets.all(7),
+      padding: EdgeInsets.all(5),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: colors.map((MColor color) => child(color)).toList(),
@@ -48,6 +48,7 @@ class UnlockColorPicker extends StatefulWidget {
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
+        border: Border.all(color: Colors.black,width:0.9),
         color: color.mainColor,
       ),
       child: Material(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -34,6 +35,8 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
   void initState() {
     super.initState();
     showAll();
+   // orderedData();
+   // showAll();
   }
 
   Future getData() async {
@@ -197,6 +200,8 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
 
 
                                                         );
+                                                    countrycode=[];
+                                                    orderedData();
 
                                                     setState(() {});
                                                   },
@@ -241,6 +246,18 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
         ),
       ),
     );
+  }
+  void orderedData() async {
+    List<Map<String, dynamic>> orderableData = await dbHelper.order();
+    orderableData.forEach((element) {
+      DataModel currencyData = DataModel.fromMap(element);
+      countrycode.add(currencyData);
+      log("${countrycode.last}");
+    });
+    if (!streamController.isClosed) {
+      streamController.sink.add(countrycode);
+    }
+
   }
 
   updateAll(String value, String code, int fav, ) async {
