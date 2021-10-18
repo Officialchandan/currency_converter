@@ -34,6 +34,10 @@ class MyColors {
   static List <bool> boolMonetaryFormate=[false,true,false,false];
 static int count =0;
 
+  static bool displaycode = true;
+  static bool displaysymbol = false;
+  static bool displayflag = false;
+
 
 
 

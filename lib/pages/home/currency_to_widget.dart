@@ -6,11 +6,14 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CurrencyToWidget extends StatefulWidget {
-  final Function(String currencyCode) onSelect;
+  final Function(String currencyCode,String image) onSelect;
 
   const CurrencyToWidget(
       {required this.isContainerVisibleTwo, Key? key, required this.onSelect})
@@ -34,24 +37,9 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
   @override
   void initState() {
     super.initState();
-    showAll();
-   // orderedData();
-   // showAll();
-  }
-
-  Future getData() async {
-    currencyMap = await Apiclass.getUser();
-
-    currencyMap.forEach((key, value) {
-      currencyList.add(CurrencyData(
-        key: key.toString(),
-        value: value,
-      ));
-    });
-
-    if (!streamController.isClosed) {
-      // streamController.sink.add(currencyList);
-    }
+    orderedData();
+    // orderedData();
+    // showAll();
   }
 
   @override
@@ -128,23 +116,27 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
+
+                              DataModel model = snapshot.data![index];
                               return Column(
                                 children: [
                                   InkWell(
                                     onTap: () {
                                       debugPrint(
-                                          "on tap -> ${snapshot.data![index].code}");
-                                      widget.onSelect(snapshot.data![index].code);
+                                          "on tap -> ${model.code}");
+                                      widget
+                                          .onSelect(model.code,model.image!);
                                     },
                                     child: Container(
-                                        margin:
-                                            const EdgeInsets.fromLTRB(10, 1, 10, 0),
+                                        margin: const EdgeInsets.fromLTRB(
+                                            10, 1, 10, 0),
                                         padding: const EdgeInsets.only(left: 5),
                                         decoration: BoxDecoration(
                                           // color: MyColors.textColor,
                                           color: MyColors.textColor,
 
-                                          borderRadius: BorderRadius.circular(7),
+                                          borderRadius:
+                                              BorderRadius.circular(7),
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
@@ -152,71 +144,75 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                           children: [
                                             Row(
                                               children: [
-                                                const Icon(Icons.image),
+                                                Container(
+                                                  width:40,
+                                                    height: 40,
+
+
+                                                    child: ClipRRect(borderRadius:   BorderRadius.circular(20),
+                                                      child: SvgPicture.asset(
+                                                        model.image!,fit: BoxFit.cover,),
+                                                    )),
                                                 const SizedBox(
-                                                  width: 4,
+                                                  width: 10,
                                                 ),
                                                 Container(
                                                   width: 50,
                                                   child: Text(
-                                                    snapshot.data![index].code,
+                                                    model.code,
                                                     style: TextStyle(
                                                       color: MyColors
                                                           .insideTextFieldColor,
-                                                      fontSize: MyColors.fontsmall
+                                                      fontSize: MyColors
+                                                              .fontsmall
                                                           ? (MyColors.textSize -
                                                                   18) *
                                                               (-1)
                                                           : MyColors.fontlarge
-                                                              ? (MyColors.textSize +
+                                                              ? (MyColors
+                                                                      .textSize +
                                                                   18)
                                                               : 18,
+                                                      fontWeight: FontWeight.bold
                                                     ),
                                                   ),
                                                 ),
                                                 const SizedBox(
                                                   width: 15,
                                                 ),
-                                                Text(
-                                                  double.parse(snapshot
-                                                          .data![index].value)
-                                                      .toStringAsFixed(3),
-                                                ),
+                                                Text(model.name!,style: TextStyle(fontWeight: FontWeight.w500),),
                                               ],
                                             ),
                                             Row(
                                               children: [
                                                 IconButton(
                                                   onPressed: () {
-                                                    if (snapshot.data![index].fav ==
+                                                    if (model.fav ==
                                                         0) {
-                                                      snapshot.data![index].fav = 1;
+                                                      model.fav = 1;
                                                     } else {
-                                                      snapshot.data![index].fav = 0;
+                                                      model.fav = 0;
                                                     }
-                                                    updateAll(snapshot.data![index].value,
-                                                        snapshot.data![index].code,
-                                                        snapshot.data![index].fav!,
-
-
-                                                        );
-                                                    countrycode=[];
+                                                    updateAll(model);
+                                                    countrycode = [];
                                                     orderedData();
 
                                                     setState(() {});
                                                   },
-                                                  icon:
-                                                      snapshot.data![index].fav == 1
-                                                          ?  Icon(
-                                                              Icons.star_sharp,
-                                                              size: 30.0,
-                                                              color: MyColors.colorPrimary,
-                                                            )
-                                                          : const Icon(
-                                                              Icons.star_border,
-                                                              size: 30.0,
-                                                              color: Colors.grey,
-                                                            ),
+                                                  icon: snapshot.data![index]
+                                                              .fav ==
+                                                          1
+                                                      ? Icon(
+                                                          Icons.star_sharp,
+                                                          size: 30.0,
+                                                          color: MyColors
+                                                              .colorPrimary,
+                                                        )
+                                                      : const Icon(
+                                                          Icons.star_border,
+                                                          size: 30.0,
+                                                          color: Colors.grey,
+                                                        ),
                                                 )
                                               ],
                                             )
@@ -224,8 +220,13 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                         )),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 10),
-                                      child: Divider(height: 0.7,color:Colors.grey,thickness: 0.7,))
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: Divider(
+                                        height: 0.7,
+                                        color: Colors.grey,
+                                        thickness: 0.7,
+                                      ))
                                 ],
                               );
                             });
@@ -247,6 +248,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
       ),
     );
   }
+
   void orderedData() async {
     List<Map<String, dynamic>> orderableData = await dbHelper.order();
     orderableData.forEach((element) {
@@ -257,17 +259,11 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);
     }
-
   }
 
-  updateAll(String value, String code, int fav, ) async {
-    DataModel currencyData = DataModel(
-        value: value,
-        code: code,
+  updateAll(DataModel model) async {
 
-        fav: fav,
-        );
-    await dbHelper.update(currencyData.toMap());
+    await dbHelper.update(model.toMap());
   }
 
   void showAll() async {

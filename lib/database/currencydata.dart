@@ -14,8 +14,9 @@ class DataModel{
   bool iconForSelection=false;
   TextEditingController controller = TextEditingController(text:"00.0");
   String exchangeValue ="0";
+  String symbol;
 
-  DataModel({required this.value,required this.code,this.image,this.name,this.fav=0,this.selected=0,this.iconForSelection=false});
+  DataModel({required this.value,required this.code,this.image,this.name,this.fav=0,this.selected=0,this.iconForSelection=false,this.symbol=""});
 
   factory DataModel.fromMap(Map<String, dynamic> json) => DataModel(
       name: json["countryName"]??"",
@@ -24,6 +25,7 @@ class DataModel{
     value: json["currencyValue"]??"",
     selected: json["selectedCountry"]??0,
     fav: json["favCountry"]??0,
+    symbol: json["symbol"]??"",
 
 
 
@@ -35,6 +37,7 @@ class DataModel{
     "currencyValue": value ,
     "selectedCountry": selected ??0,
     "favCountry": fav ?? 0,
+    "symbol": symbol ?? "",
 
   };
 

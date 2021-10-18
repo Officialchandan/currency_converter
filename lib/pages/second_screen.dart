@@ -5,10 +5,12 @@ import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -184,7 +186,15 @@ class _SecondScreenState extends State<SecondScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Icon(Icons.image),
+                                  MyColors.displayflag&& MyColors.displaycode?  Container(
+                                      width: 40,
+                                      height: 40,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(30),
+                                          child: SvgPicture.asset(model.image!,fit: BoxFit.cover,))):Text(""),
+
+
+                                  MyColors.displaycode?
                                   Container(
                                     margin: const EdgeInsets.only(left: 8.0),
                                     height: 35.0,
@@ -215,10 +225,82 @@ class _SecondScreenState extends State<SecondScreen> {
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  )://Currency Code
+                                      MyColors.displayflag?
+                                  Container(
+                                      width: 40,
+                                      height: 40,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(30),
+                                          child: SvgPicture.asset(model.image!,fit: BoxFit.cover,)))://flag
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 8.0),
+                                        height: 35.0,
+                                        width: 60.0,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              MyColors.colorPrimary
+                                                  .withOpacity(0.45),
+                                              MyColors.colorPrimary,
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                          ),
+                                          borderRadius: BorderRadius.circular(7),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            model.symbol,
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) * (-1)
+                                                  : MyColors.fontlarge
+                                                  ? (MyColors.textSize + 18)
+                                                  : 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),//symbol
                                   const SizedBox(
                                     width: 5,
                                   ),
+                                  MyColors.displayflag&& MyColors.displaysymbol?  Container(
+                                    margin: const EdgeInsets.only(left: 8.0),
+                                    height: 35.0,
+                                    width: 60.0,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          MyColors.colorPrimary
+                                              .withOpacity(0.45),
+                                          MyColors.colorPrimary,
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        model.symbol,
+                                        style: TextStyle(
+                                          color: MyColors.textColor,
+                                          fontSize: MyColors.fontsmall
+                                              ? (MyColors.textSize - 18) * (-1)
+                                              : MyColors.fontlarge
+                                              ? (MyColors.textSize + 18)
+                                              : 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ):Text(""),
+
+
+
                                   Expanded(
                                     child: AutoSizeTextField(
                                       cursorColor: MyColors.colorPrimary,

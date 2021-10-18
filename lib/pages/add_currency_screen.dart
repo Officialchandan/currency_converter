@@ -5,6 +5,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AddCurrency extends StatefulWidget {
 
@@ -97,6 +98,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                 const SizedBox(
                   height: 10,
                 ),
+
+
                 StreamBuilder<List<DataModel>>(
 
                     initialData: [],
@@ -119,7 +122,13 @@ class _AddCurrencyState extends State<AddCurrency> {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(Icons.image),
+                                  Container(
+                                    margin: EdgeInsets.only(right: 15),
+                                      width: 35,
+                                      height: 35,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(30),
+                                          child: SvgPicture.asset(data.image!,fit: BoxFit.cover,))),
                                   Text(
                                     data.code,
                                     style: TextStyle(
@@ -133,12 +142,11 @@ class _AddCurrencyState extends State<AddCurrency> {
                                     ),
                                   ),
                                   const SizedBox(
-                                    width: 5,
+                                    width: 20,
                                   ),
                                   Text(
-                                  "  ${double.parse(data.value).toStringAsFixed(MyColors.decimalformat)}",
-
-                                    style: TextStyle(color: MyColors.insideTextFieldColor),
+                                    data.name!,style: TextStyle(fontWeight: FontWeight.w500,
+                                    color: MyColors.insideTextFieldColor,fontSize: 15),
                                   ),
                                 ],
                               ),
@@ -180,6 +188,8 @@ class _AddCurrencyState extends State<AddCurrency> {
 
                   return Container();
                 }),
+
+
                 const SizedBox(
                   height: 8.0,
                 ),
@@ -198,6 +208,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                 const SizedBox(
                   height: 10.0,
                 ),
+
+
                 StreamBuilder<List<DataModel>>(
                     initialData: [],
                   stream: unselectedController.stream,
@@ -230,7 +242,13 @@ class _AddCurrencyState extends State<AddCurrency> {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(Icons.image),
+                                  Container(
+                                    margin: EdgeInsets.only(right: 15),
+                                      width: 35,
+                                      height: 35,
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(30),
+                                          child: SvgPicture.asset(model.image!,fit: BoxFit.cover,))),
                                   const SizedBox(
                                     width: 5.0,
                                   ),
@@ -252,8 +270,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                     width: 5,
                                   ),
                                   Text(
-                                    double.parse(model.value)
-                                        .toStringAsFixed(MyColors.decimalformat),style: TextStyle(color: MyColors.insideTextFieldColor),
+                                    model.name!,style: TextStyle(fontWeight: FontWeight.w500,color: MyColors.insideTextFieldColor,fontSize: 15),
                                   ),
                                 ],
                               ),

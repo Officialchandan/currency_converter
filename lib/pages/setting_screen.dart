@@ -36,9 +36,6 @@ class _SettingScreenState extends State<SettingScreen> {
   bool isSwitched = false;
   bool isMultiConverter = true;
 
-  bool displaycode = false;
-  bool displaysymbol = true;
-  bool displayflag = true;
 
   bool customcolorbool = false;
 
@@ -778,19 +775,19 @@ class _SettingScreenState extends State<SettingScreen> {
                             Switch(
                               inactiveTrackColor: Colors.grey,
                               inactiveThumbColor: MyColors.textColor,
-                              value: displaycode,
+                              value: MyColors.displaycode,
                               onChanged: (value) {
                                 setState(() {
-                                  if (displayflag) {
-                                    if (displaysymbol) {
-                                      displaysymbol = false;
-                                      displaycode = true;
+                                  if (MyColors.displayflag) {
+                                    if (MyColors.displaysymbol) {
+                                      MyColors.displaysymbol = false;
+                                      MyColors.displaycode = true;
                                     } else
-                                      displaycode = !displaycode;
-                                  } else if (displaycode) {
+                                      MyColors.displaycode = !MyColors.displaycode;
+                                  } else if (MyColors.displaycode) {
                                   } else {
-                                    displaycode = true;
-                                    displaysymbol = false;
+                                    MyColors.displaycode = true;
+                                    MyColors.displaysymbol = false;
                                   }
 
                                   // print(isSwitched);
@@ -820,20 +817,20 @@ class _SettingScreenState extends State<SettingScreen> {
                             Switch(
                               inactiveTrackColor: Colors.grey,
                               inactiveThumbColor: MyColors.textColor,
-                              value: displaysymbol,
+                              value: MyColors.displaysymbol,
                               onChanged: (value) {
                                 setState(() {
-                                  if (displayflag) {
-                                    if (displaycode) {
-                                      displaysymbol = true;
-                                      displaycode = false;
+                                  if (MyColors.displayflag) {
+                                    if (MyColors.displaycode) {
+                                      MyColors.displaysymbol = true;
+                                      MyColors.displaycode = false;
                                     } else
-                                      displaysymbol = !displaysymbol;
-                                  } else if (displaysymbol) {
-                                  } else if (displaysymbol && !displayflag) {
+                                      MyColors.displaysymbol = !MyColors.displaysymbol;
+                                  } else if (MyColors.displaysymbol) {
+                                  } else if (MyColors.displaysymbol && !MyColors.displayflag) {
                                   } else {
-                                    displaysymbol = true;
-                                    displaycode = false;
+                                    MyColors.displaysymbol = true;
+                                    MyColors.displaycode = false;
                                   }
                                 });
                               },
@@ -861,12 +858,12 @@ class _SettingScreenState extends State<SettingScreen> {
                             Switch(
                               inactiveTrackColor: Colors.grey,
                               inactiveThumbColor: MyColors.textColor,
-                              value: displayflag,
+                              value: MyColors.displayflag,
                               onChanged: (value) {
                                 setState(() {
-                                  if (!displaycode && !displaysymbol) {
+                                  if (!MyColors.displaycode && !MyColors.displaysymbol) {
                                   } else
-                                    displayflag = !displayflag;
+                                    MyColors.displayflag = !MyColors.displayflag;
                                   // print(isSwitched);
                                 });
                               },
