@@ -36,7 +36,7 @@ class _LanguageState extends State<Language> {
           ),
           duration: const Duration(seconds: 0),
           height: widget.isContainerVisible
-              ? MediaQuery.of(context).size.height * 0.57
+              ? MediaQuery.of(context).size.height
               : 0.0,
           width: widget.isContainerVisible
               ? MediaQuery.of(context).size.width
@@ -48,10 +48,10 @@ class _LanguageState extends State<Language> {
                 margin: const EdgeInsets.only(
                     top: 0, right: 10, bottom: 0, left: 10),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.79,
+                height: MediaQuery.of(context).size.height * 1.909,
                 child: Container(
                   margin: const EdgeInsets.only(
-                      top: 15, right: 10, bottom: 0, left: 10),
+                      top: 0, right: 10, bottom: 0, left: 10),
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: Locals.language.length,
