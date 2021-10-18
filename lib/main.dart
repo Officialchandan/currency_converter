@@ -100,7 +100,7 @@ Future<void> insertData() async {
              name: map["country_name"],
             fav: 0,
             selected: 0,
-            symbol: ""
+            symbol: map["Symbol"]
         );
 
         int id = await dbHelper.insert(currencyData.toMap());

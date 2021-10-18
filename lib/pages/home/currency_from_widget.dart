@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CurrencyFromWidget extends StatefulWidget {
-  final Function(String currencyCode,String image) onSelect;
+  final Function(String currencyCode,String image,String symbol) onSelect;
 
   const CurrencyFromWidget(
       {required this.isContainerVisible, required this.onSelect, Key? key})
@@ -121,7 +121,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                               return InkWell(
                                 onTap: () {
                                   debugPrint("on tap -> ${model1.code}");
-                                  widget.onSelect(model1.code,model1.image!);
+                                  widget.onSelect(model1.code,model1.image!,model1.symbol);
                                 },
                                 child: Container(
                                     margin:
@@ -173,8 +173,11 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             const SizedBox(
                                               width: 15,
                                             ),
-                                            Text(
-                                              model1.name!,style: TextStyle(fontWeight: FontWeight.w500),
+                                            Container(
+                                              width: 130,
+                                              child: Text(
+                                                model1.name!,style: TextStyle(fontWeight: FontWeight.w500),
+                                              ),
                                             ),
                                           ],
                                         ),

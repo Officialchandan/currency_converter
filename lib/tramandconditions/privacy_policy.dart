@@ -24,7 +24,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
+      body:  SingleChildScrollView(
           padding: EdgeInsets.only(left: 20, top: 20, right: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1312,7 +1312,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                             text: 'Comply with a legal obligation',
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w600, color: MyColors.textColor,
                             )),
                       ),
                     ),
@@ -1335,7 +1335,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                             text: 'Protect and defend the rights or property of the Company',
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w600 ,color: MyColors.textColor,
                             )),
                       ),
                     ),
@@ -1358,7 +1358,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                             text: 'Prevent or investigate possible wrongdoing in connection with the Service',
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w600, color: MyColors.textColor,
                             )),
                       ),
                     ),
@@ -1381,7 +1381,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                             text: 'Protect the personal safety of Users of the Service or the public',
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w600, color: MyColors.textColor,
                             )),
                       ),
                     ),
@@ -1404,7 +1404,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                             text: 'Protect against legal liability',
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w600, color: MyColors.textColor,
                             )),
                       ),
                     ),
@@ -1427,7 +1427,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                             text: 'Security of Your Personal Data',
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w600, color: MyColors.textColor,
                             )),
                       ),
                     ),
@@ -1787,7 +1787,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                           text: TextSpan(
                             text: 'AdMob by Google\n\n',
                             style:
-                            TextStyle(fontWeight: FontWeight.w900, fontSize: 15),
+                            TextStyle(fontWeight: FontWeight.w900, fontSize: 15, color: MyColors.textColor,),
                             children: const <TextSpan>[
                               TextSpan(
                                   text:
@@ -1946,14 +1946,14 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   text: TextSpan(
                     text: 'Childrens Privacy\n\n',
                     style:
-                    TextStyle(fontWeight: FontWeight.w900, fontSize: 25,color: MyColors.textColor),
+                    TextStyle(fontWeight: FontWeight.w900, fontSize: 25,color: MyColors.textColor,),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
                           'Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us. If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.\n\n',
                           style: TextStyle(
                             fontSize: 15,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
                           )),
                       TextSpan(
                           text:
@@ -2064,11 +2064,12 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
               ),
             ],
           )),
-
-
-
-
     );
+
+
+
+
+
 
   }
   _launchURL() async {

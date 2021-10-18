@@ -180,7 +180,9 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                                 const SizedBox(
                                                   width: 15,
                                                 ),
-                                                Text(model.name!,style: TextStyle(fontWeight: FontWeight.w500),),
+                                                Container(
+                                                    width: 130,
+                                                    child: Text(model.name!,style: TextStyle(fontWeight: FontWeight.w500),)),
                                               ],
                                             ),
                                             Row(

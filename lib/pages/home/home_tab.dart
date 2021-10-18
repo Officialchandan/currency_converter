@@ -30,6 +30,8 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
+  String symbol="\$";
+
   String flagfrom="assets/countyImage/USD.svg";
   String flagto="assets/countyImage/INR.svg";
 
@@ -225,7 +227,7 @@ class _TapHomeState extends State<TapHome> {
                               ),
                             ):MyColors.displaysymbol? Center(
                               child: Text(
-                                "",
+                                symbol,
                                 style: TextStyle(
                                   color: MyColors.textColor,
                                   fontSize: MyColors.fontsmall
@@ -492,7 +494,8 @@ class _TapHomeState extends State<TapHome> {
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
-                          onSelect: (String currencyCode,String image) {
+                          onSelect: (String currencyCode,String image,String symbol1 ) {
+                            symbol=symbol1;
                             currencyCodeFrom = currencyCode;
                             flagfrom=image;
 
