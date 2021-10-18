@@ -32,6 +32,7 @@ class _SettingScreenState extends State<SettingScreen> {
   bool lockedcolortry = false;
   bool unclockcolorselect = false;
   Color color = Colors.red;
+  bool _isContainerVisible = false;
 
   bool isSwitched = false;
   bool isMultiConverter = true;
@@ -62,7 +63,6 @@ class _SettingScreenState extends State<SettingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 Container(
                     margin: const EdgeInsets.only(bottom: 13),
                     child: Text("removeAds".tr().toString(),
@@ -134,22 +134,24 @@ class _SettingScreenState extends State<SettingScreen> {
                                     : 20,
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
-                Container(
+                InkWell(
+                  onTap: () {
+                    _isContainerVisible = !_isContainerVisible;
 
-                    // margin: EdgeInsets.only(right: 22),
+                    setState(() {});
+                  },
+                  child: Container(
 
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 10, right: 10, bottom: 14),
-                    decoration: BoxDecoration(
-                        color: Colors.black26,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            showBottomSheetForLanguage(context);
-                          },
-                          child: Row(
+                      // margin: EdgeInsets.only(right: 22),
+
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 10, bottom: 14),
+                      decoration: BoxDecoration(
+                          color: Colors.black26,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        children: [
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("english".tr().toString(),
@@ -169,14 +171,33 @@ class _SettingScreenState extends State<SettingScreen> {
                               ),
                             ],
                           ),
+                          Divider(
+                            height: 2,
+                            color: MyColors.textColor,
+                            thickness: 1.5,
+                          )
+                        ],
+                      )),
+                ),
+                _isContainerVisible
+                    ? Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 13,
+                        constraints: const BoxConstraints(),
+                        margin: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width * 0.8),
+                        child: Image.asset(
+                          "assets/images/tooltip.png",
+                          color: Colors.white,
+                          scale: 9,
                         ),
-                        Divider(
-                          height: 2,
-                          color: MyColors.textColor,
-                          thickness: 1.5,
-                        )
-                      ],
-                    )),
+                      )
+                    : Container(),
+                _isContainerVisible
+                    ? Language(
+                        isContainerVisible: _isContainerVisible,
+                      )
+                    : Container(),
                 Container(
                     margin: const EdgeInsets.only(left: 0, bottom: 13, top: 20),
                     child: Text("colorsSelection".tr().toString(),
@@ -263,7 +284,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.colorPrimary;
 
                                       Navigator.pushAndRemoveUntil(
-                                           context,
+                                          context,
                                           MaterialPageRoute(
                                               builder: (_) => MyTabBarWidget()),
                                           (route) => false);
@@ -431,7 +452,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   const SizedBox(height: 5),
                                   Row(
                                     children: [
-                                       Icon(
+                                      Icon(
                                         Icons.flag,
                                         size: 30,
                                         color: MyColors.insideTextFieldColor,
@@ -462,10 +483,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       const SizedBox(width: 8),
-                                       Icon(
+                                      Icon(
                                         Icons.flag,
                                         size: 30,
-                                         color: MyColors.insideTextFieldColor,
+                                        color: MyColors.insideTextFieldColor,
                                       ),
                                       Text(
                                         "EUR",
@@ -700,7 +721,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     isMultiConverter = value;
                                     // print(isSwitched);
                                   });
-                                  },
+                                },
                                 activeTrackColor: MyColors.colorPrimary,
                                 activeColor: MyColors.textColor,
                               ),
@@ -1077,57 +1098,53 @@ class _SettingScreenState extends State<SettingScreen> {
 
           return DefaultTextStyle(
             style: const TextStyle(decoration: TextDecoration.none),
-            child: Stack(
-              children:[
-                Container(
-                  margin: const EdgeInsets.only(
-                      top: 100, right: 10, bottom: 100, left: 10),
-                  width: MediaQuery.of(context).size.width,
-
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: CustomColorPicker(),
-                ),
-
-              ]
-            ),
-          );
-        });
-  }
-
-  void showBottomSheetForLanguage(BuildContext context) async {
-    showGeneralDialog(
-        context: context,
-        barrierDismissible: true,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        barrierColor: Colors.black45,
-        transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation,
-            Animation secondaryAnimation) {
-          double width = MediaQuery.of(context).size.width;
-          double height = MediaQuery.of(context).size.height;
-
-          return DefaultTextStyle(
-            style: const TextStyle(decoration: TextDecoration.none),
-            child: Center(
-              child: Container(
+            child: Stack(children: [
+              Container(
                 margin: const EdgeInsets.only(
-                    top: 200, right: 10, bottom: 80, left: 10),
+                    top: 100, right: 10, bottom: 100, left: 10),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 6.77,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Language(),
+                child: CustomColorPicker(),
               ),
-            ),
+            ]),
           );
         });
   }
+
+//   void showBottomSheetForLanguage(BuildContext context) async {
+//     showGeneralDialog(
+//         context: context,
+//         barrierDismissible: true,
+//         barrierLabel:
+//             MaterialLocalizations.of(context).modalBarrierDismissLabel,
+//         barrierColor: Colors.black45,
+//         transitionDuration: const Duration(milliseconds: 200),
+//         pageBuilder: (BuildContext buildContext, Animation animation,
+//             Animation secondaryAnimation) {
+//           double width = MediaQuery.of(context).size.width;
+//           double height = MediaQuery.of(context).size.height;
+
+//           return DefaultTextStyle(
+//             style: const TextStyle(decoration: TextDecoration.none),
+//             child: Center(
+//               child: Container(
+//                 margin: const EdgeInsets.only(
+//                     top: 200, right: 10, bottom: 80, left: 10),
+//                 width: MediaQuery.of(context).size.width,
+//                 height: MediaQuery.of(context).size.height * 6.77,
+//                 decoration: BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.circular(20),
+//                 ),
+//                 child: const Language(),
+//               ),
+//             ),
+//           );
+//         });
+//   }
 }
 // content: SingleChildScrollView(
 //child: BlockPicker(
@@ -1339,7 +1356,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 MaterialPageRoute(
                                     builder: (_) => MyTabBarWidget()),
                                 (route) => false);
-                          }  if (density) {
+                          }
+                          if (density) {
                             Utility.setStringPreference(Constants.themeColor,
                                 densitySelectedColor.value.toString());
                             themepicker(densitySelectedColor.value.toString());
@@ -1453,7 +1471,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     widget.lockedColor = true;
     var code = (color.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
-    MyColors.colorPrimary=lockSelectdColor!;
+    MyColors.colorPrimary = lockSelectdColor!;
 
     setState(
       () => lockCurrentColor = color,
@@ -1461,7 +1479,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void densitychangeColor(Color color) {
-    lock=false;
+    lock = false;
     widget.lockedColor = true;
     density = true;
     var code = (color.value.toRadixString(16));

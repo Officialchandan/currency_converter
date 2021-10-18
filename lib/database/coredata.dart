@@ -26,7 +26,7 @@ class DatabaseHelper {
 
   //static DatabaseHelper instance = DatabaseHelper._p();
 
-  static final DatabaseHelper instance = new DatabaseHelper._p();
+  static final DatabaseHelper instance = DatabaseHelper._p();
 
   static Database? _database;
 
