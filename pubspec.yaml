@@ -60,7 +60,7 @@ dependencies:
 
 
 dev_dependencies:
-
+  
   flutter_test:
     sdk: flutter
 
@@ -87,9 +87,9 @@ flutter:
    - assets/
    - assets/langs/
    - assets/images/
-   - assets/images/countyImage/
    - assets/images/@2x/
    - assets/images/@3x/
+  
   
      
 

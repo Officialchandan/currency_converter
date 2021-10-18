@@ -25,7 +25,7 @@ class DatabaseHelper {
 
   //static DatabaseHelper instance = DatabaseHelper._p();
 
-  static final DatabaseHelper instance = new DatabaseHelper._p();
+  static final DatabaseHelper instance = DatabaseHelper._p();
 
   static Database? _database;
 
@@ -100,13 +100,14 @@ class DatabaseHelper {
         .update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
   }
 
- Future<List<Map<String, dynamic>>> order()async{
+  Future<List<Map<String, dynamic>>> order() async {
     Database db = await instance.database;
 
-    List<Map<String, dynamic>> data= await db.rawQuery("SELECT * FROM " + tableName +" ORDER BY " + favCountry + " DESC",null);
+    List<Map<String, dynamic>> data = await db.rawQuery(
+        "SELECT * FROM " + tableName + " ORDER BY " + favCountry + " DESC",
+        null);
     print("bnbbfsdbfsdbjsdbsdk->>>$data");
     return data;
-
   }
 
   Future<List<Map<String, dynamic>>> particular_row(String conCode) async {
@@ -142,6 +143,7 @@ class DatabaseHelper {
 
     return dataList;
   }
+
   Future<List<DataModel>> getUnselectedData() async {
     List<DataModel> dataList = [];
 
@@ -162,5 +164,4 @@ class DatabaseHelper {
 
     return dataList;
   }
-
 }
