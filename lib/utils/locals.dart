@@ -13,14 +13,14 @@ class Locals {
   static const Deutsch = Locale('ach');
   static const Tamil = Locale('ta');
 
-   static const Georgian = Locale('ka');
+  static const Georgian = Locale('ka');
   static const Indonesia = Locale('id');
   static const marathi = Locale('mr');
 
-  static const melayu  = Locale('ms');
+  static const melayu = Locale('ms');
   static const nederlands = Locale('nl');
 
-   static const norsk  = Locale('nn');
+  static const norsk = Locale('nn');
   static const polskie = Locale('pl');
   static const portugues = Locale('pt');
   static const punjabi = Locale('pa');
@@ -32,7 +32,7 @@ class Locals {
   static const turk = Locale('tr');
   static const greek = Locale('grc');
 
-  static const Bulgarians = Locale('bg','');
+  static const Bulgarians = Locale('bg', '');
   static const Ukraine = Locale('uk');
   // static const Armenian = Locale('arm');
   // static const Hebrew = Locale('he');
@@ -42,12 +42,7 @@ class Locals {
   // static const Chinese = Locale('zh_Hant');
 
   static List<Map<String, Locale>> language = [
-    {
-      "हिंदी": Locals.hindi,
-    },
     {"English": Locals.english},
-    {"नेपाली": Locals.nepali},
-    {"ગુજરાતી": Locals.gujarati},
     {"hrvatski  ": Locals.hrvatski},
     {"Italiano  ": Locals.italiana},
     {"latvietis  ": Locals.latvietis},
@@ -70,11 +65,15 @@ class Locals {
     {"turk  ": Locals.turk},
     {"Ελληνικά  ": Locals.greek},
     {"български  ": Locals.Bulgarians},
-    // {"Українська  ": Locals.Ukraine},
+    {"Українська  ": Locals.Ukraine},
+    {
+      "हिंदी": Locals.hindi,
+    },
+    {"नेपाली": Locals.nepali},
+    {"ગુજરાતી": Locals.gujarati},
     // {"Հայերեն  ": Locals.Armenian},
     // {"Hebrew  ": Locals.Hebrew},
     // {"বাংলা  ": Locals.Afar},
-
     // {"中国人  ": Locals.Chinese},
   ];
 
@@ -109,8 +108,5 @@ class Locals {
     // norsk,
     // Georgian,
     // melayu,
-
-
-
   ];
 }
