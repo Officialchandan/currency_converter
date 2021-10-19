@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Locals {
+
+
+ static List<bool>icon=[true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,];
   static const english = Locale('en');
   static const hindi = Locale('hi');
   static const nepali = Locale('ne','NP');
@@ -40,6 +43,13 @@ class Locals {
   static const Turkish = Locale('tr','TR');
   static const Vietnamese = Locale('vi');
   static const Ukrainian = Locale('uk');
+  static const Arabic = Locale('ar');
+  static const Bosnian = Locale('hrr','ba');
+  static const Lithuanian  = Locale('lt');
+  static const Hebrew  = Locale('iw','IL');
+  static const French  = Locale('fr','FR');
+  static const Filipino  = Locale('fil');
+  static const Russian  = Locale('ru','RU');
 
   static List<Map<String, Locale>> language = [
     {"English": Locals.english},
@@ -76,21 +86,32 @@ class Locals {
     {"Türk (Turkish)": Locals.Turkish},
     {"Tiếng Việt (Vietnamese)": Locals.Vietnamese},
     {"Українська (Ukrainian)": Locals.Ukrainian},
+    {"عربي (Arabic)": Locals.Arabic},
+    {" Bosanski(Bosnian)": Locals.Bosnian},
+    {" Lietuvių(Lithuanian)": Locals.Lithuanian},
 
-//37
+    {" עִברִית(Hebrew)": Locals.Hebrew},
+    {" français(French)": Locals.French},
+    {" Pilipino(Filipino)": Locals.Filipino},
+    {" Russian(русский)": Locals.Russian},
+
 
     {
       "हिंदी (Hindi)": Locals.hindi,
     },
     {"नेपाली (Nepali)": Locals.nepali},
     {"ગુજરાતી (Gujarati)": Locals.gujarati},
-    // {"Հայերեն  ": Locals.Armenian},
-    // {"Hebrew  ": Locals.Hebrew},
-    // {"বাংলা  ": Locals.Afar},
-    // {"中国人  ": Locals.Chinese},
+
   ];
 
   static const supportedLang = [
+    Filipino,
+    French,
+    Russian,
+    Arabic,
+    Bosnian,
+    Lithuanian,
+    Hebrew,
     english,
     catalan,
     Croatian,

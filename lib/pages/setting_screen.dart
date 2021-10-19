@@ -425,7 +425,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                       Container(
 
-                          //width: width * 0.5,
+                          width: width * 0.53,
                           decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.69),
                               borderRadius: BorderRadius.circular(10),
