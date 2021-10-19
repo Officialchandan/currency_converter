@@ -147,7 +147,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                              height: 40,
                                                child: ClipRRect(
                                                  borderRadius: BorderRadius.circular(30),
-                                                   child: SvgPicture.asset(model1.image!,fit: BoxFit.cover,allowDrawingOutsideViewBox: true,))),
+                                                   child: Image.asset(model1.image!,fit: BoxFit.cover,))),
 
 
 

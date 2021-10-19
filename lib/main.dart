@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
@@ -74,8 +75,10 @@ Future<void> insertData() async {
 
   Dio _dio = Dio();
   try {
+
     Response response = await _dio.get(url);
     if (response.statusCode == 200) {
+
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
       quotes.forEach((key, value) async {
@@ -106,5 +109,6 @@ Future<void> insertData() async {
   } catch (e) {
     print(e);
   }
-  dbHelper.queryAll();
+
+
 }

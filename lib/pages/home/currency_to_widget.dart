@@ -150,7 +150,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
 
 
                                                     child: ClipRRect(borderRadius:   BorderRadius.circular(20),
-                                                      child: SvgPicture.asset(
+                                                      child: Image.asset(
                                                         model.image!,fit: BoxFit.cover,),
                                                     )),
                                                 const SizedBox(

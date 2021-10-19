@@ -132,15 +132,16 @@ class Locals {
     {"عربي (Arabic)": Locals.Arabic},
     {" Bosanski(Bosnian)": Locals.Bosnian},
     {" Lietuvių(Lithuanian)": Locals.Lithuanian},
-    {" עִברִית(Hebrew)": Locals.Hebrew},
+   // {" עִברִית(Hebrew)": Locals.Hebrew},
     {" français(French)": Locals.French},
     {" Pilipino(Filipino)": Locals.Filipino},
     {" Russian(русский)": Locals.Russian},
     {
       "हिंदी (Hindi)": Locals.hindi,
+
     },
     {"नेपाली (Nepali)": Locals.nepali},
-    {"ગુજરાતી (Gujarati)": Locals.gujarati},
+    //{"ગુજરાતી (Gujarati)": Locals.gujarati},
   ];
 
   static const supportedLang = [
