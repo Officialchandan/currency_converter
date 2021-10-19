@@ -10,7 +10,6 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,8 +27,8 @@ class TapHome extends StatefulWidget {
 class _TapHomeState extends State<TapHome> {
   String symbol = "\$";
 
-  String flagfrom = "assets/countyImage/USD.svg";
-  String flagto = "assets/countyImage/INR.svg";
+  String flagfrom = "assets/pngCountryImages/USD.png";
+  String flagto = "assets/pngCountryImages/INR.png";
 
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
@@ -78,8 +77,8 @@ class _TapHomeState extends State<TapHome> {
     if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
       edtFrom.text = currencyCodeFrom;
       edtTo.text = currencyCodeTo;
-      flagfrom = "assets/countyImage/$currencyCodeFrom.svg";
-      flagto = "assets/countyImage/$currencyCodeTo.svg";
+      flagfrom = "assets/pngCountryImages/$currencyCodeFrom.png";
+      flagto = "assets/pngCountryImages/$currencyCodeTo.png";
 
       getConverterAPI(currencyCodeFrom, currencyCodeTo, conversionRate.toString());
     }
@@ -375,7 +374,7 @@ class _TapHomeState extends State<TapHome> {
                                   width: 10,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
-                                    child: SvgPicture.asset(
+                                    child: Image.asset(
                                       flagfrom,
                                       fit: BoxFit.cover,
                                     ),
@@ -441,7 +440,7 @@ class _TapHomeState extends State<TapHome> {
                                   height: 15,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
-                                    child: SvgPicture.asset(
+                                    child: Image.asset(
                                       flagto,
                                       fit: BoxFit.cover,
                                     ),
