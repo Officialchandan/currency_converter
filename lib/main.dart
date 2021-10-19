@@ -12,7 +12,6 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -76,8 +75,10 @@ Future<void> insertData() async {
 
   Dio _dio = Dio();
   try {
+
     Response response = await _dio.get(url);
     if (response.statusCode == 200) {
+
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
       quotes.forEach((key, value) async {
@@ -109,24 +110,5 @@ Future<void> insertData() async {
     print(e);
   }
   dbHelper.queryAll();
-}
 
-class Test extends StatelessWidget {
-  const Test({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SvgPicture.asset(
-          "assets/countyImage/AM.svg",
-          height: 50,
-          width: 50,
-          allowDrawingOutsideViewBox: true,
-
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
 }
