@@ -20,8 +20,8 @@ void main() async {
   await insertData();
 
   runApp(EasyLocalization(
-      child: const MyApp(),
-      path: "assets/langs",
+      child:  MyApp(),
+      path: "assets/languagecode",
       fallbackLocale: Locale('en'),
 useFallbackTranslations: true,
       useOnlyLangCode: true,

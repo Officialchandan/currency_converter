@@ -251,7 +251,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            model.symbol,
+                                            model.symbol!,
                                             style: TextStyle(
                                               color: MyColors.textColor,
                                               fontSize: MyColors.fontsmall
@@ -285,7 +285,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        model.symbol,
+                                        model.symbol!,
                                         style: TextStyle(
                                           color: MyColors.textColor,
                                           fontSize: MyColors.fontsmall

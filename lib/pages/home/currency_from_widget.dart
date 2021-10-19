@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -118,10 +119,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               DataModel model1 = snapshot.data![index];
+
+                              log(model1.toString());
                               return InkWell(
                                 onTap: () {
                                   debugPrint("on tap -> ${model1.code}");
-                                  widget.onSelect(model1.code,model1.image!,model1.symbol);
+                                  widget.onSelect(model1.code,model1.image!,model1.symbol!);
                                 },
                                 child: Container(
                                     margin:
@@ -144,7 +147,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                              height: 40,
                                                child: ClipRRect(
                                                  borderRadius: BorderRadius.circular(30),
-                                                   child: SvgPicture.asset(model1.image!,fit: BoxFit.cover,))),
+                                                   child: SvgPicture.asset(model1.image!,fit: BoxFit.cover,allowDrawingOutsideViewBox: true,))),
 
 
 

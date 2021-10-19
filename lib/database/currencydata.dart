@@ -14,7 +14,7 @@ class DataModel{
   bool iconForSelection=false;
   TextEditingController controller = TextEditingController(text:"00.0");
   String exchangeValue ="0";
-  String symbol;
+  String? symbol;
 
   DataModel({required this.value,required this.code,this.image,this.name,this.fav=0,this.selected=0,this.iconForSelection=false,this.symbol=""});
 
@@ -34,11 +34,15 @@ class DataModel{
     "countryName": name ?? "",
     "countryImage": image ?? "",
     "countryCode": code,
-    "currencyValue": value ,
+    "currencyValue": value,
     "selectedCountry": selected ??0,
     "favCountry": fav ?? 0,
     "symbol": symbol ?? "",
 
   };
 
+  @override
+  String toString() {
+    return 'DataModel{name: $name, image: $image, code: $code, value: $value, selected: $selected, fav: $fav, iconForSelection: $iconForSelection, controller: $controller, exchangeValue: $exchangeValue, symbol: $symbol}';
+  }
 }
