@@ -87,8 +87,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 }
 
                 if (_selectedIndex == 3) {
+
                   ratingBottomSheet(context);
-                  _tabController.index = _tabController.previousIndex;
+                  _tabController.index = escapeIndex;
                 }
               },
               indicatorColor: Colors.white,
@@ -119,7 +120,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 Tab(
                   icon: InkWell(
                     onTap: () {
-                      ratingBottomSheet(context);
+                     ratingBottomSheet(context);
                     },
                     child: Image.asset(
                       "assets/images/tab-ic4.png",
@@ -127,6 +128,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                       color: MyColors.textColor,
                     ),
                   ),
+
                 ),
                 Tab(
                   icon: Image.asset(
