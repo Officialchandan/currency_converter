@@ -191,7 +191,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                       height: 40,
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(30),
-                                          child: SvgPicture.asset(model.image!,fit: BoxFit.cover,))):Text(""),
+                                          child: Image.asset(model.image!,fit: BoxFit.cover,))):Text(""),
 
 
                                   MyColors.displaycode?
@@ -232,7 +232,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                       height: 40,
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(30),
-                                          child: SvgPicture.asset(model.image!,fit: BoxFit.cover,)))://flag
+                                          child: Image.asset(model.image!,fit: BoxFit.cover,)))://flag
                                       Container(
                                         margin: const EdgeInsets.only(left: 8.0),
                                         height: 35.0,

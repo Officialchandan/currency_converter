@@ -8,1690 +8,1025 @@ class Constants {
   static const String currencySaveData = "currencysavedata";
 
   static const List<Map<String, dynamic>> countryList = [
-    // {
-    //   "code": "AED",
-    //   "image": "assets/countyImage/AED.svg",
-    //   "country_name": "United Arab Emirates Dirha..",
-    //   "Symbol": "د.إ"
-    // },
-    // {
-    //   "code": "AFN",
-    //   "image": "assets/countyImage/AFN.svg",
-    //   "country_name": "Ffghan Ffghani ",
-    //   "Symbol": "؋"
-    // },
-    // {
-    //   "code": "ALL",
-    //   "image": "assets/countyImage/ALL.svg",
-    //   "country_name": "Albanian Lek",
-    //   "Symbol": "L"
-    // },
-    // {
-    //   "code": "AMD",
-    //   "image": "assets/countyImage/AMD.svg",
-    //   "country_name": "Armenian Dram",
-    //   "Symbol": "Դ"
-    // },
-    // {
-    //   "code": "ANG",
-    //   "image": "assets/countyImage/ANG.svg",
-    //   "country_name": "Netherlands Antillean Guil..",
-    //   "Symbol": "ƒ"
-    // },
-    // {
-    //   "code": "AOA",
-    //   "image": "assets/countyImage/AOA.svg",
-    //   "country_name": "Angolan Kwanza",
-    //   "Symbol": "Kz"
-    // },
-    // {
-    //   "code": "ARS",
-    //   "image": "assets/countyImage/ARS.svg",
-    //   "country_name": "Argentine Peso",
-    //   "Symbol": "\$"
-    // },
-    // {
-    //   "code": "AUD",
-    //   "image": "assets/countyImage/AUD.svg",
-    //   "country_name": "Australian Dollar",
-    //   "Symbol": "A\$"
-    // },
-    // {
-    //   "code": "AWG",
-    //   "image": "assets/countyImage/AWG.svg",
-    //   "country_name": "Aruban Florin",
-    //   "Symbol": "ƒ"
-    // },
-    // {
-    //   "code": "AZN",
-    //   "image": "assets/countyImage/AZN.svg",
-    //   "country_name": "AzerBaijani Manat",
-    //   "Symbol": "AZN"
-    // },
-    // {
-    //   "code": "BAM",
-    //   "image": "assets/countyImage/BAM.svg",
-    //   "country_name": "Bosnia-Herzegovina Conve..",
-    //   "Symbol": ""
-    // },
-    // {
-    //   "code": "BBD",
-    //   "image": "assets/countyImage/BBD.svg",
-    //   "country_name": "Barbadian Dollar",
-    //   "Symbol": ""
-    // },
-    // {
-    //   "code": "BDT",
-    //   "image": "assets/countyImage/BDT.svg",
-    //   "country_name": "Bangladeshi Taka",
-    //   "Symbol": "৳"
-    // },
-    // {
-    //   "code": "BGN",
-    //   "image": "assets/countyImage/BGN.svg",
-    //   "country_name": "Bulgarian Lev",
-    //   "Symbol": "Лв"
-    // },
-    // {
-    //   "code": "BHD",
-    //   "image": "assets/countyImage/BHD.svg",
-    //   "country_name": "Bahraini Dinar",
-    //   "Symbol": "BD"
-    // },
-    // {
-    //   "code": "BIF",
-    //   "image": "assets/countyImage/BIF.svg",
-    //   "country_name": "Burundian France",
-    //   "Symbol": ""
-    // },
-    // {
-    //   "code": "BMD",
-    //   "image": "assets/countyImage/BMD.svg",
-    //   "country_name": "Bermudan Dollar",
-    //   "Symbol": "\$"
-    // },
-    // {
-    //   "code": "BND",
-    //   "image": "assets/countyImage/BND.svg",
-    //   "country_name": "Brunei Dollar",
-    //   "Symbol": "B\$"
-    // },
-    // {
-    //   "code": "BOB",
-    //   "image": "assets/countyImage/BOB.svg",
-    //   "country_name": "Bolivian Boliviano",
-    //   "Symbol": "Bs."
-    // },
-    // {
-    //   "code": "BRL",
-    //   "image": "assets/countyImage/BRL.svg",
-    //   "country_name": "Brazilian Real",
-    //   "Symbol": "R\$"
-    // },
-    // {
-    //   "code": "BSD",
-    //   "image": "assets/countyImage/BSD.svg",
-    //   "country_name": "Bahamian Dollar",
-    //   "Symbol": "B\$"
-    // },
-    // {
-    //   "code": "BTC",
-    //   "image": "assets/countyImage/BTC.svg",
-    //   "country_name": "Bitcoin",
-    //   "Symbol": "₿"
-    // },
-    // {
-    //   "code": "BTN",
-    //   "image": "assets/countyImage/BTN.svg",
-    //   "country_name": "Bhutanese Ngultrum",
-    //   "Symbol": "Nu."
-    // },
-    // {
-    //   "code": "BWP",
-    //   "image": "assets/countyImage/BWP.svg",
-    //   "country_name": "Botsanan Pula",
-    //   "Symbol": "P"
-    // },
-    // {
-    //   "code": "BYN",
-    //   "image": "assets/countyImage/BYN.svg",
-    //   "country_name": "Belarusian Ruble",
-    //   "Symbol": "BYN"
-    // },
-    // {
-    //   "code": "BZD",
-    //   "image": "assets/countyImage/BZD.svg",
-    //   "country_name": "Belize Dollar",
-    //   "Symbol": "\$"
-    // },
-    // {
-    //   "code": "CAD",
-    //   "image": "assets/countyImage/CAD.svg",
-    //   "country_name": "Canadian Dollar",
-    //   "Symbol": "Can\$"
-    // },
-    // {
-    //   "code": "CDF",
-    //   "image": "assets/countyImage/CDF.svg",
-    //   "country_name": "Congolese Franc",
-    //   "Symbol": "FC"
-    // },
-    // {
-    //   "code": "CHF",
-    //   "image": "assets/countyImage/CHF.svg",
-    //   "country_name": "Swiss Franc",
-    //   "Symbol": "SFr."
-    // },
-    // {
-    //   "code": "CLP",
-    //   "image": "assets/countyImage/CLP.svg",
-    //   "country_name": "Chilean Peso",
-    //   "Symbol": "\$"
-    // },
-    // {
-    //   "code": "CNY",
-    //   "image": "assets/countyImage/CNY.svg",
-    //   "country_name": "Chinese Yuan",
-    //   "Symbol": "¥"
-    // },
-    // {
-    //   "code": "COP",
-    //   "image": "assets/countyImage/COP.svg",
-    //   "country_name": "Colombian Peso",
-    //   "Symbol": "\$"
-    // },
-    // {
-    //   "code": "CRC",
-    //   "image": "assets/countyImage/CRC.svg",
-    //   "country_name": "Costa Rican Colon",
-    //   "Symbol": "₡"
-    // },
-    // {
-    //   "code": "CUP",
-    //   "image": "assets/countyImage/CUP.svg",
-    //   "country_name": "Cuban Peso",
-    //   "Symbol": "₱"
-    // },
-    // {
-    //   "code": "CVE",
-    //   "image": "assets/countyImage/CVE.svg",
-    //   "country_name": "Cape Verdean Escudo",
-    //   "Symbol": "Esc"
-    // },
-    // {
-    //   "code": "CZK",
-    //   "image": "assets/countyImage/CZK.svg",
-    //   "country_name": "Czech Republic Koruna",
-    //   "Symbol": "Kč"
-    // },
-    // {
-    //   "code": "CLF",
-    //   "image": "assets/countyImage/CLF.svg",
-    //   "country_name": "Unidad de Fomento",
-    //   "Symbol": "UF"
-    // },
-    // {
-    //   "code": "CNH",
-    //   "image": "assets/countyImage/CNH.svg",
-    //   "country_name": "Renminbi",
-    //   "Symbol": "¥."
-    // },
-    // {
-    //   "code": "CVC",
-    //   "image": "assets/countyImage/CVC.svg",
-    //   "country_name": "Cabo Verde Escudoa",
-    //   "Symbol": ""
-    // },
-    // {
-    //   "code": "CUC",
-    //   "image": "assets/countyImage/CUC.svg",
-    //   "country_name": "Cuban Convertible Peso",
-    //   "Symbol": "CUC\$"
-    // },
-    // {
-    //   "code": "DJF",
-    //   "image": "assets/countyImage/DJF.svg",
-    //   "country_name": "Djiboutian Franc",
-    //   "Symbol": "Fdj"
-    // },
-    // {
-    //   "code": "DKK",
-    //   "image": "assets/countyImage/DKK.svg",
-    //   "country_name": "Danish Krone",
-    //   "Symbol": "Kr."
-    // },
-    // {
-    //   "code": "DOP",
-    //   "image": "assets/countyImage/DOP.svg",
-    //   "country_name": "Dominican Peso",
-    //   "Symbol": " RD\$"
-    // },
-    // {
-    //   "code": "DZD",
-    //   "image": "assets/countyImage/DZD.svg",
-    //   "country_name": "Algerian Dinar",
-    //   "Symbol": "دج"
-    // },
-    // {
-    //   "code": "EGP",
-    //   "image": "assets/countyImage/EGP.svg",
-    //   "country_name": "Egyptian Pound",
-    //   "Symbol": "ج.م"
-    // },
-    // {
-    //   "code": "ERN",
-    //   "image": "assets/countyImage/ERN.svg",
-    //   "country_name": "Eritrean Nakfa",
-    //   "Symbol": " ናቕፋ"
-    // },
-    // {
-    //   "code": "ETB",
-    //   "image": "assets/countyImage/ETB.svg",
-    //   "country_name": "Ethiopian Birr",
-    //   "Symbol": "ብር"
-    // },
-    // {
-    //   "code": "EUR",
-    //   "image": "assets/countyImage/EUR.svg",
-    //   "country_name": " Euro",
-    //   "Symbol": "€"
-    // },
-    // {
-    //   "code": "FJD",
-    //   "image": "assets/countyImage/FJD.svg",
-    //   "country_name": "Fijian Dollar",
-    //   "Symbol": "FJ\$"
-    // },
-    // {
-    //   "code": "FKP",
-    //   "image": "assets/countyImage/FKP.svg",
-    //   "country_name": "Falkland Islands Pound",
-    //   "Symbol": "£"
-    // },
-    // {
-    //   "code": "GBP",
-    //   "image": "assets/countyImage/GBP.svg",
-    //   "country_name": "British Pound Sterling",
-    //   "Symbol": "£"
-    // },
-    // {
-    //   "code": "GEL",
-    //   "image": "assets/countyImage/GEL.svg",
-    //   "country_name": " Geogian Lari ",
-    //   "Symbol": "ლ"
-    // },
-    // {
-    //   "code": "GHS",
-    //   "image": "assets/countyImage/GHS.svg",
-    //   "country_name": " Ghanaian Cedi ",
-    //   "Symbol": " GH₵"
-    // },
-    // {
-    //   "code": "GIP",
-    //   "image": "assets/countyImage/GIP.svg",
-    //   "country_name": "Gibraltar Pround",
-    //   "Symbol": "£"
-    // },
-    // {
-    //   "code": "GGP",
-    //   "image": "assets/countyImage/GGP.svg",
-    //   "country_name": "	Guernsey Pound ",
-    //   "Symbol": "£"
-    // },
-    // {
-    //   "code": "GMD",
-    //   "image": "assets/countyImage/GMD.svg",
-    //   "country_name": "Gambian Dalasi",
-    //   "Symbol": "D"
-    // },
-    // {
-    //   "code": "GNF",
-    //   "image": "assets/countyImage/GNF.svg",
-    //   "country_name": "Guinean Franc",
-    //   "Symbol": "GFr"
-    // },
-    // {
-    //   "code": "GTQ",
-    //   "image": "assets/countyImage/GTQ.svg",
-    //   "country_name": "Guatemalan Quetzal ",
-    //   "Symbol": "Q"
-    // },
-    // {
-    //   "code": "GYD",
-    //   "image": "assets/countyImage/GYD.svg",
-    //   "country_name": "Guyanaese Dollar",
-    //   "Symbol": " GY\$"
-    // },
-    // {
-    //   "code": "HKD",
-    //   "image": "assets/countyImage/HKD.svg",
-    //   "country_name": "Hong Kong Dollar",
-    //   "Symbol": ""
-    // },
-    // {
-    //   "code": "HNL",
-    //   "image": "assets/countyImage/HNL.svg",
-    //   "country_name": "Honduran Lempira",
-    //   "Symbol": "HK\$"
-    // },
-    // {
-    //   "code": "HRK",
-    //   "image": "assets/countyImage/HRK.svg",
-    //   "country_name": "Croatian Kuna",
-    //   "Symbol": "kn"
-    // },
-    // {
-    //   "code": "HTG",
-    //   "image": "assets/countyImage/HTG.svg",
-    //   "country_name": "Haitian Gourda",
-    //   "Symbol": "G"
-    // },
-    // {
-    //   "code": "HUF",
-    //   "image": "assets/countyImage/HUF.svg",
-    //   "country_name": "Hungarian Forint",
-    //   "Symbol": "Ft"
-    // },
-    // {
-    //   "code": "IDR",
-    //   "image": "assets/countyImage/IDR.svg",
-    //   "country_name": "Indonesian Rupiah",
-    //   "Symbol": "Rp"
-    // },
-    // {
-    //   "code": "ILS",
-    //   "image": "assets/countyImage/ILS.svg",
-    //   "country_name": "Israeli New Sheqel",
-    //   "Symbol": "₪"
-    // },
-    // {
-    //   "code": "INR",
-    //   "image": "assets/countyImage/INR.svg",
-    //   "country_name": "Indian Rupee",
-    //   "Symbol": "₹"
-    // },
-    // {
-    //   "code": "IQD",
-    //   "image": "assets/countyImage/IQD.svg",
-    //   "country_name": "Iraqi Dinar",
-    //   "Symbol": "ع.د"
-    // },
-    // {
-    //   "code": "IRR",
-    //   "image": "assets/countyImage/IRR.svg",
-    //   "country_name": "Iranian Rial",
-    //   "Symbol": "﷼"
-    // },
-    // {
-    //   "code": "ISK",
-    //   "image": "assets/countyImage/ISK.svg",
-    //   "country_name": "Icelandic Krona",
-    //   "Symbol": "Íkr"
-    // },
-    // {
-    //   "code": "IMP",
-    //   "image": "assets/countyImage/IMP.svg",
-    //   "country_name": "	Isle of Man Pound",
-    //   "Symbol": "£"
-    // },
-    // {
-    //   "code": "JMD",
-    //   "image": "assets/countyImage/JMD.svg",
-    //   "country_name": "Jamaican Dollar",
-    //   "Symbol": "\$"
-    // },
-    // {
-    //   "code": "JOD",
-    //   "image": "assets/countyImage/JOD.svg",
-    //   "country_name": "Jordanian Dinar",
-    //   "Symbol": "د.ا"
-    // },
-    // {
-    //   "code": "JPY",
-    //   "image": "assets/countyImage/JPY.svg",
-    //   "country_name": "Japanese Yen",
-    //   "Symbol": "圓"
-    // },
-    // {
-    //   "code": "JEP",
-    //   "image": "assets/countyImage/JEP.svg",
-    //   "country_name": "Jersey Pound",
-    //   "Symbol": "£"
-    // },
-    // {
-    //   "code": "KES",
-    //   "image": "assets/countyImage/KES.svg",
-    //   "country_name": "Ke	South Korean ..",
-    //   "Symbol": "Ksh"
-    // },
-    // {
-    //   "code": "KGS",
-    //   "image": "assets/countyImage/KGS.svg",
-    //   "country_name": "Kyrgystani Som",
-    //   "Symbol": "Лв"
-    // },
-    // {
-    //   "code": "KHR",
-    //   "image": "assets/countyImage/KHR.svg",
-    //   "country_name": "Cambodian Rial",
-    //   "Symbol": "៛"
-    // },
-    // {
-    //   "code": "KMF",
-    //   "image": "assets/countyImage/KMF.svg",
-    //   "country_name": "Comoraian Franc",
-    //   "Symbol": "CF"
-    // },
-    // {
-    //   "code": "KPW",
-    //   "image": "assets/countyImage/KPW.svg",
-    //   "country_name": "North Korean Won",
-    //   "Symbol": "₩"
-    // },
-    // {
-    //   "code": "KWD",
-    //   "image": "assets/countyImage/KWD.svg",
-    //   "country_name": "Kuwaiti Dinar",
-    //   "Symbol": "د.ك"
-    // },
-    // {
-    //   "code": "KYD",
-    //   "image": "assets/countyImage/KYD.svg",
-    //   "country_name": "Cayman Islands Dollar",
-    //   "Symbol": "\$"
-    // },
-    // {
-    //   "code": "KZT",
-    //   "image": "assets/countyImage/KZT.svg",
-    //   "country_name": "Kazakhstani Tenge",
-    //   "Symbol": "₸"
-    // },
-    // {
-    //   "code": "KRW",
-    //   "image": "assets/countyImage/KRW.svg",
-    //   "country_name": "	South Korean Won",
-    //   "Symbol": "₩"
-    // },
-    // {
-    //   "code": "LAK",
-    //   "image": "assets/countyImage/LAK.svg",
-    //   "country_name": "Laotian Kip",
-    //   "Symbol": "₭N"
-    // },
-    // {
-    //   "code": "LBP",
-    //   "image": "assets/countyImage/LBP.svg",
-    //   "country_name": "Lebanese Pound",
-    //   "Symbol": "ل.ل.‎"
-    // },
-    // {
-    //   "code": "LKR",
-    //   "image": "assets/countyImage/LKR.svg",
-    //   "country_name": "Shri Lankan Rupee ",
-    //   "Symbol": " රු"
-    // },
-    // {
-    //   "code": "LRD",
-    //   "image": "assets/countyImage/LRD.svg",
-    //   "country_name": "Liberian Dollar",
-    //   "Symbol": "L\$"
-    // },
-    // {
-    //   "code": "LSL",
-    //   "image": "assets/countyImage/LSL.svg",
-    //   "country_name": "Lesotho Loti ",
-    //   "Symbol": "M"
-    // },
-    // {
-    //   "code": "LYD",
-    //   "image": "assets/countyImage/LYD.svg",
-    //   "country_name": "Libyan Dinar",
-    //   "Symbol": "ل.د"
-    // },
-    // {
-    //   "code": "MAD",
-    //   "image": "assets/countyImage/MAD.svg",
-    //   "country_name": "Moroccan Dirham ",
-    //   "Symbol": "MAD"
-    // },
-    // {
-    //   "code": "MDL",
-    //   "image": "assets/countyImage/MDL.svg",
-    //   "country_name": "Moldovan Leu",
-    //   "Symbol": "L"
-    // },
-    // {
-    //   "code": "MGA",
-    //   "image": "assets/countyImage/MGA.svg",
-    //   "country_name": "Malagasy Ariary",
-    //   "Symbol": "Ar"
-    // },
-    // {
-    //   "code": "MKD",
-    //   "image": "assets/countyImage/MKD.svg",
-    //   "country_name": "Macedonian Denar",
-    //   "Symbol": "Ден"
-    // },
-    // {
-    //   "code": "MMK",
-    //   "image": "assets/countyImage/MMK.svg",
-    //   "country_name": "Myanma Kyat",
-    //   "Symbol": "K"
-    // },
-    // {
-    //   "code": "MNT",
-    //   "image": "assets/countyImage/MNT.svg",
-    //   "country_name": "Mongolian Tugrik",
-    //   "Symbol": "₮"
-    // },
-    // {
-    //   "code": "MOP",
-    //   "image": "assets/countyImage/MOP.svg",
-    //   "country_name": "Macanese Pataca",
-    //   "Symbol": "MOP\$"
-    // },
-    // {
-    //   "code": "MRO",
-    //   "image": "assets/countyImage/MRO.svg",
-    //   "country_name": "Mauritanian Ouguiya",
-    //   "Symbol": "UM"
-    // },
-    // {
-    //   "code": "MUR",
-    //   "image": "assets/countyImage/MUR.svg",
-    //   "country_name": "Maurtitian Rupee ",
-    //   "Symbol": "₨"
-    // },
-    // {
-    //   "code": "MRU",
-    //   "image": "assets/countyImage/MRU.svg",
-    //   "country_name": "	Mauritanian Ouguiya ",
-    //   "Symbol": "MRU"
-    // },
-    // {
-    //   "code": "MVR",
-    //   "image": "assets/countyImage/MVR.svg",
-    //   "country_name": "Maldivian Rufiya",
-    //   "Symbol": "MRf"
-    // },
-    // {
-    //   "code": "MWK",
-    //   "image": "assets/countyImage/MWK.svg",
-    //   "country_name": "Malawian Kwacha",
-    //   "Symbol": "MK"
-    // },
-    // {
-    //   "code": "MXN",
-    //   "image": "assets/countyImage/MXN.svg",
-    //   "country_name": " Mexican Peso",
-    //   "Symbol": "Mex\$"
-    // },
-    // {
-    //   "code": "MYR",
-    //   "image": "assets/countyImage/MYR.svg",
-    //   "country_name": "  Malaysian Ringgit",
-    //   "Symbol": "RM"
-    // },
-    // {
-    //   "code": "MZN",
-    //   "image": "assets/countyImage/MZN.svg",
-    //   "country_name": "Mozambican Metical",
-    //   "Symbol": "MT"
-    // },
-    // {
-    //   "code": "NAD",
-    //   "image": "assets/countyImage/NAD.svg",
-    //   "country_name": "Namibian Dollar",
-    //   "Symbol": "€"
-    // },
-    // {
-    //   "code": "NGN",
-    //   "image": "assets/countyImage/NGN.svg",
-    //   "country_name": "Nigerian Naira",
-    //   "Symbol": "₦"
-    // },
-    // {
-    //   "code": "NIO",
-    //   "image": "assets/countyImage/NIO.svg",
-    //   "country_name": "Nicaraguan Cordoba",
-    //   "Symbol": "C\$"
-    // },
-    // {
-    //   "code": "NOK",
-    //   "image": "assets/countyImage/NOK.svg",
-    //   "country_name": "Norwegian Krone",
-    //   "Symbol": "kr"
-    // },
-    // {
-    //   "code": "NPR",
-    //   "image": "assets/countyImage/NPR.svg",
-    //   "country_name": "Nepalese Rupee",
-    //   "Symbol": "रू"
-    // },
-    // {
-    //   "code": "NZD",
-    //   "image": "assets/countyImage/NZD.svg",
-    //   "country_name": "New Zealand Dollar",
-    //   "Symbol": "\$"
-    // },
+
     {
       "code": "OMR",
-      "image": "assets/countyImage/OMR.svg",
+      "image": "assets/pngCountryImages/OMR.png",
       "country_name": "Omani Rial",
       "Symbol": "ر.ع."
     },
     {
       "code": "PAB",
-      "image": "assets/countyImage/PAB.svg",
+      "image": "assets/pngCountryImages/PAB.png",
       "country_name": "Panamanian Balboa",
       "Symbol": "B/."
     },
     {
       "code": "AED",
-      "image": "assets/countyImage/AED.svg",
+      "image": "assets/pngCountryImages/AED.png",
       "country_name": "United Arab Emirates Dirha..",
       "Symbol": "د.إ"
     },
     {
       "code": "AFN",
-      "image": "assets/countyImage/AFN.svg",
+      "image": "assets/pngCountryImages/AFN.png",
       "country_name": "Ffghan Ffghani ",
       "Symbol": "؋"
     },
     {
       "code": "ALL",
-      "image": "assets/countyImage/ALL.svg",
+      "image": "assets/pngCountryImages/ALL.png",
       "country_name": "Albanian Lek",
       "Symbol": "L"
     },
     {
       "code": "AMD",
-      "image": "assets/countyImage/AMD.svg",
+      "image": "assets/pngCountryImages/AMD.png",
       "country_name": "Armenian Dram",
       "Symbol": "Դ"
     },
     {
       "code": "ANG",
-      "image": "assets/countyImage/ANG.svg",
+      "image": "assets/pngCountryImages/ANG.png",
       "country_name": "Netherlands Antillean Guil..",
       "Symbol": "ƒ"
     },
     {
       "code": "AOA",
-      "image": "assets/countyImage/AOA.svg",
+      "image": "assets/pngCountryImages/AOA.png",
       "country_name": "Angolan Kwanza",
       "Symbol": "Kz"
     },
     {
       "code": "ARS",
-      "image": "assets/countyImage/ARS3.svg",
+      "image": "assets/pngCountryImages/ARS3.png",
       "country_name": "Argentine Peso",
       "Symbol": "\$"
     },
     {
       "code": "AUD",
-      "image": "assets/countyImage/AUD.svg",
+      "image": "assets/pngCountryImages/AUD.png",
       "country_name": "Australian Dollar",
       "Symbol": "A\$"
     },
     {
       "code": "AWG",
-      "image": "assets/countyImage/AWG.svg",
+      "image": "assets/pngCountryImages/AWG.png",
       "country_name": "Aruban Florin",
       "Symbol": "ƒ"
     },
     {
       "code": "AZN",
-      "image": "assets/countyImage/AZN.svg",
+      "image": "assets/pngCountryImages/AZN.png",
       "country_name": "AzerBaijani Manat",
       "Symbol": "AZN"
     },
     {
       "code": "BAM",
-      "image": "assets/countyImage/BAM.svg",
+      "image": "assets/pngCountryImages/BAM.png",
       "country_name": "Bosnia-Herzegovina Conve..",
       "Symbol": ""
     },
     {
       "code": "BBD",
-      "image": "assets/countyImage/BBD.svg",
+      "image": "assets/pngCountryImages/BBD.png",
       "country_name": "Barbadian Dollar",
       "Symbol": ""
     },
     {
       "code": "BDT",
-      "image": "assets/countyImage/BDT.svg",
+      "image": "assets/pngCountryImages/BDT.png",
       "country_name": "Bangladeshi Taka",
       "Symbol": "৳"
     },
     {
       "code": "BGN",
-      "image": "assets/countyImage/BGN.svg",
+      "image": "assets/pngCountryImages/BGN.png",
       "country_name": "Bulgarian Lev",
       "Symbol": "Лв"
     },
     {
       "code": "BHD",
-      "image": "assets/countyImage/BHD.svg",
+      "image": "assets/pngCountryImages/BHD.png",
       "country_name": "Bahraini Dinar",
       "Symbol": "BD"
     },
     {
       "code": "BIF",
-      "image": "assets/countyImage/BIF.svg",
+      "image": "assets/pngCountryImages/BIF.png",
       "country_name": "Burundian France",
       "Symbol": ""
     },
     {
       "code": "BMD",
-      "image": "assets/countyImage/BMD.svg",
+      "image": "assets/pngCountryImages/BMD.png",
       "country_name": "Bermudan Dollar",
       "Symbol": "\$"
     },
     {
       "code": "BND",
-      "image": "assets/countyImage/BND.svg",
+      "image": "assets/pngCountryImages/BND.png",
       "country_name": "Brunei Dollar",
       "Symbol": "B\$"
     },
     {
       "code": "BOB",
-      "image": "assets/countyImage/BOB.svg",
+      "image": "assets/pngCountryImages/BOB.png",
       "country_name": "Bolivian Boliviano",
       "Symbol": "Bs."
     },
     {
       "code": "BRL",
-      "image": "assets/countyImage/BRL.svg",
+      "image": "assets/pngCountryImages/BRL.png",
       "country_name": "Brazilian Real",
       "Symbol": "R\$"
     },
     {
       "code": "BSD",
-      "image": "assets/countyImage/BSD.svg",
+      "image": "assets/pngCountryImages/BSD.png",
       "country_name": "Bahamian Dollar",
       "Symbol": "B\$"
     },
     {
       "code": "BTC",
-      "image": "assets/countyImage/BTC.svg",
+      "image": "assets/pngCountryImages/BTC.png",
       "country_name": "Bitcoin",
       "Symbol": "₿"
     },
     {
       "code": "BTN",
-      "image": "assets/countyImage/BTN.svg",
+      "image": "assets/pngCountryImages/BTN.png",
       "country_name": "Bhutanese Ngultrum",
       "Symbol": "Nu."
     },
     {
       "code": "BWP",
-      "image": "assets/countyImage/BWP.svg",
+      "image": "assets/pngCountryImages/BWP.png",
       "country_name": "Botsanan Pula",
       "Symbol": "P"
     },
     {
       "code": "BYN",
-      "image": "assets/countyImage/BYN.svg",
+      "image": "assets/pngCountryImages/BYN.png",
       "country_name": "Belarusian Ruble",
       "Symbol": "BYN"
     },
     {
       "code": "BZD",
-      "image": "assets/countyImage/BZD.svg",
+      "image": "assets/pngCountryImages/BZD.png",
       "country_name": "Belize Dollar",
       "Symbol": "\$"
     },
     {
       "code": "CAD",
-      "image": "assets/countyImage/CAD.svg",
+      "image": "assets/pngCountryImages/CAD.png",
       "country_name": "Canadian Dollar",
       "Symbol": "Can\$"
     },
     {
       "code": "CDF",
-      "image": "assets/countyImage/CDF.svg",
+      "image": "assets/pngCountryImages/CDF.png",
       "country_name": "Congolese Franc",
       "Symbol": "FC"
     },
     {
       "code": "CHF",
-      "image": "assets/countyImage/CHF.svg",
+      "image": "assets/pngCountryImages/CHF.png",
       "country_name": "Swiss Franc",
       "Symbol": "SFr."
     },
-    {"code":"SAR", "image":"assets/countyImage/SAR.svg", "country_name":"Saudi Riyal","Symbol": "SR"},
+    {"code":"SAR", "image":"assets/pngCountryImages/SAR.png", "country_name":"Saudi Riyal","Symbol": "SR"},
     {
       "code": "CLP",
-      "image": "assets/countyImage/CLP.svg",
+      "image": "assets/pngCountryImages/CLP.png",
       "country_name": "Chilean Peso",
       "Symbol": "\$"
     },
     {
       "code": "CNY",
-      "image": "assets/countyImage/CNY.svg",
+      "image": "assets/pngCountryImages/CNY.png",
       "country_name": "Chinese Yuan",
       "Symbol": "¥"
     },
     {
       "code": "COP",
-      "image": "assets/countyImage/COP.svg",
+      "image": "assets/pngCountryImages/COP.png",
       "country_name": "Colombian Peso",
       "Symbol": "\$"
     },
     {
       "code": "CRC",
-      "image": "assets/countyImage/CRC.svg",
+      "image": "assets/pngCountryImages/CRC.png",
       "country_name": "Costa Rican Colon",
       "Symbol": "₡"
     },
     {
       "code": "CUP",
-      "image": "assets/countyImage/CUP.svg",
+      "image": "assets/pngCountryImages/CUP.png",
       "country_name": "Cuban Peso",
       "Symbol": "₱"
     },
     {
       "code": "CVE",
-      "image": "assets/countyImage/CVE.svg",
+      "image": "assets/pngCountryImages/CVE.png",
       "country_name": "Cape Verdean Escudo",
       "Symbol": "Esc"
     },
     {
       "code": "CZK",
-      "image": "assets/countyImage/CZK.svg",
+      "image": "assets/pngCountryImages/CZK.png",
       "country_name": "Czech Republic Koruna",
       "Symbol": "Kč"
     },
     {
       "code": "CLF",
-      "image": "assets/countyImage/CLF.svg",
+      "image": "assets/pngCountryImages/CLF.png",
       "country_name": "Unidad de Fomento",
       "Symbol": "UF"
     },
     {
       "code": "CNH",
-      "image": "assets/countyImage/CNH.svg",
+      "image": "assets/pngCountryImages/CNH.png",
       "country_name": "Renminbi",
       "Symbol": "¥."
     },
     {
       "code": "CVC",
-      "image": "assets/countyImage/CVC.svg",
+      "image": "assets/pngCountryImages/CVC.png",
       "country_name": "Cabo Verde Escudoa",
       "Symbol": ""
     },
     {
       "code": "CUC",
-      "image": "assets/countyImage/CUC.svg",
+      "image": "assets/pngCountryImages/CUC.png",
       "country_name": "Cuban Convertible Peso",
       "Symbol": "CUC\$"
     },
     {
       "code": "DJF",
-      "image": "assets/countyImage/DJF.svg",
+      "image": "assets/pngCountryImages/DJF.png",
       "country_name": "Djiboutian Franc",
       "Symbol": "Fdj"
     },
     {
       "code": "DKK",
-      "image": "assets/countyImage/DKK.svg",
+      "image": "assets/pngCountryImages/DKK.png",
       "country_name": "Danish Krone",
       "Symbol": "Kr."
     },
     {
       "code": "DOP",
-      "image": "assets/countyImage/DOP.svg",
+      "image": "assets/pngCountryImages/DOP.png",
       "country_name": "Dominican Peso",
       "Symbol": " RD\$"
     },
     {
       "code": "DZD",
-      "image": "assets/countyImage/DZD.svg",
+      "image": "assets/pngCountryImages/DZD.png",
       "country_name": "Algerian Dinar",
       "Symbol": "دج"
     },
     {
       "code": "EGP",
-      "image": "assets/countyImage/EGP.svg",
+      "image": "assets/pngCountryImages/EGP.png",
       "country_name": "Egyptian Pound",
       "Symbol": "ج.م"
     },
     {
       "code": "ERN",
-      "image": "assets/countyImage/ERN.svg",
+      "image": "assets/pngCountryImages/ERN.png",
       "country_name": "Eritrean Nakfa",
       "Symbol": " ናቕፋ"
     },
     {
       "code": "ETB",
-      "image": "assets/countyImage/ETB.svg",
+      "image": "assets/pngCountryImages/ETB.png",
       "country_name": "Ethiopian Birr",
       "Symbol": "ብር"
     },
     {
       "code": "EUR",
-      "image": "assets/countyImage/EUR.svg",
+      "image": "assets/pngCountryImages/EUR.png",
       "country_name": " Euro",
       "Symbol": "€"
     },
     {
       "code": "FJD",
-      "image": "assets/countyImage/FJD.svg",
+      "image": "assets/pngCountryImages/FJD.png",
       "country_name": "Fijian Dollar",
       "Symbol": "FJ\$"
     },
     {
       "code": "FKP",
-      "image": "assets/countyImage/FKP1.svg",
+      "image": "assets/pngCountryImages/FKP1.png",
       "country_name": "Falkland Islands Pound",
       "Symbol": "£"
     },
     {
       "code": "GBP",
-      "image": "assets/countyImage/GBP.svg",
+      "image": "assets/pngCountryImages/GBP.png",
       "country_name": "British Pound Sterling",
       "Symbol": "£"
     },
     {
       "code": "GEL",
-      "image": "assets/countyImage/GEL.svg",
+      "image": "assets/pngCountryImages/GEL.png",
       "country_name": " Geogian Lari ",
       "Symbol": "ლ"
     },
     {
       "code": "GHS",
-      "image": "assets/countyImage/GHS.svg",
+      "image": "assets/pngCountryImages/GHS.png",
       "country_name": " Ghanaian Cedi ",
       "Symbol": " GH₵"
     },
     {
       "code": "GIP",
-      "image": "assets/countyImage/GIP.svg",
+      "image": "assets/pngCountryImages/GIP.png",
       "country_name": "Gibraltar Pround",
       "Symbol": "£"
     },
     {
       "code": "GGP",
-      "image": "assets/countyImage/GGP.svg",
+      "image": "assets/pngCountryImages/GGP.png",
       "country_name": "	Guernsey Pound ",
       "Symbol": "£"
     },
     {
       "code": "GMD",
-      "image": "assets/countyImage/GMD.svg",
+      "image": "assets/pngCountryImages/GMD.png",
       "country_name": "Gambian Dalasi",
       "Symbol": "D"
     },
     {
       "code": "GNF",
-      "image": "assets/countyImage/GNF.svg",
+      "image": "assets/pngCountryImages/GNF.png",
       "country_name": "Guinean Franc",
       "Symbol": "GFr"
     },
     {
       "code": "GTQ",
-      "image": "assets/countyImage/GTQ.svg",
+      "image": "assets/pngCountryImages/GTQ.png",
       "country_name": "Guatemalan Quetzal ",
       "Symbol": "Q"
     },
     {
       "code": "GYD",
-      "image": "assets/countyImage/GYD.svg",
+      "image": "assets/pngCountryImages/GYD.png",
       "country_name": "Guyanaese Dollar",
       "Symbol": " GY\$"
     },
     {
       "code": "HKD",
-      "image": "assets/countyImage/HKD.svg",
+      "image": "assets/pngCountryImages/HKD.png",
       "country_name": "Hong Kong Dollar",
       "Symbol": ""
     },
     {
       "code": "HNL",
-      "image": "assets/countyImage/HNL.svg",
+      "image": "assets/pngCountryImages/HNL.png",
       "country_name": "Honduran Lempira",
       "Symbol": "HK\$"
     },
     {
       "code": "HRK",
-      "image": "assets/countyImage/HRK.svg",
+      "image": "assets/pngCountryImages/HRK.png",
       "country_name": "Croatian Kuna",
       "Symbol": "kn"
     },
     {
       "code": "HTG",
-      "image": "assets/countyImage/HTG.svg",
+      "image": "assets/pngCountryImages/HTG.png",
       "country_name": "Haitian Gourda",
       "Symbol": "G"
     },
     {
       "code": "HUF",
-      "image": "assets/countyImage/HUF.svg",
+      "image": "assets/pngCountryImages/HUF.png",
       "country_name": "Hungarian Forint",
       "Symbol": "Ft"
     },
     {
       "code": "IDR",
-      "image": "assets/countyImage/IDR.svg",
+      "image": "assets/pngCountryImages/IDR.png",
       "country_name": "Indonesian Rupiah",
       "Symbol": "Rp"
     },
     {
       "code": "ILS",
-      "image": "assets/countyImage/ILS.svg",
+      "image": "assets/pngCountryImages/ILS.png",
       "country_name": "Israeli New Sheqel",
       "Symbol": "₪"
     },
     {
       "code": "INR",
-      "image": "assets/countyImage/INR.svg",
+      "image": "assets/pngCountryImages/INR.png",
       "country_name": "Indian Rupee",
       "Symbol": "₹"
     },
     {
       "code": "IQD",
-      "image": "assets/countyImage/IQD.svg",
+      "image": "assets/pngCountryImages/IQD.png",
       "country_name": "Iraqi Dinar",
       "Symbol": "ع.د"
     },
     {
       "code": "IRR",
-      "image": "assets/countyImage/IRR.svg",
+      "image": "assets/pngCountryImages/IRR.png",
       "country_name": "Iranian Rial",
       "Symbol": "﷼"
     },
     {
       "code": "ISK",
-      "image": "assets/countyImage/ISK.svg",
+      "image": "assets/pngCountryImages/ISK.png",
       "country_name": "Icelandic Krona",
       "Symbol": "Íkr"
     },
     {
       "code": "IMP",
-      "image": "assets/countyImage/IMP.svg",
+      "image": "assets/pngCountryImages/IMP.png",
       "country_name": "	Isle of Man Pound",
       "Symbol": "£"
     },
     {
       "code": "JMD",
-      "image": "assets/countyImage/JMD.svg",
+      "image": "assets/pngCountryImages/JMD.png",
       "country_name": "Jamaican Dollar",
       "Symbol": "\$"
     },
     {
       "code": "JOD",
-      "image": "assets/countyImage/JOD.svg",
+      "image": "assets/pngCountryImages/JOD.png",
       "country_name": "Jordanian Dinar",
       "Symbol": "د.ا"
     },
     {
       "code": "JPY",
-      "image": "assets/countyImage/JPY.svg",
+      "image": "assets/pngCountryImages/JPY.png",
       "country_name": "Japanese Yen",
       "Symbol": "圓"
     },
     {
       "code": "JEP",
-      "image": "assets/countyImage/JEP.svg",
+      "image": "assets/pngCountryImages/JEP.png",
       "country_name": "Jersey Pound",
       "Symbol": "£"
     },
     {
       "code": "KES",
-      "image": "assets/countyImage/KES.svg",
+      "image": "assets/pngCountryImages/KES.png",
       "country_name": "Ke	South Korean ..",
       "Symbol": "Ksh"
     },
     {
       "code": "KGS",
-      "image": "assets/countyImage/KGS.svg",
+      "image": "assets/pngCountryImages/KGS.png",
       "country_name": "Kyrgystani Som",
       "Symbol": "Лв"
     },
     {
       "code": "KHR",
-      "image": "assets/countyImage/KHR.svg",
+      "image": "assets/pngCountryImages/KHR.png",
       "country_name": "Cambodian Rial",
       "Symbol": "៛"
     },
     {
       "code": "KMF",
-      "image": "assets/countyImage/KMF.svg",
+      "image": "assets/pngCountryImages/KMF.png",
       "country_name": "Comoraian Franc",
       "Symbol": "CF"
     },
     {
       "code": "KPW",
-      "image": "assets/countyImage/KPW.svg",
+      "image": "assets/pngCountryImages/KPW.png",
       "country_name": "North Korean Won",
       "Symbol": "₩"
     },
     {
       "code": "KWD",
-      "image": "assets/countyImage/KWD.svg",
+      "image": "assets/pngCountryImages/KWD.png",
       "country_name": "Kuwaiti Dinar",
       "Symbol": "د.ك"
     },
     {
       "code": "KYD",
-      "image": "assets/countyImage/KYD.svg",
+      "image": "assets/pngCountryImages/KYD.png",
       "country_name": "Cayman Islands Dollar",
       "Symbol": "\$"
     },
     {
       "code": "KZT",
-      "image": "assets/countyImage/KZT.svg",
+      "image": "assets/pngCountryImages/KZT.png",
       "country_name": "Kazakhstani Tenge",
       "Symbol": "₸"
     },
     {
       "code": "KRW",
-      "image": "assets/countyImage/KRW.svg",
+      "image": "assets/pngCountryImages/KRW.png",
       "country_name": "	South Korean Won",
       "Symbol": "₩"
     },
     {
       "code": "LAK",
-      "image": "assets/countyImage/LAK.svg",
+      "image": "assets/pngCountryImages/LAK.png",
       "country_name": "Laotian Kip",
       "Symbol": "₭N"
     },
     {
       "code": "LBP",
-      "image": "assets/countyImage/LBP.svg",
+      "image": "assets/pngCountryImages/LBP.png",
       "country_name": "Lebanese Pound",
       "Symbol": "ل.ل.‎"
     },
     {
       "code": "LKR",
-      "image": "assets/countyImage/LKR.svg",
+      "image": "assets/pngCountryImages/LKR.png",
       "country_name": "Shri Lankan Rupee ",
       "Symbol": " රු"
     },
     {
       "code": "LRD",
-      "image": "assets/countyImage/LRD.svg",
+      "image": "assets/pngCountryImages/LRD.png",
       "country_name": "Liberian Dollar",
       "Symbol": "L\$"
     },
     {
       "code": "LSL",
-      "image": "assets/countyImage/LSL.svg",
+      "image": "assets/pngCountryImages/LSL.png",
       "country_name": "Lesotho Loti ",
       "Symbol": "M"
     },
     {
       "code": "LYD",
-      "image": "assets/countyImage/LYD.svg",
+      "image": "assets/pngCountryImages/LYD.png",
       "country_name": "Libyan Dinar",
       "Symbol": "ل.د"
     },
     {
       "code": "MAD",
-      "image": "assets/countyImage/MAD.svg",
+      "image": "assets/pngCountryImages/MAD.png",
       "country_name": "Moroccan Dirham ",
       "Symbol": "MAD"
     },
     {
       "code": "MDL",
-      "image": "assets/countyImage/MDL.svg",
+      "image": "assets/pngCountryImages/MDL.png",
       "country_name": "Moldovan Leu",
       "Symbol": "L"
     },
     {
       "code": "MGA",
-      "image": "assets/countyImage/MGA.svg",
+      "image": "assets/pngCountryImages/MGA.png",
       "country_name": "Malagasy Ariary",
       "Symbol": "Ar"
     },
     {
       "code": "MKD",
-      "image": "assets/countyImage/MKD.svg",
+      "image": "assets/pngCountryImages/MKD.png",
       "country_name": "Macedonian Denar",
       "Symbol": "Ден"
     },
     {
       "code": "MMK",
-      "image": "assets/countyImage/MMK.svg",
+      "image": "assets/pngCountryImages/MMK.png",
       "country_name": "Myanma Kyat",
       "Symbol": "K"
     },
     {
       "code": "MNT",
-      "image": "assets/countyImage/MNT.svg",
+      "image": "assets/pngCountryImages/MNT.png",
       "country_name": "Mongolian Tugrik",
       "Symbol": "₮"
     },
     {
       "code": "MOP",
-      "image": "assets/countyImage/MOP.svg",
+      "image": "assets/pngCountryImages/MOP.png",
       "country_name": "Macanese Pataca",
       "Symbol": "MOP\$"
     },
     {
       "code": "MRO",
-      "image": "assets/countyImage/MRO.svg",
+      "image": "assets/pngCountryImages/MRO.png",
       "country_name": "Mauritanian Ouguiya",
       "Symbol": "UM"
     },
     {
       "code": "MUR",
-      "image": "assets/countyImage/MUR.svg",
+      "image": "assets/pngCountryImages/MUR.png",
       "country_name": "Maurtitian Rupee ",
       "Symbol": "₨"
     },
     {
       "code": "MRU",
-      "image": "assets/countyImage/MRU.svg",
+      "image": "assets/pngCountryImages/MRU.png",
       "country_name": "	Mauritanian Ouguiya ",
       "Symbol": "MRU"
     },
     {
       "code": "MVR",
-      "image": "assets/countyImage/MVR.svg",
+      "image": "assets/pngCountryImages/MVR.png",
       "country_name": "Maldivian Rufiya",
       "Symbol": "MRf"
     },
     {
       "code": "MWK",
-      "image": "assets/countyImage/MWK.svg",
+      "image": "assets/pngCountryImages/MWK.png",
       "country_name": "Malawian Kwacha",
       "Symbol": "MK"
     },
     {
       "code": "MXN",
-      "image": "assets/countyImage/MXN.svg",
+      "image": "assets/pngCountryImages/MXN.png",
       "country_name": " Mexican Peso",
       "Symbol": "Mex\$"
     },
     {
       "code": "MYR",
-      "image": "assets/countyImage/MYR.svg",
+      "image": "assets/pngCountryImages/MYR.png",
       "country_name": "  Malaysian Ringgit",
       "Symbol": "RM"
     },
     {
       "code": "MZN",
-      "image": "assets/countyImage/MZN.svg",
+      "image": "assets/pngCountryImages/MZN.png",
       "country_name": "Mozambican Metical",
       "Symbol": "MT"
     },
     {
       "code": "NAD",
-      "image": "assets/countyImage/NAD.svg",
+      "image": "assets/pngCountryImages/NAD.png",
       "country_name": "Namibian Dollar",
       "Symbol": "€"
     },
     {
       "code": "NGN",
-      "image": "assets/countyImage/NGN.svg",
+      "image": "assets/pngCountryImages/NGN.png",
       "country_name": "Nigerian Naira",
       "Symbol": "₦"
     },
     {
       "code": "NIO",
-      "image": "assets/countyImage/NIO.svg",
+      "image": "assets/pngCountryImages/NIO.png",
       "country_name": "Nicaraguan Cordoba",
       "Symbol": "C\$"
     },
     {
       "code": "NOK",
-      "image": "assets/countyImage/NOK.svg",
+      "image": "assets/pngCountryImages/NOK.png",
       "country_name": "Norwegian Krone",
       "Symbol": "kr"
     },
     {
       "code": "NPR",
-      "image": "assets/countyImage/NPR.svg",
+      "image": "assets/pngCountryImages/NPR.png",
       "country_name": "Nepalese Rupee",
       "Symbol": "रू"
     },
     {
       "code": "NZD",
-      "image": "assets/countyImage/NZD.svg",
+      "image": "assets/pngCountryImages/NZD.png",
       "country_name": "New Zealand Dollar",
       "Symbol": "\$"
     },
     {
       "code": "PEN",
-      "image": "assets/countyImage/PEN.svg",
+      "image": "assets/pngCountryImages/PEN.png",
       "country_name": "Peruvian Nuevo Sol",
       "Symbol": "K"
     },
     {
       "code": "PGK",
-      "image": "assets/countyImage/PGK.svg",
+      "image": "assets/pngCountryImages/PGK.png",
       "country_name": "Papua New Guinean Kina",
       "Symbol": "S/"
     },
     {
       "code": "PHP",
-      "image": "assets/countyImage/PHP.svg",
+      "image": "assets/pngCountryImages/PHP.png",
       "country_name": "Philippine Rupee",
       "Symbol": "(₱)"
     },
     {
       "code": "PKR",
-      "image": "assets/countyImage/PKR.svg",
+      "image": "assets/pngCountryImages/PKR.png",
       "country_name": "Pakistani Rupee",
       "Symbol": "₨"
     },
     {
       "code": "PLN",
-      "image": "assets/countyImage/PLN.svg",
+      "image": "assets/pngCountryImages/PLN.png",
       "country_name": "Polish Zloty",
       "Symbol": "zł"
     },
     {
       "code": "PYG",
-      "image": "assets/countyImage/PYG.svg",
+      "image": "assets/pngCountryImages/PYG.png",
       "country_name": "Paraguayan Guarani",
       "Symbol": "₲"
     },
     {
       "code": "QAR",
-      "image": "assets/countyImage/QAR.svg",
+      "image": "assets/pngCountryImages/QAR.png",
       "country_name": "Qatari Rial",
       "Symbol": "ر.ق"
     },
     {
       "code": "RON",
-      "image": "assets/countyImage/RON.svg",
+      "image": "assets/pngCountryImages/RON.png",
       "country_name": "Romanian leu",
       "Symbol": "lei"
     },
     {
       "code": "RSD",
-      "image": "assets/countyImage/RSD.svg",
+      "image": "assets/pngCountryImages/RSD.png",
       "country_name": "Serbian Dinar",
       "Symbol": "din"
     },
     {
       "code": "RUB",
-      "image": "assets/countyImage/RUB.svg",
+      "image": "assets/pngCountryImages/RUB.png",
       "country_name": "Russian Ruble",
       "Symbol": "₽"
     },
     {
       "code": "RWF",
-      "image": "assets/countyImage/RWF.svg",
+      "image": "assets/pngCountryImages/RWF.png",
       "country_name": "Rwandan Franc",
       "Symbol": "FRw"
     },
     {
       "code": "SBD",
-      "image": "assets/countyImage/SBD.svg",
+      "image": "assets/pngCountryImages/SBD.png",
       "country_name": "Salomon Islands Dollar",
       "Symbol": "Si\$"
     },
     {
       "code": "SCR",
-      "image": "assets/countyImage/SCR.svg",
+      "image": "assets/pngCountryImages/SCR.png",
       "country_name": "Seychellois Rupee",
       "Symbol": "₨ /-"
     },
     {
       "code": "SDG",
-      "image": "assets/countyImage/SDG.svg",
+      "image": "assets/pngCountryImages/SDG.png",
       "country_name": "Sudanese Pound",
       "Symbol": "ج.س."
     },
     {
       "code": "SEK",
-      "image": "assets/countyImage/SEK.svg",
+      "image": "assets/pngCountryImages/SEK.png",
       "country_name": "Swedish Krona ",
       "Symbol": "kr"
     },
     {
       "code": "SGD",
-      "image": "assets/countyImage/SGD.svg",
+      "image": "assets/pngCountryImages/SGD.png",
       "country_name": "Singapore Dollar ",
       "Symbol": "S\$"
     },
     {
       "code": "SHP",
-      "image": "assets/countyImage/SHP.svg",
+      "image": "assets/pngCountryImages/SHP.png",
       "country_name": "Saint Helena Pound",
       "Symbol": "£"
     },
     {
       "code": "SLL",
-      "image": "assets/countyImage/SLL.svg",
+      "image": "assets/pngCountryImages/SLL.png",
       "country_name": "Sierra Leonean Leone",
       "Symbol": "Le"
     },
     {
       "code": "SOS",
-      "image": "assets/countyImage/SOS.svg",
+      "image": "assets/pngCountryImages/SOS.png",
       "country_name": "Somali Shilling",
       "Symbol": "Sh.so."
     },
     {
       "code": "SRD",
-      "image": "assets/countyImage/SRD.svg",
+      "image": "assets/pngCountryImages/SRD.png",
       "country_name": "Surinamese Dollar",
       "Symbol": "\$"
     },
     {
       "code": "SSP",
-      "image": "assets/countyImage/SSP.svg",
+      "image": "assets/pngCountryImages/SSP.png",
       "country_name": "South Sudanese Pound",
       "Symbol": "£"
     },
     {
       "code": "STD",
-      "image": "assets/countyImage/STD.svg",
+      "image": "assets/pngCountryImages/STD.png",
       "country_name": "Sao Tomean Dobra",
       "Symbol": "Db"
     },
     {
       "code": "STN",
-      "image": "assets/countyImage/STN.svg",
+      "image": "assets/pngCountryImages/STN.png",
       "country_name": "São Tomé and Príncipe",
       "Symbol": "Db"
     },
     {
       "code": "SYP",
-      "image": "assets/countyImage/SYP.svg",
+      "image": "assets/pngCountryImages/SYP.png",
       "country_name": "Syrian Pound",
       "Symbol": "£S "
     },
     {
       "code": "SZL",
-      "image": "assets/countyImage/SZL.svg",
+      "image": "assets/pngCountryImages/SZL.png",
       "country_name": "Swazi Lilangebi",
       "Symbol": "L"
     },
     {
       "code": "SVC",
-      "image": "assets/countyImage/SVC.svg",
+      "image": "assets/pngCountryImages/SVC.png",
       "country_name": "El Salvador Colon",
       "Symbol": "₡"
     },
     {
       "code": "THB",
-      "image": "assets/countyImage/THB.svg",
+      "image": "assets/pngCountryImages/THB.png",
       "country_name": "Thai Baht",
       "Symbol": "฿"
     },
     {
       "code": "TJS",
-      "image": "assets/countyImage/TJS.svg",
+      "image": "assets/pngCountryImages/TJS.png",
       "country_name": "Tajikistani Somoni",
       "Symbol": "ЅM"
     },
     {
       "code": "TMT",
-      "image": "assets/countyImage/TMT.svg",
+      "image": "assets/pngCountryImages/TMT.png",
       "country_name": "Turkmenistani Manat",
       "Symbol": "T"
     },
     {
       "code": "TND",
-      "image": "assets/countyImage/TND.svg",
+      "image": "assets/pngCountryImages/TND.png",
       "country_name": "Tunisian Dinar",
       "Symbol": " د.ت "
     },
     {
       "code": "TOP",
-      "image": "assets/countyImage/TOP.svg",
+      "image": "assets/pngCountryImages/TOP.png",
       "country_name": "Tongan Pa'anga",
       "Symbol": "T\$"
     },
     {
       "code": "TRY",
-      "image": "assets/countyImage/TRY.svg",
+      "image": "assets/pngCountryImages/TRY.png",
       "country_name": "Turkish Lira",
       "Symbol": "₺"
     },
     {
       "code": "TTD",
-      "image": "assets/countyImage/TTD.svg",
+      "image": "assets/pngCountryImages/TTD.png",
       "country_name": "Trinidad and Tobago ",
       "Symbol": "TT¢"
     },
     {
       "code": "TWD",
-      "image": "assets/countyImage/TWD.svg",
+      "image": "assets/pngCountryImages/TWD.png",
       "country_name": "New Taiwan Dollar",
       "Symbol": "NT\$"
     },
     {
       "code": "TZS",
-      "image": "assets/countyImage/TZS.svg",
+      "image": "assets/pngCountryImages/TZS.png",
       "country_name": "Tanzanian Shilling",
       "Symbol": "TSh"
     },
     {
       "code": "UAH",
-      "image": "assets/countyImage/UAH.svg",
+      "image": "assets/pngCountryImages/UAH.png",
       "country_name": "Ukrainian Hryvnia",
       "Symbol": "₴"
     },
     {
       "code": "UGX",
-      "image": "assets/countyImage/UGX.svg",
+      "image": "assets/pngCountryImages/UGX.png",
       "country_name": "Ugandan Shilling",
       "Symbol": "USh"
     },
     {
       "code": "USD",
-      "image": "assets/countyImage/USD.svg",
+      "image": "assets/pngCountryImages/USD.png",
       "country_name": "United States Dollar",
       "Symbol": "\$"
     },
     {
       "code": "UYU",
-      "image": "assets/countyImage/UYU.svg",
+      "image": "assets/pngCountryImages/UYU.png",
       "country_name": "Uruguayan Peso",
       "Symbol": "\$U"
     },
     {
       "code": "UZS",
-      "image": "assets/countyImage/UZS.svg",
+      "image": "assets/pngCountryImages/UZS.png",
       "country_name": "Uzbekistan Som",
       "Symbol": "so'm"
     },
     {
       "code": "VES",
-      "image": "assets/countyImage/VES.svg",
+      "image": "assets/pngCountryImages/VES.png",
       "country_name": "Venezuelan Bolivar Fuerte",
       "Symbol": "Bs"
     },
     {
       "code": "VND",
-      "image": "assets/countyImage/VND.svg",
+      "image": "assets/pngCountryImages/VND.png",
       "country_name": "Vietnamese Dong",
       "Symbol": "₫"
     },
     {
       "code": "VUV",
-      "image": "assets/countyImage/VUV.svg",
+      "image": "assets/pngCountryImages/VUV.png",
       "country_name": "Vanuatu Vatu ",
       "Symbol": "VT"
     },
     {
       "code": "WST",
-      "image": "assets/countyImage/WST.svg",
+      "image": "assets/pngCountryImages/WST.png",
       "country_name": "Samoan Tala ",
       "Symbol": "SAT"
     },
     {
       "code": "XAF",
-      "image": "assets/countyImage/XAF.svg",
+      "image": "assets/pngCountryImages/XAF.png",
       "country_name": "CFA Franc BEAC ",
       "Symbol": "FCFA"
     },
     {
       "code": "XCD",
-      "image": "assets/countyImage/XCD.svg",
+      "image": "assets/pngCountryImages/XCD.png",
       "country_name": "East Caribbean Dollar",
       "Symbol": "\$"
     },
     {
       "code": "XOF",
-      "image": "assets/countyImage/XOF.svg",
+      "image": "assets/pngCountryImages/XOF.png",
       "country_name": "CFA Franc BCEAO ",
       "Symbol": "CFA"
     },
     {
       "code": "XAG",
-      "image": "assets/countyImage/XAG.svg",
+      "image": "assets/pngCountryImages/XAG.png",
       "country_name": "Swazi Lilangebi",
       "Symbol": "E"
     },
     {
       "code": "XAU",
-      "image": "assets/countyImage/XAU.svg",
+      "image": "assets/pngCountryImages/XAU.png",
       "country_name": "Vietnam Dong",
       "Symbol": "₫"
     },
     {
       "code": "XDR",
-      "image": "assets/countyImage/XDR.svg",
+      "image": "assets/pngCountryImages/XDR.png",
       "country_name": "Special Drawing Rights",
       "Symbol": "SDR"
     },
     {
       "code": "XPD",
-      "image": "assets/countyImage/XPD.svg",
+      "image": "assets/pngCountryImages/XPD.png",
       "country_name": "Ounce of palladium",
       "Symbol": "XPD"
     },
     {
       "code": "XPT",
-      "image": "assets/countyImage/XPT.svg",
+      "image": "assets/pngCountryImages/XPT.png",
       "country_name": "Ounce of platinum",
       "Symbol": "oz"
     },
     {
       "code": "XPF",
-      "image": "assets/countyImage/XPF.svg",
+      "image": "assets/pngCountryImages/XPF.png",
       "country_name": "CFP Franc",
       "Symbol": "Fr."
     },
     {
       "code": "YER",
-      "image": "assets/countyImage/YER.svg",
+      "image": "assets/pngCountryImages/YER.png",
       "country_name": "Yemeni Rial",
       "Symbol": "﷼"
     },
     {
       "code": "ZAR",
-      "image": "assets/countyImage/ZAR.svg",
+      "image": "assets/pngCountryImages/ZAR.png",
       "country_name": "south African Rand",
       "Symbol": "ZR"
     },
     {
       "code": "ZWL",
-      "image": "assets/countyImage/ZWL.svg",
+      "image": "assets/pngCountryImages/ZWL.png",
       "country_name": "Zimbabwean dollar",
       "Symbol": "Z\$"
     },
     {
       "code": "ZMW",
-      "image": "assets/countyImage/ZMW.svg",
+      "image": "assets/pngCountryImages/ZMW.png",
       "country_name": "Zambia",
       "Symbol": "ZK"
     }

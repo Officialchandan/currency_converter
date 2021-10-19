@@ -12,6 +12,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -20,10 +21,10 @@ void main() async {
   await insertData();
 
   runApp(EasyLocalization(
-      child:  MyApp(),
+      child: MyApp(),
       path: "assets/languagecode",
       fallbackLocale: Locale('en'),
-useFallbackTranslations: true,
+      useFallbackTranslations: true,
       useOnlyLangCode: true,
       supportedLocales: Locals.supportedLang));
 }
@@ -75,37 +76,31 @@ Future<void> insertData() async {
 
   Dio _dio = Dio();
   try {
-
     Response response = await _dio.get(url);
     if (response.statusCode == 200) {
-
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
       quotes.forEach((key, value) async {
-        Map<String,dynamic> map =   Constants.countryList.singleWhere((element) => element["code"]==key,
-            orElse:(){
-
+        Map<String, dynamic> map = Constants.countryList
+            .singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
-          return{};
+          return {};
         });
-          print(map);
-
-
+        print(map);
 
         DataModel currencyData = DataModel(
             value: value.toString(),
             code: key,
             image: map["image"],
-             name: map["country_name"],
+            name: map["country_name"],
             fav: 0,
             selected: 0,
-            symbol: map["Symbol"]
-        );
+            symbol: map["Symbol"]);
 
         int id = await dbHelper.insert(currencyData.toMap());
 
-         log("$id");
+        log("$id");
       });
     } else {
       print("NOT FOUND DATA");
@@ -114,5 +109,24 @@ Future<void> insertData() async {
     print(e);
   }
   dbHelper.queryAll();
+}
 
+class Test extends StatelessWidget {
+  const Test({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: SvgPicture.asset(
+          "assets/countyImage/AM.svg",
+          height: 50,
+          width: 50,
+          allowDrawingOutsideViewBox: true,
+
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
 }

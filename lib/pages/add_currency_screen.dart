@@ -128,7 +128,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                       height: 35,
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(30),
-                                          child: SvgPicture.asset(data.image!,fit: BoxFit.cover,))),
+                                          child: Image.asset(data.image!,fit: BoxFit.cover,))),
                                   Text(
                                     data.code,
                                     style: TextStyle(
@@ -144,9 +144,12 @@ class _AddCurrencyState extends State<AddCurrency> {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  Text(
-                                    data.name!,style: TextStyle(fontWeight: FontWeight.w500,
-                                    color: MyColors.insideTextFieldColor,fontSize: 15),
+                                  Container(
+                                    width:120,
+                                    child: Text(
+                                      data.name!,style: TextStyle(fontWeight: FontWeight.w500,
+                                      color: MyColors.insideTextFieldColor,fontSize: 15),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -248,7 +251,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                       height: 35,
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(30),
-                                          child: SvgPicture.asset(model.image!,fit: BoxFit.cover,))),
+                                          child: Image.asset(model.image!,fit: BoxFit.cover,))),
                                   const SizedBox(
                                     width: 5.0,
                                   ),
@@ -269,8 +272,11 @@ class _AddCurrencyState extends State<AddCurrency> {
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  Text(
-                                    model.name!,style: TextStyle(fontWeight: FontWeight.w500,color: MyColors.insideTextFieldColor,fontSize: 15),
+                                  Container(
+                                    width:190,
+                                    child: Text(
+                                      model.name!,style: TextStyle(fontWeight: FontWeight.w500,color: MyColors.insideTextFieldColor,fontSize: 15),
+                                    ),
                                   ),
                                 ],
                               ),
