@@ -158,7 +158,9 @@ class _AddCurrencyState extends State<AddCurrency> {
                                             color:
                                                 MyColors.insideTextFieldColor,
                                             fontSize: 15,
-                                            overflow: TextOverflow.ellipsis),
+
+                                             ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),
