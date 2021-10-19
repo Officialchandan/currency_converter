@@ -36,7 +36,7 @@ class _LanguageState extends State<Language> {
           ),
           duration: const Duration(seconds: 0),
           height: widget.isContainerVisible
-              ? MediaQuery.of(context).size.height
+              ? MediaQuery.of(context).size.height*0.6
               : 0.0,
           width: widget.isContainerVisible
               ? MediaQuery.of(context).size.width
@@ -46,7 +46,7 @@ class _LanguageState extends State<Language> {
             style: const TextStyle(decoration: TextDecoration.none),
             child: Container(
                 margin: const EdgeInsets.only(
-                    top: 0, right: 10, bottom: 0, left: 10),
+                    top: 15, right: 10, bottom: 0, left: 10),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 1.909,
                 child: Container(
@@ -60,6 +60,21 @@ class _LanguageState extends State<Language> {
                           children: [
                             GestureDetector(
                               onTap: () async {
+
+                                for(int i=0;i<Locals.icon.length;i++)
+                                  {
+                                    if(index==i)
+                                      {
+                                        Locals.icon[i]=true;
+                                      }
+                                    else
+                                      {
+                                        Locals.icon[i]=false;
+                                      }
+
+
+                                  }
+
                                 String name = Locals.language[index].keys.first;
 
                                 await context.setLocale(
@@ -71,7 +86,7 @@ class _LanguageState extends State<Language> {
                                             const MyTabBarWidget()),
                                     (route) => false);
                               },
-                              child: Row(
+                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                       margin: const EdgeInsets.all(7),
@@ -81,6 +96,10 @@ class _LanguageState extends State<Language> {
                                         style: const TextStyle(
                                             fontSize: 18, color: Colors.black),
                                       )),
+                                  Container(
+                                    child: Locals.icon[index]?Icon(Icons.check_sharp,color: Colors.blue,):Text(""),
+                                  )
+
                                 ],
                               ),
                             ),

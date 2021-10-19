@@ -1,0 +1,35 @@
+{
+
+    "update": "թարմացում",
+    "addCurrency": "Ավելացնել արժույթ",
+    "selectedCurrency": "Ընտրված արժույթ",
+    "monetary": "դրամական ձևաչափ",
+    "decimal": "Տասնորդական ձևաչափ",
+    "firstTextRatingPage": "Խնդրում ենք գնահատել ծրագիրը",
+    "secondTextRatingPage": "Հպեք աստղերի վրա և գնահատման համար բացեք Google Play Store- ով",
+    "buttonTextRatingPage": "Ոչ հիմա",
+    "removeAds": "Հեռացնել գովազդները",
+    "removeAdsContent": "Աջակցեք մեր նախագծին փոքր տարեկան բաժանորդագրությամբ",
+    "selectLanguage": "Ընտրել լեզուն",
+    "english": "անգլերեն",
+    "colorsSelection": "Գույնի ընտրություն",
+    "theme": "Թեման",
+    "light": "Լույս",
+    "dark": "Մութ",
+    "widgetTransparency": "widget Թափանցիկություն",
+    "visualSize": "Տեսողական չափ",
+    "A": "Ա",
+    "appLogoLauncher": "Հավելվածի լոգոյի գործարկիչ",
+    "multiConverter": "Multi-Converter",
+    "multiConverterContent1": "Լռելյայն կբացի բազմափոխարկիչը:",
+    "multiConverterContent2": "Նշում.",
+    "multiConverterContent3": "Այս գործառույթն աշխատում է միայն հավելվածի պատկերանշանի գործարկիչով",
+    "display": "Displayուցադրել",
+    "display1": "Curուցադրել արժույթի կոդը",
+    "display2": "Curուցադրել արժույթի խորհրդանիշ",
+    "display3": "Curուցադրել արժույթի դրոշ",
+    "dateFormat": "Տվյալների ձևաչափ"
+  
+  
+  
+  } 

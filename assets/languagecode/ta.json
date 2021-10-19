@@ -1,0 +1,35 @@
+{
+
+    "update": "புதுப்பிக்கப்பட்டது",
+    "addCurrency": "நாணயத்தைச் சேர்",
+    "selectedCurrency ": "தேர்ந்தெடுக்கப்பட்ட நாணயம்",
+    "monetary": "பண வடிவம்",
+    "decimal": "தசம வடிவம்",
+    "firstTextRatingPage": "தயவுசெய்து பயன்பாட்டை மதிப்பிடவும்!",
+    "SecondTextRatingPage": "நட்சத்திரங்களைத் தட்டவும் மற்றும் மதிப்பிட Google Play ஸ்டோர் மூலம் திறக்கவும்",
+    "buttonTextRatingPage": "இப்போது இல்லை",
+    "RemoveAds": "விளம்பரங்களை அகற்று",
+    "RemoveAdsContent": "ஒரு சிறிய வருடாந்திர சந்தாவுடன் எங்கள் திட்டத்தை ஆதரிக்கவும்",
+    "selectLanguage ": "மொழியைத் தேர்ந்தெடுக்கவும்",
+    "english": "ஆங்கிலம்",
+    "colorsSelection": "வண்ணத் தேர்வு",
+    "theme": "தீம்",
+    "light": "ஒளி",
+    "dark": "இருள்",
+    "widgetTransparency": "விட்ஜெட் டிரான்ஸ்பரன்சி",
+    "visualSize": "காட்சி அளவு",
+    "A": "ஏ",
+    "appLogoLauncher": "App Logo Launcher",
+    "multiConverter": "மல்டி-கன்வெர்ட்டர்",
+    "multiConverterContent1": "இயல்பாக பல மாற்றி திறக்கும்.",
+    "multiConverterContent2": "குறிப்பு:",
+    "multiConverterContent3": "இந்த அம்சம் பயன்பாட்டு லோகோ துவக்கியுடன் மட்டுமே இயங்குகிறது",
+    "display": "காட்சி",
+    "display1": "நாணய குறியீடு காட்டு",
+    "display2": "காட்சி நாணய சின்னம்",
+    "display3": "நாணயக் கொடியைக் காட்டு",
+    "dateFormat": "தரவு வடிவம்"
+  
+  
+  
+  }
