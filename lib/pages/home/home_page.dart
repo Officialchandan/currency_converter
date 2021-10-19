@@ -1,24 +1,20 @@
 import 'dart:convert';
 import 'dart:core';
-import 'dart:developer';
-import 'package:currency_converter/utils/constants.dart';
-import 'package:easy_localization/src/public_ext.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
-import 'package:currency_converter/pages/home/home_tab.dart';
-import 'package:flutter/cupertino.dart';
-
-import 'package:flutter/material.dart';
-
-import 'package:flutter/services.dart';
-
-import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
-
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:currency_converter/pages/second_screen.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
+import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:easy_localization/src/public_ext.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
@@ -27,8 +23,7 @@ class MyTabBarWidget extends StatefulWidget {
   State<MyTabBarWidget> createState() => _MyTabBarWidgetState();
 }
 
-class _MyTabBarWidgetState extends State<MyTabBarWidget>
-    with TickerProviderStateMixin {
+class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStateMixin {
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
@@ -39,7 +34,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   @override
   void initState() {
     super.initState();
-  //  getColorTheme();
+    //  getColorTheme();
 
     _tabController = TabController(length: 6, vsync: this, initialIndex: 0);
 
@@ -65,31 +60,16 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TabBar(
-              indicator: BoxDecoration(border: Border(bottom: BorderSide(width: 2.9,color:MyColors.textColor),)),
-
+              indicator: BoxDecoration(
+                  border: Border(
+                bottom: BorderSide(width: 2.9, color: MyColors.textColor),
+              )),
               controller: _tabController,
               indicatorWeight: 2.5,
               onTap: (_selectedIndex) {
-                index.add(_selectedIndex);
-
-                if (index.length > 2) {
-                  escapeIndex = index[index.length - 2];
-
-                  log("previous ->>>>${index[index.length - 2]}");
-                } else if (index.length == 2) {
-                  escapeIndex = index[index.length - 2];
-
-                  log("previous->>>>${index[index.length - 2]}");
-                } else {
-                  escapeIndex = index[index.length - 1];
-
-                  log("previous->>>>${index[0]}");
-                }
-
                 if (_selectedIndex == 3) {
-
-                  ratingBottomSheet(context);
-                  _tabController.index = escapeIndex;
+                  // ratingBottomSheet(context);
+                  _tabController.index = _tabController.previousIndex;
                 }
               },
               indicatorColor: Colors.white,
@@ -118,17 +98,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   ),
                 ),
                 Tab(
-                  icon: InkWell(
-                    onTap: () {
-                     ratingBottomSheet(context);
-                    },
-                    child: Image.asset(
-                      "assets/images/tab-ic4.png",
-                      scale: 7,
-                      color: MyColors.textColor,
-                    ),
+                  icon: Image.asset(
+                    "assets/images/tab-ic4.png",
+                    scale: 7,
+                    color: MyColors.textColor,
                   ),
-
                 ),
                 Tab(
                   icon: Image.asset(
@@ -178,19 +152,16 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       ),
     );
   }
+
   tabChangeListener(int index) {
     debugPrint("index ->$index");
-      if (index == 3) {
-
-          ratingBottomSheet(context);
-
-
-
-      }
-
+    if (index == 3) {
+      ratingBottomSheet(context);
+    }
 
     setState(() {});
   }
+
   onThemeChange() {
     setState(() {});
   }
@@ -199,8 +170,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     return showModalBottomSheet(
         isDismissible: false,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         ),
 
         //backgroundColor: Colors.transparent,
@@ -209,9 +179,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           return IntrinsicHeight(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                 gradient: LinearGradient(
                   colors: [
                     MyColors.colorPrimary.withOpacity(0.5),

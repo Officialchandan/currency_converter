@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class TermsPage extends StatefulWidget {
   const TermsPage({Key? key}) : super(key: key);
@@ -15,7 +13,6 @@ class _TermsPageState extends State<TermsPage> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
@@ -27,41 +24,26 @@ class _TermsPageState extends State<TermsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Terms and Conditions",
-                style: TextStyle(
-                    color: MyColors.textColor,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w900)),
+            Text("Terms and Conditions", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             Container(
               padding: const EdgeInsets.only(
                 top: 20,
               ),
-              child: Text(
-                  "Last updated: March 13, 2021\n\nPlease read these terms and conditions carefully before using Our Service.",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600)),
+              child: Text("Last updated: March 13, 2021\n\nPlease read these terms and conditions carefully before using Our Service.",
+                  style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
             ),
             Container(
               padding: EdgeInsets.only(
                 top: 20,
               ),
               child: Text("Interpretation and Definitions",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(
                 top: 20,
               ),
-              child: Text("Interpretation",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Interpretation", style: TextStyle(color: MyColors.textColor, fontSize: 20, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(
@@ -69,30 +51,20 @@ class _TermsPageState extends State<TermsPage> {
               ),
               child: Text(
                   "The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
             ),
             Container(
               padding: EdgeInsets.only(
                 top: 20,
               ),
-              child: Text("Definitions",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Definitions", style: TextStyle(color: MyColors.textColor, fontSize: 20, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(
                 top: 20,
               ),
               child: Text("For the purposes of these Terms and Conditions:",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
             ),
             Container(
               padding: EdgeInsets.only(left: 20, top: 10),
@@ -107,10 +79,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Application',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -141,10 +110,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Application',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -175,10 +141,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Affiliate ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -209,10 +172,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Country refers to:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text: 'California, United States ',
@@ -242,10 +202,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Company',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -276,10 +233,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Device ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -310,10 +264,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'In-app Purchase ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -344,10 +295,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Service',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text: ' refers to the Application. ',
@@ -377,10 +325,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Subscriptions ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -411,10 +356,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Terms and Conditions',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -445,10 +387,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'Third-party Social Media Service',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -479,10 +418,7 @@ class _TermsPageState extends State<TermsPage> {
                     child: RichText(
                       text: TextSpan(
                         text: 'You',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                         children: const <TextSpan>[
                           TextSpan(
                               text:
@@ -512,10 +448,7 @@ class _TermsPageState extends State<TermsPage> {
               child: RichText(
                 text: TextSpan(
                   text: '',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 25,
-                      color: MyColors.textColor),
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25, color: MyColors.textColor),
                   children: [
                     TextSpan(
                         text:
@@ -551,19 +484,12 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Subscriptions",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Subscriptions", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Subscription period",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900)),
+              child:
+                  Text("Subscription period", style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -591,10 +517,7 @@ class _TermsPageState extends State<TermsPage> {
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("Subscription cancellations",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -621,11 +544,7 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Billing",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Billing", style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -633,10 +552,7 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'You shall provide the Company with accurate and complete billing information including full name, address, state, zip code, telephone number, and a valid payment method information.\n\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                      color: MyColors.textColor),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: MyColors.textColor),
                   children: const <TextSpan>[
                     TextSpan(
                         text:
@@ -658,11 +574,7 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Fee Changes",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Fee Changes", style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -670,10 +582,7 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'The Company, in its sole discretion and at any time, may modify the Subscription fees. Any Subscription fee change will become effective at the end of the then-current Subscription period.\n\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                   children: const <TextSpan>[
                     TextSpan(
                         text:
@@ -695,22 +604,14 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Refunds",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Refunds", style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: RichText(
                 text: TextSpan(
-                  text:
-                      'Except when required by law, paid Subscription fees are non-refundable.\n\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  text: 'Except when required by law, paid Subscription fees are non-refundable.\n\n',
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                   children: const <TextSpan>[
                     TextSpan(
                         text:
@@ -732,11 +633,7 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("In-app Purchases",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+              child: Text("In-app Purchases", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -791,10 +688,7 @@ class _TermsPageState extends State<TermsPage> {
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("Links to Other Websites",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -802,10 +696,7 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company..\n\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                   children: const <TextSpan>[
                     TextSpan(
                         text:
@@ -827,11 +718,7 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Termination",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Termination", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -839,14 +726,10 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.\n\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                   children: const <TextSpan>[
                     TextSpan(
-                        text:
-                            'Upon termination, Your right to use the Service will cease immediately.',
+                        text: 'Upon termination, Your right to use the Service will cease immediately.',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -858,10 +741,7 @@ class _TermsPageState extends State<TermsPage> {
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("Limitation of Liability",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -869,10 +749,7 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You havent purchased anything through the Service.\n\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                   children: const <TextSpan>[
                     TextSpan(
                         text:
@@ -895,10 +772,7 @@ class _TermsPageState extends State<TermsPage> {
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("AS IS and AS AVAILABLE Disclaimer",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -932,11 +806,7 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Governing Law",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Governing Law", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -944,20 +814,14 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Disputes Resolution",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+              child:
+                  Text("Disputes Resolution", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -965,20 +829,14 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 32),
               child: Text("For European Union (EU) Users",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -986,20 +844,14 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'TIf You are a European Union consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident in.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("United States Federal Government End Use Provisions",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -1007,20 +859,14 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'If You are a U.S. federal government end user, our Service is a Commercial Item as that term is defined at 48 C.F.R. §2.101.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("United States Legal Compliance",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -1028,30 +874,21 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a terrorist supporting country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("Severability and Waiver",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: RichText(
                 text: TextSpan(
                   text: 'Severability\n\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 22),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 22),
                   children: const <TextSpan>[
                     TextSpan(
                         text:
@@ -1066,11 +903,7 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text(" Waiver",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900)),
+              child: Text(" Waiver", style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -1078,19 +911,13 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                     text:
                         'Except as provided herein, the failure to exercise a right or to require performance of an obligation under this Terms shall not effect a partys ability to exercise such right or require such performance at any time thereafter nor shall be the waiver of a breach constitute a waiver of any subsequent breach.',
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("Translation Interpretation",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -1098,20 +925,14 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'These Terms and Conditions may have been translated if We have made them available to You on our Service. You agree that the original English text shall prevail in the case of a dispute.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text("Changes to These Terms and Conditions",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+                  style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -1119,10 +940,7 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.\n\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                   children: const <TextSpan>[
                     TextSpan(
                         text:
@@ -1137,11 +955,7 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Disclaimer",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Disclaimer", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
@@ -1149,31 +963,20 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                       'Currency.wiki exchange rates are for informational purposes only. Please verify/confirm currency rates with your forex broker or financial institution before making international money transfers and transactions.e.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Credits",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Credits", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: RichText(
                 text: TextSpan(
-                  text:
-                      'We want to thank the following authors for creating free icons and free license to use charts.\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  text: 'We want to thank the following authors for creating free icons and free license to use charts.\n',
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
@@ -1189,10 +992,7 @@ class _TermsPageState extends State<TermsPage> {
                     RichText(
                       text: TextSpan(
                         text: 'MD Badsha',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                            color: MyColors.textColor),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: MyColors.textColor),
                       ),
                     ),
                   ],
@@ -1210,19 +1010,13 @@ class _TermsPageState extends State<TermsPage> {
                       RichText(
                         text: TextSpan(
                           text: 'Meah:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: MyColors.textColor),
                         ),
                       ),
                       GestureDetector(
                           onTap: _launchURL,
                           child: Text('https://freeicons.io/profile/3335',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  color: Colors.indigo)))
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: Colors.indigo)))
                     ],
                   )),
                 ],
@@ -1241,19 +1035,13 @@ class _TermsPageState extends State<TermsPage> {
                   ),
                   Text(
                     "icon king1:",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: MyColors.textColor,
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 15, color: MyColors.textColor, fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(
                       onTap: _launchURL1,
                       child: const Text(
                         'https://freeicons.io/profile/3',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            color: Colors.indigo),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo),
                       ))
                 ],
               ),
@@ -1271,20 +1059,14 @@ class _TermsPageState extends State<TermsPage> {
                   ),
                   Text(
                     "Freepik:",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: MyColors.textColor,
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 15, color: MyColors.textColor, fontWeight: FontWeight.w600),
                   ),
                   Container(
                     child: GestureDetector(
                         onTap: _launchURL3,
                         child: Text(
                           'https://www.flaticon.com ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Colors.indigo),
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo),
                         )),
                   ),
                 ],
@@ -1299,20 +1081,14 @@ class _TermsPageState extends State<TermsPage> {
                 children: [
                   Text(
                     "        &",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: MyColors.textColor,
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 15, color: MyColors.textColor, fontWeight: FontWeight.w600),
                   ),
                   Container(
                     child: GestureDetector(
                         onTap: _launchURL4,
                         child: Text(
                           ' https://www.freepik.com',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Colors.indigo),
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo),
                         )),
                   )
                 ],
@@ -1331,20 +1107,14 @@ class _TermsPageState extends State<TermsPage> {
                   ),
                   Text(
                     "amCharts:",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: MyColors.textColor,
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 15, color: MyColors.textColor, fontWeight: FontWeight.w600),
                   ),
                   Container(
                     child: GestureDetector(
                         onTap: _launchURL5,
                         child: Text(
                           ' https://www.amcharts.com/',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Colors.indigo),
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo),
                         )),
                   )
                 ],
@@ -1352,22 +1122,14 @@ class _TermsPageState extends State<TermsPage> {
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
-              child: Text("Contact Us",
-                  style: TextStyle(
-                      color: MyColors.textColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900)),
+              child: Text("Contact Us", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
             ),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: RichText(
                 text: TextSpan(
-                  text:
-                      'If you have any questions about these Terms and Conditions, You can contact us:.\n',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: MyColors.textColor,
-                      fontSize: 15),
+                  text: 'If you have any questions about these Terms and Conditions, You can contact us:.\n',
+                  style: TextStyle(fontWeight: FontWeight.w600, color: MyColors.textColor, fontSize: 15),
                 ),
               ),
             ),
@@ -1376,10 +1138,7 @@ class _TermsPageState extends State<TermsPage> {
               child: RichText(
                 text: TextSpan(
                   text: 'By email: info@currency.wiki',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                      color: MyColors.textColor),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: MyColors.textColor),
                 ),
               ),
             ),
