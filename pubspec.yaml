@@ -86,7 +86,6 @@ flutter:
   assets:
    - assets/
    - assets/languagecode/
-#   - assets/langs/
    - assets/images/
    - assets/countyImage/
    - assets/images/@2x/

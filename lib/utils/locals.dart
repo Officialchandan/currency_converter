@@ -1,55 +1,98 @@
 import 'package:flutter/material.dart';
 
 class Locals {
-
-
- static List<bool>icon=[true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,];
+  static List<bool> icon = [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
   static const english = Locale('en');
   static const hindi = Locale('hi');
-  static const nepali = Locale('ne','NP');
+  static const nepali = Locale('ne', 'NP');
   static const gujarati = Locale('gu');
   static const catalan = Locale('ca');
   static const Croatian = Locale('hr');
-  static const Italian = Locale('it',"IT");
+  static const Italian = Locale('it', "IT");
   static const Spanish = Locale('es');
   static const Bengali = Locale('bn');
-  static const Portuguese = Locale('pt','BR');
+  static const Portuguese = Locale('pt', 'BR');
   //static const Russian  = Locale('ru-RU');
-  static const Japanese = Locale('ja','JP');
-  static const German = Locale('de','DE');
+  static const Japanese = Locale('ja', 'JP');
+  static const German = Locale('de', 'DE');
   static const Bulgarian = Locale('bg');
-  static const Czech = Locale('cs','CZ');
-  static const Danish = Locale('da','DK');
-  static const Dutch = Locale('nl','NL');
+  static const Czech = Locale('cs', 'CZ');
+  static const Danish = Locale('da', 'DK');
+  static const Dutch = Locale('nl', 'NL');
   static const Estonian = Locale('et');
-  static const Finnish = Locale('fi','FI');
-  static const Greek = Locale('el','GR');
-  static const Hungarian = Locale('hu','HU');
+  static const Finnish = Locale('fi', 'FI');
+  static const Greek = Locale('el', 'GR');
+  static const Hungarian = Locale('hu', 'HU');
   // static const Hebrew  = Locale('iw-IL');
-  static const Armenian = Locale('hy','AM');
+  static const Armenian = Locale('hy', 'AM');
   static const Indonesian = Locale('id');
   static const Latvian = Locale('lv');
   static const Malay = Locale('ms');
-  static const Marathi = Locale('mr','IN');
-  static const Chinese = Locale('zh','CN');
-  static const Polish = Locale('pl','PL');
+  static const Marathi = Locale('mr', 'IN');
+  static const Chinese = Locale('zh', 'CN');
+  static const Polish = Locale('pl', 'PL');
   static const Romanian = Locale('ro');
   static const Serbian = Locale('sr');
-  static const Tamil = Locale('ta','IN');
+  static const Tamil = Locale('ta', 'IN');
   static const Slovak = Locale('sk');
   static const Slovenian = Locale('sl');
-  static const Telugu = Locale('te','IN');
-  static const Swedish = Locale('sv','SE');
-  static const Turkish = Locale('tr','TR');
+  static const Telugu = Locale('te', 'IN');
+  static const Swedish = Locale('sv', 'SE');
+  static const Turkish = Locale('tr', 'TR');
   static const Vietnamese = Locale('vi');
   static const Ukrainian = Locale('uk');
   static const Arabic = Locale('ar');
-  static const Bosnian = Locale('hrr','ba');
-  static const Lithuanian  = Locale('lt');
-  static const Hebrew  = Locale('iw','IL');
-  static const French  = Locale('fr','FR');
-  static const Filipino  = Locale('fil');
-  static const Russian  = Locale('ru','RU');
+  static const Bosnian = Locale('hrr', 'ba');
+  static const Lithuanian = Locale('lt');
+  static const Hebrew = Locale('iw', 'IL');
+  static const French = Locale('fr', 'FR');
+  static const Filipino = Locale('fil');
+  static const Russian = Locale('ru', 'RU');
 
   static List<Map<String, Locale>> language = [
     {"English": Locals.english},
@@ -89,19 +132,15 @@ class Locals {
     {"عربي (Arabic)": Locals.Arabic},
     {" Bosanski(Bosnian)": Locals.Bosnian},
     {" Lietuvių(Lithuanian)": Locals.Lithuanian},
-
     {" עִברִית(Hebrew)": Locals.Hebrew},
     {" français(French)": Locals.French},
     {" Pilipino(Filipino)": Locals.Filipino},
     {" Russian(русский)": Locals.Russian},
-
-
     {
       "हिंदी (Hindi)": Locals.hindi,
     },
     {"नेपाली (Nepali)": Locals.nepali},
     {"ગુજરાતી (Gujarati)": Locals.gujarati},
-
   ];
 
   static const supportedLang = [
