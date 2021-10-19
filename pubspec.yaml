@@ -60,7 +60,7 @@ dependencies:
 
 
 dev_dependencies:
-  
+
   flutter_test:
     sdk: flutter
 
@@ -85,11 +85,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/
-   - assets/langs/
+   - assets/languagecode/
+#   - assets/langs/
    - assets/images/
+   - assets/countyImage/
    - assets/images/@2x/
    - assets/images/@3x/
-  
   
      
 

@@ -10,7 +10,7 @@ import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const _dbName = 'currencyconverter1.db';
+  static const _dbName = 'currencyconverter2.db';
   static final _dbVersion = 1;
   static final tableName = "conversion";
   static final ColumnId = "id";
@@ -20,6 +20,7 @@ class DatabaseHelper {
   static final favCountry = "favCountry";
   static final selectedCountry = "selectedCountry";
   static final countryName = "countryName";
+  static final symbol = "symbol";
 
   DatabaseHelper._p();
 
@@ -49,7 +50,8 @@ class DatabaseHelper {
             $currencyValue TEXT NOT NULL,
             $favCountry INTEGER NOT NULL,
             $countryName TEXT NOT NULL,
-            $selectedCountry INTEGER NOT NULL
+            $selectedCountry INTEGER NOT NULL,
+            $symbol TEXT NOT NULL
             )''');
   }
 
@@ -71,7 +73,7 @@ class DatabaseHelper {
     Database db = await instance.database;
     List<Map<String, dynamic>> data = await db.query(tableName);
 
-    //print("data--->$data");
+    print("data vivek --->$data");
 
     return data;
   }
@@ -100,14 +102,13 @@ class DatabaseHelper {
         .update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
   }
 
-  Future<List<Map<String, dynamic>>> order() async {
+ Future<List<Map<String, dynamic>>> order()async{
     Database db = await instance.database;
 
-    List<Map<String, dynamic>> data = await db.rawQuery(
-        "SELECT * FROM " + tableName + " ORDER BY " + favCountry + " DESC",
-        null);
-    print("bnbbfsdbfsdbjsdbsdk->>>$data");
+    List<Map<String, dynamic>> data= await db.rawQuery("SELECT * FROM " + tableName +" ORDER BY " + favCountry + " DESC");
+    debugPrint("->>>$data");
     return data;
+
   }
 
   Future<List<Map<String, dynamic>>> particular_row(String conCode) async {
@@ -143,7 +144,6 @@ class DatabaseHelper {
 
     return dataList;
   }
-
   Future<List<DataModel>> getUnselectedData() async {
     List<DataModel> dataList = [];
 
@@ -164,4 +164,5 @@ class DatabaseHelper {
 
     return dataList;
   }
+
 }

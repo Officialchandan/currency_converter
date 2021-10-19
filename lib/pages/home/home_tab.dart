@@ -14,6 +14,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +30,11 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
+  String symbol="\$";
+
+  String flagfrom="assets/countyImage/USD.svg";
+  String flagto="assets/countyImage/INR.svg";
+
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
   String text = "00.0";
@@ -65,6 +71,7 @@ class _TapHomeState extends State<TapHome> {
     // Insert();
     getCurrencyCode();
 
+
     super.initState();
   }
 
@@ -76,6 +83,8 @@ class _TapHomeState extends State<TapHome> {
     if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
       edtFrom.text = currencyCodeFrom;
       edtTo.text = currencyCodeTo;
+      flagfrom="assets/countyImage/$currencyCodeFrom.svg";
+      flagto="assets/countyImage/$currencyCodeTo.svg";
 
       getConverterAPI(
           currencyCodeFrom, currencyCodeTo, conversionRate.toString());
@@ -202,7 +211,8 @@ class _TapHomeState extends State<TapHome> {
                               ),
                               borderRadius: BorderRadius.circular(7),
                             ),
-                            child: Center(
+
+                            child: MyColors.displaycode?Center(
                               child: AutoSizeText(
                                 currencyCodeFrom,
                                 style: TextStyle(
@@ -213,6 +223,32 @@ class _TapHomeState extends State<TapHome> {
                                       : MyColors.fontlarge
                                           ? (MyColors.textSize + 20)
                                           : 20,
+                                ),
+                              ),
+                            ):MyColors.displaysymbol? Center(
+                              child: Text(
+                                symbol,
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 18) * (-1)
+                                      : MyColors.fontlarge
+                                      ? (MyColors.textSize + 18)
+                                      : 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ):Center(
+                              child: AutoSizeText(
+                                currencyCodeFrom,
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                      ? (MyColors.textSize + 20)
+                                      : 20,
                                 ),
                               ),
                             ),
@@ -339,10 +375,18 @@ class _TapHomeState extends State<TapHome> {
                               },
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.ac_unit_outlined,
-                                  color: MyColors.insideTextFieldColor,
-                                  size: 25.0,
+                                prefixIcon: Container(
+                                  padding: EdgeInsets.all(5),
+                                  height: 10,
+                                  width: 10,
+
+                                  
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+
+
+                                    child: SvgPicture.asset(flagfrom,fit: BoxFit.cover,),
+                                  ),
                                 ),
                                 suffixIcon: Padding(
                                   padding: const EdgeInsets.only(left: 20.0),
@@ -398,10 +442,17 @@ class _TapHomeState extends State<TapHome> {
                               },
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.ac_unit_outlined,
-                                  color: MyColors.insideTextFieldColor,
-                                  size: 25.0,
+                                prefixIcon:Container(
+                                  padding: EdgeInsets.all(5),
+                                  
+                                  width: 15,
+                                  height: 15,
+
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child:SvgPicture.asset(flagto,fit: BoxFit.cover,)
+                                    ,
+                                  ),
                                 ),
                                 suffixIcon: Padding(
                                   padding: const EdgeInsets.only(left: 20.0),
@@ -443,8 +494,10 @@ class _TapHomeState extends State<TapHome> {
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
-                          onSelect: (String currencyCode) {
+                          onSelect: (String currencyCode,String image,String symbol1 ) {
+                            symbol=symbol1;
                             currencyCodeFrom = currencyCode;
+                            flagfrom=image;
 
                             currencyCodeFromSave(currencyCodeFrom);
                             edtFrom.text = currencyCode;
@@ -459,7 +512,10 @@ class _TapHomeState extends State<TapHome> {
                       : _isContainerVisibleTwo
                           ? CurrencyToWidget(
                               isContainerVisibleTwo: _isContainerVisibleTwo,
-                              onSelect: (String currencyCode) {
+                              onSelect: (String currencyCode,String image) {
+
+                                flagto=image;
+
                                 currencyCodeTo = currencyCode;
                                 currencyCodeToSave(currencyCodeTo);
                                 edtTo.text = currencyCode;

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -6,10 +7,12 @@ import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CurrencyFromWidget extends StatefulWidget {
-  final Function(String currencyCode) onSelect;
+  final Function(String currencyCode,String image,String symbol) onSelect;
 
   const CurrencyFromWidget(
       {required this.isContainerVisible, required this.onSelect, Key? key})
@@ -32,38 +35,20 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
   Map<String, double> from = {};
   Map<String, double> to = {};
   Map<String, double> currencyMap = {};
-  List<CurrencyData> currencyList = [];
 
-  List<CurrencyData> favoriteList = [];
 
-  List<CurrencyData> formList = [];
-  List<CurrencyData> toList = [];
 
   @override
   void initState() {
     orderedData();
-
-    // showAll();
     if (edtCurrencyCode.text.isEmpty) {
       edtCurrencyCode.text = "";
     }
     super.initState();
-    getData();
+
   }
 
-  Future getData() async {
-    currencyMap = await Apiclass.getUser();
 
-    currencyMap.forEach((key, value) {
-      currencyList.add(CurrencyData(
-        key: key.toString(),
-        value: value,
-      ));
-    });
-    // if (!streamController.isClosed) {
-    //   streamController.sink.add(currencyList);
-    // }
-  }
 
   @override
   void dispose() {
@@ -71,12 +56,6 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
     super.dispose();
   }
 
-  @override
-  void setState(VoidCallback fn) {
-    starIndex = true;
-
-    super.setState(fn);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,10 +119,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               DataModel model1 = snapshot.data![index];
+
+                              log(model1.toString());
                               return InkWell(
                                 onTap: () {
                                   debugPrint("on tap -> ${model1.code}");
-                                  widget.onSelect(model1.code);
+                                  widget.onSelect(model1.code,model1.image!,model1.symbol!);
                                 },
                                 child: Container(
                                     margin:
@@ -161,9 +142,17 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                       children: [
                                         Row(
                                           children: [
-                                            const Icon(Icons.image),
+                                           Container(
+                                             width: 40,
+                                             height: 40,
+                                               child: ClipRRect(
+                                                 borderRadius: BorderRadius.circular(30),
+                                                   child: SvgPicture.asset(model1.image!,fit: BoxFit.cover,allowDrawingOutsideViewBox: true,))),
+
+
+
                                             const SizedBox(
-                                              width: 4,
+                                              width: 15,
                                             ),
                                             Container(
                                               width: 50,
@@ -180,15 +169,18 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                                           ? (MyColors.textSize +
                                                               18)
                                                           : 18,
+                                                  fontWeight: FontWeight.bold
                                                 ),
                                               ),
                                             ),
                                             const SizedBox(
                                               width: 15,
                                             ),
-                                            Text(
-                                              double.parse(model1.value)
-                                                  .toStringAsFixed(3),
+                                            Container(
+                                              width: 130,
+                                              child: Text(
+                                                model1.name!,style: TextStyle(fontWeight: FontWeight.w500),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -198,19 +190,14 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                               onPressed: () async {
                                                 if (model1.fav == 0) {
                                                   model1.fav = 1;
-
                                                 } else {
                                                   model1.fav = 0;
                                                 }
-                                                updateAll(
-                                                  model1.value,
-                                                  model1.code,
-                                                  model1.fav!,
-                                                );
+                                                updateAll(model1);
                                                 countrycode=[];
                                                 orderedData();
 
-                                                setState(() {});
+
                                               },
                                               icon: model1.fav == 1
                                                   ? Icon(
@@ -251,16 +238,9 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
   }
 
   updateAll(
-    String value,
-    String code,
-    int fav,
+      DataModel datamodel
   ) async {
-    DataModel currencyData = DataModel(
-      value: value,
-      code: code,
-      fav: fav,
-    );
-    await dbHelper.update(currencyData.toMap());
+    await dbHelper.update(datamodel.toMap());
   }
 
   void orderedData() async {
@@ -288,32 +268,5 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
     print(countrycode);
   }
 
-  void currencyfavorite() {
-    from.forEach((key, value) {
-      formList.add(CurrencyData(key: key, value: value));
-    });
-    debugPrint("--->>>>>>>from$from");
 
-    debugPrint("--->>>>>>>$formList");
-
-    for (int i = 0; i < formList.length; i++) {
-      formList[i].favorite = !formList[i].favorite;
-
-      if (formList[i].favorite) {
-        favoriteList = formList.where((element) => element.favorite).toList();
-        for (var element in favoriteList) {
-          int i =
-              formList.indexWhere((element1) => element.key == element1.key);
-          CurrencyData c = formList.removeAt(i);
-          formList.insert(0, c);
-        }
-      }
-    }
-    for (var element in favoriteList) {
-      int i = formList.indexWhere((element1) => element.key == element1.value);
-      CurrencyData c = formList.removeAt(i);
-      formList.insert(0, c);
-      debugPrint("---C >>>>>>>$c");
-    }
-  }
 }

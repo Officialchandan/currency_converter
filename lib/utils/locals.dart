@@ -3,74 +3,87 @@ import 'package:flutter/material.dart';
 class Locals {
   static const english = Locale('en');
   static const hindi = Locale('hi');
-  static const nepali = Locale('ne');
+  static const nepali = Locale('ne','NP');
   static const gujarati = Locale('gu');
   static const catalan = Locale('ca');
-  static const hrvatski = Locale('hr');
-  static const italiana = Locale('it');
-  static const latvietis = Locale('lv');
-  static const magyar = Locale('hu');
-  static const Deutsch = Locale('ach');
-  static const Tamil = Locale('ta');
-
-  static const Georgian = Locale('ka');
-  static const Indonesia = Locale('id');
-  static const marathi = Locale('mr');
-
-  static const melayu = Locale('ms');
-  static const nederlands = Locale('nl');
-
-  static const norsk = Locale('nn');
-  static const polskie = Locale('pl');
-  static const portugues = Locale('pt');
-  static const punjabi = Locale('pa');
-  static const pyccknn = Locale('ru');
-  static const slovenscina = Locale('sl');
-  static const svenska = Locale('sv');
-  static const romana = Locale('ro');
-  static const tieng = Locale('vi');
-  static const turk = Locale('tr');
-  static const greek = Locale('grc');
-
-  static const Bulgarians = Locale('bg', '');
-  static const Ukraine = Locale('uk');
-  // static const Armenian = Locale('arm');
-  // static const Hebrew = Locale('he');
-  //
-  // static const Afar = Locale('aa');
-
-  // static const Chinese = Locale('zh_Hant');
+  static const Croatian = Locale('hr');
+  static const Italian = Locale('it',"IT");
+  static const Spanish = Locale('es');
+  static const Bengali = Locale('bn');
+  static const Portuguese = Locale('pt','BR');
+  //static const Russian  = Locale('ru-RU');
+  static const Japanese = Locale('ja','JP');
+  static const German = Locale('de','DE');
+  static const Bulgarian = Locale('bg');
+  static const Czech = Locale('cs','CZ');
+  static const Danish = Locale('da','DK');
+  static const Dutch = Locale('nl','NL');
+  static const Estonian = Locale('et');
+  static const Finnish = Locale('fi','FI');
+  static const Greek = Locale('el','GR');
+  static const Hungarian = Locale('hu','HU');
+  // static const Hebrew  = Locale('iw-IL');
+  static const Armenian = Locale('hy','AM');
+  static const Indonesian = Locale('id');
+  static const Latvian = Locale('lv');
+  static const Malay = Locale('ms');
+  static const Marathi = Locale('mr','IN');
+  static const Chinese = Locale('zh','CN');
+  static const Polish = Locale('pl','PL');
+  static const Romanian = Locale('ro');
+  static const Serbian = Locale('sr');
+  static const Tamil = Locale('ta','IN');
+  static const Slovak = Locale('sk');
+  static const Slovenian = Locale('sl');
+  static const Telugu = Locale('te','IN');
+  static const Swedish = Locale('sv','SE');
+  static const Turkish = Locale('tr','TR');
+  static const Vietnamese = Locale('vi');
+  static const Ukrainian = Locale('uk');
 
   static List<Map<String, Locale>> language = [
     {"English": Locals.english},
-    {"hrvatski  ": Locals.hrvatski},
-    {"Italiano  ": Locals.italiana},
-    {"latvietis  ": Locals.latvietis},
-    {"magyar  ": Locals.magyar},
-    {"Deutsch  ": Locals.Deutsch},
-    {"தமிழ்  ": Locals.Tamil},
-    {"ქართული  ": Locals.Georgian},
-    {"Indonesia  ": Locals.Indonesia},
-    {"मराठी  ": Locals.marathi},
-    {"melayu  ": Locals.melayu},
-    {"norsk  ": Locals.norsk},
-    {"polskie  ": Locals.polskie},
-    {"nederlands  ": Locals.nederlands},
-    {"portugues  ": Locals.portugues},
-    {"ਪੰਜਾਬੀ  ": Locals.punjabi},
-    {"slovenscina  ": Locals.slovenscina},
-    {"svenska  ": Locals.svenska},
-    {"romana  ": Locals.romana},
-    {"tieng viet  ": Locals.tieng},
-    {"turk  ": Locals.turk},
-    {"Ελληνικά  ": Locals.greek},
-    {"български  ": Locals.Bulgarians},
-    {"Українська  ": Locals.Ukraine},
+    {"català (Catalan)": Locals.catalan},
+    {"Hrvatski (Croatian) ": Locals.Croatian},
+    {"Italiano (Italian)  ": Locals.Italian},
+    {"Española  (Spanish)": Locals.Spanish},
+    {"বাংলা  (Bengali)": Locals.Bengali},
+    {"português  (Portuguese)": Locals.Portuguese},
+    {"日本  (Japanese)": Locals.Japanese},
+    {"Deutsch  (German)": Locals.German},
+    {"български  (Bulgarian)": Locals.Bulgarian},
+    {"čeština  (Czech)": Locals.Czech},
+    {"dansk  (Danish)": Locals.Danish},
+    {"Nederlands  (Dutch)": Locals.Dutch},
+    {"Eestlane  (Estonian)": Locals.Estonian},
+    {"Suomalainen  (Finnish)": Locals.Finnish},
+    {"Ελληνικά (Greek)": Locals.Greek},
+    {"Magyar (Hungarian)": Locals.Hungarian},
+    {"հայերեն (Armenian)": Locals.Armenian},
+    {"bahasa Indonesia (Indonesian)": Locals.Indonesian},
+    {"Latvietis (Latvian)": Locals.Latvian},
+    {"Melayu (Malay)": Locals.Malay},
+    {"मराठी (Marathi)": Locals.Marathi},
+    {"中国人 (Chinese)": Locals.Chinese},
+    {"Polskie (Polish)": Locals.Polish},
+    {"Română (Romanian)": Locals.Romanian},
+    {"Српски (Serbian)": Locals.Serbian},
+    {"தமிழ் (Tamil)": Locals.Tamil},
+    {"Slovenský (Slovak)": Locals.Slovak},
+    {"Slovenščina (Slovenian)": Locals.Slovenian},
+    {"తెలుగు (Telugu)": Locals.Telugu},
+    {"svenska (Swedish)": Locals.Swedish},
+    {"Türk (Turkish)": Locals.Turkish},
+    {"Tiếng Việt (Vietnamese)": Locals.Vietnamese},
+    {"Українська (Ukrainian)": Locals.Ukrainian},
+
+//37
+
     {
-      "हिंदी": Locals.hindi,
+      "हिंदी (Hindi)": Locals.hindi,
     },
-    {"नेपाली": Locals.nepali},
-    {"ગુજરાતી": Locals.gujarati},
+    {"नेपाली (Nepali)": Locals.nepali},
+    {"ગુજરાતી (Gujarati)": Locals.gujarati},
     // {"Հայերեն  ": Locals.Armenian},
     // {"Hebrew  ": Locals.Hebrew},
     // {"বাংলা  ": Locals.Afar},
@@ -79,34 +92,41 @@ class Locals {
 
   static const supportedLang = [
     english,
+    catalan,
+    Croatian,
+    Italian,
+    Spanish,
+    Bengali,
+    Portuguese,
+    Japanese,
+    German,
+    Bulgarian,
+    Czech,
+    Danish,
+    Dutch,
+    Estonian,
+    Finnish,
+    Greek,
+    Hungarian,
+    Armenian,
+    Indonesian,
+    Latvian,
+    Malay,
+    Marathi,
+    Chinese,
+    Polish,
+    Romanian,
+    Serbian,
+    Tamil,
+    Slovak,
+    Slovenian,
+    Telugu,
+    Swedish,
+    Turkish,
+    Vietnamese,
+    Ukrainian,
     hindi,
     nepali,
-    gujarati,
-    catalan,
-    hrvatski,
-    latvietis,
-    magyar,
-    Deutsch,
-    Tamil,
-    marathi,
-    polskie,
-    nederlands,
-    portugues,
-    punjabi,
-    pyccknn,
-    slovenscina,
-    svenska,
-    romana,
-    tieng,
-    turk,
-    greek,
-    Ukraine,
-    // Armenian,
-    // Hebrew,
-
-    // Bulgarians,
-    // norsk,
-    // Georgian,
-    // melayu,
+    gujarati
   ];
 }

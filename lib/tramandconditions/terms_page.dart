@@ -631,7 +631,7 @@ class _TermsPageState extends State<TermsPage> {
                 text: TextSpan(
                   text:
                   'You shall provide the Company with accurate and complete billing information including full name, address, state, zip code, telephone number, and a valid payment method information.\n\n',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15,color: MyColors.textColor),
                   children: const <TextSpan>[
                     TextSpan(
                         text:
@@ -742,6 +742,7 @@ class _TermsPageState extends State<TermsPage> {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
+                      color: MyColors.textColor,
                     ),
                     children: const <TextSpan>[
                       TextSpan(
@@ -1391,6 +1392,7 @@ class _TermsPageState extends State<TermsPage> {
           ],
         ),
       ),
+
     )
 
 

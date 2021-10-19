@@ -37,9 +37,6 @@ class _SettingScreenState extends State<SettingScreen> {
   bool isSwitched = false;
   bool isMultiConverter = true;
 
-  bool displaycode = false;
-  bool displaysymbol = true;
-  bool displayflag = true;
 
   bool customcolorbool = false;
 
@@ -389,7 +386,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(right: 0, top: 15),
-                  width: width * .92,
+                  width: width * .94,
                   padding: const EdgeInsets.only(
                       top: 10, left: 0, right: 0, bottom: 10),
                   decoration: BoxDecoration(
@@ -427,7 +424,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                       ),
                       Container(
-                          width: width * 0.5,
+
+                          //width: width * 0.5,
                           decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.69),
                               borderRadius: BorderRadius.circular(10),
@@ -455,11 +453,14 @@ class _SettingScreenState extends State<SettingScreen> {
                                   const SizedBox(height: 5),
                                   Row(
                                     children: [
-                                      Icon(
-                                        Icons.flag,
-                                        size: 30,
-                                        color: MyColors.insideTextFieldColor,
-                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 10),
+                                          width: 35,
+                                          height: 35,
+                                          child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(30),
+                                              child: SvgPicture.asset("assets/countyImage/USD.svg",fit: BoxFit.cover,))),
+
                                       Text(
                                         "USD",
                                         style: GoogleFonts.roboto(
@@ -486,11 +487,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       const SizedBox(width: 8),
-                                      Icon(
-                                        Icons.flag,
-                                        size: 30,
-                                        color: MyColors.insideTextFieldColor,
-                                      ),
+                                      Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          width: 35,
+                                          height: 35,
+                                          child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(30),
+                                              child: SvgPicture.asset("assets/countyImage/INR.svg",fit: BoxFit.cover,))),
                                       Text(
                                         "EUR",
                                         style: GoogleFonts.roboto(
@@ -564,7 +567,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Container(
                     //  margin: EdgeInsets.only(right: 22),
                     height: 50,
-                    width: width * .92,
+                    width: width * .945,
                     padding: EdgeInsets.only(
                         top: 15, left: 0, right: 15, bottom: 15),
                     decoration: BoxDecoration(
@@ -684,9 +687,9 @@ class _SettingScreenState extends State<SettingScreen> {
                             color: MyColors.textColor,
                             fontWeight: FontWeight.bold))),
                 Container(
-                    margin: EdgeInsets.only(right: 15, top: 8, bottom: 5),
-                    height: 90,
-                    width: 380,
+                    margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
+
+                    width: width * .945,
                     padding: EdgeInsets.only(
                         top: 15, left: 10, right: 20, bottom: 15),
                     decoration: BoxDecoration(
@@ -772,7 +775,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             fontWeight: FontWeight.bold))),
                 Container(
                     margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
-                    width: width * .92,
+                    width: width * .945,
                     padding:
                         EdgeInsets.only(top: 5, left: 10, right: 5, bottom: 5),
                     decoration: BoxDecoration(
@@ -799,19 +802,19 @@ class _SettingScreenState extends State<SettingScreen> {
                             Switch(
                               inactiveTrackColor: Colors.grey,
                               inactiveThumbColor: MyColors.textColor,
-                              value: displaycode,
+                              value: MyColors.displaycode,
                               onChanged: (value) {
                                 setState(() {
-                                  if (displayflag) {
-                                    if (displaysymbol) {
-                                      displaysymbol = false;
-                                      displaycode = true;
+                                  if (MyColors.displayflag) {
+                                    if (MyColors.displaysymbol) {
+                                      MyColors.displaysymbol = false;
+                                      MyColors.displaycode = true;
                                     } else
-                                      displaycode = !displaycode;
-                                  } else if (displaycode) {
+                                      MyColors.displaycode = !MyColors.displaycode;
+                                  } else if (MyColors.displaycode) {
                                   } else {
-                                    displaycode = true;
-                                    displaysymbol = false;
+                                    MyColors.displaycode = true;
+                                    MyColors.displaysymbol = false;
                                   }
 
                                   // print(isSwitched);
@@ -841,20 +844,20 @@ class _SettingScreenState extends State<SettingScreen> {
                             Switch(
                               inactiveTrackColor: Colors.grey,
                               inactiveThumbColor: MyColors.textColor,
-                              value: displaysymbol,
+                              value: MyColors.displaysymbol,
                               onChanged: (value) {
                                 setState(() {
-                                  if (displayflag) {
-                                    if (displaycode) {
-                                      displaysymbol = true;
-                                      displaycode = false;
+                                  if (MyColors.displayflag) {
+                                    if (MyColors.displaycode) {
+                                      MyColors.displaysymbol = true;
+                                      MyColors.displaycode = false;
                                     } else
-                                      displaysymbol = !displaysymbol;
-                                  } else if (displaysymbol) {
-                                  } else if (displaysymbol && !displayflag) {
+                                      MyColors.displaysymbol = !MyColors.displaysymbol;
+                                  } else if (MyColors.displaysymbol) {
+                                  } else if (MyColors.displaysymbol && !MyColors.displayflag) {
                                   } else {
-                                    displaysymbol = true;
-                                    displaycode = false;
+                                    MyColors.displaysymbol = true;
+                                    MyColors.displaycode = false;
                                   }
                                 });
                               },
@@ -882,12 +885,12 @@ class _SettingScreenState extends State<SettingScreen> {
                             Switch(
                               inactiveTrackColor: Colors.grey,
                               inactiveThumbColor: MyColors.textColor,
-                              value: displayflag,
+                              value: MyColors.displayflag,
                               onChanged: (value) {
                                 setState(() {
-                                  if (!displaycode && !displaysymbol) {
+                                  if (!MyColors.displaycode && !MyColors.displaysymbol) {
                                   } else
-                                    displayflag = !displayflag;
+                                    MyColors.displayflag = !MyColors.displayflag;
                                   // print(isSwitched);
                                 });
                               },
@@ -912,7 +915,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Container(
                     margin: EdgeInsets.only(bottom: 24),
                     height: 55,
-                    width: width * .92,
+                    width: width * .945,
                     padding:
                         EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
                     decoration: BoxDecoration(
