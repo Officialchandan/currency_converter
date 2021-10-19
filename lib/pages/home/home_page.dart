@@ -88,7 +88,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
 
                 if (_selectedIndex == 3) {
                   ratingBottomSheet(context);
-                  _tabController.index = escapeIndex;
+                  _tabController.index = _tabController.previousIndex;
                 }
               },
               indicatorColor: Colors.white,
@@ -176,7 +176,19 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       ),
     );
   }
+  tabChangeListener(int index) {
+    debugPrint("index ->$index");
+      if (index == 3) {
 
+          ratingBottomSheet(context);
+
+
+
+      }
+
+
+    setState(() {});
+  }
   onThemeChange() {
     setState(() {});
   }
@@ -336,14 +348,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         });
   }
 
-  tabChangeListener(int index) {
-    debugPrint("index ->$index");
-    if (index == 3) {
-      ratingBottomSheet(context);
-    }
 
-    setState(() {});
-  }
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {

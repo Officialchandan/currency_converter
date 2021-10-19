@@ -109,6 +109,6 @@ Future<void> insertData() async {
   } catch (e) {
     print(e);
   }
-  dbHelper.queryAll();
+
 
 }

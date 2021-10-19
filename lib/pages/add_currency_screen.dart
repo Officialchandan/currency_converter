@@ -145,7 +145,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                     width: 20,
                                   ),
                                   Container(
-                                    width:120,
+                                    width:195,
                                     child: Text(
                                       data.name!,style: TextStyle(fontWeight: FontWeight.w500,
                                       color: MyColors.insideTextFieldColor,fontSize: 15),
