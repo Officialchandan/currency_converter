@@ -43,18 +43,17 @@ dependencies:
   dio: ^4.0.0
   smooth_star_rating: ^1.1.1
   rating_bar: ^0.2.0
-  url_launcher: ^6.0.12
+  url_launcher:
   easy_localization:
   currency_text_input_formatter: ^2.1.3
   share:
-  webview_flutter: ^2.1.1
+
   auto_size_text_field: ^1.0.1
   sqflite: ^1.1.0
   path_provider:
   path: ^1.8.0
   flutter_hsvcolor_picker:
   fluttertoast:
-  flutter_svg: ^0.23.0+1
 
 
 
@@ -85,6 +84,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/
+   - assets/pngCountryImages/
    - assets/languagecode/
    - assets/images/
    - assets/countyImage/

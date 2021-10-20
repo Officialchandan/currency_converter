@@ -1,22 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:currency_converter/API/apis.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
-
-import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CurrencyFromWidget extends StatefulWidget {
-  final Function(String currencyCode,String image,String symbol) onSelect;
+  final Function(String currencyCode, String image, String symbol) onSelect;
 
-  const CurrencyFromWidget(
-      {required this.isContainerVisible, required this.onSelect, Key? key})
-      : super(key: key);
+  const CurrencyFromWidget({required this.isContainerVisible, required this.onSelect, Key? key}) : super(key: key);
   final bool isContainerVisible;
 
   @override
@@ -36,8 +30,6 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
   Map<String, double> to = {};
   Map<String, double> currencyMap = {};
 
-
-
   @override
   void initState() {
     orderedData();
@@ -45,17 +37,13 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
       edtCurrencyCode.text = "";
     }
     super.initState();
-
   }
-
-
 
   @override
   void dispose() {
     streamController.sink.close();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +58,8 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
             borderRadius: BorderRadius.circular(13.0),
           ),
           duration: const Duration(seconds: 0),
-          height: widget.isContainerVisible
-              ? MediaQuery.of(context).size.height * 0.57
-              : 0.0,
-          width: widget.isContainerVisible
-              ? MediaQuery.of(context).size.width
-              : 0.0,
+          height: widget.isContainerVisible ? MediaQuery.of(context).size.height * 0.57 : 0.0,
+          width: widget.isContainerVisible ? MediaQuery.of(context).size.width : 0.0,
           child: Column(
             children: [
               Padding(
@@ -85,10 +69,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                     List<DataModel> searchList = [];
 
                     for (var element in countrycode) {
-                      if (element.code
-                          .toString()
-                          .toLowerCase()
-                          .contains(text.trim().toLowerCase())) {
+                      if (element.code.toString().toLowerCase().contains(text.trim().toLowerCase())) {
                         searchList.add(element);
                       }
                     }
@@ -102,8 +83,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                       color: Colors.black,
                     ),
                     hintText: "Search",
-                    hintStyle:
-                        TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+                    hintStyle: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -124,11 +104,10 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                               return InkWell(
                                 onTap: () {
                                   debugPrint("on tap -> ${model1.code}");
-                                  widget.onSelect(model1.code,model1.image!,model1.symbol!);
+                                  widget.onSelect(model1.code, model1.image!, model1.symbol!);
                                 },
                                 child: Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(10, 1, 10, 0),
+                                    margin: const EdgeInsets.fromLTRB(10, 1, 10, 0),
                                     padding: const EdgeInsets.only(left: 5),
                                     decoration: BoxDecoration(
                                       // color: MyColors.textColor,
@@ -137,20 +116,19 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                       borderRadius: BorderRadius.circular(7),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           children: [
-                                           Container(
-                                             width: 40,
-                                             height: 40,
-                                               child: ClipRRect(
-                                                 borderRadius: BorderRadius.circular(30),
-                                                   child: SvgPicture.asset(model1.image!,fit: BoxFit.cover,allowDrawingOutsideViewBox: true,))),
-
-
-
+                                            Container(
+                                                width: 40,
+                                                height: 40,
+                                                child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(30),
+                                                    child: Image.asset(
+                                                      model1.image!,
+                                                      fit: BoxFit.cover,
+                                                    ))),
                                             const SizedBox(
                                               width: 15,
                                             ),
@@ -159,18 +137,13 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                               child: Text(
                                                 model1.code,
                                                 style: TextStyle(
-                                                  color: MyColors
-                                                      .insideTextFieldColor,
-                                                  fontSize: MyColors.fontsmall
-                                                      ? (MyColors.textSize -
-                                                              18) *
-                                                          (-1)
-                                                      : MyColors.fontlarge
-                                                          ? (MyColors.textSize +
-                                                              18)
-                                                          : 18,
-                                                  fontWeight: FontWeight.bold
-                                                ),
+                                                    color: MyColors.insideTextFieldColor,
+                                                    fontSize: MyColors.fontsmall
+                                                        ? (MyColors.textSize - 18) * (-1)
+                                                        : MyColors.fontlarge
+                                                            ? (MyColors.textSize + 18)
+                                                            : 18,
+                                                    fontWeight: FontWeight.bold),
                                               ),
                                             ),
                                             const SizedBox(
@@ -179,7 +152,8 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             Container(
                                               width: 130,
                                               child: Text(
-                                                model1.name!,style: TextStyle(fontWeight: FontWeight.w500),
+                                                model1.name!,
+                                                style: TextStyle(fontWeight: FontWeight.w500),
                                               ),
                                             ),
                                           ],
@@ -194,17 +168,14 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                                   model1.fav = 0;
                                                 }
                                                 updateAll(model1);
-                                                countrycode=[];
+                                                countrycode = [];
                                                 orderedData();
-
-
                                               },
                                               icon: model1.fav == 1
                                                   ? Icon(
                                                       Icons.star_sharp,
                                                       size: 30.0,
-                                                      color:
-                                                          MyColors.colorPrimary,
+                                                      color: MyColors.colorPrimary,
                                                     )
                                                   : const Icon(
                                                       Icons.star_border,
@@ -237,9 +208,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
     );
   }
 
-  updateAll(
-      DataModel datamodel
-  ) async {
+  updateAll(DataModel datamodel) async {
     await dbHelper.update(datamodel.toMap());
   }
 
@@ -267,6 +236,4 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
     }
     print(countrycode);
   }
-
-
 }

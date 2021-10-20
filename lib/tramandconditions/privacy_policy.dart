@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({Key? key}) : super(key: key);
@@ -17,7 +14,6 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
@@ -30,11 +26,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                child: Text("Privacy Policy",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900)),
+                child: Text("Privacy Policy", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
               ),
               Container(
                 padding: EdgeInsets.only(
@@ -72,10 +64,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   top: 20,
                 ),
                 child: Text("Interpretation and Definitions",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
               ),
               Container(
                 padding: EdgeInsets.only(
@@ -84,10 +73,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Interpretation',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 22),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 22),
                   ),
                 ),
               ),
@@ -97,30 +83,20 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 ),
                 child: Text(
                     "The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
               ),
               Container(
                 padding: EdgeInsets.only(
                   top: 20,
                 ),
-                child: Text("Definitions",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w900)),
+                child: Text("Definitions", style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
               ),
               Container(
                 padding: EdgeInsets.only(
                   top: 20,
                 ),
                 child: Text("For the purposes of this Privacy Policy:",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
               ),
               Container(
                 padding: EdgeInsets.only(left: 20, top: 20),
@@ -135,14 +111,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Account',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
-                                text:
-                                    ' means a unique account created for You to access our Service or parts of our Service. ',
+                                text: ' means a unique account created for You to access our Service or parts of our Service. ',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -167,10 +139,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Affiliate ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -199,10 +168,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Application',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -231,10 +197,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Country refers to:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text: 'California, United States ',
@@ -262,10 +225,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Company',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -294,10 +254,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Device ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -326,10 +283,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'In-app Purchase ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -358,10 +312,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Service',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text: ' refers to the Application. ',
@@ -389,10 +340,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Subscriptions ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -421,10 +369,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Terms and Conditions',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -453,10 +398,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Third-party Social Media Service',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -485,10 +427,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'You',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -509,20 +448,14 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   top: 20,
                 ),
                 child: Text("Collecting and Using Your Personal Data",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
               ),
               Container(
                 padding: EdgeInsets.only(
                   top: 20,
                 ),
                 child: Text("Types of Data Collected",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w900)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
               ),
               Container(
                 padding: EdgeInsets.only(
@@ -561,10 +494,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Email address',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: MyColors.textColor),
                         ),
                       ),
                     ),
@@ -584,10 +514,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Usage Data',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: MyColors.textColor),
                         ),
                       ),
                     ),
@@ -601,14 +528,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Usage Data\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 20),
                     children: const <TextSpan>[
                       TextSpan(
-                          text:
-                              'Usage Data is collected automatically when using the Service.\n\n',
+                          text: 'Usage Data is collected automatically when using the Service.\n\n',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -643,21 +566,14 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   top: 20,
                 ),
                 child: Text("Use of Your Personal Data",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w900)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 22, fontWeight: FontWeight.w900)),
               ),
               Container(
                 padding: EdgeInsets.only(
                   top: 10,
                 ),
-                child: Text(
-                    "The Company may use Personal Data for the following purposes:",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
+                child: Text("The Company may use Personal Data for the following purposes:",
+                    style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
               ),
               Container(
                 padding: EdgeInsets.only(left: 20, top: 10),
@@ -672,14 +588,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'To provide and maintain our Service,',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
-                                text:
-                                    ' including to monitor the usage of our Service. ',
+                                text: ' including to monitor the usage of our Service. ',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -704,10 +616,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'To manage Your Account',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -736,10 +645,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'For the performance of a contract:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -768,10 +674,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'To contact You:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -800,10 +703,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'To provide You',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -832,14 +732,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'To manage Your requests:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
-                                text:
-                                    ' To attend and manage Your requests to Us.',
+                                text: ' To attend and manage Your requests to Us.',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -864,10 +760,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'For business transfers:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -896,10 +789,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'For other purposes:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -919,12 +809,8 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 padding: EdgeInsets.only(
                   top: 10,
                 ),
-                child: Text(
-                    "We may share Your personal information in the following situations:",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
+                child: Text("We may share Your personal information in the following situations:",
+                    style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
               ),
               Container(
                 padding: EdgeInsets.only(left: 20, top: 10),
@@ -939,10 +825,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'With Service Providers',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -973,10 +856,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'For business transfers:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -1007,10 +887,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'With Affiliates:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -1041,10 +918,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'With business partners:',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -1075,10 +949,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'With other users: ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text:
@@ -1109,14 +980,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'With Your consent',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
-                                text:
-                                    ' We may disclose Your personal information for any other purpose with Your consent. ',
+                                text: ' We may disclose Your personal information for any other purpose with Your consent. ',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -1135,10 +1002,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Retention of Your Personal Data\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 22),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 22),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -1165,10 +1029,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Transfer of Your Personal Data\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 25),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 25),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -1193,10 +1054,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   top: 10,
                 ),
                 child: Text("Disclosure of Your Personal Data ",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),
               ),
               Container(
                 padding: EdgeInsets.only(
@@ -1205,10 +1063,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Business Transactions\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 20),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -1228,10 +1083,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Law enforcement\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 20),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -1251,10 +1103,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Other legal requirements\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 20),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -1304,8 +1153,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                            text:
-                                'Protect and defend the rights or property of the Company',
+                            text: 'Protect and defend the rights or property of the Company',
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -1330,8 +1178,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                            text:
-                                'Prevent or investigate possible wrongdoing in connection with the Service',
+                            text: 'Prevent or investigate possible wrongdoing in connection with the Service',
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -1356,8 +1203,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                            text:
-                                'Protect the personal safety of Users of the Service or the public',
+                            text: 'Protect the personal safety of Users of the Service or the public',
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -1425,10 +1271,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Security of Your Personal Data\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 25),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 25),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -1447,12 +1290,8 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 ),
                 child: RichText(
                   text: TextSpan(
-                    text:
-                        'Detailed Information on the Processing of Your Personal Data"\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 25),
+                    text: 'Detailed Information on the Processing of Your Personal Data"\n\n',
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 25),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -1472,14 +1311,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Analytics\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 25),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 25),
                     children: const <TextSpan>[
                       TextSpan(
-                          text:
-                              'We may use third-party Service providers to monitor and analyze the use of our Service.',
+                          text: 'We may use third-party Service providers to monitor and analyze the use of our Service.',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -1498,17 +1333,13 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     children: [
                       Text(
                         "\u2022 ",
-                        style:
-                            TextStyle(fontSize: 18, color: MyColors.textColor),
+                        style: TextStyle(fontSize: 18, color: MyColors.textColor),
                       ),
                       Expanded(
                         child: RichText(
                           text: TextSpan(
                             text: 'Google Analytics\n',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                color: MyColors.textColor,
-                                fontSize: 16),
+                            style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 16),
                             children: const <TextSpan>[
                               TextSpan(
                                   text:
@@ -1529,10 +1360,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 ),
                 child: Text(
                     "You may opt-out of certain Google Analytics features through your mobile device settings, such as your device advertising settings or by following the instructions provided by Google in their Privacy Policy",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: MyColors.textColor)),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: MyColors.textColor)),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 40),
@@ -1541,20 +1369,14 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://policies.google.com/privacy.',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Container(
                 padding: EdgeInsets.only(left: 40, top: 15),
                 child: Text(
                     "For more information on the privacy practices of Google, please visit the Google Privacy & Terms web page",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: MyColors.textColor)),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: MyColors.textColor)),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 40),
@@ -1563,10 +1385,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://policies.google.com/privacy.',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Container(
@@ -1582,14 +1401,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Firebase\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
-                                text:
-                                    'Firebase is an analytics service provided by Google Inc.\n\n',
+                                text: 'Firebase is an analytics service provided by Google Inc.\n\n',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -1615,10 +1430,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://policies.google.com/privacy.',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Padding(
@@ -1641,20 +1453,14 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://support.google.com/analytics/answer/6004245',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 30, top: 15),
                 child: Text(
                     'For more information on what type of information Firebase collects, please visit the How Google uses data when you use our partners sites or apps webpage: ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        color: MyColors.textColor)),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: MyColors.textColor)),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 30),
@@ -1663,10 +1469,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://policies.google.com/technologies/partner-sites',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Container(
@@ -1682,10 +1485,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'AppsFlyer\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text: 'Their Privacy Policy can be viewed at',
@@ -1707,10 +1507,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://www.appsflyer.com/privacy-policy/',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Container(
@@ -1726,10 +1523,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Facebook App Ads\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: MyColors.textColor),
                           children: const <TextSpan>[
                             TextSpan(
                                 text: 'Their Privacy Policy can be viewed at',
@@ -1751,10 +1545,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://www.facebook.com/about/privacy',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Container(
@@ -1764,14 +1555,10 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Advertising\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: MyColors.textColor,
-                        fontSize: 25),
+                    style: TextStyle(fontWeight: FontWeight.w900, color: MyColors.textColor, fontSize: 25),
                     children: const <TextSpan>[
                       TextSpan(
-                          text:
-                              'We may use third-party Service providers to monitor and analyze the use of our Service.',
+                          text: 'We may use third-party Service providers to monitor and analyze the use of our Service.',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -1790,8 +1577,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     children: [
                       Text(
                         "\u2022 ",
-                        style:
-                            TextStyle(fontSize: 18, color: MyColors.textColor),
+                        style: TextStyle(fontSize: 18, color: MyColors.textColor),
                       ),
                       Expanded(
                         child: RichText(
@@ -1804,8 +1590,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                             ),
                             children: const <TextSpan>[
                               TextSpan(
-                                  text:
-                                      'AdMob by Google is provided by Google Inc.\n\n',
+                                  text: 'AdMob by Google is provided by Google Inc.\n\n',
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -1830,10 +1615,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://support.google.com/ads/answer/2662922?hl=en',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 16, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Container(
@@ -1842,7 +1624,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   ),
                   child: Row(
                     children: [
-                      Text(      
+                      Text(
                           'For more information on how Google\n usesthe collected information,\n please visit the"How Google uses\n data when you use our\n partners sites or app"page',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -1858,10 +1640,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://policies.google.com/technologies/partner-sites',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 15, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Padding(
@@ -1882,10 +1661,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://www.facebook.com/about/privacy',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 15, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Container(
@@ -1895,10 +1671,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Payments\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 25,
-                        color: MyColors.textColor),
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25, color: MyColors.textColor),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -1928,17 +1701,13 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     children: [
                       Text(
                         "\u2022 ",
-                        style:
-                            TextStyle(fontSize: 18, color: MyColors.textColor),
+                        style: TextStyle(fontSize: 18, color: MyColors.textColor),
                       ),
                       Expanded(
                         child: RichText(
                           text: TextSpan(
                             text: 'Google Play In-App Payments\n\n',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15,
-                                color: MyColors.textColor),
+                            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: MyColors.textColor),
                             children: const <TextSpan>[
                               TextSpan(
                                   text: 'Their Privacy Policy can be viewed at',
@@ -1959,10 +1728,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     child: Text(
                       'https://www.google.com/policies/privacy/',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: Colors.indigo,
-                          decoration: TextDecoration.underline),
+                          fontWeight: FontWeight.w600, fontSize: 14, color: Colors.indigo, decoration: TextDecoration.underline),
                     )),
               ),
               Container(
@@ -2003,10 +1769,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Links to Other Websites\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 25,
-                        color: MyColors.textColor),
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25, color: MyColors.textColor),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -2033,10 +1796,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 child: RichText(
                   text: TextSpan(
                     text: 'Changes to this Privacy Policy\n\n',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 25,
-                        color: MyColors.textColor),
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25, color: MyColors.textColor),
                     children: const <TextSpan>[
                       TextSpan(
                           text:
@@ -2077,8 +1837,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     ),
                     children: const <TextSpan>[
                       TextSpan(
-                          text:
-                              'If you have any questions about these Terms and Conditions, You can contact us:',
+                          text: 'If you have any questions about these Terms and Conditions, You can contact us:',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -2090,10 +1849,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
               Container(
                 padding: EdgeInsets.only(left: 30, top: 10, bottom: 50),
                 child: Text("By email: info@currency.wiki",
-                    style: TextStyle(
-                        color: MyColors.textColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: MyColors.textColor, fontSize: 15, fontWeight: FontWeight.w600)),
               ),
             ],
           )),

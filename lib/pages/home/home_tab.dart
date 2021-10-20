@@ -1,7 +1,10 @@
 import 'dart:developer';
 
+import 'dart:io';
+
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
@@ -27,10 +30,10 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
-  String symbol = "\$";
+  String symbol="\$";
 
-  String flagfrom = "assets/countyImage/USD.svg";
-  String flagto = "assets/countyImage/INR.svg";
+  String flagfrom = "assets/pngCountryImages/USD.png";
+  String flagto = "assets/pngCountryImages/INR.png";
 
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
@@ -68,6 +71,7 @@ class _TapHomeState extends State<TapHome> {
     // Insert();
     getCurrencyCode();
 
+
     super.initState();
   }
 
@@ -79,8 +83,8 @@ class _TapHomeState extends State<TapHome> {
     if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
       edtFrom.text = currencyCodeFrom;
       edtTo.text = currencyCodeTo;
-      flagfrom = "assets/countyImage/$currencyCodeFrom.svg";
-      flagto = "assets/countyImage/$currencyCodeTo.svg";
+      flagfrom = "assets/pngCountryImages/$currencyCodeFrom.png";
+      flagto = "assets/pngCountryImages/$currencyCodeTo.png";
 
       getConverterAPI(
           currencyCodeFrom, currencyCodeTo, conversionRate.toString());
@@ -123,7 +127,7 @@ class _TapHomeState extends State<TapHome> {
                           children: [
                             Center(
                               child: Text(
-                                "update".tr().toString() + ":",
+                                "update".tr().toString()+":",
                                 style: TextStyle(
                                   color: MyColors.textColor,
                                   fontSize: MyColors.fontsmall
@@ -170,7 +174,7 @@ class _TapHomeState extends State<TapHome> {
                             onTap: () async {
                               _onShareWithEmptyOrigin(context);
                             },
-                            child: Icon(
+                            child:  Icon(
                               Icons.share,
                               color: MyColors.textColor,
                             )),
@@ -229,8 +233,7 @@ class _TapHomeState extends State<TapHome> {
                                           style: TextStyle(
                                             color: MyColors.textColor,
                                             fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) *
-                                                    (-1)
+                                                ? (MyColors.textSize - 18) * (-1)
                                                 : MyColors.fontlarge
                                                     ? (MyColors.textSize + 18)
                                                     : 18,
@@ -245,8 +248,7 @@ class _TapHomeState extends State<TapHome> {
                                             color: MyColors.textColor,
                                             fontWeight: FontWeight.w600,
                                             fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 20) *
-                                                    (-1)
+                                                ? (MyColors.textSize - 20) * (-1)
                                                 : MyColors.fontlarge
                                                     ? (MyColors.textSize + 20)
                                                     : 20,
@@ -257,7 +259,7 @@ class _TapHomeState extends State<TapHome> {
                         ),
                         Center(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.70,
+                            width: MediaQuery.of(context).size.width * 0.50,
                             // width: 150,
                             child: AutoSizeTextField(
                               textAlignVertical: TextAlignVertical.center,
@@ -277,7 +279,7 @@ class _TapHomeState extends State<TapHome> {
                               ),
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
-                              keyboardType: TextInputType.none,
+                              // keyboardType: TextInputType.none,
                               showCursor: true,
                               readOnly: true,
                               decoration: const InputDecoration(
@@ -294,8 +296,7 @@ class _TapHomeState extends State<TapHome> {
                               },
                               onChanged: (text) {
                                 print("onchange -> $text");
-                                getConverterAPI(currencyCodeFrom,
-                                    currencyCodeTo, conversionRate.toString());
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, conversionRate.toString());
                               },
                             ),
                           ),
@@ -317,8 +318,7 @@ class _TapHomeState extends State<TapHome> {
                                   currencyCodeToSave(currencyCodeTo);
                                   setState(() {});
 
-                                  getConverterAPI(currencyCodeFrom,
-                                      currencyCodeTo, calculateCurrency.text);
+                                  getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                                 },
                                 child: Image.asset(
                                   "assets/images/right-left.png",
@@ -380,9 +380,11 @@ class _TapHomeState extends State<TapHome> {
                                   padding: EdgeInsets.all(5),
                                   height: 10,
                                   width: 10,
+
+                                  
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
-                                    child: SvgPicture.asset(
+                                    child: Image.asset(
                                       flagfrom,
                                       fit: BoxFit.cover,
                                     ),
@@ -442,13 +444,15 @@ class _TapHomeState extends State<TapHome> {
                               },
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                prefixIcon: Container(
+                                prefixIcon:Container(
                                   padding: EdgeInsets.all(5),
+                                  
                                   width: 15,
                                   height: 15,
+
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
-                                    child: SvgPicture.asset(
+                                    child: Image.asset(
                                       flagto,
                                       fit: BoxFit.cover,
                                     ),
@@ -494,18 +498,16 @@ class _TapHomeState extends State<TapHome> {
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
-                          onSelect: (String currencyCode, String image,
-                              String symbol1) {
+                          onSelect: (String currencyCode, String image, String symbol1) {
                             symbol = symbol1;
                             currencyCodeFrom = currencyCode;
-                            flagfrom = image;
+                            flagfrom=image;
 
                             currencyCodeFromSave(currencyCodeFrom);
                             edtFrom.text = currencyCode;
                             edtCurrency.text = currencyCode;
                             _isContainerVisible = false;
-                            getConverterAPI(currencyCodeFrom, currencyCodeTo,
-                                conversionRate.toString());
+                            getConverterAPI(currencyCodeFrom, currencyCodeTo, conversionRate.toString());
 
                             setState(() {});
                           },
@@ -588,7 +590,6 @@ class _TapHomeState extends State<TapHome> {
       ),
     );
   }
-
   Future<void> Insert() async {
     print("Bobel");
 
@@ -603,20 +604,15 @@ class _TapHomeState extends State<TapHome> {
         Map res = response.data!;
         Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
-          DataModel currencyData = DataModel(
-              value: value.toString(),
-              code: key,
-              image: "",
-              name: "",
-              fav: 0,
-              selected: 0);
+          DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
 
           int id = await dbHelper.insert(currencyData.toMap());
 
-          // print("id->>>>>$id");
+         // print("id->>>>>$id");
         });
 
-        showAll();
+          showAll();
+
       } else {
         print("NOT FOUND DATA");
       }
@@ -624,38 +620,42 @@ class _TapHomeState extends State<TapHome> {
       print(e);
     }
   }
-
   void showAll() async {
     List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
     allRows.forEach((element) {
-      // debugPrint("element-->$element");
+     // debugPrint("element-->$element");
       DataModel currencyData = DataModel.fromMap(element);
       countrycode.add(currencyData);
     });
+
   }
+  void particularrow()async{
 
   void particularrow() async {}
-  Future<Map<String, dynamic>> getConverterAPI(
-      String form, String to, String rate) async {
+  Future<Map<String, dynamic>> getConverterAPI(String form, String to, String rate) async {
     debugPrint("input from -> $form");
     debugPrint("input to -> $to");
 
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
 
+
+
+
+
     try {
       double a = double.parse(formRow.first.values.toList()[3]);
       double b = double.parse(toRow.first.values.toList()[3]);
       conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
-      text = double.parse(conversionRate.toString())
-          .toStringAsFixed(MyColors.decimalformat);
+      text = double.parse(conversionRate.toString()).toStringAsFixed(MyColors.decimalformat);
       // format(conversionRate);
 
-      debugPrint("conversionRate $form to $to--> $conversionRate");
+        debugPrint("conversionRate $form to $to--> $conversionRate");
 
-      setState(() {});
+        setState(() {});
 
-      return cresult;
+        return cresult;
+
     } catch (e) {
       print(e);
     }

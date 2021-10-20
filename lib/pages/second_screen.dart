@@ -5,15 +5,11 @@ import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
-import 'package:currency_converter/pages/setting_screen.dart';
-import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_currency_screen.dart';
 
@@ -60,8 +56,6 @@ class _SecondScreenState extends State<SecondScreen> {
     debugPrint("selectedList-->$selectedList");
     streamController.add(selectedList);
   }
-
-
 
   @override
   void dispose() {
@@ -149,7 +143,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     onTap: () {
                       _onShareWithEmptyOrigin(context);
                     },
-                    child:  Icon(
+                    child: Icon(
                       Icons.share,
                       color: MyColors.textColor,
                     ),
@@ -183,123 +177,128 @@ class _SecondScreenState extends State<SecondScreen> {
                             ),
                             child: SizedBox(
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  MyColors.displayflag&& MyColors.displaycode?  Container(
-                                      width: 40,
-                                      height: 40,
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(30),
-                                          child: SvgPicture.asset(model.image!,fit: BoxFit.cover,))):Text(""),
+                                  MyColors.displayflag && MyColors.displaycode
+                                      ? Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(30),
+                                              child: Image.asset(
+                                                model.image!,
+                                                fit: BoxFit.cover,
+                                              )))
+                                      : Text(""),
 
-
-                                  MyColors.displaycode?
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 8.0),
-                                    height: 35.0,
-                                    width: 60.0,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          MyColors.colorPrimary
-                                              .withOpacity(0.45),
-                                          MyColors.colorPrimary,
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                      borderRadius: BorderRadius.circular(7),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        model.code,
-                                        style: TextStyle(
-                                          color: MyColors.textColor,
-                                          fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 18) * (-1)
-                                              : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 18)
-                                                  : 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  )://Currency Code
-                                      MyColors.displayflag?
-                                  Container(
-                                      width: 40,
-                                      height: 40,
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(30),
-                                          child: SvgPicture.asset(model.image!,fit: BoxFit.cover,)))://flag
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 8.0),
-                                        height: 35.0,
-                                        width: 60.0,
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              MyColors.colorPrimary
-                                                  .withOpacity(0.45),
-                                              MyColors.colorPrimary,
-                                            ],
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
+                                  MyColors.displaycode
+                                      ? Container(
+                                          margin: const EdgeInsets.only(left: 8.0),
+                                          height: 35.0,
+                                          width: 60.0,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                MyColors.colorPrimary.withOpacity(0.45),
+                                                MyColors.colorPrimary,
+                                              ],
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                            ),
+                                            borderRadius: BorderRadius.circular(7),
                                           ),
-                                          borderRadius: BorderRadius.circular(7),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            model.symbol!,
-                                            style: TextStyle(
-                                              color: MyColors.textColor,
-                                              fontSize: MyColors.fontsmall
-                                                  ? (MyColors.textSize - 18) * (-1)
-                                                  : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 18)
-                                                  : 18,
-                                              fontWeight: FontWeight.bold,
+                                          child: Center(
+                                            child: Text(
+                                              model.code,
+                                              style: TextStyle(
+                                                color: MyColors.textColor,
+                                                fontSize: MyColors.fontsmall
+                                                    ? (MyColors.textSize - 18) * (-1)
+                                                    : MyColors.fontlarge
+                                                        ? (MyColors.textSize + 18)
+                                                        : 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),//symbol
+                                        )
+                                      : //Currency Code
+                                      MyColors.displayflag
+                                          ? Container(
+                                              width: 40,
+                                              height: 40,
+                                              child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(30),
+                                                  child: Image.asset(
+                                                    model.image!,
+                                                    fit: BoxFit.cover,
+                                                  )))
+                                          : //flag
+                                          Container(
+                                              margin: const EdgeInsets.only(left: 8.0),
+                                              height: 35.0,
+                                              width: 60.0,
+                                              decoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    MyColors.colorPrimary.withOpacity(0.45),
+                                                    MyColors.colorPrimary,
+                                                  ],
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                ),
+                                                borderRadius: BorderRadius.circular(7),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  model.symbol!,
+                                                  style: TextStyle(
+                                                    color: MyColors.textColor,
+                                                    fontSize: MyColors.fontsmall
+                                                        ? (MyColors.textSize - 18) * (-1)
+                                                        : MyColors.fontlarge
+                                                            ? (MyColors.textSize + 18)
+                                                            : 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ), //symbol
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  MyColors.displayflag&& MyColors.displaysymbol?  Container(
-                                    margin: const EdgeInsets.only(left: 8.0),
-                                    height: 35.0,
-                                    width: 60.0,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          MyColors.colorPrimary
-                                              .withOpacity(0.45),
-                                          MyColors.colorPrimary,
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                      borderRadius: BorderRadius.circular(7),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        model.symbol!,
-                                        style: TextStyle(
-                                          color: MyColors.textColor,
-                                          fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 18) * (-1)
-                                              : MyColors.fontlarge
-                                              ? (MyColors.textSize + 18)
-                                              : 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ):Text(""),
-
-
+                                  MyColors.displayflag && MyColors.displaysymbol
+                                      ? Container(
+                                          margin: const EdgeInsets.only(left: 8.0),
+                                          height: 35.0,
+                                          width: 60.0,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                MyColors.colorPrimary.withOpacity(0.45),
+                                                MyColors.colorPrimary,
+                                              ],
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                            ),
+                                            borderRadius: BorderRadius.circular(7),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              model.symbol!,
+                                              style: TextStyle(
+                                                color: MyColors.textColor,
+                                                fontSize: MyColors.fontsmall
+                                                    ? (MyColors.textSize - 18) * (-1)
+                                                    : MyColors.fontlarge
+                                                        ? (MyColors.textSize + 18)
+                                                        : 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Text(""),
 
                                   Expanded(
                                     child: AutoSizeTextField(
@@ -307,15 +306,11 @@ class _SecondScreenState extends State<SecondScreen> {
                                       cursorWidth: 2.3,
                                       controller: model.controller,
                                       textAlign: TextAlign.center,
-                                      keyboardType: TextInputType.none,
+                                      // keyboardType: TextInputType.none,
                                       showCursor: true,
                                       readOnly: true,
                                       decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.only(
-                                              left: 1.0,
-                                              right: 1.0,
-                                              top: 1.0,
-                                              bottom: 1.0),
+                                          contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, top: 1.0, bottom: 1.0),
                                           counterText: "",
                                           border: InputBorder.none),
                                       style: TextStyle(
@@ -330,19 +325,13 @@ class _SecondScreenState extends State<SecondScreen> {
                                       onChanged: (String text) {
                                         text = model.controller.text;
 
-                                        calculateExchangeRate(text,index,model);
-
-
+                                        calculateExchangeRate(text, index, model);
                                       },
                                       onTap: () async {
                                         currentIndex = index;
-                                        showCalculator(
-                                            context,
-                                            model.controller,
-                                            (text){
-                                              calculateExchangeRate(text,index,model);
-                                            }
-                                        );
+                                        showCalculator(context, model.controller, (text) {
+                                          calculateExchangeRate(text, index, model);
+                                        });
                                       },
                                     ),
                                   ),
@@ -363,12 +352,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                             dbHelper.update(model.toMap());
                                             selectedList.removeAt(index);
 
-
-
-
-                                            setState(() {
-
-                                            });
+                                            setState(() {});
                                           },
                                           child: Image.asset(
                                             "assets/images/cross.png",
@@ -404,12 +388,9 @@ class _SecondScreenState extends State<SecondScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: MyColors.textColor,
         onPressed: () async {
-          selectedList = await Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddCurrency()));
+          selectedList = await Navigator.push(context, MaterialPageRoute(builder: (context) => AddCurrency()));
 
-          setState(() {
-
-          });
+          setState(() {});
         },
         child: Icon(
           Icons.add,
@@ -420,26 +401,21 @@ class _SecondScreenState extends State<SecondScreen> {
     );
   }
 
-  Future<Map<String, dynamic>> getConverterAPI(
-      String form, String to, String rate) async {
+  Future<Map<String, dynamic>> getConverterAPI(String form, String to, String rate) async {
     debugPrint("input from -> $form");
     debugPrint("input to -> $to");
-    String url =
-        "https://www.currency.wiki/api/currency/quotes/$form/$to/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url = "https://www.currency.wiki/api/currency/quotes/$form/$to/784565d2-9c14-4b25-8235-06f6c5029b15";
 
     Dio _dio = Dio();
     try {
       Response response = await _dio.get(url);
       if (response.statusCode == 200) {
-        ConverterData converterData =
-            ConverterData.fromJson(response.toString());
+        ConverterData converterData = ConverterData.fromJson(response.toString());
         debugPrint("last data from -> ${converterData.from!.entries.last}");
         debugPrint("last data to -> ${converterData.to!.entries.last}");
 
-        double a =
-            double.parse(converterData.from!.entries.last.value.toString());
-        double b =
-            double.parse(converterData.to!.entries.last.value.toString());
+        double a = double.parse(converterData.from!.entries.last.value.toString());
+        double b = double.parse(converterData.to!.entries.last.value.toString());
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
 
         debugPrint("conversionRate $form to $to--> $conversionRate");
@@ -507,7 +483,6 @@ class _SecondScreenState extends State<SecondScreen> {
               isbool ? controller.text = equation : controller.text = result;
               isbool ? onChange(equation) : onChange(result);
 
-
               // getConverterAPI(
               //     currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
 
@@ -515,19 +490,14 @@ class _SecondScreenState extends State<SecondScreen> {
             });
           }
 
-          Widget buildButton(String buttonText, double buttonHeight,
-              Color buttonColor, double buttonTexth) {
+          Widget buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
             return SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: Container(
                 margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.left,
                 ),
-                height: MediaQuery.of(context).size.height *
-                        0.1 /
-                        1.5 *
-                        buttonHeight +
-                    2.6,
+                height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.6,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                   colors: [
@@ -541,10 +511,7 @@ class _SecondScreenState extends State<SecondScreen> {
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
-                        side: BorderSide(
-                            color: MyColors.colorPrimary,
-                            width: 0.6,
-                            style: BorderStyle.solid)),
+                        side: BorderSide(color: MyColors.colorPrimary, width: 0.6, style: BorderStyle.solid)),
                     padding: const EdgeInsets.all(0.0),
                     onPressed: () => buttonPressed(buttonText),
                     child: Padding(
@@ -553,10 +520,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         alignment: Alignment.center,
                         child: Text(
                           buttonText,
-                          style: TextStyle(
-                              fontSize: buttonTexth,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.white),
+                          style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: Colors.white),
                         ),
                       ),
                     )),
@@ -579,11 +543,9 @@ class _SecondScreenState extends State<SecondScreen> {
                         child: Table(
                           children: [
                             TableRow(children: [
-                              buildButton("%", 1, MyColors.calcuColor,
-                                  30),
+                              buildButton("%", 1, MyColors.calcuColor, 30),
                               buildButton("/", 1, MyColors.calcuColor, 25),
-                              buildButton("×", 1, MyColors.calcuColor,
-                                  35),
+                              buildButton("×", 1, MyColors.calcuColor, 35),
                             ]),
                             TableRow(children: [
                               buildButton("1", 1, MyColors.calcuColor, 25),
@@ -618,22 +580,17 @@ class _SecondScreenState extends State<SecondScreen> {
                                       equation == "";
                                     });
                                   },
-                                  child: buildButton("⌫", 1,
-                                      MyColors.calcuColor, 30)),
+                                  child: buildButton("⌫", 1, MyColors.calcuColor, 30)),
                             ]),
                             TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor,
-                                  calculatorTextSize),
+                              buildButton("-", 1, MyColors.calcuColor, calculatorTextSize),
                             ]),
                             TableRow(children: [
-                              buildButton("+", 1, MyColors.calcuColor,
-                                  30),
+                              buildButton("+", 1, MyColors.calcuColor, 30),
                             ]),
                             TableRow(
                               children: [
-                                Center(
-                                    child: buildButton("=", 2 * 1.02,
-                                        MyColors.calcuColor, 40)),
+                                Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
                               ],
                             ),
                           ]))
@@ -645,24 +602,18 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   void calculateExchangeRate(String text, int index, DataModel model) {
-
-
     debugPrint("onchange$text");
     double d = double.parse(text);
     debugPrint("d$d");
     for (DataModel element in selectedList) {
-      if(element.code!=model.code){
-        double conversionRate =
-            ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) *
-                (d);
+      if (element.code != model.code) {
+        double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
 
         debugPrint("conversionRate->$conversionRate");
-
 
         element.controller.text = conversionRate.toStringAsFixed(MyColors.decimalformat);
         element.exchangeValue = conversionRate.toStringAsFixed(MyColors.decimalformat);
@@ -670,6 +621,5 @@ class _SecondScreenState extends State<SecondScreen> {
     }
 
     streamController.add(selectedList);
-
   }
 }
