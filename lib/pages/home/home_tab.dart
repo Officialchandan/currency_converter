@@ -312,6 +312,11 @@ class _TapHomeState extends State<TapHome> {
                                   edtFrom.text = currencyCodeFrom;
                                   edtTo.text = currencyCodeTo;
 
+                                  String temp1="";
+                                  temp1=flagfrom;
+                                  flagfrom=flagto;
+                                  flagto=temp1;
+
                                   currencyCodeFromSave(currencyCodeFrom);
                                   currencyCodeToSave(currencyCodeTo);
                                   setState(() {});

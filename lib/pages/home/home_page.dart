@@ -76,10 +76,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
               tabs: <Widget>[
                 Tab(
                   icon: Container(
-                    width: 40,
-                    height: 35,
-                    child: Image.asset("assets/images/tab-ic1.png",
-                        fit: BoxFit.fill,
+                    width:40,
+                    height:35,
+                    child: Image.asset("assets/images/tab-ic1.png",fit: BoxFit.fill,
                         //scale: 6,
                         color: MyColors.textColor),
                   ),
@@ -87,14 +86,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic2.png",
-                    scale: 7,
+                     scale: 7 ,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic3.png",
-                    scale: 7,
+                       scale: 7,
                     color: MyColors.textColor,
                   ),
                 ),
@@ -137,6 +136,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
+
         )),
         child: TabBarView(
           controller: _tabController,
@@ -192,7 +192,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
                     width: 60,
                     height: 60,
                     margin: const EdgeInsets.only(top: 15, bottom: 8),
@@ -275,7 +277,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                     ),
                   ),
                   Container(
-                      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 30),
                       child: Divider(
                         color: MyColors.textColor,
                         height: 22.2,
@@ -286,11 +289,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                     height: 40,
                     margin: const EdgeInsets.only(top: 5),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: MyColors.textColor),
+                      style:
+                          ElevatedButton.styleFrom(primary: MyColors.textColor),
                       onPressed: () {
                         Navigator.pop(context);
-                        if (_tabController.previousIndex == 2 || _tabController.previousIndex == 4)
-                          _tabController.animateTo(_tabController.previousIndex);
+                        if (_tabController.previousIndex == 2 ||
+                            _tabController.previousIndex == 4)
+                          _tabController
+                              .animateTo(_tabController.previousIndex);
                       },
                       child: Text(
                         "NOT NOW",
@@ -311,6 +317,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
           );
         });
   }
+
+
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -345,7 +353,11 @@ class CurrencyData {
   bool changeIcon = false;
   TextEditingController controller = TextEditingController();
 
-  CurrencyData({required this.key, required this.value, this.favorite = false, this.changeIcon = false});
+  CurrencyData(
+      {required this.key,
+      required this.value,
+      this.favorite = false,
+      this.changeIcon = false});
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
@@ -362,7 +374,10 @@ class CurrencyData {
     Map map = jsonDecode(data);
 
     return CurrencyData(
-        key: map["key"] ?? "", value: map["value"] ?? "", favorite: map["favorite"] ?? false, changeIcon: map["changeIcon"] ?? false);
+        key: map["key"] ?? "",
+        value: map["value"] ?? "",
+        favorite: map["favorite"] ?? false,
+        changeIcon: map["changeIcon"] ?? false);
   }
 
   @override
