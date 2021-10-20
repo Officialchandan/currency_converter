@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Utility {
+
+
   static Future<String> getStringPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key) ?? "";
@@ -20,6 +22,16 @@ class Utility {
   }
 
   static Future<bool> setIntPreference(String key, int value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setInt(key, value);
+  }
+
+ static Future<int> getLangIndexPreference(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key) ?? 0;
+  }
+
+  static Future<bool> setLangIndexPreference(String key, int value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setInt(key, value);
   }

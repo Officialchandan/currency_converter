@@ -10,11 +10,11 @@
     "removeAds": "Eemalda reklaamid",
     "removeAdsContent": "Toetage meie projekti väikese aastase tellimusega",
     "selectLanguage": "Eestlane",
-    "inglise keel": "inglise keel",
+    "english": "inglise keel",
     "colorsSelection": "Värvivalik",
-    "teema": "Teema",
-    "kerge": "Valgus",
-    "tume": "tume",
+    "theme": "Teema",
+    "light": "Valgus",
+    "dark": "tume",
     "widgetTransparency": "Vidinate läbipaistvus",
     "visualSize": "Visuaalne suurus",
     "A": "A",
@@ -27,7 +27,8 @@
     "display1": "Kuva valuuta kood",
     "display2": "Kuva valuuta sümbol",
     "display3": "Kuva valuuta lipp",
-    "dateFormat": "Andmevorming"
+    "dateFormat": "Andmevorming",
+    "not": "Mitte praegu"
   
   }
   

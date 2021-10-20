@@ -27,7 +27,8 @@
     "display1": "Vis valutakode",
     "display2": "Vis valutasymbol",
     "display3": "Displayvaluta flag",
-    "dateFormat": "Dataformat"
+    "dateFormat": "Dataformat",
+    "not": "Ikke nu"
   
   }
   

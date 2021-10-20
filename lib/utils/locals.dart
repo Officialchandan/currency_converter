@@ -56,7 +56,7 @@ class Locals {
   static const Italian = Locale('it', "IT");
   static const Spanish = Locale('es');
   static const Bengali = Locale('bn');
-  static const Portuguese = Locale('pt', 'BR');
+    static const Portuguese = Locale('pt', 'BR');
   //static const Russian  = Locale('ru-RU');
   static const Japanese = Locale('ja', 'JP');
   static const German = Locale('de', 'DE');
@@ -66,7 +66,7 @@ class Locals {
   static const Dutch = Locale('nl', 'NL');
   static const Estonian = Locale('et');
   static const Finnish = Locale('fi', 'FI');
-  static const Greek = Locale('el', 'GR');
+    static const Greek = Locale('el', 'GR');
   static const Hungarian = Locale('hu', 'HU');
   // static const Hebrew  = Locale('iw-IL');
   static const Armenian = Locale('hy', 'AM');

@@ -27,7 +27,8 @@
     "display1": "Prikaz koda valute",
     "display2": "Simbol valute prikaza",
     "display3": "Zastava valute prikaza",
-    "dateFormat": "Format podataka"
+    "dateFormat": "Format podataka",
+    "not": "Ne sada"
   
   }
   

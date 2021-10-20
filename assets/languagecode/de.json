@@ -27,5 +27,6 @@
     "display1": "Währungscode anzeigen",
     "display2": "Währungssymbol anzeigen",
     "display3": "Währungskennzeichen anzeigen",
-    "dateFormat": "Datenformat"
+    "dateFormat": "Datenformat",
+    "not": "Nicht jetzt"
 }

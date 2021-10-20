@@ -27,7 +27,8 @@
     "display1": "Mostra el codi de moneda",
     "display2": "Mostra el símbol de moneda",
     "display3": "Mostra el senyal de moneda",
-    "dateFormat": "Format de dades"
+    "dateFormat": "Format de dades",
+    "not": "Ara no"
   
   }
   

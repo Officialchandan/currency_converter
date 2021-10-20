@@ -27,7 +27,9 @@
     "display1": "Kód měny zobrazení",
     "display2": "Zobrazit symbol měny",
     "display3": "Zobrazit měnovou vlajku",
-    "dateFormat": "Formát dat"
+    "dateFormat": "Formát dat",
+    "not": "Teď ne"
+
   
   }
   

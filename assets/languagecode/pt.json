@@ -11,7 +11,7 @@
     "removeAds": "Remover Anúncios",
     "removeAdsContent": "Apoie nosso projeto com uma pequena assinatura anual",
     "selectLanguage": "Selecione o idioma",
-    "english ":"português",
+    "english":"português",
     "ColorsSelection": "Color Selection",
     "theme": "Tema",
     "light": "Light",
@@ -28,7 +28,8 @@
     "display1": "Exibir código de moeda",
     "display2": "Exibir símbolo monetário",
     "display3": "Exibir bandeira de moeda",
-    "dateFormat": "Formato de dados"
+    "dateFormat": "Formato de dados",
+    "not": "Agora não"
   
   
   
