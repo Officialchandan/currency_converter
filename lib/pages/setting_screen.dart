@@ -453,7 +453,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                           child: ClipRRect(
                                               borderRadius: BorderRadius.circular(30),
                                               child: Image.asset(
-                                                "assets/pngCountryImages/INR.png",
+                                                "assets/pngCountryImages/EUR.png",
                                                 fit: BoxFit.cover,
                                               ))),
                                       Text(

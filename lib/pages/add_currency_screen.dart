@@ -264,7 +264,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         width: 5,
                                       ),
                                       Container(
-                                        width: 190,
+                                        width: 160,
                                         child: Text(
                                           model.name!,
                                           style: TextStyle(
