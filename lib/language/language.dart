@@ -4,6 +4,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/locals.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,15 @@ class Language extends StatefulWidget {
 }
 
 class _LanguageState extends State<Language> {
+  int? trueIndex;
   @override
   void initState() {
     super.initState();
+
+    getIndex();
+
+    // Future.delayed(Duration(seconds: 3));
+
     print("isContainerVisible-->${widget.isContainerVisible}");
   }
 
@@ -62,6 +69,7 @@ class _LanguageState extends State<Language> {
                               onTap: () async {
                                 for (int i = 0; i < Locals.icon.length; i++) {
                                   if (index == i) {
+                                    Utility.setLangIndexPreference("LanuageIndex", index);
                                     Locals.icon[i] = true;
                                   } else {
                                     Locals.icon[i] = false;
@@ -79,27 +87,31 @@ class _LanguageState extends State<Language> {
                                             const MyTabBarWidget()),
                                     (route) => false);
                               },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                      margin: const EdgeInsets.all(7),
-                                      height: 30,
-                                      child: Text(
-                                        Locals.language[index].keys.first,
-                                        style: const TextStyle(
-                                            fontSize: 18, color: Colors.black),
-                                      )),
-                                  Container(
-                                    child: Locals.icon[index]
-                                        ? const Icon(
-                                            Icons.check_sharp,
-                                            color: Colors.blue,
-                                          )
-                                        : const Text(""),
-                                  )
-                                ],
+                              child: Container(
+                                color: Colors.white,
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                        margin: const EdgeInsets.all(7),
+                                        height: 30,
+                                        child: Text(
+                                          Locals.language[index].keys.first,
+                                          style: const TextStyle(
+                                              fontSize: 18, color: Colors.black),
+                                        )),
+                                    Container(
+                                      child: Locals.icon[index]
+                                          ? const Icon(
+                                              Icons.check_sharp,
+                                              color: Colors.blue,
+                                            )
+                                          : const Text(""),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -110,5 +122,22 @@ class _LanguageState extends State<Language> {
         ),
       ],
     );
+  }
+
+  void  getIndex() async{
+    trueIndex=await Utility.getLangIndexPreference("LanuageIndex");
+    for(int i=0;i<Locals.icon.length;i++)
+      {
+        if (trueIndex == i) {
+
+          Locals.icon[i] = true;
+        } else {
+          Locals.icon[i] = false;
+        }
+      }
+    setState(() {
+
+    });
+
   }
 }

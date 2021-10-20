@@ -8,8 +8,8 @@
     "firstTextRatingPage": "कृपया अॅप रेट करा!",
     "secondTextRatingPage": "तारे वर टॅप करा आणि रेट करण्यासाठी Google Play Store सह उघडा",
     "buttonTextRatingPage": "आता नाही",
-    "RemoveAds": "जाहिराती काढा",
-    "RemoveAdsContent": "छोट्या वार्षिक वर्गणीसह आमच्या प्रकल्पाला समर्थन द्या",
+    "removeAds": "जाहिराती काढा",
+    "removeAdsContent": "छोट्या वार्षिक वर्गणीसह आमच्या प्रकल्पाला समर्थन द्या",
     "selectLanguage": "भाषा निवडा",
     "english": "मराठी",
     "colorsSelection": "रंग निवड",
@@ -28,8 +28,9 @@
     "display1": "प्रदर्शन चलन कोड",
     "display2": "प्रदर्शन चलन चिन्ह",
     "display3": "चलन ध्वज प्रदर्शित करा",
-    "dateFormat": "डेटा स्वरूप"
-  
+    "dateFormat": "डेटा स्वरूप",
+    "not": "आता नाही"
+
   
   
   }

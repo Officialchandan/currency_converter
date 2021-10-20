@@ -11,7 +11,7 @@
     "removeAds": "Eliminați anunțurile",
     "removeAdsContent": "Sprijiniți proiectul nostru cu un abonament anual mic",
     "selectLanguage": "Selectați limba",
-    "english ":"Română",
+    "english":"Română",
     "colorsSelection": "Selecția culorii",
     "theme": "Tema",
     "light": "Light",
@@ -28,7 +28,8 @@
     "display1": "Afișați codul valutar",
     "display2": "Afișați simbolul monedei",
     "display3": "Afișează indicatorul valutar",
-    "dateFormat": "Format date"
+    "dateFormat": "Format date",
+    "not":"Nu acum"
   
   
   

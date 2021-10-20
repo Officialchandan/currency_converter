@@ -28,7 +28,8 @@
   "display1": "Display Currency Code",
   "display2":"Display Currency Symbol",
   "display3": "Display Currency Flag",
-  "dateFormat": "Data Format"
+  "dateFormat": "Data Format",
+  "not": "NOT NOW"
 
 
 

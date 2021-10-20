@@ -299,7 +299,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                               .animateTo(_tabController.previousIndex);
                       },
                       child: Text(
-                        "NOT NOW",
+                        "not".tr().toString(),
                         style: TextStyle(
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 18) * (-1)

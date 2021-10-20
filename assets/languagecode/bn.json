@@ -8,10 +8,10 @@
 "firstTextRatingPage": "অনুগ্রহ করে অ্যাপটিকে রেট দিন!",
 "secondTextRatingPage": "তারকাদের উপর আলতো চাপুন এবং Google Play Store দিয়ে রেট দিন",
 "buttonTextRatingPage": "এখন নয়",
-"RemoveAds": "বিজ্ঞাপন সরান",
-"RemoveAdsContent": "একটি ছোট বার্ষিক সাবস্ক্রিপশন দিয়ে আমাদের প্রকল্প সমর্থন করুন",
+"removeAds": "বিজ্ঞাপন সরান",
+"removeAdsContent": "একটি ছোট বার্ষিক সাবস্ক্রিপশন দিয়ে আমাদের প্রকল্প সমর্থন করুন",
 "selectLanguage": "ভাষা নির্বাচন করুন",
-"english ":"বাংলা",
+"english":"বাংলা",
 "colorsSelection": "রঙ নির্বাচন",
 "theme": "থিম",
 "light": "আলো",
@@ -28,7 +28,8 @@
 "display1": "ডিসপ্লে কারেন্সি কোড",
 "display2": "ডিসপ্লে কারেন্সি সিম্বল",
 "display3": "মুদ্রার পতাকা প্রদর্শন করুন",
-"dateFormat": "ডেটা ফরম্যাট"
+"dateFormat": "ডেটা ফরম্যাট",
+  "not": "এখন না"
 
 
 
