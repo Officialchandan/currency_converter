@@ -80,7 +80,7 @@ class _TapHomeState extends State<TapHome> {
       flagfrom = "assets/pngCountryImages/$currencyCodeFrom.png";
       flagto = "assets/pngCountryImages/$currencyCodeTo.png";
 
-      getConverterAPI(currencyCodeFrom, currencyCodeTo, conversionRate.toString());
+      getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
     setState(() {});
   }
@@ -288,7 +288,7 @@ class _TapHomeState extends State<TapHome> {
                               },
                               onChanged: (text) {
                                 print("onchange -> $text");
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, conversionRate.toString());
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                               },
                             ),
                           ),
@@ -498,7 +498,7 @@ class _TapHomeState extends State<TapHome> {
                             edtFrom.text = currencyCode;
                             edtCurrency.text = currencyCode;
                             _isContainerVisible = false;
-                            getConverterAPI(currencyCodeFrom, currencyCodeTo, conversionRate.toString());
+                            getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
 
                             setState(() {});
                           },
@@ -513,7 +513,7 @@ class _TapHomeState extends State<TapHome> {
                                 currencyCodeToSave(currencyCodeTo);
                                 edtTo.text = currencyCode;
                                 _isContainerVisibleTwo = false;
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, conversionRate.toString());
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                                 setState(() {});
                               },
                             )

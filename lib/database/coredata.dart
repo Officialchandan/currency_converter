@@ -10,10 +10,10 @@ import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const _dbName = 'currencyconverter2.db';
-  static final _dbVersion = 1;
-  static final tableName = "conversion";
-  static final ColumnId = "id";
+  static const _dbName = 'currencyconverter2.db'; //database Name
+  static final _dbVersion = 1;                    // database Version
+  static final tableName = "conversion";          // table Name
+  static final ColumnId = "id";                   //Id
   static final countryCode = "countryCode";
   static final countryImage = "countryImage";
   static final currencyValue = "currencyValue";
@@ -31,7 +31,9 @@ class DatabaseHelper {
   static Database? _database;
 
   Future<Database> get database async {
+
     if (_database != null) return _database!;
+
     _database = await initdb();
     return _database!;
   }
@@ -144,6 +146,8 @@ class DatabaseHelper {
 
     return dataList;
   }
+
+
   Future<List<DataModel>> getUnselectedData() async {
     List<DataModel> dataList = [];
 
