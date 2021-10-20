@@ -33,7 +33,7 @@ class Utility {
       var code = (value.toRadixString(16));
       debugPrint("color code ->>>>$code");
       MyColors.colorPrimary = Color(int.parse("0x$code"));
-      MyColors.calcuColor= MyColors.colorPrimary;
+      MyColors.calcuColor = MyColors.colorPrimary;
     } else {
       debugPrint("color is empty");
     }

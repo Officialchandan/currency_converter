@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:easy_localization/src/public_ext.dart';
-
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -9,12 +8,10 @@ import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
-
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
 
