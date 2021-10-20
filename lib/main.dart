@@ -4,7 +4,6 @@ import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
-import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/locals.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:dio/dio.dart';
