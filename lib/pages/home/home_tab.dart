@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:easy_localization/src/public_ext.dart';
+
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -8,10 +8,12 @@ import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
 
@@ -25,8 +27,8 @@ class TapHome extends StatefulWidget {
 class _TapHomeState extends State<TapHome> {
   String symbol = "\$";
 
-  String flagfrom = "assets/countyImage/USD.svg";
-  String flagto = "assets/countyImage/INR.svg";
+  String flagfrom = "assets/pngCountryImages/USD.png";
+  String flagto = "assets/pngCountryImages/INR.png";
 
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
@@ -75,11 +77,10 @@ class _TapHomeState extends State<TapHome> {
     if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
       edtFrom.text = currencyCodeFrom;
       edtTo.text = currencyCodeTo;
-      flagfrom = "assets/countyImage/$currencyCodeFrom.svg";
-      flagto = "assets/countyImage/$currencyCodeTo.svg";
+      flagfrom = "assets/pngCountryImages/$currencyCodeFrom.png";
+      flagto = "assets/pngCountryImages/$currencyCodeTo.png";
 
-      getConverterAPI(
-          currencyCodeFrom, currencyCodeTo, conversionRate.toString());
+      getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
     setState(() {});
   }
@@ -225,8 +226,7 @@ class _TapHomeState extends State<TapHome> {
                                           style: TextStyle(
                                             color: MyColors.textColor,
                                             fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) *
-                                                    (-1)
+                                                ? (MyColors.textSize - 18) * (-1)
                                                 : MyColors.fontlarge
                                                     ? (MyColors.textSize + 18)
                                                     : 18,
@@ -241,8 +241,7 @@ class _TapHomeState extends State<TapHome> {
                                             color: MyColors.textColor,
                                             fontWeight: FontWeight.w600,
                                             fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 20) *
-                                                    (-1)
+                                                ? (MyColors.textSize - 20) * (-1)
                                                 : MyColors.fontlarge
                                                     ? (MyColors.textSize + 20)
                                                     : 20,
@@ -253,7 +252,7 @@ class _TapHomeState extends State<TapHome> {
                         ),
                         Center(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.70,
+                            width: MediaQuery.of(context).size.width * 0.50,
                             // width: 150,
                             child: AutoSizeTextField(
                               textAlignVertical: TextAlignVertical.center,
@@ -273,12 +272,11 @@ class _TapHomeState extends State<TapHome> {
                               ),
                               controller: calculateCurrency,
                               textAlign: TextAlign.center,
-                              keyboardType: TextInputType.none,
+                              // keyboardType: TextInputType.none,
                               showCursor: true,
                               readOnly: true,
                               decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      left: 1.0, right: 1.0, bottom: 15.0),
+                                  contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
                                   counterText: "",
                                   border: InputBorder.none),
                               onTap: () {
@@ -290,8 +288,7 @@ class _TapHomeState extends State<TapHome> {
                               },
                               onChanged: (text) {
                                 print("onchange -> $text");
-                                getConverterAPI(currencyCodeFrom,
-                                    currencyCodeTo, conversionRate.toString());
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                               },
                             ),
                           ),
@@ -318,8 +315,7 @@ class _TapHomeState extends State<TapHome> {
                                   currencyCodeToSave(currencyCodeTo);
                                   setState(() {});
 
-                                  getConverterAPI(currencyCodeFrom,
-                                      currencyCodeTo, calculateCurrency.text);
+                                  getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                                 },
                                 child: Image.asset(
                                   "assets/images/right-left.png",
@@ -359,7 +355,7 @@ class _TapHomeState extends State<TapHome> {
                               showCursor: false,
                               readOnly: true,
                               autofocus: false,
-                              keyboardType: TextInputType.none,
+                              // keyboardType: TextInputType.none,
                               onTap: () {
                                 if (_isContainerVisible) {
                                   _isContainerVisible = false;
@@ -424,7 +420,7 @@ class _TapHomeState extends State<TapHome> {
                               showCursor: false,
                               readOnly: true,
                               autofocus: false,
-                              keyboardType: TextInputType.none,
+                              // keyboardType: TextInputType.none,
                               onTap: () {
                                 if (_isContainerVisibleTwo) {
                                   _isContainerVisibleTwo = false;
@@ -474,8 +470,7 @@ class _TapHomeState extends State<TapHome> {
                           width: MediaQuery.of(context).size.width,
                           height: 10,
                           constraints: const BoxConstraints(),
-                          margin: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.width * 0.8),
+                          margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.8),
                           child: Image.asset(
                             "assets/images/tooltip.png",
                             scale: 7,
@@ -487,16 +482,14 @@ class _TapHomeState extends State<TapHome> {
                           constraints: const BoxConstraints(),
                           width: MediaQuery.of(context).size.width,
                           height: 10,
-                          padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.2),
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2),
                           child: Image.asset("assets/images/tooltip.png"),
                         )
                       : Container(),
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
-                          onSelect: (String currencyCode, String image,
-                              String symbol1) {
+                          onSelect: (String currencyCode, String image, String symbol1) {
                             symbol = symbol1;
                             currencyCodeFrom = currencyCode;
                             flagfrom = image;
@@ -505,8 +498,7 @@ class _TapHomeState extends State<TapHome> {
                             edtFrom.text = currencyCode;
                             edtCurrency.text = currencyCode;
                             _isContainerVisible = false;
-                            getConverterAPI(currencyCodeFrom, currencyCodeTo,
-                                conversionRate.toString());
+                            getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
 
                             setState(() {});
                           },
@@ -521,8 +513,7 @@ class _TapHomeState extends State<TapHome> {
                                 currencyCodeToSave(currencyCodeTo);
                                 edtTo.text = currencyCode;
                                 _isContainerVisibleTwo = false;
-                                getConverterAPI(currencyCodeFrom,
-                                    currencyCodeTo, conversionRate.toString());
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                                 setState(() {});
                               },
                             )
@@ -593,8 +584,7 @@ class _TapHomeState extends State<TapHome> {
   Future<void> Insert() async {
     print("Bobel");
 
-    String url =
-        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
     Dio _dio = Dio();
     try {
@@ -604,13 +594,7 @@ class _TapHomeState extends State<TapHome> {
         Map res = response.data!;
         Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
-          DataModel currencyData = DataModel(
-              value: value.toString(),
-              code: key,
-              image: "",
-              name: "",
-              fav: 0,
-              selected: 0);
+          DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
 
           int id = await dbHelper.insert(currencyData.toMap());
 
@@ -636,8 +620,7 @@ class _TapHomeState extends State<TapHome> {
   }
 
   void particularrow() async {}
-  Future<Map<String, dynamic>> getConverterAPI(
-      String form, String to, String rate) async {
+  Future<Map<String, dynamic>> getConverterAPI(String form, String to, String rate) async {
     debugPrint("input from -> $form");
     debugPrint("input to -> $to");
 
@@ -648,8 +631,7 @@ class _TapHomeState extends State<TapHome> {
       double a = double.parse(formRow.first.values.toList()[3]);
       double b = double.parse(toRow.first.values.toList()[3]);
       conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
-      text = double.parse(conversionRate.toString())
-          .toStringAsFixed(MyColors.decimalformat);
+      text = double.parse(conversionRate.toString()).toStringAsFixed(MyColors.decimalformat);
       // format(conversionRate);
 
       debugPrint("conversionRate $form to $to--> $conversionRate");
@@ -664,8 +646,7 @@ class _TapHomeState extends State<TapHome> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   showCalculator(BuildContext context) {
@@ -717,19 +698,15 @@ class _TapHomeState extends State<TapHome> {
                   equation = equation + buttonText;
                 }
               }
-              isbool
-                  ? calculateCurrency.text = equation
-                  : calculateCurrency.text = result;
+              isbool ? calculateCurrency.text = equation : calculateCurrency.text = result;
 
-              getConverterAPI(
-                  currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
+              getConverterAPI(currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
 
               isbool = true;
             });
           }
 
-          Widget buildButton(String buttonText, double buttonHeight,
-              Color buttonColor, double buttonTexth) {
+          Widget buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
             return SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: Container(
@@ -738,11 +715,7 @@ class _TapHomeState extends State<TapHome> {
                 ),
                 //**Alline height */
                 //This is grate
-                height: MediaQuery.of(context).size.height *
-                        0.1 /
-                        1.5 *
-                        buttonHeight +
-                    2.4,
+                height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.4,
 
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -758,10 +731,7 @@ class _TapHomeState extends State<TapHome> {
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
-                        side: BorderSide(
-                            color: MyColors.colorPrimary,
-                            width: 0.4,
-                            style: BorderStyle.solid)),
+                        side: BorderSide(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid)),
                     padding: const EdgeInsets.all(0.0),
                     onPressed: () => buttonPressed(buttonText),
                     child: Padding(
@@ -770,10 +740,7 @@ class _TapHomeState extends State<TapHome> {
                         alignment: Alignment.center,
                         child: Text(
                           buttonText,
-                          style: TextStyle(
-                              fontSize: buttonTexth,
-                              fontWeight: FontWeight.normal,
-                              color: MyColors.textColor),
+                          style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
                         ),
                       ),
                     )),
@@ -836,9 +803,7 @@ class _TapHomeState extends State<TapHome> {
                               buildButton("+", 1, MyColors.calcuColor, 25),
                             ]),
                             TableRow(children: [
-                              Center(
-                                  child: buildButton(
-                                      "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                              Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
                             ]),
                           ]))
                     ],
@@ -851,8 +816,7 @@ class _TapHomeState extends State<TapHome> {
   format(double conversionRate) {
     int i = MyColors.monetaryformat;
     int afterdecimal = MyColors.decimalformat;
-    double amount =
-        double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
+    double amount = double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,
       symbol: "",
@@ -900,8 +864,7 @@ class _TapHomeState extends State<TapHome> {
     debugPrint("MyColors.decimalformat-->${MyColors.decimalformat}");
     int i = MyColors.monetaryformat;
     int afterdecimal = MyColors.decimalformat;
-    double amount =
-        double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
+    double amount = double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,
       symbol: "",
