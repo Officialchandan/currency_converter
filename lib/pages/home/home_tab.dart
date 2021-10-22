@@ -65,10 +65,28 @@ class _TapHomeState extends State<TapHome> {
 
   @override
   void initState() {
+    _isContainerVisible = false;
+    _isContainerVisibleTwo = false;
     // Insert();
     getCurrencyCode();
 
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    debugPrint("didChangeDependencies -> home tab ");
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(TapHome oldWidget) {
+    debugPrint("didUpdateWidget -> home tab $oldWidget");
+
+    super.didUpdateWidget(oldWidget);
+    _isContainerVisible = false;
+    _isContainerVisibleTwo = false;
+    setState(() {});
   }
 
   getCurrencyCode() async {
@@ -113,253 +131,266 @@ class _TapHomeState extends State<TapHome> {
           }
           throw true;
         },
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Padding(
-            padding: const EdgeInsets.fromLTRB(12, 16, 12, 0),
-            child: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            SizedBox(
-                              width: appwidth * 0.17,
-                            ),
-                            Row(
-                              children: [
-                                Center(
-                                  child: Text(
-                                    "update".tr().toString() + ":",
+        child: InkWell(
+          onTap: () async {
+            if (_isContainerVisible || _isContainerVisibleTwo) {
+              Future.value(_isContainerVisible = false);
+              Future.value(_isContainerVisibleTwo = false);
+              setState(() {});
+            }
+          },
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Padding(
+              padding: const EdgeInsets.fromLTRB(12, 16, 12, 0),
+              child: SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              SizedBox(
+                                width: appwidth * 0.17,
+                              ),
+                              Row(
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      "update".tr().toString() + ":",
+                                      style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 18) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 18)
+                                                : 18,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  MyColors.datemm
+                                      ? Center(
+                                          child: Text(
+                                            "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
+                                            ),
+                                          ),
+                                        )
+                                      : Center(
+                                          child: Text(
+                                            "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
+                                            ),
+                                          ),
+                                        ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () async {
+                                    _onShareWithEmptyOrigin(context);
+                                  },
+                                  child: Icon(
+                                    Icons.share,
+                                    color: MyColors.textColor,
+                                  )),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        Container(
+                          width: appwidth - 20,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: MyColors.textColor,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 8.0),
+                                  height: 35.0,
+                                  width: 60.0,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        MyColors.colorPrimary.withOpacity(0.45),
+                                        MyColors.colorPrimary,
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                    ),
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: MyColors.displaycode
+                                      ? Center(
+                                          child: AutoSizeText(
+                                            currencyCodeFrom,
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 20) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 20)
+                                                      : 20,
+                                            ),
+                                          ),
+                                        )
+                                      : MyColors.displaysymbol
+                                          ? Center(
+                                              child: Text(
+                                                symbol,
+                                                style: TextStyle(
+                                                  color: MyColors.textColor,
+                                                  fontSize: MyColors.fontsmall
+                                                      ? (MyColors.textSize -
+                                                              18) *
+                                                          (-1)
+                                                      : MyColors.fontlarge
+                                                          ? (MyColors.textSize +
+                                                              18)
+                                                          : 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            )
+                                          : Center(
+                                              child: AutoSizeText(
+                                                currencyCodeFrom,
+                                                style: TextStyle(
+                                                  color: MyColors.textColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: MyColors.fontsmall
+                                                      ? (MyColors.textSize -
+                                                              20) *
+                                                          (-1)
+                                                      : MyColors.fontlarge
+                                                          ? (MyColors.textSize +
+                                                              20)
+                                                          : 20,
+                                                ),
+                                              ),
+                                            ),
+                                ),
+                              ),
+                              Center(
+                                child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.50,
+                                  // width: 150,
+                                  child: AutoSizeTextField(
+                                    textAlignVertical: TextAlignVertical.center,
+                                    autocorrect: true,
+                                    maxLength: 30,
+                                    maxLines: 1,
+                                    maxFontSize: 18.0,
+                                    minFontSize: 7.0,
                                     style: TextStyle(
-                                      color: MyColors.textColor,
+                                      color: MyColors.colorPrimary,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: MyColors.fontsmall
                                           ? (MyColors.textSize - 18) * (-1)
                                           : MyColors.fontlarge
                                               ? (MyColors.textSize + 18)
                                               : 18,
                                     ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                MyColors.datemm
-                                    ? Center(
-                                        child: Text(
-                                          "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                          style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 18)
-                                                    : 18,
-                                          ),
-                                        ),
-                                      )
-                                    : Center(
-                                        child: Text(
-                                          "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                          style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 18)
-                                                    : 18,
-                                          ),
-                                        ),
-                                      ),
-                              ],
-                            ),
-                            InkWell(
-                                onTap: () async {
-                                  _onShareWithEmptyOrigin(context);
-                                },
-                                child: Icon(
-                                  Icons.share,
-                                  color: MyColors.textColor,
-                                )),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16.0,
-                      ),
-                      Container(
-                        width: appwidth - 20,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: MyColors.textColor,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: Container(
-                                margin: const EdgeInsets.only(left: 8.0),
-                                height: 35.0,
-                                width: 60.0,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      MyColors.colorPrimary.withOpacity(0.45),
-                                      MyColors.colorPrimary,
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                  ),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: MyColors.displaycode
-                                    ? Center(
-                                        child: AutoSizeText(
-                                          currencyCodeFrom,
-                                          style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 20) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 20)
-                                                    : 20,
-                                          ),
-                                        ),
-                                      )
-                                    : MyColors.displaysymbol
-                                        ? Center(
-                                            child: Text(
-                                              symbol,
-                                              style: TextStyle(
-                                                color: MyColors.textColor,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 18) *
-                                                        (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize +
-                                                            18)
-                                                        : 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          )
-                                        : Center(
-                                            child: AutoSizeText(
-                                              currencyCodeFrom,
-                                              style: TextStyle(
-                                                color: MyColors.textColor,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 20) *
-                                                        (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize +
-                                                            20)
-                                                        : 20,
-                                              ),
-                                            ),
-                                          ),
-                              ),
-                            ),
-                            Center(
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                // width: 150,
-                                child: AutoSizeTextField(
-                                  textAlignVertical: TextAlignVertical.center,
-                                  autocorrect: true,
-                                  maxLength: 30,
-                                  maxLines: 1,
-                                  maxFontSize: 18.0,
-                                  minFontSize: 7.0,
-                                  style: TextStyle(
-                                    color: MyColors.colorPrimary,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 18) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 18)
-                                            : 18,
-                                  ),
-                                  controller: calculateCurrency,
-                                  textAlign: TextAlign.center,
-                                  // keyboardType: TextInputType.none,
-                                  showCursor: true,
-                                  readOnly: true,
-                                  decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(
-                                          left: 1.0, right: 1.0, bottom: 15.0),
-                                      counterText: "",
-                                      border: InputBorder.none),
-                                  onTap: () {
-                                    _isContainerVisible = false;
-
-                                    _isContainerVisibleTwo = false;
-                                    showCalculator(context);
-                                    setState(() {});
-                                  },
-                                  onChanged: (text) {
-                                    print("onchange -> $text");
-                                    getConverterAPI(currencyCodeFrom,
-                                        currencyCodeTo, calculateCurrency.text);
-                                  },
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Center(
-                                child: InkWell(
+                                    controller: calculateCurrency,
+                                    textAlign: TextAlign.center,
+                                    // keyboardType: TextInputType.none,
+                                    showCursor: true,
+                                    readOnly: true,
+                                    decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            left: 1.0,
+                                            right: 1.0,
+                                            bottom: 15.0),
+                                        counterText: "",
+                                        border: InputBorder.none),
                                     onTap: () {
-                                      String temp = "";
-                                      temp = currencyCodeFrom;
-                                      currencyCodeFrom = currencyCodeTo;
-                                      currencyCodeTo = temp;
+                                      _isContainerVisible = false;
 
-                                      edtFrom.text = currencyCodeFrom;
-                                      edtTo.text = currencyCodeTo;
-
-                                      String temp1 = "";
-                                      temp1 = flagfrom;
-                                      flagfrom = flagto;
-                                      flagto = temp1;
-
-                                      currencyCodeFromSave(currencyCodeFrom);
-                                      currencyCodeToSave(currencyCodeTo);
+                                      _isContainerVisibleTwo = false;
+                                      showCalculator(context);
                                       setState(() {});
-
+                                    },
+                                    onChanged: (text) {
+                                      print("onchange -> $text");
                                       getConverterAPI(
                                           currencyCodeFrom,
                                           currencyCodeTo,
                                           calculateCurrency.text);
                                     },
-                                    child: Image.asset(
-                                      "assets/images/right-left.png",
-                                      scale: 8,
-                                    )),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Center(
+                                  child: InkWell(
+                                      onTap: () {
+                                        String temp = "";
+                                        temp = currencyCodeFrom;
+                                        currencyCodeFrom = currencyCodeTo;
+                                        currencyCodeTo = temp;
+
+                                        edtFrom.text = currencyCodeFrom;
+                                        edtTo.text = currencyCodeTo;
+
+                                        String temp1 = "";
+                                        temp1 = flagfrom;
+                                        flagfrom = flagto;
+                                        flagto = temp1;
+
+                                        currencyCodeFromSave(currencyCodeFrom);
+                                        currencyCodeToSave(currencyCodeTo);
+                                        setState(() {});
+
+                                        getConverterAPI(
+                                            currencyCodeFrom,
+                                            currencyCodeTo,
+                                            calculateCurrency.text);
+                                      },
+                                      child: Image.asset(
+                                        "assets/images/right-left.png",
+                                        scale: 8,
+                                      )),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        Row(
+                          children: [
+                            Container(
                                 width: appwidth * 0.45,
                                 height: 50,
                                 decoration: BoxDecoration(
@@ -381,6 +412,7 @@ class _TapHomeState extends State<TapHome> {
                                   showCursor: false,
                                   readOnly: true,
                                   autofocus: false,
+
                                   // keyboardType: TextInputType.none,
                                   onTap: () {
                                     if (_isContainerVisible) {
@@ -391,7 +423,6 @@ class _TapHomeState extends State<TapHome> {
                                     if (_isContainerVisibleTwo) {
                                       _isContainerVisibleTwo = false;
                                     }
-                                    //*d
 
                                     setState(() {
                                       arrowPosition = !arrowPosition;
@@ -422,197 +453,202 @@ class _TapHomeState extends State<TapHome> {
                                     ),
                                   ),
                                 )),
-                          ),
-                          const Spacer(),
-                          InkWell(
-                            child: Container(
-                                width: appwidth * 0.45,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: MyColors.textColor,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: TextField(
-                                  style: TextStyle(
-                                    color: MyColors.insideTextFieldColor,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.5,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 20) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 20)
-                                            : 20,
+                            const Spacer(),
+                            InkWell(
+                              child: Container(
+                                  width: appwidth * 0.45,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: MyColors.textColor,
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  controller: edtTo,
-                                  showCursor: false,
-                                  readOnly: true,
-                                  autofocus: false,
-                                  // keyboardType: TextInputType.none,
-                                  onTap: () {
-                                    if (_isContainerVisibleTwo) {
-                                      _isContainerVisibleTwo = false;
-                                    } else {
-                                      _isContainerVisible = false;
-                                      _isContainerVisibleTwo = true;
-                                    }
-                                    setState(() {
-                                      debugPrint("Hello");
+                                  child: TextField(
+                                    style: TextStyle(
+                                      color: MyColors.insideTextFieldColor,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.5,
+                                      fontSize: MyColors.fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : MyColors.fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
+                                    ),
+                                    controller: edtTo,
+                                    showCursor: false,
+                                    readOnly: true,
+                                    autofocus: false,
+                                    // keyboardType: TextInputType.none,
+                                    onTap: () {
+                                      if (_isContainerVisibleTwo) {
+                                        _isContainerVisibleTwo = false;
+                                      } else {
+                                        _isContainerVisible = false;
+                                        _isContainerVisibleTwo = true;
+                                      }
+                                      setState(() {
+                                        debugPrint("Hello");
 
-                                      arrowPositionTwo = !arrowPositionTwo;
-                                    });
-                                    debugPrint("Hello1");
+                                        arrowPositionTwo = !arrowPositionTwo;
+                                      });
+                                      debugPrint("Hello1");
 
-                                    debugPrint("Hello2");
-                                  },
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    prefixIcon: Container(
-                                      padding: EdgeInsets.all(5),
-                                      width: 15,
-                                      height: 15,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(30),
-                                        child: Image.asset(
-                                          flagto,
-                                          fit: BoxFit.cover,
+                                      debugPrint("Hello2");
+                                    },
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      prefixIcon: Container(
+                                        padding: EdgeInsets.all(5),
+                                        width: 15,
+                                        height: 15,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Image.asset(
+                                            flagto,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      suffixIcon: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20.0),
+                                        child: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: MyColors.insideTextFieldColor,
+                                          size: 23.0,
                                         ),
                                       ),
                                     ),
-                                    suffixIcon: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 20.0),
-                                      child: Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: MyColors.insideTextFieldColor,
-                                        size: 23.0,
-                                      ),
+                                  )),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(),
+                        _isContainerVisible
+                            ? Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 10,
+                                constraints: const BoxConstraints(),
+                                margin: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.8),
+                                child: Image.asset(
+                                  "assets/images/tooltip.png",
+                                  scale: 7,
+                                ),
+                              )
+                            : Container(),
+                        _isContainerVisibleTwo
+                            ? Container(
+                                constraints: const BoxConstraints(),
+                                width: MediaQuery.of(context).size.width,
+                                height: 10,
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.2),
+                                child: Image.asset("assets/images/tooltip.png"),
+                              )
+                            : Container(),
+                        _isContainerVisible
+                            ? CurrencyFromWidget(
+                                isContainerVisible: _isContainerVisible,
+                                onSelect: (String currencyCode, String image,
+                                    String symbol1) {
+                                  symbol = symbol1;
+                                  currencyCodeFrom = currencyCode;
+                                  flagfrom = image;
+
+                                  currencyCodeFromSave(currencyCodeFrom);
+                                  edtFrom.text = currencyCode;
+                                  edtCurrency.text = currencyCode;
+                                  _isContainerVisible = false;
+                                  getConverterAPI(currencyCodeFrom,
+                                      currencyCodeTo, calculateCurrency.text);
+
+                                  setState(() {});
+                                },
+                              )
+                            : _isContainerVisibleTwo
+                                ? CurrencyToWidget(
+                                    isContainerVisibleTwo:
+                                        _isContainerVisibleTwo,
+                                    onSelect:
+                                        (String currencyCode, String image) {
+                                      flagto = image;
+
+                                      currencyCodeTo = currencyCode;
+                                      currencyCodeToSave(currencyCodeTo);
+                                      edtTo.text = currencyCode;
+                                      _isContainerVisibleTwo = false;
+                                      getConverterAPI(
+                                          currencyCodeFrom,
+                                          currencyCodeTo,
+                                          calculateCurrency.text);
+                                      setState(() {});
+                                    },
+                                  )
+                                : const SizedBox(
+                                    height: 0,
+                                    width: 0,
+                                  ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        Center(
+                          child: _isContainerVisible || _isContainerVisibleTwo
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.only(top: 16.0),
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        AutoSizeText(
+                                          getFormatText(text),
+                                          wrapWords: true,
+                                          // conversionRate.toStringAsFixed(MyColors.decimalformat
+                                          //),
+                                          maxLines: 1,
+                                          maxFontSize: 25.0,
+                                          minFontSize: 15.0,
+                                          style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 25) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 25)
+                                                      : 25,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        AutoSizeText(
+                                          edtTo.text,
+                                          maxFontSize: 18.0,
+                                          minFontSize: 7.0,
+                                          style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 20) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 20)
+                                                      : 20,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                )),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(),
-                      _isContainerVisible
-                          ? Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 10,
-                              constraints: const BoxConstraints(),
-                              margin: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.8),
-                              child: Image.asset(
-                                "assets/images/tooltip.png",
-                                scale: 7,
-                              ),
-                            )
-                          : Container(),
-                      _isContainerVisibleTwo
-                          ? Container(
-                              constraints: const BoxConstraints(),
-                              width: MediaQuery.of(context).size.width,
-                              height: 10,
-                              padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.2),
-                              child: Image.asset("assets/images/tooltip.png"),
-                            )
-                          : Container(),
-                      _isContainerVisible
-                          ? CurrencyFromWidget(
-                              isContainerVisible: _isContainerVisible,
-                              onSelect: (String currencyCode, String image,
-                                  String symbol1) {
-                                symbol = symbol1;
-                                currencyCodeFrom = currencyCode;
-                                flagfrom = image;
-
-                                currencyCodeFromSave(currencyCodeFrom);
-                                edtFrom.text = currencyCode;
-                                edtCurrency.text = currencyCode;
-                                _isContainerVisible = false;
-                                getConverterAPI(currencyCodeFrom,
-                                    currencyCodeTo, calculateCurrency.text);
-
-                                setState(() {});
-                              },
-                            )
-                          : _isContainerVisibleTwo
-                              ? CurrencyToWidget(
-                                  isContainerVisibleTwo: _isContainerVisibleTwo,
-                                  onSelect:
-                                      (String currencyCode, String image) {
-                                    flagto = image;
-
-                                    currencyCodeTo = currencyCode;
-                                    currencyCodeToSave(currencyCodeTo);
-                                    edtTo.text = currencyCode;
-                                    _isContainerVisibleTwo = false;
-                                    getConverterAPI(currencyCodeFrom,
-                                        currencyCodeTo, calculateCurrency.text);
-                                    setState(() {});
-                                  },
-                                )
-                              : const SizedBox(
-                                  height: 0,
-                                  width: 0,
                                 ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Center(
-                        child: _isContainerVisible || _isContainerVisibleTwo
-                            ? Container()
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 16.0),
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AutoSizeText(
-                                        getFormatText(text),
-                                        wrapWords: true,
-                                        // conversionRate.toStringAsFixed(MyColors.decimalformat
-                                        //),
-                                        maxLines: 1,
-                                        maxFontSize: 25.0,
-                                        minFontSize: 15.0,
-                                        style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 25) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 25)
-                                                    : 25,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      AutoSizeText(
-                                        edtTo.text,
-                                        maxFontSize: 18.0,
-                                        minFontSize: 7.0,
-                                        style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 20) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 20)
-                                                    : 20,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                      ),
-                    ],
-                  ),
-                ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
