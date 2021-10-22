@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -116,9 +114,10 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                 activeColor: MyColors.checkBoxValue2
                                     ? Colors.black
                                     : Colors.white,
-                                checkColor:MyColors.checkBoxValue2? Colors.white:Colors.black45,
+                                checkColor: MyColors.checkBoxValue2
+                                    ? Colors.white
+                                    : Colors.black45,
                                 tristate: false,
-
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                               ),
@@ -136,7 +135,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 22),
+                margin: const EdgeInsets.only(top: 22),
                 width: 180,
                 child: Column(
                   children: [
@@ -160,14 +159,13 @@ class _DecimalScreensState extends State<DecimalScreens> {
                           child: Row(
                             children: [
                               Checkbox(
-
                                 side: BorderSide(color: MyColors.textColor),
                                 value: MyColors.boolDecimalFormate[index],
                                 onChanged: (value) {
                                   int i = 0;
                                   setState(() {
-                                    MyColors.boolDecimalFormate
-                                        .forEach((element) {
+                                    for (var element
+                                        in MyColors.boolDecimalFormate) {
                                       if (index == i) {
                                         if (index == 5) {
                                           MyColors.boolDecimalFormate[i] = true;
@@ -184,13 +182,15 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                       }
 
                                       i++;
-                                    });
+                                    }
                                   });
                                 },
                                 activeColor: MyColors.checkBoxValue2
                                     ? Colors.black
                                     : Colors.white,
-                                checkColor:MyColors.checkBoxValue2? Colors.white:Colors.black45,
+                                checkColor: MyColors.checkBoxValue2
+                                    ? Colors.white
+                                    : Colors.black45,
                                 tristate: false,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),

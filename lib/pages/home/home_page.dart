@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:core';
+import 'dart:core';
 
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
@@ -23,7 +25,8 @@ class MyTabBarWidget extends StatefulWidget {
   State<MyTabBarWidget> createState() => _MyTabBarWidgetState();
 }
 
-class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStateMixin {
+class _MyTabBarWidgetState extends State<MyTabBarWidget>
+    with TickerProviderStateMixin {
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
@@ -41,7 +44,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
 
       });
     super.initState();
-    //  getColorTheme();
 
     _tabController = TabController(length: 6, vsync: this, initialIndex: 0);
 
@@ -73,9 +75,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
               )),
               controller: _tabController,
               indicatorWeight: 2.5,
-              onTap: (_selectedIndex) {
+              onTap: (_selectedIndex) async {
                 if (_selectedIndex == 3) {
-                  // ratingBottomSheet(context);
                   _tabController.index = _tabController.previousIndex;
                 }
               },
@@ -83,9 +84,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
               tabs: <Widget>[
                 Tab(
                   icon: Container(
-                    width:40,
-                    height:35,
-                    child: Image.asset("assets/images/tab-ic1.png",fit: BoxFit.fill,
+                    width: 40,
+                    height: 35,
+                    child: Image.asset("assets/images/tab-ic1.png",
+                        fit: BoxFit.fill,
                         //scale: 6,
                         color: MyColors.textColor),
                   ),
@@ -93,14 +95,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic2.png",
-                     scale: 7 ,
+                    scale: 7,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic3.png",
-                       scale: 7,
+                    scale: 7,
                     color: MyColors.textColor,
                   ),
                 ),
@@ -143,7 +145,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-
         )),
         child: TabBarView(
           controller: _tabController,
@@ -176,8 +177,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
   ratingBottomSheet(BuildContext context) {
     return showModalBottomSheet(
         isDismissible: false,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         ),
 
         //backgroundColor: Colors.transparent,
@@ -186,7 +188,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
           return IntrinsicHeight(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
                 gradient: LinearGradient(
                   colors: [
                     MyColors.colorPrimary.withOpacity(0.5),
@@ -301,11 +305,12 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                       onPressed: () {
                         Navigator.pop(context);
                         if (_tabController.previousIndex == 2 ||
-                            _tabController.previousIndex == 4)
+                            _tabController.previousIndex == 4) {
                           _tabController
                               .animateTo(_tabController.previousIndex);
+                        }
                       },
-                      child: Text(
+                      child: AutoSizeText(
                         "not".tr().toString(),
                         style: TextStyle(
                             fontSize: MyColors.fontsmall
@@ -317,6 +322,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 13.0,
                   )
                 ],
               ),
@@ -324,8 +332,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
           );
         });
   }
-
-
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {

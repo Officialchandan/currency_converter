@@ -27,40 +27,35 @@ class _IntrigationState extends State<Intrigation> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
-            Container(
-              child: ElevatedButton(
-                onPressed: () {
-                  Insert();
-                },
-                child: Text("Click!!"),
-              ),
+            ElevatedButton(
+              onPressed: () {
+                Insert();
+              },
+              child: const Text("Click!!"),
             ),
-            Container(
-              child: ElevatedButton(
-                onPressed: () {
-                  showAll();
-                },
-                child: const Text("showall!!"),
-              ),
+            ElevatedButton(
+              onPressed: () {
+                showAll();
+              },
+              child: const Text("showall!!"),
             ),
-            Container(
-              child: ElevatedButton(
-                onPressed: () {
-                  particularrow();
-                },
-                child: const Text("particular row!!"),
-              ),
+            ElevatedButton(
+              onPressed: () {
+                particularrow();
+              },
+              child: const Text("particular row!!"),
             ),
           ],
         ),
       ),
     );
   }
-  void particularrow()async{
-    List<Map<String, dynamic>> row =await dbHelper.particular_row("INR");
+
+  void particularrow() async {
+    List<Map<String, dynamic>> row = await dbHelper.particular_row("INR");
     print("->>>>>>>>>>>>>>${row.first.values.toList()[3]}");
   }
 
@@ -75,7 +70,7 @@ class _IntrigationState extends State<Intrigation> {
     await dbHelper.update(currencyData.toMap());
   }
 
-   Future<void> Insert() async {
+  Future<void> Insert() async {
     print("Bobel");
 
     String url =
@@ -100,9 +95,6 @@ class _IntrigationState extends State<Intrigation> {
           int id = await dbHelper.insert(currencyData.toMap());
           print("id->>>>>$id");
         });
-
-
-
       } else {
         print("NOT FOUND DATA");
       }

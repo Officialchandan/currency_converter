@@ -12,6 +12,7 @@ import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 
 import 'add_currency_screen.dart';
+import 'home/home_page.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
@@ -60,6 +61,20 @@ class _SecondScreenState extends State<SecondScreen> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    debugPrint("didChangeDependencies -> home tab ");
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(SecondScreen oldWidget) {
+    debugPrint("didUpdateWidget -> SecondScreen  $oldWidget");
+
+    super.didUpdateWidget(oldWidget);
+    setState(() {});
   }
 
   @override
@@ -177,14 +192,16 @@ class _SecondScreenState extends State<SecondScreen> {
                             ),
                             child: SizedBox(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   MyColors.displayflag && MyColors.displaycode
                                       ? Container(
                                           width: 40,
                                           height: 40,
                                           child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(30),
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
                                               child: Image.asset(
                                                 model.image!,
                                                 fit: BoxFit.cover,
@@ -193,19 +210,22 @@ class _SecondScreenState extends State<SecondScreen> {
 
                                   MyColors.displaycode
                                       ? Container(
-                                          margin: const EdgeInsets.only(left: 8.0),
+                                          margin:
+                                              const EdgeInsets.only(left: 8.0),
                                           height: 35.0,
                                           width: 60.0,
                                           decoration: BoxDecoration(
                                             gradient: LinearGradient(
                                               colors: [
-                                                MyColors.colorPrimary.withOpacity(0.45),
+                                                MyColors.colorPrimary
+                                                    .withOpacity(0.45),
                                                 MyColors.colorPrimary,
                                               ],
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter,
                                             ),
-                                            borderRadius: BorderRadius.circular(7),
+                                            borderRadius:
+                                                BorderRadius.circular(7),
                                           ),
                                           child: Center(
                                             child: Text(
@@ -213,9 +233,11 @@ class _SecondScreenState extends State<SecondScreen> {
                                               style: TextStyle(
                                                 color: MyColors.textColor,
                                                 fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 18) * (-1)
+                                                    ? (MyColors.textSize - 18) *
+                                                        (-1)
                                                     : MyColors.fontlarge
-                                                        ? (MyColors.textSize + 18)
+                                                        ? (MyColors.textSize +
+                                                            18)
                                                         : 18,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -228,26 +250,30 @@ class _SecondScreenState extends State<SecondScreen> {
                                               width: 40,
                                               height: 40,
                                               child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(30),
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
                                                   child: Image.asset(
                                                     model.image!,
                                                     fit: BoxFit.cover,
                                                   )))
                                           : //flag
                                           Container(
-                                              margin: const EdgeInsets.only(left: 8.0),
+                                              margin: const EdgeInsets.only(
+                                                  left: 8.0),
                                               height: 35.0,
                                               width: 60.0,
                                               decoration: BoxDecoration(
                                                 gradient: LinearGradient(
                                                   colors: [
-                                                    MyColors.colorPrimary.withOpacity(0.45),
+                                                    MyColors.colorPrimary
+                                                        .withOpacity(0.45),
                                                     MyColors.colorPrimary,
                                                   ],
                                                   begin: Alignment.topCenter,
                                                   end: Alignment.bottomCenter,
                                                 ),
-                                                borderRadius: BorderRadius.circular(7),
+                                                borderRadius:
+                                                    BorderRadius.circular(7),
                                               ),
                                               child: Center(
                                                 child: Text(
@@ -255,9 +281,13 @@ class _SecondScreenState extends State<SecondScreen> {
                                                   style: TextStyle(
                                                     color: MyColors.textColor,
                                                     fontSize: MyColors.fontsmall
-                                                        ? (MyColors.textSize - 18) * (-1)
+                                                        ? (MyColors.textSize -
+                                                                18) *
+                                                            (-1)
                                                         : MyColors.fontlarge
-                                                            ? (MyColors.textSize + 18)
+                                                            ? (MyColors
+                                                                    .textSize +
+                                                                18)
                                                             : 18,
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -269,19 +299,22 @@ class _SecondScreenState extends State<SecondScreen> {
                                   ),
                                   MyColors.displayflag && MyColors.displaysymbol
                                       ? Container(
-                                          margin: const EdgeInsets.only(left: 8.0),
+                                          margin:
+                                              const EdgeInsets.only(left: 8.0),
                                           height: 35.0,
                                           width: 60.0,
                                           decoration: BoxDecoration(
                                             gradient: LinearGradient(
                                               colors: [
-                                                MyColors.colorPrimary.withOpacity(0.45),
+                                                MyColors.colorPrimary
+                                                    .withOpacity(0.45),
                                                 MyColors.colorPrimary,
                                               ],
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter,
                                             ),
-                                            borderRadius: BorderRadius.circular(7),
+                                            borderRadius:
+                                                BorderRadius.circular(7),
                                           ),
                                           child: Center(
                                             child: Text(
@@ -289,9 +322,11 @@ class _SecondScreenState extends State<SecondScreen> {
                                               style: TextStyle(
                                                 color: MyColors.textColor,
                                                 fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 18) * (-1)
+                                                    ? (MyColors.textSize - 18) *
+                                                        (-1)
                                                     : MyColors.fontlarge
-                                                        ? (MyColors.textSize + 18)
+                                                        ? (MyColors.textSize +
+                                                            18)
                                                         : 18,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -310,7 +345,11 @@ class _SecondScreenState extends State<SecondScreen> {
                                       showCursor: true,
                                       readOnly: true,
                                       decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, top: 1.0, bottom: 1.0),
+                                          contentPadding: EdgeInsets.only(
+                                              left: 1.0,
+                                              right: 1.0,
+                                              top: 1.0,
+                                              bottom: 1.0),
                                           counterText: "",
                                           border: InputBorder.none),
                                       style: TextStyle(
@@ -325,12 +364,15 @@ class _SecondScreenState extends State<SecondScreen> {
                                       onChanged: (String text) {
                                         text = model.controller.text;
 
-                                        calculateExchangeRate(text, index, model);
+                                        calculateExchangeRate(
+                                            text, index, model);
                                       },
                                       onTap: () async {
                                         currentIndex = index;
-                                        showCalculator(context, model.controller, (text) {
-                                          calculateExchangeRate(text, index, model);
+                                        showCalculator(
+                                            context, model.controller, (text) {
+                                          calculateExchangeRate(
+                                              text, index, model);
                                         });
                                       },
                                     ),
@@ -388,7 +430,8 @@ class _SecondScreenState extends State<SecondScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: MyColors.textColor,
         onPressed: () async {
-          selectedList = await Navigator.push(context, MaterialPageRoute(builder: (context) => AddCurrency()));
+          selectedList = await Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddCurrency()));
 
           setState(() {});
         },
@@ -401,21 +444,26 @@ class _SecondScreenState extends State<SecondScreen> {
     );
   }
 
-  Future<Map<String, dynamic>> getConverterAPI(String form, String to, String rate) async {
+  Future<Map<String, dynamic>> getConverterAPI(
+      String form, String to, String rate) async {
     debugPrint("input from -> $form");
     debugPrint("input to -> $to");
-    String url = "https://www.currency.wiki/api/currency/quotes/$form/$to/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url =
+        "https://www.currency.wiki/api/currency/quotes/$form/$to/784565d2-9c14-4b25-8235-06f6c5029b15";
 
     Dio _dio = Dio();
     try {
       Response response = await _dio.get(url);
       if (response.statusCode == 200) {
-        ConverterData converterData = ConverterData.fromJson(response.toString());
+        ConverterData converterData =
+            ConverterData.fromJson(response.toString());
         debugPrint("last data from -> ${converterData.from!.entries.last}");
         debugPrint("last data to -> ${converterData.to!.entries.last}");
 
-        double a = double.parse(converterData.from!.entries.last.value.toString());
-        double b = double.parse(converterData.to!.entries.last.value.toString());
+        double a =
+            double.parse(converterData.from!.entries.last.value.toString());
+        double b =
+            double.parse(converterData.to!.entries.last.value.toString());
         conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
 
         debugPrint("conversionRate $form to $to--> $conversionRate");
@@ -432,7 +480,8 @@ class _SecondScreenState extends State<SecondScreen> {
     return cresult;
   }
 
-  showCalculator(BuildContext context, TextEditingController controller, Function(String changeValue) onChange) {
+  showCalculator(BuildContext context, TextEditingController controller,
+      Function(String changeValue) onChange) {
     showModalBottomSheet(
         barrierColor: Colors.transparent,
         isDismissible: true,
@@ -490,14 +539,19 @@ class _SecondScreenState extends State<SecondScreen> {
             });
           }
 
-          Widget buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
+          Widget buildButton(String buttonText, double buttonHeight,
+              Color buttonColor, double buttonTexth) {
             return SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: Container(
                 margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.left,
                 ),
-                height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.6,
+                height: MediaQuery.of(context).size.height *
+                        0.1 /
+                        1.5 *
+                        buttonHeight +
+                    2.6,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                   colors: [
@@ -511,7 +565,10 @@ class _SecondScreenState extends State<SecondScreen> {
                 child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
-                        side: BorderSide(color: MyColors.colorPrimary, width: 0.6, style: BorderStyle.solid)),
+                        side: BorderSide(
+                            color: MyColors.colorPrimary,
+                            width: 0.6,
+                            style: BorderStyle.solid)),
                     padding: const EdgeInsets.all(0.0),
                     onPressed: () => buttonPressed(buttonText),
                     child: Padding(
@@ -520,7 +577,10 @@ class _SecondScreenState extends State<SecondScreen> {
                         alignment: Alignment.center,
                         child: Text(
                           buttonText,
-                          style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: Colors.white),
+                          style: TextStyle(
+                              fontSize: buttonTexth,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white),
                         ),
                       ),
                     )),
@@ -580,17 +640,21 @@ class _SecondScreenState extends State<SecondScreen> {
                                       equation == "";
                                     });
                                   },
-                                  child: buildButton("⌫", 1, MyColors.calcuColor, 30)),
+                                  child: buildButton(
+                                      "⌫", 1, MyColors.calcuColor, 30)),
                             ]),
                             TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor, calculatorTextSize),
+                              buildButton("-", 1, MyColors.calcuColor,
+                                  calculatorTextSize),
                             ]),
                             TableRow(children: [
                               buildButton("+", 1, MyColors.calcuColor, 30),
                             ]),
                             TableRow(
                               children: [
-                                Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
+                                Center(
+                                    child: buildButton("=", 2 * 1.02,
+                                        MyColors.calcuColor, 40)),
                               ],
                             ),
                           ]))
@@ -602,7 +666,8 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share(
+        "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   void calculateExchangeRate(String text, int index, DataModel model) {
@@ -611,12 +676,16 @@ class _SecondScreenState extends State<SecondScreen> {
     debugPrint("d$d");
     for (DataModel element in selectedList) {
       if (element.code != model.code) {
-        double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
+        double conversionRate = ((double.parse(model.value) * 100) /
+                (double.parse(element.value) * 100)) *
+            (d);
 
         debugPrint("conversionRate->$conversionRate");
 
-        element.controller.text = conversionRate.toStringAsFixed(MyColors.decimalformat);
-        element.exchangeValue = conversionRate.toStringAsFixed(MyColors.decimalformat);
+        element.controller.text =
+            conversionRate.toStringAsFixed(MyColors.decimalformat);
+        element.exchangeValue =
+            conversionRate.toStringAsFixed(MyColors.decimalformat);
       }
     }
 
