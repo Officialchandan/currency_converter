@@ -27,6 +27,8 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
+  String symbol2="";
+
   String symbol = "\$";
 
   String flagfrom = "assets/pngCountryImages/USD.png";
@@ -283,6 +285,7 @@ class _TapHomeState extends State<TapHome> {
                                 width: MediaQuery.of(context).size.width * 0.50,
                                 // width: 150,
                                 child: AutoSizeTextField(
+
                                   textAlignVertical: TextAlignVertical.center,
                                   autocorrect: true,
                                   maxLength: 30,
@@ -302,7 +305,7 @@ class _TapHomeState extends State<TapHome> {
                                   textAlign: TextAlign.center,
                                   // keyboardType: TextInputType.none,
                                   showCursor: true,
-                                  readOnly: true,
+                                readOnly: true,
                                   decoration: const InputDecoration(
                                       contentPadding: EdgeInsets.only(
                                           left: 1.0, right: 1.0, bottom: 15.0),
@@ -335,6 +338,14 @@ class _TapHomeState extends State<TapHome> {
 
                                       edtFrom.text = currencyCodeFrom;
                                       edtTo.text = currencyCodeTo;
+
+
+                                      String temp3="";
+                                      temp3=symbol;
+                                      symbol=symbol2;
+                                      symbol2=temp3;
+
+
 
                                       String temp1 = "";
                                       temp1 = flagfrom;
@@ -527,6 +538,7 @@ class _TapHomeState extends State<TapHome> {
                           : Container(),
                       _isContainerVisible
                           ? CurrencyFromWidget(
+
                               isContainerVisible: _isContainerVisible,
                               onSelect: (String currencyCode, String image,
                                   String symbol1) {
@@ -548,7 +560,8 @@ class _TapHomeState extends State<TapHome> {
                               ? CurrencyToWidget(
                                   isContainerVisibleTwo: _isContainerVisibleTwo,
                                   onSelect:
-                                      (String currencyCode, String image) {
+                                      (String currencyCode, String image,String symbol) {
+                                    symbol2=symbol;
                                     flagto = image;
 
                                     currencyCodeTo = currencyCode;
@@ -711,57 +724,76 @@ class _TapHomeState extends State<TapHome> {
         context: context,
         builder: (BuildContext context) {
           buttonPressed(String buttonText) {
-            setState(() {
-              if (buttonText == "c") {
-                isbool = true;
-                calculateCurrency.text = "";
-                equation = "0";
-                isbool = false;
-                equationFontSize = 38.0;
-                resultFontSize = 48.0;
-              } else if (buttonText == "⌫") {
-                equationFontSize = 48.0;
-                resultFontSize = 38.0;
-                equation = equation.substring(0, equation.length - 1);
-                if (equation == "") {
-                  equation = "0";
-                }
-              } else if (buttonText == "=") {
-                equationFontSize = 38.0;
-                resultFontSize = 48.0;
-                isbool = false;
+            if((equation.substring(equation.length - 1)=="+"&&buttonText=="+")||(equation.substring(equation.length - 1)=="+"&&buttonText=="-")||(equation.substring(equation.length - 1)=="+"&&buttonText=="×")||(equation.substring(equation.length - 1)=="+"&&buttonText=="/")||(equation.substring(equation.length - 1)=="+"&&buttonText=="=")||(equation.substring(equation.length - 1)=="+"&&buttonText=="%")||
+                (equation.substring(equation.length - 1)=="-"&&buttonText=="-")||(equation.substring(equation.length - 1)=="-"&&buttonText=="+")||(equation.substring(equation.length - 1)=="-"&&buttonText=="×")||(equation.substring(equation.length - 1)=="-"&&buttonText=="/")||(equation.substring(equation.length - 1)=="-"&&buttonText=="=")||(equation.substring(equation.length - 1)=="-"&&buttonText=="%")||
+                (equation.substring(equation.length - 1)=="×"&&buttonText=="×")||(equation.substring(equation.length - 1)=="×"&&buttonText=="+")||(equation.substring(equation.length - 1)=="×"&&buttonText=="-")||(equation.substring(equation.length - 1)=="×"&&buttonText=="/")||(equation.substring(equation.length - 1)=="×"&&buttonText=="=")||(equation.substring(equation.length - 1)=="×"&&buttonText=="%")||
+                (equation.substring(equation.length - 1)=="%"&&buttonText=="%")||(equation.substring(equation.length - 1)=="%"&&buttonText=="+")||(equation.substring(equation.length - 1)=="%"&&buttonText=="-")||(equation.substring(equation.length - 1)=="%"&&buttonText=="/")||(equation.substring(equation.length - 1)=="%"&&buttonText=="=")||(equation.substring(equation.length - 1)=="%"&&buttonText=="%")||
+               (equation.substring(equation.length - 1)=="/"&&buttonText=="×")||(equation.substring(equation.length - 1)=="/"&&buttonText=="+")||(equation.substring(equation.length - 1)=="/"&&buttonText=="-")||(equation.substring(equation.length - 1)=="/"&&buttonText=="/")||(equation.substring(equation.length - 1)=="×"&&buttonText=="×")||(equation.substring(equation.length - 1)=="×"&&buttonText=="+")||(equation.substring(equation.length - 1)=="×"&&buttonText=="-")||(equation.substring(equation.length - 1)=="×"&&buttonText=="/")||(equation.substring(equation.length - 1)=="×"&&buttonText=="=")||
+                (buttonText=="×"&&equation=="0")||(buttonText=="%"&&equation=="0")||(buttonText=="/"&&equation=="0")||(buttonText=="*"&&equation=="0")||(buttonText=="+"&&equation=="0")||(buttonText=="-"&&equation=="0")
 
-                expression = equation;
-                expression = expression.replaceAll('×', '*');
-                expression = expression.replaceAll('÷', '/');
+            )
+            {
 
-                try {
-                  Parser p = Parser();
-                  Expression exp = p.parse(expression);
 
-                  ContextModel cm = ContextModel();
-                  result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-                } catch (e) {
-                  result = "";
-                }
-              } else {
-                equationFontSize = 48.0;
-                resultFontSize = 38.0;
-                if (equation == "0") {
-                  equation = buttonText;
-                } else {
-                  equation = equation + buttonText;
-                }
+            }
+            else
+              {
+                setState(() {
+
+
+
+                  if (buttonText == "c") {
+                    isbool = true;
+                    calculateCurrency.text = "";
+                    equation = "0";
+                    isbool = false;
+                    equationFontSize = 38.0;
+                    resultFontSize = 48.0;
+                  } else if (buttonText == "⌫") {
+                    equationFontSize = 48.0;
+                    resultFontSize = 38.0;
+                    equation = equation.substring(0, equation.length - 1);
+                    if (equation == "") {
+                      equation = "0";
+                    }
+                  } else if (buttonText == "=") {
+                    equationFontSize = 38.0;
+                    resultFontSize = 48.0;
+                    isbool = false;
+
+                    expression = equation;
+                    expression = expression.replaceAll('×', '*');
+                    expression = expression.replaceAll('÷', '/');
+
+                    try {
+                      Parser p = Parser();
+                      Expression exp = p.parse(expression);
+
+                      ContextModel cm = ContextModel();
+                      result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+                    } catch (e) {
+                      result = "";
+                    }
+                  } else {
+                    equationFontSize = 48.0;
+                    resultFontSize = 38.0;
+                    if (equation == "0") {
+                      equation = buttonText;
+                    } else {
+                      equation = equation + buttonText;
+                    }
+                  }
+                  isbool
+                      ? calculateCurrency.text = equation
+                      : calculateCurrency.text = result;
+
+                  getConverterAPI(
+                      currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
+
+                  isbool = true;
+                });
               }
-              isbool
-                  ? calculateCurrency.text = equation
-                  : calculateCurrency.text = result;
 
-              getConverterAPI(
-                  currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
-
-              isbool = true;
-            });
           }
 
           Widget buildButton(String buttonText, double buttonHeight,

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class CurrencyToWidget extends StatefulWidget {
-  final Function(String currencyCode, String image) onSelect;
+  final Function(String currencyCode, String image,String symbol) onSelect;
 
   const CurrencyToWidget({required this.isContainerVisibleTwo, Key? key, required this.onSelect}) : super(key: key);
   final bool isContainerVisibleTwo;
@@ -109,7 +109,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                   InkWell(
                                     onTap: () {
                                       debugPrint("on tap -> ${model.code}");
-                                      widget.onSelect(model.code, model.image!);
+                                      widget.onSelect(model.code, model.image!,model.symbol!);
                                     },
                                     child: Container(
                                         margin: const EdgeInsets.fromLTRB(10, 1, 10, 0),

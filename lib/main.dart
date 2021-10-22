@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -58,7 +59,23 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getTheme() async {
-    await Utility.getColorTheme();
+    await Utility.getColorTheme();  MyColors.checkBoxValue2= useWhiteForeground(MyColors.colorPrimary)
+        ? false
+        : true;
+    if( MyColors.checkBoxValue2){
+      MyColors.textColor=Colors.black;
+      MyColors.insideTextFieldColor=Colors.white;
+      MyColors.checkBoxValue2=true;
+      MyColors.checkBoxValue1=false;
+    }
+    else{
+      MyColors.textColor=Colors.white;
+      MyColors.insideTextFieldColor=Colors.black;
+      MyColors.checkBoxValue1=true;
+      MyColors.checkBoxValue2=false;
+
+    }
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color

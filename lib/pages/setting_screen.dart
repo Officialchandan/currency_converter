@@ -265,8 +265,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                       MyColors.insideTextFieldColor = Colors.black;
                                       MyColors.calcuColor = MyColors.colorPrimary;
 
-                                      Navigator.pushAndRemoveUntil(
-                                          context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+                                      // Navigator.push(
+                                      //     context, MaterialPageRoute(builder: (_) => SettingScreen(onThemeChange)), );
                                     }
                                   });
                                 },
@@ -303,8 +303,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                       MyColors.insideTextFieldColor = Colors.white;
                                       MyColors.calcuColor = Colors.black;
 
-                                      Navigator.pushAndRemoveUntil(
-                                          context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+
+                                       // Navigator.push(
+                                       //     context, MaterialPageRoute(builder: (_) => SettingScreen(onThemeChange)));
                                     }
                                   });
                                 },
@@ -1057,6 +1058,10 @@ class _SettingScreenState extends State<SettingScreen> {
 //           );
 //         });
 //   }
+
+  onThemeChange() {
+
+  }
 }
 // content: SingleChildScrollView(
 //child: BlockPicker(
@@ -1314,6 +1319,22 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     widget.unlockColorSelect = true;
     var code = (color.mainColor.value.toRadixString(16));
     unlockSelectdColor = Color(int.parse("0x$code"));
+    MyColors.checkBoxValue2= useWhiteForeground(unlockSelectdColor!)
+        ? false
+        : true;
+    if( MyColors.checkBoxValue2){
+      MyColors.textColor=Colors.black;
+      MyColors.insideTextFieldColor=Colors.white;
+      MyColors.checkBoxValue2=true;
+      MyColors.checkBoxValue1=false;
+    }
+    else{
+      MyColors.textColor=Colors.white;
+      MyColors.insideTextFieldColor=Colors.black;
+      MyColors.checkBoxValue1=true;
+      MyColors.checkBoxValue2=false;
+
+    }
     selectedColor = color;
     setState(
       () => unlockCurrentColor = color.mainColor,
@@ -1327,6 +1348,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     widget.lockedColor = true;
     var code = (color.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
+    MyColors.checkBoxValue2= useWhiteForeground(lockSelectdColor!)
+        ? false
+        : true;
+    if( MyColors.checkBoxValue2){
+      MyColors.textColor=Colors.black;
+      MyColors.insideTextFieldColor=Colors.white;
+      MyColors.checkBoxValue2=true;
+      MyColors.checkBoxValue1=false;
+    }
+    else{
+      MyColors.textColor=Colors.white;
+      MyColors.insideTextFieldColor=Colors.black;
+      MyColors.checkBoxValue1=true;
+      MyColors.checkBoxValue2=false;
+
+    }
+
 
     MyColors.colorPrimary = lockSelectdColor!;
 
