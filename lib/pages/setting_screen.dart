@@ -8,6 +8,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -1229,8 +1230,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
                           }
                           if (density) {
-                            Utility.setStringPreference(Constants.themeColor, densitySelectedColor.value.toString());
-                            themepicker(densitySelectedColor.value.toString());
+
                             MyColors.colorPrimary = densitySelectedColor;
                             Navigator.pushAndRemoveUntil(
                                 context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
@@ -1325,6 +1325,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     widget.lockedColor = true;
     var code = (color.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
+
     MyColors.colorPrimary = lockSelectdColor!;
 
     setState(
@@ -1338,6 +1339,22 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     density = true;
     var code = (color.value.toRadixString(16));
     densitySelectedColor = Color(int.parse("0x$code"));
+    MyColors.checkBoxValue2= useWhiteForeground(densitySelectedColor)
+        ? false
+        : true;
+    if( MyColors.checkBoxValue2){
+      MyColors.textColor=Colors.black;
+      MyColors.insideTextFieldColor=Colors.white;
+      MyColors.checkBoxValue2=true;
+      MyColors.checkBoxValue1=false;
+    }
+    else{
+      MyColors.textColor=Colors.white;
+      MyColors.insideTextFieldColor=Colors.black;
+      MyColors.checkBoxValue1=true;
+      MyColors.checkBoxValue2=false;
+
+    }
 
     setState(
       () => unlockCurrentColor = color,

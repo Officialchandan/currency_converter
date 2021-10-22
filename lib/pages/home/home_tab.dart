@@ -10,6 +10,7 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +64,13 @@ class _TapHomeState extends State<TapHome> {
 
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+      statusBarColor: MyColors.colorPrimary, // status bar color
+    ));
+    setState(() {
+
+    });
     // Insert();
     getCurrencyCode();
 

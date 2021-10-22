@@ -54,6 +54,24 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 child: ElevatedButton(
                   child: const Text("Try this Color"),
                   onPressed: () {
+                   MyColors.checkBoxValue2= useWhiteForeground(currentColor)
+                        ? false
+                        : true;
+                   if( MyColors.checkBoxValue2){
+                     MyColors.textColor=Colors.black;
+                     MyColors.insideTextFieldColor=Colors.white;
+                     MyColors.checkBoxValue2=true;
+                     MyColors.checkBoxValue1=false;
+                   }
+                   else{
+                     MyColors.textColor=Colors.white;
+                     MyColors.insideTextFieldColor=Colors.black;
+                     MyColors.checkBoxValue1=true;
+                     MyColors.checkBoxValue2=false;
+
+                   }
+
+
                     MyColors.colorPrimary = currentColor;
                     MyColors.calcuColor = currentColor;
                     Navigator.pushAndRemoveUntil(

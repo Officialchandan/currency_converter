@@ -33,6 +33,13 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
 
   @override
   void initState() {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+        statusBarColor: MyColors.colorPrimary, // status bar color
+      ));
+      setState(() {
+
+      });
     super.initState();
     //  getColorTheme();
 
