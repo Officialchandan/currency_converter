@@ -31,6 +31,8 @@ class _SettingScreenState extends State<SettingScreen> {
   bool lockedcolortry = false;
   bool unclockcolorselect = false;
   Color color = Colors.red;
+
+  
   bool _isContainerVisible = false;
 
   bool isSwitched = false;
