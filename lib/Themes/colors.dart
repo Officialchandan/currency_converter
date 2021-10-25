@@ -28,15 +28,17 @@ class MyColors {
   static  bool fontlarge = false;  //{ this is for large font }
 
   static int decimalformat= 2;
-  static int monetaryformat=4;
+  static int monetaryformat=1;
 
-  static List <bool> boolDecimalFormate=[false,true,false,false,false,false];
-  static List <bool> boolMonetaryFormate=[false,false,false,true];
+  static List <bool> boolDecimalFormate=[true,false,false,false,false,false];
+  static List <bool> boolMonetaryFormate=[true,false,false,false];
 static int count =0;
 
   static bool displaycode = true;
   static bool displaysymbol = false;
   static bool displayflag = false;
+
+  static int formatDemo =   123456;
 
 
 

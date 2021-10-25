@@ -58,7 +58,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                         ? false
                         : true;
                    if( MyColors.checkBoxValue2){
-                     MyColors.textColor=Colors.black;
+                     MyColors.textColor=Colors.grey.shade700;
                      MyColors.insideTextFieldColor=Colors.white;
                      MyColors.checkBoxValue2=true;
                      MyColors.checkBoxValue1=false;

@@ -58,7 +58,7 @@ class _LanguageState extends State<Language> {
                 height: MediaQuery.of(context).size.height * 1.909,
                 child: Container(
                   margin: const EdgeInsets.only(
-                      top: 0, right: 5, bottom: 0, left: 5),
+                      top: 0, right: 10, bottom: 0, left: 10),
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: Locals.language.length,
@@ -96,16 +96,15 @@ class _LanguageState extends State<Language> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                        margin:  const EdgeInsets.all(7),
+                                        margin: const EdgeInsets.all(7),
                                         height: 30,
                                         child: Text(
-                                            Locals.language[index].keys.first,
+                                          Locals.language[index].keys.first,
                                           style:  TextStyle(
-                                              fontSize: 18, color: MyColors.insideTextFieldColor),
+                                              fontSize: 18, color:  MyColors.insideTextFieldColor),
                                         )),
                                     Container(
                                       padding: EdgeInsets.only(right: 10),
-
                                       child: Locals.icon[index]
                                           ? const Icon(
                                               Icons.check_sharp,

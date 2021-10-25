@@ -37,6 +37,7 @@ class _SecondScreenState extends State<SecondScreen> {
   String currencyCodeFrom = "";
   String currencyCodeTo = "";
   var calculatorTextSize;
+  bool firstTime=true;
 
   Map<String, double> cresult = {};
 
@@ -49,6 +50,8 @@ class _SecondScreenState extends State<SecondScreen> {
   void initState() {
     super.initState();
     getSelectedList();
+
+
   }
 
   void getSelectedList() async {
@@ -56,6 +59,8 @@ class _SecondScreenState extends State<SecondScreen> {
     selectedList = await dbHelper.getSelectedData();
     debugPrint("selectedList-->$selectedList");
     streamController.add(selectedList);
+
+
   }
 
   @override
@@ -179,6 +184,15 @@ class _SecondScreenState extends State<SecondScreen> {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           DataModel model = snapshot.data![index];
+                          if(index==0&&firstTime)
+                            {
+                              model.controller.text="1";
+                              calculateExchangeRate(
+                                  "1", 0, model);
+                              firstTime=false;
+
+
+                            }
 
                           return Container(
                             height: 45.0,
@@ -431,7 +445,7 @@ class _SecondScreenState extends State<SecondScreen> {
         backgroundColor: MyColors.textColor,
         onPressed: () async {
           selectedList = await Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddCurrency()));
+              context, MaterialPageRoute(builder: (context) => AddCurrency(OnStateChange)));
 
           setState(() {});
         },
@@ -443,6 +457,12 @@ class _SecondScreenState extends State<SecondScreen> {
       ),
     );
   }
+   OnStateChange()
+   {
+     setState(() {
+
+     });
+   }
 
   Future<Map<String, dynamic>> getConverterAPI(
       String form, String to, String rate) async {

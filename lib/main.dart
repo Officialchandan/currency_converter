@@ -59,7 +59,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getTheme() async {
-    await Utility.getColorTheme();  MyColors.checkBoxValue2= useWhiteForeground(MyColors.colorPrimary)
+    await Utility.getColorTheme();
+    MyColors.checkBoxValue2= useWhiteForeground(MyColors.colorPrimary)
         ? false
         : true;
     if( MyColors.checkBoxValue2){
@@ -75,7 +76,6 @@ class _MyAppState extends State<MyApp> {
       MyColors.checkBoxValue2=false;
 
     }
-
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color

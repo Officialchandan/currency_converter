@@ -16,15 +16,15 @@ class DecimalScreens extends StatefulWidget {
 }
 
 class _DecimalScreensState extends State<DecimalScreens> {
-  String text = "41354564561.223";
+  static String text = "123456";
   int value = -1;
   int value1 = -1;
   int num = 4;
   int num1 = 6;
-  int x = 41354561351;
+
 
   List<String> radiMonetaryFormat = [
-    "12334.56",
+    "1234.56",
     "1.234,56",
     "1 234.56",
     "1 234,56",
@@ -38,6 +38,11 @@ class _DecimalScreensState extends State<DecimalScreens> {
     ".0000006",
     "Don't show "
   ];
+  @override
+  void initState() {
+    format();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +223,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
   format() {
     int i = MyColors.monetaryformat;
     int afterdecimal = MyColors.decimalformat;
-    int amount = x;
+    int amount = MyColors.formatDemo;
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,
       symbol: "",
@@ -258,6 +263,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
       text = text.replaceAll(".", ",");
       log(text);
     }
+
 
     setState(() {});
   }

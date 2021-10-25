@@ -10,7 +10,7 @@ import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const _dbName = 'currencyconverter2.db'; //database Name
+  static const _dbName = 'currencyconverter4.db'; //database Name
   static final _dbVersion = 1;                    // database Version
   static final tableName = "conversion";          // table Name
   static final ColumnId = "id";                   //Id

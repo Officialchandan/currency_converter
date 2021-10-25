@@ -31,6 +31,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
 
   @override
   void initState() {
+
     super.initState();
     orderedData();
     // orderedData();
@@ -109,7 +110,9 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                   InkWell(
                                     onTap: () {
                                       debugPrint("on tap -> ${model.code}");
+                                      // widget.onSelect(model.code, model.image!);
                                       widget.onSelect(model.code, model.image!,model.symbol!);
+
                                     },
                                     child: Container(
                                         margin: const EdgeInsets.fromLTRB(10, 1, 10, 0),
@@ -159,7 +162,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                                     width: 130,
                                                     child: Text(
                                                       model.name!,
-                                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: MyColors.insideTextFieldColor),
                                                     )),
                                               ],
                                             ),
