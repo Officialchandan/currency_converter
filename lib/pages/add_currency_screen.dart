@@ -11,6 +11,8 @@ class AddCurrency extends StatefulWidget {
   final Function Onstate;
 
   AddCurrency(this.Onstate);
+  const AddCurrency({Key? key}) : super(key: key);
+
   @override
   _AddCurrencyState createState() => _AddCurrencyState();
 }
@@ -47,8 +49,6 @@ class _AddCurrencyState extends State<AddCurrency> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-
-
           backgroundColor: MyColors.colorPrimary,
           title: Text(
             "Add currency".toUpperCase(),
@@ -64,8 +64,11 @@ class _AddCurrencyState extends State<AddCurrency> {
               color: MyColors.textColor,
             ),
             onPressed: () {
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => const SecondScreen()));
 
-            widget.Onstate();
               Navigator.pop(context);
             },
           ),
@@ -307,7 +310,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                       onPressed: () async {
                                         if (!model.iconForSelection) {
                                           model.iconForSelection = true;
-                                          model.selected= 1;
+                                          model.selected = 1;
                                           dbHelper.update(model.toMap());
                                           selectedList.add(model);
                                           selectedController.add(selectedList);
