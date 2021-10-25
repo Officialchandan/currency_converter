@@ -8,6 +8,8 @@ import 'package:currency_converter/database/currencydata.dart';
 import 'package:flutter/material.dart';
 
 class AddCurrency extends StatefulWidget {
+  const AddCurrency({Key? key}) : super(key: key);
+
   @override
   _AddCurrencyState createState() => _AddCurrencyState();
 }
