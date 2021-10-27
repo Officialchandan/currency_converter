@@ -40,7 +40,7 @@ class _TeramAndConditionState extends State<TeramAndCondition>
             Container(
               height: 40,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: MyColors.textColor.withOpacity(.3),
                 borderRadius: BorderRadius.circular(
                   7.0,
                 ),
@@ -49,14 +49,19 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                 controller: _tabControllers,
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(7), // Creates border
-                    color: MyColors.textColor),
+                    color: MyColors.textColor.withOpacity(.9)),
                 labelColor: Colors.white,
-                unselectedLabelColor: Colors.grey,
+                unselectedLabelColor: Colors.transparent,
                 tabs: <Widget>[
                   Tab(
                     child: Text(
                       "Support",
                       style: TextStyle(
+                        fontSize: MyColors.fontsmall
+                            ? (MyColors.textSize - 16 * (-1))
+                            : MyColors.fontlarge
+                            ? (MyColors.textSize + 16)
+                            : 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -66,6 +71,11 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                     child: Text(
                       "Terms",
                       style: TextStyle(
+                         fontSize: MyColors.fontsmall
+                      ? (MyColors.textSize - 16) * (-1)
+                            : MyColors.fontlarge
+                    ? (MyColors.textSize + 16)
+                        : 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -75,7 +85,11 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                     child: AutoSizeText(
                       "Privacy Policy",
                       maxLines: 1,
-                      style: TextStyle(
+                      style: TextStyle( fontSize: MyColors.fontsmall
+                          ? (MyColors.textSize - 16) * (-1)
+                          : MyColors.fontlarge
+                          ? (MyColors.textSize + 16)
+                          : 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),

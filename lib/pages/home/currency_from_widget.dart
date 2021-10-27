@@ -69,7 +69,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                     List<DataModel> searchList = [];
 
                     for (var element in countrycode) {
-                      if (element.code.toString().toLowerCase().contains(text.trim().toLowerCase())) {
+                      if (element.code.toString().toLowerCase().contains(text.trim().toLowerCase())||element.name.toString().toLowerCase().contains(text.trim().toLowerCase())) {
                         searchList.add(element);
                       }
                     }
@@ -153,7 +153,14 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                               width: 130,
                                               child: Text(
                                                 model1.name!,
-                                                style: TextStyle(fontWeight: FontWeight.w500,color: MyColors.insideTextFieldColor),
+                                                style: TextStyle(fontWeight: FontWeight.w500,color: MyColors.insideTextFieldColor,
+                                                  fontSize: MyColors.fontsmall
+                                                      ? (MyColors.textSize - 16) * (-1)
+                                                      : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 16)
+                                                      : 16,
+                                                ),
+
                                               ),
                                             ),
                                           ],

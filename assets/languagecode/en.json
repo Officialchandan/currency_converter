@@ -3,9 +3,9 @@
   "update": "Updated",
   "addCurrency": "Add Currency",
   "selectedCurrency":"Selected Currency",
-  "monetary": "Monetary Format",
-  "decimal": "Decimal Format",
-  "firstTextRatingPage": "Please rate out app!",
+  "monetary": "Monetary format",
+  "decimal": "Decimal format",
+  "firstTextRatingPage": "Please rate our app!",
   "secondTextRatingPage": "Tap on stars and open with Google Play Store to rate",
   "buttonTextRatingPage":"NOT NOW",
   "removeAds": "Remove Ads",
@@ -29,7 +29,28 @@
   "display2":"Display Currency Symbol",
   "display3": "Display Currency Flag",
   "dateFormat": "Data Format",
-  "not": "NOT NOW"
+  "not": "NOT NOW",
+
+
+  "addCurrency": "ADD CURRENCY",
+  "selected": "SELECTED",
+  "currencyList": "CURRENCY LIST",
+  "dontShow": "Dont't Show",
+  "support": "Support",
+  "term": "Term",
+  "privacy":"Privacy Policy",
+  "unlocked": "UnLocked",
+  "locked": "Locked",
+  "custom": "Custom",
+  "try": "Try this Color",
+  "unlock": "UnLock",
+  "wiki": ",By:Currency.wiki",
+  "multi": "Multi-Converter"
+
+
+
+
+
 
 
 

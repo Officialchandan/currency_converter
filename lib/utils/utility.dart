@@ -36,6 +36,63 @@ class Utility {
     return prefs.setInt(key, value);
   }
 
+
+  static Future<String> getSymbolFromPreference(String key)async{
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString(key)??"\$";
+
+  }
+  static Future<bool> setSymbolFromPreference(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(key, value);
+  }
+  static Future<String> getSymboltoPreference(String key)async{
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString(key)??"€";
+
+  }
+  static Future<bool> setSymboltoPreference(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(key, value);
+  }
+
+  static Future<int> getMonetaryValuePreference(String key)async{
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getInt(key)??1;
+
+  }
+  static Future<bool> setMonetaryValuePreference(String key, int value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setInt(key, value);
+  }
+  static Future<int> getDecimalValuePreference(String key)async{
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getInt(key)??2;
+
+  }
+  static Future<bool> setDecimalValuePreference(String key, int value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setInt(key, value);
+  }
+
+  static Future<String> getFormatExmaplePreference(String key)async{
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString(key)??"123456.02";
+
+  }
+  static Future<bool> setFormatExmaplePreference(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(key, value);
+  }
+
+
+
+
   static Future getColorTheme() async {
     String colorCode = await getStringPreference(Constants.themeColor);
     debugPrint("color->>>> $colorCode");

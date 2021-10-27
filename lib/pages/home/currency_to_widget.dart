@@ -75,9 +75,11 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                     List<DataModel> searchList = [];
 
                     for (var element in countrycode) {
-                      if (element.code.toString().toLowerCase().contains(text.trim().toLowerCase())) {
+                      if (element.code.toString().toLowerCase().contains(text.trim().toLowerCase())||element.name.toString().toLowerCase().contains(text.trim().toLowerCase())) {
                         searchList.add(element);
                       }
+
+
                     }
                     streamController.add(searchList);
                   },
@@ -162,7 +164,11 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                                     width: 130,
                                                     child: Text(
                                                       model.name!,
-                                                      style: TextStyle(fontWeight: FontWeight.w500,color: MyColors.insideTextFieldColor),
+                                                      style: TextStyle(fontWeight: FontWeight.w500,color: MyColors.insideTextFieldColor,  fontSize: MyColors.fontsmall
+                                                          ? (MyColors.textSize - 16) * (-1)
+                                                          : MyColors.fontlarge
+                                                          ? (MyColors.textSize + 16)
+                                                          : 16,),
                                                     )),
                                               ],
                                             ),

@@ -212,7 +212,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.asset(
-                          "assets/images/currency.png",
+                          "assets/images/currency1.png",
                           fit: BoxFit.cover,
                         )),
                   ),

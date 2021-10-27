@@ -24,7 +24,7 @@ class Constants {
     {
       "code": "AED",
       "image": "assets/pngCountryImages/AED.png",
-      "country_name": "United Arab Emirates Dirha..",
+      "country_name": "United Arab Emir..",
       "Symbol": "د.إ"
     },
     {
@@ -48,7 +48,7 @@ class Constants {
     {
       "code": "ANG",
       "image": "assets/pngCountryImages/ANG.png",
-      "country_name": "Netherlands Antillean Guil..",
+      "country_name": "Netherlands Antille..",
       "Symbol": "ƒ"
     },
     {

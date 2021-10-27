@@ -7,6 +7,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
@@ -27,12 +28,12 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
-  String symbol2="";
+  String symbol2="€";
 
   String symbol = "\$";
 
   String flagfrom = "assets/pngCountryImages/USD.png";
-  String flagto = "assets/pngCountryImages/INR.png";
+  String flagto = "assets/pngCountryImages/EUR.png";
 
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
@@ -56,7 +57,7 @@ class _TapHomeState extends State<TapHome> {
   TextEditingController edtCurrency = TextEditingController();
   TextEditingController calculateCurrency = TextEditingController(text:"0");
   TextEditingController edtFrom = TextEditingController(text: "USD");
-  TextEditingController edtTo = TextEditingController(text: "INR");
+  TextEditingController edtTo = TextEditingController(text: "EUR");
 
   String convertedDateTime = "";
   DateTime now = DateTime.now();
@@ -67,6 +68,7 @@ class _TapHomeState extends State<TapHome> {
 
   @override
   void initState() {
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
@@ -74,6 +76,8 @@ class _TapHomeState extends State<TapHome> {
     setState(() {
 
     });
+    _isContainerVisible = false;
+    _isContainerVisibleTwo = false;
     // Insert();
     getCurrencyCode();
 
@@ -83,7 +87,7 @@ class _TapHomeState extends State<TapHome> {
   getCurrencyCode() async {
     final prefs = await SharedPreferences.getInstance();
     currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "USD";
-    currencyCodeTo = prefs.getString(Constants.currencyCodeTo) ?? "INR";
+    currencyCodeTo = prefs.getString(Constants.currencyCodeTo) ?? "EUR";
 
     if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
       edtFrom.text = currencyCodeFrom;
@@ -91,7 +95,10 @@ class _TapHomeState extends State<TapHome> {
       flagfrom = "assets/pngCountryImages/$currencyCodeFrom.png";
       flagto = "assets/pngCountryImages/$currencyCodeTo.png";
 
-      // getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+     symbol= await Utility.getSymbolFromPreference("hello");
+     symbol2= await Utility.getSymboltoPreference("to");
+
+       getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
     setState(() {});
   }
@@ -105,6 +112,7 @@ class _TapHomeState extends State<TapHome> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.currencyCodeTo, code);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -319,7 +327,7 @@ class _TapHomeState extends State<TapHome> {
                                     setState(() {});
                                   },
                                   onChanged: (text) {
-                                    print("onchange -> $text");
+
                                     getConverterAPI(currencyCodeFrom,
                                         currencyCodeTo, calculateCurrency.text);
                                   },
@@ -474,13 +482,11 @@ class _TapHomeState extends State<TapHome> {
                                       _isContainerVisibleTwo = true;
                                     }
                                     setState(() {
-                                      debugPrint("Hello");
+
 
                                       arrowPositionTwo = !arrowPositionTwo;
                                     });
-                                    debugPrint("Hello1");
 
-                                    debugPrint("Hello2");
                                   },
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -545,6 +551,7 @@ class _TapHomeState extends State<TapHome> {
                                 symbol = symbol1;
                                 currencyCodeFrom = currencyCode;
                                 flagfrom = image;
+                                Utility.setSymbolFromPreference("hello",symbol);
 
                                 currencyCodeFromSave(currencyCodeFrom);
                                 edtFrom.text = currencyCode;
@@ -563,6 +570,7 @@ class _TapHomeState extends State<TapHome> {
                                       (String currencyCode, String image,String symbol) {
                                     symbol2=symbol;
                                     flagto = image;
+                                    Utility.setSymbolFromPreference("to",symbol2);
 
                                     currencyCodeTo = currencyCode;
                                     currencyCodeToSave(currencyCodeTo);
@@ -640,7 +648,7 @@ class _TapHomeState extends State<TapHome> {
   }
 
   Future<void> Insert() async {
-    print("Bobel");
+
 
     String url =
         "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
@@ -663,7 +671,7 @@ class _TapHomeState extends State<TapHome> {
 
           int id = await dbHelper.insert(currencyData.toMap());
 
-          // print("id->>>>>$id");
+          //
         });
 
         showAll();
@@ -687,8 +695,7 @@ class _TapHomeState extends State<TapHome> {
   void particularrow() async {}
   Future<Map<String, dynamic>> getConverterAPI(
       String form, String to, String rate) async {
-    debugPrint("input from -> $form");
-    debugPrint("input to -> $to");
+
 
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
@@ -697,11 +704,10 @@ class _TapHomeState extends State<TapHome> {
       double a = double.parse(formRow.first.values.toList()[3]);
       double b = double.parse(toRow.first.values.toList()[3]);
       conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
-      text = double.parse(conversionRate.toString())
-          .toStringAsFixed(MyColors.decimalformat);
+      text = conversionRate.toStringAsFixed(MyColors.decimalFormat);
       // format(conversionRate);
 
-      debugPrint("conversionRate $form to $to--> ${conversionRate.toStringAsFixed(MyColors.decimalformat)}");
+      debugPrint("conversionRate $form to $to--> ${conversionRate.toStringAsFixed(MyColors.decimalFormat)}");
 
       setState(() {});
 
@@ -718,9 +724,12 @@ class _TapHomeState extends State<TapHome> {
   }
 
   showCalculator(BuildContext context) {
+
     showModalBottomSheet(
+
         barrierColor: Colors.transparent,
         isDismissible: true,
+
         context: context,
         builder: (BuildContext context) {
           buttonPressed(String buttonText) {
@@ -758,16 +767,7 @@ class _TapHomeState extends State<TapHome> {
                     }
                   } else if (buttonText == "=") {
                     equationFontSize = 38.0;
-                    resultFontSize = 48.0;
-                    isbool = false;
-
-
-                    expression = equation;
-                    expression = expression.replaceAll('×', '*');
-                    expression = expression.replaceAll('÷', '/');
-
-
-                    try {
+                    resultFontSize = 48.0;try {
                       Parser p = Parser();
                       Expression exp = p.parse(expression);
 
@@ -776,6 +776,55 @@ class _TapHomeState extends State<TapHome> {
                     } catch (e) {
                       result = "";
                     }
+                    isbool = false;
+
+
+                    expression = equation;
+                    expression = expression.replaceAll('×', '*');
+                    expression = expression.replaceAll('÷', '/');
+
+
+                    if(expression.contains("%")){
+                      String a="";
+                      String b="";
+                      String c="";
+                      for(int i=0;i<expression.length;i++)
+                        {
+                          if(expression[i]!="%")
+                            {
+                              if(b=="%")c+=expression[i];
+                              else a+=expression[i];
+                            }
+                          else
+                            {
+                              b=expression[i];
+                            }
+                        }
+
+
+
+                      print("a->>>>$a");
+
+
+
+                      result=((double.parse(a)*double.parse(c)/100)).toString();
+
+
+                    }
+
+
+                    else{
+                      try {
+                        Parser p = Parser();
+                        Expression exp = p.parse(expression);
+
+                        ContextModel cm = ContextModel();
+                        result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+                      } catch (e) {
+                        result = "";
+                      }
+                    }
+
                   } else {
                     equationFontSize = 48.0;
                     resultFontSize = 38.0;
@@ -918,102 +967,109 @@ class _TapHomeState extends State<TapHome> {
         });
   }
 
-  format(double conversionRate) {
-    int i = MyColors.monetaryformat;
-    int afterdecimal = MyColors.decimalformat;
-    double amount =
-        double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
+  // format1(double conversionRate) {
+  //   int i = MyColors.monetaryformat;
+  //   int afterdecimal = MyColors.decimalformat;
+  //   double amount =
+  //       double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
+  //   CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
+  //     decimalDigits: afterdecimal,
+  //     symbol: "",
+  //   );
+  //   if (i == 1) {
+  //     text1 = mformat.format(amount.toString().replaceAll(".", ""));
+  //     log(text1);
+  //     text1 = text1.replaceAll(",", ",");
+  //     log(text1);
+  //     text = text.replaceAll(".", ".");
+  //     log(text);
+  //   } else if (i == 2) {
+  //     text = mformat.format(amount.toString().replaceAll(".", ""));
+  //     log(text);
+  //     text = text.replaceAll(".", " ");
+  //     log(text);
+  //     text = text.replaceAll(",", ".");
+  //     log(text);
+  //     text = text.replaceAll(" ", ",");
+  //
+  //     //text = text.replaceFirstMapped(".", (match) => "1");
+  //   } else if (i == 3) {
+  //     text = mformat.format(amount.toString().replaceAll(".", ""));
+  //     text = text.replaceAll(".", "=");
+  //     log(text);
+  //     text = text.replaceAll(",", ".");
+  //     log(text);
+  //     text = text.replaceAll(".", " ");
+  //     text = text.replaceAll("=", ".");
+  //
+  //     log(text);
+  //   } else if (i == 4) {
+  //     text = mformat.format(amount.toString().replaceAll(".", ""));
+  //     log(text);
+  //     text = text.replaceAll(",", " ");
+  //     log(text);
+  //     text = text.replaceAll(".", ",");
+  //     log(text);
+  //   }
+  //
+  //   setState(() {});
+  // }
+
+  String getFormatText(String s) {
+    String text1="";
+    debugPrint("MyColors.decimalformat-->${MyColors.decimalFormat}");
+    debugPrint("getFormatText-->$s");
+
+    int i = MyColors.monetaryFormat;
+    debugPrint("monetaryFormat-->$i");
+    int afterdecimal = MyColors.decimalFormat;
+
+    // double amount =
+    //       double.parse(s);
+    //
+    // debugPrint("amount-->$amount");
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,
       symbol: "",
     );
     if (i == 1) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(",", ",");
-      log(text);
-      text = text.replaceAll(".", ".");
-      log(text);
-    } else if (i == 2) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(".", " ");
-      log(text);
-      text = text.replaceAll(",", ".");
-      log(text);
-      text = text.replaceAll(" ", ",");
+      text1 = mformat.format(s.replaceAll(".", ""));
 
+      text1 = text1.replaceAll(",", ",");
+
+      text1 = text1.replaceAll(".", ".");
+
+      return text1;
+    } else if (i == 2) {
+      text1 = mformat.format(s.replaceAll(".", ""));
+      log(text1);
+      text1 = text1.replaceAll(".", " ");
+      log(text1);
+      text1 = text1.replaceAll(",", ".");
+      log(text1);
+      text1 = text1.replaceAll(" ", ",");
+      return text1;
       //text = text.replaceFirstMapped(".", (match) => "1");
     } else if (i == 3) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      text = text.replaceAll(".", "=");
-      log(text);
-      text = text.replaceAll(",", ".");
-      log(text);
-      text = text.replaceAll(".", " ");
-      text = text.replaceAll("=", ".");
+      text1 = mformat.format(s.replaceAll(".", ""));
+      text1 = text1.replaceAll(".", "=");
+      log(text1);
+      text1 = text1.replaceAll(",", ".");
+      log(text1);
+      text1 = text1.replaceAll(".", " ");
+      text1 = text1.replaceAll("=", ".");
 
-      log(text);
+      log(text1);
+      return text1;
     } else if (i == 4) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(",", " ");
-      log(text);
-      text = text.replaceAll(".", ",");
-      log(text);
+      text1 = mformat.format(s.replaceAll(".", ""));
+      log(text1);
+      text1 = text1.replaceAll(",", " ");
+      log(text1);
+      text1 = text1.replaceAll(".", ",");
+      log(text1);
+      return text1;
     }
-
-    setState(() {});
-  }
-
-  String getFormatText(String text) {
-    debugPrint("MyColors.decimalformat-->${MyColors.decimalformat}");
-    int i = MyColors.monetaryformat;
-    int afterdecimal = MyColors.decimalformat;
-    double amount =
-        double.parse(conversionRate.toStringAsFixed(MyColors.decimalformat));
-    CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
-      decimalDigits: afterdecimal,
-      symbol: "",
-    );
-    if (i == 1) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(",", ",");
-      log(text);
-      text = text.replaceAll(".", ".");
-      log(text);
-      return text;
-    } else if (i == 2) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(".", " ");
-      log(text);
-      text = text.replaceAll(",", ".");
-      log(text);
-      text = text.replaceAll(" ", ",");
-      return text;
-      //text = text.replaceFirstMapped(".", (match) => "1");
-    } else if (i == 3) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      text = text.replaceAll(".", "=");
-      log(text);
-      text = text.replaceAll(",", ".");
-      log(text);
-      text = text.replaceAll(".", " ");
-      text = text.replaceAll("=", ".");
-
-      log(text);
-      return text;
-    } else if (i == 4) {
-      text = mformat.format(amount.toString().replaceAll(".", ""));
-      log(text);
-      text = text.replaceAll(",", " ");
-      log(text);
-      text = text.replaceAll(".", ",");
-      log(text);
-      return text;
-    }
-    return text;
+    return text1;
   }
 }

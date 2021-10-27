@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -50,17 +52,14 @@ class _SecondScreenState extends State<SecondScreen> {
   void initState() {
     super.initState();
     getSelectedList();
-
-
   }
 
   void getSelectedList() async {
+    firstTime=true;
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
     debugPrint("selectedList-->$selectedList");
     streamController.add(selectedList);
-
-
   }
 
   @override
@@ -76,10 +75,8 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   void didUpdateWidget(SecondScreen oldWidget) {
-    debugPrint("didUpdateWidget -> SecondScreen  $oldWidget");
-
+    debugPrint("didUpdateWidget$oldWidget");
     super.didUpdateWidget(oldWidget);
-    setState(() {});
   }
 
   @override
@@ -444,10 +441,10 @@ class _SecondScreenState extends State<SecondScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: MyColors.textColor,
         onPressed: () async {
-          selectedList = await Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddCurrency(OnStateChange)));
+          await Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const AddCurrency()));
+          getSelectedList();
 
-          setState(() {});
         },
         child: Icon(
           Icons.add,
@@ -457,12 +454,6 @@ class _SecondScreenState extends State<SecondScreen> {
       ),
     );
   }
-   OnStateChange()
-   {
-     setState(() {
-
-     });
-   }
 
   Future<Map<String, dynamic>> getConverterAPI(
       String form, String to, String rate) async {
@@ -575,8 +566,8 @@ class _SecondScreenState extends State<SecondScreen> {
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                   colors: [
-                    const Color(0xff97aaca),
-                    MyColors.colorPrimary,
+                    MyColors.colorPrimary.withOpacity(.4),
+                    MyColors.colorPrimary.withOpacity(.8),
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -600,7 +591,7 @@ class _SecondScreenState extends State<SecondScreen> {
                           style: TextStyle(
                               fontSize: buttonTexth,
                               fontWeight: FontWeight.normal,
-                              color: Colors.white),
+                              color: MyColors.textColor),
                         ),
                       ),
                     )),
@@ -690,7 +681,7 @@ class _SecondScreenState extends State<SecondScreen> {
         "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
-  void calculateExchangeRate(String text, int index, DataModel model) {
+  void calculateExchangeRate(String text, int index, DataModel model) async{
     debugPrint("onchange$text");
     double d = double.parse(text);
     debugPrint("d$d");
@@ -701,14 +692,72 @@ class _SecondScreenState extends State<SecondScreen> {
             (d);
 
         debugPrint("conversionRate->$conversionRate");
+       String m= await getFormatText( conversionRate.toStringAsFixed(MyColors.decimalFormat));
 
-        element.controller.text =
-            conversionRate.toStringAsFixed(MyColors.decimalformat);
-        element.exchangeValue =
-            conversionRate.toStringAsFixed(MyColors.decimalformat);
+
+        element.controller.text =m;
+        element.exchangeValue =m
+            ;
       }
     }
 
     streamController.add(selectedList);
+  }
+  String getFormatText(String s) {
+    String text1="";
+    debugPrint("MyColors.decimalformat-->${MyColors.decimalFormat}");
+    debugPrint("getFormatText-->$s");
+
+    int i = MyColors.monetaryFormat;
+    debugPrint("monetaryFormat-->$i");
+    int afterdecimal = MyColors.decimalFormat;
+
+    // double amount =
+    //       double.parse(s);
+    //
+    // debugPrint("amount-->$amount");
+    CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
+      decimalDigits: afterdecimal,
+      symbol: "",
+    );
+    if (i == 1) {
+      text1 = mformat.format(s.replaceAll(".", ""));
+
+      text1 = text1.replaceAll(",", ",");
+
+      text1 = text1.replaceAll(".", ".");
+
+      return text1;
+    } else if (i == 2) {
+      text1 = mformat.format(s.replaceAll(".", ""));
+      log(text1);
+      text1 = text1.replaceAll(".", " ");
+      log(text1);
+      text1 = text1.replaceAll(",", ".");
+      log(text1);
+      text1 = text1.replaceAll(" ", ",");
+      return text1;
+      //text = text.replaceFirstMapped(".", (match) => "1");
+    } else if (i == 3) {
+      text1 = mformat.format(s.replaceAll(".", ""));
+      text1 = text1.replaceAll(".", "=");
+      log(text1);
+      text1 = text1.replaceAll(",", ".");
+      log(text1);
+      text1 = text1.replaceAll(".", " ");
+      text1 = text1.replaceAll("=", ".");
+
+      log(text1);
+      return text1;
+    } else if (i == 4) {
+      text1 = mformat.format(s.replaceAll(".", ""));
+      log(text1);
+      text1 = text1.replaceAll(",", " ");
+      log(text1);
+      text1 = text1.replaceAll(".", ",");
+      log(text1);
+      return text1;
+    }
+    return text1;
   }
 }

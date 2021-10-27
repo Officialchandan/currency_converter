@@ -18,6 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await insertData();
+  await insertion();
 
   runApp(EasyLocalization(
       child: MyApp(),
@@ -102,7 +103,7 @@ Future<void> insertData() async {
 
           return {};
         });
-        print(map);
+
 
         DataModel currencyData = DataModel(
             value: value.toString(),
@@ -115,7 +116,7 @@ Future<void> insertData() async {
 
         int id = await dbHelper.insert(currencyData.toMap());
 
-        log("$id");
+
       });
     } else {
       print("NOT FOUND DATA");
@@ -123,4 +124,55 @@ Future<void> insertData() async {
   } catch (e) {
     print(e);
   }
+}
+ insertion() async{
+  MyColors.text=await Utility.getFormatExmaplePreference("FormatExmaple");
+
+
+  int x= await  Utility.getMonetaryValuePreference("MonetaryValue") ;
+
+  MyColors.monetaryFormat=x;
+  print("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$x");
+  for(int i=0;i<MyColors.boolMonetaryFormate.length;i++){
+    if(i==x-1)
+    {
+      MyColors.boolMonetaryFormate[i]=true;
+
+    }
+    else{
+      MyColors.boolMonetaryFormate[i]=false;
+    }
+  }
+
+  int y= await Utility.getDecimalValuePreference("DecimalValue");
+  MyColors.decimalFormat=y;
+  print("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$y");
+  for(int i=0;i<MyColors.boolDecimalFormate.length;i++){
+    if(y==0)
+      {
+        MyColors.boolDecimalFormate[5]=true;
+        MyColors.boolDecimalFormate[4]=false;
+        MyColors.boolDecimalFormate[3]=false;
+        MyColors.boolDecimalFormate[2]=false;
+        MyColors.boolDecimalFormate[1]=false;
+        MyColors.boolDecimalFormate[0]=false;
+        break;
+
+      }
+    if(i==y-2)
+    {
+
+      MyColors.boolDecimalFormate[i]=true;
+
+    }
+    else{
+      MyColors.boolDecimalFormate[i]=false;
+    }
+  }
+
+
+
+
+
+
 }

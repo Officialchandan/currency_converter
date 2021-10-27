@@ -18,6 +18,7 @@ class DatabaseHelper {
   static final countryImage = "countryImage";
   static final currencyValue = "currencyValue";
   static final favCountry = "favCountry";
+  static final timeStamp = "timeStamp";
   static final selectedCountry = "selectedCountry";
   static final countryName = "countryName";
   static final symbol = "symbol";
@@ -51,6 +52,7 @@ class DatabaseHelper {
             $countryImage TEXT NOT NULL,
             $currencyValue TEXT NOT NULL,
             $favCountry INTEGER NOT NULL,
+            $timeStamp INTEGER NOT NULL,
             $countryName TEXT NOT NULL,
             $selectedCountry INTEGER NOT NULL,
             $symbol TEXT NOT NULL
@@ -123,13 +125,13 @@ class DatabaseHelper {
     return data;
   }
 
-  Future<List<DataModel>> getSelectedData() async {
+  Future<List<DataModel>>   getSelectedData() async {
     List<DataModel> dataList = [];
 
     try {
       Database db = await instance.database;
       List<Map<String, dynamic>> data = await db
-          .query(tableName, where: "$selectedCountry = ?", whereArgs: [1]);
+          .query(tableName, where: "$selectedCountry = ?", whereArgs: [1],orderBy: "$timeStamp ASC");
 
       log("getSelectedData-->$data");
 

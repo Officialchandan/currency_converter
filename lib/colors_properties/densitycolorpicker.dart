@@ -2,6 +2,7 @@
 
 library block_colorpicker;
 
+import 'package:currency_converter/Themes/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_colorpicker/src/utils.dart';
@@ -59,15 +60,18 @@ class DensityColorPicker extends StatefulWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: changeColor,
+          onTap: (){changeColor();
+          MyColors.densitycheck=true;
+          },
+
           borderRadius: BorderRadius.circular(50.0),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
-            child: Icon(
+            child: MyColors.densitycheck?Icon(
               Icons.done,
               color: useWhiteForeground(color) ? Colors.white : Colors.black,
-            ),
+            ):Text(""),
           ),
         ),
       ),

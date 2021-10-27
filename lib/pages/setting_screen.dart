@@ -104,7 +104,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         height: 10,
                         margin: const EdgeInsets.all(5),
                         child: Switch(
-                          inactiveTrackColor: Colors.grey,
+                          inactiveTrackColor: Colors.grey.shade300,
                           inactiveThumbColor: MyColors.textColor,
                           value: isSwitched,
                           onChanged: (value) {
@@ -331,7 +331,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(
-                          left: 0,
+                          right: 15,
                         ),
                         child: Text(
                           "widgetTransparency".tr().toString(),
@@ -344,10 +344,12 @@ class _SettingScreenState extends State<SettingScreen> {
                               color: MyColors.textColor,
                               fontWeight: FontWeight.bold),
                         )),
-                    Icon(
-                      Icons.info,
+                    Image.asset(
+                      "assets/images/tab-ic5.png",
+                      scale: 7,
                       color: MyColors.textColor,
                     ),
+
                   ],
                 ),
                 Container(
@@ -663,7 +665,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               height: 10,
                               margin: EdgeInsets.only(top: 2, left: 0),
                               child: Switch(
-                                inactiveTrackColor: Colors.grey,
+                                inactiveTrackColor: Colors.grey.shade300,
                                 inactiveThumbColor: MyColors.textColor,
                                 value: isMultiConverter,
                                 onChanged: (value) {
@@ -729,7 +731,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       fontWeight: FontWeight.normal)),
                             ),
                             Switch(
-                              inactiveTrackColor: Colors.grey,
+                              inactiveTrackColor: Colors.grey.shade300,
                               inactiveThumbColor: MyColors.textColor,
                               value: MyColors.displaycode,
                               onChanged: (value) {
@@ -771,7 +773,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       fontWeight: FontWeight.normal)),
                             ),
                             Switch(
-                              inactiveTrackColor: Colors.grey,
+                              inactiveTrackColor: Colors.grey.shade300,
                               inactiveThumbColor: MyColors.textColor,
                               value: MyColors.displaysymbol,
                               onChanged: (value) {
@@ -812,7 +814,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       fontWeight: FontWeight.normal)),
                             ),
                             Switch(
-                              inactiveTrackColor: Colors.grey,
+                              inactiveTrackColor: Colors.grey.shade300,
                               inactiveThumbColor: MyColors.textColor,
                               value: MyColors.displayflag,
                               onChanged: (value) {
@@ -1225,17 +1227,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {
-                          if (lock) {
-                            MyColors.colorPrimary = lockSelectdColor!;
-                            Navigator.pushAndRemoveUntil(
-                                context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
-                          }
-                          if (density) {
 
-                            MyColors.colorPrimary = densitySelectedColor;
                             Navigator.pushAndRemoveUntil(
                                 context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
-                          }
+
                         },
                         child: Text(
                           "Try this color",
@@ -1309,6 +1304,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void unlockchangeColor(MColor color) {
+    MyColors.lockCheck=false;
+    MyColors.densitycheck=false;
     widget.lockedColor = false;
     widget.unlockColorSelect = true;
     var code = (color.mainColor.value.toRadixString(16));
@@ -1337,11 +1334,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void lockchangeColor(Color color) {
-    lock = true;
+    MyColors.unclockCheck=false;
+    MyColors.densitycheck=false;
+
+
     widget.unlockColorSelect = false;
     widget.lockedColor = true;
     var code = (color.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
+    MyColors.colorPrimary=lockSelectdColor!;
     MyColors.checkBoxValue2= useWhiteForeground(lockSelectdColor!)
         ? false
         : true;
@@ -1366,11 +1367,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void densitychangeColor(Color color) {
-    lock = false;
+    MyColors.unclockCheck=false;
+    MyColors.lockCheck=false;
+
     widget.lockedColor = true;
     density = true;
     var code = (color.value.toRadixString(16));
     densitySelectedColor = Color(int.parse("0x$code"));
+    MyColors.colorPrimary=densitySelectedColor;
     MyColors.checkBoxValue2= useWhiteForeground(densitySelectedColor)
         ? false
         : true;

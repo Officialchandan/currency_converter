@@ -22,6 +22,7 @@ class _TermsPageState extends State<TermsPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
         child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Terms and Conditions", style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w900)),

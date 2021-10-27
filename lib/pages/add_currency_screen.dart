@@ -8,10 +8,8 @@ import 'package:currency_converter/database/currencydata.dart';
 import 'package:flutter/material.dart';
 
 class AddCurrency extends StatefulWidget {
-  final Function Onstate;
-
-  AddCurrency(this.Onstate);
   const AddCurrency({Key? key}) : super(key: key);
+
 
   @override
   _AddCurrencyState createState() => _AddCurrencyState();
@@ -166,7 +164,11 @@ class _AddCurrencyState extends State<AddCurrency> {
                                               fontWeight: FontWeight.w500,
                                               color:
                                                   MyColors.insideTextFieldColor,
-                                              fontSize: 15),
+                                            fontSize: MyColors.fontsmall
+                                                ? (MyColors.textSize - 17) * (-1)
+                                                : MyColors.fontlarge
+                                                ? (MyColors.textSize + 17)
+                                                : 17,),
                                         ),
                                       ),
                                     ],
@@ -300,7 +302,11 @@ class _AddCurrencyState extends State<AddCurrency> {
                                               fontWeight: FontWeight.w500,
                                               color:
                                                   MyColors.insideTextFieldColor,
-                                              fontSize: 15),
+                                            fontSize: MyColors.fontsmall
+                                                ? (MyColors.textSize - 17) * (-1)
+                                                : MyColors.fontlarge
+                                                ? (MyColors.textSize + 17)
+                                                : 17,),
                                         ),
                                       ),
                                     ],
@@ -311,6 +317,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         if (!model.iconForSelection) {
                                           model.iconForSelection = true;
                                           model.selected = 1;
+                                          model.timeStamp = DateTime.now().millisecondsSinceEpoch;
                                           dbHelper.update(model.toMap());
                                           selectedList.add(model);
                                           selectedController.add(selectedList);
