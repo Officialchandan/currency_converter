@@ -61,21 +61,18 @@ class _MyAppState extends State<MyApp> {
 
   void getTheme() async {
     await Utility.getColorTheme();
-    MyColors.checkBoxValue2= useWhiteForeground(MyColors.colorPrimary)
-        ? false
-        : true;
-    if( MyColors.checkBoxValue2){
-      MyColors.textColor=Colors.black;
-      MyColors.insideTextFieldColor=Colors.white;
-      MyColors.checkBoxValue2=true;
-      MyColors.checkBoxValue1=false;
-    }
-    else{
-      MyColors.textColor=Colors.white;
-      MyColors.insideTextFieldColor=Colors.black;
-      MyColors.checkBoxValue1=true;
-      MyColors.checkBoxValue2=false;
-
+    MyColors.checkBoxValue2 =
+        useWhiteForeground(MyColors.colorPrimary) ? false : true;
+    if (MyColors.checkBoxValue2) {
+      MyColors.textColor = Colors.black;
+      MyColors.insideTextFieldColor = Colors.white;
+      MyColors.checkBoxValue2 = true;
+      MyColors.checkBoxValue1 = false;
+    } else {
+      MyColors.textColor = Colors.white;
+      MyColors.insideTextFieldColor = Colors.black;
+      MyColors.checkBoxValue1 = true;
+      MyColors.checkBoxValue2 = false;
     }
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
@@ -104,7 +101,6 @@ Future<void> insertData() async {
           return {};
         });
 
-
         DataModel currencyData = DataModel(
             value: value.toString(),
             code: key,
@@ -115,8 +111,6 @@ Future<void> insertData() async {
             symbol: map["Symbol"]);
 
         int id = await dbHelper.insert(currencyData.toMap());
-
-
       });
     } else {
       print("NOT FOUND DATA");
@@ -125,54 +119,39 @@ Future<void> insertData() async {
     print(e);
   }
 }
- insertion() async{
-  MyColors.text=await Utility.getFormatExmaplePreference("FormatExmaple");
 
+insertion() async {
+  MyColors.text = await Utility.getFormatExmaplePreference("FormatExmaple");
 
-  int x= await  Utility.getMonetaryValuePreference("MonetaryValue") ;
+  int x = await Utility.getMonetaryValuePreference("MonetaryValue");
 
-  MyColors.monetaryFormat=x;
+  MyColors.monetaryFormat = x;
   print("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$x");
-  for(int i=0;i<MyColors.boolMonetaryFormate.length;i++){
-    if(i==x-1)
-    {
-      MyColors.boolMonetaryFormate[i]=true;
-
-    }
-    else{
-      MyColors.boolMonetaryFormate[i]=false;
+  for (int i = 0; i < MyColors.boolMonetaryFormate.length; i++) {
+    if (i == x - 1) {
+      MyColors.boolMonetaryFormate[i] = true;
+    } else {
+      MyColors.boolMonetaryFormate[i] = false;
     }
   }
 
-  int y= await Utility.getDecimalValuePreference("DecimalValue");
-  MyColors.decimalFormat=y;
+  int y = await Utility.getDecimalValuePreference("DecimalValue");
+  MyColors.decimalFormat = y;
   print("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$y");
-  for(int i=0;i<MyColors.boolDecimalFormate.length;i++){
-    if(y==0)
-      {
-        MyColors.boolDecimalFormate[5]=true;
-        MyColors.boolDecimalFormate[4]=false;
-        MyColors.boolDecimalFormate[3]=false;
-        MyColors.boolDecimalFormate[2]=false;
-        MyColors.boolDecimalFormate[1]=false;
-        MyColors.boolDecimalFormate[0]=false;
-        break;
-
-      }
-    if(i==y-2)
-    {
-
-      MyColors.boolDecimalFormate[i]=true;
-
+  for (int i = 0; i < MyColors.boolDecimalFormate.length; i++) {
+    if (y == 0) {
+      MyColors.boolDecimalFormate[5] = true;
+      MyColors.boolDecimalFormate[4] = false;
+      MyColors.boolDecimalFormate[3] = false;
+      MyColors.boolDecimalFormate[2] = false;
+      MyColors.boolDecimalFormate[1] = false;
+      MyColors.boolDecimalFormate[0] = false;
+      break;
     }
-    else{
-      MyColors.boolDecimalFormate[i]=false;
+    if (i == y - 2) {
+      MyColors.boolDecimalFormate[i] = true;
+    } else {
+      MyColors.boolDecimalFormate[i] = false;
     }
   }
-
-
-
-
-
-
 }
