@@ -1,0 +1,55 @@
+{
+
+    "update": "Оновлено",
+    "addCurrency": "Додати валюту",
+    "selectedCurrency": "Вибрана валюта",
+    "monetary": "Монетарний формат",
+    "decimal": "Десятковий формат",
+    "firstTextRatingPage": "Будь ласка, оцініть додаток!",
+    "secondTextRatingPage": "Торкніться зірочок і відкрийте в Google Play Store, щоб оцінити",
+    "buttonTextRatingPage": "НЕ ЗАРАЗ",
+    "removeAds": "Видалити оголошення",
+    "removeAdsContent": "Підтримайте наш проект за допомогою невеликої щорічної підписки",
+    "selectLanguage": "Вибрати мову",
+    "english": "Українська",
+    "colorsSelection": "Вибір кольору",
+    "theme": "Тема",
+    "light": "Світло",
+    "dark": "Темний",
+    "widgetTransparency": "Прозорість віджетів",
+    "visualSize": "Візуальний розмір",
+    "А": "А",
+    "appLogoLauncher": "Запуск логотипу програми",
+    "multiConverter": "Multi-Converter",
+    "multiConverterContent1": "Буде відкрито багатоконвертер за замовчуванням.",
+    "multiConverterContent2": "ПРИМІТКА:",
+    "multiConverterContent3": "Ця функція працює лише з засобом запуску логотипу програми",
+    "display": "Дисплей",
+    "display1": "Відобразити код валюти",
+    "display2": "Символ валюти дисплея",
+    "display3": "Відобразити прапор валюти",
+    "dateFormat": "Формат даних",
+    "not": "Не зараз",
+
+
+    "addCurrency": "ВИБРАНО",
+    "selected": "СПИСОК ВАЛЮТ",
+    "currencyList": "Не показувати",
+    "dontShow": "Підтримка",
+    "support": "Термін",
+    "term": "Політика конфіденційності",
+    "privacy":"Розблоковано",
+    "unlocked": "Заблокований",
+    "locked": "На замовлення",
+    "custom": "Спробуй цей колір",
+    "try": "TРозблокувати",
+    "unlock": "Розблокуватиock",
+    "wiki": ",За:Currency.wiki",
+    "multi": "Мультиконвертер"
+
+
+
+
+
+
+}

@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:basic_utils/basic_utils.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
@@ -732,6 +733,7 @@ class _TapHomeState extends State<TapHome> {
 
         context: context,
         builder: (BuildContext context) {
+
           buttonPressed(String buttonText) {
             if((equation.substring(equation.length - 1)=="+"&&buttonText=="+")||(equation.substring(equation.length - 1)=="+"&&buttonText=="-")||(equation.substring(equation.length - 1)=="+"&&buttonText=="×")||(equation.substring(equation.length - 1)=="+"&&buttonText=="/")||(equation.substring(equation.length - 1)=="+"&&buttonText=="=")||(equation.substring(equation.length - 1)=="+"&&buttonText=="%")||
                 (equation.substring(equation.length - 1)=="-"&&buttonText=="-")||(equation.substring(equation.length - 1)=="-"&&buttonText=="+")||(equation.substring(equation.length - 1)=="-"&&buttonText=="×")||(equation.substring(equation.length - 1)=="-"&&buttonText=="/")||(equation.substring(equation.length - 1)=="-"&&buttonText=="=")||(equation.substring(equation.length - 1)=="-"&&buttonText=="%")||
@@ -766,6 +768,45 @@ class _TapHomeState extends State<TapHome> {
                       equation = "0";
                     }
                   } else if (buttonText == "=") {
+
+                    double x=50+100%50;
+                    print("_<><><><><<>><       $x");
+                    String left="";
+                    String right="";
+
+                    List<String> operator=[];
+                    List<int> num=[];
+
+                    for(int i=0;i<expression.length;i++)
+                      {
+                    if(expression[i]=="*")
+                        {
+                          int j=i;
+                        while(expression[j]=="+"||expression[j]=="-"||expression[j]=="/"||expression[j]=="%")
+                          {
+                            left=expression[j];
+
+
+                            j--;
+                          }
+                         left= StringUtils.reverse(left);
+
+                           j=i;
+                          while(expression[j]=="+"||expression[j]=="-"||expression[j]=="/"||expression[j]=="%")
+                          {
+                            right=expression[i];
+
+
+                            j--;
+                          }
+                          right=StringUtils.reverse(right);
+                        }
+
+                      }
+
+
+
+
                     equationFontSize = 38.0;
                     resultFontSize = 48.0;try {
                       Parser p = Parser();

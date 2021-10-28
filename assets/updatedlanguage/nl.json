@@ -1,0 +1,57 @@
+{
+
+    "update": "Bijgewerkt",
+  
+    "addCurrency": "Valuta toevoegen",
+    "selectedCurrency":"Geselecteerde valuta",
+  
+    "monetary": "Monetair formaat",
+    "decimal": "Decimaal formaat",
+  
+    "firstTextRatingPage": "Beoordeel app alsjeblieft!",
+    "secondTextRatingPage": "Tik op sterren en open met Google Play Store om te beoordelen",
+    "buttonTextRatingPage":"NIET NU",
+  
+    "removeAds": "Advertenties verwijderen",
+    "removeAdsContent": "Ondersteun ons project met een klein jaarlijks abonnement",
+    "selectLanguage": "Selecteer taal",
+    "english": "Nederlands",
+
+    "colorsSelection": "Kleurselectie",
+    "theme": "Thema",
+  
+    "light": "donker",
+    "widgetTransparency": "Widgettransparantie",
+    "visualSize": "Visuele grootte",
+    "A": "A",
+    "appLogoLauncher":"App Logo Launcher",
+    "multiConverter": "Multi-Converter",
+    "multiConverterContent1": "Wordt standaard multi-converter geopend. ",
+    "multiConverterContent2":"OPMERKING:",
+    "multiConverterContent3": "Deze functie werkt alleen met app-logo-opstartprogramma",
+    "display": "weergave",
+    "display1": "Valutacode weergeven",
+    "display2":"Valutasymbool weergeven",
+    "display3": "Valutavlag weergeven",
+    "dateFormat": "Gegevensindeling",
+    "not": "Niet nu"
+
+    ,"selected": "GESELECTEERD",
+    "currencyList": "VALUTA LIJST",
+    "dontShow ": "Niet tonen",
+    "support": "Ondersteuning",
+    "term": "Termijn",
+    "privacy":"Privacybeleid",
+    "unlocked": "Ontgrendeld",
+    "locked": "Vergrendeld",
+    "custom": "Aangepast",
+    "try": "Probeer deze kleur",
+    "unlock": "Ontgrendelen",
+    "wiki": ",Door:Valuta.wiki",
+    "multi": "Multi-converter"
+  
+  
+  
+  }
+  
+  

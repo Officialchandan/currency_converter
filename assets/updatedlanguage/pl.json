@@ -1,0 +1,55 @@
+{
+
+    "update": "Aktualizacja",
+    "addCurrency": "Dodaj walutę",
+    "selectedCurrency":"Wybrana Waluta",
+    "monetary": "Format pieniężny",
+    "decimal": "Format dziesiętny",
+    "firstTextRatingPage": "Proszę oceń aplikację!",
+    "secondTextRatingPage": "Dotknij gwiazdek i otwórz w Sklepie Google Play, aby ocenić",
+    "buttonTextRatingPage":"NIE TERAZ",
+    "removeAds": "Usuń reklamy",
+    "removeAdsContent": "Wspieraj nasz projekt niewielką roczną subskrypcją",
+    "selectLanguage": "Wybierz język",
+    "english":" Polskie",
+    "colorsSelection": "Wybór koloru",
+    "theme": "Motyw",
+    "light ":"światło",
+    "dark": "Ciemny",
+    "widgetTransparency": "Przejrzystość widżetów",
+    "visualSize": "Rozmiar wizualny",
+    
+    "appLogoLauncher":"Uruchamianie Logo Aplikacji",
+    "multiConverter": "Multi-Converter",
+    "multiConverterContent1": "Domyślnie otworzy multikonwerter. ",
+    "multiConverterContent2":"UWAGA:",
+    "multiConverterContent3": "Ta funkcja działa tylko z uruchamianiem logo aplikacji",
+    "display": "wyświetlacz",
+    "display1": "Wyświetl kod waluty",
+    "display2":"Wyświetl symbol waluty",
+    "display3": "Wyświetl flagę waluty",
+    "dateFormat": "Format danych",
+    "not": "Nie teraz",
+
+    "selected": "WYBRANE",
+    "currencyList": "LISTA WALUT",
+    "dontShow": "Nie pokazuj",
+    "support": "Wsparcie",
+    "term": "Termin",
+    "privacy":"Polityka Prywatności",
+    "unlocked": "Odblokowany",
+    "locked": "Zablokowany",
+    "custom": "Niestandardowy",
+    "try": "Wypróbuj ten kolor",
+    "unlock": "Odblokuj",
+    "wiki": ",By:Currency.wiki",
+    "multi": "Multi-konwerter"
+
+
+
+  
+  
+  
+  }
+  
+  

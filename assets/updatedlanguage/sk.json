@@ -1,0 +1,54 @@
+{
+
+    "update": "Aktualizované",
+    "addCurrency": "Pridať menu",
+    "selectedCurrency": "zvolená mena ",
+    "monetary": "peňažný ",
+    "decimal": "desatinné ",
+    "firstTextRatingPage": "Ohodnoťte aplikáciu!",
+    "secondTextRatingPage": "Klepnutím na hviezdičky a otvorením v Obchode Google Play ohodnotíte",
+    "buttonTextRatingPage": "HNED TERAZ",
+    "removeAds": "Odstrániť reklamy",
+    "removeAdsContent": "Podporte náš projekt malým ročným predplatným",
+    "selectLanguage": "Vyberte jazyk",
+    "english": "Slovenský",
+    "colorsSelection": "farbyVýber",
+    "theme": "Téma",
+    "light": "Svetlo",
+    "dark": "tmavé",
+    "widgetTransparency": "Transparentnosť miniaplikácií",
+    "visualSize": "Vizuálna veľkosť",
+    "A": "A",
+    "appLogoLauncher": "Spúšťač loga aplikácie",
+    "multiConverter": "Multi-Converter",
+    "multiConverterContent1": "Štandardne sa otvorí multi-konvertor.",
+    "multiConverterContent2": "POZNÁMKA:",
+    "multiConverterContent3": "Táto funkcia funguje iba so spúšťačom loga aplikácie",
+    "display": "Displej",
+    "display1": "Kód meny zobrazenia",
+    "display2": "Zobraziť symbol meny",
+    "display3": "Zobraziť menovú vlajku",
+    "dateFormat": "Formát údajov",
+    "not": "Teraz nie",
+
+
+    "addCurrency": "PRIDAŤ MENU",
+    "selected": "VYBRANÝ",
+    "currencyList": "ZOZNAM MENY",
+    "dontShow": "Neukazuj sa",
+    "support": "podpora",
+    "term": "Termín",
+    "privacy":"Zásady ochrany osobných údajov",
+    "unlocked": "Odomknuté",
+    "locked": "Zamknuté",
+    "custom": "Vlastné",
+    "try": "Vyskúšajte túto farbu",
+    "unlock": "Odomknúť",
+    "wiki": ",Autor:Currency.wiki",
+    "multi": "Multi-konvertor"
+
+
+
+
+
+}

@@ -1,0 +1,48 @@
+{
+    "update": "Ažurirano",
+    "addCurrency": "Dodaj valutu",
+    "selectedCurrency": "Odabrana valuta",
+    "monetary": "Monetarni format",
+    "decimal": "Decimalni format",
+    "firstTextRatingPage": "Molimo ocijenite aplikaciju!",
+    "secondTextRatingPage": "Dodirnite zvjezdice i otvorite u Trgovini Google Play za ocjenjivanje",
+    "buttonTextRatingPage": "NE SADA",
+    "removeAds": "Ukloni oglase",
+    "removeAdsContent": "Podržite naš projekt malom godišnjom pretplatom",
+    "selectLanguage": "Odaberi jezik",
+    "english": "Bosanski",
+    "coloursSelection": "Odabir boje",
+    "theme": "Tema",
+    "light": "Light",
+    "dark": "Tamno",
+    "widgetTransparency": "Transparentnost widgeta",
+    "visualSize": "Visual Size",
+    "A": "A",
+    "appLogoLauncher": "Pokretač logotipa aplikacije",
+    "multiConverter": "Multi-Converter",
+    "multiConverterContent1": "Otvorit će se pretvarač prema zadanim postavkama.",
+    "multiConverterContent2": "NAPOMENA:",
+    "multiConverterContent3": "Ova značajka radi samo s pokretačem logotipa aplikacije",
+    "display": "Display",
+    "display1": "Prikaz koda valute",
+    "display2": "Simbol valute prikaza",
+    "display3": "Zastava valute prikaza",
+    "dateFormat": "Format podataka"
+
+    ,"selected": "ODABRANO",
+    "currencyList": "LISTA VALUTA",
+    "dontShow": "Nemoj pokazivati",
+    "support": "Podrška",
+    "term": "Termin",
+    "privacy":"Politika privatnosti",
+    "unlocked": "Otključan",
+    "locked": "Zaključano",
+    "custom": "Prilagođeno",
+    "try": "Probaj ovu boju",
+    "unlock": "Otključaj",
+    "wiki": ",Od:Currency.wiki",
+    "multi": "Multi-konverter"
+  
+  }
+  
+  

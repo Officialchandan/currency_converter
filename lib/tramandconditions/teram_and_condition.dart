@@ -3,6 +3,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/tramandconditions/privacy_policy.dart';
 import 'package:currency_converter/tramandconditions/support_page.dart';
 import 'package:currency_converter/tramandconditions/terms_page.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,7 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                 tabs: <Widget>[
                   Tab(
                     child: Text(
-                      "Support",
+                      "support".tr().toString(),
                       style: TextStyle(
                         fontSize: MyColors.fontsmall
                             ? (MyColors.textSize - 16 * (-1))
@@ -69,7 +70,7 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                   ),
                   Tab(
                     child: Text(
-                      "Terms",
+                        "term".tr().toString(),
                       style: TextStyle(
                          fontSize: MyColors.fontsmall
                       ? (MyColors.textSize - 16) * (-1)
@@ -83,7 +84,7 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                   ),
                   Tab(
                     child: AutoSizeText(
-                      "Privacy Policy",
+                      "privacy".tr().toString(),
                       maxLines: 1,
                       style: TextStyle( fontSize: MyColors.fontsmall
                           ? (MyColors.textSize - 16) * (-1)

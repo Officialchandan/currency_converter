@@ -1,0 +1,52 @@
+{
+
+    "update": "Ажурирано",
+    "addCurrency": "Додај валуту",
+    "selectedCurrency": "Изабрана валута",
+    "monetary": "Монетарни формат",
+    "decimal": "Децимални формат",
+    "firstTextRatingPage": "Молимо оцените апликацију!",
+    "secondTextRatingPage": "Додирните звездице и отворите у Гоогле Плаи продавници да бисте оценили",
+    "buttonTextRatingPage": "НЕ САДА",
+    "removeAds": "Уклони огласе",
+    "removeAdsContent": "Подржите наш пројекат са малом годишњом претплатом",
+    "selectLanguage": "Изабери језик",
+    "english": "Српски",
+    "colorsSelection": "Одабир боје",
+    "theme": "Тхеме",
+    "light": "Лигхт",
+    "dark": "Тамно",
+    "widgetTransparency": "Транспарентност виџета",
+    "visualSize": "Висуал Сизе",
+    "А": "А",
+    "appLogoLauncher": "Покретач логотипа апликације",
+    "multiConverter": "Мулти-Цонвертер",
+    "multiConverterContent1": "Отворит ће се више претварача према заданим поставкама.",
+    "multiConverterContent2": "НАПОМЕНА:",
+    "multiConverterContent3": "Ова функција ради само са покретачем логотипа апликације",
+    "display": "Дисплаи",
+    "display1": "Приказ кода валуте",
+    "display2": "Симбол валуте приказа",
+    "display3": "Приказ заставе валуте",
+    "dateFormat": "Формат података",
+    "not": "Не сада",
+
+
+    "addCurrency": "DODAJTE VALUTU",
+    "selected": "SELECTED",
+    "currencyList": "LISTA VALUTA",
+    "dontShow": "Don't Show",
+    "support": "Подршка",
+    "term": "Termin",
+    "privacy":"Правила о приватности",
+    "unlocked": "Otključano",
+    "locked": "Zaključano",
+    "custom": "Обичај",
+    "try": "Probajte ovu boju",
+    "unlock": "Otključaj",
+    "wiki": ",Autor:Currency.wiki",
+    "multi": "Multi-Converter"
+
+
+
+}

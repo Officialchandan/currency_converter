@@ -501,7 +501,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         )),
                                   ),
                                   const SizedBox(height: 5),
-                                  Text("  By: Currency.wiki",
+                                  Text("wiki".tr().toString(),
                                       style: GoogleFonts.roboto(
                                         color: MyColors.textColor,
                                         fontWeight: FontWeight.normal,
@@ -651,7 +651,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           children: [
                             Container(
                                 margin: EdgeInsets.only(bottom: 5, left: 2),
-                                child: Text("multiConverter".tr().toString(),
+                                child: Text("multi".tr().toString(),
                                     style: GoogleFonts.roboto(
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 18) * (-1)
@@ -690,15 +690,27 @@ class _SettingScreenState extends State<SettingScreen> {
                         RichText(
                             text: TextSpan(
                                 text: "multiConverterContent1".tr().toString(),
-                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 11, color: MyColors.textColor),
+                                style: TextStyle(fontWeight: FontWeight.normal,fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 11) * (-1)
+                                    : MyColors.fontlarge
+                                    ? (MyColors.textSize + 11)
+                                    : 11, color: MyColors.textColor),
                                 children: <TextSpan>[
                               TextSpan(
                                 text: "multiConverterContent2".tr().toString(),
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: MyColors.textColor),
+                                style: TextStyle(fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 12) * (-1)
+                                    : MyColors.fontlarge
+                                    ? (MyColors.textSize + 12)
+                                    : 12, color: MyColors.textColor),
                               ),
                               TextSpan(
                                 text: "multiConverterContent3".tr().toString(),
-                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 11, color: MyColors.textColor),
+                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: MyColors.fontsmall
+                                    ? (MyColors.textSize - 11) * (-1)
+                                    : MyColors.fontlarge
+                                    ? (MyColors.textSize + 11)
+                                    : 11  , color: MyColors.textColor),
                               )
                             ])),
                       ],
@@ -706,7 +718,11 @@ class _SettingScreenState extends State<SettingScreen> {
                 Container(
                     margin: EdgeInsets.only(left: 0, bottom: 5, top: 25),
                     child: Text("display".tr().toString(),
-                        style: GoogleFonts.roboto(fontSize: 20, color: MyColors.textColor, fontWeight: FontWeight.bold))),
+                        style: GoogleFonts.roboto( color: MyColors.textColor, fontWeight: FontWeight.bold,fontSize: MyColors.fontsmall
+                          ? (MyColors.textSize - 19) * (-1)
+                          : MyColors.fontlarge
+                          ? (MyColors.textSize + 19)
+                          : 19,))),
                 Container(
                     margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
                     width: width * .945,
@@ -1170,8 +1186,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       children: [
         Container(
           margin: const EdgeInsets.only(left: 25, top: 30, bottom: 0),
-          child: const Text(
-            "Unlocked ",
+          child:  Text(
+            "unlocked".tr().toString(),
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
           ),
         ),
@@ -1190,8 +1206,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         ),
         Container(
           margin: EdgeInsets.only(left: 25, top: 5),
-          child: const Text(
-            "Locked",
+          child:  Text(
+            "locked".tr().toString(),
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ),
@@ -1233,7 +1249,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
                         },
                         child: Text(
-                          "Try this color",
+                          "try".tr().toString() ,
                           style: TextStyle(fontSize: 16),
                         ),
                       )),
@@ -1245,7 +1261,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {},
                         child: Text(
-                          "Unlock",
+                          "unlock".tr().toString(),
                           style: TextStyle(fontSize: 16),
                         ),
                       )),
@@ -1267,8 +1283,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   Navigator.pop(context, 1);
                   setState(() {});
                 },
-                child: const Text(
-                  "CUSTOM",
+                child:  Text(
+                  "custom".tr().toString(),
                   style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
                 ),
               ),

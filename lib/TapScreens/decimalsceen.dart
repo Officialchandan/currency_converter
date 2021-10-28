@@ -37,7 +37,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
     ".0004",
     ".00005",
     ".0000006",
-    "Don't show "
+    "dontShow".tr().toString()
   ];
   @override
   void initState() {

@@ -1,0 +1,52 @@
+{
+
+    "update": "Ĝisdatigita",
+    "addCurrency": "Aldoni Moneron",
+    "selectedCurrency": "Elektita Monero",
+    "monet": "Mona Formato",
+    "decimal": "Decimala formato",
+    "firstTextRatingPage": "Bonvolu taksi programon!",
+    "secondTextRatingPage": "Frapu stelojn kaj malfermu per Google Play Store por taksi",
+    "buttonTextRatingPage": "NE NUN",
+    "removeAds": "Forigi anoncojn",
+    "removeAdsContent": "Subtenu nian projekton per malgranda jara Abono",
+    "selectLanguage": "Elektu lingvon",
+    "english": "Española",
+    "colorsSelection": "Kolora Elekto",
+    "theme": "Temo",
+    "light": "Lumo",
+    "dark": "Malluma",
+    "widgetTransparency": "Uza Travidebleco",
+    "visualSize": "Vida Grandeco",
+    "A": "A",
+    "appLogoLauncher": "Lanĉilo de Programoj",
+    "multiConverter": "Plurkonvertilo",
+    "multiConverterContent1": "Defaŭlte malfermos multkonvertilon.",
+    "multiConverterContent2": "NOTO:",
+    "multiConverterContent3": "Ĉi tiu funkcio funkcias nur kun lanĉilo de programoj",
+    "display": "Vidigi",
+    "display1": "Montru Monkodon",
+    "display2": "Vidigi Moneran Simbolon",
+    "display3": "Vidigi Monero-Flagon",
+    "dateFormat": "Datuma formato",
+    "not": "Ahora no",
+
+    "selected": "SELECCIONADO",
+  "currencyList": "CURRENCY LIST",
+  "dontShow": "No mostrar",
+  "support":" soporte",
+  "term": "Término",
+  "privacy": "Política de privacidad",
+  "unlocked": "Desbloqueado",
+  "locked": "Bloqueado",
+  "custom": "Personalizado",
+  "try": "Prueba este color",
+  "unlock": "Desbloquear",
+  "wiki": ", Por: Currency.wiki",
+  "multi": "Multi-Converter"
+
+
+  
+  
+  
+  } 

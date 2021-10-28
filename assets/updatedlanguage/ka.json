@@ -1,0 +1,35 @@
+{
+
+    "update": "განახლებულია",
+    "addCurrency": "დაამატე ვალუტა",
+    "selectedCurrency": "არჩეული ვალუტა",
+    "monetary": "ფულადი ფორმატი",
+    "decimal": "ათწილადის ფორმატი",
+    "firstTextRatingPage": "გთხოვთ შეაფასოთ აპლიკაცია!",
+    "secondTextRatingPage": "შეეხეთ ვარსკვლავებს და გახსენით Google Play Store- ით შეფასებისათვის",
+    "buttonTextRatingPage": "არა ახლა",
+    "removeAds": "რეკლამების წაშლა",
+    "removeAdsContent": "მხარი დაუჭირეთ ჩვენს პროექტს მცირე წლიური გამოწერით",
+    "selectLanguage": "აირჩიეთ ენა",
+    "english": "ინგლისური",
+    "colorsSelection": "ფერის შერჩევა",
+    "theme": "თემა",
+    "light": "სინათლე",
+    "dark": "ბნელი",
+    "widgetTransparency": "ვიჯეტის გამჭვირვალობა",
+    "visualSize": "ვიზუალური ზომა",
+    "A":"Ა",
+    "appLogoLauncher": "პროგრამის ლოგოს გამშვები",
+    "multiConverter": "მრავალკონვერტორი",
+    "multiConverterContent1": "ნაგულისხმევად გაიხსნება მრავალკონვერტორი.",
+    "multiConverterContent2": "შენიშვნა:",
+    "multiConverterContent3": "ეს ფუნქცია მუშაობს მხოლოდ პროგრამის ლოგოს გამშვებთან",
+    "display": "ჩვენება",
+    "display1": "სავალუტო კოდის ჩვენება",
+    "display2": "აჩვენე ვალუტის სიმბოლო",
+    "display3": "აჩვენე ვალუტის დროშა",
+    "dateFormat": "მონაცემთა ფორმატი"
+  
+  
+  
+  } 
