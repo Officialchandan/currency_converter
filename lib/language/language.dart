@@ -92,7 +92,10 @@ class _LanguageState extends State<Language> {
                             child: Locals.icon[index]
                                 ? const Icon(
                                     Icons.check_sharp,
-                                    color: Colors.blue,
+
+
+
+                                   color: Colors.blue,
                                   )
                                 : const Text(""),
                           )
