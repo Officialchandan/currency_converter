@@ -21,7 +21,11 @@ class _TermsPageState extends State<TermsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(child: HtmlWidget("html_terms".tr().toString(),textStyle:TextStyle(color: MyColors.textColor))),
+      body: SingleChildScrollView(
+          child: Container(
+              margin: const EdgeInsets.only(top: 15),
+              child: HtmlWidget("html_terms".tr().toString(),
+                  textStyle: TextStyle(color: MyColors.textColor)))),
     );
   }
 

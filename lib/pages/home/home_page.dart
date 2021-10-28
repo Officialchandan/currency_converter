@@ -147,7 +147,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           controller: _tabController,
           children: [
             TapHome(),
-            const SecondScreen(),
+            SecondScreen(),
             const DecimalScreens(),
             const InkWell(),
             const TeramAndCondition(),
