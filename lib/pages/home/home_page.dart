@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:core';
-import 'dart:core';
 
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
@@ -36,13 +35,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
 
   @override
   void initState() {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-        statusBarColor: MyColors.colorPrimary, // status bar color
-      ));
-      setState(() {
-
-      });
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+      statusBarColor: MyColors.colorPrimary, // status bar color
+    ));
+    setState(() {});
     super.initState();
 
     _tabController = TabController(length: 6, vsync: this, initialIndex: 0);

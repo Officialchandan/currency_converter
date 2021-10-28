@@ -3,7 +3,6 @@ import 'dart:ffi';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
-import 'package:basic_utils/basic_utils.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
@@ -121,10 +120,12 @@ class _TapHomeState extends State<TapHome> {
     var appwidth = MediaQuery.of(context).size.width;
     return WillPopScope(
         onWillPop: () async {
-          if (_isContainerVisible || _isContainerVisibleTwo) {
+          if (_isContainerVisible ||
+              _isContainerVisibleTwo ||
+              isContainerVisible) {
             Future.value(_isContainerVisible = false);
             Future.value(_isContainerVisibleTwo = false);
-
+            Future.value(isContainerVisible = false);
             setState(() {});
           } else {
             SystemNavigator.pop();
@@ -133,519 +134,593 @@ class _TapHomeState extends State<TapHome> {
         },
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          body: Padding(
-            padding: const EdgeInsets.fromLTRB(12, 16, 12, 0),
-            child: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            SizedBox(
-                              width: appwidth * 0.17,
-                            ),
-                            Row(
-                              children: [
-                                Center(
-                                  child: Text(
-                                    "update".tr().toString() + ":",
+          body: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 16, 12, 0),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              SizedBox(
+                                width: appwidth * 0.17,
+                              ),
+                              Row(
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      "update".tr().toString() + ":",
+                                      style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 18) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 18)
+                                                : 18,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  MyColors.datemm
+                                      ? Center(
+                                          child: Text(
+                                            "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
+                                            ),
+                                          ),
+                                        )
+                                      : Center(
+                                          child: Text(
+                                            "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
+                                            ),
+                                          ),
+                                        ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () async {
+                                    _onShareWithEmptyOrigin(context);
+                                  },
+                                  child: Icon(
+                                    Icons.share,
+                                    color: MyColors.textColor,
+                                  )),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        Container(
+                          width: appwidth - 20,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: MyColors.textColor,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 8.0),
+                                  height: 35.0,
+                                  width: 60.0,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        MyColors.colorPrimary.withOpacity(0.45),
+                                        MyColors.colorPrimary,
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                    ),
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: MyColors.displaycode
+                                      ? Center(
+                                          child: AutoSizeText(
+                                            currencyCodeFrom,
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 20) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 20)
+                                                      : 20,
+                                            ),
+                                          ),
+                                        )
+                                      : MyColors.displaysymbol
+                                          ? Center(
+                                              child: Text(
+                                                symbol,
+                                                style: TextStyle(
+                                                  color: MyColors.textColor,
+                                                  fontSize: MyColors.fontsmall
+                                                      ? (MyColors.textSize -
+                                                              18) *
+                                                          (-1)
+                                                      : MyColors.fontlarge
+                                                          ? (MyColors.textSize +
+                                                              18)
+                                                          : 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            )
+                                          : Center(
+                                              child: AutoSizeText(
+                                                currencyCodeFrom,
+                                                style: TextStyle(
+                                                  color: MyColors.textColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: MyColors.fontsmall
+                                                      ? (MyColors.textSize -
+                                                              20) *
+                                                          (-1)
+                                                      : MyColors.fontlarge
+                                                          ? (MyColors.textSize +
+                                                              20)
+                                                          : 20,
+                                                ),
+                                              ),
+                                            ),
+                                ),
+                              ),
+                              Center(
+                                child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.50,
+                                  // width: 150,
+                                  child: AutoSizeTextField(
+                                    textAlignVertical: TextAlignVertical.center,
+                                    autocorrect: true,
+                                    maxLength: 30,
+                                    maxLines: 1,
+                                    maxFontSize: 18.0,
+                                    minFontSize: 7.0,
                                     style: TextStyle(
-                                      color: MyColors.textColor,
+                                      color: MyColors.colorPrimary,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: MyColors.fontsmall
                                           ? (MyColors.textSize - 18) * (-1)
                                           : MyColors.fontlarge
                                               ? (MyColors.textSize + 18)
                                               : 18,
                                     ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                MyColors.datemm
-                                    ? Center(
-                                        child: Text(
-                                          "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                          style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 18)
-                                                    : 18,
-                                          ),
-                                        ),
-                                      )
-                                    : Center(
-                                        child: Text(
-                                          "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                          style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 18)
-                                                    : 18,
-                                          ),
-                                        ),
-                                      ),
-                              ],
-                            ),
-                            InkWell(
-                                onTap: () async {
-                                  _onShareWithEmptyOrigin(context);
-                                },
-                                child: Icon(
-                                  Icons.share,
-                                  color: MyColors.textColor,
-                                )),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16.0,
-                      ),
-                      Container(
-                        width: appwidth - 20,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: MyColors.textColor,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: Container(
-                                margin: const EdgeInsets.only(left: 8.0),
-                                height: 35.0,
-                                width: 60.0,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      MyColors.colorPrimary.withOpacity(0.45),
-                                      MyColors.colorPrimary,
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                  ),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: MyColors.displaycode
-                                    ? Center(
-                                        child: AutoSizeText(
-                                          currencyCodeFrom,
-                                          style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 20) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 20)
-                                                    : 20,
-                                          ),
-                                        ),
-                                      )
-                                    : MyColors.displaysymbol
-                                        ? Center(
-                                            child: Text(
-                                              symbol,
-                                              style: TextStyle(
-                                                color: MyColors.textColor,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 18) *
-                                                        (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize +
-                                                            18)
-                                                        : 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          )
-                                        : Center(
-                                            child: AutoSizeText(
-                                              currencyCodeFrom,
-                                              style: TextStyle(
-                                                color: MyColors.textColor,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 20) *
-                                                        (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize +
-                                                            20)
-                                                        : 20,
-                                              ),
-                                            ),
-                                          ),
-                              ),
-                            ),
-                            Center(
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                // width: 150,
-                                child: AutoSizeTextField(
-
-                                  textAlignVertical: TextAlignVertical.center,
-                                  autocorrect: true,
-                                  maxLength: 30,
-                                  maxLines: 1,
-                                  maxFontSize: 18.0,
-                                  minFontSize: 7.0,
-                                  style: TextStyle(
-                                    color: MyColors.colorPrimary,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 18) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 18)
-                                            : 18,
-                                  ),
-                                  controller: calculateCurrency,
-                                  textAlign: TextAlign.center,
-                                  // keyboardType: TextInputType.none,
-                                  showCursor: true,
-                                readOnly: true,
-                                  decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(
-                                          left: 1.0, right: 1.0, bottom: 15.0),
-                                      counterText: "",
-                                      border: InputBorder.none),
-                                  onTap: () {
-                                    _isContainerVisible = false;
-
-                                    _isContainerVisibleTwo = false;
-                                    showCalculator(context);
-                                    setState(() {});
-                                  },
-                                  onChanged: (text) {
-
-                                    getConverterAPI(currencyCodeFrom,
-                                        currencyCodeTo, calculateCurrency.text);
-                                  },
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Center(
-                                child: InkWell(
+                                    controller: calculateCurrency,
+                                    textAlign: TextAlign.center,
+                                    // keyboardType: TextInputType.none,
+                                    showCursor: true,
+                                    readOnly: true,
+                                    decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            left: 1.0,
+                                            right: 1.0,
+                                            bottom: 15.0),
+                                        counterText: "",
+                                        border: InputBorder.none),
                                     onTap: () {
-                                      String temp = "";
-                                      temp = currencyCodeFrom;
-                                      currencyCodeFrom = currencyCodeTo;
-                                      currencyCodeTo = temp;
-
-                                      edtFrom.text = currencyCodeFrom;
-                                      edtTo.text = currencyCodeTo;
-
-
-                                      String temp3="";
-                                      temp3=symbol;
-                                      symbol=symbol2;
-                                      symbol2=temp3;
-
-
-
-                                      String temp1 = "";
-                                      temp1 = flagfrom;
-                                      flagfrom = flagto;
-                                      flagto = temp1;
-
-                                      currencyCodeFromSave(currencyCodeFrom);
-                                      currencyCodeToSave(currencyCodeTo);
+                                      isContainerVisible = true;
+                                      _isContainerVisible = false;
+                                      _isContainerVisibleTwo = false;
                                       setState(() {});
+                                    },
 
+                                    onChanged: (text) {
                                       getConverterAPI(
                                           currencyCodeFrom,
                                           currencyCodeTo,
                                           calculateCurrency.text);
                                     },
-                                    child: Image.asset(
-                                      "assets/images/right-left.png",
-                                      scale: 8,
-                                    )),
+                                  ),
+                                ),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Center(
+                                  child: InkWell(
+                                      onTap: () {
+                                        String temp = "";
+                                        temp = currencyCodeFrom;
+                                        currencyCodeFrom = currencyCodeTo;
+                                        currencyCodeTo = temp;
+
+                                        edtFrom.text = currencyCodeFrom;
+                                        edtTo.text = currencyCodeTo;
+
+                                        String temp3 = "";
+                                        temp3 = symbol;
+                                        symbol = symbol2;
+                                        symbol2 = temp3;
+
+                                        String temp1 = "";
+                                        temp1 = flagfrom;
+                                        flagfrom = flagto;
+                                        flagto = temp1;
+
+                                        currencyCodeFromSave(currencyCodeFrom);
+                                        currencyCodeToSave(currencyCodeTo);
+                                        setState(() {});
+
+                                        getConverterAPI(
+                                            currencyCodeFrom,
+                                            currencyCodeTo,
+                                            calculateCurrency.text);
+                                      },
+                                      child: Image.asset(
+                                        "assets/images/right-left.png",
+                                        scale: 8,
+                                      )),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              child: Container(
+                                  width: appwidth * 0.45,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: MyColors.textColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: TextFormField(
+                                    style: TextStyle(
+                                      color: MyColors.insideTextFieldColor,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.5,
+                                      fontSize: MyColors.fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : MyColors.fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
+                                    ),
+                                    controller: edtFrom,
+                                    showCursor: false,
+                                    readOnly: true,
+                                    autofocus: false,
+                                    // keyboardType: TextInputType.none,
+                                    onTap: () {
+                                      if (_isContainerVisible) {
+                                        _isContainerVisible = false;
+                                      } else {
+                                        isContainerVisible = false;
+                                        _isContainerVisible = true;
+                                      }
+                                      if (_isContainerVisibleTwo) {
+                                        _isContainerVisibleTwo = false;
+                                      }
+                                      //*d
+
+                                      setState(() {
+                                        arrowPosition = !arrowPosition;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      prefixIcon: Container(
+                                        padding: EdgeInsets.all(5),
+                                        height: 10,
+                                        width: 10,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Image.asset(
+                                            flagfrom,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      suffixIcon: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20.0),
+                                        child: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: MyColors.insideTextFieldColor,
+                                          size: 23.0,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            const Spacer(),
+                            InkWell(
+                              child: Container(
+                                  width: appwidth * 0.45,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: MyColors.textColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: TextField(
+                                    style: TextStyle(
+                                      color: MyColors.insideTextFieldColor,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.5,
+                                      fontSize: MyColors.fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : MyColors.fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
+                                    ),
+                                    controller: edtTo,
+                                    showCursor: false,
+                                    readOnly: true,
+                                    autofocus: false,
+                                    // keyboardType: TextInputType.none,
+                                    onTap: () {
+                                      if (_isContainerVisibleTwo) {
+                                        _isContainerVisibleTwo = false;
+                                      } else {
+                                        _isContainerVisible = false;
+                                        isContainerVisible = false;
+                                        _isContainerVisibleTwo = true;
+                                      }
+                                      setState(() {
+                                        arrowPositionTwo = !arrowPositionTwo;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      prefixIcon: Container(
+                                        padding: EdgeInsets.all(5),
+                                        width: 15,
+                                        height: 15,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Image.asset(
+                                            flagto,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      suffixIcon: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20.0),
+                                        child: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: MyColors.insideTextFieldColor,
+                                          size: 23.0,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                                width: appwidth * 0.45,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: MyColors.textColor,
-                                  borderRadius: BorderRadius.circular(5),
+                        const SizedBox(),
+                        _isContainerVisible
+                            ? Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 10,
+                                constraints: const BoxConstraints(),
+                                margin: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.8),
+                                child: Image.asset(
+                                  "assets/images/tooltip.png",
+                                  scale: 7,
                                 ),
-                                child: TextFormField(
-                                  style: TextStyle(
-                                    color: MyColors.insideTextFieldColor,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.5,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 20) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 20)
-                                            : 20,
-                                  ),
-                                  controller: edtFrom,
-                                  showCursor: false,
-                                  readOnly: true,
-                                  autofocus: false,
-                                  // keyboardType: TextInputType.none,
-                                  onTap: () {
-                                    if (_isContainerVisible) {
-                                      _isContainerVisible = false;
-                                    } else {
-                                      _isContainerVisible = true;
-                                    }
-                                    if (_isContainerVisibleTwo) {
+                              )
+                            : Container(),
+                        _isContainerVisibleTwo
+                            ? Container(
+                                constraints: const BoxConstraints(),
+                                width: MediaQuery.of(context).size.width,
+                                height: 10,
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.2),
+                                child: Image.asset("assets/images/tooltip.png"),
+                              )
+                            : Container(),
+                        _isContainerVisible
+                            ? CurrencyFromWidget(
+                                isContainerVisible: _isContainerVisible,
+                                onSelect: (String currencyCode, String image,
+                                    String symbol1) {
+                                  symbol = symbol1;
+                                  currencyCodeFrom = currencyCode;
+                                  flagfrom = image;
+                                  Utility.setSymbolFromPreference(
+                                      "hello", symbol);
+
+                                  currencyCodeFromSave(currencyCodeFrom);
+                                  edtFrom.text = currencyCode;
+                                  edtCurrency.text = currencyCode;
+                                  _isContainerVisible = false;
+                                  getConverterAPI(currencyCodeFrom,
+                                      currencyCodeTo, calculateCurrency.text);
+
+                                  setState(() {});
+                                },
+                              )
+                            : _isContainerVisibleTwo
+                                ? CurrencyToWidget(
+                                    isContainerVisibleTwo:
+                                        _isContainerVisibleTwo,
+                                    onSelect: (String currencyCode,
+                                        String image, String symbol) {
+                                      symbol2 = symbol;
+                                      flagto = image;
+                                      Utility.setSymbolFromPreference(
+                                          "to", symbol2);
+
+                                      currencyCodeTo = currencyCode;
+                                      currencyCodeToSave(currencyCodeTo);
+                                      edtTo.text = currencyCode;
                                       _isContainerVisibleTwo = false;
-                                    }
-                                    //*d
-
-                                    setState(() {
-                                      arrowPosition = !arrowPosition;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    prefixIcon: Container(
-                                      padding: EdgeInsets.all(5),
-                                      height: 10,
-                                      width: 10,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(30),
-                                        child: Image.asset(
-                                          flagfrom,
-                                          fit: BoxFit.cover,
+                                      getConverterAPI(
+                                          currencyCodeFrom,
+                                          currencyCodeTo,
+                                          calculateCurrency.text);
+                                      setState(() {});
+                                    },
+                                  )
+                                : const SizedBox(
+                                    height: 0,
+                                    width: 0,
+                                  ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        Center(
+                          child: _isContainerVisible || _isContainerVisibleTwo
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.only(top: 16.0),
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        AutoSizeText(
+                                          getFormatText(text),
+                                          wrapWords: true,
+                                          // conversionRate.toStringAsFixed(MyColors.decimalformat
+                                          //),
+                                          maxLines: 1,
+                                          maxFontSize: 25.0,
+                                          minFontSize: 15.0,
+                                          style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 25) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 25)
+                                                      : 25,
+                                              fontWeight: FontWeight.w400),
                                         ),
-                                      ),
-                                    ),
-                                    suffixIcon: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 20.0),
-                                      child: Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: MyColors.insideTextFieldColor,
-                                        size: 23.0,
-                                      ),
-                                    ),
-                                  ),
-                                )),
-                          ),
-                          const Spacer(),
-                          InkWell(
-                            child: Container(
-                                width: appwidth * 0.45,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: MyColors.textColor,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: TextField(
-                                  style: TextStyle(
-                                    color: MyColors.insideTextFieldColor,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.5,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 20) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 20)
-                                            : 20,
-                                  ),
-                                  controller: edtTo,
-                                  showCursor: false,
-                                  readOnly: true,
-                                  autofocus: false,
-                                  // keyboardType: TextInputType.none,
-                                  onTap: () {
-                                    if (_isContainerVisibleTwo) {
-                                      _isContainerVisibleTwo = false;
-                                    } else {
-                                      _isContainerVisible = false;
-                                      _isContainerVisibleTwo = true;
-                                    }
-                                    setState(() {
-
-
-                                      arrowPositionTwo = !arrowPositionTwo;
-                                    });
-
-                                  },
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    prefixIcon: Container(
-                                      padding: EdgeInsets.all(5),
-                                      width: 15,
-                                      height: 15,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(30),
-                                        child: Image.asset(
-                                          flagto,
-                                          fit: BoxFit.cover,
+                                        const SizedBox(
+                                          width: 5,
                                         ),
-                                      ),
-                                    ),
-                                    suffixIcon: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 20.0),
-                                      child: Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: MyColors.insideTextFieldColor,
-                                        size: 23.0,
-                                      ),
+                                        AutoSizeText(
+                                          edtTo.text,
+                                          maxFontSize: 18.0,
+                                          minFontSize: 7.0,
+                                          style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 20) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 20)
+                                                      : 20,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                )),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(),
-                      _isContainerVisible
-                          ? Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 10,
-                              constraints: const BoxConstraints(),
-                              margin: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.8),
-                              child: Image.asset(
-                                "assets/images/tooltip.png",
-                                scale: 7,
-                              ),
-                            )
-                          : Container(),
-                      _isContainerVisibleTwo
-                          ? Container(
-                              constraints: const BoxConstraints(),
-                              width: MediaQuery.of(context).size.width,
-                              height: 10,
-                              padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.2),
-                              child: Image.asset("assets/images/tooltip.png"),
-                            )
-                          : Container(),
-                      _isContainerVisible
-                          ? CurrencyFromWidget(
-
-                              isContainerVisible: _isContainerVisible,
-                              onSelect: (String currencyCode, String image,
-                                  String symbol1) {
-                                symbol = symbol1;
-                                currencyCodeFrom = currencyCode;
-                                flagfrom = image;
-                                Utility.setSymbolFromPreference("hello",symbol);
-
-                                currencyCodeFromSave(currencyCodeFrom);
-                                edtFrom.text = currencyCode;
-                                edtCurrency.text = currencyCode;
-                                _isContainerVisible = false;
-                                getConverterAPI(currencyCodeFrom,
-                                    currencyCodeTo, calculateCurrency.text);
-
-                                setState(() {});
-                              },
-                            )
-                          : _isContainerVisibleTwo
-                              ? CurrencyToWidget(
-                                  isContainerVisibleTwo: _isContainerVisibleTwo,
-                                  onSelect:
-                                      (String currencyCode, String image,String symbol) {
-                                    symbol2=symbol;
-                                    flagto = image;
-                                    Utility.setSymbolFromPreference("to",symbol2);
-
-                                    currencyCodeTo = currencyCode;
-                                    currencyCodeToSave(currencyCodeTo);
-                                    edtTo.text = currencyCode;
-                                    _isContainerVisibleTwo = false;
-                                    getConverterAPI(currencyCodeFrom,
-                                        currencyCodeTo, calculateCurrency.text);
-                                    setState(() {});
-                                  },
-                                )
-                              : const SizedBox(
-                                  height: 0,
-                                  width: 0,
                                 ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Center(
-                        child: _isContainerVisible || _isContainerVisibleTwo
-                            ? Container()
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 16.0),
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AutoSizeText(
-                                        getFormatText(text),
-                                        wrapWords: true,
-                                        // conversionRate.toStringAsFixed(MyColors.decimalformat
-                                        //),
-                                        maxLines: 1,
-                                        maxFontSize: 25.0,
-                                        minFontSize: 15.0,
-                                        style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 25) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 25)
-                                                    : 25,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      AutoSizeText(
-                                        edtTo.text,
-                                        maxFontSize: 18.0,
-                                        minFontSize: 7.0,
-                                        style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 20) *
-                                                    (-1)
-                                                : MyColors.fontlarge
-                                                    ? (MyColors.textSize + 20)
-                                                    : 20,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  height: isContainerVisible
+                      ? MediaQuery.of(context).size.height * 0.35
+                      : 0.0,
+                  width: isContainerVisible
+                      ? MediaQuery.of(context).size.width
+                      : 0.0,
+                  child: calculator(),
+                ),
+              ),
+            ],
           ),
         ));
+  }
+
+  Widget buildButton(String buttonText, double buttonHeight, Color buttonColor,
+      double buttonTexth) {
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Container(
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.left,
+        ),
+        //**Alline height */
+        //This is grate
+        height:
+            MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.4,
+
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [
+            MyColors.colorPrimary.withOpacity(.4),
+            MyColors.colorPrimary.withOpacity(.8),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          //stops: [0.0,0.0]
+        )),
+
+        child: FlatButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0),
+                side: BorderSide(
+                    color: MyColors.colorPrimary,
+                    width: 0.4,
+                    style: BorderStyle.solid)),
+            padding: const EdgeInsets.all(0.0),
+            onPressed: () => buttonPressed(buttonText),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 0.0),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  buttonText,
+                  style: TextStyle(
+                      fontSize: buttonTexth,
+                      fontWeight: FontWeight.normal,
+                      color: MyColors.textColor),
+                ),
+              ),
+            )),
+      ),
+    );
   }
 
   Future<void> Insert() async {
@@ -708,7 +783,8 @@ class _TapHomeState extends State<TapHome> {
       text = conversionRate.toStringAsFixed(MyColors.decimalFormat);
       // format(conversionRate);
 
-      debugPrint("conversionRate $form to $to--> ${conversionRate.toStringAsFixed(MyColors.decimalFormat)}");
+      debugPrint(
+          "conversionRate $form to $to--> ${conversionRate.toStringAsFixed(MyColors.decimalFormat)}");
 
       setState(() {});
 
@@ -724,288 +800,279 @@ class _TapHomeState extends State<TapHome> {
         "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
-  showCalculator(BuildContext context) {
-
-    showModalBottomSheet(
-
-        barrierColor: Colors.transparent,
-        isDismissible: true,
-
-        context: context,
-        builder: (BuildContext context) {
-
-          buttonPressed(String buttonText) {
-            if((equation.substring(equation.length - 1)=="+"&&buttonText=="+")||(equation.substring(equation.length - 1)=="+"&&buttonText=="-")||(equation.substring(equation.length - 1)=="+"&&buttonText=="×")||(equation.substring(equation.length - 1)=="+"&&buttonText=="/")||(equation.substring(equation.length - 1)=="+"&&buttonText=="=")||(equation.substring(equation.length - 1)=="+"&&buttonText=="%")||
-                (equation.substring(equation.length - 1)=="-"&&buttonText=="-")||(equation.substring(equation.length - 1)=="-"&&buttonText=="+")||(equation.substring(equation.length - 1)=="-"&&buttonText=="×")||(equation.substring(equation.length - 1)=="-"&&buttonText=="/")||(equation.substring(equation.length - 1)=="-"&&buttonText=="=")||(equation.substring(equation.length - 1)=="-"&&buttonText=="%")||
-                (equation.substring(equation.length - 1)=="×"&&buttonText=="×")||(equation.substring(equation.length - 1)=="×"&&buttonText=="+")||(equation.substring(equation.length - 1)=="×"&&buttonText=="-")||(equation.substring(equation.length - 1)=="×"&&buttonText=="/")||(equation.substring(equation.length - 1)=="×"&&buttonText=="=")||(equation.substring(equation.length - 1)=="×"&&buttonText=="%")||
-                (equation.substring(equation.length - 1)=="%"&&buttonText=="%")||(equation.substring(equation.length - 1)=="%"&&buttonText=="+")||(equation.substring(equation.length - 1)=="%"&&buttonText=="-")||(equation.substring(equation.length - 1)=="%"&&buttonText=="/")||(equation.substring(equation.length - 1)=="%"&&buttonText=="=")||(equation.substring(equation.length - 1)=="%"&&buttonText=="%")||
-               (equation.substring(equation.length - 1)=="/"&&buttonText=="×")||(equation.substring(equation.length - 1)=="/"&&buttonText=="+")||(equation.substring(equation.length - 1)=="/"&&buttonText=="-")||(equation.substring(equation.length - 1)=="/"&&buttonText=="/")||(equation.substring(equation.length - 1)=="×"&&buttonText=="×")||(equation.substring(equation.length - 1)=="×"&&buttonText=="+")||(equation.substring(equation.length - 1)=="×"&&buttonText=="-")||(equation.substring(equation.length - 1)=="×"&&buttonText=="/")||(equation.substring(equation.length - 1)=="×"&&buttonText=="=")||
-                (buttonText=="×"&&equation=="0")||(buttonText=="%"&&equation=="0")||(buttonText=="/"&&equation=="0")||(buttonText=="*"&&equation=="0")||(buttonText=="+"&&equation=="0")||(buttonText=="-"&&equation=="0")
-
-            )
-            {
-
-
+  Widget calculator() {
+    buttonPressed(String buttonText) {
+      if ((equation.substring(equation.length - 1) == "+" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "=") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "=") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "=") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "=") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "/" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "/" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "/" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "/" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "=") ||
+          (buttonText == "×" && equation == "0") ||
+          (buttonText == "%" && equation == "0") ||
+          (buttonText == "/" && equation == "0") ||
+          (buttonText == "*" && equation == "0") ||
+          (buttonText == "+" && equation == "0") ||
+          (buttonText == "-" && equation == "0")) {
+      } else {
+        setState(() {
+          if (buttonText == "c") {
+            isbool = true;
+            calculateCurrency.text = "";
+            equation = "0";
+            isbool = false;
+            equationFontSize = 38.0;
+            resultFontSize = 48.0;
+          } else if (buttonText == "⌫") {
+            equationFontSize = 48.0;
+            resultFontSize = 38.0;
+            equation = equation.substring(0, equation.length - 1);
+            if (equation == "") {
+              equation = "0";
             }
-            else
-              {
-                setState(() {
+          } else if (buttonText == "=") {
+            equationFontSize = 38.0;
+            resultFontSize = 48.0;
+            try {
+              Parser p = Parser();
+              Expression exp = p.parse(expression);
 
+              ContextModel cm = ContextModel();
+              result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+            } catch (e) {
+              result = "";
+            }
+            isbool = false;
 
+            expression = equation;
+            expression = expression.replaceAll('×', '*');
+            expression = expression.replaceAll('÷', '/');
 
-                  if (buttonText == "c") {
-                    isbool = true;
-                    calculateCurrency.text = "";
-                    equation = "0";
-                    isbool = false;
-                    equationFontSize = 38.0;
-                    resultFontSize = 48.0;
-                  } else if (buttonText == "⌫") {
-                    equationFontSize = 48.0;
-                    resultFontSize = 38.0;
-                    equation = equation.substring(0, equation.length - 1);
-                    if (equation == "") {
-                      equation = "0";
-                    }
-                  } else if (buttonText == "=") {
-
-                    double x=50+100%50;
-                    print("_<><><><><<>><       $x");
-                    String left="";
-                    String right="";
-
-                    List<String> operator=[];
-                    List<int> num=[];
-
-                    for(int i=0;i<expression.length;i++)
-                      {
-                    if(expression[i]=="*")
-                        {
-                          int j=i;
-                        while(expression[j]=="+"||expression[j]=="-"||expression[j]=="/"||expression[j]=="%")
-                          {
-                            left=expression[j];
-
-
-                            j--;
-                          }
-                         left= StringUtils.reverse(left);
-
-                           j=i;
-                          while(expression[j]=="+"||expression[j]=="-"||expression[j]=="/"||expression[j]=="%")
-                          {
-                            right=expression[i];
-
-
-                            j--;
-                          }
-                          right=StringUtils.reverse(right);
-                        }
-
-                      }
-
-
-
-
-                    equationFontSize = 38.0;
-                    resultFontSize = 48.0;try {
-                      Parser p = Parser();
-                      Expression exp = p.parse(expression);
-
-                      ContextModel cm = ContextModel();
-                      result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-                    } catch (e) {
-                      result = "";
-                    }
-                    isbool = false;
-
-
-                    expression = equation;
-                    expression = expression.replaceAll('×', '*');
-                    expression = expression.replaceAll('÷', '/');
-
-
-                    if(expression.contains("%")){
-                      String a="";
-                      String b="";
-                      String c="";
-                      for(int i=0;i<expression.length;i++)
-                        {
-                          if(expression[i]!="%")
-                            {
-                              if(b=="%")c+=expression[i];
-                              else a+=expression[i];
-                            }
-                          else
-                            {
-                              b=expression[i];
-                            }
-                        }
-
-
-
-                      print("a->>>>$a");
-
-
-
-                      result=((double.parse(a)*double.parse(c)/100)).toString();
-
-
-                    }
-
-
-                    else{
-                      try {
-                        Parser p = Parser();
-                        Expression exp = p.parse(expression);
-
-                        ContextModel cm = ContextModel();
-                        result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-                      } catch (e) {
-                        result = "";
-                      }
-                    }
-
-                  } else {
-                    equationFontSize = 48.0;
-                    resultFontSize = 38.0;
-                    if (equation == "0") {
-                      equation = buttonText;
-                    } else {
-                      equation = equation + buttonText;
-                    }
-                  }
-                  isbool
-                      ? calculateCurrency.text = equation
-                      : calculateCurrency.text = result;
-
-                  getConverterAPI(
-                      currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
-
-                  isbool = true;
-                });
+            if (expression.contains("%")) {
+              String a = "";
+              String b = "";
+              String c = "";
+              for (int i = 0; i < expression.length; i++) {
+                if (expression[i] != "%") {
+                  if (b == "%")
+                    c += expression[i];
+                  else
+                    a += expression[i];
+                } else {
+                  b = expression[i];
+                }
               }
 
-          }
+              print("a->>>>$a");
 
-          Widget buildButton(String buttonText, double buttonHeight,
-              Color buttonColor, double buttonTexth) {
-            return SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              child: Container(
-                margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.left,
+              result = ((double.parse(a) * double.parse(c) / 100)).toString();
+            } else {
+              try {
+                Parser p = Parser();
+                Expression exp = p.parse(expression);
+
+                ContextModel cm = ContextModel();
+                result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+              } catch (e) {
+                result = "";
+              }
+            }
+          } else {
+            equationFontSize = 48.0;
+            resultFontSize = 38.0;
+            if (equation == "0") {
+              equation = buttonText;
+            } else {
+              equation = equation + buttonText;
+            }
+          }
+          isbool
+              ? calculateCurrency.text = equation
+              : calculateCurrency.text = result;
+
+          getConverterAPI(
+              currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
+
+          isbool = true;
+        });
+      }
+    }
+
+    Widget buildButton(String buttonText, double buttonHeight,
+        Color buttonColor, double buttonTexth) {
+      return SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Container(
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.left,
+          ),
+          //**Alline height */
+          //This is grate
+          height:
+              MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight +
+                  2.4,
+
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              Colors.white10.withOpacity(0.4),
+              MyColors.colorPrimary.withOpacity(0.18),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            //stops: [0.0,0.0]
+          )),
+
+          child: FlatButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  side: BorderSide(
+                      color: MyColors.colorPrimary,
+                      width: 0.4,
+                      style: BorderStyle.solid)),
+              onPressed: () => buttonPressed(buttonText),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    buttonText,
+                    style: TextStyle(
+                        fontSize: buttonTexth,
+                        fontWeight: FontWeight.normal,
+                        color: MyColors.textColor),
+                  ),
                 ),
-                //**Alline height */
-                //This is grate
-                height: MediaQuery.of(context).size.height *
-                        0.1 /
-                        1.5 *
-                        buttonHeight +
-                    2.4,
+              )),
+        ),
+      );
+    }
 
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    MyColors.colorPrimary.withOpacity(.4),
-                    MyColors.colorPrimary.withOpacity(.8),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  //stops: [0.0,0.0]
-                )),
-
-                child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0.0),
-                        side: BorderSide(
-                            color: MyColors.colorPrimary,
-                            width: 0.4,
-                            style: BorderStyle.solid)),
-                    padding: const EdgeInsets.all(0.0),
-                    onPressed: () => buttonPressed(buttonText),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 0.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          buttonText,
-                          style: TextStyle(
-                              fontSize: buttonTexth,
-                              fontWeight: FontWeight.normal,
-                              color: MyColors.textColor),
-                        ),
-                      ),
-                    )),
-              ),
-            );
-          }
-
-          return SizedBox(
-              width: MediaQuery.of(context).size.width * .75,
-              height: MediaQuery.of(context).size.height * 0.35,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .75,
-                        height: MediaQuery.of(context).size.height * 0.35,
-                        child: Table(
-                          children: [
-                            TableRow(children: [
-                              buildButton("%", 1, MyColors.calcuColor, 20),
-                              buildButton("/", 1, MyColors.calcuColor, 20),
-                              buildButton("×", 1, MyColors.calcuColor, 27),
-                            ]),
-                            TableRow(children: [
-                              buildButton("1", 1, MyColors.calcuColor, 25),
-                              buildButton("2", 1, MyColors.calcuColor, 25),
-                              buildButton("3", 1, MyColors.calcuColor, 25),
-                            ]),
-                            TableRow(children: [
-                              buildButton("4", 1, MyColors.calcuColor, 25),
-                              buildButton("5", 1, MyColors.calcuColor, 25),
-                              buildButton("6", 1, MyColors.calcuColor, 25),
-                            ]),
-                            TableRow(children: [
-                              buildButton("7", 1, MyColors.calcuColor, 25),
-                              buildButton("8", 1, MyColors.calcuColor, 25),
-                              buildButton("9", 1, MyColors.calcuColor, 25),
-                            ]),
-                            TableRow(children: [
-                              buildButton(".", 1, MyColors.calcuColor, 25),
-                              buildButton("0", 1, MyColors.calcuColor, 25),
-                              buildButton("c", 1, MyColors.calcuColor, 25),
-                            ]),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: Table(children: [
-                            TableRow(children: [
-                              buildButton("⌫", 1, MyColors.calcuColor, 20),
-                            ]),
-                            TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor, 35),
-                            ]),
-                            TableRow(children: [
-                              buildButton("+", 1, MyColors.calcuColor, 25),
-                            ]),
-                            TableRow(children: [
-                              Center(
-                                  child: buildButton(
-                                      "=", 2 * 1.02, MyColors.calcuColor, 40)),
-                            ]),
-                          ]))
+    return Container(
+        width: MediaQuery.of(context).size.width * .75,
+        height: MediaQuery.of(context).size.height * 0.35,
+        color: Colors.transparent,
+        child: Column(
+          children: <Widget>[
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .75,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: Table(
+                    children: [
+                      TableRow(children: [
+                        buildButton("%", 1, MyColors.calcuColor, 20),
+                        buildButton("/", 1, MyColors.calcuColor, 20),
+                        buildButton("×", 1, MyColors.calcuColor, 27),
+                      ]),
+                      TableRow(children: [
+                        buildButton("1", 1, MyColors.calcuColor, 25),
+                        buildButton("2", 1, MyColors.calcuColor, 25),
+                        buildButton("3", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton("4", 1, MyColors.calcuColor, 25),
+                        buildButton("5", 1, MyColors.calcuColor, 25),
+                        buildButton("6", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton("7", 1, MyColors.calcuColor, 25),
+                        buildButton("8", 1, MyColors.calcuColor, 25),
+                        buildButton("9", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton(".", 1, MyColors.calcuColor, 25),
+                        buildButton("0", 1, MyColors.calcuColor, 25),
+                        buildButton("c", 1, MyColors.calcuColor, 25),
+                      ]),
                     ],
                   ),
-                ],
-              ));
-        });
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: Table(children: [
+                      TableRow(children: [
+                        buildButton("⌫", 1, MyColors.calcuColor, 20),
+                      ]),
+                      TableRow(children: [
+                        buildButton("-", 1, MyColors.calcuColor, 35),
+                      ]),
+                      TableRow(children: [
+                        buildButton("+", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        Center(
+                            child: buildButton(
+                                "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                      ]),
+                    ]))
+              ],
+            ),
+          ],
+        ));
   }
 
   // format1(double conversionRate) {
@@ -1057,7 +1124,7 @@ class _TapHomeState extends State<TapHome> {
   // }
 
   String getFormatText(String s) {
-    String text1="";
+    String text1 = "";
     debugPrint("MyColors.decimalformat-->${MyColors.decimalFormat}");
     debugPrint("getFormatText-->$s");
 
@@ -1112,5 +1179,129 @@ class _TapHomeState extends State<TapHome> {
       return text1;
     }
     return text1;
+  }
+
+  buttonPressed(String buttonText) {
+    if ((equation.substring(equation.length - 1) == "+" && buttonText == "+") ||
+        (equation.substring(equation.length - 1) == "+" && buttonText == "-") ||
+        (equation.substring(equation.length - 1) == "+" && buttonText == "×") ||
+        (equation.substring(equation.length - 1) == "+" && buttonText == "/") ||
+        (equation.substring(equation.length - 1) == "+" && buttonText == "=") ||
+        (equation.substring(equation.length - 1) == "+" && buttonText == "%") ||
+        (equation.substring(equation.length - 1) == "-" && buttonText == "-") ||
+        (equation.substring(equation.length - 1) == "-" && buttonText == "+") ||
+        (equation.substring(equation.length - 1) == "-" && buttonText == "×") ||
+        (equation.substring(equation.length - 1) == "-" && buttonText == "/") ||
+        (equation.substring(equation.length - 1) == "-" && buttonText == "=") ||
+        (equation.substring(equation.length - 1) == "-" && buttonText == "%") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "×") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "+") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "-") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "/") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "=") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "%") ||
+        (equation.substring(equation.length - 1) == "%" && buttonText == "%") ||
+        (equation.substring(equation.length - 1) == "%" && buttonText == "+") ||
+        (equation.substring(equation.length - 1) == "%" && buttonText == "-") ||
+        (equation.substring(equation.length - 1) == "%" && buttonText == "/") ||
+        (equation.substring(equation.length - 1) == "%" && buttonText == "=") ||
+        (equation.substring(equation.length - 1) == "%" && buttonText == "%") ||
+        (equation.substring(equation.length - 1) == "/" && buttonText == "×") ||
+        (equation.substring(equation.length - 1) == "/" && buttonText == "+") ||
+        (equation.substring(equation.length - 1) == "/" && buttonText == "-") ||
+        (equation.substring(equation.length - 1) == "/" && buttonText == "/") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "×") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "+") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "-") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "/") ||
+        (equation.substring(equation.length - 1) == "×" && buttonText == "=") ||
+        (buttonText == "×" && equation == "0") ||
+        (buttonText == "%" && equation == "0") ||
+        (buttonText == "/" && equation == "0") ||
+        (buttonText == "*" && equation == "0") ||
+        (buttonText == "+" && equation == "0") ||
+        (buttonText == "-" && equation == "0")) {
+    } else {
+      setState(() {
+        if (buttonText == "c") {
+          isbool = true;
+          calculateCurrency.text = "";
+          equation = "0";
+          isbool = false;
+          equationFontSize = 38.0;
+          resultFontSize = 48.0;
+        } else if (buttonText == "⌫") {
+          equationFontSize = 48.0;
+          resultFontSize = 38.0;
+          equation = equation.substring(0, equation.length - 1);
+          if (equation == "") {
+            equation = "0";
+          }
+        } else if (buttonText == "=") {
+          equationFontSize = 38.0;
+          resultFontSize = 48.0;
+          try {
+            Parser p = Parser();
+            Expression exp = p.parse(expression);
+
+            ContextModel cm = ContextModel();
+            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+          } catch (e) {
+            result = "";
+          }
+          isbool = false;
+
+          expression = equation;
+          expression = expression.replaceAll('×', '*');
+          expression = expression.replaceAll('÷', '/');
+
+          if (expression.contains("%")) {
+            String a = "";
+            String b = "";
+            String c = "";
+            for (int i = 0; i < expression.length; i++) {
+              if (expression[i] != "%") {
+                if (b == "%")
+                  c += expression[i];
+                else
+                  a += expression[i];
+              } else {
+                b = expression[i];
+              }
+            }
+
+            print("a->>>>$a");
+
+            result = ((double.parse(a) * double.parse(c) / 100)).toString();
+          } else {
+            try {
+              Parser p = Parser();
+              Expression exp = p.parse(expression);
+
+              ContextModel cm = ContextModel();
+              result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+            } catch (e) {
+              result = "";
+            }
+          }
+        } else {
+          equationFontSize = 48.0;
+          resultFontSize = 38.0;
+          if (equation == "0") {
+            equation = buttonText;
+          } else {
+            equation = equation + buttonText;
+          }
+        }
+        isbool
+            ? calculateCurrency.text = equation
+            : calculateCurrency.text = result;
+
+        getConverterAPI(
+            currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
+
+        isbool = true;
+      });
+    }
   }
 }
