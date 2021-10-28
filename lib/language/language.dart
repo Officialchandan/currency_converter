@@ -34,112 +34,86 @@ class _LanguageState extends State<Language> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AnimatedContainer(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(7.0),
-          ),
-          duration: const Duration(seconds: 0),
-          height: widget.isContainerVisible
-              ? MediaQuery.of(context).size.height * 0.6
-              : 0.0,
-          width: widget.isContainerVisible
-              ? MediaQuery.of(context).size.width
-              : 0.0,
-          child: Center(
-              child: DefaultTextStyle(
-            style: const TextStyle(decoration: TextDecoration.none),
-            child: Container(
-                margin: const EdgeInsets.only(
-                    top: 15, right: 10, bottom: 0, left: 10),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 1.909,
+    return widget.isContainerVisible
+        ? AnimatedContainer(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(7.0),
+            ),
+            duration: const Duration(seconds: 0),
+            // height: widget.isContainerVisible ? double.nan : 0.0,
+            width: MediaQuery.of(context).size.width,
+            padding:
+                const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
+            child: Column(
+                children: List.generate(Locals.language.length, (index) {
+              return GestureDetector(
+                onTap: () async {
+                  for (int i = 0; i < Locals.icon.length; i++) {
+                    if (index == i) {
+                      Utility.setLangIndexPreference("LanuageIndex", index);
+                      Locals.icon[i] = true;
+                    } else {
+                      Locals.icon[i] = false;
+                    }
+                  }
+
+                  String name = Locals.language[index].keys.first;
+
+                  await context.setLocale(Locals.language[index].values.first);
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const MyTabBarWidget()),
+                      (route) => false);
+                },
                 child: Container(
-                  margin: const EdgeInsets.only(
-                      top: 0, right: 10, bottom: 0, left: 10),
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: Locals.language.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () async {
-                                for (int i = 0; i < Locals.icon.length; i++) {
-                                  if (index == i) {
-                                    Utility.setLangIndexPreference("LanuageIndex", index);
-                                    Locals.icon[i] = true;
-                                  } else {
-                                    Locals.icon[i] = false;
-                                  }
-                                }
-
-                                String name = Locals.language[index].keys.first;
-
-                                await context.setLocale(
-                                    Locals.language[index].values.first);
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            const MyTabBarWidget()),
-                                    (route) => false);
-                              },
-                              child: Container(
-                                margin:  const EdgeInsets.only(top:1 ),
-                                color: MyColors.textColor,
-                                width: MediaQuery.of(context).size.width,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        margin: const EdgeInsets.all(7),
-                                        height: 30,
-                                        child: Text(
-                                          Locals.language[index].keys.first,
-                                          style:  TextStyle(
-                                              fontSize: 18, color:  MyColors.insideTextFieldColor),
-                                        )),
-                                    Container(
-                                      padding: EdgeInsets.only(right: 10),
-                                      child: Locals.icon[index]
-                                          ? const Icon(
-                                              Icons.check_sharp,
-                                              color: Colors.blue,
-                                            )
-                                          : const Text(""),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
-                )),
-          )),
-        ),
-      ],
-    );
+                  margin: const EdgeInsets.only(top: 1),
+                  color: MyColors.textColor,
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                          margin: const EdgeInsets.all(7),
+                          height: 30,
+                          child: Text(
+                            Locals.language[index].keys.first,
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: MyColors.insideTextFieldColor),
+                          )),
+                      Container(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Locals.icon[index]
+                            ? const Icon(
+                                Icons.check_sharp,
+                                color: Colors.blue,
+                              )
+                            : const Text(""),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            })),
+          )
+        : Container(
+            width: 0,
+            height: 0,
+          );
   }
 
-  void  getIndex() async{
-    trueIndex=await Utility.getLangIndexPreference("LanuageIndex");
-    for(int i=0;i<Locals.icon.length;i++)
-      {
-        if (trueIndex == i) {
-
-          Locals.icon[i] = true;
-        } else {
-          Locals.icon[i] = false;
-        }
+  void getIndex() async {
+    trueIndex = await Utility.getLangIndexPreference("LanuageIndex");
+    for (int i = 0; i < Locals.icon.length; i++) {
+      if (trueIndex == i) {
+        Locals.icon[i] = true;
+      } else {
+        Locals.icon[i] = false;
       }
-    setState(() {
-
-    });
-
+    }
+    setState(() {});
   }
 }
