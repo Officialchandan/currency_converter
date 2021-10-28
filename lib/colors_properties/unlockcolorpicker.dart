@@ -68,7 +68,7 @@ class UnlockColorPicker extends StatefulWidget {
               color: useWhiteForeground(color.mainColor)
                   ? Colors.white
                   : Colors.black,
-            ):Text("      "),
+            ):Text("        "),
           ),
         ),
       ),

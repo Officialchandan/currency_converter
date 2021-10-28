@@ -22,7 +22,7 @@ void main() async {
 
   runApp(EasyLocalization(
       child: MyApp(),
-      path: "assets/languagecode",
+      path: "assets/updatedlanguage",
       fallbackLocale: Locale('en'),
       useFallbackTranslations: true,
       useOnlyLangCode: true,

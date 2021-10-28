@@ -8,6 +8,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +33,7 @@ class _SettingScreenState extends State<SettingScreen> {
   bool unclockcolorselect = false;
   Color color = Colors.red;
 
+  
   bool _isContainerVisible = false;
 
   bool isSwitched = false;
@@ -1284,8 +1286,9 @@ class _SettingScreenState extends State<SettingScreen> {
             style: const TextStyle(decoration: TextDecoration.none),
             child: Stack(children: [
               Container(
-                margin: const EdgeInsets.only(
-                    top: 100, right: 10, bottom: 100, left: 10),
+
+                height: height*0.63,
+                margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1441,6 +1444,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;
+  Color? colorSelection;
   Color densitySelectedColor = Colors.red;
   bool density = false;
   bool lock = false;
@@ -1471,10 +1475,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       children: [
         Container(
           margin: const EdgeInsets.only(left: 25, top: 30, bottom: 0),
-          child: const Text(
-            "Unlocked ",
-            style: TextStyle(
-                fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
+          child:  Text(
+            "unlocked".tr().toString(),
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
           ),
         ),
         Container(
@@ -1492,10 +1495,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         ),
         Container(
           margin: EdgeInsets.only(left: 25, top: 5),
-          child: const Text(
-            "Locked",
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+          child:  Text(
+            "locked".tr().toString(),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ),
         Container(
@@ -1513,9 +1515,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             width: width * 0.87,
             height: height * 0.077,
             child: DensityColorPicker(
-                pickerColor: densityCurrentColor,
-                onColorChanged: densitychangeColor,
-                availableColors: selectedColor.densityColors),
+                pickerColor: densityCurrentColor, onColorChanged: densitychangeColor, availableColors: selectedColor.densityColors),
           ),
         ),
         const SizedBox(
@@ -1530,17 +1530,36 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.indigoAccent),
+                        style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => MyTabBarWidget()),
-                              (route) => false);
+                          MyColors.colorPrimary=colorSelection!;
+                          MyColors.checkBoxValue2= useWhiteForeground(colorSelection!)
+                              ? false
+                              : true;
+                          if( MyColors.checkBoxValue2){
+                            MyColors.textColor=Colors.grey.shade700;
+                            MyColors.insideTextFieldColor=Colors.white;
+                            MyColors.checkBoxValue2=true;
+                            MyColors.checkBoxValue1=false;
+                          }
+                          else{
+                            MyColors.textColor=Colors.white;
+                            MyColors.insideTextFieldColor=Colors.black;
+                            MyColors.checkBoxValue1=true;
+                            MyColors.checkBoxValue2=false;
+
+                          }
+                          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                            systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                            statusBarColor: MyColors.colorPrimary, // status bar color
+                          ));
+
+                            Navigator.pushAndRemoveUntil(
+                                context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+
                         },
                         child: Text(
-                          "Try this color",
+                          "try".tr().toString() ,
                           style: TextStyle(fontSize: 16),
                         ),
                       )),
@@ -1549,11 +1568,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.indigoAccent),
+                        style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {},
                         child: Text(
-                          "Unlock",
+                          "unlock".tr().toString(),
                           style: TextStyle(fontSize: 16),
                         ),
                       )),
@@ -1575,13 +1593,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   Navigator.pop(context, 1);
                   setState(() {});
                 },
-                child: const Text(
-                  "CUSTOM",
-                  style: TextStyle(
-                      letterSpacing: 0.8,
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                child:  Text(
+                  "custom".tr().toString(),
+                  style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -1595,24 +1609,36 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                     child: GestureDetector(
                       onTap: () {
                         MyColors.colorPrimary = unlockSelectdColor!;
-                        Utility.setStringPreference(Constants.themeColor,
-                            unlockSelectdColor!.value.toString());
+                        MyColors.checkBoxValue2= useWhiteForeground(unlockSelectdColor!)
+                            ? false
+                            : true;
+                        if( MyColors.checkBoxValue2){
+                          MyColors.textColor=Colors.grey.shade700;
+                          MyColors.insideTextFieldColor=Colors.white;
+                          MyColors.checkBoxValue2=true;
+                          MyColors.checkBoxValue1=false;
+                        }
+                        else{
+                          MyColors.textColor=Colors.white;
+                          MyColors.insideTextFieldColor=Colors.black;
+                          MyColors.checkBoxValue1=true;
+                          MyColors.checkBoxValue2=false;
+
+                        }
+                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                          systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                          statusBarColor: MyColors.colorPrimary, // status bar color
+                        ));
+                        Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
                         themepicker(unlockSelectdColor!.value.toString());
 
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (_) => MyTabBarWidget()),
-                            (route) => false);
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
 
                         setState(() {});
                       },
                       child: const Text(
                         "SELECT",
-                        style: TextStyle(
-                            letterSpacing: 1.0,
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(letterSpacing: 1.0, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -1624,25 +1650,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void unlockchangeColor(MColor color) {
-    MyColors.lockCheck = false;
-    MyColors.densitycheck = false;
+    MyColors.lockCheck=false;
+    MyColors.densitycheck=false;
     widget.lockedColor = false;
+
     widget.unlockColorSelect = true;
     var code = (color.mainColor.value.toRadixString(16));
     unlockSelectdColor = Color(int.parse("0x$code"));
-    MyColors.checkBoxValue2 =
-        useWhiteForeground(unlockSelectdColor!) ? false : true;
-    if (MyColors.checkBoxValue2) {
-      MyColors.textColor = Colors.grey.shade700;
-      MyColors.insideTextFieldColor = Colors.white;
-      MyColors.checkBoxValue2 = true;
-      MyColors.checkBoxValue1 = false;
-    } else {
-      MyColors.textColor = Colors.white;
-      MyColors.insideTextFieldColor = Colors.black;
-      MyColors.checkBoxValue1 = true;
-      MyColors.checkBoxValue2 = false;
-    }
+
     selectedColor = color;
     setState(
       () => unlockCurrentColor = color.mainColor,
@@ -1651,28 +1666,18 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void lockchangeColor(Color color) {
-    MyColors.unclockCheck = false;
-    MyColors.densitycheck = false;
+    MyColors.unclockCheck=false;
+    MyColors.densitycheck=false;
+
 
     widget.unlockColorSelect = false;
     widget.lockedColor = true;
     var code = (color.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
-    MyColors.colorPrimary = lockSelectdColor!;
-    MyColors.checkBoxValue2 =
-        useWhiteForeground(lockSelectdColor!) ? false : true;
-    if (MyColors.checkBoxValue2) {
-      MyColors.textColor = Colors.grey.shade700;
-      MyColors.insideTextFieldColor = Colors.white;
-      MyColors.checkBoxValue2 = true;
-      MyColors.checkBoxValue1 = false;
-    } else {
-      MyColors.textColor = Colors.white;
-      MyColors.insideTextFieldColor = Colors.black;
-      MyColors.checkBoxValue1 = true;
-      MyColors.checkBoxValue2 = false;
-    }
-    MyColors.colorPrimary = lockSelectdColor!;
+    colorSelection=lockSelectdColor;
+
+
+
 
     setState(
       () => lockCurrentColor = color,
@@ -1680,35 +1685,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void densitychangeColor(Color color) {
-    MyColors.unclockCheck = false;
-    MyColors.lockCheck = false;
+    MyColors.unclockCheck=false;
+    MyColors.lockCheck=false;
 
     widget.lockedColor = true;
     density = true;
     var code = (color.value.toRadixString(16));
     densitySelectedColor = Color(int.parse("0x$code"));
-    MyColors.colorPrimary = densitySelectedColor;
-    MyColors.checkBoxValue2 =
-        useWhiteForeground(densitySelectedColor) ? false : true;
-    if (MyColors.checkBoxValue2) {
-      MyColors.textColor = Colors.grey.shade700;
-      MyColors.insideTextFieldColor = Colors.white;
-      MyColors.checkBoxValue2 = true;
-      MyColors.checkBoxValue1 = false;
-    } else {
-      MyColors.textColor = Colors.white;
-      MyColors.insideTextFieldColor = Colors.black;
-      MyColors.checkBoxValue1 = true;
-      MyColors.checkBoxValue2 = false;
-    }
+    colorSelection=densitySelectedColor;
+
+
 
     setState(
       () => unlockCurrentColor = color,
     );
     setState(() => densityCurrentColor = color);
     widget.densitychangeColor(color);
-    debugPrint(
-        "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+    debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
   static void themepicker(String code) async {

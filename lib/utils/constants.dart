@@ -85,13 +85,13 @@ class Constants {
       "code": "BAM",
       "image": "assets/pngCountryImages/BAM.png",
       "country_name": "Bosnia-Herzegovina Conve..",
-      "Symbol": ""
+      "Symbol": "KM"
     },
     {
       "code": "BBD",
       "image": "assets/pngCountryImages/BBD.png",
       "country_name": "Barbadian Dollar",
-      "Symbol": ""
+      "Symbol": "Bds"
     },
     {
       "code": "BDT",
@@ -115,7 +115,7 @@ class Constants {
       "code": "BIF",
       "image": "assets/pngCountryImages/BIF.png",
       "country_name": "Burundian France",
-      "Symbol": ""
+      "Symbol": "FBu"
     },
     {
       "code": "BMD",

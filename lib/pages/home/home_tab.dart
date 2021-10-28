@@ -28,7 +28,7 @@ class TapHome extends StatefulWidget {
 }
 
 class _TapHomeState extends State<TapHome> {
-  String symbol2 = "€";
+  String symbol2="€";
 
   String symbol = "\$";
 
@@ -50,14 +50,13 @@ class _TapHomeState extends State<TapHome> {
   bool starIndex = false;
   bool contanerIndex = true;
   String z = "";
-  bool isContainerVisible = false;
-
   double conversionRate = 0;
+  bool isContainerVisible=false;
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
-  bool _isExpanded = false;
+
   TextEditingController edtCurrency = TextEditingController();
-  TextEditingController calculateCurrency = TextEditingController(text: "0");
+  TextEditingController calculateCurrency = TextEditingController(text:"0");
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
 
@@ -70,11 +69,14 @@ class _TapHomeState extends State<TapHome> {
 
   @override
   void initState() {
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
-    setState(() {});
+    setState(() {
+
+    });
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
     // Insert();
@@ -94,10 +96,10 @@ class _TapHomeState extends State<TapHome> {
       flagfrom = "assets/pngCountryImages/$currencyCodeFrom.png";
       flagto = "assets/pngCountryImages/$currencyCodeTo.png";
 
-      symbol = await Utility.getSymbolFromPreference("hello");
-      symbol2 = await Utility.getSymboltoPreference("to");
+     symbol= await Utility.getSymbolFromPreference("hello");
+     symbol2= await Utility.getSymboltoPreference("to");
 
-      getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+       getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
     setState(() {});
   }
@@ -111,6 +113,7 @@ class _TapHomeState extends State<TapHome> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.currencyCodeTo, code);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -766,6 +769,8 @@ class _TapHomeState extends State<TapHome> {
   }
 
   Future<void> Insert() async {
+
+
     String url =
         "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
@@ -811,6 +816,8 @@ class _TapHomeState extends State<TapHome> {
   void particularrow() async {}
   Future<Map<String, dynamic>> getConverterAPI(
       String form, String to, String rate) async {
+
+
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
 

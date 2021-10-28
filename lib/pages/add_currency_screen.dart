@@ -5,6 +5,7 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 
 class AddCurrency extends StatefulWidget {
@@ -92,7 +93,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                 ),
                 Center(
                   child: Text(
-                    "Selected".toUpperCase(),
+                    "selected".tr().toString(),
                     style: TextStyle(
                       color: MyColors.textColor,
                       fontWeight: FontWeight.bold,
@@ -216,7 +217,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                   height: 8.0,
                 ),
                 Text(
-                  "Currency List".toUpperCase(),
+                  "currencyList".tr().toString(),
                   style: TextStyle(
                     color: MyColors.textColor,
                     fontWeight: FontWeight.bold,
