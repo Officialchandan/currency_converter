@@ -76,6 +76,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             fontWeight: FontWeight.bold))),
                 Container(
                   // margin: EdgeInsets.only(right: 20),
+                  height: 55  ,
 
                   padding: const EdgeInsets.only(left: 10, top: 5, bottom: 5, right: 20),
                   decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
@@ -151,10 +152,10 @@ class _SettingScreenState extends State<SettingScreen> {
                               Text("english".tr().toString(),
                                   style: GoogleFonts.roboto(
                                       fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 17) * (-1)
+                                          ? (MyColors.textSize - 18) * (-1)
                                           : MyColors.fontlarge
-                                              ? (MyColors.textSize + 17)
-                                              : 17,
+                                              ? (MyColors.textSize + 18)
+                                              : 18,
                                       color: MyColors.textColor,
                                       fontWeight: FontWeight.w500)),
 
@@ -976,7 +977,7 @@ class _SettingScreenState extends State<SettingScreen> {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
   }
 
-  showColorPickerDialog(BuildContext context) async {
+   showColorPickerDialog(BuildContext context) async {
     return showGeneralDialog(
         context: context,
         barrierDismissible: true,
@@ -1030,7 +1031,8 @@ class _SettingScreenState extends State<SettingScreen> {
             style: const TextStyle(decoration: TextDecoration.none),
             child: Stack(children: [
               Container(
-                margin: const EdgeInsets.only(top: 100, right: 10, bottom: 100, left: 10),
+                height: height*0.63,
+                margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1041,6 +1043,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ]),
           );
         });
+
   }
 
 //   void showBottomSheetForLanguage(BuildContext context) async {
@@ -1156,6 +1159,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;
+  Color? colorSelection;
   Color densitySelectedColor = Colors.red;
   bool density = false;
   bool lock = false;
@@ -1243,6 +1247,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {
+                          MyColors.colorPrimary=colorSelection!;
+                          MyColors.checkBoxValue2= useWhiteForeground(colorSelection!)
+                              ? false
+                              : true;
+                          if( MyColors.checkBoxValue2){
+                            MyColors.textColor=Colors.grey.shade700;
+                            MyColors.insideTextFieldColor=Colors.white;
+                            MyColors.checkBoxValue2=true;
+                            MyColors.checkBoxValue1=false;
+                          }
+                          else{
+                            MyColors.textColor=Colors.white;
+                            MyColors.insideTextFieldColor=Colors.black;
+                            MyColors.checkBoxValue1=true;
+                            MyColors.checkBoxValue2=false;
+
+                          }
 
                             Navigator.pushAndRemoveUntil(
                                 context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
@@ -1299,6 +1320,22 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                     child: GestureDetector(
                       onTap: () {
                         MyColors.colorPrimary = unlockSelectdColor!;
+                        MyColors.checkBoxValue2= useWhiteForeground(unlockSelectdColor!)
+                            ? false
+                            : true;
+                        if( MyColors.checkBoxValue2){
+                          MyColors.textColor=Colors.grey.shade700;
+                          MyColors.insideTextFieldColor=Colors.white;
+                          MyColors.checkBoxValue2=true;
+                          MyColors.checkBoxValue1=false;
+                        }
+                        else{
+                          MyColors.textColor=Colors.white;
+                          MyColors.insideTextFieldColor=Colors.black;
+                          MyColors.checkBoxValue1=true;
+                          MyColors.checkBoxValue2=false;
+
+                        }
                         Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
                         themepicker(unlockSelectdColor!.value.toString());
 
@@ -1323,25 +1360,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     MyColors.lockCheck=false;
     MyColors.densitycheck=false;
     widget.lockedColor = false;
+
     widget.unlockColorSelect = true;
     var code = (color.mainColor.value.toRadixString(16));
     unlockSelectdColor = Color(int.parse("0x$code"));
-    MyColors.checkBoxValue2= useWhiteForeground(unlockSelectdColor!)
-        ? false
-        : true;
-    if( MyColors.checkBoxValue2){
-      MyColors.textColor=Colors.grey.shade700;
-      MyColors.insideTextFieldColor=Colors.white;
-      MyColors.checkBoxValue2=true;
-      MyColors.checkBoxValue1=false;
-    }
-    else{
-      MyColors.textColor=Colors.white;
-      MyColors.insideTextFieldColor=Colors.black;
-      MyColors.checkBoxValue1=true;
-      MyColors.checkBoxValue2=false;
 
-    }
     selectedColor = color;
     setState(
       () => unlockCurrentColor = color.mainColor,
@@ -1358,24 +1381,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     widget.lockedColor = true;
     var code = (color.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
-    MyColors.colorPrimary=lockSelectdColor!;
-    MyColors.checkBoxValue2= useWhiteForeground(lockSelectdColor!)
-        ? false
-        : true;
-    if( MyColors.checkBoxValue2){
-      MyColors.textColor=Colors.grey.shade700;
-      MyColors.insideTextFieldColor=Colors.white;
-      MyColors.checkBoxValue2=true;
-      MyColors.checkBoxValue1=false;
-    }
-    else{
-      MyColors.textColor=Colors.white;
-      MyColors.insideTextFieldColor=Colors.black;
-      MyColors.checkBoxValue1=true;
-      MyColors.checkBoxValue2=false;
+    colorSelection=lockSelectdColor;
 
-    }
-    MyColors.colorPrimary = lockSelectdColor!;
+
+
 
     setState(
       () => lockCurrentColor = color,
@@ -1390,27 +1399,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     density = true;
     var code = (color.value.toRadixString(16));
     densitySelectedColor = Color(int.parse("0x$code"));
-    MyColors.colorPrimary=densitySelectedColor;
-    MyColors.checkBoxValue2= useWhiteForeground(densitySelectedColor)
-        ? false
-        : true;
-    if( MyColors.checkBoxValue2){
-      MyColors.textColor=Colors.grey.shade700;
-      MyColors.insideTextFieldColor=Colors.white;
-      MyColors.checkBoxValue2=true;
-      MyColors.checkBoxValue1=false;
-    }
-    else{
-      MyColors.textColor=Colors.white;
-      MyColors.insideTextFieldColor=Colors.black;
-      MyColors.checkBoxValue1=true;
-      MyColors.checkBoxValue2=false;
+    colorSelection=densitySelectedColor;
 
-    }
 
-    setState(
-      () => unlockCurrentColor = color,
-    );
+
+
     setState(() => densityCurrentColor = color);
     widget.densitychangeColor(color);
     debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");

@@ -51,6 +51,7 @@ class _TapHomeState extends State<TapHome> {
   bool contanerIndex = true;
   String z = "";
   double conversionRate = 0;
+  bool isContainerVisible=false;
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
 

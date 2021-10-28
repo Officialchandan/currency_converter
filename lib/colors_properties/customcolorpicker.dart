@@ -13,7 +13,7 @@ class CustomColorPicker extends StatefulWidget {
 }
 
 class _CustomColorPickerState extends State<CustomColorPicker> {
-  Color currentColor = Colors.amber;
+  Color currentColor = MyColors.colorPrimary;
   void changeColor(Color color) {
     setState(() {
       currentColor = color;
@@ -27,7 +27,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
       body: Container(
         color: Colors.transparent,
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.79,
+        height: MediaQuery.of(context).size.height * 0.63,
         child: Column(children: [
           Container(
               margin: const EdgeInsets.only(
@@ -87,8 +87,28 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                   child:
                       ElevatedButton(onPressed: () {}, child: Text("Unlock")))
             ],
-          )
-        ]),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              right: 250,
+              top: 30,
+            ),
+
+
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+
+                setState(() {});
+              },
+              child:  Text(
+                "PRESETS",
+                style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+        ]
+        ),
       ),
     );
   }
