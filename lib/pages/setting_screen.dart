@@ -522,14 +522,14 @@ class _SettingScreenState extends State<SettingScreen> {
                                                               .roboto(
                                                                   fontSize: MyColors
                                                                           .fontsmall
-                                                                      ? (MyColors.textSize -
-                                                                              18) *
+                                                                      ? (1 -
+                                                                              17) *
                                                                           (-1)
                                                                       : MyColors
                                                                               .fontlarge
-                                                                          ? (MyColors.textSize +
-                                                                              18)
-                                                                          : 18,
+                                                                          ? (1 +
+                                                                              17)
+                                                                          : 17,
                                                                   color: MyColors
                                                                       .textColor,
                                                                   fontWeight:

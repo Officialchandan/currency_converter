@@ -72,27 +72,34 @@ class _LanguageState extends State<Language> {
                   margin: const EdgeInsets.only(top: 1),
                   color: MyColors.textColor,
                   width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: [
-                      Container(
-                          margin: const EdgeInsets.all(7),
-                          height: 30,
-                          child: Text(
-                            Locals.language[index].keys.first,
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: MyColors.insideTextFieldColor),
-                          )),
-                      Container(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Locals.icon[index]
-                            ? const Icon(
-                                Icons.check_sharp,
-                                color: Colors.blue,
-                              )
-                            : const Text(""),
-                      )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              margin: const EdgeInsets.all(7),
+                              padding: index==0?EdgeInsets.only(left: 235):EdgeInsets.only(left: 0  ),
+                              height: 30,
+                              child: Text(
+                                Locals.language[index].keys.first,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: MyColors.insideTextFieldColor,fontWeight: FontWeight.bold),
+                              )),
+                          Container(
+                            padding: EdgeInsets.only(right: 10),
+                            child: Locals.icon[index]
+                                ? const Icon(
+                                    Icons.check_sharp,
+                                    color: Colors.blue,
+                                  )
+                                : const Text(""),
+                          )
+                        ],
+                      ),
+                      Divider(height: 0.5,
+                      color: Colors.black,thickness: .3,)
                     ],
                   ),
                 ),
