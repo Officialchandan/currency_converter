@@ -8,6 +8,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -1285,8 +1286,7 @@ class _SettingScreenState extends State<SettingScreen> {
             style: const TextStyle(decoration: TextDecoration.none),
             child: Stack(children: [
               Container(
-                margin: const EdgeInsets.only(
-                    top: 100, right: 10, bottom: 100, left: 10),
+
                 height: height*0.63,
                 margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
                 width: MediaQuery.of(context).size.width,
@@ -1549,6 +1549,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.checkBoxValue2=false;
 
                           }
+                          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                            systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                            statusBarColor: MyColors.colorPrimary, // status bar color
+                          ));
 
                             Navigator.pushAndRemoveUntil(
                                 context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
@@ -1621,6 +1625,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           MyColors.checkBoxValue2=false;
 
                         }
+                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                          systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                          statusBarColor: MyColors.colorPrimary, // status bar color
+                        ));
                         Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
                         themepicker(unlockSelectdColor!.value.toString());
 

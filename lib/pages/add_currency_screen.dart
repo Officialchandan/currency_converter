@@ -217,7 +217,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                   height: 8.0,
                 ),
                 Text(
-                  "currencyList ".tr().toString(),
+                  "currencyList".tr().toString(),
                   style: TextStyle(
                     color: MyColors.textColor,
                     fontWeight: FontWeight.bold,
