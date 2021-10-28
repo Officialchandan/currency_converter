@@ -35,7 +35,7 @@ class _TeramAndConditionState extends State<TeramAndCondition>
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 20, 12, 12),
+        padding: const EdgeInsets.fromLTRB(12, 15, 12, 12),
         child: Column(
           children: [
             Container(
@@ -61,8 +61,8 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                         fontSize: MyColors.fontsmall
                             ? (MyColors.textSize - 16 * (-1))
                             : MyColors.fontlarge
-                            ? (MyColors.textSize + 16)
-                            : 16,
+                                ? (MyColors.textSize + 16)
+                                : 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -70,13 +70,13 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                   ),
                   Tab(
                     child: Text(
-                        "term".tr().toString(),
+                      "term".tr().toString(),
                       style: TextStyle(
-                         fontSize: MyColors.fontsmall
-                      ? (MyColors.textSize - 16) * (-1)
+                        fontSize: MyColors.fontsmall
+                            ? (MyColors.textSize - 16) * (-1)
                             : MyColors.fontlarge
-                    ? (MyColors.textSize + 16)
-                        : 16,
+                                ? (MyColors.textSize + 16)
+                                : 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -86,11 +86,12 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                     child: AutoSizeText(
                       "privacy".tr().toString(),
                       maxLines: 1,
-                      style: TextStyle( fontSize: MyColors.fontsmall
-                          ? (MyColors.textSize - 16) * (-1)
-                          : MyColors.fontlarge
-                          ? (MyColors.textSize + 16)
-                          : 16,
+                      style: TextStyle(
+                        fontSize: MyColors.fontsmall
+                            ? (MyColors.textSize - 16) * (-1)
+                            : MyColors.fontlarge
+                                ? (MyColors.textSize + 16)
+                                : 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),

@@ -74,15 +74,16 @@ class _TapHomeState extends State<TapHome> {
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
-    setState(() {
-
-    });
+  
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
     // Insert();
     getCurrencyCode();
 
     super.initState();
+      setState(() {
+
+    });
   }
 
   getCurrencyCode() async {

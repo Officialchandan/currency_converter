@@ -17,7 +17,7 @@ import 'package:share/share.dart';
 import 'add_currency_screen.dart';
 
 class SecondScreen extends StatefulWidget {
-  const SecondScreen({Key? key}) : super(key: key);
+  SecondScreen({Key? key}) : super(key: key);
 
   @override
   _SecondScreenState createState() => _SecondScreenState();
@@ -72,6 +72,7 @@ class _SecondScreenState extends State<SecondScreen> {
   @override
   void didChangeDependencies() {
     debugPrint("didChangeDependencies -> home tab ");
+
     super.didChangeDependencies();
   }
 
