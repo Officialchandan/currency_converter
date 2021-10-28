@@ -8,6 +8,7 @@ import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -389,6 +390,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                             controller: model.controller,
 
                                             textAlign: TextAlign.center,
+
                                             // keyboardType: TextInputType.none,
                                             showCursor: true,
                                             readOnly: true,
@@ -412,12 +414,26 @@ class _SecondScreenState extends State<SecondScreen> {
                                             ),
                                             onChanged: (String text) {
                                               text = model.controller.text;
-
+                                              model.controller.selection =
+                                                  TextSelection.fromPosition(
+                                                      TextPosition(
+                                                          offset: model
+                                                              .controller
+                                                              .text
+                                                              .length));
                                               calculateExchangeRate(
                                                   text, index, model);
                                             },
                                             onTap: () async {
                                               isContainerVisible = true;
+                                              // model.controller.clear();
+                                              model.controller.selection =
+                                                  TextSelection.fromPosition(
+                                                      TextPosition(
+                                                          offset: model
+                                                              .controller
+                                                              .text
+                                                              .length));
                                               dataController.add(model);
                                               // currentIndex = index;
 
@@ -721,6 +737,8 @@ class _SecondScreenState extends State<SecondScreen> {
             conversionRate.toStringAsFixed(MyColors.decimalFormat));
 
         element.controller.text = m;
+        element.controller.selection = TextSelection.fromPosition(
+            TextPosition(offset: element.controller.text.length));
         element.exchangeValue = m;
       }
     }
@@ -831,6 +849,10 @@ class _SecondScreenState extends State<SecondScreen> {
           }
         }
         isbool ? controller.text = equation : controller.text = result;
+
+        controller.selection = TextSelection.fromPosition(
+            TextPosition(offset: controller.text.length));
+
         isbool ? onChange(equation) : onChange(result);
 
         isbool = true;

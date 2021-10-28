@@ -32,7 +32,6 @@ class _SettingScreenState extends State<SettingScreen> {
   bool unclockcolorselect = false;
   Color color = Colors.red;
 
-  
   bool _isContainerVisible = false;
 
   bool isSwitched = false;
@@ -43,6 +42,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Color unlockCurrentColor = MyColors.colorPrimary;
   Color lockCurrentColor = const Color(0xff443a49);
   Color densityCurrentColor = MyColors.colorPrimary;
+  ScrollController scrollController = ScrollController();
 
   double _value = 0.0;
   double x = 0.0;
@@ -51,290 +51,29 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Container(
-          height: height,
-          width: width,
-          padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
-          decoration: const BoxDecoration(),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    margin: const EdgeInsets.only(bottom: 13),
-                    child: Text("removeAds".tr().toString(),
-                        style: GoogleFonts.roboto(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
-                            color: MyColors.textColor,
-                            fontWeight: FontWeight.bold))),
-                Container(
-                  // margin: EdgeInsets.only(right: 20),
-
-                  padding: const EdgeInsets.only(left: 10, top: 5, bottom: 5, right: 20),
-                  decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                            text: "removeAdsContent".tr().toString(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 15) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 15)
-                                        : 15,
-                                color: MyColors.textColor),
-                          ),
-                        ])),
-                      ),
-                      Container(
-                        width: 30,
-                        height: 10,
-                        margin: const EdgeInsets.all(5),
-                        child: Switch(
-                          inactiveTrackColor: Colors.grey.shade300,
-                          inactiveThumbColor: MyColors.textColor,
-                          value: isSwitched,
-                          onChanged: (value) {
-                            setState(() {
-                              isSwitched = value;
-                              // print(isSwitched);
-                            });
-                          },
-                          activeTrackColor: MyColors.colorPrimary,
-                          activeColor: MyColors.textColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                    margin: const EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                    child: Text("selectLanguage".tr().toString(),
-                        style: GoogleFonts.roboto(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
-                            color: MyColors.textColor,
-                            fontWeight: FontWeight.bold))),
-                InkWell(
-                  onTap: () {
-                    _isContainerVisible = !_isContainerVisible;
-
-                    setState(() {});
-                  },
-                  child: Container(
-
-                      // margin: EdgeInsets.only(right: 22),
-
-                      padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 14),
-                      decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("english".tr().toString(),
-                                  style: GoogleFonts.roboto(
-                                      fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 17) * (-1)
-                                          : MyColors.fontlarge
-                                              ? (MyColors.textSize + 17)
-                                              : 17,
-                                      color: MyColors.textColor,
-                                      fontWeight: FontWeight.w500)),
-
-                              //  SizedBox(width: 245 ,),
-                              Icon(
-                                Icons.expand_more_outlined,
-                                color: MyColors.textColor,
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            height: 2,
-                            color: MyColors.textColor,
-                            thickness: 1.5,
-                          )
-                        ],
-                      )),
-                ),
-                _isContainerVisible
-                    ? Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 13,
-                        constraints: const BoxConstraints(),
-                        margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.8),
-                        child: Image.asset(
-                          "assets/images/tooltip.png",
-                          color: Colors.white,
-                          scale: 9,
-                        ),
-                      )
-                    : Container(),
-                _isContainerVisible
-                    ? Language(
-                        isContainerVisible: _isContainerVisible,
-                      )
-                    : Container(),
-                Container(
-                    margin: const EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                    child: Text("colorsSelection".tr().toString(),
-                        style: GoogleFonts.roboto(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
-                            color: MyColors.textColor,
-                            fontWeight: FontWeight.bold))),
-                InkWell(
-                  onTap: () async {
-                    int x = await showColorPickerDialog(context);
-                    print(x);
-                    if (x == 1) showCustomColorPickerDialog(context);
-                  },
-                  child: Container(
-                      // margin: EdgeInsets.only(right: 22),
-                      height: 50,
-                      width: width * .95,
-                      padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-                      decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [
-                                Colors.white60,
-                                MyColors.colorPrimary,
-                              ],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              stops: const [0.0, 0.5]),
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(width: 1.2, color: MyColors.textColor),
-                        ),
-                        child: const Text(""),
-                      )),
-                ),
-                Container(
-                    margin: const EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                    child: Text("theme".tr().toString(),
-                        style: GoogleFonts.roboto(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
-                            color: MyColors.textColor,
-                            fontWeight: FontWeight.bold))),
-                Container(
-                    margin: const EdgeInsets.only(bottom: 24),
-                    height: 45,
-                    padding: const EdgeInsets.only(top: 0, left: 0, right: 15, bottom: 0),
-                    decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Transform.scale(
-                              scale: 1.1,
-                              child: Checkbox(
-                                side: BorderSide(color: MyColors.textColor),
-                                value: MyColors.checkBoxValue1,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (MyColors.checkBoxValue2) {
-                                      MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
-                                      MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
-                                      MyColors.textColor = Colors.white;
-                                      MyColors.insideTextFieldColor = Colors.black;
-                                      MyColors.calcuColor = MyColors.colorPrimary;
-
-                                      widget.onThemeChange();
-                                    }
-                                  });
-                                },
-                                activeColor: MyColors.checkBoxValue2 ? Colors.black45 : Colors.white,
-                                checkColor: Colors.black,
-                                tristate: false,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ),
-                            Text("light".tr().toString(),
-                                style: GoogleFonts.roboto(
-                                  fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 20) * (-1)
-                                      : MyColors.fontlarge
-                                          ? (MyColors.textSize + 20)
-                                          : 20,
-                                  color: MyColors.textColor,
-                                )),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Transform.scale(
-                              scale: 1.1,
-                              child: Checkbox(
-                                side: BorderSide(color: MyColors.textColor),
-                                value: MyColors.checkBoxValue2,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (MyColors.checkBoxValue1) {
-                                      MyColors.checkBoxValue2 = !MyColors.checkBoxValue2;
-                                      MyColors.checkBoxValue1 = !MyColors.checkBoxValue1;
-                                      MyColors.textColor = Colors.grey.shade800;
-                                      MyColors.insideTextFieldColor = Colors.white;
-                                      MyColors.calcuColor = Colors.grey.shade700;
-
-                                      widget.onThemeChange();
-
-                                    }
-                                  });
-                                },
-                                activeColor: MyColors.checkBoxValue2 ? Colors.black45 : Colors.white,
-                                checkColor: Colors.black,
-                                tristate: false,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ),
-                            Text(
-                              "dark".tr().toString(),
-                              style: GoogleFonts.roboto(
-                                  fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 20) * (-1)
-                                      : MyColors.fontlarge
-                                          ? (MyColors.textSize + 20)
-                                          : 20,
-                                  color: MyColors.textColor),
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
-                Row(
-                  children: [
-                    Container(
-                        margin: const EdgeInsets.only(
-                          right: 15,
-                        ),
-                        child: Text(
-                          "widgetTransparency".tr().toString(),
+    return WillPopScope(
+      onWillPop: () async {
+        if (_isContainerVisible) {
+          Future.value(_isContainerVisible = false);
+          setState(() {});
+        }
+        return false;
+      },
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Container(
+            width: width,
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            decoration: const BoxDecoration(),
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      margin: const EdgeInsets.only(top: 20, bottom: 13),
+                      child: Text("removeAds".tr().toString(),
                           style: GoogleFonts.roboto(
                               fontSize: MyColors.fontsmall
                                   ? (MyColors.textSize - 20) * (-1)
@@ -342,592 +81,1115 @@ class _SettingScreenState extends State<SettingScreen> {
                                       ? (MyColors.textSize + 20)
                                       : 20,
                               color: MyColors.textColor,
-                              fontWeight: FontWeight.bold),
-                        )),
-                    Image.asset(
-                      "assets/images/tab-ic5.png",
-                      scale: 7,
-                      color: MyColors.textColor,
-                    ),
+                              fontWeight: FontWeight.bold))),
+                  Container(
+                    // margin: EdgeInsets.only(right: 20),
 
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 0, top: 15),
-                  width: width * .94,
-                  padding: const EdgeInsets.only(top: 10, left: 0, right: 0, bottom: 10),
-                  decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: width * 0.31,
-                        child: Slider(
-                            activeColor: MyColors.textColor,
-                            inactiveColor: MyColors.textColor,
-                            min: 0,
-                            max: 1,
-                            value: _value,
+                    padding: const EdgeInsets.only(
+                        left: 10, top: 5, bottom: 5, right: 20),
+                    decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                              text: "removeAdsContent".tr().toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 15) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 15)
+                                          : 15,
+                                  color: MyColors.textColor),
+                            ),
+                          ])),
+                        ),
+                        Container(
+                          width: 30,
+                          height: 10,
+                          margin: const EdgeInsets.all(5),
+                          child: Switch(
+                            inactiveTrackColor: Colors.grey.shade300,
+                            inactiveThumbColor: MyColors.textColor,
+                            value: isSwitched,
                             onChanged: (value) {
                               setState(() {
-                                x = _value.toDouble();
-                                _value = value;
+                                isSwitched = value;
+                                // print(isSwitched);
                               });
-                            }),
-                      ),
-                      SizedBox(
-                        width: 30,
-                        child: Text(
-                          x.toStringAsFixed(1),
-                          style: TextStyle(
-                            color: MyColors.textColor,
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 15) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 15)
-                                    : 15,
+                            },
+                            activeTrackColor: MyColors.colorPrimary,
+                            activeColor: MyColors.textColor,
                           ),
                         ),
-                      ),
-                      Container(
-                          width: width * 0.53,
-                          decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.69),
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.white60,
-                                  MyColors.colorPrimary,
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                //stops: const [0.0, 0.0]
+                      ],
+                    ),
+                  ),
+                  Container(
+                      margin:
+                          const EdgeInsets.only(left: 0, bottom: 13, top: 20),
+                      child: Text("selectLanguage".tr().toString(),
+                          style: GoogleFonts.roboto(
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 20) * (-1)
+                                  : MyColors.fontlarge
+                                      ? (MyColors.textSize + 20)
+                                      : 20,
+                              color: MyColors.textColor,
+                              fontWeight: FontWeight.bold))),
+                  InkWell(
+                    onTap: () {
+                      _isContainerVisible = !_isContainerVisible;
+
+                      if (_isContainerVisible) {
+                        scrollController.animateTo(
+                            scrollController.position.maxScrollExtent -
+                                (scrollController.position.maxScrollExtent /
+                                    1.65),
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.ease);
+                      }
+
+                      setState(() {});
+                    },
+                    child: Container(
+
+                        // margin: EdgeInsets.only(right: 22),
+
+                        padding: const EdgeInsets.only(
+                            top: 10, left: 10, right: 10, bottom: 14),
+                        decoration: BoxDecoration(
+                            color: Colors.black26,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("english".tr().toString(),
+                                    style: GoogleFonts.roboto(
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 17) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 17)
+                                                : 17,
+                                        color: MyColors.textColor,
+                                        fontWeight: FontWeight.w500)),
+
+                                //  SizedBox(width: 245 ,),
+                                Icon(
+                                  Icons.expand_more_outlined,
+                                  color: MyColors.textColor,
+                                ),
+                              ],
+                            ),
+                            Divider(
+                              height: 2,
+                              color: MyColors.textColor,
+                              thickness: 1.5,
+                            )
+                          ],
+                        )),
+                  ),
+                  _isContainerVisible
+                      ? Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 13,
+                          constraints: const BoxConstraints(),
+                          margin: EdgeInsets.only(
+                              right: MediaQuery.of(context).size.width * 0.8),
+                          child: Image.asset(
+                            "assets/images/tooltip.png",
+                            color: Colors.white,
+                            scale: 9,
+                          ),
+                        )
+                      : Container(),
+                  _isContainerVisible
+                      ? Language(
+                          isContainerVisible: _isContainerVisible,
+                        )
+                      : Container(),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: const EdgeInsets.only(
+                              left: 0, bottom: 13, top: 20),
+                          child: Text("colorsSelection".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
+                  InkWell(
+                    onTap: () async {
+                      int x = await showColorPickerDialog(context);
+                      print(x);
+                      if (x == 1) showCustomColorPickerDialog(context);
+                    },
+                    child: _isContainerVisible
+                        ? Container()
+                        : Container(
+                            // margin: EdgeInsets.only(right: 22),
+                            height: 50,
+                            width: width * .95,
+                            padding: const EdgeInsets.only(
+                                top: 15, left: 15, right: 15, bottom: 15),
+                            decoration: BoxDecoration(
+                                color: Colors.black26,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Colors.white60,
+                                      MyColors.colorPrimary,
+                                    ],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    stops: const [0.0, 0.5]),
+                                borderRadius: BorderRadius.circular(7),
+                                border: Border.all(
+                                    width: 1.2, color: MyColors.textColor),
                               ),
-                              border: Border.all(color: MyColors.textColor, width: 3.9)),
-                          child: Container(
-                            padding: EdgeInsets.only(bottom: 5),
-                            color: MyColors.textColor.withOpacity(x as double),
-                            child: AnimatedOpacity(
-                              duration: Duration(milliseconds: 700),
-                              opacity: 1,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              child: const Text(""),
+                            )),
+                  ),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: const EdgeInsets.only(
+                              left: 0, bottom: 13, top: 20),
+                          child: Text("theme".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: const EdgeInsets.only(bottom: 24),
+                          height: 45,
+                          padding: const EdgeInsets.only(
+                              top: 0, left: 0, right: 15, bottom: 0),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: 1.1,
+                                    child: Checkbox(
+                                      side:
+                                          BorderSide(color: MyColors.textColor),
+                                      value: MyColors.checkBoxValue1,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (MyColors.checkBoxValue2) {
+                                            MyColors.checkBoxValue1 =
+                                                !MyColors.checkBoxValue1;
+                                            MyColors.checkBoxValue2 =
+                                                !MyColors.checkBoxValue2;
+                                            MyColors.textColor = Colors.white;
+                                            MyColors.insideTextFieldColor =
+                                                Colors.black;
+                                            MyColors.calcuColor =
+                                                MyColors.colorPrimary;
+
+                                            widget.onThemeChange();
+                                          }
+                                        });
+                                      },
+                                      activeColor: MyColors.checkBoxValue2
+                                          ? Colors.black45
+                                          : Colors.white,
+                                      checkColor: Colors.black,
+                                      tristate: false,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                  ),
+                                  Text("light".tr().toString(),
+                                      style: GoogleFonts.roboto(
+                                        fontSize: MyColors.fontsmall
+                                            ? (MyColors.textSize - 20) * (-1)
+                                            : MyColors.fontlarge
+                                                ? (MyColors.textSize + 20)
+                                                : 20,
+                                        color: MyColors.textColor,
+                                      )),
+                                ],
+                              ),
+                              _isContainerVisible
+                                  ? Container()
+                                  : Row(
+                                      children: [
+                                        Transform.scale(
+                                          scale: 1.1,
+                                          child: Checkbox(
+                                            side: BorderSide(
+                                                color: MyColors.textColor),
+                                            value: MyColors.checkBoxValue2,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                if (MyColors.checkBoxValue1) {
+                                                  MyColors.checkBoxValue2 =
+                                                      !MyColors.checkBoxValue2;
+                                                  MyColors.checkBoxValue1 =
+                                                      !MyColors.checkBoxValue1;
+                                                  MyColors.textColor =
+                                                      Colors.grey.shade800;
+                                                  MyColors.insideTextFieldColor =
+                                                      Colors.white;
+                                                  MyColors.calcuColor =
+                                                      Colors.grey.shade700;
+
+                                                  widget.onThemeChange();
+                                                }
+                                              });
+                                            },
+                                            activeColor: MyColors.checkBoxValue2
+                                                ? Colors.black45
+                                                : Colors.white,
+                                            checkColor: Colors.black,
+                                            tristate: false,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                          ),
+                                        ),
+                                        Text(
+                                          "dark".tr().toString(),
+                                          style: GoogleFonts.roboto(
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 20) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 20)
+                                                      : 20,
+                                              color: MyColors.textColor),
+                                        ),
+                                      ],
+                                    )
+                            ],
+                          )),
+                  _isContainerVisible
+                      ? Container()
+                      : Row(
+                          children: [
+                            Container(
+                                margin: const EdgeInsets.only(
+                                  right: 15,
+                                ),
+                                child: Text(
+                                  "widgetTransparency".tr().toString(),
+                                  style: GoogleFonts.roboto(
+                                      fontSize: MyColors.fontsmall
+                                          ? (MyColors.textSize - 20) * (-1)
+                                          : MyColors.fontlarge
+                                              ? (MyColors.textSize + 20)
+                                              : 20,
+                                      color: MyColors.textColor,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            Image.asset(
+                              "assets/images/tab-ic5.png",
+                              scale: 7,
+                              color: MyColors.textColor,
+                            ),
+                          ],
+                        ),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: const EdgeInsets.only(right: 0, top: 15),
+                          width: width * .94,
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 0, right: 0, bottom: 10),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width * 0.31,
+                                child: Slider(
+                                    activeColor: MyColors.textColor,
+                                    inactiveColor: MyColors.textColor,
+                                    min: 0,
+                                    max: 1,
+                                    value: _value,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        x = _value.toDouble();
+                                        _value = value;
+                                      });
+                                    }),
+                              ),
+                              SizedBox(
+                                width: 30,
+                                child: Text(
+                                  x.toStringAsFixed(1),
+                                  style: TextStyle(
+                                    color: MyColors.textColor,
+                                    fontSize: MyColors.fontsmall
+                                        ? (MyColors.textSize - 15) * (-1)
+                                        : MyColors.fontlarge
+                                            ? (MyColors.textSize + 15)
+                                            : 15,
+                                  ),
+                                ),
+                              ),
+                              _isContainerVisible
+                                  ? Container()
+                                  : Container(
+                                      width: width * 0.53,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.69),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.white60,
+                                              MyColors.colorPrimary,
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            //stops: const [0.0, 0.0]
+                                          ),
+                                          border: Border.all(
+                                              color: MyColors.textColor,
+                                              width: 3.9)),
+                                      child: _isContainerVisible
+                                          ? Container()
+                                          : Container(
+                                              padding:
+                                                  EdgeInsets.only(bottom: 5),
+                                              color: MyColors.textColor
+                                                  .withOpacity(x as double),
+                                              child: AnimatedOpacity(
+                                                duration:
+                                                    Duration(milliseconds: 700),
+                                                opacity: 1,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const SizedBox(height: 5),
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    right: 10),
+                                                            width: 35,
+                                                            height: 35,
+                                                            child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30),
+                                                                child:
+                                                                    Image.asset(
+                                                                  "assets/pngCountryImages/USD.png",
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ))),
+                                                        Text(
+                                                          "USD",
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontSize: MyColors
+                                                                          .fontsmall
+                                                                      ? (MyColors.textSize -
+                                                                              18) *
+                                                                          (-1)
+                                                                      : MyColors
+                                                                              .fontlarge
+                                                                          ? (MyColors.textSize +
+                                                                              18)
+                                                                          : 18,
+                                                                  color: MyColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 8),
+                                                        Text(
+                                                          "/",
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontSize: MyColors
+                                                                          .fontsmall
+                                                                      ? (MyColors.textSize -
+                                                                              18) *
+                                                                          (-1)
+                                                                      : MyColors
+                                                                              .fontlarge
+                                                                          ? (MyColors.textSize +
+                                                                              18)
+                                                                          : 18,
+                                                                  color: MyColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 8),
+                                                        Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    right: 10),
+                                                            width: 35,
+                                                            height: 35,
+                                                            child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30),
+                                                                child:
+                                                                    Image.asset(
+                                                                  "assets/pngCountryImages/EUR.png",
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ))),
+                                                        Text(
+                                                          "EUR",
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontSize: MyColors
+                                                                          .fontsmall
+                                                                      ? (MyColors.textSize -
+                                                                              18) *
+                                                                          (-1)
+                                                                      : MyColors
+                                                                              .fontlarge
+                                                                          ? (MyColors.textSize +
+                                                                              18)
+                                                                          : 18,
+                                                                  color: MyColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const SizedBox(height: 5),
+                                                    _isContainerVisible
+                                                        ? Container()
+                                                        : Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 50,
+                                                                    top: 0),
+                                                            child: Text(
+                                                                "0.7895",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: MyColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: MyColors
+                                                                          .fontsmall
+                                                                      ? (MyColors.textSize -
+                                                                              20) *
+                                                                          (-1)
+                                                                      : MyColors
+                                                                              .fontlarge
+                                                                          ? (MyColors.textSize +
+                                                                              20)
+                                                                          : 20,
+                                                                )),
+                                                          ),
+                                                    const SizedBox(height: 5),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 80, top: 0),
+                                                      child: Text("-0.0400",
+                                                          style: TextStyle(
+                                                            color: MyColors
+                                                                .textColor,
+                                                            fontSize: MyColors
+                                                                    .fontsmall
+                                                                ? (MyColors.textSize -
+                                                                        16) *
+                                                                    (-1)
+                                                                : MyColors
+                                                                        .fontlarge
+                                                                    ? (MyColors
+                                                                            .textSize +
+                                                                        16)
+                                                                    : 16,
+                                                          )),
+                                                    ),
+                                                    const SizedBox(height: 5),
+                                                    Text("  By: Currency.wiki",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                          color: MyColors
+                                                              .textColor,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: MyColors
+                                                                  .fontsmall
+                                                              ? (MyColors.textSize -
+                                                                      16) *
+                                                                  (-1)
+                                                              : MyColors
+                                                                      .fontlarge
+                                                                  ? (MyColors
+                                                                          .textSize +
+                                                                      16)
+                                                                  : 16,
+                                                        ))
+                                                  ],
+                                                ),
+                                              ),
+                                            )),
+                            ],
+                          ),
+                        ),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(left: 0, bottom: 13, top: 20),
+                          child: Text("visualSize".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          //  margin: EdgeInsets.only(right: 22),
+                          height: 50,
+                          width: width * .945,
+                          padding: EdgeInsets.only(
+                              top: 15, left: 0, right: 15, bottom: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: 1.1,
+                                    child: Checkbox(
+                                      side:
+                                          BorderSide(color: MyColors.textColor),
+                                      value: MyColors.fontsmall,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (MyColors.fontlarge ||
+                                              MyColors.fontmedium) {
+                                            MyColors.fontsmall = true;
+                                            MyColors.fontlarge = false;
+                                            MyColors.fontmedium = false;
+                                          }
+                                        });
+                                      },
+                                      activeColor: Colors.white,
+                                      checkColor: Colors.black,
+                                      tristate: false,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                  ),
+                                  Text("A".tr().toString(),
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        color: MyColors.textColor,
+                                      )),
+                                ],
+                              ),
+                              _isContainerVisible
+                                  ? Container()
+                                  : Row(
+                                      children: [
+                                        Transform.scale(
+                                          scale: 1.1,
+                                          child: Checkbox(
+                                            side: BorderSide(
+                                                color: MyColors.textColor),
+                                            value: MyColors.fontmedium,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                if (MyColors.fontsmall ||
+                                                    MyColors.fontlarge) {
+                                                  MyColors.fontsmall = false;
+                                                  MyColors.fontlarge = false;
+                                                  MyColors.fontmedium = true;
+                                                }
+                                              });
+                                            },
+                                            activeColor: MyColors.checkBoxValue2
+                                                ? Colors.black45
+                                                : Colors.white,
+                                            checkColor: Colors.black,
+                                            tristate: false,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                          ),
+                                        ),
+                                        Text(
+                                          "A".tr().toString(),
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 18,
+                                              color: MyColors.textColor),
+                                        ),
+                                      ],
+                                    ),
+                              _isContainerVisible
+                                  ? Container()
+                                  : Row(
+                                      children: [
+                                        Transform.scale(
+                                          scale: 1.1,
+                                          child: Checkbox(
+                                            side: BorderSide(
+                                                color: MyColors.textColor),
+                                            value: MyColors.fontlarge,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                if (MyColors.fontsmall ||
+                                                    MyColors.fontmedium) {
+                                                  MyColors.fontsmall = false;
+                                                  MyColors.fontlarge = true;
+                                                  MyColors.fontmedium = false;
+                                                }
+                                              });
+                                            },
+                                            activeColor: MyColors.checkBoxValue2
+                                                ? Colors.black45
+                                                : Colors.white,
+                                            checkColor: Colors.black,
+                                            tristate: false,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                          ),
+                                        ),
+                                        Text(
+                                          "A".tr().toString(),
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 20,
+                                              color: MyColors.textColor),
+                                        ),
+                                      ],
+                                    )
+                            ],
+                          )),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(left: 10, bottom: 5, top: 25),
+                          child: Text("appLogoLauncher".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
+                          width: width * .945,
+                          padding: EdgeInsets.only(
+                              top: 15, left: 10, right: 20, bottom: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      margin:
+                                          EdgeInsets.only(bottom: 5, left: 2),
+                                      child: Text(
+                                          "multiConverter".tr().toString(),
+                                          style: GoogleFonts.roboto(
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
+                                              color: MyColors.textColor,
+                                              fontWeight: FontWeight.bold))),
+                                  Container(
+                                    width: 30,
+                                    height: 10,
+                                    margin: EdgeInsets.only(top: 2, left: 0),
+                                    child: Switch(
+                                      inactiveTrackColor: Colors.grey.shade300,
+                                      inactiveThumbColor: MyColors.textColor,
+                                      value: isMultiConverter,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          isMultiConverter = value;
+                                          // print(isSwitched);
+                                        });
+                                      },
+                                      activeTrackColor: MyColors.colorPrimary,
+                                      activeColor: MyColors.textColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // Row(
+                              //   children: [
+                              //     Text("Will open multi-converter by default,Note"),
+                              //     Text("NOTE:"),
+                              //     Text("This feature only works with app logo")
+                              //   ],
+                              // )
+                              _isContainerVisible
+                                  ? Container()
+                                  : RichText(
+                                      text: TextSpan(
+                                          text: "multiConverterContent1"
+                                              .tr()
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 11,
+                                              color: MyColors.textColor),
+                                          children: <TextSpan>[
+                                          TextSpan(
+                                            text: "multiConverterContent2"
+                                                .tr()
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                                color: MyColors.textColor),
+                                          ),
+                                          TextSpan(
+                                            text: "multiConverterContent3"
+                                                .tr()
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 11,
+                                                color: MyColors.textColor),
+                                          )
+                                        ])),
+                            ],
+                          )),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(left: 0, bottom: 5, top: 25),
+                          child: Text("display".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 20,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
+                          width: width * .945,
+                          padding: EdgeInsets.only(
+                              top: 5, left: 10, right: 5, bottom: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(height: 5),
-                                  Row(
-                                    children: [
-                                      Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          width: 35,
-                                          height: 35,
-                                          child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(30),
-                                              child: Image.asset(
-                                                "assets/pngCountryImages/USD.png",
-                                                fit: BoxFit.cover,
-                                              ))),
-                                      Text(
-                                        "USD",
+                                  Container(
+                                    padding: EdgeInsets.only(top: 12),
+                                    child: Text("display1".tr().toString(),
                                         style: GoogleFonts.roboto(
                                             fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) * (-1)
+                                                ? (MyColors.textSize - 18) *
+                                                    (-1)
                                                 : MyColors.fontlarge
                                                     ? (MyColors.textSize + 18)
                                                     : 18,
                                             color: MyColors.textColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        "/",
+                                            fontWeight: FontWeight.normal)),
+                                  ),
+                                  Switch(
+                                    inactiveTrackColor: Colors.grey.shade300,
+                                    inactiveThumbColor: MyColors.textColor,
+                                    value: MyColors.displaycode,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (MyColors.displayflag) {
+                                          if (MyColors.displaysymbol) {
+                                            MyColors.displaysymbol = false;
+                                            MyColors.displaycode = true;
+                                          } else
+                                            MyColors.displaycode =
+                                                !MyColors.displaycode;
+                                        } else if (MyColors.displaycode) {
+                                        } else {
+                                          MyColors.displaycode = true;
+                                          MyColors.displaysymbol = false;
+                                        }
+
+                                        // print(isSwitched);
+                                      });
+                                    },
+                                    activeTrackColor: MyColors.colorPrimary,
+                                    activeColor: MyColors.textColor,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(top: 12),
+                                    child: Text("display2".tr().toString(),
                                         style: GoogleFonts.roboto(
                                             fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) * (-1)
+                                                ? (MyColors.textSize - 18) *
+                                                    (-1)
                                                 : MyColors.fontlarge
                                                     ? (MyColors.textSize + 18)
                                                     : 18,
                                             color: MyColors.textColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          width: 35,
-                                          height: 35,
-                                          child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(30),
-                                              child: Image.asset(
-                                                "assets/pngCountryImages/EUR.png",
-                                                fit: BoxFit.cover,
-                                              ))),
-                                      Text(
-                                        "EUR",
+                                            fontWeight: FontWeight.normal)),
+                                  ),
+                                  Switch(
+                                    inactiveTrackColor: Colors.grey.shade300,
+                                    inactiveThumbColor: MyColors.textColor,
+                                    value: MyColors.displaysymbol,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (MyColors.displayflag) {
+                                          if (MyColors.displaycode) {
+                                            MyColors.displaysymbol = true;
+                                            MyColors.displaycode = false;
+                                          } else
+                                            MyColors.displaysymbol =
+                                                !MyColors.displaysymbol;
+                                        } else if (MyColors.displaysymbol) {
+                                        } else if (MyColors.displaysymbol &&
+                                            !MyColors.displayflag) {
+                                        } else {
+                                          MyColors.displaysymbol = true;
+                                          MyColors.displaycode = false;
+                                        }
+                                      });
+                                    },
+                                    activeTrackColor: MyColors.colorPrimary,
+                                    activeColor: MyColors.textColor,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(top: 12),
+                                    child: Text("display3".tr().toString(),
                                         style: GoogleFonts.roboto(
                                             fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 18) * (-1)
+                                                ? (MyColors.textSize - 18) *
+                                                    (-1)
                                                 : MyColors.fontlarge
                                                     ? (MyColors.textSize + 18)
                                                     : 18,
                                             color: MyColors.textColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                                            fontWeight: FontWeight.normal)),
                                   ),
-                                  const SizedBox(height: 5),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 50, top: 0),
-                                    child: Text("0.7895",
-                                        style: TextStyle(
-                                          color: MyColors.textColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 20) * (-1)
-                                              : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 20)
-                                                  : 20,
-                                        )),
+                                  Switch(
+                                    inactiveTrackColor: Colors.grey.shade300,
+                                    inactiveThumbColor: MyColors.textColor,
+                                    value: MyColors.displayflag,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (!MyColors.displaycode &&
+                                            !MyColors.displaysymbol) {
+                                        } else
+                                          MyColors.displayflag =
+                                              !MyColors.displayflag;
+                                        // print(isSwitched);
+                                      });
+                                    },
+                                    activeTrackColor: MyColors.colorPrimary,
+                                    activeColor: MyColors.textColor,
                                   ),
-                                  const SizedBox(height: 5),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 80, top: 0),
-                                    child: Text("-0.0400",
-                                        style: TextStyle(
-                                          color: MyColors.textColor,
-                                          fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 16) * (-1)
-                                              : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 16)
-                                                  : 16,
-                                        )),
+                                ],
+                              ),
+                            ],
+                          )),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(left: 0, bottom: 13, top: 20),
+                          child: Text("dateFormat".tr().toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) * (-1)
+                                      : MyColors.fontlarge
+                                          ? (MyColors.textSize + 20)
+                                          : 20,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
+                  _isContainerVisible
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(bottom: 24),
+                          height: 55,
+                          width: width * .945,
+                          padding: EdgeInsets.only(
+                              top: 0, left: 15, right: 15, bottom: 0),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: 1.1,
+                                    child: Checkbox(
+                                      side:
+                                          BorderSide(color: MyColors.textColor),
+                                      value: MyColors.datedd,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (MyColors.datemm) {
+                                            MyColors.datemm = !MyColors.datemm;
+                                            MyColors.datedd = !MyColors.datedd;
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        MyTabBarWidget()),
+                                                (route) => false);
+                                          }
+                                        });
+                                      },
+                                      activeColor: MyColors.checkBoxValue2
+                                          ? Colors.black45
+                                          : Colors.white,
+                                      checkColor: Colors.black,
+                                      tristate: false,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
                                   ),
-                                  const SizedBox(height: 5),
-                                  Text("  By: Currency.wiki",
+                                  Text("dd/mm/yy",
                                       style: GoogleFonts.roboto(
-                                        color: MyColors.textColor,
-                                        fontWeight: FontWeight.normal,
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 16) * (-1)
                                             : MyColors.fontlarge
                                                 ? (MyColors.textSize + 16)
                                                 : 16,
-                                      ))
+                                        color: MyColors.textColor,
+                                      )),
                                 ],
                               ),
-                            ),
-                          )),
-                    ],
-                  ),
-                ),
-                Container(
-                    margin: EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                    child: Text("visualSize".tr().toString(),
-                        style: GoogleFonts.roboto(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
-                            color: MyColors.textColor,
-                            fontWeight: FontWeight.bold))),
-                Container(
-                    //  margin: EdgeInsets.only(right: 22),
-                    height: 50,
-                    width: width * .945,
-                    padding: EdgeInsets.only(top: 15, left: 0, right: 15, bottom: 15),
-                    decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Transform.scale(
-                              scale: 1.1,
-                              child: Checkbox(
-                                side: BorderSide(color: MyColors.textColor),
-                                value: MyColors.fontsmall,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (MyColors.fontlarge || MyColors.fontmedium) {
-                                      MyColors.fontsmall = true;
-                                      MyColors.fontlarge = false;
-                                      MyColors.fontmedium = false;
-                                    }
-                                  });
-                                },
-                                activeColor: Colors.white,
-                                checkColor: Colors.black,
-                                tristate: false,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ),
-                            Text("A".tr().toString(),
-                                style: GoogleFonts.roboto(
-                                  fontSize: 16,
-                                  color: MyColors.textColor,
-                                )),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Transform.scale(
-                              scale: 1.1,
-                              child: Checkbox(
-                                side: BorderSide(color: MyColors.textColor),
-                                value: MyColors.fontmedium,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (MyColors.fontsmall || MyColors.fontlarge) {
-                                      MyColors.fontsmall = false;
-                                      MyColors.fontlarge = false;
-                                      MyColors.fontmedium = true;
-                                    }
-                                  });
-                                },
-                                activeColor: MyColors.checkBoxValue2 ? Colors.black45 : Colors.white,
-                                checkColor: Colors.black,
-                                tristate: false,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ),
-                            Text(
-                              "A".tr().toString(),
-                              style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Transform.scale(
-                              scale: 1.1,
-                              child: Checkbox(
-                                side: BorderSide(color: MyColors.textColor),
-                                value: MyColors.fontlarge,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (MyColors.fontsmall || MyColors.fontmedium) {
-                                      MyColors.fontsmall = false;
-                                      MyColors.fontlarge = true;
-                                      MyColors.fontmedium = false;
-                                    }
-                                  });
-                                },
-                                activeColor: MyColors.checkBoxValue2 ? Colors.black45 : Colors.white,
-                                checkColor: Colors.black,
-                                tristate: false,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ),
-                            Text(
-                              "A".tr().toString(),
-                              style: GoogleFonts.roboto(fontSize: 20, color: MyColors.textColor),
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
-                Container(
-                    margin: EdgeInsets.only(left: 10, bottom: 5, top: 25),
-                    child: Text("appLogoLauncher".tr().toString(),
-                        style: GoogleFonts.roboto(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
-                            color: MyColors.textColor,
-                            fontWeight: FontWeight.bold))),
-                Container(
-                    margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
-                    width: width * .945,
-                    padding: EdgeInsets.only(top: 15, left: 10, right: 20, bottom: 15),
-                    decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                                margin: EdgeInsets.only(bottom: 5, left: 2),
-                                child: Text("multiConverter".tr().toString(),
+                              Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: 1.1,
+                                    child: Checkbox(
+                                      side:
+                                          BorderSide(color: MyColors.textColor),
+                                      value: MyColors.datemm,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (MyColors.datedd) {
+                                            MyColors.datedd = !MyColors.datedd;
+                                            MyColors.datemm = !MyColors.datemm;
+
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        MyTabBarWidget()),
+                                                (route) => false);
+                                          }
+                                        });
+                                      },
+                                      activeColor: MyColors.checkBoxValue2
+                                          ? Colors.black45
+                                          : Colors.white,
+                                      checkColor: Colors.black,
+                                      tristate: false,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                  ),
+                                  Text(
+                                    "mm/dd/yy",
                                     style: GoogleFonts.roboto(
                                         fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 18) * (-1)
+                                            ? (MyColors.textSize - 16) * (-1)
                                             : MyColors.fontlarge
-                                                ? (MyColors.textSize + 18)
-                                                : 18,
-                                        color: MyColors.textColor,
-                                        fontWeight: FontWeight.bold))),
-                            Container(
-                              width: 30,
-                              height: 10,
-                              margin: EdgeInsets.only(top: 2, left: 0),
-                              child: Switch(
-                                inactiveTrackColor: Colors.grey.shade300,
-                                inactiveThumbColor: MyColors.textColor,
-                                value: isMultiConverter,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isMultiConverter = value;
-                                    // print(isSwitched);
-                                  });
-                                },
-                                activeTrackColor: MyColors.colorPrimary,
-                                activeColor: MyColors.textColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                        // Row(
-                        //   children: [
-                        //     Text("Will open multi-converter by default,Note"),
-                        //     Text("NOTE:"),
-                        //     Text("This feature only works with app logo")
-                        //   ],
-                        // )
-                        RichText(
-                            text: TextSpan(
-                                text: "multiConverterContent1".tr().toString(),
-                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 11, color: MyColors.textColor),
-                                children: <TextSpan>[
-                              TextSpan(
-                                text: "multiConverterContent2".tr().toString(),
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: MyColors.textColor),
-                              ),
-                              TextSpan(
-                                text: "multiConverterContent3".tr().toString(),
-                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 11, color: MyColors.textColor),
+                                                ? (MyColors.textSize + 16)
+                                                : 16,
+                                        color: MyColors.textColor),
+                                  ),
+                                ],
                               )
-                            ])),
-                      ],
-                    )),
-                Container(
-                    margin: EdgeInsets.only(left: 0, bottom: 5, top: 25),
-                    child: Text("display".tr().toString(),
-                        style: GoogleFonts.roboto(fontSize: 20, color: MyColors.textColor, fontWeight: FontWeight.bold))),
-                Container(
-                    margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
-                    width: width * .945,
-                    padding: EdgeInsets.only(top: 5, left: 10, right: 5, bottom: 5),
-                    decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(top: 12),
-                              child: Text("display1".tr().toString(),
-                                  style: GoogleFonts.roboto(
-                                      fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 18) * (-1)
-                                          : MyColors.fontlarge
-                                              ? (MyColors.textSize + 18)
-                                              : 18,
-                                      color: MyColors.textColor,
-                                      fontWeight: FontWeight.normal)),
-                            ),
-                            Switch(
-                              inactiveTrackColor: Colors.grey.shade300,
-                              inactiveThumbColor: MyColors.textColor,
-                              value: MyColors.displaycode,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (MyColors.displayflag) {
-                                    if (MyColors.displaysymbol) {
-                                      MyColors.displaysymbol = false;
-                                      MyColors.displaycode = true;
-                                    } else
-                                      MyColors.displaycode = !MyColors.displaycode;
-                                  } else if (MyColors.displaycode) {
-                                  } else {
-                                    MyColors.displaycode = true;
-                                    MyColors.displaysymbol = false;
-                                  }
-
-                                  // print(isSwitched);
-                                });
-                              },
-                              activeTrackColor: MyColors.colorPrimary,
-                              activeColor: MyColors.textColor,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(top: 12),
-                              child: Text("display2".tr().toString(),
-                                  style: GoogleFonts.roboto(
-                                      fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 18) * (-1)
-                                          : MyColors.fontlarge
-                                              ? (MyColors.textSize + 18)
-                                              : 18,
-                                      color: MyColors.textColor,
-                                      fontWeight: FontWeight.normal)),
-                            ),
-                            Switch(
-                              inactiveTrackColor: Colors.grey.shade300,
-                              inactiveThumbColor: MyColors.textColor,
-                              value: MyColors.displaysymbol,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (MyColors.displayflag) {
-                                    if (MyColors.displaycode) {
-                                      MyColors.displaysymbol = true;
-                                      MyColors.displaycode = false;
-                                    } else
-                                      MyColors.displaysymbol = !MyColors.displaysymbol;
-                                  } else if (MyColors.displaysymbol) {
-                                  } else if (MyColors.displaysymbol && !MyColors.displayflag) {
-                                  } else {
-                                    MyColors.displaysymbol = true;
-                                    MyColors.displaycode = false;
-                                  }
-                                });
-                              },
-                              activeTrackColor: MyColors.colorPrimary,
-                              activeColor: MyColors.textColor,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(top: 12),
-                              child: Text("display3".tr().toString(),
-                                  style: GoogleFonts.roboto(
-                                      fontSize: MyColors.fontsmall
-                                          ? (MyColors.textSize - 18) * (-1)
-                                          : MyColors.fontlarge
-                                              ? (MyColors.textSize + 18)
-                                              : 18,
-                                      color: MyColors.textColor,
-                                      fontWeight: FontWeight.normal)),
-                            ),
-                            Switch(
-                              inactiveTrackColor: Colors.grey.shade300,
-                              inactiveThumbColor: MyColors.textColor,
-                              value: MyColors.displayflag,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (!MyColors.displaycode && !MyColors.displaysymbol) {
-                                  } else
-                                    MyColors.displayflag = !MyColors.displayflag;
-                                  // print(isSwitched);
-                                });
-                              },
-                              activeTrackColor: MyColors.colorPrimary,
-                              activeColor: MyColors.textColor,
-                            ),
-                          ],
-                        ),
-                      ],
-                    )),
-                Container(
-                    margin: EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                    child: Text("dateFormat".tr().toString(),
-                        style: GoogleFonts.roboto(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
-                            color: MyColors.textColor,
-                            fontWeight: FontWeight.bold))),
-                Container(
-                    margin: EdgeInsets.only(bottom: 24),
-                    height: 55,
-                    width: width * .945,
-                    padding: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
-                    decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Transform.scale(
-                              scale: 1.1,
-                              child: Checkbox(
-                                side: BorderSide(color: MyColors.textColor),
-                                value: MyColors.datedd,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (MyColors.datemm) {
-                                      MyColors.datemm = !MyColors.datemm;
-                                      MyColors.datedd = !MyColors.datedd;
-                                      Navigator.pushAndRemoveUntil(
-                                          context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
-                                    }
-                                  });
-                                },
-                                activeColor: MyColors.checkBoxValue2 ? Colors.black45 : Colors.white,
-                                checkColor: Colors.black,
-                                tristate: false,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ),
-                            Text("dd/mm/yy",
-                                style: GoogleFonts.roboto(
-                                  fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 16) * (-1)
-                                      : MyColors.fontlarge
-                                          ? (MyColors.textSize + 16)
-                                          : 16,
-                                  color: MyColors.textColor,
-                                )),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Transform.scale(
-                              scale: 1.1,
-                              child: Checkbox(
-                                side: BorderSide(color: MyColors.textColor),
-                                value: MyColors.datemm,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (MyColors.datedd) {
-                                      MyColors.datedd = !MyColors.datedd;
-                                      MyColors.datemm = !MyColors.datemm;
-
-                                      Navigator.pushAndRemoveUntil(
-                                          context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
-                                    }
-                                  });
-                                },
-                                activeColor: MyColors.checkBoxValue2 ? Colors.black45 : Colors.white,
-                                checkColor: Colors.black,
-                                tristate: false,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ),
-                            Text(
-                              "mm/dd/yy",
-                              style: GoogleFonts.roboto(
-                                  fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 16) * (-1)
-                                      : MyColors.fontlarge
-                                          ? (MyColors.textSize + 16)
-                                          : 16,
-                                  color: MyColors.textColor),
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
-              ],
+                            ],
+                          )),
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   void unlockchangeColor(Color color) {
@@ -937,7 +1199,8 @@ class _SettingScreenState extends State<SettingScreen> {
     setState(
       () => unlockCurrentColor = color,
     );
-    debugPrint("unlock in behja -> ${unlockCurrentColor.value.toRadixString(16)}");
+    debugPrint(
+        "unlock in behja -> ${unlockCurrentColor.value.toRadixString(16)}");
   }
 
   void lockchangeColor(Color color) {
@@ -950,24 +1213,28 @@ class _SettingScreenState extends State<SettingScreen> {
     widget.onThemeChange;
     setState(() => densityCurrentColor = color);
 
-    debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+    debugPrint(
+        "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
   void onColorSelect(Color themeColor, BuildContext context) {
     print("OnColorSelect-->");
     widget.onThemeChange;
 
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
   }
 
   showColorPickerDialog(BuildContext context) async {
     return showGeneralDialog(
         context: context,
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: Colors.black45,
         transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
           double width = MediaQuery.of(context).size.width;
           double height = MediaQuery.of(context).size.height;
 
@@ -976,7 +1243,8 @@ class _SettingScreenState extends State<SettingScreen> {
             child: Center(
               child: IntrinsicHeight(
                 child: Container(
-                    margin: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
+                    margin: const EdgeInsets.only(
+                        top: 15, right: 10, bottom: 0, left: 10),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -1003,10 +1271,12 @@ class _SettingScreenState extends State<SettingScreen> {
     showGeneralDialog(
         context: context,
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: Colors.black45,
         transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
           double width = MediaQuery.of(context).size.width;
           double height = MediaQuery.of(context).size.height;
 
@@ -1014,7 +1284,8 @@ class _SettingScreenState extends State<SettingScreen> {
             style: const TextStyle(decoration: TextDecoration.none),
             child: Stack(children: [
               Container(
-                margin: const EdgeInsets.only(top: 100, right: 10, bottom: 100, left: 10),
+                margin: const EdgeInsets.only(
+                    top: 100, right: 10, bottom: 100, left: 10),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -1111,12 +1382,20 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.deepPurple,
       Colors.deepPurple.shade900
     ]),
-    MColor(
-        mainColor: Colors.indigo,
-        densityColors: [Colors.indigo.shade50, Colors.indigo.shade100, Colors.indigo.shade200, Colors.indigo, Colors.indigo.shade900]),
-    MColor(
-        mainColor: Colors.blue,
-        densityColors: [Colors.blue.shade50, Colors.blue.shade100, Colors.blue.shade200, Colors.blue, Colors.blue.shade900]),
+    MColor(mainColor: Colors.indigo, densityColors: [
+      Colors.indigo.shade50,
+      Colors.indigo.shade100,
+      Colors.indigo.shade200,
+      Colors.indigo,
+      Colors.indigo.shade900
+    ]),
+    MColor(mainColor: Colors.blue, densityColors: [
+      Colors.blue.shade50,
+      Colors.blue.shade100,
+      Colors.blue.shade200,
+      Colors.blue,
+      Colors.blue.shade900
+    ]),
     MColor(mainColor: Colors.lightBlue, densityColors: [
       Colors.lightBlue.shade50,
       Colors.lightBlue.shade100,
@@ -1124,19 +1403,41 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.lightBlue,
       Colors.lightBlue.shade900
     ]),
-    MColor(
-        mainColor: Colors.cyan,
-        densityColors: [Colors.cyan.shade50, Colors.cyan.shade100, Colors.cyan.shade200, Colors.cyan, Colors.cyan.shade900]),
-    MColor(
-        mainColor: Colors.red,
-        densityColors: [Colors.red.shade50, Colors.red.shade100, Colors.red.shade200, Colors.red, Colors.red.shade900]),
-    MColor(
-        mainColor: Colors.yellow,
-        densityColors: [Colors.yellow.shade50, Colors.yellow.shade100, Colors.yellow.shade200, Colors.yellow, Colors.yellow.shade900]),
-    MColor(
-        mainColor: Colors.pink,
-        densityColors: [Colors.pink.shade50, Colors.pink.shade100, Colors.pink.shade200, Colors.pink, Colors.pink.shade900]),
-    MColor(mainColor: Colors.black, densityColors: [Colors.black12, Colors.black26, Colors.black45, Colors.black54, Colors.black87]),
+    MColor(mainColor: Colors.cyan, densityColors: [
+      Colors.cyan.shade50,
+      Colors.cyan.shade100,
+      Colors.cyan.shade200,
+      Colors.cyan,
+      Colors.cyan.shade900
+    ]),
+    MColor(mainColor: Colors.red, densityColors: [
+      Colors.red.shade50,
+      Colors.red.shade100,
+      Colors.red.shade200,
+      Colors.red,
+      Colors.red.shade900
+    ]),
+    MColor(mainColor: Colors.yellow, densityColors: [
+      Colors.yellow.shade50,
+      Colors.yellow.shade100,
+      Colors.yellow.shade200,
+      Colors.yellow,
+      Colors.yellow.shade900
+    ]),
+    MColor(mainColor: Colors.pink, densityColors: [
+      Colors.pink.shade50,
+      Colors.pink.shade100,
+      Colors.pink.shade200,
+      Colors.pink,
+      Colors.pink.shade900
+    ]),
+    MColor(mainColor: Colors.black, densityColors: [
+      Colors.black12,
+      Colors.black26,
+      Colors.black45,
+      Colors.black54,
+      Colors.black87
+    ]),
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;
@@ -1172,7 +1473,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           margin: const EdgeInsets.only(left: 25, top: 30, bottom: 0),
           child: const Text(
             "Unlocked ",
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
+            style: TextStyle(
+                fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
           ),
         ),
         Container(
@@ -1192,7 +1494,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           margin: EdgeInsets.only(left: 25, top: 5),
           child: const Text(
             "Locked",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ),
         Container(
@@ -1210,7 +1513,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             width: width * 0.87,
             height: height * 0.077,
             child: DensityColorPicker(
-                pickerColor: densityCurrentColor, onColorChanged: densitychangeColor, availableColors: selectedColor.densityColors),
+                pickerColor: densityCurrentColor,
+                onColorChanged: densitychangeColor,
+                availableColors: selectedColor.densityColors),
           ),
         ),
         const SizedBox(
@@ -1225,12 +1530,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.indigoAccent),
                         onPressed: () {
-
-                            Navigator.pushAndRemoveUntil(
-                                context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
-
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => MyTabBarWidget()),
+                              (route) => false);
                         },
                         child: Text(
                           "Try this color",
@@ -1242,7 +1549,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.indigoAccent),
                         onPressed: () {},
                         child: Text(
                           "Unlock",
@@ -1269,7 +1577,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 },
                 child: const Text(
                   "CUSTOM",
-                  style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      letterSpacing: 0.8,
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -1283,16 +1595,24 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                     child: GestureDetector(
                       onTap: () {
                         MyColors.colorPrimary = unlockSelectdColor!;
-                        Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
+                        Utility.setStringPreference(Constants.themeColor,
+                            unlockSelectdColor!.value.toString());
                         themepicker(unlockSelectdColor!.value.toString());
 
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (_) => MyTabBarWidget()),
+                            (route) => false);
 
                         setState(() {});
                       },
                       child: const Text(
                         "SELECT",
-                        style: TextStyle(letterSpacing: 1.0, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            letterSpacing: 1.0,
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -1304,27 +1624,24 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void unlockchangeColor(MColor color) {
-    MyColors.lockCheck=false;
-    MyColors.densitycheck=false;
+    MyColors.lockCheck = false;
+    MyColors.densitycheck = false;
     widget.lockedColor = false;
     widget.unlockColorSelect = true;
     var code = (color.mainColor.value.toRadixString(16));
     unlockSelectdColor = Color(int.parse("0x$code"));
-    MyColors.checkBoxValue2= useWhiteForeground(unlockSelectdColor!)
-        ? false
-        : true;
-    if( MyColors.checkBoxValue2){
-      MyColors.textColor=Colors.grey.shade700;
-      MyColors.insideTextFieldColor=Colors.white;
-      MyColors.checkBoxValue2=true;
-      MyColors.checkBoxValue1=false;
-    }
-    else{
-      MyColors.textColor=Colors.white;
-      MyColors.insideTextFieldColor=Colors.black;
-      MyColors.checkBoxValue1=true;
-      MyColors.checkBoxValue2=false;
-
+    MyColors.checkBoxValue2 =
+        useWhiteForeground(unlockSelectdColor!) ? false : true;
+    if (MyColors.checkBoxValue2) {
+      MyColors.textColor = Colors.grey.shade700;
+      MyColors.insideTextFieldColor = Colors.white;
+      MyColors.checkBoxValue2 = true;
+      MyColors.checkBoxValue1 = false;
+    } else {
+      MyColors.textColor = Colors.white;
+      MyColors.insideTextFieldColor = Colors.black;
+      MyColors.checkBoxValue1 = true;
+      MyColors.checkBoxValue2 = false;
     }
     selectedColor = color;
     setState(
@@ -1334,30 +1651,26 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void lockchangeColor(Color color) {
-    MyColors.unclockCheck=false;
-    MyColors.densitycheck=false;
-
+    MyColors.unclockCheck = false;
+    MyColors.densitycheck = false;
 
     widget.unlockColorSelect = false;
     widget.lockedColor = true;
     var code = (color.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
-    MyColors.colorPrimary=lockSelectdColor!;
-    MyColors.checkBoxValue2= useWhiteForeground(lockSelectdColor!)
-        ? false
-        : true;
-    if( MyColors.checkBoxValue2){
-      MyColors.textColor=Colors.grey.shade700;
-      MyColors.insideTextFieldColor=Colors.white;
-      MyColors.checkBoxValue2=true;
-      MyColors.checkBoxValue1=false;
-    }
-    else{
-      MyColors.textColor=Colors.white;
-      MyColors.insideTextFieldColor=Colors.black;
-      MyColors.checkBoxValue1=true;
-      MyColors.checkBoxValue2=false;
-
+    MyColors.colorPrimary = lockSelectdColor!;
+    MyColors.checkBoxValue2 =
+        useWhiteForeground(lockSelectdColor!) ? false : true;
+    if (MyColors.checkBoxValue2) {
+      MyColors.textColor = Colors.grey.shade700;
+      MyColors.insideTextFieldColor = Colors.white;
+      MyColors.checkBoxValue2 = true;
+      MyColors.checkBoxValue1 = false;
+    } else {
+      MyColors.textColor = Colors.white;
+      MyColors.insideTextFieldColor = Colors.black;
+      MyColors.checkBoxValue1 = true;
+      MyColors.checkBoxValue2 = false;
     }
     MyColors.colorPrimary = lockSelectdColor!;
 
@@ -1367,29 +1680,26 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void densitychangeColor(Color color) {
-    MyColors.unclockCheck=false;
-    MyColors.lockCheck=false;
+    MyColors.unclockCheck = false;
+    MyColors.lockCheck = false;
 
     widget.lockedColor = true;
     density = true;
     var code = (color.value.toRadixString(16));
     densitySelectedColor = Color(int.parse("0x$code"));
-    MyColors.colorPrimary=densitySelectedColor;
-    MyColors.checkBoxValue2= useWhiteForeground(densitySelectedColor)
-        ? false
-        : true;
-    if( MyColors.checkBoxValue2){
-      MyColors.textColor=Colors.grey.shade700;
-      MyColors.insideTextFieldColor=Colors.white;
-      MyColors.checkBoxValue2=true;
-      MyColors.checkBoxValue1=false;
-    }
-    else{
-      MyColors.textColor=Colors.white;
-      MyColors.insideTextFieldColor=Colors.black;
-      MyColors.checkBoxValue1=true;
-      MyColors.checkBoxValue2=false;
-
+    MyColors.colorPrimary = densitySelectedColor;
+    MyColors.checkBoxValue2 =
+        useWhiteForeground(densitySelectedColor) ? false : true;
+    if (MyColors.checkBoxValue2) {
+      MyColors.textColor = Colors.grey.shade700;
+      MyColors.insideTextFieldColor = Colors.white;
+      MyColors.checkBoxValue2 = true;
+      MyColors.checkBoxValue1 = false;
+    } else {
+      MyColors.textColor = Colors.white;
+      MyColors.insideTextFieldColor = Colors.black;
+      MyColors.checkBoxValue1 = true;
+      MyColors.checkBoxValue2 = false;
     }
 
     setState(
@@ -1397,7 +1707,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     );
     setState(() => densityCurrentColor = color);
     widget.densitychangeColor(color);
-    debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+    debugPrint(
+        "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
   static void themepicker(String code) async {
