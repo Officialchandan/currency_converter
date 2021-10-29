@@ -17,12 +17,10 @@ class DecimalScreens extends StatefulWidget {
 }
 
 class _DecimalScreensState extends State<DecimalScreens> {
-
   int value = -1;
   int value1 = -1;
   int num = 4;
   int num1 = 6;
-
 
   List<String> radiMonetaryFormat = [
     "1234.56",
@@ -41,12 +39,22 @@ class _DecimalScreensState extends State<DecimalScreens> {
   ];
   @override
   void initState() {
-
-
-
-
-
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    debugPrint("didChangeDependencies -> home tab ");
+
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(DecimalScreens oldWidget) {
+    debugPrint("home_tab-> didUpdateWidget");
+
+    super.didUpdateWidget(oldWidget);
+    setState(() {});
   }
 
   @override
@@ -69,13 +77,14 @@ class _DecimalScreensState extends State<DecimalScreens> {
             Text(
               textShow(MyColors.text),
               style: TextStyle(
-                  color: MyColors.textColor,
-                  fontWeight: FontWeight.bold,
+                color: MyColors.textColor,
+                fontWeight: FontWeight.bold,
                 fontSize: MyColors.fontsmall
                     ? (MyColors.textSize - 26) * (-1)
                     : MyColors.fontlarge
-                    ? (MyColors.textSize + 26)
-                    : 26,),
+                        ? (MyColors.textSize + 26)
+                        : 26,
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -94,8 +103,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
                                 : MyColors.fontlarge
-                                ? (MyColors.textSize + 20)
-                                : 20,
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
@@ -111,7 +120,6 @@ class _DecimalScreensState extends State<DecimalScreens> {
                             child: Row(
                               children: [
                                 Checkbox(
-
                                   side: BorderSide(color: MyColors.textColor),
                                   value: MyColors.boolMonetaryFormate[index],
                                   onChanged: (value) {
@@ -120,37 +128,37 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                       MyColors.boolMonetaryFormate
                                           .forEach((element) {
                                         if (index == j) {
-
-                                          Utility.setMonetaryValuePreference("MonetaryValue", (index + 1));
-
-
-
+                                          Utility.setMonetaryValuePreference(
+                                              "MonetaryValue", (index + 1));
 
                                           MyColors.monetaryFormat = index + 1;
                                           format2();
-                                          if( MyColors.decimalFormat==6)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[4];
-                                          }if( MyColors.decimalFormat==5)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[3];
+                                          if (MyColors.decimalFormat == 6) {
+                                            MyColors.text = MyColors.text +
+                                                radiDecimalFormat[4];
                                           }
-                                          if( MyColors.decimalFormat==4)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[2];
-                                          }if( MyColors.decimalFormat==3)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[1];
-                                          }if( MyColors.decimalFormat==2)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[0];
+                                          if (MyColors.decimalFormat == 5) {
+                                            MyColors.text = MyColors.text +
+                                                radiDecimalFormat[3];
+                                          }
+                                          if (MyColors.decimalFormat == 4) {
+                                            MyColors.text = MyColors.text +
+                                                radiDecimalFormat[2];
+                                          }
+                                          if (MyColors.decimalFormat == 3) {
+                                            MyColors.text = MyColors.text +
+                                                radiDecimalFormat[1];
+                                          }
+                                          if (MyColors.decimalFormat == 2) {
+                                            MyColors.text = MyColors.text +
+                                                radiDecimalFormat[0];
                                           }
 
-
-
-                                          MyColors.boolMonetaryFormate[j] = true;
+                                          MyColors.boolMonetaryFormate[j] =
+                                              true;
                                         } else
-                                          MyColors.boolMonetaryFormate[j] = false;
+                                          MyColors.boolMonetaryFormate[j] =
+                                              false;
 
                                         j++;
                                       });
@@ -159,7 +167,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   activeColor: MyColors.checkBoxValue2
                                       ? Colors.black
                                       : Colors.white,
-                                  checkColor:MyColors.colorPrimary,
+                                  checkColor: MyColors.colorPrimary,
                                   tristate: false,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
@@ -170,8 +178,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 20) * (-1)
                                             : MyColors.fontlarge
-                                            ? (MyColors.textSize + 20)
-                                            : 20,
+                                                ? (MyColors.textSize + 20)
+                                                : 20,
                                         color: MyColors.textColor)),
                               ],
                             ),
@@ -193,8 +201,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
                                 : MyColors.fontlarge
-                                ? (MyColors.textSize + 20)
-                                : 20,
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -216,41 +224,48 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                     int i = 0;
                                     setState(() {
                                       for (var element
-                                          in MyColors.boolDecimalFormate){
+                                          in MyColors.boolDecimalFormate) {
                                         if (index == i) {
                                           if (index == 5) {
-                                            Utility.setDecimalValuePreference("DecimalValue",0);
-                                            MyColors.boolDecimalFormate[i] = true;
+                                            Utility.setDecimalValuePreference(
+                                                "DecimalValue", 0);
+                                            MyColors.boolDecimalFormate[i] =
+                                                true;
                                             MyColors.decimalFormat = 0;
                                             format2();
                                           } else {
-                                            Utility.setDecimalValuePreference("DecimalValue",(index + 2));
+                                            Utility.setDecimalValuePreference(
+                                                "DecimalValue", (index + 2));
                                             MyColors.decimalFormat = index + 2;
-                                            MyColors.boolDecimalFormate[i] = true;
+                                            MyColors.boolDecimalFormate[i] =
+                                                true;
                                             //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context)=>MyTabBarWidget()), (route) => false);
                                             format2();
-                                            if( MyColors.decimalFormat==2)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }if( MyColors.decimalFormat==3)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }if( MyColors.decimalFormat==4)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }if( MyColors.decimalFormat==5)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }if( MyColors.decimalFormat==6)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }
-                                            setState(() {
-
-                                            });
+                                            if (MyColors.decimalFormat == 2) {
+                                              MyColors.text = MyColors.text +
+                                                  radiDecimalFormat[index];
+                                            }
+                                            if (MyColors.decimalFormat == 3) {
+                                              MyColors.text = MyColors.text +
+                                                  radiDecimalFormat[index];
+                                            }
+                                            if (MyColors.decimalFormat == 4) {
+                                              MyColors.text = MyColors.text +
+                                                  radiDecimalFormat[index];
+                                            }
+                                            if (MyColors.decimalFormat == 5) {
+                                              MyColors.text = MyColors.text +
+                                                  radiDecimalFormat[index];
+                                            }
+                                            if (MyColors.decimalFormat == 6) {
+                                              MyColors.text = MyColors.text +
+                                                  radiDecimalFormat[index];
+                                            }
+                                            setState(() {});
                                           }
                                         } else {
-                                          MyColors.boolDecimalFormate[i] = false;
+                                          MyColors.boolDecimalFormate[i] =
+                                              false;
                                         }
 
                                         i++;
@@ -271,8 +286,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 20) * (-1)
                                             : MyColors.fontlarge
-                                            ? (MyColors.textSize + 20)
-                                            : 20,
+                                                ? (MyColors.textSize + 20)
+                                                : 20,
                                         color: MyColors.textColor)),
                               ],
                             ),
@@ -334,7 +349,6 @@ class _DecimalScreensState extends State<DecimalScreens> {
       log(MyColors.text);
     }
 
-
     setState(() {});
   }
 
@@ -344,10 +358,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
   }
 
   String textShow(String text) {
-Utility.setFormatExmaplePreference("FormatExmaple", text);
+    Utility.setFormatExmaplePreference("FormatExmaple", text);
     return text;
   }
-
-
-
 }

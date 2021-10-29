@@ -79,13 +79,16 @@ class _LanguageState extends State<Language> {
                         children: [
                           Container(
                               margin: const EdgeInsets.all(7),
-                              padding: index==0?EdgeInsets.only(left: 235):EdgeInsets.only(left: 0  ),
+                              padding: index == 0
+                                  ? const EdgeInsets.only(left: 200)
+                                  : const EdgeInsets.only(left: 0),
                               height: 30,
                               child: Text(
                                 Locals.language[index].keys.first,
                                 style: TextStyle(
                                     fontSize: 18,
-                                    color: MyColors.insideTextFieldColor,fontWeight: FontWeight.bold),
+                                    color: MyColors.insideTextFieldColor,
+                                    fontWeight: FontWeight.bold),
                               )),
                           Container(
                             padding: EdgeInsets.only(right: 10),
@@ -98,8 +101,11 @@ class _LanguageState extends State<Language> {
                           )
                         ],
                       ),
-                      Divider(height: 0.5,
-                      color: Colors.black,thickness: .3,)
+                      Divider(
+                        height: 0.5,
+                        color: Colors.black,
+                        thickness: .3,
+                      )
                     ],
                   ),
                 ),

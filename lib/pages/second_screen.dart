@@ -6,11 +6,13 @@ import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 
@@ -40,7 +42,7 @@ class _SecondScreenState extends State<SecondScreen> {
   String currencyCodeTo = "";
   var calculatorTextSize;
   bool firstTime = true;
-  bool isContainerVisible = false;
+  bool isCalculatorVisible = false;
 
   Map<String, double> cresult = {};
 
@@ -53,6 +55,7 @@ class _SecondScreenState extends State<SecondScreen> {
   @override
   void initState() {
     super.initState();
+
     getSelectedList();
   }
 
@@ -78,8 +81,11 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   void didUpdateWidget(SecondScreen oldWidget) {
-    debugPrint("didUpdateWidget$oldWidget");
+    debugPrint("home_tab-> didUpdateWidget");
+    isCalculatorVisible = false;
+
     super.didUpdateWidget(oldWidget);
+    setState(() {});
   }
 
   @override
@@ -90,11 +96,11 @@ class _SecondScreenState extends State<SecondScreen> {
     print(calculatorTextSize);
     return WillPopScope(
       onWillPop: () async {
-        if (isContainerVisible) {
-          isContainerVisible = false;
+        if (isCalculatorVisible) {
+          isCalculatorVisible = false;
           dataController.addError("error");
         } else {
-          Navigator.pop(context);
+          SystemNavigator.pop();
         }
         return false;
       },
@@ -107,7 +113,7 @@ class _SecondScreenState extends State<SecondScreen> {
               gradient: LinearGradient(
             colors: [
               MyColors.colorPrimary.withOpacity(0.45),
-              MyColors.colorPrimary,
+              MyColors.colorPrimary.withOpacity(1.0),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -426,7 +432,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                                   text, index, model);
                                             },
                                             onTap: () async {
-                                              isContainerVisible = true;
+                                              isCalculatorVisible = true;
                                               // model.controller.clear();
                                               model.controller.selection =
                                                   TextSelection.fromPosition(
@@ -534,188 +540,6 @@ class _SecondScreenState extends State<SecondScreen> {
         ),
       ),
     );
-  }
-
-  showCalculator(BuildContext context, TextEditingController controller,
-      Function(String changeValue) onChange) {
-    showModalBottomSheet(
-        barrierColor: Colors.transparent,
-        isDismissible: true,
-        context: context,
-        builder: (BuildContext context) {
-          buttonPressed(String buttonText) {
-            setState(() {
-              if (buttonText == "C") {
-                isbool = true;
-                equation = "0";
-                isbool = false;
-                equationFontSize = 38.0;
-                resultFontSize = 48.0;
-              } else if (buttonText == "⌫") {
-                equationFontSize = 48.0;
-                resultFontSize = 38.0;
-                equation = equation.substring(0, equation.length - 1);
-                if (equation == "") {
-                  equation = "0";
-                }
-              } else if (buttonText == "=") {
-                equationFontSize = 38.0;
-                resultFontSize = 48.0;
-                isbool = false;
-
-                expression = equation;
-                expression = expression.replaceAll('×', '*');
-                expression = expression.replaceAll('÷', '/');
-
-                try {
-                  Parser p = Parser();
-                  Expression exp = p.parse(expression);
-
-                  ContextModel cm = ContextModel();
-                  result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-                } catch (e) {
-                  result = "";
-                }
-              } else {
-                equationFontSize = 48.0;
-                resultFontSize = 38.0;
-                if (equation == "0") {
-                  equation = buttonText;
-                } else {
-                  equation = equation + buttonText;
-                }
-              }
-              isbool ? controller.text = equation : controller.text = result;
-              isbool ? onChange(equation) : onChange(result);
-
-              isbool = true;
-            });
-          }
-
-          Widget buildButton(String buttonText, double buttonHeight,
-              Color buttonColor, double buttonTexth) {
-            return SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              child: Container(
-                margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.left,
-                ),
-                height: MediaQuery.of(context).size.height *
-                        0.1 /
-                        1.5 *
-                        buttonHeight +
-                    2.6,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    MyColors.colorPrimary.withOpacity(.4),
-                    MyColors.colorPrimary.withOpacity(.8),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  //stops: [0.0,0.0]
-                )),
-                child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0.0),
-                        side: BorderSide(
-                            color: MyColors.colorPrimary,
-                            width: 0.6,
-                            style: BorderStyle.solid)),
-                    padding: const EdgeInsets.all(0.0),
-                    onPressed: () => buttonPressed(buttonText),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 0.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          buttonText,
-                          style: TextStyle(
-                              fontSize: buttonTexth,
-                              fontWeight: FontWeight.normal,
-                              color: MyColors.textColor),
-                        ),
-                      ),
-                    )),
-              ),
-            );
-          }
-
-          return SizedBox(
-              width: MediaQuery.of(context).size.width * .75,
-              height: MediaQuery.of(context).size.height * 0.35,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .75,
-                        height: MediaQuery.of(context).size.height * 0.35,
-                        child: Table(
-                          children: [
-                            TableRow(children: [
-                              buildButton("%", 1, MyColors.calcuColor, 30),
-                              buildButton("/", 1, MyColors.calcuColor, 25),
-                              buildButton("×", 1, MyColors.calcuColor, 35),
-                            ]),
-                            TableRow(children: [
-                              buildButton("1", 1, MyColors.calcuColor, 25),
-                              buildButton("2", 1, MyColors.calcuColor, 25),
-                              buildButton("3", 1, MyColors.calcuColor, 25),
-                            ]),
-                            TableRow(children: [
-                              buildButton("4", 1, MyColors.calcuColor, 25),
-                              buildButton("5", 1, MyColors.calcuColor, 25),
-                              buildButton("6", 1, MyColors.calcuColor, 25),
-                            ]),
-                            TableRow(children: [
-                              buildButton("7", 1, MyColors.calcuColor, 25),
-                              buildButton("8", 1, MyColors.calcuColor, 25),
-                              buildButton("9", 1, MyColors.calcuColor, 25),
-                            ]),
-                            TableRow(children: [
-                              buildButton(".", 1, MyColors.calcuColor, 25),
-                              buildButton("0", 1, MyColors.calcuColor, 25),
-                              buildButton("c", 1, MyColors.calcuColor, 25),
-                            ]),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: Table(children: [
-                            TableRow(children: [
-                              InkWell(
-                                  onLongPress: () {
-                                    setState(() {
-                                      equation == "";
-                                    });
-                                  },
-                                  child: buildButton(
-                                      "⌫", 1, MyColors.calcuColor, 30)),
-                            ]),
-                            TableRow(children: [
-                              buildButton("-", 1, MyColors.calcuColor,
-                                  calculatorTextSize),
-                            ]),
-                            TableRow(children: [
-                              buildButton("+", 1, MyColors.calcuColor, 30),
-                            ]),
-                            TableRow(
-                              children: [
-                                Center(
-                                    child: buildButton("=", 2 * 1.02,
-                                        MyColors.calcuColor, 40)),
-                              ],
-                            ),
-                          ]))
-                    ],
-                  ),
-                ],
-              ));
-        });
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
@@ -874,7 +698,7 @@ class _SecondScreenState extends State<SecondScreen> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              MyColors.colorPrimary.withOpacity(.4),
+              MyColors.colorPrimary.withOpacity(.5),
               MyColors.colorPrimary.withOpacity(.8),
             ],
             begin: Alignment.topCenter,
@@ -886,7 +710,7 @@ class _SecondScreenState extends State<SecondScreen> {
                   borderRadius: BorderRadius.circular(0.0),
                   side: BorderSide(
                       color: MyColors.colorPrimary,
-                      width: 0.6,
+                      width: 0.4,
                       style: BorderStyle.solid)),
               padding: const EdgeInsets.all(0.0),
               onPressed: () => buttonPressed(buttonText),
@@ -922,9 +746,9 @@ class _SecondScreenState extends State<SecondScreen> {
                   child: Table(
                     children: [
                       TableRow(children: [
-                        buildButton("%", 1, MyColors.calcuColor, 30),
-                        buildButton("/", 1, MyColors.calcuColor, 25),
-                        buildButton("×", 1, MyColors.calcuColor, 35),
+                        buildButton("%", 1, MyColors.calcuColor, 20),
+                        buildButton("/", 1, MyColors.calcuColor, 20),
+                        buildButton("×", 1, MyColors.calcuColor, 27),
                       ]),
                       TableRow(children: [
                         buildButton("1", 1, MyColors.calcuColor, 25),
@@ -953,29 +777,19 @@ class _SecondScreenState extends State<SecondScreen> {
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: Table(children: [
                       TableRow(children: [
-                        InkWell(
-                            onLongPress: () {
-                              setState(() {
-                                equation == "";
-                              });
-                            },
-                            child:
-                                buildButton("⌫", 1, MyColors.calcuColor, 30)),
+                        buildButton("⌫", 1, MyColors.calcuColor, 20),
                       ]),
                       TableRow(children: [
-                        buildButton(
-                            "-", 1, MyColors.calcuColor, calculatorTextSize),
+                        buildButton("-", 1, MyColors.calcuColor, 35),
                       ]),
                       TableRow(children: [
-                        buildButton("+", 1, MyColors.calcuColor, 30),
+                        buildButton("+", 1, MyColors.calcuColor, 25),
                       ]),
-                      TableRow(
-                        children: [
-                          Center(
-                              child: buildButton(
-                                  "=", 2 * 1.02, MyColors.calcuColor, 40)),
-                        ],
-                      ),
+                      TableRow(children: [
+                        Center(
+                            child: buildButton(
+                                "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                      ]),
                     ]))
               ],
             ),

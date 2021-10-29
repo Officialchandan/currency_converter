@@ -1,15 +1,10 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
-import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/database/coredata.dart';
-import 'package:currency_converter/database/currencydata.dart';
-import 'package:currency_converter/utils/constants.dart';
-import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
+// ignore: implementation_imports
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,18 +12,24 @@ import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/database/coredata.dart';
+import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
+
 import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
 
 class TapHome extends StatefulWidget {
-  TapHome({Key? key}) : super(key: key);
+  const TapHome({Key? key}) : super(key: key);
 
   @override
   _TapHomeState createState() => _TapHomeState();
 }
 
 class _TapHomeState extends State<TapHome> {
-  String symbol2="€";
+  String symbol2 = "€";
 
   String symbol = "\$";
 
@@ -51,12 +52,12 @@ class _TapHomeState extends State<TapHome> {
   bool contanerIndex = true;
   String z = "";
   double conversionRate = 0;
-  bool isContainerVisible=false;
+  bool isCalculatorVisible = false;
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
 
   TextEditingController edtCurrency = TextEditingController();
-  TextEditingController calculateCurrency = TextEditingController(text:"0");
+  TextEditingController calculateCurrency = TextEditingController(text: "0");
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
 
@@ -69,21 +70,28 @@ class _TapHomeState extends State<TapHome> {
 
   @override
   void initState() {
-
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
-  
+
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
     // Insert();
     getCurrencyCode();
 
     super.initState();
-      setState(() {
+    setState(() {});
+  }
 
-    });
+  @override
+  void didUpdateWidget(TapHome oldWidget) {
+    debugPrint("home_tab-> didUpdateWidget");
+    isCalculatorVisible = false;
+    _isContainerVisible = false;
+    _isContainerVisibleTwo = false;
+    super.didUpdateWidget(oldWidget);
+    setState(() {});
   }
 
   getCurrencyCode() async {
@@ -97,10 +105,10 @@ class _TapHomeState extends State<TapHome> {
       flagfrom = "assets/pngCountryImages/$currencyCodeFrom.png";
       flagto = "assets/pngCountryImages/$currencyCodeTo.png";
 
-     symbol= await Utility.getSymbolFromPreference("hello");
-     symbol2= await Utility.getSymboltoPreference("to");
+      symbol = await Utility.getSymbolFromPreference("hello");
+      symbol2 = await Utility.getSymboltoPreference("to");
 
-       getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+      getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
     setState(() {});
   }
@@ -115,7 +123,6 @@ class _TapHomeState extends State<TapHome> {
     prefs.setString(Constants.currencyCodeTo, code);
   }
 
-
   @override
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
@@ -124,10 +131,10 @@ class _TapHomeState extends State<TapHome> {
         onWillPop: () async {
           if (_isContainerVisible ||
               _isContainerVisibleTwo ||
-              isContainerVisible) {
+              isCalculatorVisible) {
             Future.value(_isContainerVisible = false);
             Future.value(_isContainerVisibleTwo = false);
-            Future.value(isContainerVisible = false);
+            Future.value(isCalculatorVisible = false);
             Future.value(_isContainerVisible = false);
             Future.value(_isContainerVisibleTwo = false);
 
@@ -348,7 +355,7 @@ class _TapHomeState extends State<TapHome> {
                                           counterText: "",
                                           border: InputBorder.none),
                                       onTap: () {
-                                        isContainerVisible = true;
+                                        isCalculatorVisible = true;
                                         _isContainerVisible = false;
                                         _isContainerVisibleTwo = false;
 
@@ -450,7 +457,7 @@ class _TapHomeState extends State<TapHome> {
                                         if (_isContainerVisible) {
                                           _isContainerVisible = false;
                                         } else {
-                                          isContainerVisible = false;
+                                          isCalculatorVisible = false;
                                           _isContainerVisible = true;
                                         }
                                         if (_isContainerVisibleTwo) {
@@ -520,7 +527,7 @@ class _TapHomeState extends State<TapHome> {
                                           _isContainerVisibleTwo = false;
                                         } else {
                                           _isContainerVisible = false;
-                                          isContainerVisible = false;
+                                          isCalculatorVisible = false;
                                           _isContainerVisibleTwo = true;
                                         }
                                         setState(() {
@@ -704,10 +711,10 @@ class _TapHomeState extends State<TapHome> {
                 Positioned(
                   bottom: 0,
                   child: Container(
-                    height: isContainerVisible
+                    height: isCalculatorVisible
                         ? MediaQuery.of(context).size.height * 0.35
                         : 0.0,
-                    width: isContainerVisible
+                    width: isCalculatorVisible
                         ? MediaQuery.of(context).size.width
                         : 0.0,
                     child: calculator(),
@@ -719,59 +726,7 @@ class _TapHomeState extends State<TapHome> {
         ));
   }
 
-  Widget buildButton(String buttonText, double buttonHeight, Color buttonColor,
-      double buttonTexth) {
-    return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      child: Container(
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.left,
-        ),
-        //**Alline height */
-        //This is grate
-        height:
-            MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.4,
-
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          colors: [
-            MyColors.colorPrimary.withOpacity(.4),
-            MyColors.colorPrimary.withOpacity(.8),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          //stops: [0.0,0.0]
-        )),
-
-        child: FlatButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0),
-                side: BorderSide(
-                    color: MyColors.colorPrimary,
-                    width: 0.4,
-                    style: BorderStyle.solid)),
-            padding: const EdgeInsets.all(0.0),
-            onPressed: () => buttonPressed(buttonText),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 0.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  buttonText,
-                  style: TextStyle(
-                      fontSize: buttonTexth,
-                      fontWeight: FontWeight.normal,
-                      color: MyColors.textColor),
-                ),
-              ),
-            )),
-      ),
-    );
-  }
-
   Future<void> Insert() async {
-
-
     String url =
         "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
@@ -815,10 +770,9 @@ class _TapHomeState extends State<TapHome> {
   }
 
   void particularrow() async {}
+
   Future<Map<String, dynamic>> getConverterAPI(
       String form, String to, String rate) async {
-
-
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
 
@@ -1025,11 +979,12 @@ class _TapHomeState extends State<TapHome> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.white10.withOpacity(0.4),
-              MyColors.colorPrimary.withOpacity(0.18),
+              MyColors.colorPrimary.withOpacity(0.4),
+              MyColors.colorPrimary.withOpacity(0.5),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
+
             //stops: [0.0,0.0]
           )),
 
@@ -1058,10 +1013,10 @@ class _TapHomeState extends State<TapHome> {
       );
     }
 
-    return Container(
+    return SizedBox(
         width: MediaQuery.of(context).size.width * .75,
         height: MediaQuery.of(context).size.height * 0.35,
-        color: Colors.transparent,
+        // color: Colors.transparent,
         child: Column(
           children: <Widget>[
             Row(
