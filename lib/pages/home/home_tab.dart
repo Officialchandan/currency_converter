@@ -39,7 +39,7 @@ class _TapHomeState extends State<TapHome> {
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
   String text = "00.0";
-  String equation = "0";
+  String equation = "00";
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;
@@ -121,6 +121,13 @@ class _TapHomeState extends State<TapHome> {
   void currencyCodeToSave(String code) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.currencyCodeTo, code);
+  }
+
+  @override
+  void dispose() {
+    calculateCurrency.clear();
+    calculateCurrency.text = "00";
+    super.dispose();
   }
 
   @override
@@ -988,7 +995,17 @@ class _TapHomeState extends State<TapHome> {
             //stops: [0.0,0.0]
           )),
 
-          child: FlatButton(
+          child: MaterialButton(
+              onLongPress: () {
+                if (buttonText == "⌫") {
+                  calculateCurrency.text = "00";
+
+                  expression = "";
+                  equation = "";
+                }
+
+                setState(() {});
+              },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
                   side: BorderSide(

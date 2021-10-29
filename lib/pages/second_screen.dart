@@ -684,8 +684,8 @@ class _SecondScreenState extends State<SecondScreen> {
       });
     }
 
-    Widget buildButton(String buttonText, double buttonHeight,
-        Color buttonColor, double buttonTexth) {
+    buildButton(String buttonText, double buttonHeight, Color buttonColor,
+        double buttonTexth) {
       return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
@@ -705,7 +705,11 @@ class _SecondScreenState extends State<SecondScreen> {
             end: Alignment.bottomCenter,
             //stops: [0.0,0.0]
           )),
-          child: FlatButton(
+          child: MaterialButton(
+              onLongPress: () {
+                buttonPressed(buttonText);
+                equation = "";
+              },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
                   side: BorderSide(
