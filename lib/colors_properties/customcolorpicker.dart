@@ -1,8 +1,11 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:easy_localization/src/public_ext.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class CustomColorPicker extends StatefulWidget {
@@ -27,7 +30,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
       body: Container(
         color: Colors.transparent,
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.63,
+        height: MediaQuery.of(context).size.height * 0.70,
         child: Column(children: [
           Container(
               margin: const EdgeInsets.only(
@@ -52,7 +55,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               Container(
                 width: 150,
                 child: ElevatedButton(
-                  child: const Text("Try this Color"),
+                  child:  Text("try".tr().toString()),
                   onPressed: () {
                    MyColors.checkBoxValue2= useWhiteForeground(currentColor)
                         ? false
@@ -74,6 +77,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
 
                     MyColors.colorPrimary = currentColor;
                     MyColors.calcuColor = currentColor;
+                   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                     systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                     statusBarColor: MyColors.colorPrimary, // status bar color
+                   ));
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -85,7 +92,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               Container(
                   width: 150,
                   child:
-                      ElevatedButton(onPressed: () {}, child: Text("Unlock")))
+                      ElevatedButton(onPressed: () {}, child: Text("unlock".tr().toString())))
             ],
           ),
           Container(

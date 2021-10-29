@@ -79,12 +79,17 @@ class _LanguageState extends State<Language> {
                         children: [
                           Container(
                               margin: const EdgeInsets.all(7),
-                              padding: index==0?EdgeInsets.only(left: 235):EdgeInsets.only(left: 0  ),
+                              padding: index==0?EdgeInsets.only(left: MediaQuery.of(context).size.width*0.45 ):EdgeInsets.only(left: 0  ),
                               height: 30,
                               child: Text(
                                 Locals.language[index].keys.first,
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: MyColors.fontsmall
+                                        ? (MyColors.textSize - 16) *
+                                        (-1)
+                                        : MyColors.fontlarge
+                                        ? (MyColors.textSize + 16)
+                                        : 16,
                                     color: MyColors.insideTextFieldColor,fontWeight: FontWeight.bold),
                               )),
                           Container(

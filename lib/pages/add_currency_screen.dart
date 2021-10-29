@@ -50,10 +50,14 @@ class _AddCurrencyState extends State<AddCurrency> {
         appBar: AppBar(
           backgroundColor: MyColors.colorPrimary,
           title: Text(
-            "Add currency".toUpperCase(),
+            "addCurrency".tr().toString(),
             style: TextStyle(
               color: MyColors.textColor,
-              fontSize: 20,
+              fontSize: MyColors.fontsmall
+                  ? (MyColors.textSize - 18) * (-1)
+                  : MyColors.fontlarge
+                  ? (MyColors.textSize + 18)
+                  : 18,
               fontWeight: FontWeight.bold,
             ),
           ),

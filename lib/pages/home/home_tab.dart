@@ -336,9 +336,11 @@ class _TapHomeState extends State<TapHome> {
                                       ),
                                       controller: calculateCurrency,
 
+
                                       textAlign: TextAlign.center,
                                       // keyboardType: TextInputType.none,
                                       showCursor: true,
+                                      autofocus: true,
                                       readOnly: true,
                                       decoration: const InputDecoration(
                                           contentPadding: EdgeInsets.only(
@@ -346,6 +348,7 @@ class _TapHomeState extends State<TapHome> {
                                               right: 1.0,
                                               bottom: 15.0),
                                           counterText: "",
+
                                           border: InputBorder.none),
                                       onTap: () {
                                         isContainerVisible = true;
@@ -356,6 +359,11 @@ class _TapHomeState extends State<TapHome> {
                                       },
 
                                       onChanged: (text) {
+
+                                        calculateCurrency.value=calculateCurrency.value.copyWith(
+                                        selection: TextSelection.fromPosition(
+                                        TextPosition(offset: text.length+2)));
+
                                         getConverterAPI(
                                             currencyCodeFrom,
                                             currencyCodeTo,
@@ -895,7 +903,7 @@ class _TapHomeState extends State<TapHome> {
           (equation.substring(equation.length - 1) == "%" &&
               buttonText == "=") ||
           (equation.substring(equation.length - 1) == "%" &&
-              buttonText == "%") ||
+              buttonText == "×") ||
           (equation.substring(equation.length - 1) == "/" &&
               buttonText == "×") ||
           (equation.substring(equation.length - 1) == "/" &&
@@ -941,40 +949,67 @@ class _TapHomeState extends State<TapHome> {
           } else if (buttonText == "=") {
             equationFontSize = 38.0;
             resultFontSize = 48.0;
-            try {
-              Parser p = Parser();
-              Expression exp = p.parse(expression);
 
-              ContextModel cm = ContextModel();
-              result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-            } catch (e) {
-              result = "";
-            }
             isbool = false;
 
             expression = equation;
+            String str1 = expression;
+            List<String> charList = [];
+            String ma = "";
+            for (int i = 0; i < str1.length; i++) {
+              if (str1[i] == "+" ||
+                  str1[i] == "-" ||
+                  str1[i] == "×" ||
+                  str1[i] == "÷" ||
+                  str1[i] == "/" ||
+                  str1[i] == "*" ||
+                  str1[i] == "%") {
+                if (ma.isNotEmpty) {
+                  charList.add(ma);
+                }
+                charList.add(str1[i]);
+                ma = "";
+              } else {
+                ma = ma + str1[i];
+                if (i == str1.length - 1) {
+                  if (ma.isNotEmpty) {
+                    charList.add(ma);
+                  }
+                }
+              }
+            }
+
+            int l = charList.where((element) => element == "%").toList().length;
+
+            for (int i = 0; i < l; i++) {
+              print("charList-->$charList");
+              int i = charList.indexWhere((element) => element == "%");
+              int a = i - 1;
+              int b = i + 1;
+              double aa = double.parse(charList[a]);
+              double bb = double.parse(charList[b]);
+              double cc = (aa * bb) / 100;
+              print("cc-->$cc");
+              charList[a] = cc.toString();
+              print("charList1-->$charList");
+              charList.removeAt(b);
+              print("charList1-->$charList");
+              charList.removeAt(i);
+              print("charList1-->$charList");
+            }
+
+            String exp = "";
+            charList.forEach((element) {
+              exp += element;
+            });
+
+            print("exp-->$exp");
+            expression = exp;
             expression = expression.replaceAll('×', '*');
             expression = expression.replaceAll('÷', '/');
 
-            if (expression.contains("%")) {
-              String a = "";
-              String b = "";
-              String c = "";
-              for (int i = 0; i < expression.length; i++) {
-                if (expression[i] != "%") {
-                  if (b == "%")
-                    c += expression[i];
-                  else
-                    a += expression[i];
-                } else {
-                  b = expression[i];
-                }
-              }
 
-              print("a->>>>$a");
 
-              result = ((double.parse(a) * double.parse(c) / 100)).toString();
-            } else {
               try {
                 Parser p = Parser();
                 Expression exp = p.parse(expression);
@@ -985,7 +1020,7 @@ class _TapHomeState extends State<TapHome> {
                 result = "";
               }
             }
-          } else {
+           else {
             equationFontSize = 48.0;
             resultFontSize = 38.0;
             if (equation == "0") {
@@ -1026,7 +1061,7 @@ class _TapHomeState extends State<TapHome> {
               gradient: LinearGradient(
             colors: [
               Colors.white10.withOpacity(0.4),
-              MyColors.colorPrimary.withOpacity(0.18),
+              MyColors.colorPrimary.withOpacity(0.8),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -1174,7 +1209,8 @@ class _TapHomeState extends State<TapHome> {
   // }
 
   String getFormatText(String s) {
-    String text1 = "";
+    getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+    String text1 = text;
     debugPrint("MyColors.decimalformat-->${MyColors.decimalFormat}");
     debugPrint("getFormatText-->$s");
 
@@ -1292,40 +1328,66 @@ class _TapHomeState extends State<TapHome> {
         } else if (buttonText == "=") {
           equationFontSize = 38.0;
           resultFontSize = 48.0;
-          try {
-            Parser p = Parser();
-            Expression exp = p.parse(expression);
 
-            ContextModel cm = ContextModel();
-            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-          } catch (e) {
-            result = "";
-          }
           isbool = false;
 
           expression = equation;
+          String str1 = expression;
+          List<String> charList = [];
+          String ma = "";
+          for (int i = 0; i < str1.length; i++) {
+            if (str1[i] == "+" ||
+                str1[i] == "-" ||
+                str1[i] == "×" ||
+                str1[i] == "÷" ||
+                str1[i] == "/" ||
+                str1[i] == "*" ||
+                str1[i] == "%") {
+              if (ma.isNotEmpty) {
+                charList.add(ma);
+              }
+              charList.add(str1[i]);
+              ma = "";
+            } else {
+              ma = ma + str1[i];
+              if (i == str1.length - 1) {
+                if (ma.isNotEmpty) {
+                  charList.add(ma);
+                }
+              }
+            }
+          }
+
+          int l = charList.where((element) => element == "%").toList().length;
+
+          for (int i = 0; i < l; i++) {
+            print("charList-->$charList");
+            int i = charList.indexWhere((element) => element == "%");
+            int a = i - 1;
+            int b = i + 1;
+            double aa = double.parse(charList[a]);
+            double bb = double.parse(charList[b]);
+            double cc = (aa * bb) / 100;
+            print("cc-->$cc");
+            charList[a] = cc.toString();
+            print("charList1-->$charList");
+            charList.removeAt(b);
+            print("charList1-->$charList");
+            charList.removeAt(i);
+            print("charList1-->$charList");
+          }
+
+          String exp = "";
+          charList.forEach((element) {
+            exp += element;
+          });
+
+          print("exp-->$exp");
+          expression = exp;
           expression = expression.replaceAll('×', '*');
           expression = expression.replaceAll('÷', '/');
 
-          if (expression.contains("%")) {
-            String a = "";
-            String b = "";
-            String c = "";
-            for (int i = 0; i < expression.length; i++) {
-              if (expression[i] != "%") {
-                if (b == "%")
-                  c += expression[i];
-                else
-                  a += expression[i];
-              } else {
-                b = expression[i];
-              }
-            }
 
-            print("a->>>>$a");
-
-            result = ((double.parse(a) * double.parse(c) / 100)).toString();
-          } else {
             try {
               Parser p = Parser();
               Expression exp = p.parse(expression);
@@ -1334,7 +1396,7 @@ class _TapHomeState extends State<TapHome> {
               result = '${exp.evaluate(EvaluationType.REAL, cm)}';
             } catch (e) {
               result = "";
-            }
+
           }
         } else {
           equationFontSize = 48.0;

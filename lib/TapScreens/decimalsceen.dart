@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,12 +18,16 @@ class DecimalScreens extends StatefulWidget {
 }
 
 class _DecimalScreensState extends State<DecimalScreens> {
-
   int value = -1;
   int value1 = -1;
   int num = 4;
   int num1 = 6;
 
+  String monetary = "1";
+  String decimal = "2";
+
+  int demoIndex = 0;
+  String demoText = "";
 
   List<String> radiMonetaryFormat = [
     "1234.56",
@@ -31,22 +36,72 @@ class _DecimalScreensState extends State<DecimalScreens> {
     "1 234,56",
   ];
 
-  List<String> radiDecimalFormat = [
-    ".02",
-    ".003",
-    ".0004",
-    ".00005",
-    ".0000006",
-    "dontShow".tr().toString()
+  List<Map<String, dynamic>> monetaryFormat = [
+    {"format": "1234.56", "id": "1", "check": false},
+    {"format": "1.234,56", "id": "2", "check": false},
+    {"format": "1 234.56", "id": "3", "check": false},
+    {"format": "1 234,56", "id": "4", "check": false},
   ];
+
+  List<String> radiDecimalFormat = [".02", ".003", ".0004", ".00005", ".0000006", "dontShow".tr().toString()];
+  List<Map<String, dynamic>> decimalFormat = [
+    {"format": ".02", "id": "2", "check": false},
+    {"format": ".003", "id": "3", "check": false},
+    {"format": ".0004", "id": "4", "check": false},
+    {"format": ".00005", "id": "5", "check": false},
+    {"format": ".000006", "id": "6", "check": false},
+    {"format": "dontShow".tr().toString(), "id": "0", "check": false},
+  ];
+
+  List<Map<String, dynamic>> demoString = [
+    {"1_0": "123,456"},
+    {"1_2": "123,456.02"},
+    {"1_3": "123,456.003"},
+    {"1_4": "123,456.0004"},
+    {"1_5": "123,456.00005"},
+    {"1_6": "123,456.000006"},
+    {"2_0": "123.456"},
+    {"2_2": "123.456,02"},
+    {"2_3": "123.456,003"},
+    {"2_4": "123.456,0004"},
+    {"2_5": "123.456,00005"},
+    {"2_6": "123.456,000006"},
+    {"3_0": "123 456"},
+    {"3_2": "123 456.02"},
+    {"3_3": "123 456.003"},
+    {"3_4": "123 456.0004"},
+    {"3_5": "123 456.00005"},
+    {"3_6": "123 456.000006"},
+    {"4_0": "123 456"},
+    {"4_2": "123 456,02"},
+    {"4_3": "123 456,003"},
+    {"4_4": "123 456,0004"},
+    {"4_5": "123 456,00005"},
+    {"4_6": "123 456,000006"},
+  ];
+
   @override
   void initState() {
-
-
-
-
-
     super.initState();
+    getFormat();
+  }
+
+  getFormat() async {
+    monetary = await Utility.getStringPreference(Constants.monetaryFormat);
+    decimal = await Utility.getStringPreference(Constants.decimalFormat);
+
+    monetary = monetary == "" ? "1" : monetary;
+    decimal = decimal == "" ? "2" : decimal;
+
+    monetaryFormat.singleWhere((element) => element["id"] == monetary)["check"] = true;
+    decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] = true;
+
+    Map<String, dynamic> f = demoString.singleWhere(
+            (element) => element.containsKey("$monetary" "_" + "$decimal"));
+
+    demoText = f["$monetary" + "_" + "$decimal"];
+
+    setState(() {});
   }
 
   @override
@@ -67,15 +122,16 @@ class _DecimalScreensState extends State<DecimalScreens> {
               ],
             ),
             Text(
-              textShow(MyColors.text),
+              textShow("${demoText}"),
               style: TextStyle(
-                  color: MyColors.textColor,
-                  fontWeight: FontWeight.bold,
+                color: MyColors.textColor,
+                fontWeight: FontWeight.bold,
                 fontSize: MyColors.fontsmall
                     ? (MyColors.textSize - 26) * (-1)
                     : MyColors.fontlarge
-                    ? (MyColors.textSize + 26)
-                    : 26,),
+                        ? (MyColors.textSize + 26)
+                        : 26,
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -94,8 +150,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
                                 : MyColors.fontlarge
-                                ? (MyColors.textSize + 20)
-                                : 20,
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
@@ -103,7 +159,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                       ),
                       ListView.builder(
                         shrinkWrap: true,
-                        itemCount: num,
+                        itemCount: monetaryFormat.length,
                         itemBuilder: (context, index) {
                           return Container(
                             width: 150,
@@ -111,67 +167,89 @@ class _DecimalScreensState extends State<DecimalScreens> {
                             child: Row(
                               children: [
                                 Checkbox(
-
                                   side: BorderSide(color: MyColors.textColor),
-                                  value: MyColors.boolMonetaryFormate[index],
+                                  value: monetaryFormat[index]["check"],
                                   onChanged: (value) {
-                                    int j = 0;
-                                    setState(() {
-                                      MyColors.boolMonetaryFormate
-                                          .forEach((element) {
-                                        if (index == j) {
+                                    if (value!) {
+                                      monetary = monetaryFormat[index]["id"];
 
-                                          Utility.setMonetaryValuePreference("MonetaryValue", (index + 1));
+                                      for (var element in monetaryFormat) {
+                                        element["check"] = false;
+                                      }
 
+                                      monetaryFormat.singleWhere((element) => element["id"] == monetary)["check"] =
+                                          true;
 
+                                      Utility.setStringPreference(Constants.monetaryFormat, monetary);
 
+                                      MyColors.monetaryFormat = int.parse(monetary);
 
-                                          MyColors.monetaryFormat = index + 1;
-                                          format2();
-                                          if( MyColors.decimalFormat==6)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[4];
-                                          }if( MyColors.decimalFormat==5)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[3];
-                                          }
-                                          if( MyColors.decimalFormat==4)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[2];
-                                          }if( MyColors.decimalFormat==3)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[1];
-                                          }if( MyColors.decimalFormat==2)
-                                          {
-                                            MyColors.text=MyColors.text+radiDecimalFormat[0];
-                                          }
+                                      Map<String, dynamic> f = demoString.singleWhere(
+                                          (element) => element.containsKey("$monetary" "_" + "$decimal"));
 
+                                      demoText = f["$monetary" + "_" + "$decimal"];
 
+                                      setState(() {});
+                                    }
 
-                                          MyColors.boolMonetaryFormate[j] = true;
-                                        } else
-                                          MyColors.boolMonetaryFormate[j] = false;
-
-                                        j++;
-                                      });
-                                    });
+                                    // int j = 0;
+                                    // setState(() {
+                                    //   MyColors.boolMonetaryFormate.forEach((element) {
+                                    //     if (index == j) {
+                                    //       Utility.setMonetaryValuePreference("MonetaryValue", (index + 1));
+                                    //
+                                    //       MyColors.monetaryFormat = index + 1;
+                                    //
+                                    //       format2();
+                                    //
+                                    //       if (MyColors.decimalFormat == 6) {
+                                    //         MyColors.text = MyColors.text + radiDecimalFormat[4];
+                                    //       }
+                                    //       if (MyColors.decimalFormat == 5) {
+                                    //         MyColors.text = MyColors.text + radiDecimalFormat[3];
+                                    //       }
+                                    //       if (MyColors.decimalFormat == 4) {
+                                    //         MyColors.text = MyColors.text + radiDecimalFormat[2];
+                                    //       }
+                                    //       if (MyColors.decimalFormat == 3) {
+                                    //         MyColors.text = MyColors.text + radiDecimalFormat[1];
+                                    //       }
+                                    //       if (MyColors.decimalFormat == 2) {
+                                    //         MyColors.text = MyColors.text + radiDecimalFormat[0];
+                                    //       }
+                                    //       if (index == 3) {
+                                    //         String text = MyColors.text;
+                                    //
+                                    //         print("uuuuuuuuuuuuuuuuuuuuu->> ${text}");
+                                    //         print("uuuuuuuuuuuuuuuuuuuuu->> ${text.replaceAll('.', ',')}");
+                                    //         text.replaceAll('.', ',');
+                                    //
+                                    //         print("----------s->> ${text.contains(".")}");
+                                    //         print("----------s->> ${text.contains(",")}");
+                                    //         print("----------s->> ${text}");
+                                    //       }
+                                    //
+                                    //       MyColors.boolMonetaryFormate[j] = true;
+                                    //     } else
+                                    //       MyColors.boolMonetaryFormate[j] = false;
+                                    //
+                                    //     j++;
+                                    //   });
+                                    // });
                                   },
-                                  activeColor: MyColors.checkBoxValue2
-                                      ? Colors.black
-                                      : Colors.white,
-                                  checkColor:MyColors.colorPrimary,
+                                  activeColor: MyColors.checkBoxValue2 ? Colors.black : Colors.white,
+                                  checkColor: MyColors.colorPrimary,
                                   tristate: false,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                 ),
-                                Text("${radiMonetaryFormat[index]}",
+                                Text("${monetaryFormat[index]["format"]}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 20) * (-1)
                                             : MyColors.fontlarge
-                                            ? (MyColors.textSize + 20)
-                                            : 20,
+                                                ? (MyColors.textSize + 20)
+                                                : 20,
                                         color: MyColors.textColor)),
                               ],
                             ),
@@ -193,8 +271,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                             fontSize: MyColors.fontsmall
                                 ? (MyColors.textSize - 20) * (-1)
                                 : MyColors.fontlarge
-                                ? (MyColors.textSize + 20)
-                                : 20,
+                                    ? (MyColors.textSize + 20)
+                                    : 20,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -202,7 +280,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                       ),
                       ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 6,
+                        itemCount: decimalFormat.length,
                         itemBuilder: (context, index) {
                           return Container(
                             width: 150,
@@ -211,68 +289,83 @@ class _DecimalScreensState extends State<DecimalScreens> {
                               children: [
                                 Checkbox(
                                   side: BorderSide(color: MyColors.textColor),
-                                  value: MyColors.boolDecimalFormate[index],
+                                  value: decimalFormat[index]["check"],
                                   onChanged: (value) {
-                                    int i = 0;
-                                    setState(() {
-                                      for (var element
-                                          in MyColors.boolDecimalFormate){
-                                        if (index == i) {
-                                          if (index == 5) {
-                                            Utility.setDecimalValuePreference("DecimalValue",0);
-                                            MyColors.boolDecimalFormate[i] = true;
-                                            MyColors.decimalFormat = 0;
-                                            format2();
-                                          } else {
-                                            Utility.setDecimalValuePreference("DecimalValue",(index + 2));
-                                            MyColors.decimalFormat = index + 2;
-                                            MyColors.boolDecimalFormate[i] = true;
-                                            //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context)=>MyTabBarWidget()), (route) => false);
-                                            format2();
-                                            if( MyColors.decimalFormat==2)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }if( MyColors.decimalFormat==3)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }if( MyColors.decimalFormat==4)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }if( MyColors.decimalFormat==5)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }if( MyColors.decimalFormat==6)
-                                              {
-                                                MyColors.text=MyColors.text+radiDecimalFormat[index];
-                                              }
-                                            setState(() {
+                                    if (value!) {
+                                      decimal = decimalFormat[index]["id"];
 
-                                            });
-                                          }
-                                        } else {
-                                          MyColors.boolDecimalFormate[i] = false;
-                                        }
-
-                                        i++;
+                                      for (var element in decimalFormat) {
+                                        element["check"] = false;
                                       }
-                                    });
+
+                                      decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] = true;
+
+                                      Utility.setStringPreference(Constants.decimalFormat, decimal);
+
+                                      MyColors.decimalFormat = int.parse(decimal);
+
+                                      Map<String, dynamic> f = demoString.singleWhere(
+                                              (element) => element.containsKey("$monetary" "_" + "$decimal"));
+
+                                      demoText = f["$monetary" + "_" + "$decimal"];
+
+
+                                      setState(() {});
+                                    }
+
+                                    // int i = 0;
+                                    // setState(() {
+                                    //   for (var element in MyColors.boolDecimalFormate) {
+                                    //     if (index == i) {
+                                    //       if (index == 5) {
+                                    //         Utility.setDecimalValuePreference("DecimalValue", 0);
+                                    //         MyColors.boolDecimalFormate[i] = true;
+                                    //         MyColors.decimalFormat = 0;
+                                    //         format2();
+                                    //       } else {
+                                    //         Utility.setDecimalValuePreference("DecimalValue", (index + 2));
+                                    //         MyColors.decimalFormat = index + 2;
+                                    //         MyColors.boolDecimalFormate[i] = true;
+                                    //         //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context)=>MyTabBarWidget()), (route) => false);
+                                    //         format2();
+                                    //         if (MyColors.decimalFormat == 2) {
+                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
+                                    //         }
+                                    //         if (MyColors.decimalFormat == 3) {
+                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
+                                    //         }
+                                    //         if (MyColors.decimalFormat == 4) {
+                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
+                                    //         }
+                                    //         if (MyColors.decimalFormat == 5) {
+                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
+                                    //         }
+                                    //         if (MyColors.decimalFormat == 6) {
+                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
+                                    //         }
+                                    //         setState(() {});
+                                    //       }
+                                    //     } else {
+                                    //       MyColors.boolDecimalFormate[i] = false;
+                                    //     }
+                                    //
+                                    //     i++;
+                                    //   }
+                                    // });
                                   },
-                                  activeColor: MyColors.checkBoxValue2
-                                      ? Colors.black
-                                      : Colors.white,
+                                  activeColor: MyColors.checkBoxValue2 ? Colors.black : Colors.white,
                                   checkColor: MyColors.colorPrimary,
                                   tristate: false,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                 ),
-                                Text("${radiDecimalFormat[index]}",
+                                Text("${decimalFormat[index]["format"]}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: MyColors.fontsmall
                                             ? (MyColors.textSize - 20) * (-1)
                                             : MyColors.fontlarge
-                                            ? (MyColors.textSize + 20)
-                                            : 20,
+                                                ? (MyColors.textSize + 20)
+                                                : 20,
                                         color: MyColors.textColor)),
                               ],
                             ),
@@ -334,20 +427,15 @@ class _DecimalScreensState extends State<DecimalScreens> {
       log(MyColors.text);
     }
 
-
     setState(() {});
   }
 
   onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   String textShow(String text) {
-Utility.setFormatExmaplePreference("FormatExmaple", text);
+    Utility.setFormatExmaplePreference("FormatExmaple", text);
     return text;
   }
-
-
-
 }

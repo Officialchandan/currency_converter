@@ -431,7 +431,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Row(
                             children: [
                               Container(
-                                width: width * 0.31,
+                                width: width * 0.29,
                                 child: Slider(
                                     activeColor: MyColors.textColor,
                                     inactiveColor: MyColors.textColor,
@@ -448,7 +448,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               SizedBox(
                                 width: 30,
                                 child: Text(
-                                  x.toStringAsFixed(1),
+                                  (x*100).toStringAsFixed(0),
                                   style: TextStyle(
                                     color: MyColors.textColor,
                                     fontSize: MyColors.fontsmall
@@ -485,7 +485,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                               padding:
                                                   EdgeInsets.only(bottom: 5),
                                               color: MyColors.textColor
-                                                  .withOpacity(x as double),
+                                                  .withOpacity((x) as double),
                                               child: AnimatedOpacity(
                                                 duration:
                                                     Duration(milliseconds: 700),
@@ -545,13 +545,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                                                   fontSize: MyColors
                                                                           .fontsmall
                                                                       ? (MyColors.textSize -
-                                                                              18) *
+                                                                              17) *
                                                                           (-1)
                                                                       : MyColors
                                                                               .fontlarge
                                                                           ? (MyColors.textSize +
-                                                                              18)
-                                                                          : 18,
+                                                                              17)
+                                                                          : 17,
                                                                   color: MyColors
                                                                       .textColor,
                                                                   fontWeight:
@@ -584,13 +584,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                                                   fontSize: MyColors
                                                                           .fontsmall
                                                                       ? (MyColors.textSize -
-                                                                              18) *
+                                                                              17) *
                                                                           (-1)
                                                                       : MyColors
                                                                               .fontlarge
                                                                           ? (MyColors.textSize +
-                                                                              18)
-                                                                          : 18,
+                                                                              17)
+                                                                          : 17,
                                                                   color: MyColors
                                                                       .textColor,
                                                                   fontWeight:
@@ -904,7 +904,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 .tr()
                                                 .toString(),
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+
                                                 fontSize: 12,
                                                 color: MyColors.textColor),
                                           ),
@@ -1287,7 +1287,7 @@ class _SettingScreenState extends State<SettingScreen> {
             child: Stack(children: [
               Container(
 
-                height: height*0.63,
+                height: height*0.71,
                 margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
