@@ -94,7 +94,7 @@ class _SecondScreenState extends State<SecondScreen> {
           isContainerVisible = false;
           dataController.addError("error");
         } else {
-          Navigator.pop(context);
+          SystemNavigator.pop();
         }
         return false;
       },
@@ -387,59 +387,59 @@ class _SecondScreenState extends State<SecondScreen> {
                                           )
                                         : Text(""),
 
-                                    Expanded(
-                                      child: AutoSizeTextField(
-                                        cursorColor: MyColors.colorPrimary,
-                                        cursorWidth: 2.3,
-                                        controller: model.controller,
+                                        Expanded(
+                                          child: AutoSizeTextField(
+                                            cursorColor: MyColors.colorPrimary,
+                                            cursorWidth: 2.3,
+                                            controller: model.controller,
 
-                                        textAlign: TextAlign.center,
+                                            textAlign: TextAlign.center,
 
-                                        // keyboardType: TextInputType.none,
-                                        showCursor: true,
-                                        readOnly: true,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.only(
-                                                left: 1.0,
-                                                right: 1.0,
-                                                top: 1.0,
-                                                bottom: 1.0),
-                                            counterText: "",
-                                            border: InputBorder.none),
-                                        style: TextStyle(
-                                          color: MyColors.colorPrimary,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 18) *
-                                                  (-1)
-                                              : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 18)
-                                                  : 18,
-                                        ),
-                                        onChanged: (String text) {
-                                          text = model.controller.text;
-                                          model.controller.selection =
-                                              TextSelection.fromPosition(
-                                                  TextPosition(
-                                                      offset: model
-                                                          .controller
-                                                          .text
-                                                          .length));
-                                          calculateExchangeRate(
-                                              text, index, model);
-                                        },
-                                        onTap: () async {
-                                          isContainerVisible = true;
-                                          // model.controller.clear();
-                                          model.controller.selection =
-                                              TextSelection.fromPosition(
-                                                  TextPosition(
-                                                      offset: model
-                                                          .controller
-                                                          .text
-                                                          .length));
-                                          dataController.add(model);
-                                          // currentIndex = index;
+                                            // keyboardType: TextInputType.none,
+                                            showCursor: true,
+                                            readOnly: true,
+                                            decoration: const InputDecoration(
+                                                contentPadding: EdgeInsets.only(
+                                                    left: 1.0,
+                                                    right: 1.0,
+                                                    top: 1.0,
+                                                    bottom: 1.0),
+                                                counterText: "",
+                                                border: InputBorder.none),
+                                            style: TextStyle(
+                                              color: MyColors.colorPrimary,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 18) *
+                                                      (-1)
+                                                  : MyColors.fontlarge
+                                                      ? (MyColors.textSize + 18)
+                                                      : 18,
+                                            ),
+                                            onChanged: (String text) {
+                                              text = model.controller.text;
+                                              model.controller.selection =
+                                                  TextSelection.fromPosition(
+                                                      TextPosition(
+                                                          offset: model
+                                                              .controller
+                                                              .text
+                                                              .length));
+                                              calculateExchangeRate(
+                                                  text, index, model);
+                                            },
+                                            onTap: () async {
+                                              isCalculatorVisible = true;
+                                              // model.controller.clear();
+                                              model.controller.selection =
+                                                  TextSelection.fromPosition(
+                                                      TextPosition(
+                                                          offset: model
+                                                              .controller
+                                                              .text
+                                                              .length));
+                                              dataController.add(model);
+                                              // currentIndex = index;
 
                                           // setState(() {});
                                           //      showCalculator(
@@ -694,19 +694,23 @@ class _SecondScreenState extends State<SecondScreen> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              MyColors.colorPrimary.withOpacity(.4),
+              MyColors.colorPrimary.withOpacity(.5),
               MyColors.colorPrimary.withOpacity(.8),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             //stops: [0.0,0.0]
           )),
-          child: FlatButton(
+          child: MaterialButton(
+              onLongPress: () {
+                buttonPressed(buttonText);
+                equation = "";
+              },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
                   side: BorderSide(
                       color: MyColors.colorPrimary,
-                      width: 0.6,
+                      width: 0.4,
                       style: BorderStyle.solid)),
               padding: const EdgeInsets.all(0.0),
               onPressed: () => buttonPressed(buttonText),
@@ -742,9 +746,9 @@ class _SecondScreenState extends State<SecondScreen> {
                   child: Table(
                     children: [
                       TableRow(children: [
-                        buildButton("%", 1, MyColors.calcuColor, 30),
-                        buildButton("/", 1, MyColors.calcuColor, 25),
-                        buildButton("×", 1, MyColors.calcuColor, 35),
+                        buildButton("%", 1, MyColors.calcuColor, 20),
+                        buildButton("/", 1, MyColors.calcuColor, 20),
+                        buildButton("×", 1, MyColors.calcuColor, 27),
                       ]),
                       TableRow(children: [
                         buildButton("1", 1, MyColors.calcuColor, 25),
@@ -773,29 +777,19 @@ class _SecondScreenState extends State<SecondScreen> {
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: Table(children: [
                       TableRow(children: [
-                        InkWell(
-                            onLongPress: () {
-                              setState(() {
-                                equation == "";
-                              });
-                            },
-                            child:
-                                buildButton("⌫", 1, MyColors.calcuColor, 30)),
+                        buildButton("⌫", 1, MyColors.calcuColor, 20),
                       ]),
                       TableRow(children: [
-                        buildButton(
-                            "-", 1, MyColors.calcuColor, calculatorTextSize),
+                        buildButton("-", 1, MyColors.calcuColor, 35),
                       ]),
                       TableRow(children: [
-                        buildButton("+", 1, MyColors.calcuColor, 30),
+                        buildButton("+", 1, MyColors.calcuColor, 25),
                       ]),
-                      TableRow(
-                        children: [
-                          Center(
-                              child: buildButton(
-                                  "=", 2 * 1.02, MyColors.calcuColor, 40)),
-                        ],
-                      ),
+                      TableRow(children: [
+                        Center(
+                            child: buildButton(
+                                "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                      ]),
                     ]))
               ],
             ),
