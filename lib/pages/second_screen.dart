@@ -700,8 +700,18 @@ class _SecondScreenState extends State<SecondScreen> {
           )),
           child: MaterialButton(
               onLongPress: () {
-                buttonPressed(buttonText);
-                equation = "";
+
+                if(buttonText=="⌫")
+                  {
+                    controller.clear();
+                    controller.text="0";
+                    expression = "";
+                    equation = "0";
+
+
+                  }
+
+
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),

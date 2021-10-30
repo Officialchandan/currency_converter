@@ -683,7 +683,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 ? Container()
                                 : Padding(
                                     padding: const EdgeInsets.only(top: 16.0),
-                                    child: SizedBox(
+                                    child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: Row(
                                         mainAxisAlignment:
