@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 // ignore: implementation_imports
@@ -22,13 +23,15 @@ import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
 
 class TapHome extends StatefulWidget {
-  const TapHome({Key? key}) : super(key: key);
+  final Function(TabChangeListener tabChangeListener) onInitialize;
+
+  const TapHome({required this.onInitialize, Key? key}) : super(key: key);
 
   @override
   _TapHomeState createState() => _TapHomeState();
 }
 
-class _TapHomeState extends State<TapHome> {
+class _TapHomeState extends State<TapHome> implements TabChangeListener {
   String symbol2 = "€";
 
   String symbol = "\$";
@@ -39,7 +42,7 @@ class _TapHomeState extends State<TapHome> {
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
   String text = "00.0";
-  String equation = "00";
+  String equation = "0";
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;
@@ -70,6 +73,7 @@ class _TapHomeState extends State<TapHome> {
 
   @override
   void initState() {
+    widget.onInitialize(this);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
@@ -85,14 +89,25 @@ class _TapHomeState extends State<TapHome> {
   }
 
   @override
-  void didUpdateWidget(TapHome oldWidget) {
-    debugPrint("home_tab-> didUpdateWidget");
+  void onTabChange() {
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-    super.didUpdateWidget(oldWidget);
-    setState(() {});
+    if(mounted){
+  setState(() {});
+    }
+  
   }
+  // @override
+  // void didUpdateWidget(TapHome oldWidget) {
+  //   debugPrint("home_tab-> didUpdateWidget");
+  //   isCalculatorVisible = false;
+
+  //   // _isContainerVisible = false;
+  //   // _isContainerVisibleTwo = false;
+  //   super.didUpdateWidget(oldWidget);
+  //   setState(() {});
+  // }
 
   getCurrencyCode() async {
     final prefs = await SharedPreferences.getInstance();
@@ -126,7 +141,7 @@ class _TapHomeState extends State<TapHome> {
   @override
   void dispose() {
     calculateCurrency.clear();
-    calculateCurrency.text = "00";
+    calculateCurrency.text = "0";
     super.dispose();
   }
 
@@ -797,7 +812,7 @@ class _TapHomeState extends State<TapHome> {
 
       return cresult;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return cresult;
   }
@@ -809,6 +824,9 @@ class _TapHomeState extends State<TapHome> {
 
   Widget calculator() {
     buttonPressed(String buttonText) {
+      debugPrint("buttonText$buttonText");
+      debugPrint("controller ${calculateCurrency.text}");
+
       if ((equation.substring(equation.length - 1) == "+" &&
               buttonText == "+") ||
           (equation.substring(equation.length - 1) == "+" &&
@@ -998,10 +1016,10 @@ class _TapHomeState extends State<TapHome> {
           child: MaterialButton(
               onLongPress: () {
                 if (buttonText == "⌫") {
-                  calculateCurrency.text = "00";
+                  calculateCurrency.text = "0";
 
                   expression = "";
-                  equation = "";
+                  equation = "0";
                 }
 
                 setState(() {});

@@ -9,6 +9,7 @@ import 'package:currency_converter/pages/second_screen.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/pages/my_currency.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   int escapeIndex = 0;
   int previousIndex = 0;
   late TabController _tabController;
+  TabChangeListener? listener;
 
   String theme = "";
 
@@ -146,8 +148,12 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         child: TabBarView(
           controller: _tabController,
           children: [
-            TapHome(),
-            SecondScreen(),
+            TapHome(
+              onInitialize: (tabChangeListener) {
+                listener = tabChangeListener;
+              },
+            ),
+             MyCurrency(),
             const DecimalScreens(),
             const InkWell(),
             const TeramAndCondition(),
@@ -159,6 +165,12 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   tabChangeListener(int index) {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+    if (index == 0 && listener != null) {
+      listener!.onTabChange();
+    }
+
     debugPrint("index ->$index");
     if (index == 3) {
       ratingBottomSheet(context);
@@ -394,4 +406,8 @@ class CurrencyData {
   String toString() {
     return jsonEncode(toMap());
   }
+}
+
+abstract class TabChangeListener {
+  void onTabChange();
 }

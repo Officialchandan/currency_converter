@@ -26,25 +26,21 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
+  final DateTime now = DateTime.now();
   String equation = "0";
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;
   double resultFontSize = 48.0;
   bool isbool = true;
-  double conversionRate = 0;
-  String convertedDateTime = "";
-  DateTime now = DateTime.now();
-  ConverterData data = ConverterData();
-  TextEditingController edtFrom = TextEditingController();
-  TextEditingController edtTo = TextEditingController();
-  String currencyCodeFrom = "";
-  String currencyCodeTo = "";
+
+
+
   var calculatorTextSize;
   bool firstTime = true;
   bool isCalculatorVisible = false;
 
-  Map<String, double> cresult = {};
+
 
   List<DataModel> selectedList = [];
   final dbHelper = DatabaseHelper.instance;
@@ -93,7 +89,7 @@ class _SecondScreenState extends State<SecondScreen> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     calculatorTextSize = appheight * 0.050;
-    print(calculatorTextSize);
+
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
@@ -118,391 +114,388 @@ class _SecondScreenState extends State<SecondScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           )),
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
+          child:  SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    SizedBox(
+                      width: appwidth * 0.14,
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        SizedBox(
-                          width: appwidth * 0.14,
-                        ),
-                        Row(
-                          children: [
-                            Center(
-                              child: Text(
-                                "update".tr().toString(),
-                                style: TextStyle(
-                                  color: MyColors.textColor,
-                                  fontSize: MyColors.fontsmall
-                                      ? (MyColors.textSize - 18) * (-1)
-                                      : MyColors.fontlarge
-                                          ? (MyColors.textSize + 18)
-                                          : 18,
-                                ),
-                              ),
+                      children: [
+                        Center(
+                          child: Text(
+                            "update".tr().toString(),
+                            style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 18) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 18)
+                                  : 18,
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            MyColors.datemm
-                                ? Center(
-                                    child: Text(
-                                      "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                      style: TextStyle(
-                                        color: MyColors.textColor,
-                                        fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 18) * (-1)
-                                            : MyColors.fontlarge
-                                                ? (MyColors.textSize + 18)
-                                                : 18,
-                                      ),
-                                    ),
-                                  )
-                                : Center(
-                                    child: Text(
-                                      "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                      style: TextStyle(
-                                        color: MyColors.textColor,
-                                        fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 18) * (-1)
-                                            : MyColors.fontlarge
-                                                ? (MyColors.textSize + 18)
-                                                : 18,
-                                      ),
-                                    ),
-                                  ),
-                          ],
+                          ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            _onShareWithEmptyOrigin(context);
-                          },
-                          child: Icon(
-                            Icons.share,
-                            color: MyColors.textColor,
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        MyColors.datemm
+                            ? Center(
+                          child: Text(
+                            "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                            style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 18) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 18)
+                                  : 18,
+                            ),
                           ),
                         )
+                            : Center(
+                          child: Text(
+                            "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                            style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 18) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 18)
+                                  : 18,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    StreamBuilder<List<DataModel>>(
-                        stream: streamController.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData &&
-                              snapshot.data != null &&
-                              snapshot.data!.isNotEmpty) {
-                            debugPrint(
-                                "snapshot.data!.length-->${snapshot.data!.length}");
-                            return ReorderableListView.builder(
-                              scrollDirection: Axis.vertical,
-                              physics: const BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (context, index) {
-                                debugPrint("index>$index");
-                                DataModel model = snapshot.data![index];
-                                if (index == 0 && firstTime) {
-                                  model.controller.text = "1";
-                                  calculateExchangeRate("1", 0, model);
-                                  firstTime = false;
-                                }
-
-                                return Container(
-                                  height: 45.0,
-                                  padding:
-                                      const EdgeInsets.only(right: 10, left: 5),
-                                  key: ValueKey(model.code),
-                                  margin: const EdgeInsets.only(top: 1.1),
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    color: MyColors.textColor,
-                                    borderRadius: BorderRadius.circular(7.0),
-                                  ),
-                                  child: SizedBox(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        MyColors.displayflag &&
-                                                MyColors.displaycode
-                                            ? Container(
-                                                width: 40,
-                                                height: 40,
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    child: Image.asset(
-                                                      model.image!,
-                                                      fit: BoxFit.cover,
-                                                    )))
-                                            : Text(""),
-
-                                        MyColors.displaycode
-                                            ? Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                height: 35.0,
-                                                width: 60.0,
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      MyColors.colorPrimary
-                                                          .withOpacity(0.45),
-                                                      MyColors.colorPrimary,
-                                                    ],
-                                                    begin: Alignment.topCenter,
-                                                    end: Alignment.bottomCenter,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(7),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    model.code,
-                                                    style: TextStyle(
-                                                      color: MyColors.textColor,
-                                                      fontSize: MyColors
-                                                              .fontsmall
-                                                          ? (MyColors.textSize -
-                                                                  18) *
-                                                              (-1)
-                                                          : MyColors.fontlarge
-                                                              ? (MyColors
-                                                                      .textSize +
-                                                                  18)
-                                                              : 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            : //Currency Code
-                                            MyColors.displayflag
-                                                ? Container(
-                                                    width: 40,
-                                                    height: 40,
-                                                    child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                        child: Image.asset(
-                                                          model.image!,
-                                                          fit: BoxFit.cover,
-                                                        )))
-                                                : //flag
-                                                Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 8.0),
-                                                    height: 35.0,
-                                                    width: 60.0,
-                                                    decoration: BoxDecoration(
-                                                      gradient: LinearGradient(
-                                                        colors: [
-                                                          MyColors.colorPrimary
-                                                              .withOpacity(
-                                                                  0.45),
-                                                          MyColors.colorPrimary,
-                                                        ],
-                                                        begin:
-                                                            Alignment.topCenter,
-                                                        end: Alignment
-                                                            .bottomCenter,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              7),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        model.symbol!,
-                                                        style: TextStyle(
-                                                          color: MyColors
-                                                              .textColor,
-                                                          fontSize: MyColors
-                                                                  .fontsmall
-                                                              ? (MyColors.textSize -
-                                                                      18) *
-                                                                  (-1)
-                                                              : MyColors
-                                                                      .fontlarge
-                                                                  ? (MyColors
-                                                                          .textSize +
-                                                                      18)
-                                                                  : 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ), //symbol
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        MyColors.displayflag &&
-                                                MyColors.displaysymbol
-                                            ? Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                height: 35.0,
-                                                width: 60.0,
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      MyColors.colorPrimary
-                                                          .withOpacity(0.45),
-                                                      MyColors.colorPrimary,
-                                                    ],
-                                                    begin: Alignment.topCenter,
-                                                    end: Alignment.bottomCenter,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(7),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    model.symbol!,
-                                                    style: TextStyle(
-                                                      color: MyColors.textColor,
-                                                      fontSize: MyColors
-                                                              .fontsmall
-                                                          ? (MyColors.textSize -
-                                                                  18) *
-                                                              (-1)
-                                                          : MyColors.fontlarge
-                                                              ? (MyColors
-                                                                      .textSize +
-                                                                  18)
-                                                              : 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            : Text(""),
-
-                                        Expanded(
-                                          child: AutoSizeTextField(
-                                            cursorColor: MyColors.colorPrimary,
-                                            cursorWidth: 2.3,
-                                            controller: model.controller,
-
-                                            textAlign: TextAlign.center,
-
-                                            // keyboardType: TextInputType.none,
-                                            showCursor: true,
-                                            readOnly: true,
-                                            decoration: const InputDecoration(
-                                                contentPadding: EdgeInsets.only(
-                                                    left: 1.0,
-                                                    right: 1.0,
-                                                    top: 1.0,
-                                                    bottom: 1.0),
-                                                counterText: "",
-                                                border: InputBorder.none),
-                                            style: TextStyle(
-                                              color: MyColors.colorPrimary,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: MyColors.fontsmall
-                                                  ? (MyColors.textSize - 18) *
-                                                      (-1)
-                                                  : MyColors.fontlarge
-                                                      ? (MyColors.textSize + 18)
-                                                      : 18,
-                                            ),
-                                            onChanged: (String text) {
-                                              text = model.controller.text;
-                                              model.controller.selection =
-                                                  TextSelection.fromPosition(
-                                                      TextPosition(
-                                                          offset: model
-                                                              .controller
-                                                              .text
-                                                              .length));
-                                              calculateExchangeRate(
-                                                  text, index, model);
-                                            },
-                                            onTap: () async {
-                                              isCalculatorVisible = true;
-                                              // model.controller.clear();
-                                              model.controller.selection =
-                                                  TextSelection.fromPosition(
-                                                      TextPosition(
-                                                          offset: model
-                                                              .controller
-                                                              .text
-                                                              .length));
-                                              dataController.add(model);
-                                              // currentIndex = index;
-
-                                              // setState(() {});
-                                              //      showCalculator(
-                                              //     context, model.controller, (text) {
-                                              //   calculateExchangeRate(
-                                              //       text, index, model);
-                                              // });
-                                            },
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 50,
-                                          child: Row(
-                                            children: [
-                                              Image.asset(
-                                                "assets/images/up-down.png",
-                                                scale: 9,
-                                              ),
-                                              const SizedBox(
-                                                width: 7,
-                                              ),
-                                              InkWell(
-                                                onTap: () {
-                                                  model.selected = 0;
-                                                  dbHelper
-                                                      .update(model.toMap());
-                                                  selectedList.removeAt(index);
-                                                  streamController
-                                                      .add(selectedList);
-                                                },
-                                                child: Image.asset(
-                                                  "assets/images/cross.png",
-                                                  scale: 9,
-                                                  color: MyColors.colorPrimary,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                              onReorder: (oldIndex, newIndex) {
-                                if (newIndex > oldIndex) {
-                                  newIndex = newIndex - 1;
-                                }
-                                final element = selectedList.removeAt(oldIndex);
-                                selectedList.insert(newIndex, element);
-                                streamController.add(selectedList);
-                              },
-                            );
-                          }
-                          return Container();
-                        }),
+                    InkWell(
+                      onTap: () {
+                        _onShareWithEmptyOrigin(context);
+                      },
+                      child: Icon(
+                        Icons.share,
+                        color: MyColors.textColor,
+                      ),
+                    )
                   ],
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 12.0,
+                ),
+
+                StreamBuilder<List<DataModel>>(
+                    stream: streamController.stream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData &&
+                          snapshot.data != null &&
+                          snapshot.data!.isNotEmpty) {
+                        debugPrint(
+                            "snapshot.data!.length-->${snapshot.data!.length}");
+                        return ReorderableListView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            debugPrint("index>$index");
+                            DataModel model = snapshot.data![index];
+                            if (index == 0 && firstTime) {
+                              model.controller.text = "1";
+                              calculateExchangeRate("1", 0, model);
+                              firstTime = false;
+                            }
+
+                            return Container(
+                              height: 45.0,
+                              padding:
+                              const EdgeInsets.only(right: 10, left: 5),
+                              key: ValueKey(model.code),
+                              margin: const EdgeInsets.only(top: 1.1),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: MyColors.textColor,
+                                borderRadius: BorderRadius.circular(7.0),
+                              ),
+                              child: SizedBox(
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    MyColors.displayflag &&
+                                        MyColors.displaycode
+                                        ? Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(
+                                                30),
+                                            child: Image.asset(
+                                              model.image!,
+                                              fit: BoxFit.cover,
+                                            )))
+                                        : Text(""),
+
+                                    MyColors.displaycode
+                                        ? Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 8.0),
+                                      height: 35.0,
+                                      width: 60.0,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            MyColors.colorPrimary
+                                                .withOpacity(0.45),
+                                            MyColors.colorPrimary,
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(7),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          model.code,
+                                          style: TextStyle(
+                                            color: MyColors.textColor,
+                                            fontSize: MyColors
+                                                .fontsmall
+                                                ? (MyColors.textSize -
+                                                18) *
+                                                (-1)
+                                                : MyColors.fontlarge
+                                                ? (MyColors
+                                                .textSize +
+                                                18)
+                                                : 18,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                        : //Currency Code
+                                    MyColors.displayflag
+                                        ? Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius
+                                                .circular(30),
+                                            child: Image.asset(
+                                              model.image!,
+                                              fit: BoxFit.cover,
+                                            )))
+                                        : //flag
+                                    Container(
+                                      margin:
+                                      const EdgeInsets.only(
+                                          left: 8.0),
+                                      height: 35.0,
+                                      width: 60.0,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            MyColors.colorPrimary
+                                                .withOpacity(
+                                                0.45),
+                                            MyColors.colorPrimary,
+                                          ],
+                                          begin:
+                                          Alignment.topCenter,
+                                          end: Alignment
+                                              .bottomCenter,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(
+                                            7),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          model.symbol!,
+                                          style: TextStyle(
+                                            color: MyColors
+                                                .textColor,
+                                            fontSize: MyColors
+                                                .fontsmall
+                                                ? (MyColors.textSize -
+                                                18) *
+                                                (-1)
+                                                : MyColors
+                                                .fontlarge
+                                                ? (MyColors
+                                                .textSize +
+                                                18)
+                                                : 18,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ), //symbol
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    MyColors.displayflag &&
+                                        MyColors.displaysymbol
+                                        ? Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 8.0),
+                                      height: 35.0,
+                                      width: 60.0,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            MyColors.colorPrimary
+                                                .withOpacity(0.45),
+                                            MyColors.colorPrimary,
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(7),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          model.symbol!,
+                                          style: TextStyle(
+                                            color: MyColors.textColor,
+                                            fontSize: MyColors
+                                                .fontsmall
+                                                ? (MyColors.textSize -
+                                                18) *
+                                                (-1)
+                                                : MyColors.fontlarge
+                                                ? (MyColors
+                                                .textSize +
+                                                18)
+                                                : 18,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                        : Text(""),
+
+                                    Expanded(
+                                      child: AutoSizeTextField(
+                                        cursorColor: MyColors.colorPrimary,
+                                        cursorWidth: 2.3,
+                                        controller: model.controller,
+
+                                        textAlign: TextAlign.center,
+
+                                        // keyboardType: TextInputType.none,
+                                        showCursor: true,
+                                        readOnly: true,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.only(
+                                                left: 1.0,
+                                                right: 1.0,
+                                                top: 1.0,
+                                                bottom: 1.0),
+                                            counterText: "",
+                                            border: InputBorder.none),
+                                        style: TextStyle(
+                                          color: MyColors.colorPrimary,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: MyColors.fontsmall
+                                              ? (MyColors.textSize - 18) *
+                                              (-1)
+                                              : MyColors.fontlarge
+                                              ? (MyColors.textSize + 18)
+                                              : 18,
+                                        ),
+                                        onChanged: (String text) {
+                                          text = model.controller.text;
+                                          model.controller.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: model
+                                                          .controller
+                                                          .text
+                                                          .length));
+                                          calculateExchangeRate(
+                                              text, index, model);
+                                        },
+                                        onTap: () async {
+                                          isCalculatorVisible = true;
+                                          // model.controller.clear();
+                                          model.controller.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: model
+                                                          .controller
+                                                          .text
+                                                          .length));
+                                          dataController.add(model);
+                                          // currentIndex = index;
+
+                                          // setState(() {});
+                                          //      showCalculator(
+                                          //     context, model.controller, (text) {
+                                          //   calculateExchangeRate(
+                                          //       text, index, model);
+                                          // });
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 50,
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            "assets/images/up-down.png",
+                                            scale: 9,
+                                          ),
+                                          const SizedBox(
+                                            width: 7,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              model.selected = 0;
+                                              dbHelper
+                                                  .update(model.toMap());
+                                              selectedList.removeAt(index);
+                                              streamController
+                                                  .add(selectedList);
+                                            },
+                                            child: Image.asset(
+                                              "assets/images/cross.png",
+                                              scale: 9,
+                                              color: MyColors.colorPrimary,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          onReorder: (oldIndex, newIndex) {
+                            if (newIndex > oldIndex) {
+                              newIndex = newIndex - 1;
+                            }
+                            final element = selectedList.removeAt(oldIndex);
+                            selectedList.insert(newIndex, element);
+                            streamController.add(selectedList);
+                          },
+                        );
+                      }
+                      return Container();
+                    }),
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: StreamBuilder<DataModel>(
@@ -698,8 +691,8 @@ class _SecondScreenState extends State<SecondScreen> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              MyColors.colorPrimary.withOpacity(.5),
-              MyColors.colorPrimary.withOpacity(.8),
+              MyColors.colorPrimary1.withOpacity(.5),
+              MyColors.colorPrimary1.withOpacity(.8),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -800,4 +793,5 @@ class _SecondScreenState extends State<SecondScreen> {
           ],
         ));
   }
+
 }

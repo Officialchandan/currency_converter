@@ -16,8 +16,9 @@ class DataModel{
   TextEditingController controller = TextEditingController(text:"00.0");
   String exchangeValue ="0";
   String? symbol;
+  final Key? key;
 
-  DataModel({required this.value,required this.code,this.image,this.name,this.fav=0,this.timeStamp=0,this.selected=0,this.iconForSelection=false,this.symbol=""});
+  DataModel({required this.value,required this.code,this.image,this.name,this.fav=0,this.timeStamp=0,this.selected=0,this.iconForSelection=false,this.symbol="",this.key=const ValueKey("0")});
 
   factory DataModel.fromMap(Map<String, dynamic> json) => DataModel(
       name: json["countryName"]??"",
