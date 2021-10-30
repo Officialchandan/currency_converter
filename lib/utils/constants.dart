@@ -32,7 +32,7 @@ class Constants {
     {
       "code": "AFN",
       "image": "assets/pngCountryImages/AFN.png",
-      "country_name": "Ffghan Ffghani ",
+      "country_name": "Afghanistan ",
       "Symbol": "؋"
     },
     {
@@ -50,7 +50,7 @@ class Constants {
     {
       "code": "ANG",
       "image": "assets/pngCountryImages/ANG.png",
-      "country_name": "Netherlands Antille..",
+      "country_name": "Netherlands Antillean Guilder",
       "Symbol": "ƒ"
     },
     {
@@ -86,7 +86,7 @@ class Constants {
     {
       "code": "BAM",
       "image": "assets/pngCountryImages/BAM.png",
-      "country_name": "Bosnia-Herzegovina Conve..",
+      "country_name": "Bosnia-Herzegovina Convertible Marka",
       "Symbol": "KM"
     },
     {
@@ -477,7 +477,7 @@ class Constants {
     {
       "code": "KES",
       "image": "assets/pngCountryImages/KES.png",
-      "country_name": "Ke	South Korean ..",
+      "country_name": "Ke	South Korean ",
       "Symbol": "Ksh"
     },
     {

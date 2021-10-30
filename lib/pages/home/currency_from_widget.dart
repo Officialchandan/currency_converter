@@ -169,9 +169,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             width: 15,
                                           ),
                                           Container(
+                                            width:MediaQuery.of(context).size.width*.45,
+
 
                                             child: AutoSizeText(
                                               model1.name!,
+                                              minFontSize: 14,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(

@@ -88,11 +88,8 @@ flutter:
   assets:
    - assets/
    - assets/pngCountryImages/
-   - assets/languagecode/
-   - assets/updatedlanguage/
    - assets/language_final/
    - assets/images/
-   - assets/countyImage/
    - assets/images/@2x/
    - assets/images/@3x/
   
