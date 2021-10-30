@@ -1017,8 +1017,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       }
     }
 
-    Widget buildButton(String buttonText, double buttonHeight,
-        Color buttonColor, double buttonTexth) {
+    buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
       return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
@@ -1045,14 +1044,14 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
           child: MaterialButton(
               onLongPress: () {
-                if (buttonText == "⌫") {
-                  calculateCurrency.text = "0";
-
-                  expression = "";
+                if(buttonText=="⌫"){
                   equation = "0";
+                  expression="";
+                  calculateCurrency.clear();
+                  calculateCurrency.text="0";
                 }
-
-                setState(() {});
+                // buttonPressed(buttonText);
+                // equation = "0";
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
@@ -1060,6 +1059,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                       color: MyColors.colorPrimary,
                       width: 0.4,
                       style: BorderStyle.solid)),
+              padding: const EdgeInsets.all(0.0),
               onPressed: () => buttonPressed(buttonText),
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 0.0),
@@ -1144,6 +1144,182 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
           ],
         ));
   }
+
+  Widget calculator1(BuildContext context, TextEditingController controller,
+      Function(String changeValue) onChange) {
+    buttonPressed(String buttonText) {
+
+
+
+
+      setState(() {
+        if (buttonText == "C") {
+          isbool = true;
+          equation = "0";
+          isbool = false;
+          equationFontSize = 38.0;
+          resultFontSize = 48.0;
+        } else if (buttonText == "⌫") {
+          equationFontSize = 48.0;
+          resultFontSize = 38.0;
+          equation = equation.substring(0, equation.length - 1);
+          if (equation == "") {
+            equation = "0";
+          }
+        } else if (buttonText == "=") {
+          equationFontSize = 38.0;
+          resultFontSize = 48.0;
+          isbool = false;
+
+          expression = equation;
+          expression = expression.replaceAll('×', '*');
+          expression = expression.replaceAll('÷', '/');
+
+          try {
+            Parser p = Parser();
+            Expression exp = p.parse(expression);
+
+            ContextModel cm = ContextModel();
+            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+          } catch (e) {
+            result = "";
+          }
+        } else {
+          equationFontSize = 48.0;
+          resultFontSize = 38.0;
+          if (equation == "0") {
+            equation = buttonText;
+          } else {
+            equation = equation + buttonText;
+          }
+        }
+        isbool ? controller.text = equation : controller.text = result;
+
+        controller.selection = TextSelection.fromPosition(
+            TextPosition(offset: controller.text.length));
+
+        isbool ? onChange(equation) : onChange(result);
+
+        isbool = true;
+      });
+    }
+
+    buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
+      return SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Container(
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.left,
+          ),
+          height:
+          MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight +
+              2.6,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  MyColors.colorPrimary.withOpacity(.5),
+                  MyColors.colorPrimary.withOpacity(.8),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                //stops: [0.0,0.0]
+              )),
+          child: MaterialButton(
+              onLongPress: () {
+                buttonPressed(buttonText);
+                equation = "";
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  side: BorderSide(
+                      color: MyColors.colorPrimary,
+                      width: 0.4,
+                      style: BorderStyle.solid)),
+              padding: const EdgeInsets.all(0.0),
+              onPressed: () => buttonPressed(buttonText),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    buttonText,
+                    style: TextStyle(
+                        fontSize: buttonTexth,
+                        fontWeight: FontWeight.normal,
+                        color: MyColors.textColor),
+                  ),
+                ),
+              )),
+        ),
+      );
+    }
+
+    return SizedBox(
+        width: MediaQuery.of(context).size.width * .75,
+        height: MediaQuery.of(context).size.height * 0.35,
+        child: Column(
+          children: <Widget>[
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .75,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: Table(
+                    children: [
+                      TableRow(children: [
+                        buildButton("%", 1, MyColors.calcuColor, 20),
+                        buildButton("/", 1, MyColors.calcuColor, 20),
+                        buildButton("×", 1, MyColors.calcuColor, 27),
+                      ]),
+                      TableRow(children: [
+                        buildButton("1", 1, MyColors.calcuColor, 25),
+                        buildButton("2", 1, MyColors.calcuColor, 25),
+                        buildButton("3", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton("4", 1, MyColors.calcuColor, 25),
+                        buildButton("5", 1, MyColors.calcuColor, 25),
+                        buildButton("6", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton("7", 1, MyColors.calcuColor, 25),
+                        buildButton("8", 1, MyColors.calcuColor, 25),
+                        buildButton("9", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton(".", 1, MyColors.calcuColor, 25),
+                        buildButton("0", 1, MyColors.calcuColor, 25),
+                        buildButton("c", 1, MyColors.calcuColor, 25),
+                      ]),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: Table(children: [
+                      TableRow(children: [
+                        buildButton("⌫", 1, MyColors.calcuColor, 20),
+                      ]),
+                      TableRow(children: [
+                        buildButton("-", 1, MyColors.calcuColor, 35),
+                      ]),
+                      TableRow(children: [
+                        buildButton("+", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        Center(
+                            child: buildButton(
+                                "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                      ]),
+                    ]))
+              ],
+            ),
+          ],
+        ));
+  }
+
 
   // format1(double conversionRate) {
   //   int i = MyColors.monetaryformat;
@@ -1252,155 +1428,5 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     return text1;
   }
 
-  buttonPressed(String buttonText) {
-    if ((equation.substring(equation.length - 1) == "+" && buttonText == "+") ||
-        (equation.substring(equation.length - 1) == "+" && buttonText == "-") ||
-        (equation.substring(equation.length - 1) == "+" && buttonText == "×") ||
-        (equation.substring(equation.length - 1) == "+" && buttonText == "/") ||
-        (equation.substring(equation.length - 1) == "+" && buttonText == "=") ||
-        (equation.substring(equation.length - 1) == "+" && buttonText == "%") ||
-        (equation.substring(equation.length - 1) == "-" && buttonText == "-") ||
-        (equation.substring(equation.length - 1) == "-" && buttonText == "+") ||
-        (equation.substring(equation.length - 1) == "-" && buttonText == "×") ||
-        (equation.substring(equation.length - 1) == "-" && buttonText == "/") ||
-        (equation.substring(equation.length - 1) == "-" && buttonText == "=") ||
-        (equation.substring(equation.length - 1) == "-" && buttonText == "%") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "×") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "+") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "-") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "/") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "=") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "%") ||
-        (equation.substring(equation.length - 1) == "%" && buttonText == "%") ||
-        (equation.substring(equation.length - 1) == "%" && buttonText == "+") ||
-        (equation.substring(equation.length - 1) == "%" && buttonText == "-") ||
-        (equation.substring(equation.length - 1) == "%" && buttonText == "/") ||
-        (equation.substring(equation.length - 1) == "%" && buttonText == "=") ||
-        (equation.substring(equation.length - 1) == "%" && buttonText == "%") ||
-        (equation.substring(equation.length - 1) == "/" && buttonText == "×") ||
-        (equation.substring(equation.length - 1) == "/" && buttonText == "+") ||
-        (equation.substring(equation.length - 1) == "/" && buttonText == "-") ||
-        (equation.substring(equation.length - 1) == "/" && buttonText == "/") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "×") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "+") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "-") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "/") ||
-        (equation.substring(equation.length - 1) == "×" && buttonText == "=") ||
-        (buttonText == "×" && equation == "0") ||
-        (buttonText == "%" && equation == "0") ||
-        (buttonText == "/" && equation == "0") ||
-        (buttonText == "*" && equation == "0") ||
-        (buttonText == "+" && equation == "0") ||
-        (buttonText == "-" && equation == "0")) {
-    } else {
-      setState(() {
-        if (buttonText == "c") {
-          isbool = true;
-          calculateCurrency.text = "";
-          calculateCurrency.selection = TextSelection.fromPosition(
-              TextPosition(offset: calculateCurrency.text.length));
-          equation = "0";
-          isbool = false;
-          equationFontSize = 38.0;
-          resultFontSize = 48.0;
-        } else if (buttonText == "⌫") {
-          equationFontSize = 48.0;
-          resultFontSize = 38.0;
-          equation = equation.substring(0, equation.length - 1);
-          if (equation == "") {
-            equation = "0";
-          }
-        } else if (buttonText == "=") {
-          equationFontSize = 38.0;
-          resultFontSize = 48.0;
 
-          isbool = false;
-
-          expression = equation;
-          String str1 = expression;
-          List<String> charList = [];
-          String ma = "";
-          for (int i = 0; i < str1.length; i++) {
-            if (str1[i] == "+" ||
-                str1[i] == "-" ||
-                str1[i] == "×" ||
-                str1[i] == "÷" ||
-                str1[i] == "/" ||
-                str1[i] == "*" ||
-                str1[i] == "%") {
-              if (ma.isNotEmpty) {
-                charList.add(ma);
-              }
-              charList.add(str1[i]);
-              ma = "";
-            } else {
-              ma = ma + str1[i];
-              if (i == str1.length - 1) {
-                if (ma.isNotEmpty) {
-                  charList.add(ma);
-                }
-              }
-            }
-          }
-
-          int l = charList.where((element) => element == "%").toList().length;
-
-          for (int i = 0; i < l; i++) {
-            print("charList-->$charList");
-            int i = charList.indexWhere((element) => element == "%");
-            int a = i - 1;
-            int b = i + 1;
-            double aa = double.parse(charList[a]);
-            double bb = double.parse(charList[b]);
-            double cc = (aa * bb) / 100;
-            print("cc-->$cc");
-            charList[a] = cc.toString();
-            print("charList1-->$charList");
-            charList.removeAt(b);
-            print("charList1-->$charList");
-            charList.removeAt(i);
-            print("charList1-->$charList");
-          }
-
-          String exp = "";
-          charList.forEach((element) {
-            exp += element;
-          });
-
-          print("exp-->$exp");
-          expression = exp;
-          expression = expression.replaceAll('×', '*');
-          expression = expression.replaceAll('÷', '/');
-
-
-            try {
-              Parser p = Parser();
-              Expression exp = p.parse(expression);
-
-              ContextModel cm = ContextModel();
-              result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-            } catch (e) {
-              result = "";
-
-          }
-        } else {
-          equationFontSize = 48.0;
-          resultFontSize = 38.0;
-          if (equation == "0") {
-            equation = buttonText;
-          } else {
-            equation = equation + buttonText;
-          }
-        }
-        isbool
-            ? calculateCurrency.text = equation
-            : calculateCurrency.text = result;
-
-        getConverterAPI(
-            currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
-
-        isbool = true;
-      });
-    }
-  }
 }
