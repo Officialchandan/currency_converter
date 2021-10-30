@@ -36,17 +36,22 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               child: ColorPicker(
                   pickerColor: currentColor,
                 onColorChanged: changeColor,
+
                 colorPickerWidth: 300.0,
                 pickerAreaHeightPercent: 0.7,
                 enableAlpha: true,
                 displayThumbColor: true,
                 showLabel: true,
                 paletteType: PaletteType.hsl,
+                portraitOnly: true,
+
                 pickerAreaBorderRadius: const BorderRadius.only(
                   topLeft: const Radius.circular(2.0),
                   topRight: const Radius.circular(2.0),
                 ),
               )),
+
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

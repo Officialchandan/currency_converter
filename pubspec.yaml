@@ -57,6 +57,7 @@ dependencies:
   flutter_widget_from_html_core:
   basic_utils:
   flutter_reorderable_list:
+  syncfusion_flutter_sliders:
 
 
 

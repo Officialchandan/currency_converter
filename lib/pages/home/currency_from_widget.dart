@@ -57,9 +57,10 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(13.0),
         ),
+
         duration: const Duration(seconds: 0),
         height: widget.isContainerVisible
-            ? MediaQuery.of(context).size.height * 0.57
+            ? MediaQuery.of(context).size.height -280
             : 0.0,
         width:
             widget.isContainerVisible ? MediaQuery.of(context).size.width : 0.0,
@@ -99,7 +100,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.48,
+              height: MediaQuery.of(context).size.height -350,
               child: StreamBuilder<List<DataModel>>(
                   stream: streamController.stream,
                   initialData: countrycode,
