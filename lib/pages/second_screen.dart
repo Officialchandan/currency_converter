@@ -6,6 +6,7 @@ import 'package:currency_converter/Models/converter_data.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/pages/home/home_tab.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,26 +26,21 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  bool isCalculatorVisible=false;
+  final DateTime now = DateTime.now();
   String equation = "0";
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;
   double resultFontSize = 48.0;
   bool isbool = true;
-  double conversionRate = 0;
-  String convertedDateTime = "";
-  DateTime now = DateTime.now();
-  ConverterData data = ConverterData();
-  TextEditingController edtFrom = TextEditingController();
-  TextEditingController edtTo = TextEditingController();
-  String currencyCodeFrom = "";
-  String currencyCodeTo = "";
+
+
+
   var calculatorTextSize;
   bool firstTime = true;
-  bool isContainerVisible = false;
+  bool isCalculatorVisible = false;
 
-  Map<String, double> cresult = {};
+
 
   List<DataModel> selectedList = [];
   final dbHelper = DatabaseHelper.instance;
@@ -55,6 +51,7 @@ class _SecondScreenState extends State<SecondScreen> {
   @override
   void initState() {
     super.initState();
+
     getSelectedList();
   }
 
@@ -80,8 +77,11 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   void didUpdateWidget(SecondScreen oldWidget) {
-    debugPrint("didUpdateWidget$oldWidget");
+    debugPrint("home_tab-> didUpdateWidget");
+    isCalculatorVisible = false;
+
     super.didUpdateWidget(oldWidget);
+    setState(() {});
   }
 
   @override
@@ -89,11 +89,11 @@ class _SecondScreenState extends State<SecondScreen> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     calculatorTextSize = appheight * 0.050;
-    print(calculatorTextSize);
+
     return WillPopScope(
       onWillPop: () async {
-        if (isContainerVisible) {
-          isContainerVisible = false;
+        if (isCalculatorVisible) {
+          isCalculatorVisible = false;
           dataController.addError("error");
         } else {
           SystemNavigator.pop();
@@ -109,13 +109,12 @@ class _SecondScreenState extends State<SecondScreen> {
               gradient: LinearGradient(
             colors: [
               MyColors.colorPrimary.withOpacity(0.45),
-              MyColors.colorPrimary,
+              MyColors.colorPrimary.withOpacity(1.0),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           )),
-          child: SingleChildScrollView(
-
+          child:  SingleChildScrollView(
             child: Column(
               children: [
                 Row(
@@ -135,8 +134,8 @@ class _SecondScreenState extends State<SecondScreen> {
                               fontSize: MyColors.fontsmall
                                   ? (MyColors.textSize - 18) * (-1)
                                   : MyColors.fontlarge
-                                      ? (MyColors.textSize + 18)
-                                      : 18,
+                                  ? (MyColors.textSize + 18)
+                                  : 18,
                             ),
                           ),
                         ),
@@ -145,31 +144,31 @@ class _SecondScreenState extends State<SecondScreen> {
                         ),
                         MyColors.datemm
                             ? Center(
-                                child: Text(
-                                  "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                  style: TextStyle(
-                                    color: MyColors.textColor,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 18) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 18)
-                                            : 18,
-                                  ),
-                                ),
-                              )
+                          child: Text(
+                            "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                            style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 18) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 18)
+                                  : 18,
+                            ),
+                          ),
+                        )
                             : Center(
-                                child: Text(
-                                  "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
-                                  style: TextStyle(
-                                    color: MyColors.textColor,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 18) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 18)
-                                            : 18,
-                                  ),
-                                ),
-                              ),
+                          child: Text(
+                            "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                            style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: MyColors.fontsmall
+                                  ? (MyColors.textSize - 18) * (-1)
+                                  : MyColors.fontlarge
+                                  ? (MyColors.textSize + 18)
+                                  : 18,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     InkWell(
@@ -186,9 +185,9 @@ class _SecondScreenState extends State<SecondScreen> {
                 const SizedBox(
                   height: 12.0,
                 ),
+
                 StreamBuilder<List<DataModel>>(
                     stream: streamController.stream,
-
                     builder: (context, snapshot) {
                       if (snapshot.hasData &&
                           snapshot.data != null &&
@@ -196,11 +195,8 @@ class _SecondScreenState extends State<SecondScreen> {
                         debugPrint(
                             "snapshot.data!.length-->${snapshot.data!.length}");
                         return ReorderableListView.builder(
-
-
                           scrollDirection: Axis.vertical,
-                          physics:ScrollPhysics() ,
-
+                          physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
@@ -215,7 +211,7 @@ class _SecondScreenState extends State<SecondScreen> {
                             return Container(
                               height: 45.0,
                               padding:
-                                  const EdgeInsets.only(right: 10, left: 5),
+                              const EdgeInsets.only(right: 10, left: 5),
                               key: ValueKey(model.code),
                               margin: const EdgeInsets.only(top: 1.1),
                               width: MediaQuery.of(context).size.width,
@@ -226,222 +222,222 @@ class _SecondScreenState extends State<SecondScreen> {
                               child: SizedBox(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     MyColors.displayflag &&
-                                            MyColors.displaycode
+                                        MyColors.displaycode
                                         ? Container(
-                                            width: 40,
-                                            height: 40,
-                                            child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        30),
-                                                child: Image.asset(
-                                                  model.image!,
-                                                  fit: BoxFit.cover,
-                                                )))
+                                        width: 40,
+                                        height: 40,
+                                        child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(
+                                                30),
+                                            child: Image.asset(
+                                              model.image!,
+                                              fit: BoxFit.cover,
+                                            )))
                                         : Text(""),
 
                                     MyColors.displaycode
                                         ? Container(
-                                            margin: const EdgeInsets.only(
-                                                left: 8.0),
-                                            height: 35.0,
-                                            width: 60.0,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  MyColors.colorPrimary
-                                                      .withOpacity(0.45),
-                                                  MyColors.colorPrimary,
-                                                ],
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(7),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                model.code,
-                                                style: TextStyle(
-                                                  color: MyColors.textColor,
-                                                  fontSize: MyColors
-                                                          .fontsmall
-                                                      ? (MyColors.textSize -
-                                                              18) *
-                                                          (-1)
-                                                      : MyColors.fontlarge
-                                                          ? (MyColors
-                                                                  .textSize +
-                                                              18)
-                                                          : 18,
-                                                  fontWeight:
-                                                      FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          )
+                                      margin: const EdgeInsets.only(
+                                          left: 8.0),
+                                      height: 35.0,
+                                      width: 60.0,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            MyColors.colorPrimary
+                                                .withOpacity(0.45),
+                                            MyColors.colorPrimary,
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(7),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          model.code,
+                                          style: TextStyle(
+                                            color: MyColors.textColor,
+                                            fontSize: MyColors
+                                                .fontsmall
+                                                ? (MyColors.textSize -
+                                                18) *
+                                                (-1)
+                                                : MyColors.fontlarge
+                                                ? (MyColors
+                                                .textSize +
+                                                18)
+                                                : 18,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    )
                                         : //Currency Code
-                                        MyColors.displayflag
-                                            ? Container(
-                                                width: 40,
-                                                height: 40,
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius
-                                                            .circular(30),
-                                                    child: Image.asset(
-                                                      model.image!,
-                                                      fit: BoxFit.cover,
-                                                    )))
-                                            : //flag
-                                            Container(
-                                                margin:
-                                                    const EdgeInsets.only(
-                                                        left: 8.0),
-                                                height: 35.0,
-                                                width: 60.0,
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      MyColors.colorPrimary
-                                                          .withOpacity(
-                                                              0.45),
-                                                      MyColors.colorPrimary,
-                                                    ],
-                                                    begin:
-                                                        Alignment.topCenter,
-                                                    end: Alignment
-                                                        .bottomCenter,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          7),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    model.symbol!,
-                                                    style: TextStyle(
-                                                      color: MyColors
-                                                          .textColor,
-                                                      fontSize: MyColors
-                                                              .fontsmall
-                                                          ? (MyColors.textSize -
-                                                                  18) *
-                                                              (-1)
-                                                          : MyColors
-                                                                  .fontlarge
-                                                              ? (MyColors
-                                                                      .textSize +
-                                                                  18)
-                                                              : 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ), //symbol
+                                    MyColors.displayflag
+                                        ? Container(
+                                        width: 40,
+                                        height: 40,
+                                        child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius
+                                                .circular(30),
+                                            child: Image.asset(
+                                              model.image!,
+                                              fit: BoxFit.cover,
+                                            )))
+                                        : //flag
+                                    Container(
+                                      margin:
+                                      const EdgeInsets.only(
+                                          left: 8.0),
+                                      height: 35.0,
+                                      width: 60.0,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            MyColors.colorPrimary
+                                                .withOpacity(
+                                                0.45),
+                                            MyColors.colorPrimary,
+                                          ],
+                                          begin:
+                                          Alignment.topCenter,
+                                          end: Alignment
+                                              .bottomCenter,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(
+                                            7),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          model.symbol!,
+                                          style: TextStyle(
+                                            color: MyColors
+                                                .textColor,
+                                            fontSize: MyColors
+                                                .fontsmall
+                                                ? (MyColors.textSize -
+                                                18) *
+                                                (-1)
+                                                : MyColors
+                                                .fontlarge
+                                                ? (MyColors
+                                                .textSize +
+                                                18)
+                                                : 18,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ), //symbol
                                     const SizedBox(
                                       width: 5,
                                     ),
                                     MyColors.displayflag &&
-                                            MyColors.displaysymbol
+                                        MyColors.displaysymbol
                                         ? Container(
-                                            margin: const EdgeInsets.only(
-                                                left: 8.0),
-                                            height: 35.0,
-                                            width: 60.0,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  MyColors.colorPrimary
-                                                      .withOpacity(0.45),
-                                                  MyColors.colorPrimary,
-                                                ],
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(7),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                model.symbol!,
-                                                style: TextStyle(
-                                                  color: MyColors.textColor,
-                                                  fontSize: MyColors
-                                                          .fontsmall
-                                                      ? (MyColors.textSize -
-                                                              18) *
-                                                          (-1)
-                                                      : MyColors.fontlarge
-                                                          ? (MyColors
-                                                                  .textSize +
-                                                              18)
-                                                          : 18,
-                                                  fontWeight:
-                                                      FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          )
+                                      margin: const EdgeInsets.only(
+                                          left: 8.0),
+                                      height: 35.0,
+                                      width: 60.0,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            MyColors.colorPrimary
+                                                .withOpacity(0.45),
+                                            MyColors.colorPrimary,
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(7),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          model.symbol!,
+                                          style: TextStyle(
+                                            color: MyColors.textColor,
+                                            fontSize: MyColors
+                                                .fontsmall
+                                                ? (MyColors.textSize -
+                                                18) *
+                                                (-1)
+                                                : MyColors.fontlarge
+                                                ? (MyColors
+                                                .textSize +
+                                                18)
+                                                : 18,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    )
                                         : Text(""),
 
-                                        Expanded(
-                                          child: AutoSizeTextField(
-                                            cursorColor: MyColors.colorPrimary,
-                                            cursorWidth: 2.3,
-                                            controller: model.controller,
+                                    Expanded(
+                                      child: AutoSizeTextField(
+                                        cursorColor: MyColors.colorPrimary,
+                                        cursorWidth: 2.3,
+                                        controller: model.controller,
 
-                                            textAlign: TextAlign.center,
+                                        textAlign: TextAlign.center,
 
-                                            // keyboardType: TextInputType.none,
-                                            showCursor: true,
-                                            readOnly: true,
-                                            decoration: const InputDecoration(
-                                                contentPadding: EdgeInsets.only(
-                                                    left: 1.0,
-                                                    right: 1.0,
-                                                    top: 1.0,
-                                                    bottom: 1.0),
-                                                counterText: "",
-                                                border: InputBorder.none),
-                                            style: TextStyle(
-                                              color: MyColors.colorPrimary,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: MyColors.fontsmall
-                                                  ? (MyColors.textSize - 18) *
-                                                      (-1)
-                                                  : MyColors.fontlarge
-                                                      ? (MyColors.textSize + 18)
-                                                      : 18,
-                                            ),
-                                            onChanged: (String text) {
-                                              text = model.controller.text;
-                                              model.controller.selection =
-                                                  TextSelection.fromPosition(
-                                                      TextPosition(
-                                                          offset: model
-                                                              .controller
-                                                              .text
-                                                              .length));
-                                              calculateExchangeRate(
-                                                  text, index, model);
-                                            },
-                                            onTap: () async {
-                                              isCalculatorVisible = true;
-                                              // model.controller.clear();
-                                              model.controller.selection =
-                                                  TextSelection.fromPosition(
-                                                      TextPosition(
-                                                          offset: model
-                                                              .controller
-                                                              .text
-                                                              .length));
-                                              dataController.add(model);
-                                              // currentIndex = index;
+                                        // keyboardType: TextInputType.none,
+                                        showCursor: true,
+                                        readOnly: true,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.only(
+                                                left: 1.0,
+                                                right: 1.0,
+                                                top: 1.0,
+                                                bottom: 1.0),
+                                            counterText: "",
+                                            border: InputBorder.none),
+                                        style: TextStyle(
+                                          color: MyColors.colorPrimary,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: MyColors.fontsmall
+                                              ? (MyColors.textSize - 18) *
+                                              (-1)
+                                              : MyColors.fontlarge
+                                              ? (MyColors.textSize + 18)
+                                              : 18,
+                                        ),
+                                        onChanged: (String text) {
+                                          text = model.controller.text;
+                                          model.controller.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: model
+                                                          .controller
+                                                          .text
+                                                          .length));
+                                          calculateExchangeRate(
+                                              text, index, model);
+                                        },
+                                        onTap: () async {
+                                          isCalculatorVisible = true;
+                                          // model.controller.clear();
+                                          model.controller.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: model
+                                                          .controller
+                                                          .text
+                                                          .length));
+                                          dataController.add(model);
+                                          // currentIndex = index;
 
                                           // setState(() {});
                                           //      showCalculator(
@@ -539,7 +535,6 @@ class _SecondScreenState extends State<SecondScreen> {
     );
   }
 
-
   _onShareWithEmptyOrigin(BuildContext context) async {
     await Share.share(
         "https://play.google.com/store/apps/details?id=com.tencent.ig");
@@ -630,189 +625,60 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget calculator(BuildContext context, TextEditingController controller,
       Function(String changeValue) onChange) {
     buttonPressed(String buttonText) {
-      if((equation.substring(equation.length - 1) == "+" &&
-          buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "+" &&
-              buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "+" &&
-              buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "+" &&
-              buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "+" &&
-              buttonText == "=") ||
-          (equation.substring(equation.length - 1) == "+" &&
-              buttonText == "%") ||
-          (equation.substring(equation.length - 1) == "-" &&
-              buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "-" &&
-              buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "-" &&
-              buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "-" &&
-              buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "-" &&
-              buttonText == "=") ||
-          (equation.substring(equation.length - 1) == "-" &&
-              buttonText == "%") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "=") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "%") ||
-          (equation.substring(equation.length - 1) == "%" &&
-              buttonText == "%") ||
-          (equation.substring(equation.length - 1) == "%" &&
-              buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "%" &&
-              buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "%" &&
-              buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "%" &&
-              buttonText == "=") ||
-          (equation.substring(equation.length - 1) == "%" &&
-              buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "/" &&
-              buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "/" &&
-              buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "/" &&
-              buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "/" &&
-              buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "×" &&
-              buttonText == "=") ||
-          (buttonText == "×" && equation == "0") ||
-          (buttonText == "%" && equation == "0") ||
-          (buttonText == "/" && equation == "0") ||
-          (buttonText == "*" && equation == "0") ||
-          (buttonText == "+" && equation == "0") ||
-          (buttonText == "-" && equation == "0")){}
-      else{
-        setState(() {
-
-          if (buttonText == "C") {
-            isbool = true;
-            equation = "0";
-            isbool = false;
-            equationFontSize = 38.0;
-            resultFontSize = 48.0;
-          } else if (buttonText == "⌫") {
-            equationFontSize = 48.0;
-            resultFontSize = 38.0;
-            equation = equation.substring(0, equation.length - 1);
-            if (equation == "") {
-              equation = "0";
-            }
-          } else if (buttonText == "=") {
-            equationFontSize = 38.0;
-            resultFontSize = 48.0;
-            isbool = false;
-
-            expression = equation;
-
-            String str1 = expression;
-            List<String> charList = [];
-            String ma = "";
-            for (int i = 0; i < str1.length; i++) {
-              if (str1[i] == "+" ||
-                  str1[i] == "-" ||
-                  str1[i] == "×" ||
-                  str1[i] == "÷" ||
-                  str1[i] == "/" ||
-                  str1[i] == "*" ||
-                  str1[i] == "%") {
-                if (ma.isNotEmpty) {
-                  charList.add(ma);
-                }
-                charList.add(str1[i]);
-                ma = "";
-              } else {
-                ma = ma + str1[i];
-                if (i == str1.length - 1) {
-                  if (ma.isNotEmpty) {
-                    charList.add(ma);
-                  }
-                }
-              }
-            }
-
-            int l = charList.where((element) => element == "%").toList().length;
-
-            for (int i = 0; i < l; i++) {
-              print("charList-->$charList");
-              int i = charList.indexWhere((element) => element == "%");
-              int a = i - 1;
-              int b = i + 1;
-              double aa = double.parse(charList[a]);
-              double bb = double.parse(charList[b]);
-              double cc = (aa * bb) / 100;
-              print("cc-->$cc");
-              charList[a] = cc.toString();
-              print("charList1-->$charList");
-              charList.removeAt(b);
-              print("charList1-->$charList");
-              charList.removeAt(i);
-              print("charList1-->$charList");
-            }
-
-            String exp = "";
-            charList.forEach((element) {
-              exp += element;
-            });
-
-            print("exp-->$exp");
-            expression = exp;
-
-            expression = expression.replaceAll('×', '*');
-            expression = expression.replaceAll('÷', '/');
-
-            try {
-              Parser p = Parser();
-              Expression exp = p.parse(expression);
-
-              ContextModel cm = ContextModel();
-              result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-            } catch (e) {
-              result = "";
-            }
-          } else {
-            equationFontSize = 48.0;
-            resultFontSize = 38.0;
-            if (equation == "0") {
-              equation = buttonText;
-            } else {
-              equation = equation + buttonText;
-            }
-          }
-          isbool ? controller.text = equation : controller.text = result;
-
-          controller.selection = TextSelection.fromPosition(
-              TextPosition(offset: controller.text.length));
-
-          isbool ? onChange(equation) : onChange(result);
-
+      setState(() {
+        if (buttonText == "C") {
           isbool = true;
-        });
-      }
+          equation = "0";
+          isbool = false;
+          equationFontSize = 38.0;
+          resultFontSize = 48.0;
+        } else if (buttonText == "⌫") {
+          equationFontSize = 48.0;
+          resultFontSize = 38.0;
+          equation = equation.substring(0, equation.length - 1);
+          if (equation == "") {
+            equation = "0";
+          }
+        } else if (buttonText == "=") {
+          equationFontSize = 38.0;
+          resultFontSize = 48.0;
+          isbool = false;
+
+          expression = equation;
+          expression = expression.replaceAll('×', '*');
+          expression = expression.replaceAll('÷', '/');
+
+          try {
+            Parser p = Parser();
+            Expression exp = p.parse(expression);
+
+            ContextModel cm = ContextModel();
+            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+          } catch (e) {
+            result = "";
+          }
+        } else {
+          equationFontSize = 48.0;
+          resultFontSize = 38.0;
+          if (equation == "0") {
+            equation = buttonText;
+          } else {
+            equation = equation + buttonText;
+          }
+        }
+        isbool ? controller.text = equation : controller.text = result;
+
+        controller.selection = TextSelection.fromPosition(
+            TextPosition(offset: controller.text.length));
+
+        isbool ? onChange(equation) : onChange(result);
+
+        isbool = true;
+      });
     }
 
-    Widget buildButton(String buttonText, double buttonHeight,
-        Color buttonColor, double buttonTexth) {
+    buildButton(String buttonText, double buttonHeight, Color buttonColor,
+        double buttonTexth) {
       return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
@@ -825,8 +691,8 @@ class _SecondScreenState extends State<SecondScreen> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              MyColors.colorPrimary.withOpacity(.5),
-              MyColors.colorPrimary.withOpacity(.8),
+              MyColors.colorPrimary1.withOpacity(.5),
+              MyColors.colorPrimary1.withOpacity(.8),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -927,4 +793,5 @@ class _SecondScreenState extends State<SecondScreen> {
           ],
         ));
   }
+
 }

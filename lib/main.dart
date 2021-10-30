@@ -17,8 +17,13 @@ import 'package:google_fonts/google_fonts.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await insertData();
   await insertion();
+
 
   runApp(EasyLocalization(
       child: MyApp(),

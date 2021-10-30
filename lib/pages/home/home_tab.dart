@@ -26,17 +26,19 @@ import 'package:currency_converter/utils/utility.dart';
 
 import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
+import 'home_page.dart';
 
 class TapHome extends StatefulWidget {
-  const TapHome({Key? key}) : super(key: key);
+  final Function(TabChangeListener tabChangeListener) onInitialize;
+
+  const TapHome({required this.onInitialize, Key? key}) : super(key: key);
 
   @override
   _TapHomeState createState() => _TapHomeState();
 }
 
-class _TapHomeState extends State<TapHome> {
+class _TapHomeState extends State<TapHome> implements TabChangeListener {
   String symbol2 = "€";
-bool   isContainerVisible=false;
 
   String symbol = "\$";
 
@@ -77,6 +79,7 @@ bool   isContainerVisible=false;
 
   @override
   void initState() {
+    widget.onInitialize(this);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
@@ -92,14 +95,25 @@ bool   isContainerVisible=false;
   }
 
   @override
-  void didUpdateWidget(TapHome oldWidget) {
-    debugPrint("home_tab-> didUpdateWidget");
+  void onTabChange() {
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-    super.didUpdateWidget(oldWidget);
-    setState(() {});
+    if(mounted){
+  setState(() {});
+    }
+
   }
+  // @override
+  // void didUpdateWidget(TapHome oldWidget) {
+  //   debugPrint("home_tab-> didUpdateWidget");
+  //   isCalculatorVisible = false;
+
+  //   // _isContainerVisible = false;
+  //   // _isContainerVisibleTwo = false;
+  //   super.didUpdateWidget(oldWidget);
+  //   setState(() {});
+  // }
 
   getCurrencyCode() async {
     final prefs = await SharedPreferences.getInstance();
@@ -133,7 +147,7 @@ bool   isContainerVisible=false;
   @override
   void dispose() {
     calculateCurrency.clear();
-    calculateCurrency.text = "00";
+    calculateCurrency.text = "0";
     super.dispose();
   }
 
@@ -369,7 +383,7 @@ bool   isContainerVisible=false;
                                           counterText: "",
                                           border: InputBorder.none),
                                       onTap: () {
-                                        isContainerVisible = true;
+                                        isCalculatorVisible = true;
                                         _isContainerVisible = false;
                                         _isContainerVisibleTwo = false;
 
@@ -471,7 +485,7 @@ bool   isContainerVisible=false;
                                         if (_isContainerVisible) {
                                           _isContainerVisible = false;
                                         } else {
-                                          isContainerVisible = false;
+                                          isCalculatorVisible = false;
                                           _isContainerVisible = true;
                                         }
                                         if (_isContainerVisibleTwo) {
@@ -541,7 +555,7 @@ bool   isContainerVisible=false;
                                           _isContainerVisibleTwo = false;
                                         } else {
                                           _isContainerVisible = false;
-                                          isContainerVisible = false;
+                                          isCalculatorVisible = false;
                                           _isContainerVisibleTwo = true;
                                         }
                                         setState(() {
@@ -725,10 +739,10 @@ bool   isContainerVisible=false;
                 Positioned(
                   bottom: 0,
                   child: Container(
-                    height: isContainerVisible
+                    height: isCalculatorVisible
                         ? MediaQuery.of(context).size.height * 0.35
                         : 0.0,
-                    width: isContainerVisible
+                    width: isCalculatorVisible
                         ? MediaQuery.of(context).size.width
                         : 0.0,
                     child: calculator(),
@@ -787,8 +801,6 @@ bool   isContainerVisible=false;
 
   Future<Map<String, dynamic>> getConverterAPI(
       String form, String to, String rate) async {
-
-
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
 
@@ -1022,8 +1034,8 @@ bool   isContainerVisible=false;
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              Colors.white10.withOpacity(0.4),
-              MyColors.colorPrimary.withOpacity(0.8),
+              MyColors.colorPrimary.withOpacity(0.4),
+              MyColors.colorPrimary.withOpacity(0.5),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -1031,7 +1043,17 @@ bool   isContainerVisible=false;
             //stops: [0.0,0.0]
           )),
 
-          child: FlatButton(
+          child: MaterialButton(
+              onLongPress: () {
+                if (buttonText == "⌫") {
+                  calculateCurrency.text = "0";
+
+                  expression = "";
+                  equation = "0";
+                }
+
+                setState(() {});
+              },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
                   side: BorderSide(
