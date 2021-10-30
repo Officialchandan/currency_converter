@@ -237,7 +237,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                     //   });
                                     // });
                                   },
-                                  activeColor: MyColors.checkBoxValue2 ? Colors.black : Colors.white,
+                                  activeColor: MyColors.darkModeCheck ? Colors.black : Colors.white,
                                   checkColor: MyColors.colorPrimary,
                                   tristate: false,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -313,47 +313,9 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                       setState(() {});
                                     }
 
-                                    // int i = 0;
-                                    // setState(() {
-                                    //   for (var element in MyColors.boolDecimalFormate) {
-                                    //     if (index == i) {
-                                    //       if (index == 5) {
-                                    //         Utility.setDecimalValuePreference("DecimalValue", 0);
-                                    //         MyColors.boolDecimalFormate[i] = true;
-                                    //         MyColors.decimalFormat = 0;
-                                    //         format2();
-                                    //       } else {
-                                    //         Utility.setDecimalValuePreference("DecimalValue", (index + 2));
-                                    //         MyColors.decimalFormat = index + 2;
-                                    //         MyColors.boolDecimalFormate[i] = true;
-                                    //         //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context)=>MyTabBarWidget()), (route) => false);
-                                    //         format2();
-                                    //         if (MyColors.decimalFormat == 2) {
-                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
-                                    //         }
-                                    //         if (MyColors.decimalFormat == 3) {
-                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
-                                    //         }
-                                    //         if (MyColors.decimalFormat == 4) {
-                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
-                                    //         }
-                                    //         if (MyColors.decimalFormat == 5) {
-                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
-                                    //         }
-                                    //         if (MyColors.decimalFormat == 6) {
-                                    //           MyColors.text = MyColors.text + radiDecimalFormat[index];
-                                    //         }
-                                    //         setState(() {});
-                                    //       }
-                                    //     } else {
-                                    //       MyColors.boolDecimalFormate[i] = false;
-                                    //     }
-                                    //
-                                    //     i++;
-                                    //   }
-                                    // });
+
                                   },
-                                  activeColor: MyColors.checkBoxValue2 ? Colors.black : Colors.white,
+                                  activeColor: MyColors.darkModeCheck ? Colors.black : Colors.white,
                                   checkColor: MyColors.colorPrimary,
                                   tristate: false,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

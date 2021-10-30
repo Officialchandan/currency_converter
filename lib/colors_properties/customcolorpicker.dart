@@ -27,16 +27,13 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Container(
-        color: Colors.transparent,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.70,
+      body: IntrinsicHeight(
         child: Column(children: [
           Container(
               margin: const EdgeInsets.only(
                   top: 15, right: 10, bottom: 0, left: 10),
               child: ColorPicker(
-                pickerColor: currentColor,
+                  pickerColor: currentColor,
                 onColorChanged: changeColor,
                 colorPickerWidth: 300.0,
                 pickerAreaHeightPercent: 0.7,
@@ -52,30 +49,47 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
+              Container (
                 width: 150,
                 child: ElevatedButton(
                   child:  Text("try".tr().toString()),
                   onPressed: () {
-                   MyColors.checkBoxValue2= useWhiteForeground(currentColor)
-                        ? false
-                        : true;
-                   if( MyColors.checkBoxValue2){
-                     MyColors.textColor=Colors.grey.shade700;
-                     MyColors.insideTextFieldColor=Colors.white;
-                     MyColors.checkBoxValue2=true;
-                     MyColors.checkBoxValue1=false;
-                   }
-                   else{
-                     MyColors.textColor=Colors.white;
-                     MyColors.insideTextFieldColor=Colors.black;
-                     MyColors.checkBoxValue1=true;
-                     MyColors.checkBoxValue2=false;
 
-                   }
+
+
+                    int red=currentColor.red;
+                    int blue=currentColor.blue;
+                    int green=currentColor.green;
+
+                   var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                   print("************************-> $grayscale");
+
+                    if(grayscale > 170){
+
+                      MyColors.textColor=Colors.grey.shade700;
+                      MyColors.insideTextFieldColor=Colors.white;
+                      MyColors.darkModeCheck=true;
+                      MyColors.lightModeCheck=false;
+
+
+                    }else{
+
+
+
+                    MyColors.textColor=Colors.white;
+                    MyColors.insideTextFieldColor=Colors.black;
+                    MyColors.lightModeCheck=true;
+                    MyColors.darkModeCheck=false;
+
+                    }
+
+
+
 
 
                     MyColors.colorPrimary = currentColor;
+
+
                     MyColors.calcuColor = currentColor;
                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
@@ -109,8 +123,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 setState(() {});
               },
               child:  Text(
-                "PRESETS",
-                style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+                "presets".tr().toString(),
+                style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),
           ),

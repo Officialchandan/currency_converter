@@ -22,7 +22,7 @@ void main() async {
 
   runApp(EasyLocalization(
       child: MyApp(),
-      path: "assets/updatedlanguage",
+      path: "assets/language_final",
       fallbackLocale: Locale('en'),
       useFallbackTranslations: true,
       useOnlyLangCode: true,
@@ -62,18 +62,33 @@ class _MyAppState extends State<MyApp> {
 
   void getTheme() async {
     await Utility.getColorTheme();
-    MyColors.checkBoxValue2 = useWhiteForeground(MyColors.colorPrimary) ? false : true;
-    if (MyColors.checkBoxValue2) {
-      MyColors.textColor = Colors.black;
-      MyColors.insideTextFieldColor = Colors.white;
-      MyColors.checkBoxValue2 = true;
-      MyColors.checkBoxValue1 = false;
-    } else {
-      MyColors.textColor = Colors.white;
-      MyColors.insideTextFieldColor = Colors.black;
-      MyColors.checkBoxValue1 = true;
-      MyColors.checkBoxValue2 = false;
+
+    int red=MyColors.colorPrimary.red;
+    int blue=MyColors.colorPrimary.blue;
+    int green=MyColors.colorPrimary.green;
+
+    var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+    print("************************-> $grayscale");
+
+    if(grayscale > 128){
+
+      MyColors.textColor=Colors.grey.shade700;
+      MyColors.insideTextFieldColor=Colors.white;
+      MyColors.darkModeCheck=true;
+      MyColors.lightModeCheck=false;
+
+
+    }else{
+
+
+
+      MyColors.textColor=Colors.white;
+      MyColors.insideTextFieldColor=Colors.black;
+      MyColors.lightModeCheck=true;
+      MyColors.darkModeCheck=false;
+
     }
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color

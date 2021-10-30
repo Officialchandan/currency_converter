@@ -59,10 +59,10 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                       "support".tr().toString(),
                       style: TextStyle(
                         fontSize: MyColors.fontsmall
-                            ? (MyColors.textSize - 14 * (-1))
+                            ? (MyColors.textSize - 16 * (-1))
                             : MyColors.fontlarge
-                                ? (MyColors.textSize + 14)
-                                : 14,
+                                ? (MyColors.textSize + 16)
+                                : 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),

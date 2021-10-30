@@ -308,10 +308,10 @@ class _AddCurrencyState extends State<AddCurrency> {
                                               color:
                                                   MyColors.insideTextFieldColor,
                                             fontSize: MyColors.fontsmall
-                                                ? (MyColors.textSize - 17) * (-1)
+                                                ? (MyColors.textSize - 16) * (-1)
                                                 : MyColors.fontlarge
-                                                ? (MyColors.textSize + 17)
-                                                : 17,),
+                                                ? (MyColors.textSize + 16)
+                                                : 16,),
                                         ),
                                       ),
                                     ],

@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 
@@ -24,6 +25,7 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
+  bool isCalculatorVisible=false;
   String equation = "0";
   String result = "0";
   String expression = "";
@@ -628,56 +630,185 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget calculator(BuildContext context, TextEditingController controller,
       Function(String changeValue) onChange) {
     buttonPressed(String buttonText) {
-      setState(() {
-        if (buttonText == "C") {
-          isbool = true;
-          equation = "0";
-          isbool = false;
-          equationFontSize = 38.0;
-          resultFontSize = 48.0;
-        } else if (buttonText == "⌫") {
-          equationFontSize = 48.0;
-          resultFontSize = 38.0;
-          equation = equation.substring(0, equation.length - 1);
-          if (equation == "") {
+      if((equation.substring(equation.length - 1) == "+" &&
+          buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "=") ||
+          (equation.substring(equation.length - 1) == "+" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "=") ||
+          (equation.substring(equation.length - 1) == "-" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "=") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "%") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "=") ||
+          (equation.substring(equation.length - 1) == "%" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "/" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "/" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "/" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "/" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "×") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "+") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "-") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "/") ||
+          (equation.substring(equation.length - 1) == "×" &&
+              buttonText == "=") ||
+          (buttonText == "×" && equation == "0") ||
+          (buttonText == "%" && equation == "0") ||
+          (buttonText == "/" && equation == "0") ||
+          (buttonText == "*" && equation == "0") ||
+          (buttonText == "+" && equation == "0") ||
+          (buttonText == "-" && equation == "0")){}
+      else{
+        setState(() {
+
+          if (buttonText == "C") {
+            isbool = true;
             equation = "0";
-          }
-        } else if (buttonText == "=") {
-          equationFontSize = 38.0;
-          resultFontSize = 48.0;
-          isbool = false;
+            isbool = false;
+            equationFontSize = 38.0;
+            resultFontSize = 48.0;
+          } else if (buttonText == "⌫") {
+            equationFontSize = 48.0;
+            resultFontSize = 38.0;
+            equation = equation.substring(0, equation.length - 1);
+            if (equation == "") {
+              equation = "0";
+            }
+          } else if (buttonText == "=") {
+            equationFontSize = 38.0;
+            resultFontSize = 48.0;
+            isbool = false;
 
-          expression = equation;
-          expression = expression.replaceAll('×', '*');
-          expression = expression.replaceAll('÷', '/');
+            expression = equation;
 
-          try {
-            Parser p = Parser();
-            Expression exp = p.parse(expression);
+            String str1 = expression;
+            List<String> charList = [];
+            String ma = "";
+            for (int i = 0; i < str1.length; i++) {
+              if (str1[i] == "+" ||
+                  str1[i] == "-" ||
+                  str1[i] == "×" ||
+                  str1[i] == "÷" ||
+                  str1[i] == "/" ||
+                  str1[i] == "*" ||
+                  str1[i] == "%") {
+                if (ma.isNotEmpty) {
+                  charList.add(ma);
+                }
+                charList.add(str1[i]);
+                ma = "";
+              } else {
+                ma = ma + str1[i];
+                if (i == str1.length - 1) {
+                  if (ma.isNotEmpty) {
+                    charList.add(ma);
+                  }
+                }
+              }
+            }
 
-            ContextModel cm = ContextModel();
-            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-          } catch (e) {
-            result = "";
-          }
-        } else {
-          equationFontSize = 48.0;
-          resultFontSize = 38.0;
-          if (equation == "0") {
-            equation = buttonText;
+            int l = charList.where((element) => element == "%").toList().length;
+
+            for (int i = 0; i < l; i++) {
+              print("charList-->$charList");
+              int i = charList.indexWhere((element) => element == "%");
+              int a = i - 1;
+              int b = i + 1;
+              double aa = double.parse(charList[a]);
+              double bb = double.parse(charList[b]);
+              double cc = (aa * bb) / 100;
+              print("cc-->$cc");
+              charList[a] = cc.toString();
+              print("charList1-->$charList");
+              charList.removeAt(b);
+              print("charList1-->$charList");
+              charList.removeAt(i);
+              print("charList1-->$charList");
+            }
+
+            String exp = "";
+            charList.forEach((element) {
+              exp += element;
+            });
+
+            print("exp-->$exp");
+            expression = exp;
+
+            expression = expression.replaceAll('×', '*');
+            expression = expression.replaceAll('÷', '/');
+
+            try {
+              Parser p = Parser();
+              Expression exp = p.parse(expression);
+
+              ContextModel cm = ContextModel();
+              result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+            } catch (e) {
+              result = "";
+            }
           } else {
-            equation = equation + buttonText;
+            equationFontSize = 48.0;
+            resultFontSize = 38.0;
+            if (equation == "0") {
+              equation = buttonText;
+            } else {
+              equation = equation + buttonText;
+            }
           }
-        }
-        isbool ? controller.text = equation : controller.text = result;
+          isbool ? controller.text = equation : controller.text = result;
 
-        controller.selection = TextSelection.fromPosition(
-            TextPosition(offset: controller.text.length));
+          controller.selection = TextSelection.fromPosition(
+              TextPosition(offset: controller.text.length));
 
-        isbool ? onChange(equation) : onChange(result);
+          isbool ? onChange(equation) : onChange(result);
 
-        isbool = true;
-      });
+          isbool = true;
+        });
+      }
     }
 
     Widget buildButton(String buttonText, double buttonHeight,

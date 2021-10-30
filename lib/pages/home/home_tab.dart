@@ -36,6 +36,7 @@ class TapHome extends StatefulWidget {
 
 class _TapHomeState extends State<TapHome> {
   String symbol2 = "€";
+bool   isContainerVisible=false;
 
   String symbol = "\$";
 
@@ -45,7 +46,7 @@ class _TapHomeState extends State<TapHome> {
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
   String text = "00.0";
-  String equation = "00";
+  String equation = "0";
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;

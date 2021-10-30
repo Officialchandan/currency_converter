@@ -18,15 +18,10 @@ class MyColors {
       Colors.white; //{ this is color of all text except textfield text}
   static Color insideTextFieldColor =
       Colors.black; //{ this is a color of text,which is inside textField }
-  static Color colorPrimary =  Color(0xff4e7dcb ); //{ this is a color ,which change whole theme }
-  static Color firstthemecolorgr1 = colorPrimary.withOpacity(0.5);  //{ this is a gradient color of theme which is always with  'firstthemecolorgr' }
 
-  static Color calcuColor =Colors.transparent;  //{  this is a color of calculator button, we need to take this because some time it change some time not}
-  static Color textColor =Colors.white;  //{ this is color of all text except textfield text}
-  static Color insideTextFieldColor=Colors.black; //{ this is a color of text,which is inside textField }
 
-  static bool checkBoxValue1 = true; //{ this boolean for date format dd/mm/yy}
-  static bool checkBoxValue2 = false; //{ this boolean for date format mm/dd/yy}
+  static bool lightModeCheck = true; //{
+  static bool darkModeCheck = false; //{
 
   static bool datemm = false; //{ this boolean for date format dd/mm/yy}
   static bool datedd = true; //{ this boolean for date format mm/dd/yy}
