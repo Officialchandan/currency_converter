@@ -12,6 +12,7 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:dio/dio.dart';
 // ignore: implementation_imports
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -39,6 +40,8 @@ class TapHome extends StatefulWidget {
 
 class _TapHomeState extends State<TapHome> implements TabChangeListener {
   String symbol2 = "€";
+
+
 
   String symbol = "\$";
 
@@ -404,6 +407,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                     ),
                                   ),
                                 ),
+
+
+
+
                                 Padding(
                                   padding: const EdgeInsets.only(right: 8.0),
                                   child: Center(
@@ -1040,7 +1047,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
           child: MaterialButton(
               onLongPress: () {
                 buttonPressed(buttonText);
-                equation = "";
+                equation = "0";
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),

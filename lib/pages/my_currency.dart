@@ -460,8 +460,15 @@ class _MyCurrencyState extends State<MyCurrency> {
           )),
           child: MaterialButton(
               onLongPress: () {
-                buttonPressed(buttonText);
-                equation = "";
+
+                if(buttonText=="⌫"){
+                  equation = "0";
+                  expression="";
+                  controller.clear();
+                  controller.text="0";
+                }
+                // buttonPressed(buttonText);
+
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
