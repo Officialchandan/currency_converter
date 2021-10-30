@@ -234,7 +234,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                                 ? (MyColors.textSize + 17)
                                 : 17,
                         color: MyColors.textColor,
-                        fontWeight: FontWeight.normal),
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 8,

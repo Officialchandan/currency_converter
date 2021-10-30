@@ -45,6 +45,8 @@ class Locals {
     false,
     false,
     false,
+    false,
+    false,
     false
   ];
   static const english = Locale('en');
@@ -89,10 +91,14 @@ class Locals {
   static const Arabic = Locale('ar');
   static const Bosnian = Locale('hrr', 'ba');
   static const Lithuanian = Locale('lt');
-  static const Hebrew = Locale('iw', 'IL');
+  static const Hebrew = Locale('he');
   static const French = Locale('fr', 'FR');
   static const Filipino = Locale('fil');
   static const Russian = Locale('ru', 'RU');
+  static const Georgina = Locale('ka');
+
+
+
 
   static List<Map<String, Locale>> language = [
     {"عربي (Arabic)": Locals.Arabic},
@@ -105,16 +111,17 @@ class Locals {
     {"čeština  (Czech)": Locals.Czech},
     {"dansk  (Danish)": Locals.Danish},
     {"Nederlands  (Dutch)": Locals.Dutch},
-    {"Eestlane  (Estonian)": Locals.Estonian},
+    {"eesti keel  (Estonian)": Locals.Estonian},
     {"English": Locals.english},
     {"Pilipino(Filipino)": Locals.Filipino},
     {"Suomalainen  (Finnish)": Locals.Finnish},
+    {"დახმარება (Georgina)": Locals.Georgina},
     //* \\
-    {"français(French)": Locals.French},
+
     {"Deutsche  (German)": Locals.German},
     {"Ελληνικά (Greek)": Locals.Greek},
-    //{"ગુજરાતી (Gujarati)": Locals.gujarati},
-    // {" עִברִית(Hebrew)": Locals.Hebrew},
+    {"ગુજરાતી (Gujarati)": Locals.gujarati},
+     {" עִברִית(Hebrew)": Locals.Hebrew},
     {"हिंदी (Hindi)": Locals.hindi},
     {"Magyar (Hungarian)": Locals.Hungarian},
     {"bahasa Indonesia (Indonesian)": Locals.Indonesian},
@@ -125,15 +132,17 @@ class Locals {
     {"Melayu (Malay)": Locals.Malay},
     {"मराठी (Marathi)": Locals.Marathi},
     {"नेपाली (Nepali)": Locals.nepali},
+    {"norsk(norwegian)": Locals.French},
     //*
     {"Bosanski(Bosnian)": Locals.Bosnian},
     {"Polskie (Polish)": Locals.Polish},
+    {"português  (Portuguese)": Locals.Portuguese},
     //*
     {"Lietuvių(Lithuanian)": Locals.Lithuanian},
     {"Română (Romanian)": Locals.Romanian},
     //*
-    {"Russian(русский)": Locals.Russian},
-    {"português  (Portuguese)": Locals.Portuguese},
+    {"русский(Russia)": Locals.Russian},
+
     {"Српски (Serbian)": Locals.Serbian},
     {"Slovenský (Slovak)": Locals.Slovak},
     {"Slovenščina (Slovenian)": Locals.Slovenian},
@@ -145,9 +154,17 @@ class Locals {
     {"Türk (Turkish)": Locals.Turkish},
     {"Українська (Ukrainian)": Locals.Ukrainian},
     {"Tiếng Việt (Vietnamese)": Locals.Vietnamese},
+
+
+
+
+
+    //დახმარება
   ];
 
   static const supportedLang = [
+    Hebrew,
+    Georgina,
     Filipino,
     French,
     Russian,

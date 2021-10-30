@@ -79,33 +79,35 @@ class _LanguageState extends State<Language> {
                         children: [
                           Container(
                               margin: const EdgeInsets.all(7),
-                              padding: index == 0
-                                  ? const EdgeInsets.only(left: 200)
-                                  : const EdgeInsets.only(left: 0),
+                              padding: index==0?EdgeInsets.only(left: MediaQuery.of(context).size.width*0.45 ):EdgeInsets.only(left: 0  ),
                               height: 30,
                               child: Text(
                                 Locals.language[index].keys.first,
                                 style: TextStyle(
-                                    fontSize: 18,
-                                    color: MyColors.insideTextFieldColor,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: MyColors.fontsmall
+                                        ? (MyColors.textSize - 16) *
+                                        (-1)
+                                        : MyColors.fontlarge
+                                        ? (MyColors.textSize + 16)
+                                        : 16,
+                                    color: MyColors.insideTextFieldColor,fontWeight: FontWeight.bold),
                               )),
                           Container(
                             padding: EdgeInsets.only(right: 10),
                             child: Locals.icon[index]
                                 ? const Icon(
                                     Icons.check_sharp,
-                                    color: Colors.blue,
+
+
+
+                                   color: Colors.blue,
                                   )
                                 : const Text(""),
                           )
                         ],
                       ),
-                      Divider(
-                        height: 0.5,
-                        color: Colors.black,
-                        thickness: .3,
-                      )
+                      Divider(height: 0.5,
+                      color: Colors.black,thickness: .3,)
                     ],
                   ),
                 ),

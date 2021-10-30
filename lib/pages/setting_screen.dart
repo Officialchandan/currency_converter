@@ -117,7 +117,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           height: 10,
                           margin: const EdgeInsets.all(5),
                           child: Switch(
-                            inactiveTrackColor: Colors.grey.shade300,
+                            inactiveTrackColor: MyColors.darkModeCheck?Colors.grey.shade800:Colors.grey.shade300,
                             inactiveThumbColor: MyColors.textColor,
                             value: isSwitched,
                             onChanged: (value) {
@@ -234,9 +234,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   fontWeight: FontWeight.bold))),
                   InkWell(
                     onTap: () async {
-                      int x = await showColorPickerDialog(context);
-                      print(x);
-                      if (x == 1) showCustomColorPickerDialog(context);
+                       await showColorPickerDialog(context);
+
                     },
                     child: _isContainerVisible
                         ? Container()
@@ -300,14 +299,14 @@ class _SettingScreenState extends State<SettingScreen> {
                                     child: Checkbox(
                                       side:
                                           BorderSide(color: MyColors.textColor),
-                                      value: MyColors.checkBoxValue1,
+                                      value: MyColors.lightModeCheck,
                                       onChanged: (value) {
                                         setState(() {
-                                          if (MyColors.checkBoxValue2) {
-                                            MyColors.checkBoxValue1 =
-                                                !MyColors.checkBoxValue1;
-                                            MyColors.checkBoxValue2 =
-                                                !MyColors.checkBoxValue2;
+                                          if (MyColors.darkModeCheck) {
+                                            MyColors.lightModeCheck =
+                                                !MyColors.lightModeCheck;
+                                            MyColors.darkModeCheck =
+                                                !MyColors.darkModeCheck;
                                             MyColors.textColor = Colors.white;
                                             MyColors.insideTextFieldColor =
                                                 Colors.black;
@@ -318,7 +317,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                           }
                                         });
                                       },
-                                      activeColor: MyColors.checkBoxValue2
+                                      activeColor: MyColors.darkModeCheck
                                           ? Colors.black45
                                           : Colors.white,
                                       checkColor: Colors.black,
@@ -348,14 +347,14 @@ class _SettingScreenState extends State<SettingScreen> {
                                           child: Checkbox(
                                             side: BorderSide(
                                                 color: MyColors.textColor),
-                                            value: MyColors.checkBoxValue2,
+                                            value: MyColors.darkModeCheck,
                                             onChanged: (value) {
                                               setState(() {
-                                                if (MyColors.checkBoxValue1) {
-                                                  MyColors.checkBoxValue2 =
-                                                      !MyColors.checkBoxValue2;
-                                                  MyColors.checkBoxValue1 =
-                                                      !MyColors.checkBoxValue1;
+                                                if (MyColors.lightModeCheck) {
+                                                  MyColors.darkModeCheck =
+                                                      !MyColors.darkModeCheck;
+                                                  MyColors.lightModeCheck =
+                                                      !MyColors.lightModeCheck;
                                                   MyColors.textColor =
                                                       Colors.grey.shade800;
                                                   MyColors.insideTextFieldColor =
@@ -367,7 +366,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 }
                                               });
                                             },
-                                            activeColor: MyColors.checkBoxValue2
+                                            activeColor: MyColors.darkModeCheck
                                                 ? Colors.black45
                                                 : Colors.white,
                                             checkColor: Colors.black,
@@ -413,7 +412,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                 )),
                             Image.asset(
                               "assets/images/tab-ic5.png",
-                              scale: 7,
+                              scale: MyColors.fontsmall
+                                  ? (MyColors.textSize + 9) * (1)
+                                  : MyColors.fontlarge
+                                  ? 8
+                                  : 9,
                               color: MyColors.textColor,
                             ),
                           ],
@@ -431,7 +434,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Row(
                             children: [
                               Container(
-                                width: width * 0.31,
+                                width: width * 0.29,
                                 child: Slider(
                                     activeColor: MyColors.textColor,
                                     inactiveColor: MyColors.textColor,
@@ -448,7 +451,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               SizedBox(
                                 width: 30,
                                 child: Text(
-                                  x.toStringAsFixed(1),
+                                  (x*100).toStringAsFixed(0),
                                   style: TextStyle(
                                     color: MyColors.textColor,
                                     fontSize: MyColors.fontsmall
@@ -485,7 +488,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                               padding:
                                                   EdgeInsets.only(bottom: 5),
                                               color: MyColors.textColor
-                                                  .withOpacity(x as double),
+                                                  .withOpacity((x) as double),
                                               child: AnimatedOpacity(
                                                 duration:
                                                     Duration(milliseconds: 700),
@@ -545,13 +548,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                                                   fontSize: MyColors
                                                                           .fontsmall
                                                                       ? (MyColors.textSize -
-                                                                              18) *
+                                                                              17) *
                                                                           (-1)
                                                                       : MyColors
                                                                               .fontlarge
                                                                           ? (MyColors.textSize +
-                                                                              18)
-                                                                          : 18,
+                                                                              17)
+                                                                          : 17,
                                                                   color: MyColors
                                                                       .textColor,
                                                                   fontWeight:
@@ -584,13 +587,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                                                   fontSize: MyColors
                                                                           .fontsmall
                                                                       ? (MyColors.textSize -
-                                                                              18) *
+                                                                              17) *
                                                                           (-1)
                                                                       : MyColors
                                                                               .fontlarge
                                                                           ? (MyColors.textSize +
-                                                                              18)
-                                                                          : 18,
+                                                                              17)
+                                                                          : 17,
                                                                   color: MyColors
                                                                       .textColor,
                                                                   fontWeight:
@@ -756,7 +759,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 }
                                               });
                                             },
-                                            activeColor: MyColors.checkBoxValue2
+                                            activeColor: MyColors.darkModeCheck
                                                 ? Colors.black45
                                                 : Colors.white,
                                             checkColor: Colors.black,
@@ -794,7 +797,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 }
                                               });
                                             },
-                                            activeColor: MyColors.checkBoxValue2
+                                            activeColor: MyColors.darkModeCheck
                                                 ? Colors.black45
                                                 : Colors.white,
                                             checkColor: Colors.black,
@@ -865,7 +868,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     height: 10,
                                     margin: EdgeInsets.only(top: 2, left: 0),
                                     child: Switch(
-                                      inactiveTrackColor: Colors.grey.shade300,
+                                      inactiveTrackColor: MyColors.darkModeCheck?Colors.grey.shade800:Colors.grey.shade300,
                                       inactiveThumbColor: MyColors.textColor,
                                       value: isMultiConverter,
                                       onChanged: (value) {
@@ -904,7 +907,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 .tr()
                                                 .toString(),
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+
                                                 fontSize: 12,
                                                 color: MyColors.textColor),
                                           ),
@@ -926,7 +929,12 @@ class _SettingScreenState extends State<SettingScreen> {
                           margin: EdgeInsets.only(left: 0, bottom: 5, top: 25),
                           child: Text("display".tr().toString(),
                               style: GoogleFonts.roboto(
-                                  fontSize: 20,
+                                  fontSize: MyColors.fontsmall
+                                      ? (MyColors.textSize - 20) *
+                                      (-1)
+                                      : MyColors.fontlarge
+                                      ? (MyColors.textSize + 20)
+                                      : 20,
                                   color: MyColors.textColor,
                                   fontWeight: FontWeight.bold))),
                   _isContainerVisible
@@ -960,7 +968,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             fontWeight: FontWeight.normal)),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: Colors.grey.shade300,
+                                    inactiveTrackColor: MyColors.darkModeCheck?Colors.grey.shade800:Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displaycode,
                                     onChanged: (value) {
@@ -1005,7 +1013,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             fontWeight: FontWeight.normal)),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: Colors.grey.shade300,
+                                    inactiveTrackColor: MyColors.darkModeCheck?Colors.grey.shade800:Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displaysymbol,
                                     onChanged: (value) {
@@ -1050,7 +1058,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             fontWeight: FontWeight.normal)),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: Colors.grey.shade300,
+                                    inactiveTrackColor: MyColors.darkModeCheck?Colors.grey.shade800:Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displayflag,
                                     onChanged: (value) {
@@ -1110,16 +1118,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                           if (MyColors.datemm) {
                                             MyColors.datemm = !MyColors.datemm;
                                             MyColors.datedd = !MyColors.datedd;
-                                            Navigator.pushAndRemoveUntil(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        MyTabBarWidget()),
-                                                (route) => false);
+                                            widget.onThemeChange();
                                           }
                                         });
                                       },
-                                      activeColor: MyColors.checkBoxValue2
+                                      activeColor: MyColors.darkModeCheck
                                           ? Colors.black45
                                           : Colors.white,
                                       checkColor: Colors.black,
@@ -1154,16 +1157,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                             MyColors.datedd = !MyColors.datedd;
                                             MyColors.datemm = !MyColors.datemm;
 
-                                            Navigator.pushAndRemoveUntil(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        MyTabBarWidget()),
-                                                (route) => false);
+                                            widget.onThemeChange();
                                           }
                                         });
                                       },
-                                      activeColor: MyColors.checkBoxValue2
+                                      activeColor: MyColors.darkModeCheck
                                           ? Colors.black45
                                           : Colors.white,
                                       checkColor: Colors.black,
@@ -1269,37 +1267,7 @@ class _SettingScreenState extends State<SettingScreen> {
         });
   }
 
-  void showCustomColorPickerDialog(BuildContext context) async {
-    showGeneralDialog(
-        context: context,
-        barrierDismissible: true,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        barrierColor: Colors.black45,
-        transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation,
-            Animation secondaryAnimation) {
-          double width = MediaQuery.of(context).size.width;
-          double height = MediaQuery.of(context).size.height;
 
-          return DefaultTextStyle(
-            style: const TextStyle(decoration: TextDecoration.none),
-            child: Stack(children: [
-              Container(
-
-                height: height*0.63,
-                margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: CustomColorPicker(),
-              ),
-            ]),
-          );
-        });
-  }
 
 //   void showBottomSheetForLanguage(BuildContext context) async {
 //     showGeneralDialog(
@@ -1533,20 +1501,30 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {
                           MyColors.colorPrimary=colorSelection!;
-                          MyColors.checkBoxValue2= useWhiteForeground(colorSelection!)
-                              ? false
-                              : true;
-                          if( MyColors.checkBoxValue2){
+
+                          int red=MyColors.colorPrimary.red;
+                          int blue=MyColors.colorPrimary.blue;
+                          int green=MyColors.colorPrimary.green;
+
+                          var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                          print("************************-> $grayscale");
+
+                          if(grayscale > 170){
+
                             MyColors.textColor=Colors.grey.shade700;
                             MyColors.insideTextFieldColor=Colors.white;
-                            MyColors.checkBoxValue2=true;
-                            MyColors.checkBoxValue1=false;
-                          }
-                          else{
+                            MyColors.darkModeCheck=true;
+                            MyColors.lightModeCheck=false;
+
+
+                          }else{
+
+
+
                             MyColors.textColor=Colors.white;
                             MyColors.insideTextFieldColor=Colors.black;
-                            MyColors.checkBoxValue1=true;
-                            MyColors.checkBoxValue2=false;
+                            MyColors.lightModeCheck=true;
+                            MyColors.darkModeCheck=false;
 
                           }
                           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -1590,7 +1568,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               height: height * 0.05,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context, 1);
+                  showCustomColorPickerDialog(context);
                   setState(() {});
                 },
                 child:  Text(
@@ -1609,20 +1587,29 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                     child: GestureDetector(
                       onTap: () {
                         MyColors.colorPrimary = unlockSelectdColor!;
-                        MyColors.checkBoxValue2= useWhiteForeground(unlockSelectdColor!)
-                            ? false
-                            : true;
-                        if( MyColors.checkBoxValue2){
+                        int red=MyColors.colorPrimary.red;
+                        int blue=MyColors.colorPrimary.blue;
+                        int green=MyColors.colorPrimary.green;
+
+                        var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                        print("************************-> $grayscale");
+
+                        if(grayscale > 170){
+
                           MyColors.textColor=Colors.grey.shade700;
                           MyColors.insideTextFieldColor=Colors.white;
-                          MyColors.checkBoxValue2=true;
-                          MyColors.checkBoxValue1=false;
-                        }
-                        else{
+                          MyColors.darkModeCheck=true;
+                          MyColors.lightModeCheck=false;
+
+
+                        }else{
+
+
+
                           MyColors.textColor=Colors.white;
                           MyColors.insideTextFieldColor=Colors.black;
-                          MyColors.checkBoxValue1=true;
-                          MyColors.checkBoxValue2=false;
+                          MyColors.lightModeCheck=true;
+                          MyColors.darkModeCheck=false;
 
                         }
                         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -1636,8 +1623,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
                         setState(() {});
                       },
-                      child: const Text(
-                        "SELECT",
+                      child:  Text(
+                        "select".tr().toString(),
                         style: TextStyle(letterSpacing: 1.0, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -1647,6 +1634,37 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         )
       ],
     );
+  }
+  void showCustomColorPickerDialog(BuildContext context) async {
+    showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel:
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          double width = MediaQuery.of(context).size.width;
+          double height = MediaQuery.of(context).size.height;
+
+          return DefaultTextStyle(
+            style: const TextStyle(decoration: TextDecoration.none),
+            child: Stack(children: [
+              Container(
+
+                height: height*0.71,
+                margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: CustomColorPicker(),
+              ),
+            ]),
+          );
+        });
   }
 
   void unlockchangeColor(MColor color) {

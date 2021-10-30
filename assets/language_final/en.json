@@ -38,7 +38,7 @@
   "dontShow": "Dont't Show",
   "support": "Support",
   "term": "Term",
-  "privacy":"Privacy Policy",
+  "privacy":"Privacy",
   "unlocked": "UnLocked",
   "locked": "Locked",
   "custom": "Custom",
@@ -60,7 +60,7 @@
 
 
 
-
+  
 
   "presets": "Presets",
   "select": "Select"

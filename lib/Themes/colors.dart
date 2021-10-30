@@ -1,4 +1,9 @@
+
+
+
+
 import 'package:flutter/material.dart';
+
 
 class MyColors {
   static Color colorPrimary =
@@ -14,8 +19,9 @@ class MyColors {
   static Color insideTextFieldColor =
       Colors.black; //{ this is a color of text,which is inside textField }
 
-  static bool checkBoxValue1 = true; //{ this boolean for date format dd/mm/yy}
-  static bool checkBoxValue2 = false; //{ this boolean for date format mm/dd/yy}
+
+  static bool lightModeCheck = true; //{
+  static bool darkModeCheck = false; //{
 
   static bool datemm = false; //{ this boolean for date format dd/mm/yy}
   static bool datedd = true; //{ this boolean for date format mm/dd/yy}

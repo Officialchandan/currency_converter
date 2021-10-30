@@ -90,6 +90,7 @@ flutter:
    - assets/pngCountryImages/
    - assets/languagecode/
    - assets/updatedlanguage/
+   - assets/language_final/
    - assets/images/
    - assets/countyImage/
    - assets/images/@2x/

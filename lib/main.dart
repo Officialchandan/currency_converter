@@ -27,7 +27,7 @@ void main() async {
 
   runApp(EasyLocalization(
       child: MyApp(),
-      path: "assets/updatedlanguage",
+      path: "assets/language_final",
       fallbackLocale: Locale('en'),
       useFallbackTranslations: true,
       useOnlyLangCode: true,
@@ -67,19 +67,33 @@ class _MyAppState extends State<MyApp> {
 
   void getTheme() async {
     await Utility.getColorTheme();
-    MyColors.checkBoxValue2 =
-        useWhiteForeground(MyColors.colorPrimary) ? false : true;
-    if (MyColors.checkBoxValue2) {
-      MyColors.textColor = Colors.black;
-      MyColors.insideTextFieldColor = Colors.white;
-      MyColors.checkBoxValue2 = true;
-      MyColors.checkBoxValue1 = false;
-    } else {
-      MyColors.textColor = Colors.white;
-      MyColors.insideTextFieldColor = Colors.black;
-      MyColors.checkBoxValue1 = true;
-      MyColors.checkBoxValue2 = false;
+
+    int red=MyColors.colorPrimary.red;
+    int blue=MyColors.colorPrimary.blue;
+    int green=MyColors.colorPrimary.green;
+
+    var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+    print("************************-> $grayscale");
+
+    if(grayscale > 128){
+
+      MyColors.textColor=Colors.grey.shade700;
+      MyColors.insideTextFieldColor=Colors.white;
+      MyColors.darkModeCheck=true;
+      MyColors.lightModeCheck=false;
+
+
+    }else{
+
+
+
+      MyColors.textColor=Colors.white;
+      MyColors.insideTextFieldColor=Colors.black;
+      MyColors.lightModeCheck=true;
+      MyColors.darkModeCheck=false;
+
     }
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
@@ -90,8 +104,7 @@ class _MyAppState extends State<MyApp> {
 Future<void> insertData() async {
   DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  String url =
-      "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+  String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
   Dio _dio = Dio();
   try {
@@ -100,8 +113,7 @@ Future<void> insertData() async {
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList
-            .singleWhere((element) => element["code"] == key, orElse: () {
+        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
           return {};
@@ -127,37 +139,11 @@ Future<void> insertData() async {
 }
 
 insertion() async {
-  MyColors.text = await Utility.getFormatExmaplePreference("FormatExmaple");
+  String monetary = await Utility.getStringPreference(Constants.monetaryFormat);
+  String decimal = await Utility.getStringPreference(Constants.decimalFormat);
 
-  int x = await Utility.getMonetaryValuePreference("MonetaryValue");
-
-  MyColors.monetaryFormat = x;
-  print("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$x");
-  for (int i = 0; i < MyColors.boolMonetaryFormate.length; i++) {
-    if (i == x - 1) {
-      MyColors.boolMonetaryFormate[i] = true;
-    } else {
-      MyColors.boolMonetaryFormate[i] = false;
-    }
-  }
-
-  int y = await Utility.getDecimalValuePreference("DecimalValue");
-  MyColors.decimalFormat = y;
-  print("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$y");
-  for (int i = 0; i < MyColors.boolDecimalFormate.length; i++) {
-    if (y == 0) {
-      MyColors.boolDecimalFormate[5] = true;
-      MyColors.boolDecimalFormate[4] = false;
-      MyColors.boolDecimalFormate[3] = false;
-      MyColors.boolDecimalFormate[2] = false;
-      MyColors.boolDecimalFormate[1] = false;
-      MyColors.boolDecimalFormate[0] = false;
-      break;
-    }
-    if (i == y - 2) {
-      MyColors.boolDecimalFormate[i] = true;
-    } else {
-      MyColors.boolDecimalFormate[i] = false;
-    }
-  }
+  monetary = monetary == "" ? "1" : monetary;
+  decimal = decimal == "" ? "2" : decimal;
+  MyColors.monetaryFormat = int.parse(monetary);
+  MyColors.decimalFormat = int.parse(decimal);
 }

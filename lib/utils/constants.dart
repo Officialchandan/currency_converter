@@ -4,8 +4,10 @@ class Constants {
   static const String currencyCodeFrom = "currencyCodeFrom";
   static const String currencyCodeTo = "currencyCodeTo";
   static const String themeColor = "theme";
-
   static const String currencySaveData = "currencysavedata";
+  static const String monetaryFormat = "monetaryFormat";
+  static const String decimalFormat = "decimalFormat";
+
 
   static const List<Map<String, dynamic>> countryList = [
 

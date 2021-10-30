@@ -1,8 +1,13 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
-import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/database/coredata.dart';
+import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dio/dio.dart';
 // ignore: implementation_imports
@@ -60,7 +65,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   bool _isContainerVisibleTwo = false;
 
   TextEditingController edtCurrency = TextEditingController();
-  TextEditingController calculateCurrency = TextEditingController(text: "0");
+  TextEditingController calculateCurrency = TextEditingController(text:"0");
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
 
@@ -96,7 +101,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     if(mounted){
   setState(() {});
     }
-  
+
   }
   // @override
   // void didUpdateWidget(TapHome oldWidget) {
@@ -812,7 +817,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
       return cresult;
     } catch (e) {
-      debugPrint(e.toString());
+      print(e);
     }
     return cresult;
   }
@@ -824,9 +829,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   Widget calculator() {
     buttonPressed(String buttonText) {
-      debugPrint("buttonText$buttonText");
-      debugPrint("controller ${calculateCurrency.text}");
-
       if ((equation.substring(equation.length - 1) == "+" &&
               buttonText == "+") ||
           (equation.substring(equation.length - 1) == "+" &&
@@ -874,7 +876,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
           (equation.substring(equation.length - 1) == "%" &&
               buttonText == "=") ||
           (equation.substring(equation.length - 1) == "%" &&
-              buttonText == "%") ||
+              buttonText == "×") ||
           (equation.substring(equation.length - 1) == "/" &&
               buttonText == "×") ||
           (equation.substring(equation.length - 1) == "/" &&
@@ -920,40 +922,67 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
           } else if (buttonText == "=") {
             equationFontSize = 38.0;
             resultFontSize = 48.0;
-            try {
-              Parser p = Parser();
-              Expression exp = p.parse(expression);
 
-              ContextModel cm = ContextModel();
-              result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-            } catch (e) {
-              result = "";
-            }
             isbool = false;
 
             expression = equation;
+            String str1 = expression;
+            List<String> charList = [];
+            String ma = "";
+            for (int i = 0; i < str1.length; i++) {
+              if (str1[i] == "+" ||
+                  str1[i] == "-" ||
+                  str1[i] == "×" ||
+                  str1[i] == "÷" ||
+                  str1[i] == "/" ||
+                  str1[i] == "*" ||
+                  str1[i] == "%") {
+                if (ma.isNotEmpty) {
+                  charList.add(ma);
+                }
+                charList.add(str1[i]);
+                ma = "";
+              } else {
+                ma = ma + str1[i];
+                if (i == str1.length - 1) {
+                  if (ma.isNotEmpty) {
+                    charList.add(ma);
+                  }
+                }
+              }
+            }
+
+            int l = charList.where((element) => element == "%").toList().length;
+
+            for (int i = 0; i < l; i++) {
+              print("charList-->$charList");
+              int i = charList.indexWhere((element) => element == "%");
+              int a = i - 1;
+              int b = i + 1;
+              double aa = double.parse(charList[a]);
+              double bb = double.parse(charList[b]);
+              double cc = (aa * bb) / 100;
+              print("cc-->$cc");
+              charList[a] = cc.toString();
+              print("charList1-->$charList");
+              charList.removeAt(b);
+              print("charList1-->$charList");
+              charList.removeAt(i);
+              print("charList1-->$charList");
+            }
+
+            String exp = "";
+            charList.forEach((element) {
+              exp += element;
+            });
+
+            print("exp-->$exp");
+            expression = exp;
             expression = expression.replaceAll('×', '*');
             expression = expression.replaceAll('÷', '/');
 
-            if (expression.contains("%")) {
-              String a = "";
-              String b = "";
-              String c = "";
-              for (int i = 0; i < expression.length; i++) {
-                if (expression[i] != "%") {
-                  if (b == "%")
-                    c += expression[i];
-                  else
-                    a += expression[i];
-                } else {
-                  b = expression[i];
-                }
-              }
 
-              print("a->>>>$a");
 
-              result = ((double.parse(a) * double.parse(c) / 100)).toString();
-            } else {
               try {
                 Parser p = Parser();
                 Expression exp = p.parse(expression);
@@ -964,7 +993,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                 result = "";
               }
             }
-          } else {
+           else {
             equationFontSize = 48.0;
             resultFontSize = 38.0;
             if (equation == "0") {
@@ -1164,7 +1193,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   // }
 
   String getFormatText(String s) {
-    String text1 = "";
+    getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+    String text1 = text;
     debugPrint("MyColors.decimalformat-->${MyColors.decimalFormat}");
     debugPrint("getFormatText-->$s");
 
@@ -1282,40 +1312,66 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         } else if (buttonText == "=") {
           equationFontSize = 38.0;
           resultFontSize = 48.0;
-          try {
-            Parser p = Parser();
-            Expression exp = p.parse(expression);
 
-            ContextModel cm = ContextModel();
-            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-          } catch (e) {
-            result = "";
-          }
           isbool = false;
 
           expression = equation;
+          String str1 = expression;
+          List<String> charList = [];
+          String ma = "";
+          for (int i = 0; i < str1.length; i++) {
+            if (str1[i] == "+" ||
+                str1[i] == "-" ||
+                str1[i] == "×" ||
+                str1[i] == "÷" ||
+                str1[i] == "/" ||
+                str1[i] == "*" ||
+                str1[i] == "%") {
+              if (ma.isNotEmpty) {
+                charList.add(ma);
+              }
+              charList.add(str1[i]);
+              ma = "";
+            } else {
+              ma = ma + str1[i];
+              if (i == str1.length - 1) {
+                if (ma.isNotEmpty) {
+                  charList.add(ma);
+                }
+              }
+            }
+          }
+
+          int l = charList.where((element) => element == "%").toList().length;
+
+          for (int i = 0; i < l; i++) {
+            print("charList-->$charList");
+            int i = charList.indexWhere((element) => element == "%");
+            int a = i - 1;
+            int b = i + 1;
+            double aa = double.parse(charList[a]);
+            double bb = double.parse(charList[b]);
+            double cc = (aa * bb) / 100;
+            print("cc-->$cc");
+            charList[a] = cc.toString();
+            print("charList1-->$charList");
+            charList.removeAt(b);
+            print("charList1-->$charList");
+            charList.removeAt(i);
+            print("charList1-->$charList");
+          }
+
+          String exp = "";
+          charList.forEach((element) {
+            exp += element;
+          });
+
+          print("exp-->$exp");
+          expression = exp;
           expression = expression.replaceAll('×', '*');
           expression = expression.replaceAll('÷', '/');
 
-          if (expression.contains("%")) {
-            String a = "";
-            String b = "";
-            String c = "";
-            for (int i = 0; i < expression.length; i++) {
-              if (expression[i] != "%") {
-                if (b == "%")
-                  c += expression[i];
-                else
-                  a += expression[i];
-              } else {
-                b = expression[i];
-              }
-            }
 
-            print("a->>>>$a");
-
-            result = ((double.parse(a) * double.parse(c) / 100)).toString();
-          } else {
             try {
               Parser p = Parser();
               Expression exp = p.parse(expression);
@@ -1324,7 +1380,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
               result = '${exp.evaluate(EvaluationType.REAL, cm)}';
             } catch (e) {
               result = "";
-            }
+
           }
         } else {
           equationFontSize = 48.0;

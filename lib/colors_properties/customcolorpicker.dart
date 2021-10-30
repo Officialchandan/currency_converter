@@ -1,8 +1,11 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:easy_localization/src/public_ext.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class CustomColorPicker extends StatefulWidget {
@@ -24,16 +27,13 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Container(
-        color: Colors.transparent,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.63,
+      body: IntrinsicHeight(
         child: Column(children: [
           Container(
               margin: const EdgeInsets.only(
                   top: 15, right: 10, bottom: 0, left: 10),
               child: ColorPicker(
-                pickerColor: currentColor,
+                  pickerColor: currentColor,
                 onColorChanged: changeColor,
                 colorPickerWidth: 300.0,
                 pickerAreaHeightPercent: 0.7,
@@ -49,31 +49,52 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
+              Container (
                 width: 150,
                 child: ElevatedButton(
-                  child: const Text("Try this Color"),
+                  child:  Text("try".tr().toString()),
                   onPressed: () {
-                   MyColors.checkBoxValue2= useWhiteForeground(currentColor)
-                        ? false
-                        : true;
-                   if( MyColors.checkBoxValue2){
-                     MyColors.textColor=Colors.grey.shade700;
-                     MyColors.insideTextFieldColor=Colors.white;
-                     MyColors.checkBoxValue2=true;
-                     MyColors.checkBoxValue1=false;
-                   }
-                   else{
-                     MyColors.textColor=Colors.white;
-                     MyColors.insideTextFieldColor=Colors.black;
-                     MyColors.checkBoxValue1=true;
-                     MyColors.checkBoxValue2=false;
 
-                   }
+
+
+                    int red=currentColor.red;
+                    int blue=currentColor.blue;
+                    int green=currentColor.green;
+
+                   var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                   print("************************-> $grayscale");
+
+                    if(grayscale > 170){
+
+                      MyColors.textColor=Colors.grey.shade700;
+                      MyColors.insideTextFieldColor=Colors.white;
+                      MyColors.darkModeCheck=true;
+                      MyColors.lightModeCheck=false;
+
+
+                    }else{
+
+
+
+                    MyColors.textColor=Colors.white;
+                    MyColors.insideTextFieldColor=Colors.black;
+                    MyColors.lightModeCheck=true;
+                    MyColors.darkModeCheck=false;
+
+                    }
+
+
+
 
 
                     MyColors.colorPrimary = currentColor;
+
+
                     MyColors.calcuColor = currentColor;
+                   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                     systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                     statusBarColor: MyColors.colorPrimary, // status bar color
+                   ));
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -85,7 +106,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               Container(
                   width: 150,
                   child:
-                      ElevatedButton(onPressed: () {}, child: Text("Unlock")))
+                      ElevatedButton(onPressed: () {}, child: Text("unlock".tr().toString())))
             ],
           ),
           Container(
@@ -102,8 +123,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 setState(() {});
               },
               child:  Text(
-                "PRESETS",
-                style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+                "presets".tr().toString(),
+                style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),
           ),
