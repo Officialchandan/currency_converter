@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
+
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -1541,7 +1541,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
                           print("************************-> $grayscale");
 
-                          if(grayscale > 170){
+                          if(grayscale > 200){
 
                             MyColors.textColor=Colors.grey.shade700;
                             MyColors.insideTextFieldColor=Colors.white;
@@ -1626,7 +1626,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
                         print("************************-> $grayscale");
 
-                        if(grayscale > 170){
+                        if(grayscale > 200){
 
                           MyColors.textColor=Colors.grey.shade700;
                           MyColors.insideTextFieldColor=Colors.white;

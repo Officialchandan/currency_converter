@@ -691,8 +691,8 @@ class _SecondScreenState extends State<SecondScreen> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              MyColors.colorPrimary1.withOpacity(.5),
-              MyColors.colorPrimary1.withOpacity(.8),
+              Colors.white.withOpacity(.2),
+             Colors.red
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
