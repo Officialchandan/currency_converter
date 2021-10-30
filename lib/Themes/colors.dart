@@ -27,7 +27,7 @@ class MyColors {
   static bool datedd = true; //{ this boolean for date format mm/dd/yy}
 
   static int textSize =
-      2; //{ This is integer value of size ,to increment or decrement the size of fonts}
+      1; //{ This is integer value of size ,to increment or decrement the size of fonts}
   static bool fontsmall = true; //{ this is for doing small font by a variable}
   static bool fontmedium =
       false; //{ this is also same like about but it is for medium font and it will be by default}

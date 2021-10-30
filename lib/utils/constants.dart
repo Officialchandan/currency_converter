@@ -26,7 +26,7 @@ class Constants {
     {
       "code": "AED",
       "image": "assets/pngCountryImages/AED.png",
-      "country_name": "United Arab Emir..",
+      "country_name": "United Arab Emirates",
       "Symbol": "د.إ"
     },
     {
@@ -382,7 +382,7 @@ class Constants {
       "code": "HKD",
       "image": "assets/pngCountryImages/HKD.png",
       "country_name": "Hong Kong Dollar",
-      "Symbol": ""
+      "Symbol": "hk\$"
     },
     {
       "code": "HNL",
