@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -58,6 +58,9 @@ class _SettingScreenState extends State<SettingScreen> {
         if (_isContainerVisible) {
           Future.value(_isContainerVisible = false);
           setState(() {});
+        }else{
+           SystemNavigator.pop();
+           return true;
         }
         return false;
       },
@@ -435,19 +438,28 @@ class _SettingScreenState extends State<SettingScreen> {
                             children: [
                               Container(
                                 width: width * 0.29,
-                                child: Slider(
-                                    activeColor: MyColors.textColor,
-                                    inactiveColor: MyColors.textColor,
-                                    min: 0,
-                                    max: 1,
-                                    value: _value,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        x = _value.toDouble();
-                                        _value = value;
-                                      });
-                                    }),
+                                child: SliderTheme(
+                                  data: SliderThemeData(
+                                    trackHeight: 1.5,
+                                    
+                                    trackShape: RectangularSliderTrackShape(),
+                                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5.0),
+                                  ),
+                                  child: Slider(
+                                      activeColor: MyColors.textColor,
+                                      inactiveColor: MyColors.textColor.withOpacity(0.7),
+                                      min: 0,
+                                      max: 1,
+                                      value: _value,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          x = _value.toDouble();
+                                          _value = value;
+                                        });
+                                      }),
+                                ),
                               ),
+
                               SizedBox(
                                 width: 30,
                                 child: Text(
@@ -1569,7 +1581,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               child: GestureDetector(
                 onTap: () {
                   showCustomColorPickerDialog(context);
-                  setState(() {});
+
                 },
                 child:  Text(
                   "custom".tr().toString(),

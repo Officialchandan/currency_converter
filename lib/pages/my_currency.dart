@@ -438,8 +438,7 @@ class _MyCurrencyState extends State<MyCurrency> {
       });
     }
 
-    buildButton(String buttonText, double buttonHeight, Color buttonColor,
-        double buttonTexth) {
+    buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
       return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
@@ -452,8 +451,8 @@ class _MyCurrencyState extends State<MyCurrency> {
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
-              MyColors.colorPrimary1.withOpacity(.5),
-              MyColors.colorPrimary1.withOpacity(.8),
+              MyColors.colorPrimary.withOpacity(.5),
+              MyColors.colorPrimary.withOpacity(.8),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
