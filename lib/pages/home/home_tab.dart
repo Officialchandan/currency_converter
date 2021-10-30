@@ -12,7 +12,6 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:dio/dio.dart';
 // ignore: implementation_imports
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -40,8 +39,6 @@ class TapHome extends StatefulWidget {
 
 class _TapHomeState extends State<TapHome> implements TabChangeListener {
   String symbol2 = "€";
-
-
 
   String symbol = "\$";
 
@@ -407,10 +404,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                     ),
                                   ),
                                 ),
-
-
-
-
                                 Padding(
                                   padding: const EdgeInsets.only(right: 8.0),
                                   child: Center(
@@ -1031,19 +1024,24 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.left,
           ),
+          //**Alline height */
+          //This is grate
           height:
-          MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight +
-              2.6,
+              MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight +
+                  2.4,
+
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  MyColors.colorPrimary.withOpacity(.5),
-                  MyColors.colorPrimary.withOpacity(.8),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                //stops: [0.0,0.0]
-              )),
+            colors: [
+              MyColors.colorPrimary.withOpacity(.5),
+              MyColors.colorPrimary.withOpacity(.8),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+
+            //stops: [0.0,0.0]
+          )),
+
           child: MaterialButton(
               onLongPress: () {
                 if(buttonText=="⌫"){
@@ -1147,7 +1145,180 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         ));
   }
 
+  Widget calculator1(BuildContext context, TextEditingController controller,
+      Function(String changeValue) onChange) {
+    buttonPressed(String buttonText) {
 
+
+
+
+      setState(() {
+        if (buttonText == "C") {
+          isbool = true;
+          equation = "0";
+          isbool = false;
+          equationFontSize = 38.0;
+          resultFontSize = 48.0;
+        } else if (buttonText == "⌫") {
+          equationFontSize = 48.0;
+          resultFontSize = 38.0;
+          equation = equation.substring(0, equation.length - 1);
+          if (equation == "") {
+            equation = "0";
+          }
+        } else if (buttonText == "=") {
+          equationFontSize = 38.0;
+          resultFontSize = 48.0;
+          isbool = false;
+
+          expression = equation;
+          expression = expression.replaceAll('×', '*');
+          expression = expression.replaceAll('÷', '/');
+
+          try {
+            Parser p = Parser();
+            Expression exp = p.parse(expression);
+
+            ContextModel cm = ContextModel();
+            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+          } catch (e) {
+            result = "";
+          }
+        } else {
+          equationFontSize = 48.0;
+          resultFontSize = 38.0;
+          if (equation == "0") {
+            equation = buttonText;
+          } else {
+            equation = equation + buttonText;
+          }
+        }
+        isbool ? controller.text = equation : controller.text = result;
+
+        controller.selection = TextSelection.fromPosition(
+            TextPosition(offset: controller.text.length));
+
+        isbool ? onChange(equation) : onChange(result);
+
+        isbool = true;
+      });
+    }
+
+    buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
+      return SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Container(
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.left,
+          ),
+          height:
+          MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight +
+              2.6,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  MyColors.colorPrimary.withOpacity(.5),
+                  MyColors.colorPrimary.withOpacity(.8),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                //stops: [0.0,0.0]
+              )),
+          child: MaterialButton(
+              onLongPress: () {
+                buttonPressed(buttonText);
+                equation = "";
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  side: BorderSide(
+                      color: MyColors.colorPrimary,
+                      width: 0.4,
+                      style: BorderStyle.solid)),
+              padding: const EdgeInsets.all(0.0),
+              onPressed: () => buttonPressed(buttonText),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    buttonText,
+                    style: TextStyle(
+                        fontSize: buttonTexth,
+                        fontWeight: FontWeight.normal,
+                        color: MyColors.textColor),
+                  ),
+                ),
+              )),
+        ),
+      );
+    }
+
+    return SizedBox(
+        width: MediaQuery.of(context).size.width * .75,
+        height: MediaQuery.of(context).size.height * 0.35,
+        child: Column(
+          children: <Widget>[
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .75,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: Table(
+                    children: [
+                      TableRow(children: [
+                        buildButton("%", 1, MyColors.calcuColor, 20),
+                        buildButton("/", 1, MyColors.calcuColor, 20),
+                        buildButton("×", 1, MyColors.calcuColor, 27),
+                      ]),
+                      TableRow(children: [
+                        buildButton("1", 1, MyColors.calcuColor, 25),
+                        buildButton("2", 1, MyColors.calcuColor, 25),
+                        buildButton("3", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton("4", 1, MyColors.calcuColor, 25),
+                        buildButton("5", 1, MyColors.calcuColor, 25),
+                        buildButton("6", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton("7", 1, MyColors.calcuColor, 25),
+                        buildButton("8", 1, MyColors.calcuColor, 25),
+                        buildButton("9", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        buildButton(".", 1, MyColors.calcuColor, 25),
+                        buildButton("0", 1, MyColors.calcuColor, 25),
+                        buildButton("c", 1, MyColors.calcuColor, 25),
+                      ]),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: Table(children: [
+                      TableRow(children: [
+                        buildButton("⌫", 1, MyColors.calcuColor, 20),
+                      ]),
+                      TableRow(children: [
+                        buildButton("-", 1, MyColors.calcuColor, 35),
+                      ]),
+                      TableRow(children: [
+                        buildButton("+", 1, MyColors.calcuColor, 25),
+                      ]),
+                      TableRow(children: [
+                        Center(
+                            child: buildButton(
+                                "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                      ]),
+                    ]))
+              ],
+            ),
+          ],
+        ));
+  }
 
 
   // format1(double conversionRate) {

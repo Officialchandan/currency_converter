@@ -9,7 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class CustomColorPicker extends StatefulWidget {
-  const CustomColorPicker({Key? key}) : super(key: key);
+  final Function onThemeChange;
+  const CustomColorPicker({required this.onThemeChange,Key? key}) : super(key: key);
 
   @override
   _CustomColorPickerState createState() => _CustomColorPickerState();
@@ -100,11 +101,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
                      statusBarColor: MyColors.colorPrimary, // status bar color
                    ));
+                    widget.onThemeChange();
+
                     Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MyTabBarWidget()),
-                        (route) => false);
+                        context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
                   },
                 ),
               ),

@@ -281,9 +281,13 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         width: 5.0,
                                       ),
                                       SizedBox(
-                                          width: 50.0,
-                                          child: Text(
+
+                                          child: AutoSizeText(
+
                                             model.code,
+
+
+
                                             style: TextStyle(
                                               color:
                                                   MyColors.insideTextFieldColor,
@@ -295,14 +299,19 @@ class _AddCurrencyState extends State<AddCurrency> {
                                                       ? (MyColors.textSize + 20)
                                                       : 20,
                                             ),
+
                                           )),
                                       const SizedBox(
-                                        width: 5,
+                                        width: 10,
                                       ),
                                       SizedBox(
-                                        width: 160,
-                                        child: Text(
+                                        width:MediaQuery.of(context).size.width*.45,
+                                        child: AutoSizeText(
+
+
                                           model.name!,
+                                          maxLines: 1,
+                                          minFontSize: 15,
                                           style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color:

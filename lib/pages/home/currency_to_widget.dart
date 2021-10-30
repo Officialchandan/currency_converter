@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
@@ -184,9 +185,14 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                                   width: 15,
                                                 ),
                                                 Container(
-                                                    width: 130,
-                                                    child: Text(
+                                                    width:MediaQuery.of(context).size.width*.45,
+                                                    child: AutoSizeText(
                                                       model.name!,
+                                                      minFontSize: 14,
+                                                      maxLines: 1,
+
+
+
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       style: TextStyle(

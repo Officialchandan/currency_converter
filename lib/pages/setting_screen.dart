@@ -911,7 +911,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                               .toString(),
                                           style: TextStyle(
                                               fontWeight: FontWeight.normal,
-                                              fontSize: 11,
+                                              fontSize: MyColors.fontsmall
+                                                  ? (MyColors.textSize - 11) *
+                                                  (-1)
+                                                  : MyColors.fontlarge
+                                                  ? (MyColors.textSize + 11)
+                                                  : 11,
                                               color: MyColors.textColor),
                                           children: <TextSpan>[
                                           TextSpan(
@@ -920,7 +925,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 .toString(),
                                             style: TextStyle(
 
-                                                fontSize: 12,
+                                                fontSize: MyColors.fontsmall
+                                                    ? (MyColors.textSize - 12) *
+                                                    (-1)
+                                                    : MyColors.fontlarge
+                                                    ? (MyColors.textSize + 12)
+                                                    : 12,
                                                 color: MyColors.textColor),
                                           ),
                                           TextSpan(
@@ -929,7 +939,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 .toString(),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.normal,
-                                                fontSize: 11,
+                                                fontSize: MyColors.fontsmall
+                                                    ? (MyColors.textSize - 11) *
+                                                    (-1)
+                                                    : MyColors.fontlarge
+                                                    ? (MyColors.textSize + 11)
+                                                    : 11,
                                                 color: MyColors.textColor),
                                           )
                                         ])),
@@ -1272,6 +1287,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       lockCurrentColor: lockCurrentColor,
                       unlockCurrentColor: unlockCurrentColor,
                       unlockColorSelect: lockedcolortry,
+                      onThemeChange: widget.onThemeChange,
                     )),
               ),
             ),
@@ -1323,6 +1339,9 @@ class _SettingScreenState extends State<SettingScreen> {
 // ),
 
 class ColorPickerDialog extends StatefulWidget {
+  final Function onThemeChange;
+
+
   final Function(Color color) unlockchangeColor;
   final Function(Color color) densitychangeColor;
   final Function(Color color) lockchangeColor;
@@ -1343,6 +1362,7 @@ class ColorPickerDialog extends StatefulWidget {
       required this.unlockCurrentColor,
       required this.lockedColor,
       required this.unlockColorSelect,
+      required this.onThemeChange,
       Key? key})
       : super(key: key);
 
@@ -1544,8 +1564,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             statusBarColor: MyColors.colorPrimary, // status bar color
                           ));
 
-                            Navigator.pushAndRemoveUntil(
-                                context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+                          widget.onThemeChange();
+                          Navigator.pop(context);
 
                         },
                         child: Text(
@@ -1631,7 +1651,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
                         themepicker(unlockSelectdColor!.value.toString());
 
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+                        widget.onThemeChange();
+                        Navigator.pop(context);
+
+
+
 
                         setState(() {});
                       },
@@ -1672,7 +1696,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: CustomColorPicker(),
+                child: CustomColorPicker(onThemeChange:widget.onThemeChange),
               ),
             ]),
           );
