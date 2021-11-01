@@ -10,14 +10,15 @@ import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const _dbName = 'currencyconverter2.db';
-  static final _dbVersion = 1;
-  static final tableName = "conversion";
-  static final ColumnId = "id";
+  static const _dbName = 'currencyconverter4.db'; //database Name
+  static final _dbVersion = 1; // database Version
+  static final tableName = "conversion"; // table Name
+  static final ColumnId = "id"; //Id
   static final countryCode = "countryCode";
   static final countryImage = "countryImage";
   static final currencyValue = "currencyValue";
   static final favCountry = "favCountry";
+  static final timeStamp = "timeStamp";
   static final selectedCountry = "selectedCountry";
   static final countryName = "countryName";
   static final symbol = "symbol";
@@ -32,6 +33,7 @@ class DatabaseHelper {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
+
     _database = await initdb();
     return _database!;
   }
@@ -49,6 +51,7 @@ class DatabaseHelper {
             $countryImage TEXT NOT NULL,
             $currencyValue TEXT NOT NULL,
             $favCountry INTEGER NOT NULL,
+            $timeStamp INTEGER NOT NULL,
             $countryName TEXT NOT NULL,
             $selectedCountry INTEGER NOT NULL,
             $symbol TEXT NOT NULL
@@ -102,13 +105,13 @@ class DatabaseHelper {
         .update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
   }
 
- Future<List<Map<String, dynamic>>> order()async{
+  Future<List<Map<String, dynamic>>> order() async {
     Database db = await instance.database;
 
-    List<Map<String, dynamic>> data= await db.rawQuery("SELECT * FROM " + tableName +" ORDER BY " + favCountry + " DESC");
+    List<Map<String, dynamic>> data = await db.rawQuery(
+        "SELECT * FROM " + tableName + " ORDER BY " + favCountry + " DESC");
     debugPrint("->>>$data");
     return data;
-
   }
 
   Future<List<Map<String, dynamic>>> particular_row(String conCode) async {
@@ -126,8 +129,10 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> data = await db
-          .query(tableName, where: "$selectedCountry = ?", whereArgs: [1]);
+      List<Map<String, dynamic>> data = await db.query(tableName,
+          where: "$selectedCountry = ?",
+          whereArgs: [1],
+          orderBy: "$timeStamp ASC");
 
       log("getSelectedData-->$data");
 
@@ -135,7 +140,20 @@ class DatabaseHelper {
         for (var element in data) {
           DataModel model = DataModel.fromMap(element);
           model.iconForSelection = true;
-          dataList.add(model);
+
+          DataModel dataModel = DataModel(
+              value: model.value,
+              code: model.code,
+              fav: model.fav,
+              iconForSelection: model.iconForSelection,
+              image: model.image,
+              name: model.name,
+              selected: model.selected,
+              symbol: model.symbol,
+              timeStamp: model.timeStamp,
+              key: ValueKey(model.code));
+
+          dataList.add(dataModel);
         }
       }
     } catch (exception) {
@@ -144,6 +162,7 @@ class DatabaseHelper {
 
     return dataList;
   }
+
   Future<List<DataModel>> getUnselectedData() async {
     List<DataModel> dataList = [];
 
@@ -164,5 +183,4 @@ class DatabaseHelper {
 
     return dataList;
   }
-
 }

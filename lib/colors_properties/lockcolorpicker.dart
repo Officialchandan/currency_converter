@@ -43,6 +43,7 @@ class LockColorPicker extends StatefulWidget {
   const LockColorPicker({
     required this.pickerColor,
     required this.onColorChanged,
+
     this.availableColors = _defaultColors,
     this.layoutBuilder = defaultLayoutBuilder,
     this.itemBuilder = defaultItemBuilder,
@@ -92,17 +93,19 @@ class LockColorPicker extends StatefulWidget {
         color: Colors.transparent,
         child: InkWell(
 
-          onTap: (){changeColor();
+          onTap: (){
+            MyColors.lockCheck=true;
+            changeColor();
 
           },
           borderRadius: BorderRadius.circular(50.0),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
-            child: Icon(
+            child:  MyColors.lockCheck?Icon(
               Icons.done,
               color: useWhiteForeground(color) ? Colors.white : Colors.black,
-            ),
+            ):Text(""),
           ),
         ),
       ),

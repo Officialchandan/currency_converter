@@ -2,6 +2,7 @@
 
 library block_colorpicker;
 
+import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -54,17 +55,20 @@ class UnlockColorPicker extends StatefulWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: changeColor,
+          onTap: (){
+            changeColor();
+            MyColors.unclockCheck=true;
+          },
           borderRadius: BorderRadius.circular(0.0),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
-            child: Icon(
+            child:MyColors.unclockCheck? Icon(
               Icons.done,
               color: useWhiteForeground(color.mainColor)
                   ? Colors.white
                   : Colors.black,
-            ),
+            ):Text("        "),
           ),
         ),
       ),

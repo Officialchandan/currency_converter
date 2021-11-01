@@ -4,8 +4,10 @@ class Constants {
   static const String currencyCodeFrom = "currencyCodeFrom";
   static const String currencyCodeTo = "currencyCodeTo";
   static const String themeColor = "theme";
-
   static const String currencySaveData = "currencysavedata";
+  static const String monetaryFormat = "monetaryFormat";
+  static const String decimalFormat = "decimalFormat";
+
 
   static const List<Map<String, dynamic>> countryList = [
 
@@ -24,13 +26,13 @@ class Constants {
     {
       "code": "AED",
       "image": "assets/pngCountryImages/AED.png",
-      "country_name": "United Arab Emirates Dirha..",
+      "country_name": "United Arab Emirates",
       "Symbol": "د.إ"
     },
     {
       "code": "AFN",
       "image": "assets/pngCountryImages/AFN.png",
-      "country_name": "Ffghan Ffghani ",
+      "country_name": "Afghanistan ",
       "Symbol": "؋"
     },
     {
@@ -48,7 +50,7 @@ class Constants {
     {
       "code": "ANG",
       "image": "assets/pngCountryImages/ANG.png",
-      "country_name": "Netherlands Antillean Guil..",
+      "country_name": "Netherlands Antillean Guilder",
       "Symbol": "ƒ"
     },
     {
@@ -84,14 +86,14 @@ class Constants {
     {
       "code": "BAM",
       "image": "assets/pngCountryImages/BAM.png",
-      "country_name": "Bosnia-Herzegovina Conve..",
-      "Symbol": ""
+      "country_name": "Bosnia-Herzegovina Convertible Marka",
+      "Symbol": "KM"
     },
     {
       "code": "BBD",
       "image": "assets/pngCountryImages/BBD.png",
       "country_name": "Barbadian Dollar",
-      "Symbol": ""
+      "Symbol": "Bds"
     },
     {
       "code": "BDT",
@@ -115,7 +117,7 @@ class Constants {
       "code": "BIF",
       "image": "assets/pngCountryImages/BIF.png",
       "country_name": "Burundian France",
-      "Symbol": ""
+      "Symbol": "FBu"
     },
     {
       "code": "BMD",
@@ -380,7 +382,7 @@ class Constants {
       "code": "HKD",
       "image": "assets/pngCountryImages/HKD.png",
       "country_name": "Hong Kong Dollar",
-      "Symbol": ""
+      "Symbol": "hk\$"
     },
     {
       "code": "HNL",
@@ -475,7 +477,7 @@ class Constants {
     {
       "code": "KES",
       "image": "assets/pngCountryImages/KES.png",
-      "country_name": "Ke	South Korean ..",
+      "country_name": "Ke	South Korean ",
       "Symbol": "Ksh"
     },
     {

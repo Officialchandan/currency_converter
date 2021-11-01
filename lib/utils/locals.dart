@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 
 class Locals {
   static List<bool> icon = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
     true,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
     false,
     false,
     false,
@@ -56,7 +58,7 @@ class Locals {
   static const Italian = Locale('it', "IT");
   static const Spanish = Locale('es');
   static const Bengali = Locale('bn');
-    static const Portuguese = Locale('pt', 'BR');
+  static const Portuguese = Locale('pt', 'BR');
   //static const Russian  = Locale('ru-RU');
   static const Japanese = Locale('ja', 'JP');
   static const German = Locale('de', 'DE');
@@ -66,7 +68,7 @@ class Locals {
   static const Dutch = Locale('nl', 'NL');
   static const Estonian = Locale('et');
   static const Finnish = Locale('fi', 'FI');
-    static const Greek = Locale('el', 'GR');
+  static const Greek = Locale('el', 'GR');
   static const Hungarian = Locale('hu', 'HU');
   // static const Hebrew  = Locale('iw-IL');
   static const Armenian = Locale('hy', 'AM');
@@ -89,62 +91,80 @@ class Locals {
   static const Arabic = Locale('ar');
   static const Bosnian = Locale('hrr', 'ba');
   static const Lithuanian = Locale('lt');
-  static const Hebrew = Locale('iw', 'IL');
+  static const Hebrew = Locale('he');
   static const French = Locale('fr', 'FR');
   static const Filipino = Locale('fil');
   static const Russian = Locale('ru', 'RU');
+  static const Georgina = Locale('ka');
+
+
+
 
   static List<Map<String, Locale>> language = [
-    {"English": Locals.english},
-    {"català (Catalan)": Locals.catalan},
-    {"Hrvatski (Croatian) ": Locals.Croatian},
-    {"Italiano (Italian)  ": Locals.Italian},
-    {"Española  (Spanish)": Locals.Spanish},
+    {"عربي (Arabic)": Locals.Arabic},
+    {"հայերեն (Armenian)": Locals.Armenian},
     {"বাংলা  (Bengali)": Locals.Bengali},
-    {"português  (Portuguese)": Locals.Portuguese},
-    {"日本  (Japanese)": Locals.Japanese},
-    {"Deutsch  (German)": Locals.German},
     {"български  (Bulgarian)": Locals.Bulgarian},
+    {"català (Catalan)": Locals.catalan},
+    {"中国人 (Chinese)": Locals.Chinese},
+    {"Hrvatski (Croatian) ": Locals.Croatian},
     {"čeština  (Czech)": Locals.Czech},
     {"dansk  (Danish)": Locals.Danish},
     {"Nederlands  (Dutch)": Locals.Dutch},
-    {"Eestlane  (Estonian)": Locals.Estonian},
+    {"eesti keel  (Estonian)": Locals.Estonian},
+    {"English": Locals.english},
+    {"Pilipino(Filipino)": Locals.Filipino},
     {"Suomalainen  (Finnish)": Locals.Finnish},
+    {"დახმარება (Georgina)": Locals.Georgina},
+    //* \\
+
+    {"Deutsche  (German)": Locals.German},
     {"Ελληνικά (Greek)": Locals.Greek},
+    {"ગુજરાતી (Gujarati)": Locals.gujarati},
+     {" עִברִית(Hebrew)": Locals.Hebrew},
+    {"हिंदी (Hindi)": Locals.hindi},
     {"Magyar (Hungarian)": Locals.Hungarian},
-    {"հայերեն (Armenian)": Locals.Armenian},
     {"bahasa Indonesia (Indonesian)": Locals.Indonesian},
+    {"Italiana (Italian)  ": Locals.Italian},
+    {"日本  (Japanese)": Locals.Japanese},
     {"Latvietis (Latvian)": Locals.Latvian},
+
     {"Melayu (Malay)": Locals.Malay},
     {"मराठी (Marathi)": Locals.Marathi},
-    {"中国人 (Chinese)": Locals.Chinese},
+    {"नेपाली (Nepali)": Locals.nepali},
+    {"norsk(norwegian)": Locals.French},
+    //*
+    {"Bosanski(Bosnian)": Locals.Bosnian},
     {"Polskie (Polish)": Locals.Polish},
+    {"português  (Portuguese)": Locals.Portuguese},
+    //*
+    {"Lietuvių(Lithuanian)": Locals.Lithuanian},
     {"Română (Romanian)": Locals.Romanian},
+    //*
+    {"русский(Russia)": Locals.Russian},
+
     {"Српски (Serbian)": Locals.Serbian},
-    {"தமிழ் (Tamil)": Locals.Tamil},
     {"Slovenský (Slovak)": Locals.Slovak},
     {"Slovenščina (Slovenian)": Locals.Slovenian},
-    {"తెలుగు (Telugu)": Locals.Telugu},
-    {"svenska (Swedish)": Locals.Swedish},
-    {"Türk (Turkish)": Locals.Turkish},
-    {"Tiếng Việt (Vietnamese)": Locals.Vietnamese},
-    {"Українська (Ukrainian)": Locals.Ukrainian},
-    {"عربي (Arabic)": Locals.Arabic},
-    {" Bosanski(Bosnian)": Locals.Bosnian},
-    {" Lietuvių(Lithuanian)": Locals.Lithuanian},
-   // {" עִברִית(Hebrew)": Locals.Hebrew},
-    {" français(French)": Locals.French},
-    {" Pilipino(Filipino)": Locals.Filipino},
-    {" Russian(русский)": Locals.Russian},
-    {
-      "हिंदी (Hindi)": Locals.hindi,
+    {"Española  (Spanish)": Locals.Spanish},
 
-    },
-    {"नेपाली (Nepali)": Locals.nepali},
-    //{"ગુજરાતી (Gujarati)": Locals.gujarati},
+    {"svenska (Swedish)": Locals.Swedish},
+    {"தமிழ் (Tamil)": Locals.Tamil},
+    {"తెలుగు (Telugu)": Locals.Telugu},
+    {"Türk (Turkish)": Locals.Turkish},
+    {"Українська (Ukrainian)": Locals.Ukrainian},
+    {"Tiếng Việt (Vietnamese)": Locals.Vietnamese},
+
+
+
+
+
+    //დახმარება
   ];
 
   static const supportedLang = [
+    Hebrew,
+    Georgina,
     Filipino,
     French,
     Russian,

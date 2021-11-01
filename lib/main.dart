@@ -5,23 +5,29 @@ import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
-import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/locals.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await insertData();
+  await insertion();
+
 
   runApp(EasyLocalization(
       child: MyApp(),
-      path: "assets/languagecode",
+      path: "assets/language_final",
       fallbackLocale: Locale('en'),
       useFallbackTranslations: true,
       useOnlyLangCode: true,
@@ -43,6 +49,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -60,6 +67,33 @@ class _MyAppState extends State<MyApp> {
 
   void getTheme() async {
     await Utility.getColorTheme();
+
+    int red=MyColors.colorPrimary.red;
+    int blue=MyColors.colorPrimary.blue;
+    int green=MyColors.colorPrimary.green;
+
+    var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+    print("************************-> $grayscale");
+
+    if(grayscale > 128){
+
+      MyColors.textColor=Colors.grey.shade700;
+      MyColors.insideTextFieldColor=Colors.white;
+      MyColors.darkModeCheck=true;
+      MyColors.lightModeCheck=false;
+
+
+    }else{
+
+
+
+      MyColors.textColor=Colors.white;
+      MyColors.insideTextFieldColor=Colors.black;
+      MyColors.lightModeCheck=true;
+      MyColors.darkModeCheck=false;
+
+    }
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
@@ -70,25 +104,20 @@ class _MyAppState extends State<MyApp> {
 Future<void> insertData() async {
   DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  String url =
-      "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+  String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
   Dio _dio = Dio();
   try {
-
     Response response = await _dio.get(url);
     if (response.statusCode == 200) {
-
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList
-            .singleWhere((element) => element["code"] == key, orElse: () {
+        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
           return {};
         });
-        print(map);
 
         DataModel currencyData = DataModel(
             value: value.toString(),
@@ -100,8 +129,6 @@ Future<void> insertData() async {
             symbol: map["Symbol"]);
 
         int id = await dbHelper.insert(currencyData.toMap());
-
-        log("$id");
       });
     } else {
       print("NOT FOUND DATA");
@@ -109,6 +136,14 @@ Future<void> insertData() async {
   } catch (e) {
     print(e);
   }
+}
 
+insertion() async {
+  String monetary = await Utility.getStringPreference(Constants.monetaryFormat);
+  String decimal = await Utility.getStringPreference(Constants.decimalFormat);
 
+  monetary = monetary == "" ? "1" : monetary;
+  decimal = decimal == "" ? "2" : decimal;
+  MyColors.monetaryFormat = int.parse(monetary);
+  MyColors.decimalFormat = int.parse(decimal);
 }
