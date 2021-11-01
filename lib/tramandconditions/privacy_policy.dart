@@ -1,5 +1,7 @@
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyPolicyPage extends StatefulWidget {
@@ -18,6 +20,13 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SingleChildScrollView(
+          child: Html(
+            data: "html_policy".tr().toString(),
+          ),
+        ));
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
