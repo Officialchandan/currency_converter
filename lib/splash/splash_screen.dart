@@ -35,6 +35,13 @@ class _SplashScreenState extends State<SplashScreen> {
       Constants.dateFormat = dateFormat;
     }
 
+    String fonts = await Utility.getStringPreference(Constants.fontSize);
+    if (fonts.isNotEmpty) {
+      Constants.selectedFontSize = fonts;
+    } else {
+      Constants.selectedFontSize = Constants.fontMedium;
+    }
+
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyTabBarWidget()));
   }
 }
