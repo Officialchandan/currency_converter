@@ -44,8 +44,8 @@ class _MyCurrencyState extends State<MyCurrency> {
   double equationFontSize = 38.0;
   double resultFontSize = 48.0;
   bool isbool = true;
-
   bool firstTime = true;
+  DataModel? selectedData;
 
   void getSelectedList() async {
     firstTime = true;
@@ -70,8 +70,11 @@ class _MyCurrencyState extends State<MyCurrency> {
   void didUpdateWidget(MyCurrency oldWidget) {
     debugPrint("MyCurrency-> didUpdateWidget");
     dataController.addError("error");
-    streamController.add(selectedList);
-
+    // streamController.add(selectedList);
+    if (selectedData != null) {
+      int index = selectedList.indexWhere((element) => element.code == selectedData!.code);
+      calculateExchangeRate(selectedData!.controller.text, index, selectedData!);
+    }
     super.didUpdateWidget(oldWidget);
     setState(() {});
   }
@@ -176,11 +179,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                         Utility.getFormatDate(),
                         style: TextStyle(
                           color: MyColors.textColor,
-                          fontSize: MyColors.fontsmall
-                              ? (MyColors.textSize - 18) * (-1)
-                              : MyColors.fontlarge
-                                  ? (MyColors.textSize + 18)
-                                  : 18,
+                          fontSize: 18,
                         ),
                       ),
                       // MyColors.datemm
@@ -277,6 +276,7 @@ class _MyCurrencyState extends State<MyCurrency> {
           stream: dataController.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
+              selectedData = snapshot.data!;
               return Calculator(
                 txtController: snapshot.data!.controller,
                 onChange: (text) {
@@ -756,17 +756,13 @@ class Item extends StatelessWidget {
 
                 Expanded(
                   child: AutoSizeTextField(
-                    cursorColor: MyColors.colorPrimary,
-                    cursorWidth: 2.3,
                     controller: data.controller,
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.none,
-                    showCursor: true,
-                    readOnly: false,
-                    decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, top: 1.0, bottom: 1.0),
-                        counterText: "",
-                        border: InputBorder.none),
+                    textAlignVertical: TextAlignVertical.center,
+                    autocorrect: true,
+                    maxLength: 30,
+                    maxLines: 1,
+                    maxFontSize: 18.0,
+                    minFontSize: 7.0,
                     style: TextStyle(
                       color: MyColors.colorPrimary,
                       fontWeight: FontWeight.w600,
@@ -776,18 +772,21 @@ class Item extends StatelessWidget {
                               ? (MyColors.textSize + 18)
                               : 18,
                     ),
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.none,
+                    showCursor: true,
+                    readOnly: false,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
+                        counterText: "",
+                        border: InputBorder.none),
                     onChanged: (String text) {
                       data.controller.text = text;
-                      // text = data.controller.text;
                       data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
                       onChange(text);
-                      // calculateExchangeRate(text);
                     },
                     onTap: () async {
                       data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
-                      // isCalculatorVisible = true;
-                      // dataController.add(data);
-
                       onTap();
                     },
                   ),

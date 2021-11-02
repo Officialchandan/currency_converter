@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 

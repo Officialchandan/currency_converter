@@ -1,5 +1,4 @@
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -30,6 +29,10 @@ class _CalculatorState extends State<Calculator> {
       equation = widget.txtController.text.trim();
       expression = widget.txtController.text.trim();
     }
+
+    debugPrint("initialEquation->$equation");
+    debugPrint("initialEquation->$expression");
+    debugPrint("initialtext->${widget.txtController.text}");
 
     super.initState();
   }
@@ -107,12 +110,13 @@ class _CalculatorState extends State<Calculator> {
         //**Alline height */
         //This is grate
         height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.4,
+        // color: Colors.grey,
 
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
             MyColors.colorPrimary.withOpacity(.5),
-            MyColors.colorPrimary.withOpacity(.8),
+            MyColors.colorPrimary.withOpacity(.7),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -185,12 +189,14 @@ class _CalculatorState extends State<Calculator> {
         (equation.substring(equation.length - 1) == "×" && buttonText == "-") ||
         (equation.substring(equation.length - 1) == "×" && buttonText == "/") ||
         (equation.substring(equation.length - 1) == "×" && buttonText == "=") ||
+        (equation.substring(equation.length - 1) == "." && buttonText == ".") ||
         (buttonText == "×" && equation == "0") ||
         (buttonText == "%" && equation == "0") ||
         (buttonText == "/" && equation == "0") ||
         (buttonText == "*" && equation == "0") ||
         (buttonText == "+" && equation == "0") ||
         (buttonText == "-" && equation == "0")) {
+      debugPrint("nothing");
     } else {
       setState(() {
         if (buttonText == "c") {
@@ -198,7 +204,6 @@ class _CalculatorState extends State<Calculator> {
           expression = "";
           equation = "0";
           widget.txtController.text = "0";
-          widget.txtController.selection = TextSelection.fromPosition(TextPosition(offset: widget.txtController.text.length + 1));
           widget.onChange(widget.txtController.text);
           isbool = false;
           equationFontSize = 38.0;
@@ -206,16 +211,18 @@ class _CalculatorState extends State<Calculator> {
         } else if (buttonText == "⌫") {
           equationFontSize = 48.0;
           resultFontSize = 38.0;
-          equation = equation.substring(0, equation.length - 1);
-          if (equation == "") {
-            equation = "0";
-          }
+          _backspace();
+          // equation = equation.substring(0, equation.length - 1);
+          // if (equation == "") {
+          //   equation = "0";
+          // }
+          // isbool ? widget.txtController.text = equation : widget.txtController.text = result;
+          // widget.onChange(widget.txtController.text);
+
         } else if (buttonText == "=") {
           equationFontSize = 38.0;
           resultFontSize = 48.0;
-
-          isbool = false;
-
+          isbool = true;
           expression = equation;
           String str1 = expression;
           List<String> charList = [];
@@ -246,26 +253,21 @@ class _CalculatorState extends State<Calculator> {
           int l = charList.where((element) => element == "%").toList().length;
 
           for (int i = 0; i < l; i++) {
-            print("charList-->$charList");
             int i = charList.indexWhere((element) => element == "%");
             int a = i - 1;
             int b = i + 1;
             double aa = double.parse(charList[a]);
             double bb = double.parse(charList[b]);
             double cc = (aa * bb) / 100;
-            print("cc-->$cc");
             charList[a] = cc.toString();
-            print("charList1-->$charList");
             charList.removeAt(b);
-            print("charList1-->$charList");
             charList.removeAt(i);
-            print("charList1-->$charList");
           }
 
           String exp = "";
-          charList.forEach((element) {
+          for (var element in charList) {
             exp += element;
-          });
+          }
 
           print("exp-->$exp");
           expression = exp;
@@ -274,32 +276,190 @@ class _CalculatorState extends State<Calculator> {
 
           try {
             Parser p = Parser();
-            Expression exp = p.parse(expression);
+            Expression expn = p.parse(expression);
             ContextModel cm = ContextModel();
-            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-            result = Utility.getFormatText(double.parse(result).toStringAsFixed(MyColors.decimalFormat));
-            expression = "$result";
-            equation = "$result";
+            result = '${expn.evaluate(EvaluationType.REAL, cm)}';
+            result = double.parse(result).toStringAsFixed(MyColors.decimalFormat);
+            expression = result;
+            equation = result;
+            widget.txtController.clear();
+            _insertText(result);
+            // widget.onChange(widget.txtController.text);
           } catch (e) {
-            result = "";
+            debugPrint("exception-->$e");
+            // result = "";
+            // expression = result;
+            // equation = result;
+            // isbool ? widget.txtController.text = equation : widget.txtController.text = result;
+            // widget.onChange(widget.txtController.text);
           }
         } else {
           debugPrint("isbool-->$isbool");
           equationFontSize = 48.0;
           resultFontSize = 38.0;
           if (equation == "0") {
-            equation = buttonText;
+            widget.txtController.clear();
+            _insertText(buttonText);
           } else {
-            equation = equation + buttonText;
+            _insertText(buttonText);
           }
         }
-        isbool ? widget.txtController.text = equation : widget.txtController.text = result;
-        widget.txtController.selection = TextSelection.fromPosition(TextPosition(offset: widget.txtController.text.length + 1));
-
-        // getConverterAPI(currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
-
-        isbool = true;
+        // isbool ? widget.txtController.text = equation : widget.txtController.text = result;
+        // widget.onChange(widget.txtController.text);
+        // isbool = true;
       });
     }
+  }
+
+  void _insertText(String myText) {
+    final text = widget.txtController.text;
+    final textSelection = widget.txtController.selection;
+
+    if (text.isNotEmpty) {
+      if (myText == "+" || myText == "-" || myText == "×" || myText == "÷" || myText == "/" || myText == "*" || myText == "%") {
+        debugPrint("myText contain operator");
+        String previousText = text[textSelection.start - 1];
+
+        if (previousText == "+" ||
+            previousText == "-" ||
+            previousText == "×" ||
+            previousText == "÷" ||
+            previousText == "/" ||
+            previousText == "*" ||
+            previousText == "%") {
+          debugPrint("and it previousText is also is a operator");
+          return;
+        }
+      }
+    }
+
+    debugPrint("text->$text");
+    debugPrint("cursor position->${textSelection.start}");
+
+    // if (text.length > textSelection.start) {
+    //   print(text.length >= textSelection.start);
+    //   if (myText == "+" || myText == "-" || myText == "×" || myText == "÷" || myText == "/" || myText == "*" || myText == "%") {
+    //     debugPrint("myText contain operator");
+    //     String previousText = text[textSelection.start];
+    //     debugPrint("next text ->$previousText");
+    //
+    //     if (previousText == "+" ||
+    //         previousText == "-" ||
+    //         previousText == "×" ||
+    //         previousText == "÷" ||
+    //         previousText == "/" ||
+    //         previousText == "*" ||
+    //         previousText == "%") {
+    //       debugPrint("and it previousText is also is a operator");
+    //       return;
+    //     }
+    //   }
+    // }
+
+    if (myText == ".") {
+      String mText = text;
+      int pos = textSelection.start;
+      List<String> str = mText.split("");
+      debugPrint("pos-->$pos");
+      debugPrint("str-->$str");
+      String temp1 = "";
+      String temp = "";
+      if (mText.length > pos) {
+        for (int i = pos; i <= str.length; i++) {
+          if (str[i] == "+" || str[i] == "-" || str[i] == "×" || str[i] == "÷" || str[i] == "/" || str[i] == "*" || str[i] == "%") {
+            break;
+          } else {
+            temp1 += str[i];
+          }
+        }
+      }
+      debugPrint("temp1-->$temp1");
+      debugPrint("pos-->$pos");
+      for (int j = 0; j < pos; j++) {
+        if (str[j] == "+" || str[j] == "-" || str[j] == "×" || str[j] == "÷" || str[j] == "/" || str[j] == "*" || str[j] == "%") {
+          temp = "";
+        } else {
+          temp += str[j];
+        }
+      }
+
+      String temp3 = temp + temp1;
+
+      if (temp3.contains(".")) {
+        return;
+      }
+
+      debugPrint("temp-->$temp");
+    }
+
+    final newText = text.replaceRange(
+      textSelection.start,
+      textSelection.end,
+      myText,
+    );
+    debugPrint("newText$newText");
+    final myTextLength = myText.length;
+    widget.txtController.text = newText;
+    equation = widget.txtController.text;
+    expression = equation;
+    widget.txtController.selection = textSelection.copyWith(
+      baseOffset: textSelection.start + myTextLength,
+      extentOffset: textSelection.start + myTextLength,
+    );
+    widget.onChange(widget.txtController.text);
+  }
+
+  void _backspace() {
+    final text = widget.txtController.text;
+    final textSelection = widget.txtController.selection;
+    final selectionLength = textSelection.end - textSelection.start;
+
+    // There is a selection.
+    if (selectionLength > 0) {
+      final newText = text.replaceRange(
+        textSelection.start,
+        textSelection.end,
+        '',
+      );
+      widget.txtController.text = newText;
+      widget.txtController.selection = textSelection.copyWith(
+        baseOffset: textSelection.start,
+        extentOffset: textSelection.start,
+      );
+      return;
+    }
+
+    // The cursor is at the beginning.
+    if (textSelection.start == 0) {
+      return;
+    }
+
+    // Delete the previous character
+    final previousCodeUnit = text.codeUnitAt(textSelection.start - 1);
+    final offset = _isUtf16Surrogate(previousCodeUnit) ? 2 : 1;
+    final newStart = textSelection.start - offset;
+    final newEnd = textSelection.start;
+    final newText = text.replaceRange(
+      newStart,
+      newEnd,
+      '',
+    );
+
+    widget.txtController.text = newText;
+    if (widget.txtController.text.isEmpty) {
+      widget.txtController.text = "0";
+      equation = "0";
+      expression = "";
+      result = "0";
+    }
+    widget.txtController.selection = textSelection.copyWith(
+      baseOffset: newStart,
+      extentOffset: newStart,
+    );
+    widget.onChange(widget.txtController.text);
+  }
+
+  bool _isUtf16Surrogate(int value) {
+    return value & 0xF800 == 0xD800;
   }
 }
