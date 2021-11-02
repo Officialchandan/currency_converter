@@ -197,11 +197,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                         "update".tr().toString() + ":",
                                         style: TextStyle(
                                           color: MyColors.textColor,
-                                          fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 18) * (-1)
-                                              : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 18)
-                                                  : 18,
+                                          fontSize:18,
                                         ),
                                       ),
                                     ),
@@ -213,11 +209,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                         Utility.getFormatDate(),
                                         style: TextStyle(
                                           color: MyColors.textColor,
-                                          fontSize: MyColors.fontsmall
-                                              ? (MyColors.textSize - 18) * (-1)
-                                              : MyColors.fontlarge
-                                                  ? (MyColors.textSize + 18)
-                                                  : 18,
+                                          fontSize:18,
                                         ),
                                       ),
                                     ),
@@ -271,11 +263,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                               style: TextStyle(
                                                 color: MyColors.textColor,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 20) * (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize + 20)
-                                                        : 20,
+                                                fontSize: 20,
                                               ),
                                             ),
                                           )
@@ -285,11 +273,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                                   symbol,
                                                   style: TextStyle(
                                                     color: MyColors.textColor,
-                                                    fontSize: MyColors.fontsmall
-                                                        ? (MyColors.textSize - 18) * (-1)
-                                                        : MyColors.fontlarge
-                                                            ? (MyColors.textSize + 18)
-                                                            : 18,
+                                                    fontSize: 18,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
@@ -300,11 +284,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                                   style: TextStyle(
                                                     color: MyColors.textColor,
                                                     fontWeight: FontWeight.w600,
-                                                    fontSize: MyColors.fontsmall
-                                                        ? (MyColors.textSize - 20) * (-1)
-                                                        : MyColors.fontlarge
-                                                            ? (MyColors.textSize + 20)
-                                                            : 20,
+                                                    fontSize: 20,
                                                   ),
                                                 ),
                                               ),
@@ -324,11 +304,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                       style: TextStyle(
                                         color: MyColors.colorPrimary,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 18) * (-1)
-                                            : MyColors.fontlarge
-                                                ? (MyColors.textSize + 18)
-                                                : 18,
+                                        fontSize: 18,
                                       ),
                                       controller: calculateCurrency,
 
@@ -415,11 +391,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                         color: MyColors.insideTextFieldColor,
                                         fontWeight: FontWeight.w600,
                                         letterSpacing: 1.5,
-                                        fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 20) * (-1)
-                                            : MyColors.fontlarge
-                                                ? (MyColors.textSize + 20)
-                                                : 20,
+                                        fontSize: 20,
                                       ),
                                       controller: edtFrom,
                                       showCursor: false,
@@ -481,11 +453,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                         color: MyColors.insideTextFieldColor,
                                         fontWeight: FontWeight.w600,
                                         letterSpacing: 1.5,
-                                        fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 20) * (-1)
-                                            : MyColors.fontlarge
-                                                ? (MyColors.textSize + 20)
-                                                : 20,
+                                        fontSize: 20,
                                       ),
                                       controller: edtTo,
                                       showCursor: false,
@@ -618,11 +586,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                             minFontSize: 15.0,
                                             style: TextStyle(
                                                 color: MyColors.textColor,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 25) * (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize + 25)
-                                                        : 25,
+                                                fontSize: 25,
                                                 fontWeight: FontWeight.w400),
                                           ),
                                           const SizedBox(
@@ -634,11 +598,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                             minFontSize: 7.0,
                                             style: TextStyle(
                                                 color: MyColors.textColor,
-                                                fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 20) * (-1)
-                                                    : MyColors.fontlarge
-                                                        ? (MyColors.textSize + 20)
-                                                        : 20,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                         ],

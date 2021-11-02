@@ -153,7 +153,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 listener = tabChangeListener;
               },
             ),
-             MyCurrency(),
+            MyCurrency(),
             const DecimalScreens(),
             const InkWell(),
             const TeramAndCondition(),
@@ -228,11 +228,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   Text(
                     "firstTextRatingPage".tr().toString(),
                     style: GoogleFonts.roboto(
-                        fontSize: MyColors.fontsmall
-                            ? (MyColors.textSize - 17) * (-1)
-                            : MyColors.fontlarge
-                                ? (MyColors.textSize + 17)
-                                : 17,
+                        fontSize: 17,
                         color: MyColors.textColor,
                         fontWeight: FontWeight.bold),
                   ),
@@ -247,11 +243,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                           TextSpan(
                               text: "secondTextRatingPage".tr().toString(),
                               style: GoogleFonts.roboto(
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
+                                fontSize: 18,
                                 color: MyColors.textColor,
                                 fontWeight: FontWeight.normal,
                               )),
@@ -322,11 +314,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                       child: AutoSizeText(
                         "not".tr().toString(),
                         style: TextStyle(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 18) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 18)
-                                    : 18,
+                            fontSize: 18,
                             color: MyColors.colorPrimary,
                             fontWeight: FontWeight.bold),
                       ),

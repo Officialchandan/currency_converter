@@ -135,11 +135,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
               style: TextStyle(
                 color: MyColors.textColor,
                 fontWeight: FontWeight.bold,
-                fontSize: MyColors.fontsmall
-                    ? (MyColors.textSize - 26) * (-1)
-                    : MyColors.fontlarge
-                        ? (MyColors.textSize + 26)
-                        : 26,
+                fontSize: 26,
               ),
             ),
             Row(
@@ -156,11 +152,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                         "monetary".tr().toString(),
                         style: TextStyle(
                             color: MyColors.textColor,
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
@@ -178,7 +170,6 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                 Checkbox(
                                   side: BorderSide(color: MyColors.textColor),
                                   value: monetaryFormat[index]["check"],
-
                                   onChanged: (value) {
                                     if (value!) {
                                       monetary = monetaryFormat[index]["id"];
@@ -217,20 +208,16 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   activeColor: MyColors.darkModeCheck
                                       ? Colors.black
                                       : Colors.white,
-                                  checkColor: MyColors.colorPrimary.withOpacity(0.50),
+                                  checkColor:
+                                      MyColors.colorPrimary.withOpacity(0.50),
                                   tristate: false,
-                                  
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                 ),
                                 Text("${monetaryFormat[index]["format"]}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 20) * (-1)
-                                            : MyColors.fontlarge
-                                                ? (MyColors.textSize + 20)
-                                                : 20,
+                                        fontSize: 20,
                                         color: MyColors.textColor)),
                               ],
                             ),
@@ -249,11 +236,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                         "decimal".tr().toString(),
                         style: TextStyle(
                             color: MyColors.textColor,
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 20) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 20)
-                                    : 20,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -304,7 +287,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   activeColor: MyColors.darkModeCheck
                                       ? Colors.black
                                       : Colors.white,
-                                  checkColor: MyColors.colorPrimary.withOpacity(0.50),
+                                  checkColor:
+                                      MyColors.colorPrimary.withOpacity(0.50),
                                   tristate: false,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
@@ -312,11 +296,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                 Text("${decimalFormat[index]["format"]}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: MyColors.fontsmall
-                                            ? (MyColors.textSize - 20) * (-1)
-                                            : MyColors.fontlarge
-                                                ? (MyColors.textSize + 20)
-                                                : 20,
+                                        fontSize: 20,
                                         color: MyColors.textColor)),
                               ],
                             ),

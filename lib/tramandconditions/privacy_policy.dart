@@ -21,19 +21,17 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
+        backgroundColor: Colors.transparent,
+        body: SingleChildScrollView(
           padding: const EdgeInsets.only(left: 20, top: 15, right: 20),
-          child:HtmlWidget(
+          child: HtmlWidget(
             "html_policy".tr().toString(),
-            textStyle: TextStyle(color: MyColors.textColor,fontSize: MyColors.fontsmall
-            ? (MyColors.textSize - 15) * (-1)
-                  : MyColors.fontlarge
-          ? (MyColors.textSize + 15)
-            : 15,),
+            textStyle: TextStyle(
+              color: MyColors.textColor,
+              fontSize: 15,
+            ),
           ),
-      )
-    );
+        ));
   }
 
   _launchURL() async {

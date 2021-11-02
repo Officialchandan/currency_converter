@@ -25,11 +25,10 @@ class _TermsPageState extends State<TermsPage> {
           child: Container(
               margin: const EdgeInsets.only(top: 15),
               child: HtmlWidget("html_terms".tr().toString(),
-                  textStyle: TextStyle(color: MyColors.textColor,fontSize: MyColors.fontsmall
-                      ? (MyColors.textSize - 15) * (-1)
-                      : MyColors.fontlarge
-                      ? (MyColors.textSize + 15)
-                      : 15,)))),
+                  textStyle: TextStyle(
+                    color: MyColors.textColor,
+                    fontSize: 15,
+                  )))),
     );
   }
 
