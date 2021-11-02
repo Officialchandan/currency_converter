@@ -44,6 +44,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   double equationFontSize = 38.0;
   double resultFontSize = 48.0;
   bool isbool = true;
+
   bool firstTime = true;
   DataModel? selectedData;
 
@@ -165,11 +166,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                         "update".tr().toString(),
                         style: TextStyle(
                           color: MyColors.textColor,
-                          fontSize: MyColors.fontsmall
-                              ? (MyColors.textSize - 18) * (-1)
-                              : MyColors.fontlarge
-                                  ? (MyColors.textSize + 18)
-                                  : 18,
+                          fontSize: 18,
                         ),
                       ),
                       const SizedBox(
@@ -187,22 +184,14 @@ class _MyCurrencyState extends State<MyCurrency> {
                       //         "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
                       //         style: TextStyle(
                       //           color: MyColors.textColor,
-                      //           fontSize: MyColors.fontsmall
-                      //               ? (MyColors.textSize - 18) * (-1)
-                      //               : MyColors.fontlarge
-                      //                   ? (MyColors.textSize + 18)
-                      //                   : 18,
+                      //           fontSize: 18,
                       //         ),
                       //       )
                       //     : Text(
                       //         "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
                       //         style: TextStyle(
                       //           color: MyColors.textColor,
-                      //           fontSize: MyColors.fontsmall
-                      //               ? (MyColors.textSize - 18) * (-1)
-                      //               : MyColors.fontlarge
-                      //                   ? (MyColors.textSize + 18)
-                      //                   : 18,
+                      //           fontSize:18,
                       //         ),
                       //       ),
                     ],
@@ -276,7 +265,6 @@ class _MyCurrencyState extends State<MyCurrency> {
           stream: dataController.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-              selectedData = snapshot.data!;
               return Calculator(
                 txtController: snapshot.data!.controller,
                 onChange: (text) {
@@ -659,11 +647,7 @@ class Item extends StatelessWidget {
                               data.code,
                               style: TextStyle(
                                 color: MyColors.textColor,
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -705,11 +689,7 @@ class Item extends StatelessWidget {
                                   data.symbol!,
                                   style: TextStyle(
                                     color: MyColors.textColor,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 18) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 18)
-                                            : 18,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -741,11 +721,7 @@ class Item extends StatelessWidget {
                               data.symbol!,
                               style: TextStyle(
                                 color: MyColors.textColor,
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -766,11 +742,7 @@ class Item extends StatelessWidget {
                     style: TextStyle(
                       color: MyColors.colorPrimary,
                       fontWeight: FontWeight.w600,
-                      fontSize: MyColors.fontsmall
-                          ? (MyColors.textSize - 18) * (-1)
-                          : MyColors.fontlarge
-                              ? (MyColors.textSize + 18)
-                              : 18,
+                      fontSize: 18,
                     ),
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.none,
@@ -782,11 +754,16 @@ class Item extends StatelessWidget {
                         border: InputBorder.none),
                     onChanged: (String text) {
                       data.controller.text = text;
+                      // text = data.controller.text;
                       data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
                       onChange(text);
+                      // calculateExchangeRate(text);
                     },
                     onTap: () async {
                       data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
+                      // isCalculatorVisible = true;
+                      // dataController.add(data);
+
                       onTap();
                     },
                   ),

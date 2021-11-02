@@ -10,10 +10,9 @@
   "removeAds": "הסר מודעות",
   "removeAdsContent": "תמכו בפרויקט שלנו עם מנוי שנתי קטן",
   "english": "בחר שפה",
-
   "colorsSelection": "בחירת צבע",
   "theme": "נושא",
- "light": "אור אור",
+  "light": "אור אור",
   "dark": "כהה",
   "widgetTransparency": "שקיפות יישומון",
   "visualSize": "גודל ויזואלי",
@@ -42,10 +41,6 @@
   "unlock": "ביטול נעילה",
   "wiki": ", מאת:Currency.wiki",
   "multi": "מרבה ממיר",
-
-
   "presets": "הגדרות קבועות מראש",
   "select": "בחר"
-
-
 }
