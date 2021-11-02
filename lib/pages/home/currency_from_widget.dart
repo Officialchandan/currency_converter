@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
@@ -11,9 +10,7 @@ import 'package:flutter/material.dart';
 class CurrencyFromWidget extends StatefulWidget {
   final Function(String currencyCode, String image, String symbol) onSelect;
 
-  const CurrencyFromWidget(
-      {required this.isContainerVisible, required this.onSelect, Key? key})
-      : super(key: key);
+  const CurrencyFromWidget({required this.isContainerVisible, required this.onSelect, Key? key}) : super(key: key);
   final bool isContainerVisible;
 
   @override
@@ -55,52 +52,60 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
         curve: _isExpanded ? Curves.elasticOut : Curves.easeInSine,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(13.0),
+          borderRadius: BorderRadius.circular(5.0),
         ),
-
         duration: const Duration(seconds: 0),
-        height: widget.isContainerVisible
-            ? MediaQuery.of(context).size.height -280
-            : 0.0,
-        width:
-            widget.isContainerVisible ? MediaQuery.of(context).size.width : 0.0,
+        height: widget.isContainerVisible ? MediaQuery.of(context).size.height - 280 : 0.0,
+        width: widget.isContainerVisible ? MediaQuery.of(context).size.width : 0.0,
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 2, 10, 0),
-              child: TextField(
-                onChanged: (String text) {
-                  List<DataModel> searchList = [];
-
-                  for (var element in countrycode) {
-                    if (element.code
-                            .toString()
-                            .toLowerCase()
-                            .contains(text.trim().toLowerCase()) ||
-                        element.name
-                            .toString()
-                            .toLowerCase()
-                            .contains(text.trim().toLowerCase())) {
-                      searchList.add(element);
-                    }
-                  }
-                  streamController.sink.add(searchList);
-                },
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Icon(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
                     Icons.search,
                     size: 22,
                     color: Colors.black,
                   ),
-                  hintText: "Search",
-                  hintStyle:
-                      TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
-                ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        TextField(
+                          onChanged: (String text) {
+                            List<DataModel> searchList = [];
+
+                            for (var element in countrycode) {
+                              if (element.code.toString().toLowerCase().contains(text.trim().toLowerCase()) ||
+                                  element.name.toString().toLowerCase().contains(text.trim().toLowerCase())) {
+                                searchList.add(element);
+                              }
+                            }
+                            streamController.sink.add(searchList);
+                          },
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Search",
+                            hintStyle: TextStyle(fontSize: 17, color: MyColors.insideTextFieldColor, fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.grey.shade500,
+                          height: 0.7,
+                          margin: const EdgeInsets.symmetric(horizontal: 0),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height -350,
+              height: MediaQuery.of(context).size.height - 350,
               child: StreamBuilder<List<DataModel>>(
                   stream: streamController.stream,
                   initialData: countrycode,
@@ -111,92 +116,64 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
                             DataModel model1 = snapshot.data![index];
-
                             log(model1.toString());
-                            return InkWell(
-                              onTap: () {
-                                debugPrint("on tap -> ${model1.code}");
-                                widget.onSelect(
-                                    model1.code, model1.image!, model1.symbol!);
-                              },
-                              child: Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(10, 1, 10, 0),
-                                  padding: const EdgeInsets.only(left: 5),
-                                  decoration: BoxDecoration(
-                                    // color: MyColors.textColor,
-                                    color: MyColors.textColor,
-
-                                    borderRadius: BorderRadius.circular(7),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    debugPrint("on tap -> ${model1.code}");
+                                    widget.onSelect(model1.code, model1.image!, model1.symbol!);
+                                  },
+                                  child: Container(
+                                      margin: const EdgeInsets.fromLTRB(10, 1, 10, 0),
+                                      padding: const EdgeInsets.only(left: 0),
+                                      decoration: BoxDecoration(
+                                        color: MyColors.textColor,
+                                        borderRadius: BorderRadius.circular(7),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Container(
-                                              width: 40,
-                                              height: 40,
+                                              width: 35,
+                                              height: 35,
                                               child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(30),
+                                                  borderRadius: BorderRadius.circular(20),
                                                   child: Image.asset(
                                                     model1.image!,
                                                     fit: BoxFit.cover,
                                                   ))),
-                                          const SizedBox(
-                                            width: 15,
+                                          Text(
+                                            model1.code,
+                                            style: TextStyle(
+                                                color: MyColors.insideTextFieldColor,
+                                                fontSize: MyColors.fontsmall
+                                                    ? (MyColors.textSize - 18) * (-1)
+                                                    : MyColors.fontlarge
+                                                        ? (MyColors.textSize + 18)
+                                                        : 18,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                           Container(
-                                            width: 50,
+                                            width: MediaQuery.of(context).size.width * .45,
                                             child: Text(
-                                              model1.code,
-                                              style: TextStyle(
-                                                  color: MyColors
-                                                      .insideTextFieldColor,
-                                                  fontSize: MyColors.fontsmall
-                                                      ? (MyColors.textSize -
-                                                              18) *
-                                                          (-1)
-                                                      : MyColors.fontlarge
-                                                          ? (MyColors.textSize +
-                                                              18)
-                                                          : 18,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Container(
-                                            width:MediaQuery.of(context).size.width*.45,
-
-
-                                            child: AutoSizeText(
                                               model1.name!,
-                                              minFontSize: 14,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w500,
-                                                color: MyColors
-                                                    .insideTextFieldColor,
+                                                color: MyColors.insideTextFieldColor,
                                                 fontSize: MyColors.fontsmall
-                                                    ? (MyColors.textSize - 16) *
-                                                        (-1)
+                                                    ? (MyColors.textSize - 16) * (-1)
                                                     : MyColors.fontlarge
-                                                        ? (MyColors.textSize +
-                                                            16)
+                                                        ? (MyColors.textSize + 16)
                                                         : 16,
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
                                           IconButton(
+                                            splashRadius: 15,
                                             onPressed: () async {
                                               if (model1.fav == 0) {
                                                 model1.fav = 1;
@@ -210,20 +187,24 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             icon: model1.fav == 1
                                                 ? Icon(
                                                     Icons.star_sharp,
-                                                    size: 30.0,
-                                                    color:
-                                                        MyColors.colorPrimary,
+                                                    size: 27.0,
+                                                    color: MyColors.colorPrimary,
                                                   )
                                                 : const Icon(
                                                     Icons.star_border,
-                                                    size: 30.0,
+                                                    size: 27.0,
                                                     color: Colors.grey,
                                                   ),
                                           )
                                         ],
-                                      )
-                                    ],
-                                  )),
+                                      )),
+                                ),
+                                Container(
+                                  color: Colors.grey.shade500,
+                                  height: 0.7,
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                )
+                              ],
                             );
                           });
                     }

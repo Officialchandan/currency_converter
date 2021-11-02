@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 
 class AddCurrency extends StatefulWidget {
   const AddCurrency({Key? key}) : super(key: key);
-
-
   @override
   _AddCurrencyState createState() => _AddCurrencyState();
 }
@@ -56,8 +54,8 @@ class _AddCurrencyState extends State<AddCurrency> {
               fontSize: MyColors.fontsmall
                   ? (MyColors.textSize - 18) * (-1)
                   : MyColors.fontlarge
-                  ? (MyColors.textSize + 18)
-                  : 18,
+                      ? (MyColors.textSize + 18)
+                      : 18,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -118,8 +116,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Column(
-                          children:
-                              List.generate(snapshot.data!.length, (index) {
+                          children: List.generate(snapshot.data!.length, (index) {
                             DataModel data = snapshot.data![index];
                             return Container(
                               height: 45,
@@ -130,8 +127,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -140,8 +136,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                           width: 35,
                                           height: 35,
                                           child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
+                                              borderRadius: BorderRadius.circular(30),
                                               child: Image.asset(
                                                 data.image!,
                                                 fit: BoxFit.cover,
@@ -166,14 +161,14 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         child: AutoSizeText(
                                           data.name!,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color:
-                                                  MyColors.insideTextFieldColor,
+                                            fontWeight: FontWeight.w500,
+                                            color: MyColors.insideTextFieldColor,
                                             fontSize: MyColors.fontsmall
                                                 ? (MyColors.textSize - 17) * (-1)
                                                 : MyColors.fontlarge
-                                                ? (MyColors.textSize + 17)
-                                                : 17,),
+                                                    ? (MyColors.textSize + 17)
+                                                    : 17,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -182,24 +177,18 @@ class _AddCurrencyState extends State<AddCurrency> {
                                     children: [
                                       InkWell(
                                           onTap: () {
-                                            data.iconForSelection =
-                                                !data.iconForSelection;
-                                            int i = unselectedList.indexWhere(
-                                                (element) =>
-                                                    element.code == data.code);
+                                            data.iconForSelection = !data.iconForSelection;
+                                            int i = unselectedList.indexWhere((element) => element.code == data.code);
 
-                                            unselectedList[i].iconForSelection =
-                                                false;
+                                            unselectedList[i].iconForSelection = false;
 
                                             data.iconForSelection = false;
                                             data.selected = 0;
                                             dbHelper.update(data.toMap());
 
                                             selectedList.removeAt(index);
-                                            selectedController
-                                                .add(selectedList);
-                                            unselectedController
-                                                .add(unselectedList);
+                                            selectedController.add(selectedList);
+                                            unselectedController.add(unselectedList);
                                           },
                                           child: Icon(
                                             Icons.close,
@@ -247,8 +236,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                         log("snapshot-->${snapshot.data}");
 
                         return Column(
-                          children:
-                              List.generate(snapshot.data!.length, (index) {
+                          children: List.generate(snapshot.data!.length, (index) {
                             DataModel model = snapshot.data![index];
                             return Container(
                               height: 45,
@@ -260,19 +248,16 @@ class _AddCurrencyState extends State<AddCurrency> {
                               ),
                               // alignment: Alignment.center,
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
-                                          margin:
-                                              const EdgeInsets.only(right: 15),
+                                          margin: const EdgeInsets.only(right: 15),
                                           width: 35,
                                           height: 35,
                                           child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
+                                              borderRadius: BorderRadius.circular(30),
                                               child: Image.asset(
                                                 model.image!,
                                                 fit: BoxFit.cover,
@@ -281,46 +266,36 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         width: 5.0,
                                       ),
                                       SizedBox(
-
                                           child: AutoSizeText(
-
-                                            model.code,
-
-
-
-                                            style: TextStyle(
-                                              color:
-                                                  MyColors.insideTextFieldColor,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: MyColors.fontsmall
-                                                  ? (MyColors.textSize - 20) *
-                                                      (-1)
-                                                  : MyColors.fontlarge
-                                                      ? (MyColors.textSize + 20)
-                                                      : 20,
-                                            ),
-
-                                          )),
+                                        model.code,
+                                        style: TextStyle(
+                                          color: MyColors.insideTextFieldColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: MyColors.fontsmall
+                                              ? (MyColors.textSize - 20) * (-1)
+                                              : MyColors.fontlarge
+                                                  ? (MyColors.textSize + 20)
+                                                  : 20,
+                                        ),
+                                      )),
                                       const SizedBox(
                                         width: 10,
                                       ),
                                       SizedBox(
-                                        width:MediaQuery.of(context).size.width*.45,
+                                        width: MediaQuery.of(context).size.width * .45,
                                         child: AutoSizeText(
-
-
                                           model.name!,
                                           maxLines: 1,
                                           minFontSize: 15,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color:
-                                                  MyColors.insideTextFieldColor,
+                                            fontWeight: FontWeight.w500,
+                                            color: MyColors.insideTextFieldColor,
                                             fontSize: MyColors.fontsmall
                                                 ? (MyColors.textSize - 16) * (-1)
                                                 : MyColors.fontlarge
-                                                ? (MyColors.textSize + 16)
-                                                : 16,),
+                                                    ? (MyColors.textSize + 16)
+                                                    : 16,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -336,8 +311,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                           selectedList.add(model);
                                           selectedController.add(selectedList);
                                           unselectedList[index] = model;
-                                          unselectedController
-                                              .add(unselectedList);
+                                          unselectedController.add(unselectedList);
                                         }
                                       },
                                       icon: model.iconForSelection

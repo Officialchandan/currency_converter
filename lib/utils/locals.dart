@@ -89,16 +89,13 @@ class Locals {
   static const Vietnamese = Locale('vi');
   static const Ukrainian = Locale('uk');
   static const Arabic = Locale('ar');
-  static const Bosnian = Locale('hrr', 'ba');
+  static const Bosnian = Locale('bs');
   static const Lithuanian = Locale('lt');
   static const Hebrew = Locale('he');
   static const French = Locale('fr', 'FR');
   static const Filipino = Locale('fil');
   static const Russian = Locale('ru', 'RU');
   static const Georgina = Locale('ka');
-
-
-
 
   static List<Map<String, Locale>> language = [
     {"عربي (Arabic)": Locals.Arabic},
@@ -121,7 +118,7 @@ class Locals {
     {"Deutsche  (German)": Locals.German},
     {"Ελληνικά (Greek)": Locals.Greek},
     {"ગુજરાતી (Gujarati)": Locals.gujarati},
-     {" עִברִית(Hebrew)": Locals.Hebrew},
+    {" עִברִית(Hebrew)": Locals.Hebrew},
     {"हिंदी (Hindi)": Locals.hindi},
     {"Magyar (Hungarian)": Locals.Hungarian},
     {"bahasa Indonesia (Indonesian)": Locals.Indonesian},
@@ -154,10 +151,6 @@ class Locals {
     {"Türk (Turkish)": Locals.Turkish},
     {"Українська (Ukrainian)": Locals.Ukrainian},
     {"Tiếng Việt (Vietnamese)": Locals.Vietnamese},
-
-
-
-
 
     //დახმარება
   ];

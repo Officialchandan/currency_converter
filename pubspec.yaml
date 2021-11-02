@@ -58,6 +58,7 @@ dependencies:
   basic_utils:
   flutter_reorderable_list:
   syncfusion_flutter_sliders:
+  intl:
 
 
 

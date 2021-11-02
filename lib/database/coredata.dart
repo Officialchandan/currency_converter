@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:currency_converter/database/currencydata.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
-
 import 'dart:io';
 
+import 'package:currency_converter/database/currencydata.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -87,8 +86,7 @@ class DatabaseHelper {
     Database db = await instance.database;
 
     // String query= "SELECT * FROM $"
-    List<Map<String, dynamic>> data = await db
-        .query(tableName, where: '$countryCode =  ?', whereArgs: [code]);
+    List<Map<String, dynamic>> data = await db.query(tableName, where: '$countryCode =  ?', whereArgs: [code]);
 
     // log("isExist - data -->$data");
 
@@ -101,25 +99,22 @@ class DatabaseHelper {
   Future<int> update(Map<String, dynamic> row) async {
     Database db = await instance.database;
     String code = row["countryCode"];
-    return await db
-        .update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
+    return await db.update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
   }
 
   Future<List<Map<String, dynamic>>> order() async {
     Database db = await instance.database;
 
-    List<Map<String, dynamic>> data = await db.rawQuery(
-        "SELECT * FROM " + tableName + " ORDER BY " + favCountry + " DESC");
+    List<Map<String, dynamic>> data = await db.rawQuery("SELECT * FROM " + tableName + " ORDER BY " + favCountry + " DESC");
     debugPrint("->>>$data");
     return data;
   }
 
   Future<List<Map<String, dynamic>>> particular_row(String conCode) async {
     Database db = await instance.database;
-    List<Map<String, dynamic>> data = await db
-        .query(tableName, where: '$countryCode =  ?', whereArgs: [conCode]);
+    List<Map<String, dynamic>> data = await db.query(tableName, where: '$countryCode =  ?', whereArgs: [conCode]);
 
-    print("data--->${data.first.values.toList()[3]}");
+    print("data--->${data.first.values.toList()}");
 
     return data;
   }
@@ -129,10 +124,8 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> data = await db.query(tableName,
-          where: "$selectedCountry = ?",
-          whereArgs: [1],
-          orderBy: "$timeStamp ASC");
+      List<Map<String, dynamic>> data =
+          await db.query(tableName, where: "$selectedCountry = ?", whereArgs: [1], orderBy: "$timeStamp ASC");
 
       log("getSelectedData-->$data");
 
@@ -168,8 +161,7 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> data = await db
-          .query(tableName, where: "$selectedCountry = ?", whereArgs: [0]);
+      List<Map<String, dynamic>> data = await db.query(tableName, where: "$selectedCountry = ?", whereArgs: [0]);
 
       if (data.isNotEmpty) {
         for (var element in data) {

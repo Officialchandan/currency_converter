@@ -4,7 +4,6 @@ import 'package:currency_converter/tramandconditions/privacy_policy.dart';
 import 'package:currency_converter/tramandconditions/support_page.dart';
 import 'package:currency_converter/tramandconditions/terms_page.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class TeramAndCondition extends StatefulWidget {
@@ -14,8 +13,7 @@ class TeramAndCondition extends StatefulWidget {
   _TeramAndConditionState createState() => _TeramAndConditionState();
 }
 
-class _TeramAndConditionState extends State<TeramAndCondition>
-    with SingleTickerProviderStateMixin {
+class _TeramAndConditionState extends State<TeramAndCondition> with SingleTickerProviderStateMixin {
   late TabController _tabControllers;
 
   @override
@@ -57,12 +55,13 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                   Tab(
                     child: Text(
                       "support".tr().toString(),
+                      textScaleFactor: MyColors.fontsmall
+                          ? 0.8
+                          : MyColors.fontlarge
+                              ? 1
+                              : 0.9,
                       style: TextStyle(
-                        fontSize: MyColors.fontsmall
-                            ? (MyColors.textSize - 16 * (-1))
-                            : MyColors.fontlarge
-                                ? (MyColors.textSize + 16)
-                                : 16,
+                        fontSize: 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -71,12 +70,13 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                   Tab(
                     child: Text(
                       "term".tr().toString(),
+                      textScaleFactor: MyColors.fontsmall
+                          ? 0.8
+                          : MyColors.fontlarge
+                              ? 1
+                              : 0.9,
                       style: TextStyle(
-                        fontSize: MyColors.fontsmall
-                            ? (MyColors.textSize - 16) * (-1)
-                            : MyColors.fontlarge
-                                ? (MyColors.textSize + 16)
-                                : 16,
+                        fontSize: 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -86,12 +86,13 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                     child: AutoSizeText(
                       "privacy".tr().toString(),
                       maxLines: 1,
+                      textScaleFactor: MyColors.fontsmall
+                          ? 0.8
+                          : MyColors.fontlarge
+                              ? 1
+                              : 0.9,
                       style: TextStyle(
-                        fontSize: MyColors.fontsmall
-                            ? (MyColors.textSize - 16) * (-1)
-                            : MyColors.fontlarge
-                                ? (MyColors.textSize + 16)
-                                : 16,
+                        fontSize: 16,
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),
@@ -101,14 +102,11 @@ class _TeramAndConditionState extends State<TeramAndCondition>
               ),
             ),
             Expanded(
-              child: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: _tabControllers,
-                  children: const [
-                    SupportPage(),
-                    TermsPage(),
-                    PrivacyPolicyPage(),
-                  ]),
+              child: TabBarView(physics: const NeverScrollableScrollPhysics(), controller: _tabControllers, children: const [
+                SupportPage(),
+                TermsPage(),
+                PrivacyPolicyPage(),
+              ]),
             )
           ],
         ),

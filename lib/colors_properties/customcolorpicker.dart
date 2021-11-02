@@ -1,8 +1,6 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
-import 'package:currency_converter/utils/constants.dart';
 import 'package:easy_localization/src/public_ext.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +8,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class CustomColorPicker extends StatefulWidget {
   final Function onThemeChange;
-  const CustomColorPicker({required this.onThemeChange,Key? key}) : super(key: key);
+  const CustomColorPicker({required this.onThemeChange, Key? key}) : super(key: key);
 
   @override
   _CustomColorPickerState createState() => _CustomColorPickerState();
@@ -31,87 +29,63 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
       body: IntrinsicHeight(
         child: Column(children: [
           Container(
-              margin: const EdgeInsets.only(
-                  top: 15, right: 10, bottom: 0, left: 10),
+              margin: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
               child: ColorPicker(
-                  pickerColor: currentColor,
+                pickerColor: currentColor,
                 onColorChanged: changeColor,
-
                 colorPickerWidth: 300.0,
                 pickerAreaHeightPercent: 0.7,
-                enableAlpha: true,
-                displayThumbColor: true,
+                enableAlpha: false,
+                displayThumbColor: false,
                 showLabel: true,
                 paletteType: PaletteType.hsl,
-                portraitOnly: true,
-
+                portraitOnly: false,
                 pickerAreaBorderRadius: const BorderRadius.only(
                   topLeft: const Radius.circular(2.0),
                   topRight: const Radius.circular(2.0),
                 ),
               )),
-
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container (
+              Container(
                 width: 150,
                 child: ElevatedButton(
-                  child:  Text("try".tr().toString()),
+                  child: Text("try".tr().toString()),
                   onPressed: () {
+                    int red = currentColor.red;
+                    int blue = currentColor.blue;
+                    int green = currentColor.green;
 
+                    var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                    print("************************-> $grayscale");
 
-
-                    int red=currentColor.red;
-                    int blue=currentColor.blue;
-                    int green=currentColor.green;
-
-                   var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
-                   print("************************-> $grayscale");
-
-                    if(grayscale > 170){
-
-                      MyColors.textColor=Colors.grey.shade700;
-                      MyColors.insideTextFieldColor=Colors.white;
-                      MyColors.darkModeCheck=true;
-                      MyColors.lightModeCheck=false;
-
-
-                    }else{
-
-
-
-                    MyColors.textColor=Colors.white;
-                    MyColors.insideTextFieldColor=Colors.black;
-                    MyColors.lightModeCheck=true;
-                    MyColors.darkModeCheck=false;
-
+                    if (grayscale > 170) {
+                      MyColors.textColor = Colors.grey.shade700;
+                      MyColors.insideTextFieldColor = Colors.white;
+                      MyColors.darkModeCheck = true;
+                      MyColors.lightModeCheck = false;
+                    } else {
+                      MyColors.textColor = Colors.white;
+                      MyColors.insideTextFieldColor = Colors.black;
+                      MyColors.lightModeCheck = true;
+                      MyColors.darkModeCheck = false;
                     }
-
-
-
-
 
                     MyColors.colorPrimary = currentColor;
 
-
                     MyColors.calcuColor = currentColor;
-                   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-                     systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-                     statusBarColor: MyColors.colorPrimary, // status bar color
-                   ));
+                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                      statusBarColor: MyColors.colorPrimary, // status bar color
+                    ));
                     widget.onThemeChange();
 
-                    Navigator.pushAndRemoveUntil(
-                        context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
                   },
                 ),
               ),
-              Container(
-                  width: 150,
-                  child:
-                      ElevatedButton(onPressed: () {}, child: Text("unlock".tr().toString())))
+              Container(width: 150, child: ElevatedButton(onPressed: () {}, child: Text("unlock".tr().toString())))
             ],
           ),
           Container(
@@ -119,22 +93,19 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               right: 250,
               top: 30,
             ),
-
-
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
 
                 setState(() {});
               },
-              child:  Text(
+              child: Text(
                 "presets".tr().toString(),
                 style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),
           ),
-        ]
-        ),
+        ]),
       ),
     );
   }
