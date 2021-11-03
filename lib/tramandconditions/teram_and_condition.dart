@@ -1,8 +1,8 @@
-import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/tramandconditions/privacy_policy.dart';
 import 'package:currency_converter/tramandconditions/support_page.dart';
 import 'package:currency_converter/tramandconditions/terms_page.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 
@@ -55,11 +55,8 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
                   Tab(
                     child: Text(
                       "support".tr().toString(),
-                      textScaleFactor: MyColors.fontsmall
-                          ? 0.8
-                          : MyColors.fontlarge
-                              ? 1
-                              : 0.9,
+                      maxLines: 1,
+                      textScaleFactor: Constants.textScaleFactor,
                       style: TextStyle(
                         fontSize: 16,
                         color: MyColors.colorPrimary,
@@ -70,11 +67,8 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
                   Tab(
                     child: Text(
                       "term".tr().toString(),
-                      textScaleFactor: MyColors.fontsmall
-                          ? 0.8
-                          : MyColors.fontlarge
-                              ? 1
-                              : 0.9,
+                      maxLines: 1,
+                      textScaleFactor: Constants.textScaleFactor,
                       style: TextStyle(
                         fontSize: 16,
                         color: MyColors.colorPrimary,
@@ -83,14 +77,10 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
                     ),
                   ),
                   Tab(
-                    child: AutoSizeText(
+                    child: Text(
                       "privacy".tr().toString(),
                       maxLines: 1,
-                      textScaleFactor: MyColors.fontsmall
-                          ? 0.8
-                          : MyColors.fontlarge
-                              ? 1
-                              : 0.9,
+                      textScaleFactor: Constants.textScaleFactor,
                       style: TextStyle(
                         fontSize: 16,
                         color: MyColors.colorPrimary,

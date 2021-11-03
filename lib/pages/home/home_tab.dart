@@ -59,7 +59,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
 
-  TextEditingController edtCurrency = TextEditingController();
   TextEditingController calculateCurrency = TextEditingController(text: "0");
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
@@ -197,9 +196,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             Center(
                               child: Text(
                                 "update".tr().toString() + ":",
+                                textScaleFactor: Constants.textScaleFactor,
                                 style: TextStyle(
                                   color: MyColors.textColor,
-                                  fontSize: 18,
+                                  fontSize: 17,
                                 ),
                               ),
                             ),
@@ -209,9 +209,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             Center(
                               child: Text(
                                 Utility.getFormatDate(),
+                                textScaleFactor: Constants.textScaleFactor,
                                 style: TextStyle(
                                   color: MyColors.textColor,
-                                  fontSize: 18,
+                                  fontSize: 17,
                                 ),
                               ),
                             ),
@@ -265,7 +266,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                       style: TextStyle(
                                         color: MyColors.textColor,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 20,
+                                        fontSize: 18,
                                       ),
                                     ),
                                   )
@@ -273,6 +274,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                     ? Center(
                                         child: Text(
                                           symbol,
+                                          textScaleFactor: Constants.textScaleFactor,
                                           style: TextStyle(
                                             color: MyColors.textColor,
                                             fontSize: 18,
@@ -286,7 +288,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                           style: TextStyle(
                                             color: MyColors.textColor,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 20,
+                                            fontSize: 18,
                                           ),
                                         ),
                                       ),
@@ -325,8 +327,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 setState(() {});
                               },
                               onChanged: (text) {
-                                print("onchange $text");
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+                                print("onchange---------> $text");
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
+                                calculateCurrency.text = text;
                                 calculateCurrency.selection =
                                     TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
                               },
@@ -392,7 +395,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 color: MyColors.insideTextFieldColor,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 1.5,
-                                fontSize: 20,
+                                fontSize: 18,
                               ),
                               controller: edtFrom,
                               showCursor: false,
@@ -454,7 +457,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 color: MyColors.insideTextFieldColor,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 1.5,
-                                fontSize: 20,
+                                fontSize: 18,
                               ),
                               controller: edtTo,
                               showCursor: false,
@@ -533,7 +536,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
                             currencyCodeFromSave(currencyCodeFrom);
                             edtFrom.text = currencyCode;
-                            edtCurrency.text = currencyCode;
+
                             _isContainerVisible = false;
                             getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                             calculateCurrency.selection =
@@ -573,21 +576,19 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                         : Padding(
                             padding: const EdgeInsets.only(top: 16.0),
                             child: Container(
-                              width: MediaQuery.of(context).size.width,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  AutoSizeText(
-                                    text,
-                                    // getFormatText(text),
-                                    // Utility.getFormatText(text),
-                                    wrapWords: true,
-                                    // conversionRate.toStringAsFixed(MyColors.decimalformat
-                                    //),
-                                    maxLines: 1,
-                                    maxFontSize: 25.0,
-                                    minFontSize: 15.0,
-                                    style: TextStyle(color: MyColors.textColor, fontSize: 25, fontWeight: FontWeight.w400),
+                                  ConstrainedBox(
+                                    constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 80, minWidth: 50),
+                                    child: AutoSizeText(
+                                      Utility.getFormatText(text),
+                                      wrapWords: true,
+                                      maxLines: 1,
+                                      maxFontSize: 32.0,
+                                      minFontSize: 15.0,
+                                      style: TextStyle(color: MyColors.textColor, fontSize: 32, fontWeight: FontWeight.w400),
+                                    ),
                                   ),
                                   const SizedBox(
                                     width: 5,
@@ -673,6 +674,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       double b = double.parse(toRow.first.values.toList()[3]);
       conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
       text = conversionRate.toStringAsFixed(MyColors.decimalFormat);
+      setState(() {});
       return Utility.getFormatText(text);
     } catch (e) {
       print(e);
@@ -882,6 +884,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   alignment: Alignment.center,
                   child: Text(
                     buttonText,
+                    textScaleFactor: Constants.textScaleFactor,
                     style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
                   ),
                 ),

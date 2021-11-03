@@ -1,4 +1,5 @@
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -51,29 +52,29 @@ class _CalculatorState extends State<Calculator> {
               child: Table(
                 children: [
                   TableRow(children: [
-                    buildButton("%", 1, MyColors.calcuColor, 20),
-                    buildButton("/", 1, MyColors.calcuColor, 20),
-                    buildButton("×", 1, MyColors.calcuColor, 27),
+                    buildButton("%", 1, MyColors.calcuColor, 18),
+                    buildButton("/", 1, MyColors.calcuColor, 18),
+                    buildButton("×", 1, MyColors.calcuColor, 25),
                   ]),
                   TableRow(children: [
-                    buildButton("1", 1, MyColors.calcuColor, 25),
-                    buildButton("2", 1, MyColors.calcuColor, 25),
-                    buildButton("3", 1, MyColors.calcuColor, 25),
+                    buildButton("1", 1, MyColors.calcuColor, 18),
+                    buildButton("2", 1, MyColors.calcuColor, 18),
+                    buildButton("3", 1, MyColors.calcuColor, 18),
                   ]),
                   TableRow(children: [
-                    buildButton("4", 1, MyColors.calcuColor, 25),
-                    buildButton("5", 1, MyColors.calcuColor, 25),
-                    buildButton("6", 1, MyColors.calcuColor, 25),
+                    buildButton("4", 1, MyColors.calcuColor, 18),
+                    buildButton("5", 1, MyColors.calcuColor, 18),
+                    buildButton("6", 1, MyColors.calcuColor, 18),
                   ]),
                   TableRow(children: [
-                    buildButton("7", 1, MyColors.calcuColor, 25),
-                    buildButton("8", 1, MyColors.calcuColor, 25),
-                    buildButton("9", 1, MyColors.calcuColor, 25),
+                    buildButton("7", 1, MyColors.calcuColor, 18),
+                    buildButton("8", 1, MyColors.calcuColor, 18),
+                    buildButton("9", 1, MyColors.calcuColor, 18),
                   ]),
                   TableRow(children: [
-                    buildButton(".", 1, MyColors.calcuColor, 25),
-                    buildButton("0", 1, MyColors.calcuColor, 25),
-                    buildButton("c", 1, MyColors.calcuColor, 25),
+                    buildButton(".", 1, MyColors.calcuColor, 23),
+                    buildButton("0", 1, MyColors.calcuColor, 18),
+                    buildButton("c", 1, MyColors.calcuColor, 18),
                   ]),
                 ],
               ),
@@ -145,10 +146,23 @@ class _CalculatorState extends State<Calculator> {
               padding: const EdgeInsets.only(bottom: 0.0),
               child: Align(
                 alignment: Alignment.center,
-                child: Text(
-                  buttonText,
-                  style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
-                ),
+                child: buttonText == "⌫"
+                    ? Icon(
+                        Icons.backspace_sharp,
+                        color: MyColors.textColor,
+                        size: buttonTexth,
+                      )
+                    : buttonText == "×"
+                        ? Icon(
+                            Icons.clear,
+                            color: MyColors.textColor,
+                            size: buttonTexth,
+                          )
+                        : Text(
+                            buttonText.toUpperCase(),
+                            textScaleFactor: Constants.textScaleFactor,
+                            style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
+                          ),
               ),
             )),
       ),

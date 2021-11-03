@@ -5,6 +5,7 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -123,6 +124,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         Center(
                           child: Text(
                             "update".tr().toString(),
+                            textScaleFactor: Constants.textScaleFactor,
                             style: TextStyle(
                               color: MyColors.textColor,
                               fontSize: 18,
@@ -135,6 +137,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         Center(
                           child: Text(
                             Utility.getFormatDate(),
+                            textScaleFactor: Constants.textScaleFactor,
                             style: TextStyle(
                               color: MyColors.textColor,
                               fontSize: 18,
@@ -160,11 +163,8 @@ class _SecondScreenState extends State<SecondScreen> {
                 StreamBuilder<List<DataModel>>(
                     stream: streamController.stream,
                     builder: (context, snapshot) {
-                      if (snapshot.hasData &&
-                          snapshot.data != null &&
-                          snapshot.data!.isNotEmpty) {
-                        debugPrint(
-                            "snapshot.data!.length-->${snapshot.data!.length}");
+                      if (snapshot.hasData && snapshot.data != null && snapshot.data!.isNotEmpty) {
+                        debugPrint("snapshot.data!.length-->${snapshot.data!.length}");
                         return ReorderableListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: const BouncingScrollPhysics(),
@@ -181,8 +181,7 @@ class _SecondScreenState extends State<SecondScreen> {
 
                             return Container(
                               height: 45.0,
-                              padding:
-                                  const EdgeInsets.only(right: 10, left: 5),
+                              padding: const EdgeInsets.only(right: 10, left: 5),
                               key: ValueKey(model.code),
                               margin: const EdgeInsets.only(top: 1.1),
                               width: MediaQuery.of(context).size.width,
@@ -192,44 +191,43 @@ class _SecondScreenState extends State<SecondScreen> {
                               ),
                               child: SizedBox(
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     MyColors.displayflag && MyColors.displaycode
                                         ? Container(
                                             width: 40,
                                             height: 40,
                                             child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
+                                                borderRadius: BorderRadius.circular(30),
                                                 child: Image.asset(
                                                   model.image!,
                                                   fit: BoxFit.cover,
                                                 )))
-                                        : Text(""),
+                                        : Text(
+                                            "",
+                                            textScaleFactor: Constants.textScaleFactor,
+                                          ),
 
                                     MyColors.displaycode
                                         ? Container(
-                                            margin: const EdgeInsets.only(
-                                                left: 8.0),
+                                            margin: const EdgeInsets.only(left: 8.0),
                                             height: 35.0,
                                             width: 60.0,
                                             decoration: BoxDecoration(
                                               gradient: LinearGradient(
                                                 colors: [
-                                                  MyColors.colorPrimary
-                                                      .withOpacity(0.45),
+                                                  MyColors.colorPrimary.withOpacity(0.45),
                                                   MyColors.colorPrimary,
                                                 ],
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(7),
+                                              borderRadius: BorderRadius.circular(7),
                                             ),
                                             child: Center(
                                               child: Text(
                                                 model.code,
+                                                textScaleFactor: Constants.textScaleFactor,
                                                 style: TextStyle(
                                                   color: MyColors.textColor,
                                                   fontSize: 18,
@@ -244,40 +242,35 @@ class _SecondScreenState extends State<SecondScreen> {
                                                 width: 40,
                                                 height: 40,
                                                 child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
+                                                    borderRadius: BorderRadius.circular(30),
                                                     child: Image.asset(
                                                       model.image!,
                                                       fit: BoxFit.cover,
                                                     )))
                                             : //flag
                                             Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 8.0),
+                                                margin: const EdgeInsets.only(left: 8.0),
                                                 height: 35.0,
                                                 width: 60.0,
                                                 decoration: BoxDecoration(
                                                   gradient: LinearGradient(
                                                     colors: [
-                                                      MyColors.colorPrimary
-                                                          .withOpacity(0.45),
+                                                      MyColors.colorPrimary.withOpacity(0.45),
                                                       MyColors.colorPrimary,
                                                     ],
                                                     begin: Alignment.topCenter,
                                                     end: Alignment.bottomCenter,
                                                   ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(7),
+                                                  borderRadius: BorderRadius.circular(7),
                                                 ),
                                                 child: Center(
                                                   child: Text(
                                                     model.symbol!,
+                                                    textScaleFactor: Constants.textScaleFactor,
                                                     style: TextStyle(
                                                       color: MyColors.textColor,
                                                       fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                 ),
@@ -285,29 +278,26 @@ class _SecondScreenState extends State<SecondScreen> {
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    MyColors.displayflag &&
-                                            MyColors.displaysymbol
+                                    MyColors.displayflag && MyColors.displaysymbol
                                         ? Container(
-                                            margin: const EdgeInsets.only(
-                                                left: 8.0),
+                                            margin: const EdgeInsets.only(left: 8.0),
                                             height: 35.0,
                                             width: 60.0,
                                             decoration: BoxDecoration(
                                               gradient: LinearGradient(
                                                 colors: [
-                                                  MyColors.colorPrimary
-                                                      .withOpacity(0.45),
+                                                  MyColors.colorPrimary.withOpacity(0.45),
                                                   MyColors.colorPrimary,
                                                 ],
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(7),
+                                              borderRadius: BorderRadius.circular(7),
                                             ),
                                             child: Center(
                                               child: Text(
                                                 model.symbol!,
+                                                textScaleFactor: Constants.textScaleFactor,
                                                 style: TextStyle(
                                                   color: MyColors.textColor,
                                                   fontSize: 18,
@@ -316,7 +306,10 @@ class _SecondScreenState extends State<SecondScreen> {
                                               ),
                                             ),
                                           )
-                                        : Text(""),
+                                        : Text(
+                                            "",
+                                            textScaleFactor: Constants.textScaleFactor,
+                                          ),
 
                                     Expanded(
                                       child: AutoSizeTextField(
@@ -330,11 +323,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                         showCursor: true,
                                         readOnly: true,
                                         decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.only(
-                                                left: 1.0,
-                                                right: 1.0,
-                                                top: 1.0,
-                                                bottom: 1.0),
+                                            contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, top: 1.0, bottom: 1.0),
                                             counterText: "",
                                             border: InputBorder.none),
                                         style: TextStyle(
@@ -345,21 +334,14 @@ class _SecondScreenState extends State<SecondScreen> {
                                         onChanged: (String text) {
                                           text = model.controller.text;
                                           model.controller.selection =
-                                              TextSelection.fromPosition(
-                                                  TextPosition(
-                                                      offset: model.controller
-                                                          .text.length));
-                                          calculateExchangeRate(
-                                              text, index, model);
+                                              TextSelection.fromPosition(TextPosition(offset: model.controller.text.length));
+                                          calculateExchangeRate(text, index, model);
                                         },
                                         onTap: () async {
                                           isCalculatorVisible = true;
                                           // model.controller.clear();
                                           model.controller.selection =
-                                              TextSelection.fromPosition(
-                                                  TextPosition(
-                                                      offset: model.controller
-                                                          .text.length));
+                                              TextSelection.fromPosition(TextPosition(offset: model.controller.text.length));
                                           dataController.add(model);
                                           // currentIndex = index;
 
@@ -388,8 +370,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                               model.selected = 0;
                                               dbHelper.update(model.toMap());
                                               selectedList.removeAt(index);
-                                              streamController
-                                                  .add(selectedList);
+                                              streamController.add(selectedList);
                                             },
                                             child: Image.asset(
                                               "assets/images/cross.png",
@@ -425,10 +406,8 @@ class _SecondScreenState extends State<SecondScreen> {
           stream: dataController.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-              return calculator(context, snapshot.data!.controller,
-                  (changeValue) {
-                int i = selectedList.indexWhere(
-                    (element) => element.code == snapshot.data!.code);
+              return calculator(context, snapshot.data!.controller, (changeValue) {
+                int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
                 if (i != -1) {
                   calculateExchangeRate(changeValue, i, snapshot.data!);
                 }
@@ -444,8 +423,7 @@ class _SecondScreenState extends State<SecondScreen> {
           backgroundColor: MyColors.textColor,
           onPressed: () async {
             streamController.add([]);
-            await Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddCurrency()));
+            await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
             getSelectedList();
           },
           child: Icon(
@@ -459,8 +437,7 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   void calculateExchangeRate(String text, int index, DataModel model) async {
@@ -469,17 +446,13 @@ class _SecondScreenState extends State<SecondScreen> {
     debugPrint("d$d");
     for (DataModel element in selectedList) {
       if (element.code != model.code) {
-        double conversionRate = ((double.parse(model.value) * 100) /
-                (double.parse(element.value) * 100)) *
-            (d);
+        double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
 
         debugPrint("conversionRate->$conversionRate");
-        String m = await getFormatText(
-            conversionRate.toStringAsFixed(MyColors.decimalFormat));
+        String m = await getFormatText(conversionRate.toStringAsFixed(MyColors.decimalFormat));
 
         element.controller.text = m;
-        element.controller.selection = TextSelection.fromPosition(
-            TextPosition(offset: element.controller.text.length));
+        element.controller.selection = TextSelection.fromPosition(TextPosition(offset: element.controller.text.length));
         element.exchangeValue = m;
       }
     }
@@ -545,8 +518,7 @@ class _SecondScreenState extends State<SecondScreen> {
     return text1;
   }
 
-  Widget calculator(BuildContext context, TextEditingController controller,
-      Function(String changeValue) onChange) {
+  Widget calculator(BuildContext context, TextEditingController controller, Function(String changeValue) onChange) {
     buttonPressed(String buttonText) {
       setState(() {
         if (buttonText == "C") {
@@ -591,8 +563,7 @@ class _SecondScreenState extends State<SecondScreen> {
         }
         isbool ? controller.text = equation : controller.text = result;
 
-        controller.selection = TextSelection.fromPosition(
-            TextPosition(offset: controller.text.length));
+        controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
 
         isbool ? onChange(equation) : onChange(result);
 
@@ -600,17 +571,14 @@ class _SecondScreenState extends State<SecondScreen> {
       });
     }
 
-    buildButton(String buttonText, double buttonHeight, Color buttonColor,
-        double buttonTexth) {
+    buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
       return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.left,
           ),
-          height:
-              MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight +
-                  2.6,
+          height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.6,
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [Colors.white.withOpacity(.2), Colors.red],
@@ -629,10 +597,7 @@ class _SecondScreenState extends State<SecondScreen> {
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
-                  side: BorderSide(
-                      color: MyColors.colorPrimary,
-                      width: 0.4,
-                      style: BorderStyle.solid)),
+                  side: BorderSide(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid)),
               padding: const EdgeInsets.all(0.0),
               onPressed: () => buttonPressed(buttonText),
               child: Padding(
@@ -641,10 +606,8 @@ class _SecondScreenState extends State<SecondScreen> {
                   alignment: Alignment.center,
                   child: Text(
                     buttonText,
-                    style: TextStyle(
-                        fontSize: buttonTexth,
-                        fontWeight: FontWeight.normal,
-                        color: MyColors.textColor),
+                    textScaleFactor: Constants.textScaleFactor,
+                    style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
                   ),
                 ),
               )),
@@ -707,9 +670,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         buildButton("+", 1, MyColors.calcuColor, 25),
                       ]),
                       TableRow(children: [
-                        Center(
-                            child: buildButton(
-                                "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                        Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
                       ]),
                     ]))
               ],

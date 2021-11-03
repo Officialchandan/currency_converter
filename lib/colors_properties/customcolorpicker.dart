@@ -1,5 +1,6 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               Container(
                 width: 150,
                 child: ElevatedButton(
-                  child: Text("try".tr().toString()),
+                  child: Text(
+                    "try".tr().toString(),
+                    textScaleFactor: Constants.textScaleFactor,
+                  ),
                   onPressed: () {
                     int red = currentColor.red;
                     int blue = currentColor.blue;
@@ -85,7 +89,14 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                   },
                 ),
               ),
-              Container(width: 150, child: ElevatedButton(onPressed: () {}, child: Text("unlock".tr().toString())))
+              Container(
+                  width: 150,
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "unlock".tr().toString(),
+                        textScaleFactor: Constants.textScaleFactor,
+                      )))
             ],
           ),
           Container(
@@ -101,6 +112,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               },
               child: Text(
                 "presets".tr().toString(),
+                textScaleFactor: Constants.textScaleFactor,
                 style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),

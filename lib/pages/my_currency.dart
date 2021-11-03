@@ -6,6 +6,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/add_currency_screen.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_converter/widget/calculator.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
@@ -164,9 +165,10 @@ class _MyCurrencyState extends State<MyCurrency> {
                     children: [
                       Text(
                         "update".tr().toString(),
+                        textScaleFactor: Constants.textScaleFactor,
                         style: TextStyle(
                           color: MyColors.textColor,
-                          fontSize: 18,
+                          fontSize: 16.5,
                         ),
                       ),
                       const SizedBox(
@@ -174,14 +176,16 @@ class _MyCurrencyState extends State<MyCurrency> {
                       ),
                       Text(
                         Utility.getFormatDate(),
+                        textScaleFactor: Constants.textScaleFactor,
                         style: TextStyle(
                           color: MyColors.textColor,
-                          fontSize: 18,
+                          fontSize: 16.5,
                         ),
                       ),
                       // MyColors.datemm
                       //     ? Text(
                       //         "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                      //        textScaleFactor: Constants.textScaleFactor,
                       //         style: TextStyle(
                       //           color: MyColors.textColor,
                       //           fontSize: 18,
@@ -189,6 +193,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                       //       )
                       //     : Text(
                       //         "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                      //       textScaleFactor: Constants.textScaleFactor,
                       //         style: TextStyle(
                       //           color: MyColors.textColor,
                       //           fontSize:18,
@@ -487,6 +492,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                   alignment: Alignment.center,
                   child: Text(
                     buttonText,
+                    textScaleFactor: Constants.textScaleFactor,
                     style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
                   ),
                 ),
@@ -623,7 +629,10 @@ class Item extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ))),
                       )
-                    : Text(""),
+                    : Text(
+                        "",
+                        textScaleFactor: Constants.textScaleFactor,
+                      ),
 
                 MyColors.displaycode
                     ? ReorderableListener(
@@ -645,10 +654,11 @@ class Item extends StatelessWidget {
                           child: Center(
                             child: Text(
                               data.code,
+                              textScaleFactor: Constants.textScaleFactor,
                               style: TextStyle(
                                 color: MyColors.textColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
@@ -687,6 +697,7 @@ class Item extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   data.symbol!,
+                                  textScaleFactor: Constants.textScaleFactor,
                                   style: TextStyle(
                                     color: MyColors.textColor,
                                     fontSize: 18,
@@ -719,6 +730,7 @@ class Item extends StatelessWidget {
                           child: Center(
                             child: Text(
                               data.symbol!,
+                              textScaleFactor: Constants.textScaleFactor,
                               style: TextStyle(
                                 color: MyColors.textColor,
                                 fontSize: 18,
@@ -728,7 +740,10 @@ class Item extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Text(""),
+                    : Text(
+                        "",
+                        textScaleFactor: Constants.textScaleFactor,
+                      ),
 
                 Expanded(
                   child: AutoSizeTextField(
@@ -737,7 +752,7 @@ class Item extends StatelessWidget {
                     autocorrect: true,
                     maxLength: 30,
                     maxLines: 1,
-                    maxFontSize: 18.0,
+                    maxFontSize: 17.0,
                     minFontSize: 7.0,
                     style: TextStyle(
                       color: MyColors.colorPrimary,

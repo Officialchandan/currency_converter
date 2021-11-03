@@ -3,29 +3,26 @@
 library block_colorpicker;
 
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_colorpicker/src/utils.dart';
+
 late Color _currentColor;
 
-
-typedef PickerLayoutBuilder = Widget Function(
-    BuildContext context, List<Color> colors, PickerItem child);
+typedef PickerLayoutBuilder = Widget Function(BuildContext context, List<Color> colors, PickerItem child);
 typedef PickerItem = Widget Function(Color color);
-typedef PickerItemBuilder = Widget Function(
-    Color color, bool isCurrentColor, void Function() changeColor);
+typedef PickerItemBuilder = Widget Function(Color color, bool isCurrentColor, void Function() changeColor);
 
 class DensityColorPicker extends StatefulWidget {
   var color1;
 
-   DensityColorPicker({
-    required this.pickerColor,
-    required this.onColorChanged,
-    required this.availableColors,
-    this.layoutBuilder = defaultLayoutBuilder,
-    this.itemBuilder = defaultItemBuilder,
-    this.color1
-  });
+  DensityColorPicker(
+      {required this.pickerColor,
+      required this.onColorChanged,
+      required this.availableColors,
+      this.layoutBuilder = defaultLayoutBuilder,
+      this.itemBuilder = defaultItemBuilder,
+      this.color1});
 
   final Color pickerColor;
   final ValueChanged<Color> onColorChanged;
@@ -33,45 +30,42 @@ class DensityColorPicker extends StatefulWidget {
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
 
-  static Widget defaultLayoutBuilder(
-      BuildContext context, List<Color> colors, PickerItem child) {
-
+  static Widget defaultLayoutBuilder(BuildContext context, List<Color> colors, PickerItem child) {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return ListView(
-
       scrollDirection: Axis.horizontal,
-
       children: colors.map((Color color) => child(color)).toList(),
     );
   }
 
-  static Widget defaultItemBuilder(
-      Color color, bool isCurrentColor, void Function() changeColor) {
+  static Widget defaultItemBuilder(Color color, bool isCurrentColor, void Function() changeColor) {
     return Container(
       height: 60,
       width: 50,
-      margin: const EdgeInsets.only(right: 10,top: 5,bottom: 5,left: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(0.0),
-        color: color,
-       border: Border.all(color: Colors.black87,width: 0.8)
-      ),
+      margin: const EdgeInsets.only(right: 10, top: 5, bottom: 5, left: 10),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(0.0), color: color, border: Border.all(color: Colors.black87, width: 0.8)),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: (){changeColor();
-          MyColors.densitycheck=true;
+          onTap: () {
+            changeColor();
+            MyColors.densitycheck = true;
           },
-
           borderRadius: BorderRadius.circular(50.0),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
-            child: MyColors.densitycheck?Icon(
-              Icons.done,
-              color: useWhiteForeground(color) ? Colors.white : Colors.black,
-            ):Text(""),
+            child: MyColors.densitycheck
+                ? Icon(
+                    Icons.done,
+                    color: useWhiteForeground(color) ? Colors.white : Colors.black,
+                  )
+                : Text(
+                    "",
+                    textScaleFactor: Constants.textScaleFactor,
+                  ),
           ),
         ),
       ),
@@ -83,8 +77,6 @@ class DensityColorPicker extends StatefulWidget {
 }
 
 class _DensityColorPickerState extends State<DensityColorPicker> {
-
-
   @override
   void initState() {
     _currentColor = widget.pickerColor;
@@ -101,8 +93,8 @@ class _DensityColorPickerState extends State<DensityColorPicker> {
     return widget.layoutBuilder(
       context,
       widget.availableColors,
-          (Color color, [bool? _, Function? __]) => widget.itemBuilder(
-          color, _currentColor.value == color.value, () => changeColor(color)),
+      (Color color, [bool? _, Function? __]) =>
+          widget.itemBuilder(color, _currentColor.value == color.value, () => changeColor(color)),
     );
   }
 }
