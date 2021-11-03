@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -293,11 +294,12 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                 ),
-                                Text("${decimalFormat[index]["format"]}",
+                                AutoSizeText("${decimalFormat[index]["format"]}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: MyColors.textColor)),
+
+                                        color: MyColors.textColor),
+                                maxFontSize: 20,minFontSize: 18,),
                               ],
                             ),
                           );
