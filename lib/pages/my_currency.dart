@@ -46,6 +46,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   bool isbool = true;
 
   bool firstTime = true;
+  DataModel? selectedData;
 
   void getSelectedList() async {
     firstTime = true;
@@ -70,8 +71,11 @@ class _MyCurrencyState extends State<MyCurrency> {
   void didUpdateWidget(MyCurrency oldWidget) {
     debugPrint("MyCurrency-> didUpdateWidget");
     dataController.addError("error");
-    streamController.add(selectedList);
-
+    // streamController.add(selectedList);
+    if (selectedData != null) {
+      int index = selectedList.indexWhere((element) => element.code == selectedData!.code);
+      calculateExchangeRate(selectedData!.controller.text, index, selectedData!);
+    }
     super.didUpdateWidget(oldWidget);
     setState(() {});
   }
@@ -204,8 +208,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                             (BuildContext context, int index) {
                               if (index == 0 && firstTime) {
                                 selectedList[index].controller.text = "1";
-                                calculateExchangeRate(
-                                    "1", 0, selectedList[index]);
+                                calculateExchangeRate("1", 0, selectedList[index]);
                                 firstTime = false;
                               }
                               // selectedList[index].controller.text = getFormatText(
@@ -222,8 +225,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                                   streamController.add(selectedList);
                                 },
                                 onChange: (text) {
-                                  calculateExchangeRate(
-                                      text, index, selectedList[index]);
+                                  calculateExchangeRate(text, index, selectedList[index]);
                                 },
                                 onTap: () {
                                   isCalculatorVisible = true;
@@ -266,18 +268,15 @@ class _MyCurrencyState extends State<MyCurrency> {
               return Calculator(
                 txtController: snapshot.data!.controller,
                 onChange: (text) {
-                  int i = selectedList.indexWhere(
-                      (element) => element.code == snapshot.data!.code);
+                  int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
                   if (i != -1) {
                     calculateExchangeRate(text, i, snapshot.data!);
                   }
                 },
               );
 
-              return calculator(context, snapshot.data!.controller,
-                  (changeValue) {
-                int i = selectedList.indexWhere(
-                    (element) => element.code == snapshot.data!.code);
+              return calculator(context, snapshot.data!.controller, (changeValue) {
+                int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
                 if (i != -1) {
                   calculateExchangeRate(changeValue, i, snapshot.data!);
                 }
@@ -293,8 +292,7 @@ class _MyCurrencyState extends State<MyCurrency> {
           backgroundColor: MyColors.textColor,
           onPressed: () async {
             streamController.add([]);
-            await Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddCurrency()));
+            await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
             getSelectedList();
           },
           child: Icon(
@@ -314,17 +312,13 @@ class _MyCurrencyState extends State<MyCurrency> {
       debugPrint("d$d");
       for (DataModel element in selectedList) {
         if (element.code != model.code) {
-          double conversionRate = ((double.parse(model.value) * 100) /
-                  (double.parse(element.value) * 100)) *
-              (d);
+          double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
 
           debugPrint("conversionRate->$conversionRate");
-          String m = await getFormatText(
-              conversionRate.toStringAsFixed(MyColors.decimalFormat));
+          String m = await getFormatText(conversionRate.toStringAsFixed(MyColors.decimalFormat));
 
           element.controller.text = m;
-          element.controller.selection = TextSelection.fromPosition(
-              TextPosition(offset: element.controller.text.length));
+          element.controller.selection = TextSelection.fromPosition(TextPosition(offset: element.controller.text.length));
           element.exchangeValue = m;
         }
       }
@@ -391,8 +385,7 @@ class _MyCurrencyState extends State<MyCurrency> {
     return text1;
   }
 
-  Widget calculator(BuildContext context, TextEditingController controller,
-      Function(String changeValue) onChange) {
+  Widget calculator(BuildContext context, TextEditingController controller, Function(String changeValue) onChange) {
     buttonPressed(String buttonText) {
       setState(() {
         if (buttonText == "c") {
@@ -425,8 +418,7 @@ class _MyCurrencyState extends State<MyCurrency> {
 
             ContextModel cm = ContextModel();
             result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-            result = getFormatText(
-                double.parse(result).toStringAsFixed(MyColors.decimalFormat));
+            result = getFormatText(double.parse(result).toStringAsFixed(MyColors.decimalFormat));
 
             expression = "$result";
             equation = "$result";
@@ -446,8 +438,7 @@ class _MyCurrencyState extends State<MyCurrency> {
 
         isbool ? controller.text = equation : controller.text = result;
 
-        controller.selection = TextSelection.fromPosition(
-            TextPosition(offset: controller.text.length));
+        controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
 
         isbool ? onChange(equation) : onChange(result);
 
@@ -455,17 +446,14 @@ class _MyCurrencyState extends State<MyCurrency> {
       });
     }
 
-    buildButton(String buttonText, double buttonHeight, Color buttonColor,
-        double buttonTexth) {
+    buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
       return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.left,
           ),
-          height:
-              MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight +
-                  2.6,
+          height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.6,
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
@@ -484,17 +472,13 @@ class _MyCurrencyState extends State<MyCurrency> {
                   expression = "";
                   controller.clear();
                   controller.text = "0";
-                  controller.selection =
-                      TextSelection.fromPosition(TextPosition(offset: 1));
+                  controller.selection = TextSelection.fromPosition(TextPosition(offset: 1));
                 }
                 // buttonPressed(buttonText);
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
-                  side: BorderSide(
-                      color: MyColors.colorPrimary,
-                      width: 0.4,
-                      style: BorderStyle.solid)),
+                  side: BorderSide(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid)),
               padding: const EdgeInsets.all(0.0),
               onPressed: () => buttonPressed(buttonText),
               child: Padding(
@@ -503,10 +487,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                   alignment: Alignment.center,
                   child: Text(
                     buttonText,
-                    style: TextStyle(
-                        fontSize: buttonTexth,
-                        fontWeight: FontWeight.normal,
-                        color: MyColors.textColor),
+                    style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
                   ),
                 ),
               )),
@@ -569,9 +550,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                         buildButton("+", 1, MyColors.calcuColor, 25),
                       ]),
                       TableRow(children: [
-                        Center(
-                            child: buildButton(
-                                "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                        Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
                       ]),
                     ]))
               ],
@@ -581,8 +560,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 }
 
@@ -610,8 +588,7 @@ class Item extends StatelessWidget {
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == ReorderableItemState.dragProxy ||
-        state == ReorderableItemState.dragProxyFinished) {
+    if (state == ReorderableItemState.dragProxy || state == ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
       decoration = BoxDecoration(
         color: MyColors.textColor,
@@ -755,34 +732,35 @@ class Item extends StatelessWidget {
 
                 Expanded(
                   child: AutoSizeTextField(
-                    cursorColor: MyColors.colorPrimary,
-                    cursorWidth: 2.3,
                     controller: data.controller,
-                    textAlign: TextAlign.center,
-                    // keyboardType: TextInputType.none,
-                    showCursor: true,
-                    readOnly: false,
-                    decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(
-                            left: 1.0, right: 1.0, top: 1.0, bottom: 1.0),
-                        counterText: "",
-                        border: InputBorder.none),
+                    textAlignVertical: TextAlignVertical.center,
+                    autocorrect: true,
+                    maxLength: 30,
+                    maxLines: 1,
+                    maxFontSize: 18.0,
+                    minFontSize: 7.0,
                     style: TextStyle(
                       color: MyColors.colorPrimary,
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.none,
+                    showCursor: true,
+                    readOnly: false,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
+                        counterText: "",
+                        border: InputBorder.none),
                     onChanged: (String text) {
                       data.controller.text = text;
                       // text = data.controller.text;
-                      data.controller.selection = TextSelection.fromPosition(
-                          TextPosition(offset: data.controller.text.length));
+                      data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
                       onChange(text);
                       // calculateExchangeRate(text);
                     },
                     onTap: () async {
-                      data.controller.selection = TextSelection.fromPosition(
-                          TextPosition(offset: data.controller.text.length));
+                      data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
                       // isCalculatorVisible = true;
                       // dataController.add(data);
 

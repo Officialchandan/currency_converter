@@ -16,6 +16,7 @@ class Constants {
   static const String fontLarge = "fontLarge";
   static String dateFormat = mmDdYyyy;
   static String selectedFontSize = fontMedium;
+  static double textScaleFactor = 1;
 
   static const List<Map<String, dynamic>> countryList = [
     {"code": "OMR", "image": "assets/pngCountryImages/OMR.png", "country_name": "Omani Rial", "Symbol": "ر.ع."},
