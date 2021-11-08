@@ -258,6 +258,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(7),
 
+
                                 gradient: LinearGradient(
                                   colors: [
                                     MyColors.colorPrimary.withOpacity(0.4),
