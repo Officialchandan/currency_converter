@@ -114,8 +114,7 @@ class _CalculatorState extends State<Calculator> {
         ),
         //**Alline height */
         //This is grate
-        height:
-            MediaQuery.of(context).size.height * 0.1 / 1.6 * buttonHeight + 2.4,
+        height: MediaQuery.of(context).size.height * 0.1 / 1.6 * buttonHeight + 2.4,
         // color: Colors.grey,
 
         decoration: BoxDecoration(
