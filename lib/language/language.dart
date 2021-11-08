@@ -1,14 +1,10 @@
-import 'dart:async';
-
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/locals.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Language extends StatefulWidget {
   final bool isContainerVisible;
@@ -79,35 +75,39 @@ class _LanguageState extends State<Language> {
                         children: [
                           Container(
                               margin: const EdgeInsets.all(7),
-                              padding: index==0?EdgeInsets.only(left: MediaQuery.of(context).size.width*0.45 ):EdgeInsets.only(left: 0  ),
+                              padding: index == 0
+                                  ? EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width *
+                                          0.45)
+                                  : EdgeInsets.only(left: 0),
                               height: 30,
                               child: Text(
                                 Locals.language[index].keys.first,
                                 style: TextStyle(
                                     fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 16) *
-                                        (-1)
+                                        ? (MyColors.textSize - 16) * (-1)
                                         : MyColors.fontlarge
-                                        ? (MyColors.textSize + 16)
-                                        : 16,
-                                    color: MyColors.insideTextFieldColor,fontWeight: FontWeight.bold),
+                                            ? (MyColors.textSize + 16)
+                                            : 16,
+                                    color: MyColors.insideTextFieldColor,
+                                    fontWeight: FontWeight.bold),
                               )),
                           Container(
                             padding: EdgeInsets.only(right: 10),
                             child: Locals.icon[index]
                                 ? const Icon(
                                     Icons.check_sharp,
-
-
-
-                                   color: Colors.blue,
+                                    color: Colors.blue,
                                   )
                                 : const Text(""),
                           )
                         ],
                       ),
-                      Divider(height: 0.5,
-                      color: Colors.black,thickness: .3,)
+                      Divider(
+                        height: 0.5,
+                        color: Colors.black,
+                        thickness: .3,
+                      )
                     ],
                   ),
                 ),
