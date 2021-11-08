@@ -136,6 +136,7 @@ class _CalculatorState extends State<Calculator> {
           )):BoxDecoration(
               gradient: LinearGradient(
                 colors: [
+
                   Colors.black87.withOpacity(.45),
                   Colors.black87.withOpacity(.35),
                   Colors.black87.withOpacity(.32),
