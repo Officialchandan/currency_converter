@@ -44,14 +44,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
     {"format": "1 234,56", "id": "4", "check": false},
   ];
 
-  List<String> radiDecimalFormat = [
-    ".02",
-    ".003",
-    ".0004",
-    ".00005",
-    ".0000006",
-    "dontShow".tr().toString()
-  ];
+  List<String> radiDecimalFormat = [".02", ".003", ".0004", ".00005", ".0000006", "dontShow".tr().toString()];
   List<Map<String, dynamic>> decimalFormat = [
     {"format": ".02", "id": "2", "check": false},
     {"format": ".003", "id": "3", "check": false},
@@ -101,13 +94,10 @@ class _DecimalScreensState extends State<DecimalScreens> {
     monetary = monetary == "" ? "1" : monetary;
     decimal = decimal == "" ? "2" : decimal;
 
-    monetaryFormat
-        .singleWhere((element) => element["id"] == monetary)["check"] = true;
-    decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] =
-        true;
+    monetaryFormat.singleWhere((element) => element["id"] == monetary)["check"] = true;
+    decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] = true;
 
-    Map<String, dynamic> f = demoString.singleWhere(
-        (element) => element.containsKey("$monetary" "_" + "$decimal"));
+    Map<String, dynamic> f = demoString.singleWhere((element) => element.containsKey("$monetary" "_" + "$decimal"));
 
     demoText = f["$monetary" + "_" + "$decimal"];
 
@@ -205,10 +195,21 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   tristate: false,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                 ),
-                                Text("${monetaryFormat[index]["format"]}",
+                                Container(
+                                  width: 84,
+                                  height: 38,
+                                  child: AutoSizeText(
+                                    "${monetaryFormat[index]["format"]}",
                                     textScaleFactor: Constants.textScaleFactor,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor)),
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: MyColors.textColor),
+                                    maxFontSize: 20,
+                                    minFontSize: 16,
+                                  ),
+                                ),
+                                // Text("${monetaryFormat[index]["format"]}",
+                                //     textScaleFactor: Constants.textScaleFactor,
+                                //     style: TextStyle(
+                                //         fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor)),
                               ],
                             ),
                           );
@@ -273,10 +274,15 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   tristate: false,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                 ),
-                                Text("${decimalFormat[index]["format"]}",
-                                    textScaleFactor: Constants.textScaleFactor,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor)),
+                                Container(
+                                  width: 100,
+                                  child: AutoSizeText("${decimalFormat[index]["format"]}",
+                                      textScaleFactor: Constants.textScaleFactor,
+                                      maxFontSize: 20,
+                                      minFontSize: 16,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor)),
+                                ),
                               ],
                             ),
                           );
@@ -341,8 +347,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
   }
 
   onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   String textShow(String text) {
