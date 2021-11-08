@@ -70,15 +70,16 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   @override
   void didUpdateWidget(MyCurrency oldWidget) {
-    debugPrint("MyCurrency-> didUpdateWidget");
-    dataController.addError("error");
-    // streamController.add(selectedList);
-    if (selectedData != null) {
-      int index = selectedList.indexWhere((element) => element.code == selectedData!.code);
-      calculateExchangeRate(selectedData!.controller.text, index, selectedData!);
+    if (mounted) {
+      debugPrint("MyCurrency-> didUpdateWidget");
+      dataController.addError("error");
+      if (selectedData != null) {
+        int index = selectedList.indexWhere((element) => element.code == selectedData!.code);
+        calculateExchangeRate(selectedData!.controller.text, index, selectedData!);
+      }
+      setState(() {});
     }
     super.didUpdateWidget(oldWidget);
-    setState(() {});
   }
 
   bool _reorderCallback(Key item, Key newPosition) {
@@ -127,7 +128,7 @@ class _MyCurrencyState extends State<MyCurrency> {
       },
       child: Scaffold(
         body: Container(
-          padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+          padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
           height: appheight,
           width: appwidth,
           decoration: BoxDecoration(
@@ -144,64 +145,78 @@ class _MyCurrencyState extends State<MyCurrency> {
             onReorderDone: this._reorderDone,
             child: CustomScrollView(
               slivers: <Widget>[
-                SliverAppBar(
-                  actions: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        _onShareWithEmptyOrigin(context);
-                      },
-                      child: Icon(
-                        Icons.share,
-                        color: MyColors.textColor,
-                      ),
-                    )
-                  ],
-                  pinned: false,
-                  centerTitle: true,
-                  expandedHeight: 50.0,
-                  backgroundColor: Colors.transparent,
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "update".tr().toString(),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    AppBar(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      centerTitle: true,
+                      toolbarHeight: 50,
+                      title: Text(
+                        "update".tr().toString() + ": " + Utility.getFormatDate(),
                         textScaleFactor: Constants.textScaleFactor,
+                        // textAlign: TextAlign.center,
                         style: TextStyle(
                           color: MyColors.textColor,
                           fontSize: 16.5,
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        Utility.getFormatDate(),
-                        textScaleFactor: Constants.textScaleFactor,
-                        style: TextStyle(
-                          color: MyColors.textColor,
-                          fontSize: 16.5,
+                      actions: [
+                        InkWell(
+                          onTap: () {
+                            _onShareWithEmptyOrigin(context);
+                          },
+                          child: Icon(
+                            Icons.share,
+                            color: MyColors.textColor,
+                          ),
                         ),
-                      ),
-                      // MyColors.datemm
-                      //     ? Text(
-                      //         "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
-                      //        textScaleFactor: Constants.textScaleFactor,
-                      //         style: TextStyle(
-                      //           color: MyColors.textColor,
-                      //           fontSize: 18,
-                      //         ),
-                      //       )
-                      //     : Text(
-                      //         "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
-                      //       textScaleFactor: Constants.textScaleFactor,
-                      //         style: TextStyle(
-                      //           color: MyColors.textColor,
-                      //           fontSize:18,
-                      //         ),
-                      //       ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ]),
                 ),
+                // SliverAppBar(
+                //   actions: <Widget>[
+                //     InkWell(
+                //       onTap: () {
+                //         _onShareWithEmptyOrigin(context);
+                //       },
+                //       child: Icon(
+                //         Icons.share,
+                //         color: MyColors.textColor,
+                //       ),
+                //     )
+                //   ],
+                //   pinned: false,
+                //   centerTitle: true,
+                //   expandedHeight: 40.0,
+                //   backgroundColor: Colors.transparent,
+                //   title: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         "update".tr().toString(),
+                //         textScaleFactor: Constants.textScaleFactor,
+                //         style: TextStyle(
+                //           color: MyColors.textColor,
+                //           fontSize: 16.5,
+                //         ),
+                //       ),
+                //       const SizedBox(
+                //         width: 5,
+                //       ),
+                //       Text(
+                //         Utility.getFormatDate(),
+                //         textScaleFactor: Constants.textScaleFactor,
+                //         style: TextStyle(
+                //           color: MyColors.textColor,
+                //           fontSize: 16.5,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
                 StreamBuilder(
                   builder: (context, snapshot) {
                     return SliverPadding(

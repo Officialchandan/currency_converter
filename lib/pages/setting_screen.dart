@@ -74,7 +74,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       margin: const EdgeInsets.only(top: 20, bottom: 13),
                       child: Text("removeAds".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
-                          style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.w600))),
+                          style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   Container(
                     // margin: EdgeInsets.only(right: 20),
 
@@ -91,7 +91,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 TextSpan(
                                   text: "removeAdsContent".tr().toString(),
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.bold,
                                       fontFamily: GoogleFonts.roboto().fontFamily,
                                       fontSize: 15,
                                       color: MyColors.textColor),
@@ -126,7 +126,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           style: GoogleFonts.roboto(
                             fontSize: 18,
                             color: MyColors.textColor,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.bold,
                           ))),
                   InkWell(
                     onTap: () {
@@ -246,29 +246,67 @@ class _SettingScreenState extends State<SettingScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Transform.scale(
-                                    scale: 1,
-                                    child: Checkbox(
-                                      side: BorderSide(color: MyColors.textColor),
-                                      value: MyColors.lightModeCheck,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          if (MyColors.darkModeCheck) {
-                                            MyColors.lightModeCheck = !MyColors.lightModeCheck;
-                                            MyColors.darkModeCheck = !MyColors.darkModeCheck;
-                                            MyColors.textColor = Colors.white;
-                                            MyColors.insideTextFieldColor = Colors.black;
-                                            MyColors.calcuColor = MyColors.colorPrimary;
+                                  // Transform.scale(
+                                  //   scale: 1,
+                                  //   child: Checkbox(
+                                  //     side: BorderSide(color: MyColors.textColor),
+                                  //     value: MyColors.lightModeCheck,
+                                  //     onChanged: (value) {
+                                  //       setState(() {
+                                  //         if (MyColors.darkModeCheck) {
+                                  //           MyColors.lightModeCheck = !MyColors.lightModeCheck;
+                                  //           MyColors.darkModeCheck = !MyColors.darkModeCheck;
+                                  //           MyColors.textColor = Colors.white;
+                                  //           MyColors.insideTextFieldColor = Colors.black;
+                                  //           MyColors.calcuColor = MyColors.colorPrimary;
+                                  //
+                                  //           widget.onThemeChange();
+                                  //         }
+                                  //       });
+                                  //     },
+                                  //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                  //     checkColor: Colors.black,
+                                  //     tristate: false,
+                                  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  //   ),
+                                  // ),
+                                  InkWell(
+                                    onTap: () {
+                                      if (!MyColors.lightModeCheck) {
+                                        MyColors.lightModeCheck = true;
+                                        MyColors.darkModeCheck = false;
 
-                                            widget.onThemeChange();
-                                          }
-                                        });
-                                      },
-                                      activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                      checkColor: Colors.black,
-                                      tristate: false,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    ),
+                                        // MyColors.darkModeCheck = !MyColors.darkModeCheck;
+                                        MyColors.textColor = Colors.white;
+                                        MyColors.insideTextFieldColor = Colors.black;
+                                        MyColors.calcuColor = MyColors.colorPrimary;
+
+                                        widget.onThemeChange();
+                                      }
+                                      setState(() {});
+                                    },
+                                    child: MyColors.lightModeCheck
+                                        ? Image(
+                                            image: const AssetImage("assets/images/check.png"),
+                                            width: 17,
+                                            height: 17,
+                                            fit: BoxFit.cover,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )
+                                        : Container(
+                                            width: 17,
+                                            height: 17,
+                                            decoration: BoxDecoration(
+                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                borderRadius: BorderRadius.circular(9),
+                                                border: Border.all(
+                                                  width: 0.8,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                )),
+                                          ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
                                   Text("light".tr().toString(),
                                       textScaleFactor: Constants.textScaleFactor,
@@ -278,41 +316,77 @@ class _SettingScreenState extends State<SettingScreen> {
                                       )),
                                 ],
                               ),
-                              _isContainerVisible
-                                  ? Container()
-                                  : Row(
-                                      children: [
-                                        Transform.scale(
-                                          scale: 1,
-                                          child: Checkbox(
-                                            side: BorderSide(color: MyColors.textColor),
-                                            value: MyColors.darkModeCheck,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                if (MyColors.lightModeCheck) {
-                                                  MyColors.darkModeCheck = !MyColors.darkModeCheck;
-                                                  MyColors.lightModeCheck = !MyColors.lightModeCheck;
-                                                  MyColors.textColor = Colors.grey.shade800;
-                                                  MyColors.insideTextFieldColor = Colors.white;
-                                                  MyColors.calcuColor = Colors.grey.shade700;
+                              Row(
+                                children: [
+                                  // Transform.scale(
+                                  //   scale: 1,
+                                  //   child: Checkbox(
+                                  //     side: BorderSide(color: MyColors.textColor),
+                                  //     value: MyColors.darkModeCheck,
+                                  //     onChanged: (value) {
+                                  //       setState(() {
+                                  //         if (MyColors.lightModeCheck) {
+                                  //           MyColors.darkModeCheck = !MyColors.darkModeCheck;
+                                  //           MyColors.lightModeCheck = !MyColors.lightModeCheck;
+                                  //           MyColors.textColor = Colors.grey.shade800;
+                                  //           MyColors.insideTextFieldColor = Colors.white;
+                                  //           MyColors.calcuColor = Colors.grey.shade700;
+                                  //
+                                  //           widget.onThemeChange();
+                                  //         }
+                                  //       });
+                                  //     },
+                                  //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                  //     checkColor: Colors.black,
+                                  //     tristate: false,
+                                  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  //   ),
+                                  // ),
+                                  InkWell(
+                                    onTap: () {
+                                      if (!MyColors.darkModeCheck) {
+                                        MyColors.darkModeCheck = true;
+                                        MyColors.lightModeCheck = false;
 
-                                                  widget.onThemeChange();
-                                                }
-                                              });
-                                            },
-                                            activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                            checkColor: Colors.black,
-                                            tristate: false,
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                        // MyColors.lightModeCheck = !MyColors.lightModeCheck;
+                                        MyColors.textColor = Colors.grey.shade800;
+                                        MyColors.insideTextFieldColor = Colors.white;
+                                        MyColors.calcuColor = Colors.grey.shade700;
+
+                                        widget.onThemeChange();
+                                      }
+                                      setState(() {});
+                                    },
+                                    child: MyColors.darkModeCheck
+                                        ? Image(
+                                            image: const AssetImage("assets/images/check.png"),
+                                            width: 17,
+                                            height: 17,
+                                            fit: BoxFit.cover,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )
+                                        : Container(
+                                            width: 17,
+                                            height: 17,
+                                            decoration: BoxDecoration(
+                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                borderRadius: BorderRadius.circular(9),
+                                                border: Border.all(
+                                                  width: 0.8,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                )),
                                           ),
-                                        ),
-                                        Text(
-                                          "dark".tr().toString(),
-                                          textScaleFactor: Constants.textScaleFactor,
-                                          style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor),
-                                        ),
-                                      ],
-                                    )
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "dark".tr().toString(),
+                                    textScaleFactor: Constants.textScaleFactor,
+                                    style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor),
+                                  ),
+                                ],
+                              )
                             ],
                           )),
                   _isContainerVisible
@@ -522,114 +596,191 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Row(
-                                children: [
-                                  Transform.scale(
-                                    scale: 1.1,
-                                    child: Checkbox(
-                                      side: BorderSide(color: MyColors.textColor),
-                                      value: Constants.selectedFontSize == Constants.fontSmall,
-                                      onChanged: (value) async {
-                                        if (value!) {
-                                          Constants.selectedFontSize = Constants.fontSmall;
-                                          Constants.textScaleFactor = 0.95;
-                                          await Utility.setStringPreference(Constants.fontSize, Constants.fontSmall);
-                                        }
+                              InkWell(
+                                onTap: () async {
+                                  if (Constants.selectedFontSize != Constants.fontSmall) {
+                                    Constants.selectedFontSize = Constants.fontSmall;
+                                    Constants.textScaleFactor = 0.9;
+                                    await Utility.setStringPreference(Constants.fontSize, Constants.fontSmall);
+                                  }
+                                  setState(() {});
+                                },
+                                splashColor: Colors.transparent,
+                                child: Row(
+                                  children: [
+                                    // Transform.scale(
+                                    //   scale: 1,
+                                    //   child: Checkbox(
+                                    //     side: BorderSide(color: MyColors.textColor),
+                                    //     value: Constants.selectedFontSize == Constants.fontSmall,
+                                    //     onChanged: (value) async {
+                                    //       if (value!) {
+                                    //         Constants.selectedFontSize = Constants.fontSmall;
+                                    //         Constants.textScaleFactor = 0.95;
+                                    //         await Utility.setStringPreference(Constants.fontSize, Constants.fontSmall);
+                                    //       }
+                                    //
+                                    //       setState(() {
+                                    //
+                                    //       });
+                                    //     },
+                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                    //     checkColor: Colors.black,
+                                    //     tristate: false,
+                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    //   ),
+                                    // ),
+                                    Constants.selectedFontSize == Constants.fontSmall
+                                        ? Image(
+                                            image: const AssetImage("assets/images/check.png"),
+                                            width: 17,
+                                            height: 17,
+                                            fit: BoxFit.cover,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )
+                                        : Container(
+                                            width: 17,
+                                            height: 17,
+                                            decoration: BoxDecoration(
+                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                borderRadius: BorderRadius.circular(9),
+                                                border: Border.all(
+                                                  width: 0.8,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                )),
+                                          ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
 
-                                        setState(() {
-                                          // if (MyColors.fontlarge || MyColors.fontmedium) {
-                                          //   MyColors.fontsmall = true;
-                                          //   MyColors.fontlarge = false;
-                                          //   MyColors.fontmedium = false;
-                                          // }
-                                        });
-                                      },
-                                      activeColor: Colors.white,
-                                      checkColor: Colors.black,
-                                      tristate: false,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    ),
-                                  ),
-                                  Text("A".tr().toString(),
-                                      textScaleFactor: Constants.textScaleFactor,
-                                      style: GoogleFonts.roboto(
-                                        fontSize: 16,
-                                        color: MyColors.textColor,
-                                      )),
-                                ],
+                                    Text("A".tr().toString(),
+                                        textScaleFactor: 0.9,
+                                        style:
+                                            GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500)),
+                                  ],
+                                ),
                               ),
-                              _isContainerVisible
-                                  ? Container()
-                                  : Row(
-                                      children: [
-                                        Transform.scale(
-                                          scale: 1.1,
-                                          child: Checkbox(
-                                            side: BorderSide(color: MyColors.textColor),
-                                            value: Constants.selectedFontSize == Constants.fontMedium,
-                                            onChanged: (value) async {
-                                              if (value!) {
-                                                Constants.selectedFontSize = Constants.fontMedium;
-                                                await Utility.setStringPreference(Constants.fontSize, Constants.fontMedium);
-                                                Constants.textScaleFactor = 1;
-                                              }
-                                              setState(() {
-                                                // if (MyColors.fontsmall || MyColors.fontlarge) {
-                                                //   MyColors.fontsmall = false;
-                                                //   MyColors.fontlarge = false;
-                                                //   MyColors.fontmedium = true;
-                                                // }
-                                              });
-                                            },
-                                            activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                            checkColor: Colors.black,
-                                            tristate: false,
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              InkWell(
+                                onTap: () async {
+                                  if (Constants.selectedFontSize != Constants.fontMedium) {
+                                    Constants.selectedFontSize = Constants.fontMedium;
+                                    await Utility.setStringPreference(Constants.fontSize, Constants.fontMedium);
+                                    Constants.textScaleFactor = 1;
+                                  }
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  children: [
+                                    // Transform.scale(
+                                    //   scale: 1,
+                                    //   child: Checkbox(
+                                    //     side: BorderSide(color: MyColors.textColor),
+                                    //     value: Constants.selectedFontSize == Constants.fontMedium,
+                                    //     onChanged: (value) async {
+                                    //       if (value!) {
+                                    //         Constants.selectedFontSize = Constants.fontMedium;
+                                    //         await Utility.setStringPreference(Constants.fontSize, Constants.fontMedium);
+                                    //         Constants.textScaleFactor = 1;
+                                    //       }
+                                    //       setState(() {});
+                                    //     },
+                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                    //     checkColor: Colors.black,
+                                    //     tristate: false,
+                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    //   ),
+                                    // ),
+                                    Constants.selectedFontSize == Constants.fontMedium
+                                        ? Image(
+                                            image: const AssetImage("assets/images/check.png"),
+                                            width: 17,
+                                            height: 17,
+                                            fit: BoxFit.cover,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )
+                                        : Container(
+                                            width: 17,
+                                            height: 17,
+                                            decoration: BoxDecoration(
+                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                borderRadius: BorderRadius.circular(9),
+                                                border: Border.all(
+                                                  width: 0.8,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                )),
                                           ),
-                                        ),
-                                        Text(
-                                          "A".tr().toString(),
-                                          textScaleFactor: Constants.textScaleFactor,
-                                          style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor),
-                                        ),
-                                      ],
+                                    const SizedBox(
+                                      width: 10,
                                     ),
-                              _isContainerVisible
-                                  ? Container()
-                                  : Row(
-                                      children: [
-                                        Transform.scale(
-                                          scale: 1.1,
-                                          child: Checkbox(
-                                            side: BorderSide(color: MyColors.textColor),
-                                            value: Constants.selectedFontSize == Constants.fontLarge,
-                                            onChanged: (value) async {
-                                              if (value!) {
-                                                Constants.selectedFontSize = Constants.fontLarge;
-                                                await Utility.setStringPreference(Constants.fontSize, Constants.fontLarge);
-                                                Constants.textScaleFactor = 1.1;
-                                              }
-                                              setState(() {
-                                                // if (MyColors.fontsmall || MyColors.fontmedium) {
-                                                //   MyColors.fontsmall = false;
-                                                //   MyColors.fontlarge = true;
-                                                //   MyColors.fontmedium = false;
-                                                // }
-                                              });
-                                            },
-                                            activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                            checkColor: Colors.black,
-                                            tristate: false,
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    Text(
+                                      "A".tr().toString(),
+                                      textScaleFactor: 1,
+                                      style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                onTap: () async {
+                                  if (Constants.selectedFontSize != Constants.fontLarge) {
+                                    Constants.selectedFontSize = Constants.fontLarge;
+                                    await Utility.setStringPreference(Constants.fontSize, Constants.fontLarge);
+                                    Constants.textScaleFactor = 1.1;
+                                  }
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  children: [
+                                    // Transform.scale(
+                                    //   scale: 1,
+                                    //   child: Checkbox(
+                                    //     side: BorderSide(color: MyColors.textColor),
+                                    //     value: Constants.selectedFontSize == Constants.fontLarge,
+                                    //     onChanged: (value) async {
+                                    //       if (value!) {
+                                    //         Constants.selectedFontSize = Constants.fontLarge;
+                                    //         await Utility.setStringPreference(Constants.fontSize, Constants.fontLarge);
+                                    //         Constants.textScaleFactor = 1.1;
+                                    //       }
+                                    //       setState(() {                                        });
+                                    //     },
+                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                    //     checkColor: Colors.black,
+                                    //     tristate: false,
+                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    //   ),
+                                    // ),
+                                    Constants.selectedFontSize == Constants.fontLarge
+                                        ? Image(
+                                            image: const AssetImage("assets/images/check.png"),
+                                            width: 17,
+                                            height: 17,
+                                            fit: BoxFit.cover,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )
+                                        : Container(
+                                            width: 17,
+                                            height: 17,
+                                            decoration: BoxDecoration(
+                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                borderRadius: BorderRadius.circular(9),
+                                                border: Border.all(
+                                                  width: 0.8,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                )),
                                           ),
-                                        ),
-                                        Text(
-                                          "A".tr().toString(),
-                                          textScaleFactor: Constants.textScaleFactor,
-                                          style: GoogleFonts.roboto(fontSize: 20, color: MyColors.textColor),
-                                        ),
-                                      ],
-                                    )
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "A".tr().toString(),
+                                      textScaleFactor: 1.1,
+                                      style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           )),
                   _isContainerVisible
@@ -844,61 +995,125 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Row(
-                                children: [
-                                  Transform.scale(
-                                    scale: 1.1,
-                                    child: Checkbox(
-                                      side: BorderSide(color: MyColors.textColor),
-                                      value: Constants.dateFormat == Constants.ddMmYyyy,
-                                      onChanged: (value) async {
-                                        if (value!) {
-                                          Constants.dateFormat = Constants.ddMmYyyy;
-                                          await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
-                                        }
-                                        setState(() {});
-                                      },
-                                      activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                      checkColor: Colors.black,
-                                      tristate: false,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              InkWell(
+                                onTap: () async {
+                                  if (Constants.dateFormat != Constants.ddMmYyyy) {
+                                    Constants.dateFormat = Constants.ddMmYyyy;
+                                    await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                  }
+                                  setState(() {});
+                                },
+                                splashColor: Colors.transparent,
+                                child: Row(
+                                  children: [
+                                    // Transform.scale(
+                                    //   scale: 1.1,
+                                    //   child: Checkbox(
+                                    //     side: BorderSide(color: MyColors.textColor),
+                                    //     value: Constants.dateFormat == Constants.ddMmYyyy,
+                                    //     onChanged: (value) async {
+                                    //       if (value!) {
+                                    //         Constants.dateFormat = Constants.ddMmYyyy;
+                                    //         await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                    //       }
+                                    //       setState(() {});
+                                    //     },
+                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                    //     checkColor: Colors.black,
+                                    //     tristate: false,
+                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    //   ),
+                                    // ),
+                                    Constants.dateFormat == Constants.ddMmYyyy
+                                        ? Image(
+                                            image: const AssetImage("assets/images/check.png"),
+                                            width: 17,
+                                            height: 17,
+                                            fit: BoxFit.cover,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )
+                                        : Container(
+                                            width: 17,
+                                            height: 17,
+                                            decoration: BoxDecoration(
+                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                borderRadius: BorderRadius.circular(9),
+                                                border: Border.all(
+                                                  width: 0.8,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                )),
+                                          ),
+                                    const SizedBox(
+                                      width: 10,
                                     ),
-                                  ),
-                                  Text("dd/mm/yy",
-                                      textScaleFactor: Constants.textScaleFactor,
-                                      style: GoogleFonts.roboto(
-                                        fontSize: 16,
-                                        color: MyColors.textColor,
-                                      )),
-                                ],
+                                    Text("dd/mm/yy",
+                                        textScaleFactor: Constants.textScaleFactor,
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 16,
+                                          color: MyColors.textColor,
+                                        )),
+                                  ],
+                                ),
                               ),
-                              Row(
-                                children: [
-                                  Transform.scale(
-                                    scale: 1.1,
-                                    child: Checkbox(
-                                      side: BorderSide(color: MyColors.textColor),
-                                      value: Constants.dateFormat == Constants.mmDdYyyy,
-                                      onChanged: (value) async {
-                                        if (value!) {
-                                          Constants.dateFormat = Constants.mmDdYyyy;
-                                          await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
-                                        }
-
-                                        setState(() {});
-                                      },
-                                      activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                      checkColor: Colors.black,
-                                      tristate: false,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              InkWell(
+                                onTap: () async {
+                                  if (Constants.dateFormat != Constants.mmDdYyyy) {
+                                    Constants.dateFormat = Constants.mmDdYyyy;
+                                    await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                  }
+                                  setState(() {});
+                                },
+                                splashColor: Colors.transparent,
+                                child: Row(
+                                  children: [
+                                    // Transform.scale(
+                                    //   scale: 1.1,
+                                    //   child: Checkbox(
+                                    //     side: BorderSide(color: MyColors.textColor),
+                                    //     value: Constants.dateFormat == Constants.mmDdYyyy,
+                                    //     onChanged: (value) async {
+                                    //       if (value!) {
+                                    //         Constants.dateFormat = Constants.mmDdYyyy;
+                                    //         await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                    //       }
+                                    //
+                                    //       setState(() {});
+                                    //     },
+                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                    //     checkColor: Colors.black,
+                                    //     tristate: false,
+                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    //   ),
+                                    // ),
+                                    Constants.dateFormat == Constants.mmDdYyyy
+                                        ? Image(
+                                            image: const AssetImage("assets/images/check.png"),
+                                            width: 17,
+                                            height: 17,
+                                            fit: BoxFit.cover,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )
+                                        : Container(
+                                            width: 17,
+                                            height: 17,
+                                            decoration: BoxDecoration(
+                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                borderRadius: BorderRadius.circular(9),
+                                                border: Border.all(
+                                                  width: 0.8,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                )),
+                                          ),
+                                    const SizedBox(
+                                      width: 10,
                                     ),
-                                  ),
-                                  Text(
-                                    "mm/dd/yy",
-                                    textScaleFactor: Constants.textScaleFactor,
-                                    style: GoogleFonts.roboto(fontSize: 16, color: MyColors.textColor),
-                                  ),
-                                ],
+                                    Text(
+                                      "mm/dd/yy",
+                                      textScaleFactor: Constants.textScaleFactor,
+                                      style: GoogleFonts.roboto(fontSize: 16, color: MyColors.textColor),
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           )),

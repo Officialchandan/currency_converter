@@ -168,7 +168,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         },
         child: Scaffold(
           body: Container(
-            padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+            padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
             height: appheight,
             width: appwidth,
             decoration: BoxDecoration(
@@ -184,53 +184,31 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        SizedBox(
-                          width: appwidth * 0.17,
-                        ),
-                        Row(
-                          children: [
-                            Center(
-                              child: Text(
-                                "update".tr().toString() + ":",
-                                textScaleFactor: Constants.textScaleFactor,
-                                style: TextStyle(
-                                  color: MyColors.textColor,
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Center(
-                              child: Text(
-                                Utility.getFormatDate(),
-                                textScaleFactor: Constants.textScaleFactor,
-                                style: TextStyle(
-                                  color: MyColors.textColor,
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        InkWell(
-                            onTap: () async {
-                              _onShareWithEmptyOrigin(context);
-                            },
-                            child: Icon(
-                              Icons.share,
-                              color: MyColors.textColor,
-                            )),
-                      ],
+                  AppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    centerTitle: true,
+                    toolbarHeight: 50,
+                    title: Text(
+                      "update".tr().toString() + ": " + Utility.getFormatDate(),
+                      textScaleFactor: Constants.textScaleFactor,
+                      // textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: MyColors.textColor,
+                        fontSize: 16.5,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16.0,
+                    actions: [
+                      InkWell(
+                        onTap: () {
+                          _onShareWithEmptyOrigin(context);
+                        },
+                        child: Icon(
+                          Icons.share,
+                          color: MyColors.textColor,
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
                     width: appwidth - 20,

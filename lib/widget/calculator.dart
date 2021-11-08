@@ -128,11 +128,12 @@ class _CalculatorState extends State<Calculator> {
         child: MaterialButton(
             onLongPress: () {
               if (buttonText == "⌫") {
-                equation = "0";
                 expression = "";
+                // equation = "0";
                 widget.txtController.clear();
-                widget.txtController.text = "0";
-                widget.onChange(widget.txtController.text);
+                _insertText("0");
+                // widget.txtController.text = "0";
+                // widget.onChange(widget.txtController.text);
               }
               // buttonPressed(buttonText);
               // equation = "0";
@@ -216,9 +217,11 @@ class _CalculatorState extends State<Calculator> {
         if (buttonText == "c") {
           isbool = true;
           expression = "";
-          equation = "0";
-          widget.txtController.text = "0";
-          widget.onChange(widget.txtController.text);
+          widget.txtController.clear();
+          _insertText("0");
+          // equation = "0";
+          // widget.txtController.text = "0";
+          // widget.onChange(widget.txtController.text);
           isbool = false;
           equationFontSize = 38.0;
           resultFontSize = 48.0;
