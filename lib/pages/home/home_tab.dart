@@ -245,53 +245,63 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                       children: [
                         Center(
                           child: Container(
-                            margin: const EdgeInsets.only(left: 8.0),
                             height: 35.0,
                             width: 60.0,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  MyColors.colorPrimary.withOpacity(0.45),
-                                  MyColors.colorPrimary,
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
+                            margin: const EdgeInsets.only(left: 8.0),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white,),
+
+
+                            child: Container(
+
+
+
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(7),
+
+                                gradient: LinearGradient(
+                                  colors: [
+                                    MyColors.colorPrimary.withOpacity(0.4),
+                                    MyColors.colorPrimary,
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+
                               ),
-                              borderRadius: BorderRadius.circular(7),
+                              child: MyColors.displaycode
+                                  ? Center(
+                                      child: AutoSizeText(
+                                        currencyCodeFrom,
+                                        style: TextStyle(
+                                          color: MyColors.textColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    )
+                                  : MyColors.displaysymbol
+                                      ? Center(
+                                          child: Text(
+                                            symbol,
+                                            textScaleFactor: Constants.textScaleFactor,
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        )
+                                      : Center(
+                                          child: AutoSizeText(
+                                            currencyCodeFrom,
+                                            style: TextStyle(
+                                              color: MyColors.textColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ),
                             ),
-                            child: MyColors.displaycode
-                                ? Center(
-                                    child: AutoSizeText(
-                                      currencyCodeFrom,
-                                      style: TextStyle(
-                                        color: MyColors.textColor,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  )
-                                : MyColors.displaysymbol
-                                    ? Center(
-                                        child: Text(
-                                          symbol,
-                                          textScaleFactor: Constants.textScaleFactor,
-                                          style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      )
-                                    : Center(
-                                        child: AutoSizeText(
-                                          currencyCodeFrom,
-                                          style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                      ),
                           ),
                         ),
                         Center(
