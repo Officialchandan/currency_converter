@@ -657,10 +657,9 @@ class Item extends StatelessWidget {
                           width: 60.0,
                           decoration: BoxDecoration(
                             color: Colors.white,
-    borderRadius: BorderRadius.circular(7),
+                            borderRadius: BorderRadius.circular(7),
                           ),
                           child: Container(
-
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [

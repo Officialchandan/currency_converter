@@ -14,7 +14,6 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -125,7 +124,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       symbol = await Utility.getSymbolFromPreference("hello");
       symbol2 = await Utility.getSymboltoPreference("to");
 
-     text= await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+      text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
     setState(() {});
   }
@@ -257,8 +256,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                       ? Center(
                                           child: Text(
                                             symbol,
-                                            textScaleFactor:
-                                                Constants.textScaleFactor,
+                                            textScaleFactor: Constants.textScaleFactor,
                                             style: TextStyle(
                                               color: MyColors.textColor,
                                               fontSize: 18,
@@ -276,7 +274,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                             ),
                                           ),
                                         ),
-                                      ),
+                            ),
                           ),
                         ),
                         Center(
@@ -301,8 +299,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               showCursor: true,
                               readOnly: false,
                               decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      left: 1.0, right: 1.0, bottom: 15.0),
+                                  contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
                                   counterText: "",
                                   border: InputBorder.none),
                               onTap: () {
@@ -314,12 +311,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               },
                               onChanged: (text) {
                                 print("onchange---------> $text");
-                                getConverterAPI(
-                                    currencyCodeFrom, currencyCodeTo, text);
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
                                 calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(
-                                        offset: calculateCurrency.text.length));
+                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
                               },
                             ),
                           ),
@@ -351,12 +346,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   currencyCodeToSave(currencyCodeTo);
                                   setState(() {});
 
-                                  getConverterAPI(currencyCodeFrom,
-                                      currencyCodeTo, calculateCurrency.text);
+                                  getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                                   calculateCurrency.selection =
-                                      TextSelection.fromPosition(TextPosition(
-                                          offset:
-                                              calculateCurrency.text.length));
+                                      TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
                                 },
                                 child: Image.asset(
                                   "assets/images/right-left.png",
@@ -600,18 +592,14 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
             ),
           ),
           bottomNavigationBar: SizedBox(
-              height: isCalculatorVisible
-                  ? MediaQuery.of(context).size.height * 0.32000
-                  : 0.0,
-              width:
-                  isCalculatorVisible ? MediaQuery.of(context).size.width : 0.0,
+              // height: isCalculatorVisible ? MediaQuery.of(context).size.height * 0.32000 : 0.0,
+              // width: isCalculatorVisible ? MediaQuery.of(context).size.width : 0.0,
               // child: calculator(),
               child: isCalculatorVisible
                   ? Calculator(
                       txtController: calculateCurrency,
                       onChange: (text) async {
-                        this.text = await getConverterAPI(
-                            currencyCodeFrom, currencyCodeTo, text);
+                        this.text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                         setState(() {});
                       },
                     )
@@ -633,13 +621,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         Map res = response.data!;
         Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
-          DataModel currencyData = DataModel(
-              value: value.toString(),
-              code: key,
-              image: "",
-              name: "",
-              fav: 0,
-              selected: 0);
+          DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
 
           int id = await dbHelper.insert(currencyData.toMap());
 
@@ -684,8 +666,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   String getFormatText(String s) {
