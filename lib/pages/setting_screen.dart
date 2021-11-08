@@ -443,7 +443,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ),
                               ),
                               SizedBox(
-                                width: 30,
+                                width: 28,
                                 child: Text(
                                   (x * 100).toStringAsFixed(0),
                                   textScaleFactor: Constants.textScaleFactor,
@@ -484,57 +484,95 @@ class _SettingScreenState extends State<SettingScreen> {
                                                   children: [
                                                     const SizedBox(height: 5),
                                                     Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
                                                       children: [
                                                         Row(
-                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
                                                           children: [
                                                             Container(
-                                                                margin: EdgeInsets.only(right: 10),
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        right:
+                                                                            10),
                                                                 width: 30,
                                                                 height: 30,
-                                                                child: ClipRRect(
-                                                                    borderRadius: BorderRadius.circular(30),
-                                                                    child: Image.asset(
-                                                                      "assets/pngCountryImages/USD.png",
-                                                                      fit: BoxFit.cover,
-                                                                    ))),
+                                                                child:
+                                                                    ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                30),
+                                                                        child: Image
+                                                                            .asset(
+                                                                          "assets/pngCountryImages/USD.png",
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ))),
                                                             Text(
                                                               "USD",
-                                                              textScaleFactor: Constants.textScaleFactor,
+                                                              textScaleFactor:
+                                                                  Constants
+                                                                      .textScaleFactor,
                                                               style: GoogleFonts.roboto(
                                                                   fontSize: 16,
-                                                                  color: MyColors.textColor,
-                                                                  fontWeight: FontWeight.w600),
+                                                                  color: MyColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                             ),
                                                           ],
                                                         ),
                                                         Text(
                                                           "/",
-                                                          textScaleFactor: Constants.textScaleFactor,
-                                                          style: GoogleFonts.roboto(
-                                                              fontSize: 16, color: MyColors.textColor, fontWeight: FontWeight.w600),
+                                                          textScaleFactor:
+                                                              Constants
+                                                                  .textScaleFactor,
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontSize: 16,
+                                                                  color: MyColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                         ),
                                                         Row(
-                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
                                                           children: [
                                                             Container(
-                                                                margin: EdgeInsets.only(right: 10),
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        right:
+                                                                            10),
                                                                 width: 30,
                                                                 height: 30,
-                                                                child: ClipRRect(
-                                                                    borderRadius: BorderRadius.circular(30),
-                                                                    child: Image.asset(
-                                                                      "assets/pngCountryImages/EUR.png",
-                                                                      fit: BoxFit.cover,
-                                                                    ))),
+                                                                child:
+                                                                    ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                30),
+                                                                        child: Image
+                                                                            .asset(
+                                                                          "assets/pngCountryImages/EUR.png",
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ))),
                                                             Text(
                                                               "EUR",
-                                                              textScaleFactor: Constants.textScaleFactor,
+                                                              textScaleFactor:
+                                                                  Constants
+                                                                      .textScaleFactor,
                                                               style: GoogleFonts.roboto(
                                                                   fontSize: 16,
-                                                                  color: MyColors.textColor,
-                                                                  fontWeight: FontWeight.w600),
+                                                                  color: MyColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
                                                             ),
                                                           ],
                                                         ),
@@ -544,31 +582,50 @@ class _SettingScreenState extends State<SettingScreen> {
                                                     _isContainerVisible
                                                         ? Container()
                                                         : Padding(
-                                                            padding: EdgeInsets.only(left: 50, top: 0),
-                                                            child: Text("0.7895",
-                                                                textScaleFactor: Constants.textScaleFactor,
-                                                                style: TextStyle(
-                                                                  color: MyColors.textColor,
-                                                                  fontWeight: FontWeight.bold,
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 50,
+                                                                    top: 0),
+                                                            child: Text(
+                                                                "0.7895",
+                                                                textScaleFactor:
+                                                                    Constants
+                                                                        .textScaleFactor,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: MyColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
                                                                   fontSize: 19,
                                                                 )),
                                                           ),
                                                     const SizedBox(height: 5),
                                                     Padding(
-                                                      padding: EdgeInsets.only(left: 80, top: 0),
+                                                      padding: EdgeInsets.only(
+                                                          left: 80, top: 0),
                                                       child: Text("-0.0400",
-                                                          textScaleFactor: Constants.textScaleFactor,
+                                                          textScaleFactor:
+                                                              Constants
+                                                                  .textScaleFactor,
                                                           style: TextStyle(
-                                                            color: MyColors.textColor,
+                                                            color: MyColors
+                                                                .textColor,
                                                             fontSize: 15,
                                                           )),
                                                     ),
                                                     const SizedBox(height: 5),
                                                     Text("  By: Currency.wiki",
-                                                        textScaleFactor: Constants.textScaleFactor,
-                                                        style: GoogleFonts.roboto(
-                                                          color: MyColors.textColor,
-                                                          fontWeight: FontWeight.normal,
+                                                        textScaleFactor:
+                                                            Constants
+                                                                .textScaleFactor,
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                          color: MyColors
+                                                              .textColor,
+                                                          fontWeight:
+                                                              FontWeight.normal,
                                                           fontSize: 16,
                                                         ))
                                                   ],
@@ -584,15 +641,21 @@ class _SettingScreenState extends State<SettingScreen> {
                           margin: EdgeInsets.only(left: 0, bottom: 13, top: 20),
                           child: Text("visualSize".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
-                              style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
                   _isContainerVisible
                       ? Container()
                       : Container(
                           //  margin: EdgeInsets.only(right: 22),
                           height: 50,
                           width: width * .945,
-                          padding: EdgeInsets.only(top: 15, left: 0, right: 15, bottom: 15),
-                          decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.only(
+                              top: 15, left: 0, right: 15, bottom: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -786,37 +849,52 @@ class _SettingScreenState extends State<SettingScreen> {
                   _isContainerVisible
                       ? Container()
                       : Container(
-                          margin: const EdgeInsets.only(left: 10, bottom: 5, top: 25),
+                          margin: const EdgeInsets.only(
+                              left: 10, bottom: 5, top: 25),
                           child: Text("appLogoLauncher".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
-                              style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
                   _isContainerVisible
                       ? Container()
                       : Container(
                           margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
                           width: width * .945,
-                          padding: EdgeInsets.only(top: 15, left: 10, right: 20, bottom: 15),
-                          decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.only(
+                              top: 15, left: 10, right: 20, bottom: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                      margin: EdgeInsets.only(bottom: 5, left: 2),
-                                      child: Text("multiConverter".tr().toString(),
-                                          textScaleFactor: Constants.textScaleFactor,
+                                      margin:
+                                          EdgeInsets.only(bottom: 5, left: 2),
+                                      child: Text(
+                                          "multiConverter".tr().toString(),
+                                          textScaleFactor:
+                                              Constants.textScaleFactor,
                                           style: GoogleFonts.roboto(
-                                              fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
+                                              fontSize: 18,
+                                              color: MyColors.textColor,
+                                              fontWeight: FontWeight.bold))),
                                   Container(
                                     width: 30,
                                     height: 10,
                                     margin: EdgeInsets.only(top: 2, left: 0),
                                     child: Switch(
-                                      inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                                      inactiveTrackColor: MyColors.darkModeCheck
+                                          ? Colors.grey.shade800
+                                          : Colors.grey.shade300,
                                       inactiveThumbColor: MyColors.textColor,
                                       value: isMultiConverter,
                                       onChanged: (value) {
@@ -840,20 +918,24 @@ class _SettingScreenState extends State<SettingScreen> {
                               // )
                               _isContainerVisible
                                   ? Container()
-                                  : RichText(
-                                      text: TextSpan(
-                                          text: "multiConverterContent1".tr().toString(),
-                                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 11, color: MyColors.textColor),
-                                          children: <TextSpan>[
-                                          TextSpan(
-                                            text: "multiConverterContent2".tr().toString(),
-                                            style: TextStyle(fontSize: 12, color: MyColors.textColor),
-                                          ),
-                                          TextSpan(
-                                            text: "multiConverterContent3".tr().toString(),
-                                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 11, color: MyColors.textColor),
-                                          )
-                                        ])),
+                                  : AutoSizeText(
+                                      "multiConverterContent1".tr().toString() +
+                                          "multiConverterContent2"
+                                              .tr()
+                                              .toString() +
+                                          "multiConverterContent3"
+                                              .tr()
+                                              .toString(),
+                                      maxLines: 2,
+                                      textAlign: TextAlign.start,
+                                      maxFontSize: 15,
+                                      minFontSize: 11,
+                                      wrapWords: true,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 11,
+                                          color: MyColors.textColor),
+                                    ),
                             ],
                           )),
                   _isContainerVisible
@@ -862,29 +944,41 @@ class _SettingScreenState extends State<SettingScreen> {
                           margin: EdgeInsets.only(left: 0, bottom: 5, top: 25),
                           child: Text("display".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
-                              style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
                   _isContainerVisible
                       ? Container()
                       : Container(
                           margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
                           width: width * .945,
-                          padding: EdgeInsets.only(top: 5, left: 10, right: 5, bottom: 5),
-                          decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.only(
+                              top: 5, left: 10, right: 5, bottom: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     padding: EdgeInsets.only(top: 12),
                                     child: Text("display1".tr().toString(),
-                                        textScaleFactor: Constants.textScaleFactor,
+                                        textScaleFactor:
+                                            Constants.textScaleFactor,
                                         style: GoogleFonts.roboto(
-                                            fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.normal)),
+                                            fontSize: 17,
+                                            color: MyColors.textColor,
+                                            fontWeight: FontWeight.normal)),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                                    inactiveTrackColor: MyColors.darkModeCheck
+                                        ? Colors.grey.shade800
+                                        : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displaycode,
                                     onChanged: (value) {
@@ -894,7 +988,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                             MyColors.displaysymbol = false;
                                             MyColors.displaycode = true;
                                           } else
-                                            MyColors.displaycode = !MyColors.displaycode;
+                                            MyColors.displaycode =
+                                                !MyColors.displaycode;
                                         } else if (MyColors.displaycode) {
                                         } else {
                                           MyColors.displaycode = true;
@@ -910,20 +1005,25 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     padding: EdgeInsets.only(top: 12),
                                     child: AutoSizeText(
                                       "display2".tr().toString(),
-                                      style: GoogleFonts.roboto(color: MyColors.textColor, fontWeight: FontWeight.normal),
+                                      style: GoogleFonts.roboto(
+                                          color: MyColors.textColor,
+                                          fontWeight: FontWeight.normal),
                                       maxFontSize: 17,
                                       minFontSize: 15,
                                     ),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                                    inactiveTrackColor: MyColors.darkModeCheck
+                                        ? Colors.grey.shade800
+                                        : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displaysymbol,
                                     onChanged: (value) {
@@ -933,9 +1033,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                             MyColors.displaysymbol = true;
                                             MyColors.displaycode = false;
                                           } else
-                                            MyColors.displaysymbol = !MyColors.displaysymbol;
+                                            MyColors.displaysymbol =
+                                                !MyColors.displaysymbol;
                                         } else if (MyColors.displaysymbol) {
-                                        } else if (MyColors.displaysymbol && !MyColors.displayflag) {
+                                        } else if (MyColors.displaysymbol &&
+                                            !MyColors.displayflag) {
                                         } else {
                                           MyColors.displaysymbol = true;
                                           MyColors.displaycode = false;
@@ -948,25 +1050,33 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
                                     padding: EdgeInsets.only(top: 12),
                                     child: Text("display3".tr().toString(),
-                                        textScaleFactor: Constants.textScaleFactor,
+                                        textScaleFactor:
+                                            Constants.textScaleFactor,
                                         style: GoogleFonts.roboto(
-                                            fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.normal)),
+                                            fontSize: 17,
+                                            color: MyColors.textColor,
+                                            fontWeight: FontWeight.normal)),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                                    inactiveTrackColor: MyColors.darkModeCheck
+                                        ? Colors.grey.shade800
+                                        : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displayflag,
                                     onChanged: (value) {
                                       setState(() {
-                                        if (!MyColors.displaycode && !MyColors.displaysymbol) {
+                                        if (!MyColors.displaycode &&
+                                            !MyColors.displaysymbol) {
                                         } else
-                                          MyColors.displayflag = !MyColors.displayflag;
+                                          MyColors.displayflag =
+                                              !MyColors.displayflag;
                                         // print(isSwitched);
                                       });
                                     },
@@ -983,15 +1093,21 @@ class _SettingScreenState extends State<SettingScreen> {
                           margin: EdgeInsets.only(left: 0, bottom: 13, top: 20),
                           child: Text("dateFormat".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
-                              style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18,
+                                  color: MyColors.textColor,
+                                  fontWeight: FontWeight.bold))),
                   _isContainerVisible
                       ? Container()
                       : Container(
                           margin: EdgeInsets.only(bottom: 24),
                           height: 55,
                           width: width * .945,
-                          padding: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
-                          decoration: BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.only(
+                              top: 0, left: 15, right: 15, bottom: 0),
+                          decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(10)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -1131,7 +1247,8 @@ class _SettingScreenState extends State<SettingScreen> {
     setState(
       () => unlockCurrentColor = color,
     );
-    debugPrint("unlock in behja -> ${unlockCurrentColor.value.toRadixString(16)}");
+    debugPrint(
+        "unlock in behja -> ${unlockCurrentColor.value.toRadixString(16)}");
   }
 
   void lockchangeColor(Color color) {
@@ -1144,24 +1261,28 @@ class _SettingScreenState extends State<SettingScreen> {
     widget.onThemeChange;
     setState(() => densityCurrentColor = color);
 
-    debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+    debugPrint(
+        "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
   void onColorSelect(Color themeColor, BuildContext context) {
     print("OnColorSelect-->");
     widget.onThemeChange;
 
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
   }
 
   showColorPickerDialog(BuildContext context) async {
     return showGeneralDialog(
         context: context,
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: Colors.black45,
         transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
           double width = MediaQuery.of(context).size.width;
           double height = MediaQuery.of(context).size.height;
 
@@ -1170,7 +1291,8 @@ class _SettingScreenState extends State<SettingScreen> {
             child: Center(
               child: IntrinsicHeight(
                 child: Container(
-                    margin: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
+                    margin: const EdgeInsets.only(
+                        top: 15, right: 10, bottom: 0, left: 10),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -1274,19 +1396,36 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   MColor selectedColor = MColor(mainColor: Colors.white, densityColors: []);
 
   List<MColor> colors = [
-    MColor(mainColor: Colors.deepPurple, densityColors: [
+    MColor(mainColor: Color(0xff4e7dcb), densityColors: [
+      Color(0xff89a8dc),
+      Color(0xff759ad7),
+      Color(0xff628bd1),
+      Color(0xff4e7dcb),
+      Color(0xff3a6fc5),
+      Color(0xff3463b2),
+      Color(0xff2e589e),
+
+    ]), MColor(mainColor: Colors.deepPurple, densityColors: [
       Colors.deepPurple.shade50,
       Colors.deepPurple.shade100,
       Colors.deepPurple.shade200,
       Colors.deepPurple,
       Colors.deepPurple.shade900
     ]),
-    MColor(
-        mainColor: Colors.indigo,
-        densityColors: [Colors.indigo.shade50, Colors.indigo.shade100, Colors.indigo.shade200, Colors.indigo, Colors.indigo.shade900]),
-    MColor(
-        mainColor: Colors.blue,
-        densityColors: [Colors.blue.shade50, Colors.blue.shade100, Colors.blue.shade200, Colors.blue, Colors.blue.shade900]),
+    MColor(mainColor: Colors.indigo, densityColors: [
+      Colors.indigo.shade50,
+      Colors.indigo.shade100,
+      Colors.indigo.shade200,
+      Colors.indigo,
+      Colors.indigo.shade900
+    ]),
+    MColor(mainColor: Colors.blue, densityColors: [
+      Colors.blue.shade50,
+      Colors.blue.shade100,
+      Colors.blue.shade200,
+      Colors.blue,
+      Colors.blue.shade900
+    ]),
     MColor(mainColor: Colors.lightBlue, densityColors: [
       Colors.lightBlue.shade50,
       Colors.lightBlue.shade100,
@@ -1294,19 +1433,41 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.lightBlue,
       Colors.lightBlue.shade900
     ]),
-    MColor(
-        mainColor: Colors.cyan,
-        densityColors: [Colors.cyan.shade50, Colors.cyan.shade100, Colors.cyan.shade200, Colors.cyan, Colors.cyan.shade900]),
-    MColor(
-        mainColor: Colors.red,
-        densityColors: [Colors.red.shade50, Colors.red.shade100, Colors.red.shade200, Colors.red, Colors.red.shade900]),
-    MColor(
-        mainColor: Colors.yellow,
-        densityColors: [Colors.yellow.shade50, Colors.yellow.shade100, Colors.yellow.shade200, Colors.yellow, Colors.yellow.shade900]),
-    MColor(
-        mainColor: Colors.pink,
-        densityColors: [Colors.pink.shade50, Colors.pink.shade100, Colors.pink.shade200, Colors.pink, Colors.pink.shade900]),
-    MColor(mainColor: Colors.black, densityColors: [Colors.black12, Colors.black26, Colors.black45, Colors.black54, Colors.black87]),
+    MColor(mainColor: Colors.cyan, densityColors: [
+      Colors.cyan.shade50,
+      Colors.cyan.shade100,
+      Colors.cyan.shade200,
+      Colors.cyan,
+      Colors.cyan.shade900
+    ]),
+    MColor(mainColor: Colors.red, densityColors: [
+      Colors.red.shade50,
+      Colors.red.shade100,
+      Colors.red.shade200,
+      Colors.red,
+      Colors.red.shade900
+    ]),
+    MColor(mainColor: Colors.yellow, densityColors: [
+      Colors.yellow.shade50,
+      Colors.yellow.shade100,
+      Colors.yellow.shade200,
+      Colors.yellow,
+      Colors.yellow.shade900
+    ]),
+    MColor(mainColor: Colors.pink, densityColors: [
+      Colors.pink.shade50,
+      Colors.pink.shade100,
+      Colors.pink.shade200,
+      Colors.pink,
+      Colors.pink.shade900
+    ]),
+    MColor(mainColor: Colors.black, densityColors: [
+      Colors.black12,
+      Colors.black26,
+      Colors.black45,
+      Colors.black54,
+      Colors.black87
+    ]),
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;
@@ -1345,15 +1506,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           child: Text(
             "unlocked".tr().toString(),
             textScaleFactor: Constants.textScaleFactor,
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
+            style: TextStyle(
+                fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
           ),
         ),
         Container(
           margin: const EdgeInsets.only(left: 15),
           width: MediaQuery.of(context).size.width * 0.87,
-          height: MediaQuery.of(context).size.height * 0.089,
-          child: Container(
-            width: 400,
+          //height: MediaQuery.of(context).size.height * 0.4,
+          child: IntrinsicHeight(
             child: UnlockColorPicker(
               pickerColor: selectedColor,
               onColorChanged: unlockchangeColor,
@@ -1366,16 +1527,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           child: Text(
             "locked".tr().toString(),
             textScaleFactor: Constants.textScaleFactor,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ),
         Container(
           margin: EdgeInsets.only(left: 15, top: 5),
-          width: width * 0.8,
-          height: height * 0.29,
-          child: LockColorPicker(
-            pickerColor: lockCurrentColor,
-            onColorChanged: lockchangeColor,
+          width: MediaQuery.of(context).size.width * 0.87,
+
+          child: IntrinsicHeight(
+            child: LockColorPicker(
+              pickerColor: lockCurrentColor,
+              onColorChanged: lockchangeColor,
+            ),
           ),
         ),
         Center(
@@ -1384,7 +1548,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             width: width * 0.87,
             height: height * 0.077,
             child: DensityColorPicker(
-                pickerColor: densityCurrentColor, onColorChanged: densitychangeColor, availableColors: selectedColor.densityColors),
+                pickerColor: densityCurrentColor,
+                onColorChanged: densitychangeColor,
+                availableColors: selectedColor.densityColors),
           ),
         ),
         const SizedBox(
@@ -1399,7 +1565,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.indigoAccent),
                         onPressed: () {
                           MyColors.colorPrimary = colorSelection!;
 
@@ -1407,7 +1574,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           int blue = MyColors.colorPrimary.blue;
                           int green = MyColors.colorPrimary.green;
 
-                          var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                          var grayscale =
+                              (0.299 * red) + (0.587 * green) + (0.114 * blue);
                           print("************************-> $grayscale");
 
                           if (grayscale > 200) {
@@ -1421,18 +1589,32 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.lightModeCheck = true;
                             MyColors.darkModeCheck = false;
                           }
-                          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-                            systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-                            statusBarColor: MyColors.colorPrimary, // status bar color
+
+                          Utility.setTryColorPreference("Color", MyColors.colorPrimary.toString());
+
+                          SystemChrome.setSystemUIOverlayStyle(
+                              SystemUiOverlayStyle(
+                            statusBarIconBrightness: MyColors.lightModeCheck
+                                ? Brightness.light
+                                : Brightness.dark,
+                            systemNavigationBarIconBrightness:
+                                MyColors.lightModeCheck
+                                    ? Brightness.light
+                                    : Brightness.dark,
+                            systemNavigationBarColor:
+                                MyColors.colorPrimary, // navigation bar color
+                            statusBarColor:
+                                MyColors.colorPrimary, // status bar color
                           ));
 
                           widget.onThemeChange();
                           Navigator.pop(context);
                         },
-                        child: Text(
+                        child: AutoSizeText(
                           "try".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
                           style: TextStyle(fontSize: 16),
+                          maxLines: 1,
                         ),
                       )),
                   Container(
@@ -1440,7 +1622,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.indigoAccent),
                         onPressed: () {},
                         child: Text(
                           "unlock".tr().toString(),
@@ -1471,7 +1654,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 child: Text(
                   "custom".tr().toString(),
                   textScaleFactor: Constants.textScaleFactor,
-                  style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      letterSpacing: 0.8,
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -1489,7 +1676,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         int blue = MyColors.colorPrimary.blue;
                         int green = MyColors.colorPrimary.green;
 
-                        var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                        var grayscale =
+                            (0.299 * red) + (0.587 * green) + (0.114 * blue);
                         print("************************-> $grayscale");
 
                         if (grayscale > 200) {
@@ -1503,11 +1691,22 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           MyColors.lightModeCheck = true;
                           MyColors.darkModeCheck = false;
                         }
-                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-                          systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-                          statusBarColor: MyColors.colorPrimary, // status bar color
+                        SystemChrome.setSystemUIOverlayStyle(
+                            SystemUiOverlayStyle(
+                          statusBarIconBrightness: MyColors.lightModeCheck
+                              ? Brightness.light
+                              : Brightness.dark,
+                          systemNavigationBarIconBrightness:
+                              MyColors.lightModeCheck
+                                  ? Brightness.light
+                                  : Brightness.dark,
+                          systemNavigationBarColor:
+                              MyColors.colorPrimary, // navigation bar color
+                          statusBarColor:
+                              MyColors.colorPrimary, // status bar color
                         ));
-                        Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
+                        Utility.setStringPreference(Constants.themeColor,
+                            unlockSelectdColor!.value.toString());
                         themepicker(unlockSelectdColor!.value.toString());
 
                         widget.onThemeChange();
@@ -1518,7 +1717,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: Text(
                         "select".tr().toString(),
                         textScaleFactor: Constants.textScaleFactor,
-                        style: TextStyle(letterSpacing: 1.0, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            letterSpacing: 1.0,
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -1536,10 +1739,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     showGeneralDialog(
         context: context,
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: Colors.black45,
         transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
           double width = MediaQuery.of(context).size.width;
           double height = MediaQuery.of(context).size.height;
 
@@ -1607,7 +1812,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     );
     setState(() => densityCurrentColor = color);
     widget.densitychangeColor(color);
-    debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+    debugPrint(
+        "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
   static void themepicker(String code) async {

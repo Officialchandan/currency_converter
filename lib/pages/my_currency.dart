@@ -656,24 +656,31 @@ class Item extends StatelessWidget {
                           height: 35.0,
                           width: 60.0,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                MyColors.colorPrimary.withOpacity(0.45),
-                                MyColors.colorPrimary,
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.white,
+    borderRadius: BorderRadius.circular(7),
                           ),
-                          child: Center(
-                            child: Text(
-                              data.code,
-                              textScaleFactor: Constants.textScaleFactor,
-                              style: TextStyle(
-                                color: MyColors.textColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
+                          child: Container(
+
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  MyColors.colorPrimary.withOpacity(0.45),
+                                  MyColors.colorPrimary,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            child: Center(
+                              child: Text(
+                                data.code,
+                                textScaleFactor: Constants.textScaleFactor,
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),

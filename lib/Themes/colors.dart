@@ -9,7 +9,7 @@ class MyColors {
   static Color calcuColor =
       colorPrimary; //{  this is a color of calculator button, we need to take this because some time it change some time not}
   static Color textColor = Colors.white; //{ this is color of all text except textfield text}
-  static Color insideTextFieldColor = Colors.black; //{ this is a color of text,which is inside textField }
+    static Color insideTextFieldColor = Color(0xff333333); //{ this is a color of text,which is inside textField }
 
   static bool lightModeCheck = true; //{
   static bool darkModeCheck = false; //{

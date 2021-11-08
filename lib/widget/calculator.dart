@@ -108,22 +108,44 @@ class _CalculatorState extends State<Calculator> {
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.left,
         ),
-        //**Alline height */
-        //This is grate
-        height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.4,
-        // color: Colors.grey,
+        height:
+        MediaQuery.of(context).size.height * 0.1 / 1.6 * buttonHeight + 2.4,
+        // color:MyColors.colorPrimary.withOpacity(.7),
+        color:MyColors.lightModeCheck?Colors.white:MyColors.colorPrimary,
+        child: Container(
 
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          colors: [
-            MyColors.colorPrimary.withOpacity(.5),
-            MyColors.colorPrimary.withOpacity(.7),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          //**Alline height */
+          //This is grate
 
-          //stops: [0.0,0.0]
-        )),
+          // color: Colors.grey,
+
+          decoration: MyColors.lightModeCheck?BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              MyColors.colorPrimary.withOpacity(.5),
+              MyColors.colorPrimary.withOpacity(.7),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+
+            //stops: [0.0,0.0]
+          )):BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+
+                  Colors.black87.withOpacity(.45),
+                  Colors.black87.withOpacity(.35),
+                  Colors.black87.withOpacity(.32),
+
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+
+                //stops: [.7,9.0]
+              )
+          )
+
+              ,
 
         child: MaterialButton(
             onLongPress: () {
@@ -166,7 +188,7 @@ class _CalculatorState extends State<Calculator> {
                           ),
               ),
             )),
-      ),
+      ))
     );
   }
 
