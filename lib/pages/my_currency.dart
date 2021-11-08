@@ -127,7 +127,7 @@ class _MyCurrencyState extends State<MyCurrency> {
       },
       child: Scaffold(
         body: Container(
-          padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+          padding: const EdgeInsets.fromLTRB(12 , 0, 12, 0),
           height: appheight,
           width: appwidth,
           decoration: BoxDecoration(
@@ -145,6 +145,7 @@ class _MyCurrencyState extends State<MyCurrency> {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
+
                   actions: <Widget>[
                     InkWell(
                       onTap: () {
@@ -158,7 +159,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                   ],
                   pinned: false,
                   centerTitle: true,
-                  expandedHeight: 50.0,
+                  expandedHeight: 30.0,
                   backgroundColor: Colors.transparent,
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -641,24 +642,31 @@ class Item extends StatelessWidget {
                           height: 35.0,
                           width: 60.0,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                MyColors.colorPrimary.withOpacity(0.45),
-                                MyColors.colorPrimary,
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.white,
+    borderRadius: BorderRadius.circular(7),
                           ),
-                          child: Center(
-                            child: Text(
-                              data.code,
-                              textScaleFactor: Constants.textScaleFactor,
-                              style: TextStyle(
-                                color: MyColors.textColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
+                          child: Container(
+
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  MyColors.colorPrimary.withOpacity(0.45),
+                                  MyColors.colorPrimary,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            child: Center(
+                              child: Text(
+                                data.code,
+                                textScaleFactor: Constants.textScaleFactor,
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),

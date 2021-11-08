@@ -89,6 +89,9 @@ class _MyAppState extends State<MyApp> {
     }
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+      systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));

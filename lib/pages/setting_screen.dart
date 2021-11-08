@@ -297,7 +297,15 @@ class _SettingScreenState extends State<SettingScreen> {
                                             MyColors.insideTextFieldColor =
                                                 Colors.black;
                                             MyColors.calcuColor =
-                                                MyColors.colorPrimary;
+                                                  MyColors.colorPrimary;
+                                            SystemChrome.setSystemUIOverlayStyle(
+                                                 SystemUiOverlayStyle(
+                                                  statusBarColor: MyColors.colorPrimary,
+                                                  systemNavigationBarColor: MyColors.colorPrimary,
+                                                   statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+                                                   systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+
+                                                ));
 
                                             widget.onThemeChange();
                                           }
@@ -340,11 +348,22 @@ class _SettingScreenState extends State<SettingScreen> {
                                                   MyColors.lightModeCheck =
                                                       !MyColors.lightModeCheck;
                                                   MyColors.textColor =
-                                                      Colors.grey.shade800;
+                                                      Color(0xff333333);
                                                   MyColors.insideTextFieldColor =
                                                       Colors.white;
                                                   MyColors.calcuColor =
                                                       Colors.grey.shade700;
+                                                  SystemChrome.setSystemUIOverlayStyle(
+                                                      SystemUiOverlayStyle(
+                                                        statusBarColor: MyColors.colorPrimary,
+                                                        systemNavigationBarColor: MyColors.colorPrimary,
+                                                        statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+                                                        systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+
+                                                      ));
+
+
+
 
                                                   widget.onThemeChange();
                                                 }
@@ -1504,6 +1523,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           }
                           SystemChrome.setSystemUIOverlayStyle(
                               SystemUiOverlayStyle(
+                                statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+                                systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
                             systemNavigationBarColor:
                                 MyColors.colorPrimary, // navigation bar color
                             statusBarColor:
@@ -1595,6 +1616,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         }
                         SystemChrome.setSystemUIOverlayStyle(
                             SystemUiOverlayStyle(
+                              statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+                              systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
                           systemNavigationBarColor:
                               MyColors.colorPrimary, // navigation bar color
                           statusBarColor:
