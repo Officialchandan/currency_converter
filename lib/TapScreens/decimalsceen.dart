@@ -44,7 +44,14 @@ class _DecimalScreensState extends State<DecimalScreens> {
     {"format": "1 234,56", "id": "4", "check": false},
   ];
 
-  List<String> radiDecimalFormat = [".02", ".003", ".0004", ".00005", ".0000006", "dontShow".tr().toString()];
+  List<String> radiDecimalFormat = [
+    ".02",
+    ".003",
+    ".0004",
+    ".00005",
+    ".0000006",
+    "dontShow".tr().toString()
+  ];
   List<Map<String, dynamic>> decimalFormat = [
     {"format": ".02", "id": "2", "check": false},
     {"format": ".003", "id": "3", "check": false},
@@ -94,10 +101,13 @@ class _DecimalScreensState extends State<DecimalScreens> {
     monetary = monetary == "" ? "1" : monetary;
     decimal = decimal == "" ? "2" : decimal;
 
-    monetaryFormat.singleWhere((element) => element["id"] == monetary)["check"] = true;
-    decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] = true;
+    monetaryFormat
+        .singleWhere((element) => element["id"] == monetary)["check"] = true;
+    decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] =
+        true;
 
-    Map<String, dynamic> f = demoString.singleWhere((element) => element.containsKey("$monetary" "_" + "$decimal"));
+    Map<String, dynamic> f = demoString.singleWhere(
+        (element) => element.containsKey("$monetary" "_" + "$decimal"));
 
     demoText = f["$monetary" + "_" + "$decimal"];
 
@@ -147,7 +157,10 @@ class _DecimalScreensState extends State<DecimalScreens> {
                         child: Text(
                           "monetary".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
-                          style: TextStyle(color: MyColors.textColor, fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(
@@ -157,7 +170,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                         shrinkWrap: true,
                         itemCount: monetaryFormat.length,
                         itemBuilder: (context, index) {
-                          return Container(
+                          return SizedBox(
                             width: 150,
                             height: 38,
                             child: Row(
@@ -173,35 +186,51 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                         element["check"] = false;
                                       }
 
-                                      monetaryFormat.singleWhere((element) => element["id"] == monetary)["check"] = true;
+                                      monetaryFormat.singleWhere((element) =>
+                                          element["id"] ==
+                                          monetary)["check"] = true;
 
-                                      Utility.setStringPreference(Constants.monetaryFormat, monetary);
+                                      Utility.setStringPreference(
+                                          Constants.monetaryFormat, monetary);
 
-                                      MyColors.monetaryFormat = int.parse(monetary);
+                                      MyColors.monetaryFormat =
+                                          int.parse(monetary);
 
                                       Map<String, dynamic> f =
-                                          demoString.singleWhere((element) => element.containsKey("$monetary" "_" + "$decimal"));
+                                          demoString.singleWhere((element) =>
+                                              element.containsKey(
+                                                  "$monetary" "_" +
+                                                      "$decimal"));
 
-                                      demoText = f["$monetary" + "_" + "$decimal"];
+                                      demoText =
+                                          f["$monetary" + "_" + "$decimal"];
 
                                       setState(() {});
                                     }
                                   },
                                   fillColor: MaterialStateProperty.all(
-                                    MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                    MyColors.darkModeCheck
+                                        ? Colors.black
+                                        : Colors.white,
                                   ),
-                                  activeColor: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                  checkColor: MyColors.colorPrimary.withOpacity(0.50),
+                                  activeColor: MyColors.darkModeCheck
+                                      ? Colors.black
+                                      : Colors.white,
+                                  checkColor:
+                                      MyColors.colorPrimary.withOpacity(0.50),
                                   tristate: false,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
                                 ),
-                                Container(
+                                SizedBox(
                                   width: 84,
-                                  height: 38,
                                   child: AutoSizeText(
                                     "${monetaryFormat[index]["format"]}",
                                     textScaleFactor: Constants.textScaleFactor,
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: MyColors.textColor),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                        color: MyColors.textColor),
                                     maxFontSize: 20,
                                     minFontSize: 16,
                                   ),
@@ -229,10 +258,13 @@ class _DecimalScreensState extends State<DecimalScreens> {
                         child: Text(
                           "decimal".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
-                          style: TextStyle(color: MyColors.textColor, fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       ListView.builder(
@@ -255,33 +287,50 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                         element["check"] = false;
                                       }
 
-                                      decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] = true;
+                                      decimalFormat.singleWhere((element) =>
+                                          element["id"] ==
+                                          decimal)["check"] = true;
 
-                                      Utility.setStringPreference(Constants.decimalFormat, decimal);
+                                      Utility.setStringPreference(
+                                          Constants.decimalFormat, decimal);
 
-                                      MyColors.decimalFormat = int.parse(decimal);
+                                      MyColors.decimalFormat =
+                                          int.parse(decimal);
 
                                       Map<String, dynamic> f =
-                                          demoString.singleWhere((element) => element.containsKey("$monetary" "_" + "$decimal"));
+                                          demoString.singleWhere((element) =>
+                                              element.containsKey(
+                                                  "$monetary" "_" +
+                                                      "$decimal"));
 
-                                      demoText = f["$monetary" + "_" + "$decimal"];
+                                      demoText =
+                                          f["$monetary" + "_" + "$decimal"];
 
                                       setState(() {});
                                     }
                                   },
-                                  activeColor: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                  checkColor: MyColors.colorPrimary.withOpacity(0.50),
+                                  activeColor: MyColors.darkModeCheck
+                                      ? Colors.black
+                                      : Colors.white,
+                                  checkColor:
+                                      MyColors.colorPrimary.withOpacity(0.50),
                                   tristate: false,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
                                 ),
                                 Container(
                                   width: 100,
-                                  child: AutoSizeText("${decimalFormat[index]["format"]}",
-                                      textScaleFactor: Constants.textScaleFactor,
+                                  child: AutoSizeText(
+                                      "${decimalFormat[index]["format"]}",
+                                      textScaleFactor:
+                                          Constants.textScaleFactor,
                                       maxFontSize: 20,
                                       minFontSize: 16,
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor)),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17,
+                                          letterSpacing: 0.6,
+                                          color: MyColors.textColor)),
                                 ),
                               ],
                             ),
@@ -347,7 +396,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
   }
 
   onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share(
+        "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   String textShow(String text) {
