@@ -40,8 +40,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
-  String text = "00.0";
-  String equation = "0";
+  String text = "1";
+  String equation = "1";
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;
@@ -58,7 +58,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
 
-  TextEditingController calculateCurrency = TextEditingController(text: "0");
+  TextEditingController calculateCurrency = TextEditingController(text: "1");
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
 
@@ -94,7 +94,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     _isContainerVisibleTwo = false;
     text = Utility.getFormatText(await getConverterAPI(
         currencyCodeFrom, currencyCodeTo, calculateCurrency.text));
-
+    setState(() {});
     if (mounted) {
       setState(() {});
     }
@@ -611,7 +611,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                                 80,
                                         minWidth: 50),
                                     child: AutoSizeText(
-                                      Utility.getFormatText(text),
+                                      getText(text),
                                       wrapWords: true,
                                       maxLines: 1,
                                       maxFontSize: 32.0,
@@ -790,5 +790,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       return text1;
     }
     return text1;
+  }
+
+  String getText(String s) {
+    getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+    return Utility.getFormatText(text);
   }
 }

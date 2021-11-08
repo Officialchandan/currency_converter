@@ -51,7 +51,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: Constants.textScaleFactor),
+          data: MediaQuery.of(context)
+              .copyWith(textScaleFactor: Constants.textScaleFactor),
           child: child!,
         );
       },
@@ -89,8 +90,10 @@ class _MyAppState extends State<MyApp> {
     }
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
-      systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+      statusBarIconBrightness:
+          MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+      systemNavigationBarIconBrightness:
+          MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
 
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
@@ -101,7 +104,8 @@ class _MyAppState extends State<MyApp> {
 Future<void> insertData() async {
   DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+  String url =
+      "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
   Dio _dio = Dio();
   try {
@@ -110,7 +114,8 @@ Future<void> insertData() async {
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
+        Map<String, dynamic> map = Constants.countryList
+            .singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
           return {};

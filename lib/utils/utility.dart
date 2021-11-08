@@ -88,7 +88,8 @@ class Utility {
     return prefs.getString(key) ?? "123456.02";
   }
 
-  static Future<bool> setFormatExmaplePreference(String key, String value) async {
+  static Future<bool> setFormatExmaplePreference(
+      String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
   }
