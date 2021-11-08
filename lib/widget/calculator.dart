@@ -7,7 +7,8 @@ class Calculator extends StatefulWidget {
   final TextEditingController txtController;
   final Function(String text) onChange;
 
-  Calculator({required this.txtController, required this.onChange, Key? key}) : super(key: key);
+  Calculator({required this.txtController, required this.onChange, Key? key})
+      : super(key: key);
 
   @override
   _CalculatorState createState() => _CalculatorState();
@@ -92,7 +93,9 @@ class _CalculatorState extends State<Calculator> {
                     buildButton("+", 1, MyColors.calcuColor, 25),
                   ]),
                   TableRow(children: [
-                    Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
+                    Center(
+                        child: buildButton(
+                            "=", 2 * 1.02, MyColors.calcuColor, 40)),
                   ]),
                 ]))
           ],
@@ -101,7 +104,8 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
+  buildButton(String buttonText, double buttonHeight, Color buttonColor,
+      double buttonTexth) {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Container(
@@ -110,7 +114,8 @@ class _CalculatorState extends State<Calculator> {
         ),
         //**Alline height */
         //This is grate
-        height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.4,
+        height:
+            MediaQuery.of(context).size.height * 0.1 / 1.6 * buttonHeight + 2.4,
         // color: Colors.grey,
 
         decoration: BoxDecoration(
@@ -139,7 +144,10 @@ class _CalculatorState extends State<Calculator> {
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0.0),
-                side: BorderSide(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid)),
+                side: BorderSide(
+                    color: MyColors.colorPrimary,
+                    width: 0.4,
+                    style: BorderStyle.solid)),
             padding: const EdgeInsets.all(0.0),
             onPressed: () => buttonPressed(buttonText),
             child: Padding(
@@ -161,7 +169,10 @@ class _CalculatorState extends State<Calculator> {
                         : Text(
                             buttonText.toUpperCase(),
                             textScaleFactor: Constants.textScaleFactor,
-                            style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
+                            style: TextStyle(
+                                fontSize: buttonTexth,
+                                fontWeight: FontWeight.normal,
+                                color: MyColors.textColor),
                           ),
               ),
             )),
@@ -293,7 +304,8 @@ class _CalculatorState extends State<Calculator> {
             Expression expn = p.parse(expression);
             ContextModel cm = ContextModel();
             result = '${expn.evaluate(EvaluationType.REAL, cm)}';
-            result = double.parse(result).toStringAsFixed(MyColors.decimalFormat);
+            result =
+                double.parse(result).toStringAsFixed(MyColors.decimalFormat);
             expression = result;
             equation = result;
             widget.txtController.clear();
@@ -330,7 +342,13 @@ class _CalculatorState extends State<Calculator> {
     final textSelection = widget.txtController.selection;
 
     if (text.isNotEmpty) {
-      if (myText == "+" || myText == "-" || myText == "×" || myText == "÷" || myText == "/" || myText == "*" || myText == "%") {
+      if (myText == "+" ||
+          myText == "-" ||
+          myText == "×" ||
+          myText == "÷" ||
+          myText == "/" ||
+          myText == "*" ||
+          myText == "%") {
         debugPrint("myText contain operator");
         String previousText = text[textSelection.start - 1];
 
@@ -380,7 +398,13 @@ class _CalculatorState extends State<Calculator> {
       String temp = "";
       if (mText.length > pos) {
         for (int i = pos; i <= str.length; i++) {
-          if (str[i] == "+" || str[i] == "-" || str[i] == "×" || str[i] == "÷" || str[i] == "/" || str[i] == "*" || str[i] == "%") {
+          if (str[i] == "+" ||
+              str[i] == "-" ||
+              str[i] == "×" ||
+              str[i] == "÷" ||
+              str[i] == "/" ||
+              str[i] == "*" ||
+              str[i] == "%") {
             break;
           } else {
             temp1 += str[i];
@@ -390,7 +414,13 @@ class _CalculatorState extends State<Calculator> {
       debugPrint("temp1-->$temp1");
       debugPrint("pos-->$pos");
       for (int j = 0; j < pos; j++) {
-        if (str[j] == "+" || str[j] == "-" || str[j] == "×" || str[j] == "÷" || str[j] == "/" || str[j] == "*" || str[j] == "%") {
+        if (str[j] == "+" ||
+            str[j] == "-" ||
+            str[j] == "×" ||
+            str[j] == "÷" ||
+            str[j] == "/" ||
+            str[j] == "*" ||
+            str[j] == "%") {
           temp = "";
         } else {
           temp += str[j];

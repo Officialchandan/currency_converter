@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -93,7 +92,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-    text = Utility.getFormatText(await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text));
+    text = Utility.getFormatText(await getConverterAPI(
+        currencyCodeFrom, currencyCodeTo, calculateCurrency.text));
 
     if (mounted) {
       setState(() {});
@@ -153,7 +153,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     var appwidth = MediaQuery.of(context).size.width;
     return WillPopScope(
         onWillPop: () async {
-          if (_isContainerVisible || _isContainerVisibleTwo || isCalculatorVisible) {
+          if (_isContainerVisible ||
+              _isContainerVisibleTwo ||
+              isCalculatorVisible) {
             Future.value(_isContainerVisible = false);
             Future.value(_isContainerVisibleTwo = false);
             Future.value(isCalculatorVisible = false);
@@ -187,19 +189,20 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   SizedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         SizedBox(
-                          width: appwidth * 0.17,
+                          width: appwidth * 0.14,
                         ),
                         Row(
                           children: [
                             Center(
                               child: Text(
-                                "update".tr().toString() + ":",
+                                "update".tr().toString(),
                                 textScaleFactor: Constants.textScaleFactor,
                                 style: TextStyle(
                                   color: MyColors.textColor,
-                                  fontSize: 17,
+                                  fontSize: 18,
                                 ),
                               ),
                             ),
@@ -212,20 +215,21 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 textScaleFactor: Constants.textScaleFactor,
                                 style: TextStyle(
                                   color: MyColors.textColor,
-                                  fontSize: 17,
+                                  fontSize: 18,
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                         InkWell(
-                            onTap: () async {
-                              _onShareWithEmptyOrigin(context);
-                            },
-                            child: Icon(
-                              Icons.share,
-                              color: MyColors.textColor,
-                            )),
+                          onTap: () {
+                            _onShareWithEmptyOrigin(context);
+                          },
+                          child: Icon(
+                            Icons.share,
+                            color: MyColors.textColor,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -248,17 +252,13 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             height: 35.0,
                             width: 60.0,
                             margin: const EdgeInsets.only(left: 8.0),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white,),
-
-
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(7),
+                              color: Colors.white,
+                            ),
                             child: Container(
-
-
-
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(7),
-
-
+                                borderRadius: BorderRadius.circular(7),
                                 gradient: LinearGradient(
                                   colors: [
                                     MyColors.colorPrimary.withOpacity(0.4),
@@ -267,7 +267,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                 ),
-
                               ),
                               child: MyColors.displaycode
                                   ? Center(
@@ -284,7 +283,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                       ? Center(
                                           child: Text(
                                             symbol,
-                                            textScaleFactor: Constants.textScaleFactor,
+                                            textScaleFactor:
+                                                Constants.textScaleFactor,
                                             style: TextStyle(
                                               color: MyColors.textColor,
                                               fontSize: 18,
@@ -327,7 +327,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               showCursor: true,
                               readOnly: false,
                               decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
+                                  contentPadding: EdgeInsets.only(
+                                      left: 1.0, right: 1.0, bottom: 15.0),
                                   counterText: "",
                                   border: InputBorder.none),
                               onTap: () {
@@ -339,10 +340,12 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               },
                               onChanged: (text) {
                                 print("onchange---------> $text");
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
+                                getConverterAPI(
+                                    currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
                                 calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                    TextSelection.fromPosition(TextPosition(
+                                        offset: calculateCurrency.text.length));
                               },
                             ),
                           ),
@@ -374,9 +377,12 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   currencyCodeToSave(currencyCodeTo);
                                   setState(() {});
 
-                                  getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+                                  getConverterAPI(currencyCodeFrom,
+                                      currencyCodeTo, calculateCurrency.text);
                                   calculateCurrency.selection =
-                                      TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                      TextSelection.fromPosition(TextPosition(
+                                          offset:
+                                              calculateCurrency.text.length));
                                 },
                                 child: Image.asset(
                                   "assets/images/right-left.png",
@@ -520,7 +526,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                           width: MediaQuery.of(context).size.width,
                           height: 10,
                           constraints: const BoxConstraints(),
-                          margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.8),
+                          margin: EdgeInsets.only(
+                              right: MediaQuery.of(context).size.width * 0.8),
                           child: Image.asset(
                             "assets/images/tooltip.png",
                             scale: 7,
@@ -532,14 +539,16 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                           constraints: const BoxConstraints(),
                           width: MediaQuery.of(context).size.width,
                           height: 10,
-                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2),
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.2),
                           child: Image.asset("assets/images/tooltip.png"),
                         )
                       : Container(),
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
-                          onSelect: (String currencyCode, String image, String symbol1) {
+                          onSelect: (String currencyCode, String image,
+                              String symbol1) {
                             symbol = symbol1;
                             currencyCodeFrom = currencyCode;
                             flagfrom = image;
@@ -549,9 +558,11 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             edtFrom.text = currencyCode;
 
                             _isContainerVisible = false;
-                            getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+                            getConverterAPI(currencyCodeFrom, currencyCodeTo,
+                                calculateCurrency.text);
                             calculateCurrency.selection =
-                                TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                TextSelection.fromPosition(TextPosition(
+                                    offset: calculateCurrency.text.length));
 
                             setState(() {});
                           },
@@ -559,7 +570,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                       : _isContainerVisibleTwo
                           ? CurrencyToWidget(
                               isContainerVisibleTwo: _isContainerVisibleTwo,
-                              onSelect: (String currencyCode, String image, String symbol) {
+                              onSelect: (String currencyCode, String image,
+                                  String symbol) {
                                 symbol2 = symbol;
                                 flagto = image;
                                 Utility.setSymbolFromPreference("to", symbol2);
@@ -568,9 +580,11 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 currencyCodeToSave(currencyCodeTo);
                                 edtTo.text = currencyCode;
                                 _isContainerVisibleTwo = false;
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+                                getConverterAPI(currencyCodeFrom,
+                                    currencyCodeTo, calculateCurrency.text);
                                 calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                    TextSelection.fromPosition(TextPosition(
+                                        offset: calculateCurrency.text.length));
                                 setState(() {});
                               },
                             )
@@ -591,14 +605,21 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ConstrainedBox(
-                                    constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 80, minWidth: 50),
+                                    constraints: BoxConstraints(
+                                        maxWidth:
+                                            MediaQuery.of(context).size.width -
+                                                80,
+                                        minWidth: 50),
                                     child: AutoSizeText(
                                       Utility.getFormatText(text),
                                       wrapWords: true,
                                       maxLines: 1,
                                       maxFontSize: 32.0,
                                       minFontSize: 15.0,
-                                      style: TextStyle(color: MyColors.textColor, fontSize: 32, fontWeight: FontWeight.w400),
+                                      style: TextStyle(
+                                          color: MyColors.textColor,
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                   ),
                                   const SizedBox(
@@ -608,7 +629,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                     edtTo.text,
                                     maxFontSize: 18.0,
                                     minFontSize: 7.0,
-                                    style: TextStyle(color: MyColors.textColor, fontSize: 20, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        color: MyColors.textColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),
@@ -619,15 +643,19 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
               ),
             ),
           ),
-          bottomNavigationBar: Container(
-              height: isCalculatorVisible ? MediaQuery.of(context).size.height * 0.35 : 0.0,
-              width: isCalculatorVisible ? MediaQuery.of(context).size.width : 0.0,
+          bottomNavigationBar: SizedBox(
+              height: isCalculatorVisible
+                  ? MediaQuery.of(context).size.height * 0.32000
+                  : 0.0,
+              width:
+                  isCalculatorVisible ? MediaQuery.of(context).size.width : 0.0,
               // child: calculator(),
               child: isCalculatorVisible
                   ? Calculator(
                       txtController: calculateCurrency,
                       onChange: (text) async {
-                        this.text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
+                        this.text = await getConverterAPI(
+                            currencyCodeFrom, currencyCodeTo, text);
                         setState(() {});
                       },
                     )
@@ -639,7 +667,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   }
 
   Future<void> Insert() async {
-    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url =
+        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
     Dio _dio = Dio();
     try {
@@ -649,7 +678,13 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         Map res = response.data!;
         Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
-          DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
+          DataModel currencyData = DataModel(
+              value: value.toString(),
+              code: key,
+              image: "",
+              name: "",
+              fav: 0,
+              selected: 0);
 
           int id = await dbHelper.insert(currencyData.toMap());
 
@@ -694,279 +729,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
-  }
-
-  Widget calculator() {
-    buttonPressed(String buttonText) {
-      if ((equation.substring(equation.length - 1) == "+" && buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "+" && buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "+" && buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "+" && buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "+" && buttonText == "=") ||
-          (equation.substring(equation.length - 1) == "+" && buttonText == "%") ||
-          (equation.substring(equation.length - 1) == "-" && buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "-" && buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "-" && buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "-" && buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "-" && buttonText == "=") ||
-          (equation.substring(equation.length - 1) == "-" && buttonText == "%") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "=") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "%") ||
-          (equation.substring(equation.length - 1) == "%" && buttonText == "%") ||
-          (equation.substring(equation.length - 1) == "%" && buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "%" && buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "%" && buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "%" && buttonText == "=") ||
-          (equation.substring(equation.length - 1) == "%" && buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "/" && buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "/" && buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "/" && buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "/" && buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "×") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "+") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "-") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "/") ||
-          (equation.substring(equation.length - 1) == "×" && buttonText == "=") ||
-          (buttonText == "×" && equation == "0") ||
-          (buttonText == "%" && equation == "0") ||
-          (buttonText == "/" && equation == "0") ||
-          (buttonText == "*" && equation == "0") ||
-          (buttonText == "+" && equation == "0") ||
-          (buttonText == "-" && equation == "0")) {
-      } else {
-        setState(() {
-          if (buttonText == "c") {
-            isbool = true;
-            calculateCurrency.text = "";
-            expression = "";
-            calculateCurrency.selection = TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
-            equation = "0";
-            isbool = false;
-            equationFontSize = 38.0;
-            resultFontSize = 48.0;
-          } else if (buttonText == "⌫") {
-            equationFontSize = 48.0;
-            resultFontSize = 38.0;
-            equation = equation.substring(0, equation.length - 1);
-            if (equation == "") {
-              equation = "0";
-            }
-          } else if (buttonText == "=") {
-            equationFontSize = 38.0;
-            resultFontSize = 48.0;
-
-            isbool = false;
-
-            expression = equation;
-            String str1 = expression;
-            List<String> charList = [];
-            String ma = "";
-            for (int i = 0; i < str1.length; i++) {
-              if (str1[i] == "+" ||
-                  str1[i] == "-" ||
-                  str1[i] == "×" ||
-                  str1[i] == "÷" ||
-                  str1[i] == "/" ||
-                  str1[i] == "*" ||
-                  str1[i] == "%") {
-                if (ma.isNotEmpty) {
-                  charList.add(ma);
-                }
-                charList.add(str1[i]);
-                ma = "";
-              } else {
-                ma = ma + str1[i];
-                if (i == str1.length - 1) {
-                  if (ma.isNotEmpty) {
-                    charList.add(ma);
-                  }
-                }
-              }
-            }
-
-            int l = charList.where((element) => element == "%").toList().length;
-
-            for (int i = 0; i < l; i++) {
-              print("charList-->$charList");
-              int i = charList.indexWhere((element) => element == "%");
-              int a = i - 1;
-              int b = i + 1;
-              double aa = double.parse(charList[a]);
-              double bb = double.parse(charList[b]);
-              double cc = (aa * bb) / 100;
-              print("cc-->$cc");
-              charList[a] = cc.toString();
-              print("charList1-->$charList");
-              charList.removeAt(b);
-              print("charList1-->$charList");
-              charList.removeAt(i);
-              print("charList1-->$charList");
-            }
-
-            String exp = "";
-            charList.forEach((element) {
-              exp += element;
-            });
-
-            print("exp-->$exp");
-            expression = exp;
-            expression = expression.replaceAll('×', '*');
-            expression = expression.replaceAll('÷', '/');
-
-            try {
-              Parser p = Parser();
-              Expression exp = p.parse(expression);
-              ContextModel cm = ContextModel();
-              result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-              result = Utility.getFormatText(double.parse(result).toStringAsFixed(MyColors.decimalFormat));
-              expression = "$result";
-              equation = "$result";
-            } catch (e) {
-              result = "";
-            }
-          } else {
-            debugPrint("isbool-->$isbool");
-            equationFontSize = 48.0;
-            resultFontSize = 38.0;
-            if (equation == "0") {
-              equation = buttonText;
-            } else {
-              equation = equation + buttonText;
-            }
-          }
-          isbool ? calculateCurrency.text = equation : calculateCurrency.text = result;
-          calculateCurrency.selection = TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
-
-          getConverterAPI(currencyCodeFrom, currencyCodeTo, isbool ? equation : result);
-
-          isbool = true;
-        });
-      }
-    }
-
-    buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
-      return SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Container(
-          margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.left,
-          ),
-          //**Alline height */
-          //This is grate
-          height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.4,
-
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            colors: [
-              MyColors.colorPrimary.withOpacity(.5),
-              // Colors.white.withOpacity(.2),
-              MyColors.colorPrimary.withOpacity(.8),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-
-            //stops: [0.0,0.0]
-          )),
-
-          child: MaterialButton(
-              onLongPress: () {
-                if (buttonText == "⌫") {
-                  equation = "0";
-                  expression = "";
-                  calculateCurrency.clear();
-                  calculateCurrency.text = "0";
-                }
-                // buttonPressed(buttonText);
-                // equation = "0";
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0.0),
-                  side: BorderSide(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid)),
-              padding: const EdgeInsets.all(0.0),
-              onPressed: () => buttonPressed(buttonText),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 0.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    buttonText,
-                    textScaleFactor: Constants.textScaleFactor,
-                    style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
-                  ),
-                ),
-              )),
-        ),
-      );
-    }
-
-    return SizedBox(
-        width: MediaQuery.of(context).size.width * .75,
-        height: MediaQuery.of(context).size.height * 0.35,
-        // color: Colors.transparent,
-        child: Column(
-          children: <Widget>[
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .75,
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: Table(
-                    children: [
-                      TableRow(children: [
-                        buildButton("%", 1, MyColors.calcuColor, 20),
-                        buildButton("/", 1, MyColors.calcuColor, 20),
-                        buildButton("×", 1, MyColors.calcuColor, 27),
-                      ]),
-                      TableRow(children: [
-                        buildButton("1", 1, MyColors.calcuColor, 25),
-                        buildButton("2", 1, MyColors.calcuColor, 25),
-                        buildButton("3", 1, MyColors.calcuColor, 25),
-                      ]),
-                      TableRow(children: [
-                        buildButton("4", 1, MyColors.calcuColor, 25),
-                        buildButton("5", 1, MyColors.calcuColor, 25),
-                        buildButton("6", 1, MyColors.calcuColor, 25),
-                      ]),
-                      TableRow(children: [
-                        buildButton("7", 1, MyColors.calcuColor, 25),
-                        buildButton("8", 1, MyColors.calcuColor, 25),
-                        buildButton("9", 1, MyColors.calcuColor, 25),
-                      ]),
-                      TableRow(children: [
-                        buildButton(".", 1, MyColors.calcuColor, 25),
-                        buildButton("0", 1, MyColors.calcuColor, 25),
-                        buildButton("c", 1, MyColors.calcuColor, 25),
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    child: Table(children: [
-                      TableRow(children: [
-                        buildButton("⌫", 1, MyColors.calcuColor, 20),
-                      ]),
-                      TableRow(children: [
-                        buildButton("-", 1, MyColors.calcuColor, 35),
-                      ]),
-                      TableRow(children: [
-                        buildButton("+", 1, MyColors.calcuColor, 25),
-                      ]),
-                      TableRow(children: [
-                        Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
-                      ]),
-                    ]))
-              ],
-            ),
-          ],
-        ));
+    await Share.share(
+        "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   String getFormatText(String s) {
