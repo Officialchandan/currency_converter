@@ -34,11 +34,24 @@ class UnlockColorPicker extends StatefulWidget {
       BuildContext context, List<MColor> colors, PickerItem child) {
     Orientation orientation = MediaQuery.of(context).orientation;
 
-    return Container(
-      padding: EdgeInsets.all(5),
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: colors.map((MColor color) => child(color)).toList(),
+    return IntrinsicHeight(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.19,
+
+        child: GridView.count(
+          physics: NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(0),
+          //physics: NeverScrollableScrollPhysics(),
+          crossAxisSpacing: 0,
+          mainAxisSpacing: 0,
+          crossAxisCount: orientation == Orientation.portrait ? 5 : 6,
+
+          children:  colors.map((MColor color) => child(color)).toList(),
+        ),
+        // child: ListView(
+        //   scrollDirection: Axis.horizontal,
+        //   children: colors.map((MColor color) => child(color)).toList(),
+        // ),
       ),
     );
   }
@@ -46,11 +59,15 @@ class UnlockColorPicker extends StatefulWidget {
   static Widget defaultItemBuilder(
       MColor color, bool isCurrentColor, void Function() changeColor) {
     return Container(
+      height: 60,
+      width: 43,
+      // padding: EdgeInsets.all(30),
+      margin: const EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
-      margin: const EdgeInsets.all(5.0),
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
-        border: Border.all(color: Colors.black,width:0.9),
+
         color: color.mainColor,
       ),
       child: Material(
@@ -60,7 +77,7 @@ class UnlockColorPicker extends StatefulWidget {
             changeColor();
             MyColors.unclockCheck=true;
           },
-          borderRadius: BorderRadius.circular(0.0),
+
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,

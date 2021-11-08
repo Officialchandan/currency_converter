@@ -121,8 +121,8 @@ Future<void> insertData() async {
             code: key,
             image: map["image"],
             name: map["country_name"],
-            fav: 0,
-            selected: 0,
+            fav: (key=="USD"||key=="EUR"||key=="GBP"||key=="CAD"||key=="INR"||key=="MXN"||key=="BTC")?1:0,
+            selected: (key=="USD"||key=="EUR"||key=="GBP"||key=="CAD"||key=="INR"||key=="MXN")?1:0,
             symbol: map["Symbol"]);
 
         int id = await dbHelper.insert(currencyData.toMap());

@@ -40,7 +40,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
-  String text = "00.0";
+  String text = "0.86";
   String equation = "0";
   String result = "0";
   String expression = "";
@@ -58,7 +58,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
 
-  TextEditingController calculateCurrency = TextEditingController(text: "0");
+  TextEditingController calculateCurrency = TextEditingController(text: "1");
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
 
@@ -125,7 +125,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       symbol = await Utility.getSymbolFromPreference("hello");
       symbol2 = await Utility.getSymboltoPreference("to");
 
-      getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+     text= await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
     setState(() {});
   }

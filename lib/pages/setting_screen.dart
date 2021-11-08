@@ -1338,7 +1338,16 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   MColor selectedColor = MColor(mainColor: Colors.white, densityColors: []);
 
   List<MColor> colors = [
-    MColor(mainColor: Colors.deepPurple, densityColors: [
+    MColor(mainColor: Color(0xff4e7dcb), densityColors: [
+      Color(0xff89a8dc),
+      Color(0xff759ad7),
+      Color(0xff628bd1),
+      Color(0xff4e7dcb),
+      Color(0xff3a6fc5),
+      Color(0xff3463b2),
+      Color(0xff2e589e),
+
+    ]), MColor(mainColor: Colors.deepPurple, densityColors: [
       Colors.deepPurple.shade50,
       Colors.deepPurple.shade100,
       Colors.deepPurple.shade200,
@@ -1446,9 +1455,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         Container(
           margin: const EdgeInsets.only(left: 15),
           width: MediaQuery.of(context).size.width * 0.87,
-          height: MediaQuery.of(context).size.height * 0.089,
-          child: Container(
-            width: 400,
+          //height: MediaQuery.of(context).size.height * 0.4,
+          child: IntrinsicHeight(
             child: UnlockColorPicker(
               pickerColor: selectedColor,
               onColorChanged: unlockchangeColor,
@@ -1467,11 +1475,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         ),
         Container(
           margin: EdgeInsets.only(left: 15, top: 5),
-          width: width * 0.8,
-          height: height * 0.29,
-          child: LockColorPicker(
-            pickerColor: lockCurrentColor,
-            onColorChanged: lockchangeColor,
+          width: MediaQuery.of(context).size.width * 0.87,
+          
+          child: IntrinsicHeight(
+            child: LockColorPicker(
+              pickerColor: lockCurrentColor,
+              onColorChanged: lockchangeColor,
+            ),
           ),
         ),
         Center(
@@ -1521,6 +1531,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.lightModeCheck = true;
                             MyColors.darkModeCheck = false;
                           }
+
+                          Utility.setTryColorPreference("Color", MyColors.colorPrimary.toString());
+
                           SystemChrome.setSystemUIOverlayStyle(
                               SystemUiOverlayStyle(
                                 statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
@@ -1534,10 +1547,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           widget.onThemeChange();
                           Navigator.pop(context);
                         },
-                        child: Text(
+                        child: AutoSizeText(
                           "try".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
                           style: TextStyle(fontSize: 16),
+                          maxLines: 1,
                         ),
                       )),
                   Container(

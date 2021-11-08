@@ -16,6 +16,16 @@ class Utility {
   static Future<bool> setStringPreference(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
+
+  }
+  static Future<String> getTryColorPreference(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key) ?? "";
+  }
+
+  static Future<bool> setTryColorPreference(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(key, value);
   }
 
   static Future<int> getIntPreference(String key) async {

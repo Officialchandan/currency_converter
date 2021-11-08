@@ -112,69 +112,91 @@ class _CalculatorState extends State<Calculator> {
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.left,
         ),
-        //**Alline height */
-        //This is grate
-        height: MediaQuery.of(context).size.height * 0.1 / 1.6 * buttonHeight + 2.4,
-        // color: Colors.grey,
+        height:
+        MediaQuery.of(context).size.height * 0.1 / 1.6 * buttonHeight + 2.4,
+        // color:MyColors.colorPrimary.withOpacity(.7),
+        color:MyColors.lightModeCheck?Colors.white:MyColors.colorPrimary,
+        child: Container(
 
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          colors: [
-            MyColors.colorPrimary.withOpacity(.5),
-            MyColors.colorPrimary.withOpacity(.7),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          //**Alline height */
+          //This is grate
 
-          //stops: [0.0,0.0]
-        )),
+          // color: Colors.grey,
 
-        child: MaterialButton(
-            onLongPress: () {
-              if (buttonText == "⌫") {
-                equation = "0";
-                expression = "";
-                widget.txtController.clear();
-                widget.txtController.text = "0";
-                widget.onChange(widget.txtController.text);
-              }
-              // buttonPressed(buttonText);
-              // equation = "0";
-            },
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0),
-                side: BorderSide(
-                    color: MyColors.colorPrimary,
-                    width: 0.4,
-                    style: BorderStyle.solid)),
-            padding: const EdgeInsets.all(0.0),
-            onPressed: () => buttonPressed(buttonText),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 0.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: buttonText == "⌫"
-                    ? Icon(
-                        Icons.backspace_sharp,
-                        color: MyColors.textColor,
-                        size: buttonTexth,
-                      )
-                    : buttonText == "×"
-                        ? Icon(
-                            Icons.clear,
-                            color: MyColors.textColor,
-                            size: buttonTexth,
-                          )
-                        : Text(
-                            buttonText.toUpperCase(),
-                            textScaleFactor: Constants.textScaleFactor,
-                            style: TextStyle(
-                                fontSize: buttonTexth,
-                                fontWeight: FontWeight.normal,
-                                color: MyColors.textColor),
-                          ),
-              ),
-            )),
+          decoration: MyColors.lightModeCheck?BoxDecoration(
+              gradient: LinearGradient(
+            colors: [
+              MyColors.colorPrimary.withOpacity(.5),
+              MyColors.colorPrimary.withOpacity(.7),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+
+            //stops: [0.0,0.0]
+          )):BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black87.withOpacity(.45),
+                  Colors.black87.withOpacity(.35),
+                  Colors.black87.withOpacity(.32),
+
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+
+                //stops: [.7,9.0]
+              )
+          )
+
+              ,
+
+          child: MaterialButton(
+              onLongPress: () {
+                if (buttonText == "⌫") {
+                  equation = "0";
+                  expression = "";
+                  widget.txtController.clear();
+                  widget.txtController.text = "0";
+                  widget.onChange(widget.txtController.text);
+                }
+                // buttonPressed(buttonText);
+                // equation = "0";
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  side: BorderSide(
+                      color: MyColors.colorPrimary,
+                      width: 0.4,
+                      style: BorderStyle.solid)),
+              padding: const EdgeInsets.all(0.0),
+              onPressed: () => buttonPressed(buttonText),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 0.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: buttonText == "⌫"
+                      ? Icon(
+                          Icons.backspace_sharp,
+                          color: MyColors.textColor,
+                          size: buttonTexth,
+                        )
+                      : buttonText == "×"
+                          ? Icon(
+                              Icons.clear,
+                              color: MyColors.textColor,
+                              size: buttonTexth,
+                            )
+                          : Text(
+                              buttonText.toUpperCase(),
+                              textScaleFactor: Constants.textScaleFactor,
+                              style: TextStyle(
+                                  fontSize: buttonTexth,
+                                  fontWeight: FontWeight.normal,
+                                  color: MyColors.textColor),
+                            ),
+                ),
+              )),
+        ),
       ),
     );
   }
