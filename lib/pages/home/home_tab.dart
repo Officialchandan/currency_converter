@@ -94,7 +94,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     _isContainerVisibleTwo = false;
     text = Utility.getFormatText(await getConverterAPI(
         currencyCodeFrom, currencyCodeTo, calculateCurrency.text));
-
+    setState(() {});
     if (mounted) {
       setState(() {});
     }

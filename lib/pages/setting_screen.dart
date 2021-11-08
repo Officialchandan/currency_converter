@@ -297,15 +297,23 @@ class _SettingScreenState extends State<SettingScreen> {
                                             MyColors.insideTextFieldColor =
                                                 Colors.black;
                                             MyColors.calcuColor =
-                                                  MyColors.colorPrimary;
-                                            SystemChrome.setSystemUIOverlayStyle(
-                                                 SystemUiOverlayStyle(
-                                                  statusBarColor: MyColors.colorPrimary,
-                                                  systemNavigationBarColor: MyColors.colorPrimary,
-                                                   statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
-                                                   systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
-
-                                                ));
+                                                MyColors.colorPrimary;
+                                            SystemChrome
+                                                .setSystemUIOverlayStyle(
+                                                    SystemUiOverlayStyle(
+                                              statusBarColor:
+                                                  MyColors.colorPrimary,
+                                              systemNavigationBarColor:
+                                                  MyColors.colorPrimary,
+                                              statusBarIconBrightness:
+                                                  MyColors.lightModeCheck
+                                                      ? Brightness.light
+                                                      : Brightness.dark,
+                                              systemNavigationBarIconBrightness:
+                                                  MyColors.lightModeCheck
+                                                      ? Brightness.light
+                                                      : Brightness.dark,
+                                            ));
 
                                             widget.onThemeChange();
                                           }
@@ -353,17 +361,22 @@ class _SettingScreenState extends State<SettingScreen> {
                                                       Colors.white;
                                                   MyColors.calcuColor =
                                                       Colors.grey.shade700;
-                                                  SystemChrome.setSystemUIOverlayStyle(
-                                                      SystemUiOverlayStyle(
-                                                        statusBarColor: MyColors.colorPrimary,
-                                                        systemNavigationBarColor: MyColors.colorPrimary,
-                                                        statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
-                                                        systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
-
-                                                      ));
-
-
-
+                                                  SystemChrome
+                                                      .setSystemUIOverlayStyle(
+                                                          SystemUiOverlayStyle(
+                                                    statusBarColor:
+                                                        MyColors.colorPrimary,
+                                                    systemNavigationBarColor:
+                                                        MyColors.colorPrimary,
+                                                    statusBarIconBrightness:
+                                                        MyColors.lightModeCheck
+                                                            ? Brightness.light
+                                                            : Brightness.dark,
+                                                    systemNavigationBarIconBrightness:
+                                                        MyColors.lightModeCheck
+                                                            ? Brightness.light
+                                                            : Brightness.dark,
+                                                  ));
 
                                                   widget.onThemeChange();
                                                 }
@@ -893,34 +906,24 @@ class _SettingScreenState extends State<SettingScreen> {
                               // )
                               _isContainerVisible
                                   ? Container()
-                                  : RichText(
-                                      text: TextSpan(
-                                          text: "multiConverterContent1"
+                                  : AutoSizeText(
+                                      "multiConverterContent1".tr().toString() +
+                                          "multiConverterContent2"
+                                              .tr()
+                                              .toString() +
+                                          "multiConverterContent3"
                                               .tr()
                                               .toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 11,
-                                              color: MyColors.textColor),
-                                          children: <TextSpan>[
-                                          TextSpan(
-                                            text: "multiConverterContent2"
-                                                .tr()
-                                                .toString(),
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: MyColors.textColor),
-                                          ),
-                                          TextSpan(
-                                            text: "multiConverterContent3"
-                                                .tr()
-                                                .toString(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 11,
-                                                color: MyColors.textColor),
-                                          )
-                                        ])),
+                                      maxLines: 2,
+                                      textAlign: TextAlign.start,
+                                      maxFontSize: 15,
+                                      minFontSize: 11,
+                                      wrapWords: true,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 11,
+                                          color: MyColors.textColor),
+                                    ),
                             ],
                           )),
                   _isContainerVisible
@@ -1536,8 +1539,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
                           SystemChrome.setSystemUIOverlayStyle(
                               SystemUiOverlayStyle(
-                                statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
-                                systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+                            statusBarIconBrightness: MyColors.lightModeCheck
+                                ? Brightness.light
+                                : Brightness.dark,
+                            systemNavigationBarIconBrightness:
+                                MyColors.lightModeCheck
+                                    ? Brightness.light
+                                    : Brightness.dark,
                             systemNavigationBarColor:
                                 MyColors.colorPrimary, // navigation bar color
                             statusBarColor:
@@ -1630,8 +1638,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         }
                         SystemChrome.setSystemUIOverlayStyle(
                             SystemUiOverlayStyle(
-                              statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
-                              systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+                          statusBarIconBrightness: MyColors.lightModeCheck
+                              ? Brightness.light
+                              : Brightness.dark,
+                          systemNavigationBarIconBrightness:
+                              MyColors.lightModeCheck
+                                  ? Brightness.light
+                                  : Brightness.dark,
                           systemNavigationBarColor:
                               MyColors.colorPrimary, // navigation bar color
                           statusBarColor:
