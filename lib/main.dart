@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
-import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/splash/splash_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/locals.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -11,7 +9,6 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -23,7 +20,6 @@ void main() async {
   ]);
   await insertData();
   await insertion();
-
 
   runApp(EasyLocalization(
       child: MyApp(),
@@ -49,11 +45,16 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: Constants.textScaleFactor),
+          child: child!,
+        );
+      },
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         fontFamily: GoogleFonts.roboto().fontFamily,
@@ -61,37 +62,30 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: const MyTabBarWidget(),
+      home: SplashScreen(),
     );
   }
 
   void getTheme() async {
     await Utility.getColorTheme();
 
-    int red=MyColors.colorPrimary.red;
-    int blue=MyColors.colorPrimary.blue;
-    int green=MyColors.colorPrimary.green;
+    int red = MyColors.colorPrimary.red;
+    int blue = MyColors.colorPrimary.blue;
+    int green = MyColors.colorPrimary.green;
 
-    var  grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+    var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
     print("************************-> $grayscale");
 
-    if(grayscale > 128){
-
-      MyColors.textColor=Colors.grey.shade700;
-      MyColors.insideTextFieldColor=Colors.white;
-      MyColors.darkModeCheck=true;
-      MyColors.lightModeCheck=false;
-
-
-    }else{
-
-
-
-      MyColors.textColor=Colors.white;
-      MyColors.insideTextFieldColor=Colors.black;
-      MyColors.lightModeCheck=true;
-      MyColors.darkModeCheck=false;
-
+    if (grayscale > 128) {
+      MyColors.textColor = Colors.grey.shade700;
+      MyColors.insideTextFieldColor = Colors.white;
+      MyColors.darkModeCheck = true;
+      MyColors.lightModeCheck = false;
+    } else {
+      MyColors.textColor = Colors.white;
+      MyColors.insideTextFieldColor = Colors.black;
+      MyColors.lightModeCheck = true;
+      MyColors.darkModeCheck = false;
     }
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

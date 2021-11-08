@@ -1,5 +1,6 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/locals.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
@@ -8,8 +9,7 @@ import 'package:flutter/material.dart';
 
 class Language extends StatefulWidget {
   final bool isContainerVisible;
-  const Language({required this.isContainerVisible, Key? key})
-      : super(key: key);
+  const Language({required this.isContainerVisible, Key? key}) : super(key: key);
 
   @override
   _LanguageState createState() => _LanguageState();
@@ -39,8 +39,7 @@ class _LanguageState extends State<Language> {
             duration: const Duration(seconds: 0),
             // height: widget.isContainerVisible ? double.nan : 0.0,
             width: MediaQuery.of(context).size.width,
-            padding:
-                const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
+            padding: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
             child: Column(
                 children: List.generate(Locals.language.length, (index) {
               return GestureDetector(
@@ -58,11 +57,7 @@ class _LanguageState extends State<Language> {
 
                   await context.setLocale(Locals.language[index].values.first);
                   Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const MyTabBarWidget()),
-                      (route) => false);
+                      context, MaterialPageRoute(builder: (BuildContext context) => const MyTabBarWidget()), (route) => false);
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 1),
@@ -76,21 +71,13 @@ class _LanguageState extends State<Language> {
                           Container(
                               margin: const EdgeInsets.all(7),
                               padding: index == 0
-                                  ? EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.width *
-                                          0.45)
+                                  ? EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.45)
                                   : EdgeInsets.only(left: 0),
                               height: 30,
                               child: Text(
                                 Locals.language[index].keys.first,
-                                style: TextStyle(
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 16) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 16)
-                                            : 16,
-                                    color: MyColors.insideTextFieldColor,
-                                    fontWeight: FontWeight.bold),
+                                textScaleFactor: Constants.textScaleFactor,
+                                style: TextStyle(fontSize: 16, color: MyColors.insideTextFieldColor, fontWeight: FontWeight.bold),
                               )),
                           Container(
                             padding: EdgeInsets.only(right: 10),
@@ -99,7 +86,10 @@ class _LanguageState extends State<Language> {
                                     Icons.check_sharp,
                                     color: Colors.blue,
                                   )
-                                : const Text(""),
+                                : Text(
+                                    "",
+                                    textScaleFactor: Constants.textScaleFactor,
+                                  ),
                           )
                         ],
                       ),

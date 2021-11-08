@@ -6,19 +6,20 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/add_currency_screen.dart';
-import 'package:currency_converter/pages/home/home_page.dart';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
+import 'package:currency_converter/widget/calculator.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter/cupertino.dart' hide ReorderableList;
+import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter/services.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 
 class MyCurrency extends StatefulWidget {
-   MyCurrency({Key? key}) : super(key: key);
-
+  MyCurrency({Key? key}) : super(key: key);
 
   @override
   _MyCurrencyState createState() => _MyCurrencyState();
@@ -46,6 +47,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   bool isbool = true;
 
   bool firstTime = true;
+  DataModel? selectedData;
 
   void getSelectedList() async {
     firstTime = true;
@@ -69,8 +71,12 @@ class _MyCurrencyState extends State<MyCurrency> {
   @override
   void didUpdateWidget(MyCurrency oldWidget) {
     debugPrint("MyCurrency-> didUpdateWidget");
-
     dataController.addError("error");
+    // streamController.add(selectedList);
+    if (selectedData != null) {
+      int index = selectedList.indexWhere((element) => element.code == selectedData!.code);
+      calculateExchangeRate(selectedData!.controller.text, index, selectedData!);
+    }
     super.didUpdateWidget(oldWidget);
     setState(() {});
   }
@@ -159,41 +165,40 @@ class _MyCurrencyState extends State<MyCurrency> {
                     children: [
                       Text(
                         "update".tr().toString(),
+                        textScaleFactor: Constants.textScaleFactor,
                         style: TextStyle(
                           color: MyColors.textColor,
-                          fontSize: MyColors.fontsmall
-                              ? (MyColors.textSize - 18) * (-1)
-                              : MyColors.fontlarge
-                                  ? (MyColors.textSize + 18)
-                                  : 18,
+                          fontSize: 16.5,
                         ),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      MyColors.datemm
-                          ? Text(
-                              "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
-                              style: TextStyle(
-                                color: MyColors.textColor,
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
-                              ),
-                            )
-                          : Text(
-                              "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
-                              style: TextStyle(
-                                color: MyColors.textColor,
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
-                              ),
-                            ),
+                      Text(
+                        Utility.getFormatDate(),
+                        textScaleFactor: Constants.textScaleFactor,
+                        style: TextStyle(
+                          color: MyColors.textColor,
+                          fontSize: 16.5,
+                        ),
+                      ),
+                      // MyColors.datemm
+                      //     ? Text(
+                      //         "${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}/${now.year.toString()}",
+                      //        textScaleFactor: Constants.textScaleFactor,
+                      //         style: TextStyle(
+                      //           color: MyColors.textColor,
+                      //           fontSize: 18,
+                      //         ),
+                      //       )
+                      //     : Text(
+                      //         "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString()}",
+                      //       textScaleFactor: Constants.textScaleFactor,
+                      //         style: TextStyle(
+                      //           color: MyColors.textColor,
+                      //           fontSize:18,
+                      //         ),
+                      //       ),
                     ],
                   ),
                 ),
@@ -208,10 +213,12 @@ class _MyCurrencyState extends State<MyCurrency> {
                             (BuildContext context, int index) {
                               if (index == 0 && firstTime) {
                                 selectedList[index].controller.text = "1";
-                                calculateExchangeRate(
-                                    "1", 0, selectedList[index]);
+                                calculateExchangeRate("1", 0, selectedList[index]);
                                 firstTime = false;
                               }
+                              // selectedList[index].controller.text = getFormatText(
+                              //     double.parse(selectedList[index].controller.text.replaceAll(",", "").replaceAll("-", ""))
+                              //         .toStringAsFixed(MyColors.decimalFormat));
                               return Item(
                                 data: selectedList[index],
                                 // first and last attributes affect border drawn during dragging
@@ -223,8 +230,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                                   streamController.add(selectedList);
                                 },
                                 onChange: (text) {
-                                  calculateExchangeRate(
-                                      text, index, selectedList[index]);
+                                  calculateExchangeRate(text, index, selectedList[index]);
                                 },
                                 onTap: () {
                                   isCalculatorVisible = true;
@@ -264,10 +270,18 @@ class _MyCurrencyState extends State<MyCurrency> {
           stream: dataController.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-              return calculator(context, snapshot.data!.controller,
-                  (changeValue) {
-                int i = selectedList.indexWhere(
-                    (element) => element.code == snapshot.data!.code);
+              return Calculator(
+                txtController: snapshot.data!.controller,
+                onChange: (text) {
+                  int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
+                  if (i != -1) {
+                    calculateExchangeRate(text, i, snapshot.data!);
+                  }
+                },
+              );
+
+              return calculator(context, snapshot.data!.controller, (changeValue) {
+                int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
                 if (i != -1) {
                   calculateExchangeRate(changeValue, i, snapshot.data!);
                 }
@@ -283,8 +297,7 @@ class _MyCurrencyState extends State<MyCurrency> {
           backgroundColor: MyColors.textColor,
           onPressed: () async {
             streamController.add([]);
-            await Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddCurrency()));
+            await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
             getSelectedList();
           },
           child: Icon(
@@ -298,27 +311,25 @@ class _MyCurrencyState extends State<MyCurrency> {
   }
 
   void calculateExchangeRate(String text, int index, DataModel model) async {
-    debugPrint("onchange$text");
-    double d = double.parse(text);
-    debugPrint("d$d");
-    for (DataModel element in selectedList) {
-      if (element.code != model.code) {
-        double conversionRate = ((double.parse(model.value) * 100) /
-                (double.parse(element.value) * 100)) *
-            (d);
+    try {
+      debugPrint("onchange$text");
+      double d = double.parse(text);
+      debugPrint("d$d");
+      for (DataModel element in selectedList) {
+        if (element.code != model.code) {
+          double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
 
-        debugPrint("conversionRate->$conversionRate");
-        String m = await getFormatText(
-            conversionRate.toStringAsFixed(MyColors.decimalFormat));
+          debugPrint("conversionRate->$conversionRate");
+          String m = await getFormatText(conversionRate.toStringAsFixed(MyColors.decimalFormat));
 
-        element.controller.text = m;
-        element.controller.selection = TextSelection.fromPosition(
-            TextPosition(offset: element.controller.text.length));
-        element.exchangeValue = m;
+          element.controller.text = m;
+          element.controller.selection = TextSelection.fromPosition(TextPosition(offset: element.controller.text.length));
+          element.exchangeValue = m;
+        }
       }
-    }
 
-    streamController.add(selectedList);
+      streamController.add(selectedList);
+    } catch (e) {}
   }
 
   String getFormatText(String s) {
@@ -379,17 +390,13 @@ class _MyCurrencyState extends State<MyCurrency> {
     return text1;
   }
 
-  Widget calculator(BuildContext context, TextEditingController controller,
-      Function(String changeValue) onChange) {
+  Widget calculator(BuildContext context, TextEditingController controller, Function(String changeValue) onChange) {
     buttonPressed(String buttonText) {
-
-
-
-
       setState(() {
-        if (buttonText == "C") {
+        if (buttonText == "c") {
           isbool = true;
           equation = "0";
+          expression = "";
           isbool = false;
           equationFontSize = 38.0;
           resultFontSize = 48.0;
@@ -397,14 +404,15 @@ class _MyCurrencyState extends State<MyCurrency> {
           equationFontSize = 48.0;
           resultFontSize = 38.0;
           equation = equation.substring(0, equation.length - 1);
+
           if (equation == "") {
             equation = "0";
+            expression = "";
           }
         } else if (buttonText == "=") {
           equationFontSize = 38.0;
           resultFontSize = 48.0;
           isbool = false;
-
           expression = equation;
           expression = expression.replaceAll('×', '*');
           expression = expression.replaceAll('÷', '/');
@@ -415,10 +423,15 @@ class _MyCurrencyState extends State<MyCurrency> {
 
             ContextModel cm = ContextModel();
             result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+            result = getFormatText(double.parse(result).toStringAsFixed(MyColors.decimalFormat));
+
+            expression = "$result";
+            equation = "$result";
           } catch (e) {
             result = "";
           }
         } else {
+          debugPrint("isbool-->$isbool");
           equationFontSize = 48.0;
           resultFontSize = 38.0;
           if (equation == "0") {
@@ -427,10 +440,10 @@ class _MyCurrencyState extends State<MyCurrency> {
             equation = equation + buttonText;
           }
         }
+
         isbool ? controller.text = equation : controller.text = result;
 
-        controller.selection = TextSelection.fromPosition(
-            TextPosition(offset: controller.text.length));
+        controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
 
         isbool ? onChange(equation) : onChange(result);
 
@@ -445,13 +458,12 @@ class _MyCurrencyState extends State<MyCurrency> {
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.left,
           ),
-          height:
-              MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight +
-                  2.6,
+          height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.6,
           decoration: BoxDecoration(
               gradient: LinearGradient(
             colors: [
               MyColors.colorPrimary.withOpacity(.5),
+              // Colors.white.withOpacity(.2),
               MyColors.colorPrimary.withOpacity(.8),
             ],
             begin: Alignment.topCenter,
@@ -460,22 +472,18 @@ class _MyCurrencyState extends State<MyCurrency> {
           )),
           child: MaterialButton(
               onLongPress: () {
-
-                if(buttonText=="⌫"){
+                if (buttonText == "⌫") {
                   equation = "0";
-                  expression="";
+                  expression = "";
                   controller.clear();
-                  controller.text="0";
+                  controller.text = "0";
+                  controller.selection = TextSelection.fromPosition(TextPosition(offset: 1));
                 }
                 // buttonPressed(buttonText);
-
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
-                  side: BorderSide(
-                      color: MyColors.colorPrimary,
-                      width: 0.4,
-                      style: BorderStyle.solid)),
+                  side: BorderSide(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid)),
               padding: const EdgeInsets.all(0.0),
               onPressed: () => buttonPressed(buttonText),
               child: Padding(
@@ -484,10 +492,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                   alignment: Alignment.center,
                   child: Text(
                     buttonText,
-                    style: TextStyle(
-                        fontSize: buttonTexth,
-                        fontWeight: FontWeight.normal,
-                        color: MyColors.textColor),
+                    textScaleFactor: Constants.textScaleFactor,
+                    style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
                   ),
                 ),
               )),
@@ -550,9 +556,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                         buildButton("+", 1, MyColors.calcuColor, 25),
                       ]),
                       TableRow(children: [
-                        Center(
-                            child: buildButton(
-                                "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                        Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
                       ]),
                     ]))
               ],
@@ -562,8 +566,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 }
 
@@ -591,8 +594,7 @@ class Item extends StatelessWidget {
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == ReorderableItemState.dragProxy ||
-        state == ReorderableItemState.dragProxyFinished) {
+    if (state == ReorderableItemState.dragProxy || state == ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
       decoration = BoxDecoration(
         color: MyColors.textColor,
@@ -614,6 +616,9 @@ class Item extends StatelessWidget {
               children: [
                 MyColors.displayflag && MyColors.displaycode
                     ? ReorderableListener(
+                        canStart: () {
+                          return false;
+                        },
                         child: Container(
                             width: 40,
                             height: 40,
@@ -624,7 +629,10 @@ class Item extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ))),
                       )
-                    : Text(""),
+                    : Text(
+                        "",
+                        textScaleFactor: Constants.textScaleFactor,
+                      ),
 
                 MyColors.displaycode
                     ? ReorderableListener(
@@ -646,14 +654,11 @@ class Item extends StatelessWidget {
                           child: Center(
                             child: Text(
                               data.code,
+                              textScaleFactor: Constants.textScaleFactor,
                               style: TextStyle(
                                 color: MyColors.textColor,
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
@@ -692,13 +697,10 @@ class Item extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   data.symbol!,
+                                  textScaleFactor: Constants.textScaleFactor,
                                   style: TextStyle(
                                     color: MyColors.textColor,
-                                    fontSize: MyColors.fontsmall
-                                        ? (MyColors.textSize - 18) * (-1)
-                                        : MyColors.fontlarge
-                                            ? (MyColors.textSize + 18)
-                                            : 18,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -728,55 +730,52 @@ class Item extends StatelessWidget {
                           child: Center(
                             child: Text(
                               data.symbol!,
+                              textScaleFactor: Constants.textScaleFactor,
                               style: TextStyle(
                                 color: MyColors.textColor,
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                         ),
                       )
-                    : Text(""),
+                    : Text(
+                        "",
+                        textScaleFactor: Constants.textScaleFactor,
+                      ),
 
                 Expanded(
                   child: AutoSizeTextField(
-                    cursorColor: MyColors.colorPrimary,
-                    cursorWidth: 2.3,
                     controller: data.controller,
-                   textAlign: TextAlign.center,
-                    keyboardType: TextInputType.none,
-                    showCursor: true,
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(
-                            left: 1.0, right: 1.0, top: 1.0, bottom: 1.0),
-                        counterText: "",
-                        border: InputBorder.none),
+                    textAlignVertical: TextAlignVertical.center,
+                    autocorrect: true,
+                    maxLength: 30,
+                    maxLines: 1,
+                    maxFontSize: 17.0,
+                    minFontSize: 7.0,
                     style: TextStyle(
                       color: MyColors.colorPrimary,
                       fontWeight: FontWeight.w600,
-                      fontSize: MyColors.fontsmall
-                          ? (MyColors.textSize - 18) * (-1)
-                          : MyColors.fontlarge
-                              ? (MyColors.textSize + 18)
-                              : 18,
+                      fontSize: 18,
                     ),
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.none,
+                    showCursor: true,
+                    readOnly: false,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
+                        counterText: "",
+                        border: InputBorder.none),
                     onChanged: (String text) {
                       data.controller.text = text;
                       // text = data.controller.text;
-                      data.controller.selection = TextSelection.fromPosition(
-                          TextPosition(offset: data.controller.text.length));
+                      data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
                       onChange(text);
                       // calculateExchangeRate(text);
                     },
                     onTap: () async {
-                      data.controller.selection = TextSelection.fromPosition(
-                          TextPosition(offset: data.controller.text.length));
+                      data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
                       // isCalculatorVisible = true;
                       // dataController.add(data);
 

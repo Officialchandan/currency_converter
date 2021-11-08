@@ -4,6 +4,7 @@ library block_colorpicker;
 
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_colorpicker/src/utils.dart';
@@ -68,7 +69,7 @@ class UnlockColorPicker extends StatefulWidget {
               color: useWhiteForeground(color.mainColor)
                   ? Colors.white
                   : Colors.black,
-            ):Text("        "),
+            ):Text("        ",textScaleFactor: Constants.textScaleFactor,),
           ),
         ),
       ),

@@ -58,6 +58,7 @@ dependencies:
   basic_utils:
   flutter_reorderable_list:
   syncfusion_flutter_sliders:
+  intl:
 
 
 
@@ -93,6 +94,7 @@ flutter:
    - assets/images/
    - assets/images/@2x/
    - assets/images/@3x/
+
   
      
 

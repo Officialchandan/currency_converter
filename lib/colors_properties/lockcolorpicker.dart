@@ -2,11 +2,9 @@
 
 library block_colorpicker;
 
-
-
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_colorpicker/src/utils.dart';
 
 const List<Color> _defaultColors = [
@@ -32,18 +30,14 @@ const List<Color> _defaultColors = [
   Colors.black,
 ];
 
-typedef PickerLayoutBuilder = Widget Function(
-    BuildContext context, List<Color> colors, PickerItem child);
+typedef PickerLayoutBuilder = Widget Function(BuildContext context, List<Color> colors, PickerItem child);
 typedef PickerItem = Widget Function(Color color);
-typedef PickerItemBuilder = Widget Function(
-    Color color, bool isCurrentColor, void Function() changeColor);
+typedef PickerItemBuilder = Widget Function(Color color, bool isCurrentColor, void Function() changeColor);
 
 class LockColorPicker extends StatefulWidget {
-
   const LockColorPicker({
     required this.pickerColor,
     required this.onColorChanged,
-
     this.availableColors = _defaultColors,
     this.layoutBuilder = defaultLayoutBuilder,
     this.itemBuilder = defaultItemBuilder,
@@ -55,15 +49,12 @@ class LockColorPicker extends StatefulWidget {
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
 
-  static Widget defaultLayoutBuilder(
-      BuildContext context, List<Color> colors, PickerItem child) {
+  static Widget defaultLayoutBuilder(BuildContext context, List<Color> colors, PickerItem child) {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return SizedBox(
       width: 300,
       height: 400,
-
-
       child: GridView.count(
         padding: const EdgeInsets.all(0),
         //physics: NeverScrollableScrollPhysics(),
@@ -76,36 +67,37 @@ class LockColorPicker extends StatefulWidget {
     );
   }
 
-  static Widget defaultItemBuilder(
-      Color color, bool isCurrentColor, void Function() changeColor) {
+  static Widget defaultItemBuilder(Color color, bool isCurrentColor, void Function() changeColor) {
     return Container(
       height: 60,
       width: 43,
-     // padding: EdgeInsets.all(30),
+      // padding: EdgeInsets.all(30),
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
         border: Border.all(color: Colors.black87),
         color: color,
-
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-
-          onTap: (){
-            MyColors.lockCheck=true;
+          onTap: () {
+            MyColors.lockCheck = true;
             changeColor();
-
           },
           borderRadius: BorderRadius.circular(50.0),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
-            child:  MyColors.lockCheck?Icon(
-              Icons.done,
-              color: useWhiteForeground(color) ? Colors.white : Colors.black,
-            ):Text(""),
+            child: MyColors.lockCheck
+                ? Icon(
+                    Icons.done,
+                    color: useWhiteForeground(color) ? Colors.white : Colors.black,
+                  )
+                : Text(
+                    "",
+                    textScaleFactor: Constants.textScaleFactor,
+                  ),
           ),
         ),
       ),
@@ -135,9 +127,8 @@ class _LockColorPickerState extends State<LockColorPicker> {
     return widget.layoutBuilder(
       context,
       widget.availableColors,
-          (Color color, [bool? _, Function? __]) => widget.itemBuilder(
-          color, _currentColor.value == color.value, () => changeColor(color)),
+      (Color color, [bool? _, Function? __]) =>
+          widget.itemBuilder(color, _currentColor.value == color.value, () => changeColor(color)),
     );
   }
 }
-

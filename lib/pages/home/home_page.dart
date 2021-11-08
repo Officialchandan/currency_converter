@@ -5,11 +5,10 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_tab.dart';
-import 'package:currency_converter/pages/second_screen.dart';
+import 'package:currency_converter/pages/my_currency.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
 import 'package:currency_converter/utils/constants.dart';
-import 'package:currency_converter/pages/my_currency.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +24,7 @@ class MyTabBarWidget extends StatefulWidget {
   State<MyTabBarWidget> createState() => _MyTabBarWidgetState();
 }
 
-class _MyTabBarWidgetState extends State<MyTabBarWidget>
-    with TickerProviderStateMixin {
+class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStateMixin {
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
@@ -64,6 +62,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.colorPrimary,
+        elevation: 0,
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -139,7 +138,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            MyColors.colorPrimary.withOpacity(0.45),
+            MyColors.colorPrimary.withOpacity(0.6),
             MyColors.colorPrimary,
           ],
           begin: Alignment.topCenter,
@@ -153,7 +152,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 listener = tabChangeListener;
               },
             ),
-             MyCurrency(),
+            MyCurrency(),
             const DecimalScreens(),
             const InkWell(),
             const TeramAndCondition(),
@@ -187,8 +186,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     return showModalBottomSheet(
         isDismissible: false,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         ),
 
         //backgroundColor: Colors.transparent,
@@ -197,9 +195,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
           return IntrinsicHeight(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                 gradient: LinearGradient(
                   colors: [
                     MyColors.colorPrimary.withOpacity(0.5),
@@ -212,9 +208,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                     width: 60,
                     height: 60,
                     margin: const EdgeInsets.only(top: 15, bottom: 8),
@@ -227,14 +221,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   ),
                   Text(
                     "firstTextRatingPage".tr().toString(),
-                    style: GoogleFonts.roboto(
-                        fontSize: MyColors.fontsmall
-                            ? (MyColors.textSize - 17) * (-1)
-                            : MyColors.fontlarge
-                                ? (MyColors.textSize + 17)
-                                : 17,
-                        color: MyColors.textColor,
-                        fontWeight: FontWeight.bold),
+                    textScaleFactor: Constants.textScaleFactor,
+                    style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 8,
@@ -247,11 +235,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                           TextSpan(
                               text: "secondTextRatingPage".tr().toString(),
                               style: GoogleFonts.roboto(
-                                fontSize: MyColors.fontsmall
-                                    ? (MyColors.textSize - 18) * (-1)
-                                    : MyColors.fontlarge
-                                        ? (MyColors.textSize + 18)
-                                        : 18,
+                                fontSize: 16,
                                 color: MyColors.textColor,
                                 fontWeight: FontWeight.normal,
                               )),
@@ -297,8 +281,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     ),
                   ),
                   Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
                       child: Divider(
                         color: MyColors.textColor,
                         height: 22.2,
@@ -309,26 +292,16 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     height: 40,
                     margin: const EdgeInsets.only(top: 5),
                     child: ElevatedButton(
-                      style:
-                          ElevatedButton.styleFrom(primary: MyColors.textColor),
+                      style: ElevatedButton.styleFrom(primary: MyColors.textColor),
                       onPressed: () {
                         Navigator.pop(context);
-                        if (_tabController.previousIndex == 2 ||
-                            _tabController.previousIndex == 4) {
-                          _tabController
-                              .animateTo(_tabController.previousIndex);
+                        if (_tabController.previousIndex == 2 || _tabController.previousIndex == 4) {
+                          _tabController.animateTo(_tabController.previousIndex);
                         }
                       },
                       child: AutoSizeText(
                         "not".tr().toString(),
-                        style: TextStyle(
-                            fontSize: MyColors.fontsmall
-                                ? (MyColors.textSize - 18) * (-1)
-                                : MyColors.fontlarge
-                                    ? (MyColors.textSize + 18)
-                                    : 18,
-                            color: MyColors.colorPrimary,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 18, color: MyColors.colorPrimary, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -375,11 +348,7 @@ class CurrencyData {
   bool changeIcon = false;
   TextEditingController controller = TextEditingController();
 
-  CurrencyData(
-      {required this.key,
-      required this.value,
-      this.favorite = false,
-      this.changeIcon = false});
+  CurrencyData({required this.key, required this.value, this.favorite = false, this.changeIcon = false});
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
@@ -396,10 +365,7 @@ class CurrencyData {
     Map map = jsonDecode(data);
 
     return CurrencyData(
-        key: map["key"] ?? "",
-        value: map["value"] ?? "",
-        favorite: map["favorite"] ?? false,
-        changeIcon: map["changeIcon"] ?? false);
+        key: map["key"] ?? "", value: map["value"] ?? "", favorite: map["favorite"] ?? false, changeIcon: map["changeIcon"] ?? false);
   }
 
   @override

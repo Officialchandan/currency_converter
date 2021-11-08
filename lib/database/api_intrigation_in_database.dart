@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:currency_converter/Models/model.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,19 +32,28 @@ class _IntrigationState extends State<Intrigation> {
               onPressed: () {
                 Insert();
               },
-              child: const Text("Click!!"),
+              child: Text(
+                "Click!!",
+                textScaleFactor: Constants.textScaleFactor,
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 showAll();
               },
-              child: const Text("showall!!"),
+              child: Text(
+                "showall!!",
+                textScaleFactor: Constants.textScaleFactor,
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 particularrow();
               },
-              child: const Text("particular row!!"),
+              child: Text(
+                "particular row!!",
+                textScaleFactor: Constants.textScaleFactor,
+              ),
             ),
           ],
         ),
@@ -60,21 +67,14 @@ class _IntrigationState extends State<Intrigation> {
   }
 
   updateAll() async {
-    DataModel currencyData = DataModel(
-        value: "2",
-        code: "USD",
-        image: "",
-        name: "american dollar",
-        fav: 1,
-        selected: 1);
+    DataModel currencyData = DataModel(value: "2", code: "USD", image: "", name: "american dollar", fav: 1, selected: 1);
     await dbHelper.update(currencyData.toMap());
   }
 
   Future<void> Insert() async {
     print("Bobel");
 
-    String url =
-        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
     Dio _dio = Dio();
     try {
@@ -84,13 +84,7 @@ class _IntrigationState extends State<Intrigation> {
         Map res = response.data!;
         Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
-          DataModel currencyData = DataModel(
-              value: value.toString(),
-              code: key,
-              image: "",
-              name: "",
-              fav: 0,
-              selected: 0);
+          DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
 
           int id = await dbHelper.insert(currencyData.toMap());
           print("id->>>>>$id");
