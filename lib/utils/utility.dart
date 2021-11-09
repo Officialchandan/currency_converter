@@ -40,7 +40,7 @@ class Utility {
 
   static Future<int> getLangIndexPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(key) ?? 0;
+    return prefs.getInt(key) ?? 11;
   }
 
   static Future<bool> setLangIndexPreference(String key, int value) async {

@@ -82,9 +82,9 @@ class _LanguageState extends State<Language> {
                           Container(
                             padding: EdgeInsets.only(right: 10),
                             child: Locals.icon[index]
-                                ? const Icon(
+                                ?  Icon(
                                     Icons.check_sharp,
-                                    color: Colors.blue,
+                                    color: MyColors.colorPrimary,
                                   )
                                 : Text(
                                     "",

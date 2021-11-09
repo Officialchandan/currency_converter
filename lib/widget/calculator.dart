@@ -114,7 +114,7 @@ class _CalculatorState extends State<Calculator> {
             ),
             height: MediaQuery.of(context).size.height * 0.067 * buttonHeight,
             color:
-                MyColors.lightModeCheck ? Colors.white : MyColors.colorPrimary,
+                MyColors.lightModeCheck ? Colors.transparent : MyColors.colorPrimary,
             child: Container(
               //**Alline height */
               //This is grate
@@ -129,8 +129,8 @@ class _CalculatorState extends State<Calculator> {
                           style: BorderStyle.solid),
                       gradient: LinearGradient(
                         colors: [
-                          MyColors.colorPrimary.withOpacity(.1),
-                          MyColors.colorPrimary.withOpacity(.25),
+                          MyColors.colorPrimary.withOpacity(.7),
+                          MyColors.colorPrimary.withOpacity(.45),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,

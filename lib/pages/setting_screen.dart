@@ -103,7 +103,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           height: 10,
                           margin: const EdgeInsets.all(5),
                           child: Switch(
-                            inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                            inactiveTrackColor: MyColors.darkModeCheck ?MyColors.colorPrimary : Colors.grey.shade300,
                             inactiveThumbColor: MyColors.textColor,
                             value: isSwitched,
                             onChanged: (value) {
@@ -112,7 +112,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 // print(isSwitched);
                               });
                             },
-                            activeTrackColor: MyColors.colorPrimary,
+                            activeTrackColor:Colors.grey.shade800,
                             activeColor: MyColors.textColor,
                           ),
                         ),
@@ -816,7 +816,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     height: 10,
                                     margin: EdgeInsets.only(top: 2, left: 0),
                                     child: Switch(
-                                      inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                                        inactiveTrackColor: MyColors.darkModeCheck ?MyColors.colorPrimary : Colors.grey.shade300,
                                       inactiveThumbColor: MyColors.textColor,
                                       value: isMultiConverter,
                                       onChanged: (value) {
@@ -825,7 +825,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                           // print(isSwitched);
                                         });
                                       },
-                                      activeTrackColor: MyColors.colorPrimary,
+                                      activeTrackColor:Colors.grey.shade800,
                                       activeColor: MyColors.textColor,
                                     ),
                                   ),
@@ -881,7 +881,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.normal)),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                                      inactiveTrackColor: MyColors.darkModeCheck ?MyColors.colorPrimary : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displaycode,
                                     onChanged: (value) {
@@ -901,7 +901,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         // print(isSwitched);
                                       });
                                     },
-                                    activeTrackColor: MyColors.colorPrimary,
+                                    activeTrackColor:Colors.grey.shade800,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -920,7 +920,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                                      inactiveTrackColor: MyColors.darkModeCheck ?MyColors.colorPrimary : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displaysymbol,
                                     onChanged: (value) {
@@ -939,7 +939,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         }
                                       });
                                     },
-                                    activeTrackColor: MyColors.colorPrimary,
+                                    activeTrackColor:Colors.grey.shade800,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -956,7 +956,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.normal)),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck ? Colors.grey.shade800 : Colors.grey.shade300,
+                                      inactiveTrackColor: MyColors.darkModeCheck ?MyColors.colorPrimary : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
                                     value: MyColors.displayflag,
                                     onChanged: (value) {
@@ -967,7 +967,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         // print(isSwitched);
                                       });
                                     },
-                                    activeTrackColor: MyColors.colorPrimary,
+                                    activeTrackColor:Colors.grey.shade800,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -1428,7 +1428,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.darkModeCheck = false;
                           }
 
-                          Utility.setTryColorPreference("Color", MyColors.colorPrimary.toString());
+                          Utility.setTryColorPreference("Color", MyColors.colorPrimary.value.toRadixString(16));
 
                           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                             statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
@@ -1472,18 +1472,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             Container(
               margin: EdgeInsets.only(
                 left: 25,
-                top: 10,
+                top: 20 ,
               ),
-              width: width * 0.31,
+              width: width * 0.55,
               height: height * 0.05,
               child: GestureDetector(
                 onTap: () {
                   showCustomColorPickerDialog(context);
                 },
-                child: Text(
+                child: AutoSizeText(
                   "custom".tr().toString(),
                   textScaleFactor: Constants.textScaleFactor,
                   style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+                  maxLines: 1,
                 ),
               ),
             ),
@@ -1616,7 +1617,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     densitySelectedColor = Color(int.parse("0x$code"));
     colorSelection = densitySelectedColor;
 
-    setState(
+    setState( 
       () => unlockCurrentColor = color,
     );
     setState(() => densityCurrentColor = color);
