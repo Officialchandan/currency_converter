@@ -36,7 +36,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+      // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
       systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
@@ -131,6 +131,13 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
             ),
           ],
         ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          // statusBarBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+          statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+
+          // sys
+        ),
+        // brightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
       ),
 
       ///***Backraunde colors */
@@ -148,7 +155,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
         )),
         child: TabBarView(
           controller: _tabController,
-
           children: [
             TapHome(
               onInitialize: (tabChangeListener) {
@@ -297,7 +303,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: MyColors.textColor),
                       onPressed: () {
-
                         Navigator.pop(context);
                         if (_tabController.previousIndex == 2 || _tabController.previousIndex == 4) {
                           _tabController.animateTo(_tabController.previousIndex);

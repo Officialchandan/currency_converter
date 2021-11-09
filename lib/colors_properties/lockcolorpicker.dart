@@ -72,32 +72,33 @@ class LockColorPicker extends StatefulWidget {
       decoration: BoxDecoration(
         color: color,
       ),
-      child: colorPreference==color.value.toRadixString(16)?Icon(
-        Icons.visibility_outlined,
-        color: useWhiteForeground(color) ? Colors.white : Colors.black,
-      ):Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () {
-
-            MyColors.lockCheck = true;
-            changeColor();
-          },
-          child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 210),
-            opacity: isCurrentColor ? 1.0 : 0.0,
-            child: MyColors.lockCheck
-                ? Icon(
-                    Icons.done,
-                    color: useWhiteForeground(color) ? Colors.white : Colors.black,
-                  )
-                :  Text(
-                    "",
-                    textScaleFactor: Constants.textScaleFactor,
-                  ),
-          ),
-        ),
-      ),
+      child: colorPreference == color.value.toRadixString(16)
+          ? Icon(
+              Icons.visibility_outlined,
+              color: useWhiteForeground(color) ? Colors.white : Colors.black,
+            )
+          : Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  MyColors.lockCheck = true;
+                  changeColor();
+                },
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 210),
+                  opacity: isCurrentColor ? 1.0 : 0.0,
+                  child: MyColors.lockCheck
+                      ? Icon(
+                          Icons.done,
+                          color: useWhiteForeground(color) ? Colors.white : Colors.black,
+                        )
+                      : Text(
+                          "",
+                          textScaleFactor: Constants.textScaleFactor,
+                        ),
+                ),
+              ),
+            ),
     );
   }
 
@@ -132,19 +133,18 @@ class _LockColorPickerState extends State<LockColorPicker> {
   }
 
   void getColorFromPreference() async {
-     colorPreference = await Utility.getTryColorPreference("Color");
-
+    colorPreference = await Utility.getTryColorPreference("Color");
+    Color? c;
     for (int i = 0; i < LockColorPicker._defaultColors.length; i++) {
-
       if (colorPreference == LockColorPicker._defaultColors[i].value.toRadixString(16)) {
-        Color c = Color(int.parse("0x" + "${colorPreference}"));
+        c = Color(int.parse("0x" + "${colorPreference}"));
 
         LockColorPicker._defaultColors.removeAt(i);
-        LockColorPicker._defaultColors.insert(0, c);
 
         break;
       }
     }
+    LockColorPicker._defaultColors.insert(0, c!);
 
     print(LockColorPicker._defaultColors);
     setState(() {});

@@ -15,7 +15,6 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -74,10 +73,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   @override
   void initState() {
     widget.onInitialize(this);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-      statusBarColor: MyColors.colorPrimary, // status bar color
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+    //   statusBarColor: MyColors.colorPrimary, // status bar color
+    // ));
 
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
@@ -94,8 +93,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-    text = Utility.getFormatText(await getConverterAPI(
-        currencyCodeFrom, currencyCodeTo, calculateCurrency.text));
+    text = Utility.getFormatText(await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text));
 
     if (mounted) {
       setState(() {});
@@ -127,8 +125,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       symbol = await Utility.getSymbolFromPreference("hello");
       symbol2 = await Utility.getSymboltoPreference("to");
 
-      text = await getConverterAPI(
-          currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+      text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
     setState(() {});
   }
@@ -156,9 +153,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     var appwidth = MediaQuery.of(context).size.width;
     return WillPopScope(
         onWillPop: () async {
-          if (_isContainerVisible ||
-              _isContainerVisibleTwo ||
-              isCalculatorVisible) {
+          if (_isContainerVisible || _isContainerVisibleTwo || isCalculatorVisible) {
             Future.value(_isContainerVisible = false);
             Future.value(_isContainerVisibleTwo = false);
             Future.value(isCalculatorVisible = false);
@@ -262,8 +257,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                       ? Center(
                                           child: Text(
                                             symbol,
-                                            textScaleFactor:
-                                                Constants.textScaleFactor,
+                                            textScaleFactor: Constants.textScaleFactor,
                                             style: TextStyle(
                                               color: MyColors.textColor,
                                               fontSize: 18,
@@ -306,8 +300,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               showCursor: true,
                               readOnly: false,
                               decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      left: 1.0, right: 1.0, bottom: 15.0),
+                                  contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
                                   counterText: "",
                                   border: InputBorder.none),
                               onTap: () {
@@ -319,12 +312,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               },
                               onChanged: (text) {
                                 print("onchange---------> $text");
-                                getConverterAPI(
-                                    currencyCodeFrom, currencyCodeTo, text);
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
                                 calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(
-                                        offset: calculateCurrency.text.length));
+                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
                               },
                             ),
                           ),
@@ -356,12 +347,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   currencyCodeToSave(currencyCodeTo);
                                   setState(() {});
 
-                                  getConverterAPI(currencyCodeFrom,
-                                      currencyCodeTo, calculateCurrency.text);
+                                  getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                                   calculateCurrency.selection =
-                                      TextSelection.fromPosition(TextPosition(
-                                          offset:
-                                              calculateCurrency.text.length));
+                                      TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
                                 },
                                 child: Image.asset(
                                   "assets/images/right-left.png",
@@ -505,8 +493,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                           width: MediaQuery.of(context).size.width,
                           height: 10,
                           constraints: const BoxConstraints(),
-                          margin: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.width * 0.8),
+                          margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.8),
                           child: Image.asset(
                             "assets/images/tooltip.png",
                             scale: 7,
@@ -518,16 +505,14 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                           constraints: const BoxConstraints(),
                           width: MediaQuery.of(context).size.width,
                           height: 10,
-                          padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.2),
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2),
                           child: Image.asset("assets/images/tooltip.png"),
                         )
                       : Container(),
                   _isContainerVisible
                       ? CurrencyFromWidget(
                           isContainerVisible: _isContainerVisible,
-                          onSelect: (String currencyCode, String image,
-                              String symbol1) {
+                          onSelect: (String currencyCode, String image, String symbol1) {
                             symbol = symbol1;
                             currencyCodeFrom = currencyCode;
                             flagfrom = image;
@@ -537,11 +522,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             edtFrom.text = currencyCode;
 
                             _isContainerVisible = false;
-                            getConverterAPI(currencyCodeFrom, currencyCodeTo,
-                                calculateCurrency.text);
+                            getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                             calculateCurrency.selection =
-                                TextSelection.fromPosition(TextPosition(
-                                    offset: calculateCurrency.text.length));
+                                TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
 
                             setState(() {});
                           },
@@ -549,8 +532,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                       : _isContainerVisibleTwo
                           ? CurrencyToWidget(
                               isContainerVisibleTwo: _isContainerVisibleTwo,
-                              onSelect: (String currencyCode, String image,
-                                  String symbol) {
+                              onSelect: (String currencyCode, String image, String symbol) {
                                 symbol2 = symbol;
                                 flagto = image;
                                 Utility.setSymbolFromPreference("to", symbol2);
@@ -559,11 +541,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 currencyCodeToSave(currencyCodeTo);
                                 edtTo.text = currencyCode;
                                 _isContainerVisibleTwo = false;
-                                getConverterAPI(currencyCodeFrom,
-                                    currencyCodeTo, calculateCurrency.text);
+                                getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
                                 calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(
-                                        offset: calculateCurrency.text.length));
+                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
                                 setState(() {});
                               },
                             )
@@ -604,22 +584,14 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                          maxWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              80,
-                                          minWidth: 50),
+                                      constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 80, minWidth: 50),
                                       child: AutoSizeText(
                                         Utility.getFormatText(text),
                                         wrapWords: true,
                                         maxLines: 1,
                                         maxFontSize: 32.0,
                                         minFontSize: 15.0,
-                                        style: TextStyle(
-                                            color: MyColors.textColor,
-                                            fontSize: 32,
-                                            fontWeight: FontWeight.w400),
+                                        style: TextStyle(color: MyColors.textColor, fontSize: 32, fontWeight: FontWeight.w400),
                                       ),
                                     ),
                                     const SizedBox(
@@ -629,10 +601,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                       edtTo.text,
                                       maxFontSize: 18.0,
                                       minFontSize: 7.0,
-                                      style: TextStyle(
-                                          color: MyColors.textColor,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600),
+                                      style: TextStyle(color: MyColors.textColor, fontSize: 20, fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),
@@ -652,8 +621,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   ? Calculator(
                       txtController: calculateCurrency,
                       onChange: (text) async {
-                        this.text = await getConverterAPI(
-                            currencyCodeFrom, currencyCodeTo, text);
+                        this.text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                         setState(() {});
                       },
                     )
@@ -665,8 +633,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   }
 
   Future<void> Insert() async {
-    String url =
-        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
     Dio _dio = Dio();
     try {
@@ -676,13 +643,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         Map res = response.data!;
         Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
-          DataModel currencyData = DataModel(
-              value: value.toString(),
-              code: key,
-              image: "",
-              name: "",
-              fav: 0,
-              selected: 0);
+          DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
 
           int id = await dbHelper.insert(currencyData.toMap());
 
@@ -727,8 +688,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   String getFormatText(String s) {
