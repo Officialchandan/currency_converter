@@ -7,8 +7,7 @@ class Calculator extends StatefulWidget {
   final TextEditingController txtController;
   final Function(String text) onChange;
 
-  Calculator({required this.txtController, required this.onChange, Key? key})
-      : super(key: key);
+  Calculator({required this.txtController, required this.onChange, Key? key}) : super(key: key);
 
   @override
   _CalculatorState createState() => _CalculatorState();
@@ -43,13 +42,14 @@ class _CalculatorState extends State<Calculator> {
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Container(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
               width: MediaQuery.of(context).size.width * .75,
-              height: MediaQuery.of(context).size.height * 0.35,
+              // height: MediaQuery.of(context).size.height * 0.35,
               child: Table(
                 children: [
                   TableRow(children: [
@@ -93,9 +93,7 @@ class _CalculatorState extends State<Calculator> {
                     buildButton("+", 1, MyColors.calcuColor, 25),
                   ]),
                   TableRow(children: [
-                    Center(
-                        child: buildButton(
-                            "=", 2 * 1.02, MyColors.calcuColor, 40)),
+                    Center(child: buildButton("=", 2, MyColors.calcuColor, 40)),
                   ]),
                 ]))
           ],
@@ -104,102 +102,91 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  buildButton(String buttonText, double buttonHeight, Color buttonColor,
-      double buttonTexth) {
+  buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
     return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      child: Container(
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.left,
-        ),
-        height:
-        MediaQuery.of(context).size.height * 0.1 / 1.6 * buttonHeight + 2.4,
-        // color:MyColors.colorPrimary.withOpacity(.7),
-        color:MyColors.lightModeCheck?Colors.white:MyColors.colorPrimary,
+        physics: const NeverScrollableScrollPhysics(),
         child: Container(
+            margin: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.left,
+            ),
+            height: MediaQuery.of(context).size.height * 0.067 * buttonHeight,
+            color: MyColors.lightModeCheck ? Colors.white : MyColors.colorPrimary,
+            child: Container(
+              //**Alline height */
+              //This is grate
 
-          //**Alline height */
-          //This is grate
+              // color: Colors.grey,
 
-          // color: Colors.grey,
+              decoration: MyColors.lightModeCheck
+                  ? BoxDecoration(
+                      border: Border.all(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid),
+                      gradient: LinearGradient(
+                        colors: [
+                          MyColors.colorPrimary.withOpacity(.1),
+                          MyColors.colorPrimary.withOpacity(.25),
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
 
-          decoration: MyColors.lightModeCheck?BoxDecoration(
-              gradient: LinearGradient(
-            colors: [
-              MyColors.colorPrimary.withOpacity(.5),
-              MyColors.colorPrimary.withOpacity(.7),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+                        //stops: [0.0,0.0]
+                      ))
+                  : BoxDecoration(
+                      border: Border.all(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black54.withOpacity(.15),
+                          Colors.black54.withOpacity(.10),
+                        ],
 
-            //stops: [0.0,0.0]
-          )):BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
 
-                  Colors.black87.withOpacity(.45),
-                  Colors.black87.withOpacity(.35),
-                  Colors.black87.withOpacity(.32),
+                        //stops: [.7,9.0]
+                      )),
 
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-
-                //stops: [.7,9.0]
-              )
-          )
-
-              ,
-
-          child: MaterialButton(
-              onLongPress: () {
-                if (buttonText == "⌫") {
-                  equation = "0";
-                  expression = "";
-                  widget.txtController.clear();
-                  widget.txtController.text = "0";
-                  widget.onChange(widget.txtController.text);
-                }
-                // buttonPressed(buttonText);
-                // equation = "0";
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0.0),
-                  side: BorderSide(
-                      color: MyColors.colorPrimary,
-                      width: 0.4,
-                      style: BorderStyle.solid)),
-              padding: const EdgeInsets.all(0.0),
-              onPressed: () => buttonPressed(buttonText),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 0.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: buttonText == "⌫"
-                      ? Icon(
-                          Icons.backspace_sharp,
-                          color: MyColors.textColor,
-                          size: buttonTexth,
-                        )
-                      : buttonText == "×"
+              child: MaterialButton(
+                  onLongPress: () {
+                    if (buttonText == "⌫") {
+                      expression = "";
+                      // equation = "0";
+                      widget.txtController.clear();
+                      _insertText("0");
+                      // widget.txtController.text = "0";
+                      // widget.onChange(widget.txtController.text);
+                    }
+                    // buttonPressed(buttonText);
+                    // equation = "0";
+                  },
+                  // shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(0.0),
+                  //     side: BorderSide(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid)
+                  // ),
+                  padding: const EdgeInsets.all(0.0),
+                  onPressed: () => buttonPressed(buttonText),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 0.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: buttonText == "⌫"
                           ? Icon(
-                              Icons.clear,
+                              Icons.backspace_sharp,
                               color: MyColors.textColor,
                               size: buttonTexth,
                             )
-                          : Text(
-                              buttonText.toUpperCase(),
-                              textScaleFactor: Constants.textScaleFactor,
-                              style: TextStyle(
-                                  fontSize: buttonTexth,
-                                  fontWeight: FontWeight.normal,
-                                  color: MyColors.textColor),
-                            ),
-                ),
-              )),
-        ),
-      ),
-    );
+                          : buttonText == "×"
+                              ? Icon(
+                                  Icons.clear,
+                                  color: MyColors.textColor,
+                                  size: buttonTexth,
+                                )
+                              : Text(
+                                  buttonText.toUpperCase(),
+                                  textScaleFactor: Constants.textScaleFactor,
+                                  style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
+                                ),
+                    ),
+                  )),
+            )));
   }
 
   buttonPressed(String buttonText) {
@@ -249,9 +236,11 @@ class _CalculatorState extends State<Calculator> {
         if (buttonText == "c") {
           isbool = true;
           expression = "";
-          equation = "0";
-          widget.txtController.text = "0";
-          widget.onChange(widget.txtController.text);
+          widget.txtController.clear();
+          _insertText("0");
+          // equation = "0";
+          // widget.txtController.text = "0";
+          // widget.onChange(widget.txtController.text);
           isbool = false;
           equationFontSize = 38.0;
           resultFontSize = 48.0;
@@ -326,8 +315,7 @@ class _CalculatorState extends State<Calculator> {
             Expression expn = p.parse(expression);
             ContextModel cm = ContextModel();
             result = '${expn.evaluate(EvaluationType.REAL, cm)}';
-            result =
-                double.parse(result).toStringAsFixed(MyColors.decimalFormat);
+            result = double.parse(result).toStringAsFixed(MyColors.decimalFormat);
             expression = result;
             equation = result;
             widget.txtController.clear();
@@ -364,13 +352,7 @@ class _CalculatorState extends State<Calculator> {
     final textSelection = widget.txtController.selection;
 
     if (text.isNotEmpty) {
-      if (myText == "+" ||
-          myText == "-" ||
-          myText == "×" ||
-          myText == "÷" ||
-          myText == "/" ||
-          myText == "*" ||
-          myText == "%") {
+      if (myText == "+" || myText == "-" || myText == "×" || myText == "÷" || myText == "/" || myText == "*" || myText == "%") {
         debugPrint("myText contain operator");
         String previousText = text[textSelection.start - 1];
 
@@ -420,13 +402,7 @@ class _CalculatorState extends State<Calculator> {
       String temp = "";
       if (mText.length > pos) {
         for (int i = pos; i <= str.length; i++) {
-          if (str[i] == "+" ||
-              str[i] == "-" ||
-              str[i] == "×" ||
-              str[i] == "÷" ||
-              str[i] == "/" ||
-              str[i] == "*" ||
-              str[i] == "%") {
+          if (str[i] == "+" || str[i] == "-" || str[i] == "×" || str[i] == "÷" || str[i] == "/" || str[i] == "*" || str[i] == "%") {
             break;
           } else {
             temp1 += str[i];
@@ -436,13 +412,7 @@ class _CalculatorState extends State<Calculator> {
       debugPrint("temp1-->$temp1");
       debugPrint("pos-->$pos");
       for (int j = 0; j < pos; j++) {
-        if (str[j] == "+" ||
-            str[j] == "-" ||
-            str[j] == "×" ||
-            str[j] == "÷" ||
-            str[j] == "/" ||
-            str[j] == "*" ||
-            str[j] == "%") {
+        if (str[j] == "+" || str[j] == "-" || str[j] == "×" || str[j] == "÷" || str[j] == "/" || str[j] == "*" || str[j] == "%") {
           temp = "";
         } else {
           temp += str[j];
