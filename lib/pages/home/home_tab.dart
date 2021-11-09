@@ -575,6 +575,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                     });
                               },
                               child: Container(
+
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
