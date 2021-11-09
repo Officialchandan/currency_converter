@@ -373,13 +373,15 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                   // ),
                                   Container(
-                                    width: 100,
+                                    width: 130,
                                     child: AutoSizeText("${decimalFormat[index]["format"]}",
                                         textScaleFactor: Constants.textScaleFactor,
                                         maxFontSize: 20,
-                                        minFontSize: 16,
+
+
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor)),
+                                            fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor)
+                                    ,maxLines: 1,),
                                   ),
                                 ],
                               ),
