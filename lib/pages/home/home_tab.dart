@@ -13,6 +13,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -600,41 +601,57 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                         ? Container()
                         : Padding(
                             padding: const EdgeInsets.only(top: 16.0),
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                        maxWidth:
-                                            MediaQuery.of(context).size.width -
-                                                80,
-                                        minWidth: 50),
-                                    child: AutoSizeText(
-                                      Utility.getFormatText(text),
-                                      wrapWords: true,
-                                      maxLines: 1,
-                                      maxFontSize: 32.0,
-                                      minFontSize: 15.0,
+                            child:GestureDetector(
+                              onLongPress: (){
+                                    Clipboard.setData(new ClipboardData(text: "${calculateCurrency.text}"+" ${edtFrom.text}"+" = "+"${Utility.getFormatText(text)}"+" ${edtTo.text}"+" by Currency.wiki")).then((result) {
+                                      Fluttertoast.showToast(
+                                          msg: "Copied to Clipboard",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.grey.shade400,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0
+                                      );
+
+                                    });
+                              },
+                              child: Container(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                          maxWidth:
+                                              MediaQuery.of(context).size.width -
+                                                  80,
+                                          minWidth: 50),
+                                      child: AutoSizeText(
+                                        Utility.getFormatText(text),
+                                        wrapWords: true,
+                                        maxLines: 1,
+                                        maxFontSize: 32.0,
+                                        minFontSize: 15.0,
+                                        style: TextStyle(
+                                            color: MyColors.textColor,
+                                            fontSize: 32,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    AutoSizeText(
+                                      edtTo.text,
+                                      maxFontSize: 18.0,
+                                      minFontSize: 7.0,
                                       style: TextStyle(
                                           color: MyColors.textColor,
-                                          fontSize: 32,
-                                          fontWeight: FontWeight.w400),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  AutoSizeText(
-                                    edtTo.text,
-                                    maxFontSize: 18.0,
-                                    minFontSize: 7.0,
-                                    style: TextStyle(
-                                        color: MyColors.textColor,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
