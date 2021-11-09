@@ -33,7 +33,7 @@ class _CalculatorState extends State<Calculator> {
 
     debugPrint("initialEquation->$equation");
     debugPrint("initialEquation->$expression");
-    debugPrint("initialtext->${widget.txtController.text}");
+    debugPrint("initialText->${widget.txtController.text}");
 
     super.initState();
   }
@@ -122,8 +122,8 @@ class _CalculatorState extends State<Calculator> {
                       border: Border.all(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid),
                       gradient: LinearGradient(
                         colors: [
-                          MyColors.colorPrimary.withOpacity(.1),
                           MyColors.colorPrimary.withOpacity(.25),
+                          MyColors.colorPrimary.withOpacity(.45),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -134,8 +134,8 @@ class _CalculatorState extends State<Calculator> {
                       border: Border.all(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid),
                       gradient: LinearGradient(
                         colors: [
-                          Colors.black54.withOpacity(.15),
-                          Colors.black54.withOpacity(.10),
+                          Colors.black54.withOpacity(.30),
+                          Colors.black54.withOpacity(.20),
                         ],
 
                         begin: Alignment.topCenter,

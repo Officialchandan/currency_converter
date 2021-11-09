@@ -15,7 +15,6 @@ import 'package:flutter/cupertino.dart' hide ReorderableList;
 import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter/services.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
-import 'package:math_expressions/math_expressions.dart';
 import 'package:share/share.dart';
 
 class MyCurrency extends StatefulWidget {
@@ -72,12 +71,10 @@ class _MyCurrencyState extends State<MyCurrency> {
   void didUpdateWidget(MyCurrency oldWidget) {
     if (mounted) {
       debugPrint("MyCurrency-> didUpdateWidget");
-      dataController.addError("error");
-      if (selectedData != null) {
-        int index = selectedList.indexWhere((element) => element.code == selectedData!.code);
-        calculateExchangeRate(selectedData!.controller.text, index, selectedData!);
-      }
-      setState(() {});
+      debugPrint("expression-> $expression");
+      debugPrint("selectedData-> $selectedData");
+
+      onRefresh();
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -175,48 +172,6 @@ class _MyCurrencyState extends State<MyCurrency> {
                     ),
                   ]),
                 ),
-                // SliverAppBar(
-                //   actions: <Widget>[
-                //     InkWell(
-                //       onTap: () {
-                //         _onShareWithEmptyOrigin(context);
-                //       },
-                //       child: Icon(
-                //         Icons.share,
-                //         color: MyColors.textColor,
-                //       ),
-                //     )
-                //   ],
-                //   pinned: false,
-                //   centerTitle: true,
-                //   expandedHeight: 40.0,
-                //   backgroundColor: Colors.transparent,
-                //   title: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         "update".tr().toString(),
-                //         textScaleFactor: Constants.textScaleFactor,
-                //         style: TextStyle(
-                //           color: MyColors.textColor,
-                //           fontSize: 16.5,
-                //         ),
-                //       ),
-                //       const SizedBox(
-                //         width: 5,
-                //       ),
-                //       Text(
-                //         Utility.getFormatDate(),
-                //         textScaleFactor: Constants.textScaleFactor,
-                //         style: TextStyle(
-                //           color: MyColors.textColor,
-                //           fontSize: 16.5,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-
                 StreamBuilder(
                   builder: (context, snapshot) {
                     return SliverPadding(
@@ -227,6 +182,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                           delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
                               if (index == 0 && firstTime) {
+                                debugPrint("firstTime$firstTime");
                                 selectedList[index].controller.text = "1";
                                 calculateExchangeRate("1", 0, selectedList[index]);
                                 firstTime = false;
@@ -259,24 +215,6 @@ class _MyCurrencyState extends State<MyCurrency> {
                   },
                   stream: streamController.stream,
                 ),
-                // SliverPadding(
-                //     padding: EdgeInsets.only(
-                //         bottom: MediaQuery.of(context).padding.bottom,
-                //     ),
-                //     sliver: SliverList(
-                //       delegate: SliverChildBuilderDelegate(
-                //         (BuildContext context, int index) {
-                //           return Item(
-                //             data: selectedList[index],
-                //             // first and last attributes affect border drawn during dragging
-                //             isFirst: index == 0,
-                //             isLast: index == selectedList.length - 1,
-                //             draggingMode: _draggingMode,
-                //           );
-                //         },
-                //         childCount: selectedList.length,
-                //       ),
-                //     )),
               ],
             ),
           ),
@@ -285,22 +223,27 @@ class _MyCurrencyState extends State<MyCurrency> {
           stream: dataController.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
+              if (selectedData != null && selectedData!.code != snapshot.data!.code) {
+                snapshot.data!.controller.selection =
+                    TextSelection(baseOffset: 0, extentOffset: snapshot.data!.controller.value.text.length);
+              }
+
+              selectedData = snapshot.data;
+
               return Calculator(
                 txtController: snapshot.data!.controller,
-                onChange: (text) {
+                onChange: (text) async {
+                  expression = text;
+
+                  await Utility.setStringPreference("value", text);
+                  await Utility.setStringPreference("code", snapshot.data!.code);
+
                   int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
                   if (i != -1) {
                     calculateExchangeRate(text, i, snapshot.data!);
                   }
                 },
               );
-
-              return calculator(context, snapshot.data!.controller, (changeValue) {
-                int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
-                if (i != -1) {
-                  calculateExchangeRate(changeValue, i, snapshot.data!);
-                }
-              });
             }
             return const SizedBox(
               width: 0,
@@ -405,183 +348,21 @@ class _MyCurrencyState extends State<MyCurrency> {
     return text1;
   }
 
-  Widget calculator(BuildContext context, TextEditingController controller, Function(String changeValue) onChange) {
-    buttonPressed(String buttonText) {
-      setState(() {
-        if (buttonText == "c") {
-          isbool = true;
-          equation = "0";
-          expression = "";
-          isbool = false;
-          equationFontSize = 38.0;
-          resultFontSize = 48.0;
-        } else if (buttonText == "⌫") {
-          equationFontSize = 48.0;
-          resultFontSize = 38.0;
-          equation = equation.substring(0, equation.length - 1);
-
-          if (equation == "") {
-            equation = "0";
-            expression = "";
-          }
-        } else if (buttonText == "=") {
-          equationFontSize = 38.0;
-          resultFontSize = 48.0;
-          isbool = false;
-          expression = equation;
-          expression = expression.replaceAll('×', '*');
-          expression = expression.replaceAll('÷', '/');
-
-          try {
-            Parser p = Parser();
-            Expression exp = p.parse(expression);
-
-            ContextModel cm = ContextModel();
-            result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-            result = getFormatText(double.parse(result).toStringAsFixed(MyColors.decimalFormat));
-
-            expression = "$result";
-            equation = "$result";
-          } catch (e) {
-            result = "";
-          }
-        } else {
-          debugPrint("isbool-->$isbool");
-          equationFontSize = 48.0;
-          resultFontSize = 38.0;
-          if (equation == "0") {
-            equation = buttonText;
-          } else {
-            equation = equation + buttonText;
-          }
-        }
-
-        isbool ? controller.text = equation : controller.text = result;
-
-        controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
-
-        isbool ? onChange(equation) : onChange(result);
-
-        isbool = true;
-      });
-    }
-
-    buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
-      return SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Container(
-          margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.left,
-          ),
-          height: MediaQuery.of(context).size.height * 0.1 / 1.5 * buttonHeight + 2.6,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            colors: [
-              MyColors.colorPrimary.withOpacity(.5),
-              // Colors.white.withOpacity(.2),
-              MyColors.colorPrimary.withOpacity(.8),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            //stops: [0.0,0.0]
-          )),
-          child: MaterialButton(
-              onLongPress: () {
-                if (buttonText == "⌫") {
-                  equation = "0";
-                  expression = "";
-                  controller.clear();
-                  controller.text = "0";
-                  controller.selection = TextSelection.fromPosition(TextPosition(offset: 1));
-                }
-                // buttonPressed(buttonText);
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0.0),
-                  side: BorderSide(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid)),
-              padding: const EdgeInsets.all(0.0),
-              onPressed: () => buttonPressed(buttonText),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 0.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    buttonText,
-                    textScaleFactor: Constants.textScaleFactor,
-                    style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
-                  ),
-                ),
-              )),
-        ),
-      );
-    }
-
-    return SizedBox(
-        width: MediaQuery.of(context).size.width * .75,
-        height: MediaQuery.of(context).size.height * 0.35,
-        child: Column(
-          children: <Widget>[
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .75,
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: Table(
-                    children: [
-                      TableRow(children: [
-                        buildButton("%", 1, MyColors.calcuColor, 20),
-                        buildButton("/", 1, MyColors.calcuColor, 20),
-                        buildButton("×", 1, MyColors.calcuColor, 27),
-                      ]),
-                      TableRow(children: [
-                        buildButton("1", 1, MyColors.calcuColor, 25),
-                        buildButton("2", 1, MyColors.calcuColor, 25),
-                        buildButton("3", 1, MyColors.calcuColor, 25),
-                      ]),
-                      TableRow(children: [
-                        buildButton("4", 1, MyColors.calcuColor, 25),
-                        buildButton("5", 1, MyColors.calcuColor, 25),
-                        buildButton("6", 1, MyColors.calcuColor, 25),
-                      ]),
-                      TableRow(children: [
-                        buildButton("7", 1, MyColors.calcuColor, 25),
-                        buildButton("8", 1, MyColors.calcuColor, 25),
-                        buildButton("9", 1, MyColors.calcuColor, 25),
-                      ]),
-                      TableRow(children: [
-                        buildButton(".", 1, MyColors.calcuColor, 25),
-                        buildButton("0", 1, MyColors.calcuColor, 25),
-                        buildButton("c", 1, MyColors.calcuColor, 25),
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    child: Table(children: [
-                      TableRow(children: [
-                        buildButton("⌫", 1, MyColors.calcuColor, 20),
-                      ]),
-                      TableRow(children: [
-                        buildButton("-", 1, MyColors.calcuColor, 35),
-                      ]),
-                      TableRow(children: [
-                        buildButton("+", 1, MyColors.calcuColor, 25),
-                      ]),
-                      TableRow(children: [
-                        Center(child: buildButton("=", 2 * 1.02, MyColors.calcuColor, 40)),
-                      ]),
-                    ]))
-              ],
-            ),
-          ],
-        ));
-  }
-
   _onShareWithEmptyOrigin(BuildContext context) async {
     await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
+  }
+
+  void onRefresh() async {
+    FocusScope.of(context).unfocus();
+    String value = await Utility.getStringPreference("value");
+    String code = await Utility.getStringPreference("code");
+    dataController.addError("error");
+    if (value.isNotEmpty && code.isNotEmpty) {
+      int index = selectedList.indexWhere((element) => element.code == code);
+      selectedList[index].controller.text = value;
+      calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+    }
+    setState(() {});
   }
 }
 

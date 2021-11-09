@@ -33,13 +33,15 @@ class _SplashScreenState extends State<SplashScreen> {
     String dateFormat = await Utility.getStringPreference(Constants.DATE_FROMAT);
     if (dateFormat.isNotEmpty) {
       Constants.dateFormat = dateFormat;
+    } else {
+      Constants.dateFormat = Constants.mmDdYyyy;
     }
 
     String fonts = await Utility.getStringPreference(Constants.fontSize);
     if (fonts.isNotEmpty) {
       Constants.selectedFontSize = fonts;
     } else {
-      Constants.selectedFontSize = Constants.fontMedium;
+      Constants.selectedFontSize = Constants.fontSmall;
     }
 
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyTabBarWidget()));

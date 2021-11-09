@@ -135,7 +135,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       if (_isContainerVisible) {
                         scrollController.animateTo(
                             scrollController.position.maxScrollExtent - (scrollController.position.maxScrollExtent / 1.65),
-                            duration: Duration(milliseconds: 500),
+                            duration: const Duration(milliseconds: 500),
                             curve: Curves.ease);
                       }
 
@@ -280,6 +280,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                         MyColors.textColor = Colors.white;
                                         MyColors.insideTextFieldColor = Colors.black;
                                         MyColors.calcuColor = MyColors.colorPrimary;
+                                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                                          statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+                                        ));
 
                                         widget.onThemeChange();
                                       }
@@ -352,6 +355,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                         MyColors.textColor = Colors.grey.shade800;
                                         MyColors.insideTextFieldColor = Colors.white;
                                         MyColors.calcuColor = Colors.grey.shade700;
+
+                                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                                          statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+                                        ));
 
                                         widget.onThemeChange();
                                       }

@@ -36,8 +36,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
-      systemNavigationBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
+      statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+      systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
@@ -148,6 +148,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
         )),
         child: TabBarView(
           controller: _tabController,
+
           children: [
             TapHome(
               onInitialize: (tabChangeListener) {
@@ -181,7 +182,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
   }
 
   onThemeChange() {
-
     setState(() {});
   }
 
