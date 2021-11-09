@@ -564,11 +564,16 @@ class _SettingScreenState extends State<SettingScreen> {
                                                           )),
                                                     ),
                                                     const SizedBox(height: 5),
-                                                    Text("  By: Currency.wiki",
-                                                        textScaleFactor: Constants.textScaleFactor,
-                                                        style: GoogleFonts.roboto(
-                                                          color: MyColors.textColor,
-                                                          fontWeight: FontWeight.normal,
+                                                    Text("wiki".tr().toString(),
+                                                        textScaleFactor:
+                                                            Constants
+                                                                .textScaleFactor,
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                          color: MyColors
+                                                              .textColor,
+                                                          fontWeight:
+                                                              FontWeight.normal,
                                                           fontSize: 16,
                                                         ))
                                                   ],
@@ -1617,7 +1622,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     densitySelectedColor = Color(int.parse("0x$code"));
     colorSelection = densitySelectedColor;
 
-    setState( 
+    setState(
       () => unlockCurrentColor = color,
     );
     setState(() => densityCurrentColor = color);
