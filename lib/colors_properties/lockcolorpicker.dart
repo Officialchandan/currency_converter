@@ -8,40 +8,40 @@ import 'package:currency_converter/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/src/utils.dart';
 
-const List<Color> _defaultColors = [
-  Colors.red,
-  Colors.pink,
-  Colors.purple,
-  Colors.deepPurple,
-  Colors.indigo,
-  Colors.blue,
-  Colors.lightBlue,
-  Colors.cyan,
-  Colors.teal,
-  Colors.green,
-  Colors.lightGreen,
-  Colors.lime,
-  Colors.yellow,
-  Colors.amber,
-  Colors.orange,
-];
-
 typedef PickerLayoutBuilder = Widget Function(BuildContext context, List<Color> colors, PickerItem child);
 typedef PickerItem = Widget Function(Color color);
 typedef PickerItemBuilder = Widget Function(Color color, bool isCurrentColor, void Function() changeColor);
+String? colorPreference;
 
 class LockColorPicker extends StatefulWidget {
-  const LockColorPicker({
+  static List<Color> _defaultColors = [
+    Colors.red,
+    Colors.pink,
+    Colors.purple,
+    Colors.deepPurple,
+    Colors.indigo,
+    Colors.blue,
+    Colors.lightBlue,
+    Colors.cyan,
+    Colors.teal,
+    Colors.green,
+    Colors.lightGreen,
+    Colors.lime,
+    Colors.yellow,
+    Colors.amber,
+    Colors.orange,
+  ];
+
+  LockColorPicker({
     required this.pickerColor,
     required this.onColorChanged,
-    this.availableColors = _defaultColors,
     this.layoutBuilder = defaultLayoutBuilder,
     this.itemBuilder = defaultItemBuilder,
   });
 
   final Color pickerColor;
   final ValueChanged<Color> onColorChanged;
-  final List<Color> availableColors;
+
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
 
@@ -49,7 +49,6 @@ class LockColorPicker extends StatefulWidget {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return SizedBox(
-
       height: MediaQuery.of(context).size.height * 0.27,
       child: GridView.count(
         physics: NeverScrollableScrollPhysics(),
@@ -68,20 +67,22 @@ class LockColorPicker extends StatefulWidget {
     return Container(
       height: 60,
       width: 43,
-       padding: EdgeInsets.all(12),
-      margin: const EdgeInsets.all(12),
+      margin: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-
         color: color,
       ),
-      child: Material(
+      child: colorPreference==color.value.toRadixString(16)?Icon(
+        Icons.visibility_outlined,
+        color: useWhiteForeground(color) ? Colors.white : Colors.black,
+      ):Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
+
             MyColors.lockCheck = true;
             changeColor();
           },
-
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
@@ -90,7 +91,7 @@ class LockColorPicker extends StatefulWidget {
                     Icons.done,
                     color: useWhiteForeground(color) ? Colors.white : Colors.black,
                   )
-                : Text(
+                :  Text(
                     "",
                     textScaleFactor: Constants.textScaleFactor,
                   ),
@@ -109,10 +110,7 @@ class _LockColorPickerState extends State<LockColorPicker> {
 
   @override
   void initState() {
-
     getColorFromPreference();
-
-
 
     _currentColor = widget.pickerColor;
     super.initState();
@@ -127,40 +125,28 @@ class _LockColorPickerState extends State<LockColorPicker> {
   Widget build(BuildContext context) {
     return widget.layoutBuilder(
       context,
-      widget.availableColors,
+      LockColorPicker._defaultColors,
       (Color color, [bool? _, Function? __]) =>
           widget.itemBuilder(color, _currentColor.value == color.value, () => changeColor(color)),
     );
   }
 
-  void getColorFromPreference() async{
-    int i=0;
+  void getColorFromPreference() async {
+     colorPreference = await Utility.getTryColorPreference("Color");
 
-    print("Vivek");
-    String colorPreference1=await Utility.getTryColorPreference("Color");
-    String colorPreference= colorPreference1;
-//MaterialColor(primary value: Color(0xfff44336))
-    colorPreference="MaterialColor(primary value: "+colorPreference1+")";
-    _defaultColors.forEach((element) {
-      i++;
-      print("-<<<<<<<<<<$colorPreference");
-      print("-========= ${element.toString()}");
-      if(colorPreference==element.toString())
-        {
-          print("->>>>$colorPreference");
+    for (int i = 0; i < LockColorPicker._defaultColors.length; i++) {
 
-        }
-    });
-    _defaultColors.removeAt(i);
+      if (colorPreference == LockColorPicker._defaultColors[i].value.toRadixString(16)) {
+        Color c = Color(int.parse("0x" + "${colorPreference}"));
 
-    Color c  = Color(int.parse("0x$colorPreference1"));
+        LockColorPicker._defaultColors.removeAt(i);
+        LockColorPicker._defaultColors.insert(0, c);
 
+        break;
+      }
+    }
 
-
-
-    _defaultColors.insert(0,c );
-setState(() {
-
-});
+    print(LockColorPicker._defaultColors);
+    setState(() {});
   }
 }

@@ -33,7 +33,7 @@ class _CalculatorState extends State<Calculator> {
 
     debugPrint("initialEquation->$equation");
     debugPrint("initialEquation->$expression");
-    debugPrint("initialText->${widget.txtController.text}");
+    debugPrint("initialtext->${widget.txtController.text}");
 
     super.initState();
   }

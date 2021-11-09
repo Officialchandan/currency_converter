@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 class Locals {
   static List<bool> icon = [
+
+
+
+
+
+
     false,
     false,
     false,
@@ -46,8 +52,10 @@ class Locals {
     false,
     false,
     false,
-    false,
     false
+
+
+    //47
   ];
   static const english = Locale('en');
   static const hindi = Locale('hi');
@@ -59,7 +67,6 @@ class Locals {
   static const Spanish = Locale('es');
   static const Bengali = Locale('bn');
   static const Portuguese = Locale('pt', 'BR');
-  //static const Russian  = Locale('ru-RU');
   static const Japanese = Locale('ja', 'JP');
   static const German = Locale('de', 'DE');
   static const Bulgarian = Locale('bg');
@@ -70,7 +77,6 @@ class Locals {
   static const Finnish = Locale('fi', 'FI');
   static const Greek = Locale('el', 'GR');
   static const Hungarian = Locale('hu', 'HU');
-  // static const Hebrew  = Locale('iw-IL');
   static const Armenian = Locale('hy', 'AM');
   static const Indonesian = Locale('id');
   static const Latvian = Locale('lv');
@@ -98,6 +104,10 @@ class Locals {
   static const Georgina = Locale('ka');
 
   static List<Map<String, Locale>> language = [
+
+
+
+
     {"عربي (Arabic)": Locals.Arabic},
     {"հայերեն (Armenian)": Locals.Armenian},
     {"বাংলা  (Bengali)": Locals.Bengali},
@@ -113,8 +123,6 @@ class Locals {
     {"Pilipino(Filipino)": Locals.Filipino},
     {"Suomalainen  (Finnish)": Locals.Finnish},
     {"დახმარება (Georgina)": Locals.Georgina},
-    //* \\
-
     {"Deutsche  (German)": Locals.German},
     {"Ελληνικά (Greek)": Locals.Greek},
     {"ગુજરાતી (Gujarati)": Locals.gujarati},
@@ -125,26 +133,20 @@ class Locals {
     {"Italiana (Italian)  ": Locals.Italian},
     {"日本  (Japanese)": Locals.Japanese},
     {"Latvietis (Latvian)": Locals.Latvian},
-
     {"Melayu (Malay)": Locals.Malay},
     {"मराठी (Marathi)": Locals.Marathi},
     {"नेपाली (Nepali)": Locals.nepali},
     {"norsk(norwegian)": Locals.French},
-    //*
     {"Bosanski(Bosnian)": Locals.Bosnian},
     {"Polskie (Polish)": Locals.Polish},
     {"português  (Portuguese)": Locals.Portuguese},
-    //*
     {"Lietuvių(Lithuanian)": Locals.Lithuanian},
     {"Română (Romanian)": Locals.Romanian},
-    //*
     {"русский(Russia)": Locals.Russian},
-
     {"Српски (Serbian)": Locals.Serbian},
     {"Slovenský (Slovak)": Locals.Slovak},
     {"Slovenščina (Slovenian)": Locals.Slovenian},
     {"Española  (Spanish)": Locals.Spanish},
-
     {"svenska (Swedish)": Locals.Swedish},
     {"தமிழ் (Tamil)": Locals.Tamil},
     {"తెలుగు (Telugu)": Locals.Telugu},

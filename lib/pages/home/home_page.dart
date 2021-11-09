@@ -297,6 +297,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: MyColors.textColor),
                       onPressed: () {
+
                         Navigator.pop(context);
                         if (_tabController.previousIndex == 2 || _tabController.previousIndex == 4) {
                           _tabController.animateTo(_tabController.previousIndex);
@@ -305,6 +306,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                       child: AutoSizeText(
                         "not".tr().toString(),
                         style: TextStyle(fontSize: 18, color: MyColors.colorPrimary, fontWeight: FontWeight.bold),
+                        maxLines: 1,
                       ),
                     ),
                   ),
