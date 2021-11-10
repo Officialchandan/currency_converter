@@ -1257,10 +1257,11 @@ class ColorPickerDialog extends StatefulWidget {
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
   Color unlockCurrentColor = Colors.white;
-  Color lockCurrentColor = Colors.white;
+  LColor lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
   Color densityCurrentColor = Colors.white;
 
   MColor selectedColor = MColor(mainColor: Colors.white, densityColors: []);
+   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
 
   List<MColor> colors = [
     MColor(mainColor: Color(0xff4e7dcb), densityColors: [
@@ -1293,8 +1294,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Color(0xff76BA50),
       Color(0xff65B13A),
       Color(0xff54a925),
-      Color(0xff43871D ),
-      Color(0xff3A7619 ),
+      Color(0xff43871D),
+      Color(0xff3A7619),
       Color(0xff326516),
       Color(0xff295412),
       Color(0xff21430E),
@@ -1358,6 +1359,102 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
     ]),
 
+  ];List<LColor> lcolors = [
+    LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
+     Color(0xffc9d8ef),
+      Color(0xffb8cbea),
+      Color(0xffa6bee5),
+      Color(0xff94b1df),
+      Color(0xff83a4da),
+      Color(0xff7197d5),
+      Color(0xff5f8ad0),
+      Color(0xff4e7dcb),
+      Color(0xff4e7dcb),
+      Color(0xff4670b6),
+      Color(0xff3e64a2),
+      Color(0xff36578e),
+      Color(0xff2e4b79),
+      Color(0xff273e65),
+      Color(0xff1f3251),
+      Color(0xff17253c),
+      Color(0xff0f1928),
+      Color(0xff070c14),
+      Color(0xff000000),
+    ]),
+    LColor(lmainColor: Color(0xff54a925), ldensityColors: [
+      Color(0xffcbe5bd),
+      Color(0xffbadca7),
+      Color(0xffa9d492),
+      Color(0xff98CB7C),
+      Color(0xff87C266),
+      Color(0xff76BA50),
+      Color(0xff65B13A),
+      Color(0xff54a925),
+      Color(0xff43871D),
+      Color(0xff3A7619),
+      Color(0xff326516),
+      Color(0xff295412),
+      Color(0xff21430E),
+      Color(0xff19320B),
+      Color(0xff102107),
+      Color(0xff081003),
+      Color(0xff000000),
+
+    ]),
+    LColor(
+        lmainColor: Color(0xffc95856),
+        ldensityColors: [
+
+
+          Color(0xfff4dddd),
+          Color(0xffeecccc),
+          Color(0xffe9bcbb),
+          Color(0xffe4abaa),
+          Color(0xffde9a99),
+          Color(0xffd98a88),
+          Color(0xffd37977),
+          Color(0xffce6866),
+          Color(0xffc95856),
+          Color(0xffc95856),
+          Color(0xffb44f4d),
+          Color(0xffa04644),
+          Color(0xff8c3d3c),
+          Color(0xff783433),
+          Color(0xff642c2b),
+          Color(0xff502322),
+          Color(0xff3c1a19),
+          Color(0xff281111),
+          Color(0xff140808),
+          Color(0xff000000),
+
+
+        ]),
+    LColor(
+        lmainColor: Color(0xffffa415),
+        ldensityColors: [
+
+          Color(0xffffdaa1),
+          Color(0xffffd18a),
+          Color(0xffffc872),
+          Color(0xffffbf5b),
+          Color(0xffffb643),
+          Color(0xffffad2c),
+          Color(0xffffa415),
+          Color(0xffffa415),
+          Color(0xffe59312),
+          Color(0xffcc8310),
+          Color(0xffb2720e),
+          Color(0xff99620c),
+          Color(0xff7f520a),
+          Color(0xff664108),
+          Color(0xff4c3106),
+          Color(0xff332004),
+          Color(0xff191002),
+          Color(0xff000000
+          ),
+
+    ]),
+
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;
@@ -1369,7 +1466,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   @override
   void initState() {
     unlockCurrentColor = widget.unlockCurrentColor;
-    lockCurrentColor = widget.lockCurrentColor;
+    lockCurrentColor = LColor(lmainColor: widget.lockCurrentColor,ldensityColors: []);
     densityCurrentColor = widget.densityCurrentColor;
     selectedColor = MColor(mainColor: Colors.white, densityColors: [
       Colors.lightBlue.shade50,
@@ -1426,6 +1523,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             child: LockColorPicker(
               pickerColor: lockCurrentColor,
               onColorChanged: lockchangeColor,
+              availableColors: lcolors,
             ),
           ),
         ),
@@ -1631,19 +1729,17 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     unlockSelectdColor = Color(int.parse("0x$code"));
 
     selectedColor = color;
-    setState(
-      () => unlockCurrentColor = color.mainColor,
-    );
+
     // widget.unlockchangeColor(color.mainColor);
   }
 
-  void lockchangeColor(Color color) {
+  void lockchangeColor(LColor color) {
     MyColors.unclockCheck = false;
     MyColors.densitycheck = false;
 
     widget.unlockColorSelect = false;
     widget.lockedColor = true;
-    var code = (color.value.toRadixString(16));
+    var code = (color.lmainColor.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
     colorSelection = lockSelectdColor;
 
@@ -1681,4 +1777,10 @@ class MColor {
   List<Color> densityColors;
 
   MColor({required this.mainColor, required this.densityColors});
+}
+class LColor {
+  Color lmainColor;
+  List<Color> ldensityColors;
+
+  LColor({required this.lmainColor, required this.ldensityColors});
 }
