@@ -147,8 +147,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
         decoration: BoxDecoration(
             gradient: LinearGradient(
           colors: [
-            MyColors.colorPrimary.withOpacity(0.6),
-            MyColors.colorPrimary,
+            MyColors.colorPrimary.withOpacity(0.45),
+            MyColors.colorPrimary.withOpacity(1.0),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

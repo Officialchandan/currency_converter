@@ -122,7 +122,7 @@ class _CalculatorState extends State<Calculator> {
                       border: Border.all(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid),
                       gradient: LinearGradient(
                         colors: [
-                          MyColors.colorPrimary.withOpacity(.25),
+                          MyColors.colorPrimary.withOpacity(.7),
                           MyColors.colorPrimary.withOpacity(.45),
                         ],
                         begin: Alignment.topCenter,

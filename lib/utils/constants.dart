@@ -15,8 +15,8 @@ class Constants {
   static const String fontMedium = "fontMedium";
   static const String fontLarge = "fontLarge";
   static String dateFormat = mmDdYyyy;
-  static String selectedFontSize = fontMedium;
-  static double textScaleFactor = 1;
+  static String selectedFontSize = fontSmall;
+  static double textScaleFactor = 0.9;
 
   static const List<Map<String, dynamic>> countryList = [
     {"code": "OMR", "image": "assets/pngCountryImages/OMR.png", "country_name": "Omani Rial", "Symbol": "ر.ع."},
@@ -54,7 +54,7 @@ class Constants {
     {"code": "BZD", "image": "assets/pngCountryImages/BZD.png", "country_name": "Belize Dollar", "Symbol": "\$"},
     {"code": "CAD", "image": "assets/pngCountryImages/CAD.png", "country_name": "Canadian Dollar", "Symbol": "Can\$"},
     {"code": "CDF", "image": "assets/pngCountryImages/CDF.png", "country_name": "Congolese Franc", "Symbol": "FC"},
-    {"code": "CHF", "image": "assets/pngCountryImages/CHF.png", "country_name": "Swiss Franc", "Symbol": "SFr."},
+    {"code": "CHF", "image" : "assets/pngCountryImages/CHF.png", "country_name": "Swiss Franc", "Symbol": "SFr."},
     {"code": "SAR", "image": "assets/pngCountryImages/SAR.png", "country_name": "Saudi Riyal", "Symbol": "SR"},
     {"code": "CLP", "image": "assets/pngCountryImages/CLP.png", "country_name": "Chilean Peso", "Symbol": "\$"},
     {"code": "CNY", "image": "assets/pngCountryImages/CNY.png", "country_name": "Chinese Yuan", "Symbol": "¥"},

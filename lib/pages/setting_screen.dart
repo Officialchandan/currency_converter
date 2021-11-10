@@ -34,7 +34,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Color color = Colors.red;
   bool _isContainerVisible = false;
   bool isSwitched = false;
-  bool isMultiConverter = true;
+  bool isMultiConverter = false ;
   bool customcolorbool = false;
   Color unlockCurrentColor = MyColors.colorPrimary;
   Color lockCurrentColor = const Color(0xff443a49);
@@ -618,28 +618,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 splashColor: Colors.transparent,
                                 child: Row(
                                   children: [
-                                    // Transform.scale(
-                                    //   scale: 1,
-                                    //   child: Checkbox(
-                                    //     side: BorderSide(color: MyColors.textColor),
-                                    //     value: Constants.selectedFontSize == Constants.fontSmall,
-                                    //     onChanged: (value) async {
-                                    //       if (value!) {
-                                    //         Constants.selectedFontSize = Constants.fontSmall;
-                                    //         Constants.textScaleFactor = 0.95;
-                                    //         await Utility.setStringPreference(Constants.fontSize, Constants.fontSmall);
-                                    //       }
-                                    //
-                                    //       setState(() {
-                                    //
-                                    //       });
-                                    //     },
-                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                    //     checkColor: Colors.black,
-                                    //     tristate: false,
-                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    //   ),
-                                    // ),
+
                                     Constants.selectedFontSize == Constants.fontSmall
                                         ? Image(
                                             image: const AssetImage("assets/images/check.png"),
@@ -656,7 +635,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 borderRadius: BorderRadius.circular(9),
                                                 border: Border.all(
                                                   width: 0.8,
-                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                    color: MyColors.darkModeCheck ? Colors.black : Colors.white,
                                                 )),
                                           ),
                                     const SizedBox(
@@ -675,7 +654,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   if (Constants.selectedFontSize != Constants.fontMedium) {
                                     Constants.selectedFontSize = Constants.fontMedium;
                                     await Utility.setStringPreference(Constants.fontSize, Constants.fontMedium);
-                                    Constants.textScaleFactor = 1;
+                                    Constants.textScaleFactor = .95;
                                   }
                                   setState(() {});
                                 },
@@ -715,7 +694,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
                                                 borderRadius: BorderRadius.circular(9),
                                                 border: Border.all(
-                                                  width: 0.8,
+                                                  width: 0.95,
                                                   color: MyColors.darkModeCheck ? Colors.black : Colors.white,
                                                 )),
                                           ),
@@ -724,7 +703,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                     Text(
                                       "A".tr().toString(),
-                                      textScaleFactor: 1,
+                                      textScaleFactor: 0.95,
                                       style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -736,7 +715,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   if (Constants.selectedFontSize != Constants.fontLarge) {
                                     Constants.selectedFontSize = Constants.fontLarge;
                                     await Utility.setStringPreference(Constants.fontSize, Constants.fontLarge);
-                                    Constants.textScaleFactor = 1.1;
+                                    Constants.textScaleFactor = 1;
                                   }
                                   setState(() {});
                                 },
@@ -785,7 +764,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                     Text(
                                       "A".tr().toString(),
-                                      textScaleFactor: 1.1,
+                                      textScaleFactor: 1,
                                       style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -1285,47 +1264,100 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   List<MColor> colors = [
     MColor(mainColor: Color(0xff4e7dcb), densityColors: [
-      Color(0xff89a8dc),
-      Color(0xff759ad7),
-      Color(0xff628bd1),
+     Color(0xffc9d8ef),
+      Color(0xffb8cbea),
+      Color(0xffa6bee5),
+      Color(0xff94b1df),
+      Color(0xff83a4da),
+      Color(0xff7197d5),
+      Color(0xff5f8ad0),
       Color(0xff4e7dcb),
-      Color(0xff3a6fc5),
-      Color(0xff3463b2),
-      Color(0xff2e589e),
+      Color(0xff4e7dcb),
+      Color(0xff4670b6),
+      Color(0xff3e64a2),
+      Color(0xff36578e),
+      Color(0xff2e4b79),
+      Color(0xff273e65),
+      Color(0xff1f3251),
+      Color(0xff17253c),
+      Color(0xff0f1928),
+      Color(0xff070c14),
+      Color(0xff000000),
     ]),
-    MColor(mainColor: Colors.deepPurple, densityColors: [
-      Colors.deepPurple.shade50,
-      Colors.deepPurple.shade100,
-      Colors.deepPurple.shade200,
-      Colors.deepPurple,
-      Colors.deepPurple.shade900
+    MColor(mainColor: Color(0xff54a925), densityColors: [
+      Color(0xffcbe5bd),
+      Color(0xffbadca7),
+      Color(0xffa9d492),
+      Color(0xff98CB7C),
+      Color(0xff87C266),
+      Color(0xff76BA50),
+      Color(0xff65B13A),
+      Color(0xff54a925),
+      Color(0xff43871D ),
+      Color(0xff3A7619 ),
+      Color(0xff326516),
+      Color(0xff295412),
+      Color(0xff21430E),
+      Color(0xff19320B),
+      Color(0xff102107),
+      Color(0xff081003),
+      Color(0xff000000),
+
     ]),
     MColor(
-        mainColor: Colors.indigo,
-        densityColors: [Colors.indigo.shade50, Colors.indigo.shade100, Colors.indigo.shade200, Colors.indigo, Colors.indigo.shade900]),
+        mainColor: Color(0xffc95856),
+        densityColors: [
+
+
+          Color(0xfff4dddd),
+          Color(0xffeecccc),
+          Color(0xffe9bcbb),
+          Color(0xffe4abaa),
+          Color(0xffde9a99),
+          Color(0xffd98a88),
+          Color(0xffd37977),
+          Color(0xffce6866),
+          Color(0xffc95856),
+          Color(0xffc95856),
+          Color(0xffb44f4d),
+          Color(0xffa04644),
+          Color(0xff8c3d3c),
+          Color(0xff783433),
+          Color(0xff642c2b),
+          Color(0xff502322),
+          Color(0xff3c1a19),
+          Color(0xff281111),
+          Color(0xff140808),
+          Color(0xff000000),
+
+
+        ]),
     MColor(
-        mainColor: Colors.blue,
-        densityColors: [Colors.blue.shade50, Colors.blue.shade100, Colors.blue.shade200, Colors.blue, Colors.blue.shade900]),
-    MColor(mainColor: Colors.lightBlue, densityColors: [
-      Colors.lightBlue.shade50,
-      Colors.lightBlue.shade100,
-      Colors.lightBlue.shade200,
-      Colors.lightBlue,
-      Colors.lightBlue.shade900
+        mainColor: Color(0xffffa415),
+        densityColors: [
+
+          Color(0xffffdaa1),
+          Color(0xffffd18a),
+          Color(0xffffc872),
+          Color(0xffffbf5b),
+          Color(0xffffb643),
+          Color(0xffffad2c),
+          Color(0xffffa415),
+          Color(0xffffa415),
+          Color(0xffe59312),
+          Color(0xffcc8310),
+          Color(0xffb2720e),
+          Color(0xff99620c),
+          Color(0xff7f520a),
+          Color(0xff664108),
+          Color(0xff4c3106),
+          Color(0xff332004),
+          Color(0xff191002),
+          Color(0xff000000
+          ),
+
     ]),
-    MColor(
-        mainColor: Colors.cyan,
-        densityColors: [Colors.cyan.shade50, Colors.cyan.shade100, Colors.cyan.shade200, Colors.cyan, Colors.cyan.shade900]),
-    MColor(
-        mainColor: Colors.red,
-        densityColors: [Colors.red.shade50, Colors.red.shade100, Colors.red.shade200, Colors.red, Colors.red.shade900]),
-    MColor(
-        mainColor: Colors.yellow,
-        densityColors: [Colors.yellow.shade50, Colors.yellow.shade100, Colors.yellow.shade200, Colors.yellow, Colors.yellow.shade900]),
-    MColor(
-        mainColor: Colors.pink,
-        densityColors: [Colors.pink.shade50, Colors.pink.shade100, Colors.pink.shade200, Colors.pink, Colors.pink.shade900]),
-    MColor(mainColor: Colors.black, densityColors: [Colors.black12, Colors.black26, Colors.black45, Colors.black54, Colors.black87]),
+
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;

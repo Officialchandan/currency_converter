@@ -167,19 +167,12 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
           throw true;
         },
         child: Scaffold(
+          backgroundColor: Colors.transparent,
           body: Container(
             padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
             height: appheight,
             width: appwidth,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              colors: [
-                MyColors.colorPrimary.withOpacity(0.45),
-                MyColors.colorPrimary.withOpacity(1.0),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )),
+
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
