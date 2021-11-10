@@ -74,8 +74,12 @@ class UnlockColorPicker extends StatefulWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: (){
-            changeColor();
+
+            MyColors.lastTimeCheck=true;
             MyColors.unclockCheck=true;
+            MyColors.lockCheck=false;
+            MyColors.densitycheck=false;
+            changeColor();
           },
 
           child: AnimatedOpacity(

@@ -36,4 +36,5 @@ class MyColors {
   static bool lockCheck = false;
   static bool densitycheck = false;
   static String text = "123456.02";
+  static bool lastTimeCheck=false;
 }
