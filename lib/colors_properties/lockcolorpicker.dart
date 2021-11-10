@@ -6,6 +6,8 @@ library block_colorpicker;
 
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
+import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_colorpicker/src/utils.dart';
@@ -32,6 +34,7 @@ const List<Color> _defaultColors = [
   Colors.blueGrey,
   Colors.black,
 ];
+String? colorPreference;
 
 typedef PickerLayoutBuilder = Widget Function(
     BuildContext context, List<LColor> colors, PickerItem child);
@@ -89,21 +92,34 @@ class LockColorPicker extends StatefulWidget {
         color: color.lmainColor,
 
       ),
-      child: Material(
+      child:Material(
         color: Colors.transparent,
         child: InkWell(
 
-          onTap: (){changeColor();
+          onTap: (){
+
+            MyColors.lastTimeCheck=false;
+            MyColors.unclockCheck=false;
+            MyColors.densitycheck=false;
+            MyColors.lockCheck=true;
+            changeColor();
 
           },
           borderRadius: BorderRadius.circular(50.0),
-          child: AnimatedOpacity(
+          child:  colorPreference == color.lmainColor.value.toRadixString(16)
+              ? Icon(
+            Icons.visibility_outlined,
+            color: useWhiteForeground(color.lmainColor) ? Colors.white : Colors.black,
+          )
+              :AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
-            child: Icon(
+            child: MyColors.lockCheck? Icon(
               Icons.done,
-              color: useWhiteForeground(color.lmainColor) ? Colors.white : Colors.black,
-            ),
+              color: useWhiteForeground(color.lmainColor)
+                  ? Colors.white
+                  : Colors.black,
+            ):Text("        ",textScaleFactor: Constants.textScaleFactor,),
           ),
         ),
       ),
@@ -120,6 +136,7 @@ class _LockColorPickerState extends State<LockColorPicker> {
   @override
   void initState() {
     _currentColor = widget.pickerColor;
+    getColorFromPreference();
     super.initState();
   }
 
@@ -136,6 +153,25 @@ class _LockColorPickerState extends State<LockColorPicker> {
           (LColor color, [bool? _, Function? __]) => widget.itemBuilder(
           color, _currentColor.lmainColor == color.lmainColor, () => changeColor(color)),
     );
+  }
+  void getColorFromPreference() async {
+    colorPreference = await Utility.getTryColorPreference("Color");
+    Color? c;
+    LColor? lockcolor;
+    for (int i = 0; i < widget.availableColors.length; i++) {
+      if (colorPreference == widget.availableColors[i].lmainColor.value.toRadixString(16)) {
+        c = Color(int.parse("0x" + "${colorPreference}"));
+         lockcolor=LColor(lmainColor: c, ldensityColors: []);
+
+        widget.availableColors.removeAt(i);
+
+        break;
+      }
+    }
+    widget.availableColors.insert(0,lockcolor! );
+
+
+    setState(() {});
   }
 }
 
