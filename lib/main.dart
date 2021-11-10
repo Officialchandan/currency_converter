@@ -100,9 +100,7 @@ class _MyAppState extends State<MyApp> {
 
 Future<void> insertData() async {
   DatabaseHelper dbHelper = DatabaseHelper.instance;
-
   String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
-
   Dio _dio = Dio();
   try {
     Response response = await _dio.get(url);
