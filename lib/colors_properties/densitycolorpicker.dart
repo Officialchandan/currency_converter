@@ -52,6 +52,10 @@ class DensityColorPicker extends StatefulWidget {
           onTap: () {
             changeColor();
             MyColors.densitycheck = true;
+
+            MyColors.lockCheck=false;
+            MyColors.unclockCheck=false;
+
           },
           borderRadius: BorderRadius.circular(50.0),
           child: AnimatedOpacity(

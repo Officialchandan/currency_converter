@@ -240,12 +240,17 @@ class _CalculatorState extends State<Calculator> {
         (buttonText == "×" && equation == "0") ||
         (buttonText == "%" && equation == "0") ||
         (buttonText == "/" && equation == "0") ||
-        (buttonText == "*" && equation == "0") ||
+        (buttonText == "×" && equation == "0") ||
         (buttonText == "+" && equation == "0") ||
         (buttonText == "-" && equation == "0")) {
       debugPrint("nothing");
     } else {
       setState(() {
+        if((!equation.contains("+")&&!equation.contains("-")&&!equation.contains("×")&&!equation.contains("/")&&!equation.contains("%"))&&buttonText=="="){
+          return;
+
+        }
+
         if (buttonText == "c") {
           isbool = true;
           expression = "";
@@ -261,6 +266,9 @@ class _CalculatorState extends State<Calculator> {
           equationFontSize = 48.0;
           resultFontSize = 38.0;
           _backspace();
+          setState(() {
+
+          });
           // equation = equation.substring(0, equation.length - 1);
           // if (equation == "") {
           //   equation = "0";
@@ -269,6 +277,7 @@ class _CalculatorState extends State<Calculator> {
           // widget.onChange(widget.txtController.text);
 
         } else if (buttonText == "=") {
+          
           equationFontSize = 38.0;
           resultFontSize = 48.0;
           isbool = true;
