@@ -233,9 +233,13 @@ class _CalculatorState extends State<Calculator> {
       debugPrint("nothing");
     } else {
       setState(() {
-        if((!equation.contains("+")&&!equation.contains("-")&&!equation.contains("×")&&!equation.contains("/")&&!equation.contains("%"))&&buttonText=="="){
+        if ((!equation.contains("+") &&
+                !equation.contains("-") &&
+                !equation.contains("×") &&
+                !equation.contains("/") &&
+                !equation.contains("%")) &&
+            buttonText == "=") {
           return;
-
         }
 
         if (buttonText == "c") {
@@ -253,9 +257,7 @@ class _CalculatorState extends State<Calculator> {
           equationFontSize = 48.0;
           resultFontSize = 38.0;
           _backspace();
-          setState(() {
-
-          });
+          setState(() {});
           // equation = equation.substring(0, equation.length - 1);
           // if (equation == "") {
           //   equation = "0";
@@ -264,7 +266,6 @@ class _CalculatorState extends State<Calculator> {
           // widget.onChange(widget.txtController.text);
 
         } else if (buttonText == "=") {
-          
           equationFontSize = 38.0;
           resultFontSize = 48.0;
           isbool = true;
@@ -359,6 +360,7 @@ class _CalculatorState extends State<Calculator> {
   void _insertText(String myText) {
     final text = widget.txtController.text;
     final textSelection = widget.txtController.selection;
+    debugPrint("myText->$myText");
 
     if (text.isNotEmpty) {
       if (myText == "+" || myText == "-" || myText == "×" || myText == "÷" || myText == "/" || myText == "*" || myText == "%") {
@@ -496,6 +498,9 @@ class _CalculatorState extends State<Calculator> {
       equation = "0";
       expression = "";
       result = "0";
+    } else {
+      equation = widget.txtController.text;
+      expression = widget.txtController.text;
     }
     widget.txtController.selection = textSelection.copyWith(
       baseOffset: newStart,

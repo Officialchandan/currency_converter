@@ -112,7 +112,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 // print(isSwitched);
                               });
                             },
-                            activeTrackColor: MyColors.lightModeCheck?MyColors.colorPrimary:Colors.grey.shade500,
+                            activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
                             activeColor: MyColors.textColor,
                           ),
                         ),
@@ -618,7 +618,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                 splashColor: Colors.transparent,
                                 child: Row(
                                   children: [
-
                                     Constants.selectedFontSize == Constants.fontSmall
                                         ? Image(
                                             image: const AssetImage("assets/images/check.png"),
@@ -635,7 +634,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 borderRadius: BorderRadius.circular(9),
                                                 border: Border.all(
                                                   width: 0.8,
-                                                    color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
                                                 )),
                                           ),
                                     const SizedBox(
@@ -813,7 +812,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                           // print(isSwitched);
                                         });
                                       },
-                                      activeTrackColor: MyColors.lightModeCheck?MyColors.colorPrimary:Colors.grey.shade500,
+                                      activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
                                       activeColor: MyColors.textColor,
                                     ),
                                   ),
@@ -888,7 +887,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         // print(isSwitched);
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck?MyColors.colorPrimary:Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -926,7 +925,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         }
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck?MyColors.colorPrimary:Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -954,7 +953,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         // print(isSwitched);
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck?MyColors.colorPrimary:Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -1298,7 +1297,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Color(0xff102107),
       Color(0xff081003),
       Color(0xff000000),
-
     ]),
     MColor(mainColor: Color(0xffc95856), densityColors: [
       Color(0xfff4dddd),
@@ -1342,21 +1340,20 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Color(0xff191002),
       Color(0xff000000),
     ]),
-
-  ];List<LColor> lcolors = [
+  ];
+  List<LColor> lcolors = [
     LColor(lmainColor: Colors.red, ldensityColors: [
-    Colors.red.shade50,
-    Colors.red.shade100,
-    Colors.red.shade200,
-    Colors.red.shade300,
-    Colors.red.shade400,
-    Colors.red.shade500,
-    Colors.red,
-    Colors.red.shade600,
-    Colors.red.shade700,
-    Colors.red.shade800,
-    Colors.red.shade900,
-
+      Colors.red.shade50,
+      Colors.red.shade100,
+      Colors.red.shade200,
+      Colors.red.shade300,
+      Colors.red.shade400,
+      Colors.red.shade500,
+      Colors.red,
+      Colors.red.shade600,
+      Colors.red.shade700,
+      Colors.red.shade800,
+      Colors.red.shade900,
     ]),
     LColor(lmainColor: Colors.pink, ldensityColors: [
       Colors.pink.shade50,
@@ -1370,8 +1367,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.pink.shade700,
       Colors.pink.shade800,
       Colors.pink.shade900,
-
-    ]), LColor(lmainColor: Colors.purple, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.purple, ldensityColors: [
       Colors.purple.shade50,
       Colors.purple.shade100,
       Colors.purple.shade200,
@@ -1383,8 +1380,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.purple.shade700,
       Colors.purple.shade800,
       Colors.purple.shade900,
-
-    ]),LColor(lmainColor: Colors.deepPurple, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.deepPurple, ldensityColors: [
       Colors.deepPurple.shade50,
       Colors.deepPurple.shade100,
       Colors.deepPurple.shade200,
@@ -1396,8 +1393,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.deepPurple.shade700,
       Colors.deepPurple.shade800,
       Colors.deepPurple.shade900,
-
-    ]),LColor(lmainColor: Colors.indigo, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.indigo, ldensityColors: [
       Colors.indigo.shade50,
       Colors.indigo.shade100,
       Colors.indigo.shade200,
@@ -1409,8 +1406,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.indigo.shade700,
       Colors.indigo.shade800,
       Colors.indigo.shade900,
-
-    ]),LColor(lmainColor: Colors.blue, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.blue, ldensityColors: [
       Colors.blue.shade50,
       Colors.blue.shade100,
       Colors.blue.shade200,
@@ -1422,8 +1419,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blue.shade700,
       Colors.blue.shade800,
       Colors.blue.shade900,
-
-    ]),LColor(lmainColor: Colors.lightBlue, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.lightBlue, ldensityColors: [
       Colors.lightBlue.shade50,
       Colors.lightBlue.shade100,
       Colors.lightBlue.shade200,
@@ -1435,8 +1432,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.lightBlue.shade700,
       Colors.lightBlue.shade800,
       Colors.lightBlue.shade900,
-
-    ]),LColor(lmainColor: Colors.cyan, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.cyan, ldensityColors: [
       Colors.cyan.shade50,
       Colors.cyan.shade100,
       Colors.cyan.shade200,
@@ -1448,8 +1445,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.cyan.shade700,
       Colors.cyan.shade800,
       Colors.cyan.shade900,
-
-    ]),LColor(lmainColor: Colors.teal, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.teal, ldensityColors: [
       Colors.teal.shade50,
       Colors.teal.shade100,
       Colors.teal.shade200,
@@ -1461,8 +1458,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.teal.shade700,
       Colors.teal.shade800,
       Colors.teal.shade900,
-
-    ]),LColor(lmainColor: Colors.green, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.green, ldensityColors: [
       Colors.green.shade50,
       Colors.green.shade100,
       Colors.green.shade200,
@@ -1474,7 +1471,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.green.shade700,
       Colors.green.shade800,
       Colors.green.shade900,
-
     ]),
     LColor(lmainColor: Colors.lightGreen, ldensityColors: [
       Colors.lightGreen.shade50,
@@ -1488,9 +1484,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.lightGreen.shade700,
       Colors.lightGreen.shade800,
       Colors.lightGreen.shade900,
-
     ]),
-       LColor(lmainColor: Colors.lime, ldensityColors: [
+    LColor(lmainColor: Colors.lime, ldensityColors: [
       Colors.lime.shade50,
       Colors.lime.shade100,
       Colors.lime.shade200,
@@ -1502,8 +1497,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.lime.shade700,
       Colors.lime.shade800,
       Colors.lime.shade900,
-
-    ]), LColor(lmainColor: Colors.yellow, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.yellow, ldensityColors: [
       Colors.yellow.shade50,
       Colors.yellow.shade100,
       Colors.yellow.shade200,
@@ -1515,7 +1510,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.yellow.shade700,
       Colors.yellow.shade800,
       Colors.yellow.shade900,
-
     ]),
     LColor(lmainColor: Colors.amber, ldensityColors: [
       Colors.amber.shade50,
@@ -1529,7 +1523,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.amber.shade700,
       Colors.amber.shade800,
       Colors.amber.shade900,
-
     ]),
     LColor(lmainColor: Colors.orange, ldensityColors: [
       Colors.orange.shade50,
@@ -1543,9 +1536,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.orange.shade700,
       Colors.orange.shade800,
       Colors.orange.shade900,
-
     ]),
-     LColor(lmainColor: Colors.deepOrange, ldensityColors: [
+    LColor(lmainColor: Colors.deepOrange, ldensityColors: [
       Colors.deepOrange.shade50,
       Colors.deepOrange.shade100,
       Colors.deepOrange.shade200,
@@ -1557,9 +1549,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.deepOrange.shade700,
       Colors.deepOrange.shade800,
       Colors.deepOrange.shade900,
-
     ]),
-     LColor(lmainColor: Colors.brown, ldensityColors: [
+    LColor(lmainColor: Colors.brown, ldensityColors: [
       Colors.brown.shade50,
       Colors.brown.shade100,
       Colors.brown.shade200,
@@ -1571,9 +1562,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.brown.shade700,
       Colors.brown.shade800,
       Colors.brown.shade900,
-
     ]),
-     LColor(lmainColor: Colors.grey, ldensityColors: [
+    LColor(lmainColor: Colors.grey, ldensityColors: [
       Colors.grey.shade50,
       Colors.grey.shade100,
       Colors.grey.shade200,
@@ -1585,7 +1575,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.grey.shade700,
       Colors.grey.shade800,
       Colors.grey.shade900,
-
     ]),
     LColor(lmainColor: Colors.blueGrey, ldensityColors: [
       Colors.blueGrey.shade50,
@@ -1599,9 +1588,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade700,
       Colors.blueGrey.shade800,
       Colors.blueGrey.shade900,
-
     ]),
-
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;
@@ -1615,7 +1602,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     unlockCurrentColor = widget.unlockCurrentColor;
     lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
     densityCurrentColor = widget.densityCurrentColor;
-    selectedColor = MColor(mainColor:  Color(0xff4e7dcb), densityColors: [
+    selectedColor = MColor(mainColor: Color(0xff4e7dcb), densityColors: [
       Color(0xffc9d8ef),
       Color(0xffb8cbea),
       Color(0xffa6bee5),
@@ -1635,7 +1622,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Color(0xff0f1928),
       Color(0xff070c14),
       Color(0xff000000),
-    ]); lselectedColor = LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
+    ]);
+    lselectedColor = LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
       Color(0xffc9d8ef),
       Color(0xffb8cbea),
       Color(0xffa6bee5),
@@ -1655,7 +1643,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Color(0xff0f1928),
       Color(0xff070c14),
       Color(0xff000000),
-
     ]);
     super.initState();
   }
@@ -1708,12 +1695,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         ),
         Center(
           child: Container(
-            margin: EdgeInsets.only(top: 10),
-            width: width * 0.87,
-            height: height * 0.077,
-            child: DensityColorPicker(
-                pickerColor: densityCurrentColor, onColorChanged: densitychangeColor, availableColors:MyColors.lastTimeCheck?selectedColor.densityColors:lselectedColor.ldensityColors )
-          ),
+              margin: EdgeInsets.only(top: 10),
+              width: width * 0.87,
+              height: height * 0.077,
+              child: DensityColorPicker(
+                  pickerColor: densityCurrentColor,
+                  onColorChanged: densitychangeColor,
+                  availableColors: MyColors.lastTimeCheck ? selectedColor.densityColors : lselectedColor.ldensityColors)),
         ),
         const SizedBox(
           height: 5,
@@ -1749,12 +1737,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.lightModeCheck = true;
                             MyColors.darkModeCheck = false;
                           }
-                          if(MyColors.densitycheck){
+                          if (MyColors.densitycheck) {
                             Utility.setTryColorPreference("Color", "");
-                          }
-                          else
-
-                          Utility.setTryColorPreference("Color", MyColors.colorPrimary.value.toRadixString(16));
+                          } else
+                            Utility.setTryColorPreference("Color", MyColors.colorPrimary.value.toRadixString(16));
 
                           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                             // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
@@ -1928,7 +1914,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     var code = (color.lmainColor.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
     colorSelection = lockSelectdColor;
-    lselectedColor=color;
+    lselectedColor = color;
 
     setState(
       () => lockCurrentColor = color,
