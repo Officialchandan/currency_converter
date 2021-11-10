@@ -34,7 +34,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Color color = Colors.red;
   bool _isContainerVisible = false;
   bool isSwitched = false;
-  bool isMultiConverter = false ;
+  bool isMultiConverter = false;
   bool customcolorbool = false;
   Color unlockCurrentColor = MyColors.colorPrimary;
   Color lockCurrentColor = const Color(0xff443a49);
@@ -72,7 +72,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 children: [
                   Container(
                       margin: const EdgeInsets.only(top: 20, bottom: 13),
-                      child: Text("removeAds".tr().toString(),
+                      child: Text("remove_ads".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
                           style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   Container(
@@ -89,7 +89,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               textScaleFactor: Constants.textScaleFactor,
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: "removeAdsContent".tr().toString(),
+                                  text: "sub_remove_ads".tr().toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: GoogleFonts.roboto().fontFamily,
@@ -121,7 +121,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   Container(
                       margin: const EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                      child: Text("selectLanguage".tr().toString(),
+                      child: Text("cpv_select".tr().toString() + " " + "language".tr(),
                           textScaleFactor: Constants.textScaleFactor,
                           style: GoogleFonts.roboto(
                             fontSize: 18,
@@ -152,7 +152,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("english".tr().toString(),
+                                Text("iso".tr().toString(),
                                     textScaleFactor: Constants.textScaleFactor,
                                     style: GoogleFonts.roboto(fontSize: 16, color: MyColors.textColor, fontWeight: FontWeight.w500)),
 
@@ -193,7 +193,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ? Container()
                       : Container(
                           margin: const EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                          child: Text("colorsSelection".tr().toString(),
+                          child: Text("color_selection".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
                               style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   InkWell(
@@ -408,7 +408,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   right: 15,
                                 ),
                                 child: Text(
-                                  "widgetTransparency".tr().toString(),
+                                  "wedget_transparency".tr().toString(),
                                   textScaleFactor: Constants.textScaleFactor,
                                   style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold),
                                 )),
@@ -574,7 +574,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                           )),
                                                     ),
                                                     const SizedBox(height: 5),
-                                                    Text("wiki".tr().toString(),
+                                                    Text("by_currency_wiki".tr().toString(),
                                                         textScaleFactor: Constants.textScaleFactor,
                                                         style: GoogleFonts.roboto(
                                                           color: MyColors.textColor,
@@ -592,7 +592,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ? Container()
                       : Container(
                           margin: EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                          child: Text("visualSize".tr().toString(),
+                          child: Text("visual_size".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
                               style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   _isContainerVisible
@@ -618,7 +618,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                 splashColor: Colors.transparent,
                                 child: Row(
                                   children: [
-
                                     Constants.selectedFontSize == Constants.fontSmall
                                         ? Image(
                                             image: const AssetImage("assets/images/check.png"),
@@ -635,14 +634,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                                 borderRadius: BorderRadius.circular(9),
                                                 border: Border.all(
                                                   width: 0.8,
-                                                    color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
                                                 )),
                                           ),
                                     const SizedBox(
                                       width: 10,
                                     ),
-
-                                    Text("A".tr().toString(),
+                                    Text("A",
                                         textScaleFactor: 0.9,
                                         style:
                                             GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500)),
@@ -702,7 +700,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       width: 10,
                                     ),
                                     Text(
-                                      "A".tr().toString(),
+                                      "A",
                                       textScaleFactor: 0.95,
                                       style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500),
                                     ),
@@ -763,7 +761,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       width: 10,
                                     ),
                                     Text(
-                                      "A".tr().toString(),
+                                      "A",
                                       textScaleFactor: 1,
                                       style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500),
                                     ),
@@ -776,7 +774,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ? Container()
                       : Container(
                           margin: const EdgeInsets.only(left: 10, bottom: 5, top: 25),
-                          child: Text("appLogoLauncher".tr().toString(),
+                          child: Text("when_opening_app".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
                               style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   _isContainerVisible
@@ -796,7 +794,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 children: [
                                   Container(
                                       margin: EdgeInsets.only(bottom: 5, left: 2),
-                                      child: Text("multiConverter".tr().toString(),
+                                      child: Text("display_multi_converter".tr().toString(),
                                           textScaleFactor: Constants.textScaleFactor,
                                           style: GoogleFonts.roboto(
                                               fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
@@ -830,11 +828,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               _isContainerVisible
                                   ? Container()
                                   : AutoSizeText(
-                                      "multiConverterContent1".tr().toString() +
-                                          " " +
-                                          "multiConverterContent2".tr().toString() +
-                                          " " +
-                                          "multiConverterContent3".tr().toString(),
+                                      "sub_multi_converter".tr().toString(),
                                       maxLines: 3,
                                       textAlign: TextAlign.start,
                                       maxFontSize: 15,
@@ -849,7 +843,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ? Container()
                       : Container(
                           margin: EdgeInsets.only(left: 0, bottom: 5, top: 25),
-                          child: Text("display".tr().toString(),
+                          child: Text("dislay".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
                               style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   _isContainerVisible
@@ -867,7 +861,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 children: [
                                   Container(
                                     padding: EdgeInsets.only(top: 12),
-                                    child: Text("display1".tr().toString(),
+                                    child: Text("display_currency_code".tr().toString(),
                                         textScaleFactor: Constants.textScaleFactor,
                                         style: GoogleFonts.roboto(
                                             fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.normal)),
@@ -905,7 +899,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   Container(
                                     padding: EdgeInsets.only(top: 12),
                                     child: AutoSizeText(
-                                      "display2".tr().toString(),
+                                      "display_currency_symbol".tr().toString(),
                                       style: GoogleFonts.roboto(color: MyColors.textColor, fontWeight: FontWeight.normal),
                                       maxFontSize: 17,
                                       minFontSize: 15,
@@ -942,7 +936,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 children: [
                                   Container(
                                     padding: EdgeInsets.only(top: 12),
-                                    child: Text("display3".tr().toString(),
+                                    child: Text("display_currency_flag".tr().toString(),
                                         textScaleFactor: Constants.textScaleFactor,
                                         style: GoogleFonts.roboto(
                                             fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.normal)),
@@ -970,7 +964,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ? Container()
                       : Container(
                           margin: EdgeInsets.only(left: 0, bottom: 13, top: 20),
-                          child: Text("dateFormat".tr().toString(),
+                          child: Text("date_format".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
                               style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   _isContainerVisible
@@ -1261,11 +1255,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   Color densityCurrentColor = Colors.white;
 
   MColor selectedColor = MColor(mainColor: Colors.white, densityColors: []);
-   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
+  LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
 
   List<MColor> colors = [
     MColor(mainColor: Color(0xff4e7dcb), densityColors: [
-     Color(0xffc9d8ef),
+      Color(0xffc9d8ef),
       Color(0xffb8cbea),
       Color(0xffa6bee5),
       Color(0xff94b1df),
@@ -1303,65 +1297,53 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Color(0xff102107),
       Color(0xff081003),
       Color(0xff000000),
-
     ]),
-    MColor(
-        mainColor: Color(0xffc95856),
-        densityColors: [
-
-
-          Color(0xfff4dddd),
-          Color(0xffeecccc),
-          Color(0xffe9bcbb),
-          Color(0xffe4abaa),
-          Color(0xffde9a99),
-          Color(0xffd98a88),
-          Color(0xffd37977),
-          Color(0xffce6866),
-          Color(0xffc95856),
-          Color(0xffc95856),
-          Color(0xffb44f4d),
-          Color(0xffa04644),
-          Color(0xff8c3d3c),
-          Color(0xff783433),
-          Color(0xff642c2b),
-          Color(0xff502322),
-          Color(0xff3c1a19),
-          Color(0xff281111),
-          Color(0xff140808),
-          Color(0xff000000),
-
-
-        ]),
-    MColor(
-        mainColor: Color(0xffffa415),
-        densityColors: [
-
-          Color(0xffffdaa1),
-          Color(0xffffd18a),
-          Color(0xffffc872),
-          Color(0xffffbf5b),
-          Color(0xffffb643),
-          Color(0xffffad2c),
-          Color(0xffffa415),
-          Color(0xffffa415),
-          Color(0xffe59312),
-          Color(0xffcc8310),
-          Color(0xffb2720e),
-          Color(0xff99620c),
-          Color(0xff7f520a),
-          Color(0xff664108),
-          Color(0xff4c3106),
-          Color(0xff332004),
-          Color(0xff191002),
-          Color(0xff000000
-          ),
-
+    MColor(mainColor: Color(0xffc95856), densityColors: [
+      Color(0xfff4dddd),
+      Color(0xffeecccc),
+      Color(0xffe9bcbb),
+      Color(0xffe4abaa),
+      Color(0xffde9a99),
+      Color(0xffd98a88),
+      Color(0xffd37977),
+      Color(0xffce6866),
+      Color(0xffc95856),
+      Color(0xffc95856),
+      Color(0xffb44f4d),
+      Color(0xffa04644),
+      Color(0xff8c3d3c),
+      Color(0xff783433),
+      Color(0xff642c2b),
+      Color(0xff502322),
+      Color(0xff3c1a19),
+      Color(0xff281111),
+      Color(0xff140808),
+      Color(0xff000000),
     ]),
-
-  ];List<LColor> lcolors = [
+    MColor(mainColor: Color(0xffffa415), densityColors: [
+      Color(0xffffdaa1),
+      Color(0xffffd18a),
+      Color(0xffffc872),
+      Color(0xffffbf5b),
+      Color(0xffffb643),
+      Color(0xffffad2c),
+      Color(0xffffa415),
+      Color(0xffffa415),
+      Color(0xffe59312),
+      Color(0xffcc8310),
+      Color(0xffb2720e),
+      Color(0xff99620c),
+      Color(0xff7f520a),
+      Color(0xff664108),
+      Color(0xff4c3106),
+      Color(0xff332004),
+      Color(0xff191002),
+      Color(0xff000000),
+    ]),
+  ];
+  List<LColor> lcolors = [
     LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
-     Color(0xffc9d8ef),
+      Color(0xffc9d8ef),
       Color(0xffb8cbea),
       Color(0xffa6bee5),
       Color(0xff94b1df),
@@ -1399,62 +1381,49 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Color(0xff102107),
       Color(0xff081003),
       Color(0xff000000),
-
     ]),
-    LColor(
-        lmainColor: Color(0xffc95856),
-        ldensityColors: [
-
-
-          Color(0xfff4dddd),
-          Color(0xffeecccc),
-          Color(0xffe9bcbb),
-          Color(0xffe4abaa),
-          Color(0xffde9a99),
-          Color(0xffd98a88),
-          Color(0xffd37977),
-          Color(0xffce6866),
-          Color(0xffc95856),
-          Color(0xffc95856),
-          Color(0xffb44f4d),
-          Color(0xffa04644),
-          Color(0xff8c3d3c),
-          Color(0xff783433),
-          Color(0xff642c2b),
-          Color(0xff502322),
-          Color(0xff3c1a19),
-          Color(0xff281111),
-          Color(0xff140808),
-          Color(0xff000000),
-
-
-        ]),
-    LColor(
-        lmainColor: Color(0xffffa415),
-        ldensityColors: [
-
-          Color(0xffffdaa1),
-          Color(0xffffd18a),
-          Color(0xffffc872),
-          Color(0xffffbf5b),
-          Color(0xffffb643),
-          Color(0xffffad2c),
-          Color(0xffffa415),
-          Color(0xffffa415),
-          Color(0xffe59312),
-          Color(0xffcc8310),
-          Color(0xffb2720e),
-          Color(0xff99620c),
-          Color(0xff7f520a),
-          Color(0xff664108),
-          Color(0xff4c3106),
-          Color(0xff332004),
-          Color(0xff191002),
-          Color(0xff000000
-          ),
-
+    LColor(lmainColor: Color(0xffc95856), ldensityColors: [
+      Color(0xfff4dddd),
+      Color(0xffeecccc),
+      Color(0xffe9bcbb),
+      Color(0xffe4abaa),
+      Color(0xffde9a99),
+      Color(0xffd98a88),
+      Color(0xffd37977),
+      Color(0xffce6866),
+      Color(0xffc95856),
+      Color(0xffc95856),
+      Color(0xffb44f4d),
+      Color(0xffa04644),
+      Color(0xff8c3d3c),
+      Color(0xff783433),
+      Color(0xff642c2b),
+      Color(0xff502322),
+      Color(0xff3c1a19),
+      Color(0xff281111),
+      Color(0xff140808),
+      Color(0xff000000),
     ]),
-
+    LColor(lmainColor: Color(0xffffa415), ldensityColors: [
+      Color(0xffffdaa1),
+      Color(0xffffd18a),
+      Color(0xffffc872),
+      Color(0xffffbf5b),
+      Color(0xffffb643),
+      Color(0xffffad2c),
+      Color(0xffffa415),
+      Color(0xffffa415),
+      Color(0xffe59312),
+      Color(0xffcc8310),
+      Color(0xffb2720e),
+      Color(0xff99620c),
+      Color(0xff7f520a),
+      Color(0xff664108),
+      Color(0xff4c3106),
+      Color(0xff332004),
+      Color(0xff191002),
+      Color(0xff000000),
+    ]),
   ];
   Color? lockSelectdColor;
   Color? unlockSelectdColor;
@@ -1466,7 +1435,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   @override
   void initState() {
     unlockCurrentColor = widget.unlockCurrentColor;
-    lockCurrentColor = LColor(lmainColor: widget.lockCurrentColor,ldensityColors: []);
+    lockCurrentColor = LColor(lmainColor: widget.lockCurrentColor, ldensityColors: []);
     densityCurrentColor = widget.densityCurrentColor;
     selectedColor = MColor(mainColor: Colors.white, densityColors: [
       Colors.lightBlue.shade50,
@@ -1584,7 +1553,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           Navigator.pop(context);
                         },
                         child: AutoSizeText(
-                          "try".tr().toString(),
+                          "try_this_color".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
                           style: TextStyle(fontSize: 16),
                           maxLines: 1,
@@ -1624,7 +1593,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   showCustomColorPickerDialog(context);
                 },
                 child: AutoSizeText(
-                  "custom".tr().toString(),
+                  "cpv_custom".tr().toString(),
                   textScaleFactor: Constants.textScaleFactor,
                   style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
                   maxLines: 1,
@@ -1674,7 +1643,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         setState(() {});
                       },
                       child: Text(
-                        "select".tr().toString(),
+                        "cpv_select".tr().toString(),
                         textScaleFactor: Constants.textScaleFactor,
                         style: TextStyle(letterSpacing: 1.0, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -1778,6 +1747,7 @@ class MColor {
 
   MColor({required this.mainColor, required this.densityColors});
 }
+
 class LColor {
   Color lmainColor;
   List<Color> ldensityColors;

@@ -183,7 +183,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                     centerTitle: true,
                     toolbarHeight: 50,
                     title: Text(
-                      "update".tr().toString() + ": " + Utility.getFormatDate(),
+                      "updated_date".tr().toString() + ": " + Utility.getFormatDate(),
                       textScaleFactor: Constants.textScaleFactor,
                       // textAlign: TextAlign.center,
                       style: TextStyle(
@@ -304,7 +304,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 setState(() {});
                               },
                               onChanged: (text) {
-                                print("onchange---------> $text");
+                                debugPrint("onchange---------> $text");
                                 getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
                                 calculateCurrency.selection =
@@ -456,7 +456,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Container(
-                                  padding: EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(5),
                                   width: 15,
                                   height: 15,
                                   child: ClipRRect(
@@ -560,10 +560,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                             " = " +
                                             "${Utility.getFormatText(text)}" +
                                             " ${edtTo.text}" +
-                                            " by Currency.wiki"))
+                                            " "+ "by_currency_wiki".tr()))
                                     .then((result) {
                                   Fluttertoast.showToast(
-                                      msg: "Copied to Clipboard",
+                                      msg: "copied_to_clipboard".tr(),
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,
@@ -638,7 +638,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         quotes.forEach((key, value) async {
           DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
 
-          int id = await dbHelper.insert(currencyData.toMap());
+         await dbHelper.insert(currencyData.toMap());
 
           //
         });

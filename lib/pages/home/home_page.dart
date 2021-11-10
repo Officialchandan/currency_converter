@@ -229,7 +229,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                         )),
                   ),
                   Text(
-                    "firstTextRatingPage".tr().toString(),
+                    "rate_the_app".tr().toString(),
                     textScaleFactor: Constants.textScaleFactor,
                     style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.bold),
                   ),
@@ -242,7 +242,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [
                           TextSpan(
-                              text: "secondTextRatingPage".tr().toString(),
+                              text: "rate_app_desc".tr().toString(),
                               style: GoogleFonts.roboto(
                                 fontSize: 16,
                                 color: MyColors.textColor,
@@ -309,7 +309,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                         }
                       },
                       child: AutoSizeText(
-                        "not".tr().toString(),
+                        "not_now".tr().toString(),
                         style: TextStyle(fontSize: 18, color: MyColors.colorPrimary, fontWeight: FontWeight.bold),
                         maxLines: 1,
                       ),

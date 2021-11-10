@@ -48,7 +48,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   bool firstTime = true;
   DataModel? selectedData;
 
-  void getSelectedList() async {
+  Future getSelectedList() async {
     firstTime = true;
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
@@ -96,15 +96,22 @@ class _MyCurrencyState extends State<MyCurrency> {
     return true;
   }
 
-  void _reorderDone(Key item) {
+  void _reorderDone(Key item) async {
+    int index = _indexOfKey(item);
+    debugPrint("_indexOfKey $index");
     final draggedItem = selectedList[_indexOfKey(item)];
-    debugPrint("Reordering finished for ${draggedItem.code}}");
-  }
+    debugPrint("draggedItem $draggedItem");
 
-  //
-  // Reordering works by having ReorderableList widget in hierarchy
-  // containing ReorderableItems widgets
-  //
+    if (selectedList.length == index + 1) {
+      draggedItem.timeStamp = DateTime.now().millisecondsSinceEpoch;
+    } else {
+      debugPrint("draggedItem ${selectedList[index + 1]}");
+      draggedItem.timeStamp = selectedList[index + 1].timeStamp! - 1000;
+    }
+
+    await dbHelper.update(draggedItem.toMap());
+    debugPrint("Reordering finished for ${draggedItem.code}");
+  }
 
   DraggingMode _draggingMode = DraggingMode.iOS;
 
@@ -150,7 +157,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                       centerTitle: true,
                       toolbarHeight: 50,
                       title: Text(
-                        "update".tr().toString() + ": " + Utility.getFormatDate(),
+                        "updated_date".tr().toString() + ": " + Utility.getFormatDate(),
                         textScaleFactor: Constants.textScaleFactor,
                         // textAlign: TextAlign.center,
                         style: TextStyle(
@@ -256,7 +263,21 @@ class _MyCurrencyState extends State<MyCurrency> {
           onPressed: () async {
             streamController.add([]);
             await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
-            getSelectedList();
+
+            await getSelectedList();
+
+            FocusScope.of(context).unfocus();
+            String value = await Utility.getStringPreference("value");
+            String code = await Utility.getStringPreference("code");
+            debugPrint("value-->$value");
+            debugPrint("code-->$code");
+            dataController.addError("error");
+            if (value.isNotEmpty && code.isNotEmpty) {
+              int index = selectedList.indexWhere((element) => element.code == code);
+              selectedList[index].controller.text = value;
+              calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+              // streamController.a
+            }
           },
           child: Icon(
             Icons.add,
@@ -359,8 +380,10 @@ class _MyCurrencyState extends State<MyCurrency> {
     dataController.addError("error");
     if (value.isNotEmpty && code.isNotEmpty) {
       int index = selectedList.indexWhere((element) => element.code == code);
-      selectedList[index].controller.text = value;
-      calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+      if (index != -1) {
+        selectedList[index].controller.text = value;
+        calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+      }
     }
     setState(() {});
   }

@@ -66,7 +66,7 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
                   ),
                   Tab(
                     child: Text(
-                      "term".tr().toString(),
+                      "terms".tr().toString(),
                       maxLines: 1,
                       textScaleFactor: Constants.textScaleFactor,
                       style: TextStyle(
@@ -78,7 +78,7 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
                   ),
                   Tab(
                     child: Text(
-                      "privacy".tr().toString(),
+                      "privacy_policy".tr().toString(),
                       maxLines: 1,
                       textScaleFactor: Constants.textScaleFactor,
                       style: TextStyle(
