@@ -30,6 +30,11 @@ class LockColorPicker extends StatefulWidget {
     Colors.yellow,
     Colors.amber,
     Colors.orange,
+    Colors.deepOrange,
+    Colors.brown,
+    Colors.grey,
+    Colors.blueGrey,
+    Colors.black,
   ];
 
   LockColorPicker({
@@ -49,7 +54,7 @@ class LockColorPicker extends StatefulWidget {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.27,
+      height: MediaQuery.of(context).size.height * 0.37,
       child: GridView.count(
         physics: NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(0),

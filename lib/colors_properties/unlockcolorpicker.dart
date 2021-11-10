@@ -36,7 +36,7 @@ class UnlockColorPicker extends StatefulWidget {
 
     return IntrinsicHeight(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.19,
+        height: MediaQuery.of(context).size.height * 0.09,
 
         child: GridView.count(
           physics: NeverScrollableScrollPhysics(),
