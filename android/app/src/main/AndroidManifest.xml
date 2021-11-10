@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.example.currency_converter":"
+	package="com.example.currency_converter">
 
 	<uses-permission android:name="android.permission.INTERNET" />
 
@@ -7,7 +7,7 @@
 		android:icon="@mipmap/app_icon"
 		android:label="CurrencyConverter"
 		android:roundIcon="@mipmap/app_icon"
-		android:supportsRtl="false":"
+		android:supportsRtl="false">
 		<activity
 			android:name=".MainActivity"
 			android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -16,7 +16,7 @@
 			android:launchMode="singleTop"
 			android:screenOrientation="portrait"
 			android:theme="@style/LaunchTheme"
-			android:windowSoftInputMode="stateAlwaysHidden":"
+			android:windowSoftInputMode="stateAlwaysHidden">
 			<!-- Specifies an Android theme to apply to this Activity as soon as
 				 the Android process has started. This theme is visible to the user
 				 while the Flutter UI initializes. After that, this theme continues
