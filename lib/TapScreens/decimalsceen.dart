@@ -30,13 +30,6 @@ class _DecimalScreensState extends State<DecimalScreens> {
   int demoIndex = 0;
   String demoText = "";
 
-  List<String> radiMonetaryFormat = [
-    "1234.56",
-    "1.234,56",
-    "1 234.56",
-    "1 234,56",
-  ];
-
   List<Map<String, dynamic>> monetaryFormat = [
     {"format": "1234.56", "id": "1", "check": false},
     {"format": "1.234,56", "id": "2", "check": false},
@@ -44,7 +37,6 @@ class _DecimalScreensState extends State<DecimalScreens> {
     {"format": "1 234,56", "id": "4", "check": false},
   ];
 
-  List<String> radiDecimalFormat = [".02", ".003", ".0004", ".00005", ".0000006", "don_t_show".tr().toString()];
   List<Map<String, dynamic>> decimalFormat = [
     {"format": ".02", "id": "2", "check": false},
     {"format": ".003", "id": "3", "check": false},

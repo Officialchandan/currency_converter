@@ -32,7 +32,7 @@ class _AddCurrencyState extends State<AddCurrency> {
   void getAllData() async {
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
-    unselectedList.addAll(selectedList);
+    // unselectedList.addAll(selectedList);
     List<DataModel> data = await dbHelper.getUnselectedData();
     unselectedList.addAll(data);
     selectedController.add(selectedList);

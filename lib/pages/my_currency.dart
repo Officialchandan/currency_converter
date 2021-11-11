@@ -49,7 +49,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   DataModel? selectedData;
 
   Future getSelectedList() async {
-    firstTime = true;
+    // firstTime = true;
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
     debugPrint("selectedList-->$selectedList");
@@ -244,6 +244,8 @@ class _MyCurrencyState extends State<MyCurrency> {
 
                   await Utility.setStringPreference("value", text);
                   await Utility.setStringPreference("code", snapshot.data!.code);
+                  Constants.selectedEditableCurrencyCode = snapshot.data!.code;
+                  Constants.selectedEditableCurrencyValue = text;
 
                   int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
                   if (i != -1) {
@@ -263,7 +265,6 @@ class _MyCurrencyState extends State<MyCurrency> {
           onPressed: () async {
             streamController.add([]);
             await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
-
             await getSelectedList();
 
             FocusScope.of(context).unfocus();

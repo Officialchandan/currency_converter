@@ -68,7 +68,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   String currencyCodeFrom = "USD";
   String currencyCodeTo = "INR";
-  Map<String, double> cresult = {};
 
   @override
   void initState() {
@@ -172,7 +171,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
             padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
             height: appheight,
             width: appwidth,
-
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -560,7 +558,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                             " = " +
                                             "${Utility.getFormatText(text)}" +
                                             " ${edtTo.text}" +
-                                            " "+ "by_currency_wiki".tr()))
+                                            " " +
+                                            "by_currency_wiki".tr()))
                                     .then((result) {
                                   Fluttertoast.showToast(
                                       msg: "copied_to_clipboard".tr(),
@@ -583,7 +582,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                         wrapWords: true,
                                         maxLines: 1,
                                         maxFontSize: 32.0,
-                                        minFontSize: 15.0,
+                                        minFontSize: 8.0,
                                         style: TextStyle(color: MyColors.textColor, fontSize: 32, fontWeight: FontWeight.w400),
                                       ),
                                     ),
@@ -638,7 +637,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         quotes.forEach((key, value) async {
           DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
 
-         await dbHelper.insert(currencyData.toMap());
+          await dbHelper.insert(currencyData.toMap());
 
           //
         });
