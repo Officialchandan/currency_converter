@@ -7,8 +7,7 @@ class Calculator extends StatefulWidget {
   final TextEditingController txtController;
   final Function(String text) onChange;
 
-  Calculator({required this.txtController, required this.onChange, Key? key})
-      : super(key: key);
+  Calculator({required this.txtController, required this.onChange, Key? key}) : super(key: key);
 
   @override
   _CalculatorState createState() => _CalculatorState();
@@ -43,8 +42,7 @@ class _CalculatorState extends State<Calculator> {
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Container(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,8 +102,7 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  buildButton(String buttonText, double buttonHeight, Color buttonColor,
-      double buttonTexth) {
+  buildButton(String buttonText, double buttonHeight, Color buttonColor, double buttonTexth) {
     return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
@@ -113,8 +110,7 @@ class _CalculatorState extends State<Calculator> {
               bottom: MediaQuery.of(context).viewInsets.left,
             ),
             height: MediaQuery.of(context).size.height * 0.057 * buttonHeight,
-            color:
-                MyColors.lightModeCheck ? Colors.white : MyColors.colorPrimary,
+            color: MyColors.lightModeCheck ? Colors.white : MyColors.colorPrimary,
             child: Container(
               //**Alline height */
               //This is grate
@@ -123,10 +119,7 @@ class _CalculatorState extends State<Calculator> {
 
               decoration: MyColors.lightModeCheck
                   ? BoxDecoration(
-                      border: Border.all(
-                          color: MyColors.colorPrimary,
-                          width: 0.4,
-                          style: BorderStyle.solid),
+                      border: Border.all(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid),
                       gradient: LinearGradient(
                         colors: [
                           MyColors.colorPrimary.withOpacity(.7),
@@ -138,10 +131,7 @@ class _CalculatorState extends State<Calculator> {
                         //stops: [0.0,0.0]
                       ))
                   : BoxDecoration(
-                      border: Border.all(
-                          color: MyColors.colorPrimary,
-                          width: 0.4,
-                          style: BorderStyle.solid),
+                      border: Border.all(color: MyColors.colorPrimary, width: 0.4, style: BorderStyle.solid),
                       gradient: LinearGradient(
                         colors: [
                           Colors.black54.withOpacity(.30),
@@ -192,10 +182,7 @@ class _CalculatorState extends State<Calculator> {
                               : Text(
                                   buttonText.toUpperCase(),
                                   textScaleFactor: Constants.textScaleFactor,
-                                  style: TextStyle(
-                                      fontSize: buttonTexth,
-                                      fontWeight: FontWeight.normal,
-                                      color: MyColors.textColor),
+                                  style: TextStyle(fontSize: buttonTexth, fontWeight: FontWeight.normal, color: MyColors.textColor),
                                 ),
                     ),
                   )),
@@ -203,6 +190,8 @@ class _CalculatorState extends State<Calculator> {
   }
 
   buttonPressed(String buttonText) {
+    equation = widget.txtController.text;
+    expression = widget.txtController.text;
     if ((equation.substring(equation.length - 1) == "+" && buttonText == "+") ||
         (equation.substring(equation.length - 1) == "+" && buttonText == "-") ||
         (equation.substring(equation.length - 1) == "+" && buttonText == "×") ||
@@ -338,8 +327,7 @@ class _CalculatorState extends State<Calculator> {
             Expression expn = p.parse(expression);
             ContextModel cm = ContextModel();
             result = '${expn.evaluate(EvaluationType.REAL, cm)}';
-            result =
-                double.parse(result).toStringAsFixed(MyColors.decimalFormat);
+            result = double.parse(result).toStringAsFixed(MyColors.decimalFormat);
             expression = result;
             equation = result;
             widget.txtController.clear();
@@ -374,7 +362,6 @@ class _CalculatorState extends State<Calculator> {
       });
     }
     print("####################$equation");
-     MyColors.equationForCopy=equation;
   }
 
   void _insertText(String myText) {
@@ -383,13 +370,7 @@ class _CalculatorState extends State<Calculator> {
     debugPrint("myText->$myText");
 
     if (text.isNotEmpty) {
-      if (myText == "+" ||
-          myText == "-" ||
-          myText == "×" ||
-          myText == "÷" ||
-          myText == "/" ||
-          myText == "*" ||
-          myText == "%") {
+      if (myText == "+" || myText == "-" || myText == "×" || myText == "÷" || myText == "/" || myText == "*" || myText == "%") {
         debugPrint("myText contain operator");
         String previousText = text[textSelection.start - 1];
 

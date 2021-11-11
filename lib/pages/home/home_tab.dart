@@ -33,27 +33,15 @@ class TapHome extends StatefulWidget {
 
 class _TapHomeState extends State<TapHome> implements TabChangeListener {
   String symbol2 = "€";
-
   String symbol = "\$";
-
   String flagfrom = "assets/pngCountryImages/USD.png";
   String flagto = "assets/pngCountryImages/EUR.png";
 
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
   String text = "0.86";
-  String equation = "0";
-  String result = "0";
-  String expression = "";
-  double equationFontSize = 38.0;
-  double resultFontSize = 48.0;
-  bool isbool = true;
   bool arrowPosition = false;
   bool arrowPositionTwo = false;
-  bool indexTrue = true;
-  bool starIndex = false;
-  bool contanerIndex = true;
-  String z = "";
   double conversionRate = 0;
   bool isCalculatorVisible = false;
   bool _isContainerVisible = false;
@@ -62,9 +50,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   TextEditingController calculateCurrency = TextEditingController(text: MyColors.equationForCopy);
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
-
-  String convertedDateTime = "";
-  DateTime now = DateTime.now();
 
   String currencyCodeFrom = "USD";
   String currencyCodeTo = "INR";
@@ -302,7 +287,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 setState(() {});
                               },
                               onChanged: (text) {
-
                                 debugPrint("onchange---------> $text");
                                 getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
@@ -553,15 +537,14 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             padding: const EdgeInsets.only(top: 16.0),
                             child: GestureDetector(
                               onLongPress: () {
-                                equation=MyColors.equationForCopy;
-                                String decimal=".00";
+                                String decimal = ".00";
 
-                                 if(equation.contains("."))
-                                  {
-                                    decimal="";
-                                  }
+                                if (calculateCurrency.text.contains(".")) {
+                                  decimal = "";
+                                }
                                 Clipboard.setData(ClipboardData(
-                                        text: "${calculateCurrency.text}" +decimal+
+                                        text: "${calculateCurrency.text}" +
+                                            decimal +
                                             " ${edtFrom.text}" +
                                             " = " +
                                             "${Utility.getFormatText(text)}" +
@@ -621,6 +604,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   ? Calculator(
                       txtController: calculateCurrency,
                       onChange: (text) async {
+                        MyColors.equationForCopy = text;
                         this.text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                         setState(() {});
                       },
@@ -668,15 +652,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     });
   }
 
-
-
   Future<String> getConverterAPI(String form, String to, String rate) async {
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
-
-
-
-
 
     try {
       double a = double.parse(formRow.first.values.toList()[3]);
