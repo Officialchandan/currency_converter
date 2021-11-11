@@ -124,8 +124,12 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> data =
-          await db.query(tableName, where: "$selectedCountry = ?", whereArgs: [1], orderBy: "$timeStamp ASC");
+      List<Map<String, dynamic>> data = await db.query(
+        tableName,
+        where: "$selectedCountry = ?",
+        whereArgs: [1],
+        orderBy: "$timeStamp ASC",
+      );
 
       log("getSelectedData-->$data");
 

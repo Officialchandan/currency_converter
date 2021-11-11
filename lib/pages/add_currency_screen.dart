@@ -48,7 +48,7 @@ class _AddCurrencyState extends State<AddCurrency> {
         appBar: AppBar(
           backgroundColor: MyColors.colorPrimary,
           title: Text(
-            "addCurrency".tr().toString(),
+            "title_add_currency".tr().toString(),
             textScaleFactor: Constants.textScaleFactor,
             style: TextStyle(
               color: MyColors.textColor,
@@ -128,7 +128,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                   Row(
                                     children: [
                                       Container(
-                                          margin: EdgeInsets.only(right: 15),
+                                          margin: const EdgeInsets.only(right: 15),
                                           width: 40,
                                           height: 40,
                                           child: ClipRRect(
@@ -209,7 +209,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                   height: 8.0,
                 ),
                 Text(
-                  "currencyList".tr().toString(),
+                  "currency_list".tr().toString(),
                   textScaleFactor: Constants.textScaleFactor,
                   style: TextStyle(
                     color: MyColors.textColor,

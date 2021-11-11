@@ -44,14 +44,14 @@ class _DecimalScreensState extends State<DecimalScreens> {
     {"format": "1 234,56", "id": "4", "check": false},
   ];
 
-  List<String> radiDecimalFormat = [".02", ".003", ".0004", ".00005", ".0000006", "dontShow".tr().toString()];
+  List<String> radiDecimalFormat = [".02", ".003", ".0004", ".00005", ".0000006", "don_t_show".tr().toString()];
   List<Map<String, dynamic>> decimalFormat = [
     {"format": ".02", "id": "2", "check": false},
     {"format": ".003", "id": "3", "check": false},
     {"format": ".0004", "id": "4", "check": false},
     {"format": ".00005", "id": "5", "check": false},
     {"format": ".000006", "id": "6", "check": false},
-    {"format": "dontShow".tr().toString(), "id": "0", "check": false},
+    {"format": "don_t_show".tr().toString(), "id": "0", "check": false},
   ];
 
   List<Map<String, dynamic>> demoString = [
@@ -145,7 +145,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
-                          "monetary".tr().toString(),
+                          "monetary_format".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
                           style: TextStyle(color: MyColors.textColor, fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -277,7 +277,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
-                          "decimal".tr().toString(),
+                          "decimal_format".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
                           style: TextStyle(color: MyColors.textColor, fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -374,14 +374,14 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   // ),
                                   Container(
                                     width: 130,
-                                    child: AutoSizeText("${decimalFormat[index]["format"]}",
-                                        textScaleFactor: Constants.textScaleFactor,
-                                        maxFontSize: 20,
-
-
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor)
-                                    ,maxLines: 1,),
+                                    child: AutoSizeText(
+                                      "${decimalFormat[index]["format"]}",
+                                      textScaleFactor: Constants.textScaleFactor,
+                                      maxFontSize: 20,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor),
+                                      maxLines: 1,
+                                    ),
                                   ),
                                 ],
                               ),
