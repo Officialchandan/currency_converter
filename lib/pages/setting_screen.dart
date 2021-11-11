@@ -112,7 +112,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 // print(isSwitched);
                               });
                             },
-                            activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                            activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                             activeColor: MyColors.textColor,
                           ),
                         ),
@@ -804,7 +804,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                     height: 10,
                                     margin: EdgeInsets.only(top: 2, left: 0),
                                     child: Switch(
-                                      inactiveTrackColor: MyColors.darkModeCheck ? MyColors.colorPrimary : Colors.grey.shade300,
                                       inactiveThumbColor: MyColors.textColor,
                                       value: isMultiConverter,
                                       onChanged: (value) {
@@ -813,7 +812,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                           // print(isSwitched);
                                         });
                                       },
-                                      activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                                      activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
+                                      inactiveTrackColor: MyColors.darkModeCheck ? MyColors.colorPrimary : Colors.grey.shade300,
                                       activeColor: MyColors.textColor,
                                     ),
                                   ),
@@ -888,7 +888,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         // print(isSwitched);
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -926,7 +926,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         }
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -954,7 +954,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         // print(isSwitched);
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -979,7 +979,66 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-
+                              InkWell(
+                                onTap: () async {
+                                  if (Constants.dateFormat != Constants.ddMmYyyy) {
+                                    Constants.dateFormat = Constants.ddMmYyyy;
+                                    await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                  }
+                                  setState(() {});
+                                },
+                                splashColor: Colors.transparent,
+                                child: Row(
+                                  children: [
+                                    // Transform.scale(
+                                    //   scale: 1.1,
+                                    //   child: Checkbox(
+                                    //     side: BorderSide(color: MyColors.textColor),
+                                    //     value: Constants.dateFormat == Constants.ddMmYyyy,
+                                    //     onChanged: (value) async {
+                                    //       if (value!) {
+                                    //         Constants.dateFormat = Constants.ddMmYyyy;
+                                    //         await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                    //       }
+                                    //       setState(() {});
+                                    //     },
+                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                    //     checkColor: Colors.black,
+                                    //     tristate: false,
+                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    //   ),
+                                    // ),
+                                    Constants.dateFormat == Constants.ddMmYyyy
+                                        ? Image(
+                                            image: const AssetImage("assets/images/check.png"),
+                                            width: 17,
+                                            height: 17,
+                                            fit: BoxFit.cover,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )
+                                        : Container(
+                                            width: 17,
+                                            height: 17,
+                                            decoration: BoxDecoration(
+                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                borderRadius: BorderRadius.circular(9),
+                                                border: Border.all(
+                                                  width: 0.8,
+                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                                )),
+                                          ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text("dd/mm/yy",
+                                        textScaleFactor: Constants.textScaleFactor,
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 16,
+                                          color: MyColors.textColor,
+                                        )),
+                                  ],
+                                ),
+                              ),
                               InkWell(
                                 onTap: () async {
                                   if (Constants.dateFormat != Constants.mmDdYyyy) {
@@ -991,7 +1050,25 @@ class _SettingScreenState extends State<SettingScreen> {
                                 splashColor: Colors.transparent,
                                 child: Row(
                                   children: [
-
+                                    // Transform.scale(
+                                    //   scale: 1.1,
+                                    //   child: Checkbox(
+                                    //     side: BorderSide(color: MyColors.textColor),
+                                    //     value: Constants.dateFormat == Constants.mmDdYyyy,
+                                    //     onChanged: (value) async {
+                                    //       if (value!) {
+                                    //         Constants.dateFormat = Constants.mmDdYyyy;
+                                    //         await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                    //       }
+                                    //
+                                    //       setState(() {});
+                                    //     },
+                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                    //     checkColor: Colors.black,
+                                    //     tristate: false,
+                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    //   ),
+                                    // ),
                                     Constants.dateFormat == Constants.mmDdYyyy
                                         ? Image(
                                             image: const AssetImage("assets/images/check.png"),
@@ -1021,53 +1098,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                   ],
                                 ),
-                              ),
-                              InkWell(
-                                onTap: () async {
-                                  if (Constants.dateFormat != Constants.ddMmYyyy) {
-                                    Constants.dateFormat = Constants.ddMmYyyy;
-                                    await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
-                                  }
-                                  setState(() {});
-                                },
-                                splashColor: Colors.transparent,
-                                child: Row(
-                                  children: [
-
-                                    Constants.dateFormat == Constants.ddMmYyyy
-                                        ? Image(
-                                      image: const AssetImage("assets/images/check.png"),
-                                      width: 17,
-                                      height: 17,
-                                      fit: BoxFit.cover,
-                                      color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                    )
-                                        : Container(
-                                      width: 17,
-                                      height: 17,
-                                      decoration: BoxDecoration(
-                                        // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                          borderRadius: BorderRadius.circular(9),
-                                          border: Border.all(
-                                            width: 0.8,
-                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text("dd/mm/yy",
-                                        textScaleFactor: Constants.textScaleFactor,
-                                        style: GoogleFonts.roboto(
-                                          fontSize: 16,
-                                          color: MyColors.textColor,
-                                        )),
-                                  ],
-                                ),
-                              ),
+                              )
                             ],
                           )),
-
                 ],
               ),
             ),
@@ -1556,6 +1589,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade700,
       Colors.blueGrey.shade800,
       Colors.blueGrey.shade900,
+    ]),   LColor(lmainColor: Colors.black, ldensityColors: [
+      Colors.black12,
+      Colors.black26,
+      Colors.black38,
+      Colors.black45,
+      Colors.black54,
+      Colors.black87,
+      Colors.black,
+
     ]),
   ];
   Color lockSelectdColor=Colors.blue;
