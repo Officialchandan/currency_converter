@@ -71,7 +71,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Icon(
+                   Icon(
                     Icons.search,
                     size: 22,
                     color: Colors.black,
@@ -102,10 +102,10 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                           },
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Search",
+                            hintText: "search".tr().toString(),
                             hintStyle: TextStyle(
                                 fontSize: 17,
-                                color: MyColors.insideTextFieldColor,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w700),
                           ),
                         ),

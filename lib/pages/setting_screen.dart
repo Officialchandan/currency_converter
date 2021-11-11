@@ -979,66 +979,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              InkWell(
-                                onTap: () async {
-                                  if (Constants.dateFormat != Constants.ddMmYyyy) {
-                                    Constants.dateFormat = Constants.ddMmYyyy;
-                                    await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
-                                  }
-                                  setState(() {});
-                                },
-                                splashColor: Colors.transparent,
-                                child: Row(
-                                  children: [
-                                    // Transform.scale(
-                                    //   scale: 1.1,
-                                    //   child: Checkbox(
-                                    //     side: BorderSide(color: MyColors.textColor),
-                                    //     value: Constants.dateFormat == Constants.ddMmYyyy,
-                                    //     onChanged: (value) async {
-                                    //       if (value!) {
-                                    //         Constants.dateFormat = Constants.ddMmYyyy;
-                                    //         await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
-                                    //       }
-                                    //       setState(() {});
-                                    //     },
-                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                    //     checkColor: Colors.black,
-                                    //     tristate: false,
-                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    //   ),
-                                    // ),
-                                    Constants.dateFormat == Constants.ddMmYyyy
-                                        ? Image(
-                                            image: const AssetImage("assets/images/check.png"),
-                                            width: 17,
-                                            height: 17,
-                                            fit: BoxFit.cover,
-                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                          )
-                                        : Container(
-                                            width: 17,
-                                            height: 17,
-                                            decoration: BoxDecoration(
-                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                                borderRadius: BorderRadius.circular(9),
-                                                border: Border.all(
-                                                  width: 0.8,
-                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                                )),
-                                          ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text("dd/mm/yy",
-                                        textScaleFactor: Constants.textScaleFactor,
-                                        style: GoogleFonts.roboto(
-                                          fontSize: 16,
-                                          color: MyColors.textColor,
-                                        )),
-                                  ],
-                                ),
-                              ),
+
                               InkWell(
                                 onTap: () async {
                                   if (Constants.dateFormat != Constants.mmDdYyyy) {
@@ -1050,25 +991,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 splashColor: Colors.transparent,
                                 child: Row(
                                   children: [
-                                    // Transform.scale(
-                                    //   scale: 1.1,
-                                    //   child: Checkbox(
-                                    //     side: BorderSide(color: MyColors.textColor),
-                                    //     value: Constants.dateFormat == Constants.mmDdYyyy,
-                                    //     onChanged: (value) async {
-                                    //       if (value!) {
-                                    //         Constants.dateFormat = Constants.mmDdYyyy;
-                                    //         await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
-                                    //       }
-                                    //
-                                    //       setState(() {});
-                                    //     },
-                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                    //     checkColor: Colors.black,
-                                    //     tristate: false,
-                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    //   ),
-                                    // ),
+
                                     Constants.dateFormat == Constants.mmDdYyyy
                                         ? Image(
                                             image: const AssetImage("assets/images/check.png"),
@@ -1098,9 +1021,53 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  if (Constants.dateFormat != Constants.ddMmYyyy) {
+                                    Constants.dateFormat = Constants.ddMmYyyy;
+                                    await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                  }
+                                  setState(() {});
+                                },
+                                splashColor: Colors.transparent,
+                                child: Row(
+                                  children: [
+
+                                    Constants.dateFormat == Constants.ddMmYyyy
+                                        ? Image(
+                                      image: const AssetImage("assets/images/check.png"),
+                                      width: 17,
+                                      height: 17,
+                                      fit: BoxFit.cover,
+                                      color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                    )
+                                        : Container(
+                                      width: 17,
+                                      height: 17,
+                                      decoration: BoxDecoration(
+                                        // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          borderRadius: BorderRadius.circular(9),
+                                          border: Border.all(
+                                            width: 0.8,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text("dd/mm/yy",
+                                        textScaleFactor: Constants.textScaleFactor,
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 16,
+                                          color: MyColors.textColor,
+                                        )),
+                                  ],
+                                ),
+                              ),
                             ],
                           )),
+
                 ],
               ),
             ),
@@ -1251,9 +1218,9 @@ class ColorPickerDialog extends StatefulWidget {
 }
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
-  Color unlockCurrentColor = Colors.white;
+  Color unlockCurrentColor = Colors.blue;
   LColor lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
-  Color densityCurrentColor = Colors.white;
+  Color densityCurrentColor = Colors.blue;
 
   MColor selectedColor = MColor(mainColor:Colors.white, densityColors: []);
   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
@@ -1350,7 +1317,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.red.shade300,
       Colors.red.shade400,
       Colors.red.shade500,
-      Colors.red,
+
       Colors.red.shade600,
       Colors.red.shade700,
       Colors.red.shade800,
@@ -1363,7 +1330,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.pink.shade300,
       Colors.pink.shade400,
       Colors.pink.shade500,
-      Colors.pink,
+
       Colors.pink.shade600,
       Colors.pink.shade700,
       Colors.pink.shade800,
@@ -1376,7 +1343,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.purple.shade300,
       Colors.purple.shade400,
       Colors.purple.shade500,
-      Colors.purple,
+
       Colors.purple.shade600,
       Colors.purple.shade700,
       Colors.purple.shade800,
@@ -1389,7 +1356,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.deepPurple.shade300,
       Colors.deepPurple.shade400,
       Colors.deepPurple.shade500,
-      Colors.deepPurple,
+
       Colors.deepPurple.shade600,
       Colors.deepPurple.shade700,
       Colors.deepPurple.shade800,
@@ -1402,7 +1369,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.indigo.shade300,
       Colors.indigo.shade400,
       Colors.indigo.shade500,
-      Colors.indigo,
+
       Colors.indigo.shade600,
       Colors.indigo.shade700,
       Colors.indigo.shade800,
@@ -1415,7 +1382,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blue.shade300,
       Colors.blue.shade400,
       Colors.blue.shade500,
-      Colors.blue,
+
       Colors.blue.shade600,
       Colors.blue.shade700,
       Colors.blue.shade800,
@@ -1428,7 +1395,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.lightBlue.shade300,
       Colors.lightBlue.shade400,
       Colors.lightBlue.shade500,
-      Colors.lightBlue,
+
       Colors.lightBlue.shade600,
       Colors.lightBlue.shade700,
       Colors.lightBlue.shade800,
@@ -1441,7 +1408,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.cyan.shade300,
       Colors.cyan.shade400,
       Colors.cyan.shade500,
-      Colors.cyan,
+
       Colors.cyan.shade600,
       Colors.cyan.shade700,
       Colors.cyan.shade800,
@@ -1454,7 +1421,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.teal.shade300,
       Colors.teal.shade400,
       Colors.teal.shade500,
-      Colors.teal,
+
       Colors.teal.shade600,
       Colors.teal.shade700,
       Colors.teal.shade800,
@@ -1467,7 +1434,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.green.shade300,
       Colors.green.shade400,
       Colors.green.shade500,
-      Colors.green,
+
       Colors.green.shade600,
       Colors.green.shade700,
       Colors.green.shade800,
@@ -1480,7 +1447,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.lightGreen.shade300,
       Colors.lightGreen.shade400,
       Colors.lightGreen.shade500,
-      Colors.lightGreen,
+
       Colors.lightGreen.shade600,
       Colors.lightGreen.shade700,
       Colors.lightGreen.shade800,
@@ -1493,7 +1460,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.lime.shade300,
       Colors.lime.shade400,
       Colors.lime.shade500,
-      Colors.lime,
+
       Colors.lime.shade600,
       Colors.lime.shade700,
       Colors.lime.shade800,
@@ -1506,7 +1473,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.yellow.shade300,
       Colors.yellow.shade400,
       Colors.yellow.shade500,
-      Colors.yellow,
+
       Colors.yellow.shade600,
       Colors.yellow.shade700,
       Colors.yellow.shade800,
@@ -1519,7 +1486,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.amber.shade300,
       Colors.amber.shade400,
       Colors.amber.shade500,
-      Colors.amber,
+
       Colors.amber.shade600,
       Colors.amber.shade700,
       Colors.amber.shade800,
@@ -1532,7 +1499,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.orange.shade300,
       Colors.orange.shade400,
       Colors.orange.shade500,
-      Colors.orange,
+
       Colors.orange.shade600,
       Colors.orange.shade700,
       Colors.orange.shade800,
@@ -1545,7 +1512,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.deepOrange.shade300,
       Colors.deepOrange.shade400,
       Colors.deepOrange.shade500,
-      Colors.deepOrange,
+
       Colors.deepOrange.shade600,
       Colors.deepOrange.shade700,
       Colors.deepOrange.shade800,
@@ -1558,7 +1525,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.brown.shade300,
       Colors.brown.shade400,
       Colors.brown.shade500,
-      Colors.brown,
+
       Colors.brown.shade600,
       Colors.brown.shade700,
       Colors.brown.shade800,
@@ -1571,7 +1538,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.grey.shade300,
       Colors.grey.shade400,
       Colors.grey.shade500,
-      Colors.grey,
+
       Colors.grey.shade600,
       Colors.grey.shade700,
       Colors.grey.shade800,
@@ -1584,23 +1551,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade300,
       Colors.blueGrey.shade400,
       Colors.blueGrey.shade500,
-      Colors.blueGrey,
+
       Colors.blueGrey.shade600,
       Colors.blueGrey.shade700,
       Colors.blueGrey.shade800,
       Colors.blueGrey.shade900,
-    ]),   LColor(lmainColor: Colors.black, ldensityColors: [
-      Colors.black12,
-      Colors.black26,
-      Colors.black38,
-      Colors.black45,
-      Colors.black54,
-      Colors.black87,
-      Colors.black,
-
     ]),
   ];
-  Color? lockSelectdColor;
+  Color lockSelectdColor=Colors.blue;
   Color? unlockSelectdColor;
   Color? colorSelection;
   Color densitySelectedColor = Colors.red;
@@ -1615,7 +1573,27 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     densityCurrentColor = widget.densityCurrentColor;
 
     selectedColor=colors.singleWhere((element) => element.mainColor==c,orElse: (){
-     return MColor(mainColor: Colors.white, densityColors: []);
+     return MColor(mainColor: Colors.green, densityColors: [
+       Color(0xffc9d8ef),
+         Color(0xffb8cbea),
+         Color(0xffa6bee5),
+         Color(0xff94b1df),
+         Color(0xff83a4da),
+         Color(0xff7197d5),
+         Color(0xff5f8ad0),
+         Color(0xff4e7dcb),
+         Color(0xff4e7dcb),
+         Color(0xff4670b6),
+         Color(0xff3e64a2),
+         Color(0xff36578e),
+         Color(0xff2e4b79),
+         Color(0xff273e65),
+         Color(0xff1f3251),
+         Color(0xff17253c),
+         Color(0xff0f1928),
+         Color(0xff070c14),
+         Color(0xff000000),
+     ]);
 
     });
     lselectedColor=lcolors.singleWhere((element) {
@@ -1630,7 +1608,28 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         }
 
     },orElse: (){
-      return LColor(lmainColor: Colors.white, ldensityColors: []);
+      return LColor(lmainColor: Colors.blue, ldensityColors: [
+
+        Color(0xffc9d8ef),
+          Color(0xffb8cbea),
+          Color(0xffa6bee5),
+          Color(0xff94b1df),
+          Color(0xff83a4da),
+          Color(0xff7197d5),
+          Color(0xff5f8ad0),
+          Color(0xff4e7dcb),
+          Color(0xff4e7dcb),
+          Color(0xff4670b6),
+          Color(0xff3e64a2),
+          Color(0xff36578e),
+          Color(0xff2e4b79),
+          Color(0xff273e65),
+          Color(0xff1f3251),
+          Color(0xff17253c),
+          Color(0xff0f1928),
+          Color(0xff070c14),
+          Color(0xff000000),
+      ]);
     })
     ;
 
@@ -1728,7 +1727,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {
-                          MyColors.lockColorfordefault=lockSelectdColor!;
+                          MyColors.lockColorfordefault=lockSelectdColor;
                           MyColors.colorPrimary = colorSelection!;
 
                           int red = MyColors.colorPrimary.red;
@@ -1750,7 +1749,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.darkModeCheck = false;
                           }
 
-                            Utility.setTryColorPreference("Color", lockSelectdColor!.value.toRadixString(16));
+                            Utility.setTryColorPreference("Color",lockSelectdColor.value.toRadixString(16));
 
 
 

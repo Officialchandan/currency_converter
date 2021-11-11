@@ -53,7 +53,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 width: 150,
                 child: ElevatedButton(
                   child: Text(
-                    "try".tr().toString(),
+                    "try_this_color".tr().toString(),
                     textScaleFactor: Constants.textScaleFactor,
                   ),
                   onPressed: () {
@@ -116,7 +116,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 setState(() {});
               },
               child: Text(
-                "presets".tr().toString(),
+                "cpv_presets".tr().toString(),
                 textScaleFactor: Constants.textScaleFactor,
                 style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
               ),

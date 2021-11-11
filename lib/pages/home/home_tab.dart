@@ -357,6 +357,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 letterSpacing: 1.5,
                                 fontSize: 18,
                               ),
+
                               controller: edtFrom,
                               showCursor: false,
                               readOnly: true,

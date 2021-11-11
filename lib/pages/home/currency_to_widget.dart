@@ -111,10 +111,11 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                             },
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Search",
+                              hintText: "search".tr().toString(),
                               hintStyle: TextStyle(
                                   fontSize: 17,
-                                  color: MyColors.insideTextFieldColor,
+                                  color: Colors.black
+                                  ,
                                   fontWeight: FontWeight.w700),
                             ),
                           ),

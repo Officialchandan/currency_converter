@@ -87,7 +87,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                     width: 40,
                     height: 35,
                     child: Image.asset("assets/images/tab-ic1.png",
-                        fit: BoxFit.fill,
+                        fit: BoxFit.contain,
                         //scale: 6,
                         color: MyColors.textColor),
                   ),
