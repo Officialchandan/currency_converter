@@ -32,7 +32,6 @@ class _AddCurrencyState extends State<AddCurrency> {
   void getAllData() async {
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
-    unselectedList.addAll(selectedList);
     List<DataModel> data = await dbHelper.getUnselectedData();
     unselectedList.addAll(data);
     selectedController.add(selectedList);
@@ -112,7 +111,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Column(
-                          children: List.generate(snapshot.data!.length, (index) {
+                          children:
+                              List.generate(snapshot.data!.length, (index) {
                             DataModel data = snapshot.data![index];
                             return Container(
                               height: 45,
@@ -123,7 +123,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -132,14 +133,16 @@ class _AddCurrencyState extends State<AddCurrency> {
                                           width: 40,
                                           height: 40,
                                           child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(30),
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
                                               child: Image.asset(
                                                 data.image!,
                                                 fit: BoxFit.cover,
                                               ))),
                                       Text(
                                         data.code,
-                                        textScaleFactor: Constants.textScaleFactor,
+                                        textScaleFactor:
+                                            Constants.textScaleFactor,
                                         style: TextStyle(
                                           color: MyColors.insideTextFieldColor,
                                           fontWeight: FontWeight.bold,
@@ -156,7 +159,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                                           // data.name!,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            color: MyColors.insideTextFieldColor,
+                                            color:
+                                                MyColors.insideTextFieldColor,
                                             fontSize: 16,
                                           ),
                                         ),
@@ -167,18 +171,24 @@ class _AddCurrencyState extends State<AddCurrency> {
                                     children: [
                                       InkWell(
                                           onTap: () {
-                                            data.iconForSelection = !data.iconForSelection;
-                                            int i = unselectedList.indexWhere((element) => element.code == data.code);
+                                            data.iconForSelection =
+                                                !data.iconForSelection;
+                                            int i = unselectedList.indexWhere(
+                                                (element) =>
+                                                    element.code == data.code);
 
-                                            unselectedList[i].iconForSelection = false;
+                                            unselectedList[i].iconForSelection =
+                                                false;
 
                                             data.iconForSelection = false;
                                             data.selected = 0;
                                             dbHelper.update(data.toMap());
 
                                             selectedList.removeAt(index);
-                                            selectedController.add(selectedList);
-                                            unselectedController.add(unselectedList);
+                                            selectedController
+                                                .add(selectedList);
+                                            unselectedController
+                                                .add(unselectedList);
                                           },
                                           child: Icon(
                                             Icons.close,
@@ -223,7 +233,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                         log("snapshot-->${snapshot.data}");
 
                         return Column(
-                          children: List.generate(snapshot.data!.length, (index) {
+                          children:
+                              List.generate(snapshot.data!.length, (index) {
                             DataModel model = snapshot.data![index];
                             return Container(
                               height: 45,
@@ -235,16 +246,19 @@ class _AddCurrencyState extends State<AddCurrency> {
                               ),
                               // alignment: Alignment.center,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
-                                          margin: const EdgeInsets.only(right: 15),
+                                          margin:
+                                              const EdgeInsets.only(right: 15),
                                           width: 40,
                                           height: 40,
                                           child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(20),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
                                               child: Image.asset(
                                                 model.image!,
                                                 fit: BoxFit.cover,
@@ -265,7 +279,9 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         width: 10,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width * .45,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .45,
                                         child: AutoSizeText(
                                           model.code.toUpperCase().tr(),
                                           // model.name!,
@@ -273,7 +289,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                                           minFontSize: 15,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            color: MyColors.insideTextFieldColor,
+                                            color:
+                                                MyColors.insideTextFieldColor,
                                             fontSize: 16,
                                           ),
                                         ),
@@ -286,12 +303,14 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         if (!model.iconForSelection) {
                                           model.iconForSelection = true;
                                           model.selected = 1;
-                                          model.timeStamp = DateTime.now().millisecondsSinceEpoch;
+                                          model.timeStamp = DateTime.now()
+                                              .millisecondsSinceEpoch;
                                           dbHelper.update(model.toMap());
                                           selectedList.add(model);
                                           selectedController.add(selectedList);
                                           unselectedList[index] = model;
-                                          unselectedController.add(unselectedList);
+                                          unselectedController
+                                              .add(unselectedList);
                                         }
                                       },
                                       icon: model.iconForSelection
