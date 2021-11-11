@@ -981,6 +981,66 @@ class _SettingScreenState extends State<SettingScreen> {
                             children: [
                               InkWell(
                                 onTap: () async {
+                                  if (Constants.dateFormat != Constants.mmDdYyyy) {
+                                    Constants.dateFormat = Constants.mmDdYyyy;
+                                    await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                  }
+                                  setState(() {});
+                                },
+                                splashColor: Colors.transparent,
+                                child: Row(
+                                  children: [
+                                    // Transform.scale(
+                                    //   scale: 1.1,
+                                    //   child: Checkbox(
+                                    //     side: BorderSide(color: MyColors.textColor),
+                                    //     value: Constants.dateFormat == Constants.mmDdYyyy,
+                                    //     onChanged: (value) async {
+                                    //       if (value!) {
+                                    //         Constants.dateFormat = Constants.mmDdYyyy;
+                                    //         await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
+                                    //       }
+                                    //
+                                    //       setState(() {});
+                                    //     },
+                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
+                                    //     checkColor: Colors.black,
+                                    //     tristate: false,
+                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    //   ),
+                                    // ),
+                                    Constants.dateFormat == Constants.mmDdYyyy
+                                        ? Image(
+                                      image: const AssetImage("assets/images/check.png"),
+                                      width: 17,
+                                      height: 17,
+                                      fit: BoxFit.cover,
+                                      color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                    )
+                                        : Container(
+                                      width: 17,
+                                      height: 17,
+                                      decoration: BoxDecoration(
+                                        // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          borderRadius: BorderRadius.circular(9),
+                                          border: Border.all(
+                                            width: 0.8,
+                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
+                                          )),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "mm/dd/yy",
+                                      textScaleFactor: Constants.textScaleFactor,
+                                      style: GoogleFonts.roboto(fontSize: 16, color: MyColors.textColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
                                   if (Constants.dateFormat != Constants.ddMmYyyy) {
                                     Constants.dateFormat = Constants.ddMmYyyy;
                                     await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
@@ -1039,66 +1099,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   ],
                                 ),
                               ),
-                              InkWell(
-                                onTap: () async {
-                                  if (Constants.dateFormat != Constants.mmDdYyyy) {
-                                    Constants.dateFormat = Constants.mmDdYyyy;
-                                    await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
-                                  }
-                                  setState(() {});
-                                },
-                                splashColor: Colors.transparent,
-                                child: Row(
-                                  children: [
-                                    // Transform.scale(
-                                    //   scale: 1.1,
-                                    //   child: Checkbox(
-                                    //     side: BorderSide(color: MyColors.textColor),
-                                    //     value: Constants.dateFormat == Constants.mmDdYyyy,
-                                    //     onChanged: (value) async {
-                                    //       if (value!) {
-                                    //         Constants.dateFormat = Constants.mmDdYyyy;
-                                    //         await Utility.setStringPreference(Constants.DATE_FROMAT, Constants.dateFormat);
-                                    //       }
-                                    //
-                                    //       setState(() {});
-                                    //     },
-                                    //     activeColor: MyColors.darkModeCheck ? Colors.black45 : Colors.white,
-                                    //     checkColor: Colors.black,
-                                    //     tristate: false,
-                                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    //   ),
-                                    // ),
-                                    Constants.dateFormat == Constants.mmDdYyyy
-                                        ? Image(
-                                            image: const AssetImage("assets/images/check.png"),
-                                            width: 17,
-                                            height: 17,
-                                            fit: BoxFit.cover,
-                                            color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                          )
-                                        : Container(
-                                            width: 17,
-                                            height: 17,
-                                            decoration: BoxDecoration(
-                                                // color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                                borderRadius: BorderRadius.circular(9),
-                                                border: Border.all(
-                                                  width: 0.8,
-                                                  color: MyColors.darkModeCheck ? Colors.black : Colors.white,
-                                                )),
-                                          ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      "mm/dd/yy",
-                                      textScaleFactor: Constants.textScaleFactor,
-                                      style: GoogleFonts.roboto(fontSize: 16, color: MyColors.textColor),
-                                    ),
-                                  ],
-                                ),
-                              )
+
                             ],
                           )),
                 ],
