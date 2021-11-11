@@ -198,6 +198,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   InkWell(
                     onTap: () async {
+                      MyColors.eyeIconSetup=true;
                       await showColorPickerDialog(context);
                     },
                     child: _isContainerVisible
@@ -1254,7 +1255,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   LColor lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
   Color densityCurrentColor = Colors.white;
 
-  MColor selectedColor = MColor(mainColor: Colors.white, densityColors: []);
+  MColor selectedColor = MColor(mainColor:Colors.white, densityColors: []);
   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
 
   List<MColor> colors = [
@@ -1588,6 +1589,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade700,
       Colors.blueGrey.shade800,
       Colors.blueGrey.shade900,
+    ]),   LColor(lmainColor: Colors.black, ldensityColors: [
+      Colors.black12,
+      Colors.black26,
+      Colors.black38,
+      Colors.black45,
+      Colors.black54,
+      Colors.black87,
+      Colors.black,
+
     ]),
   ];
   Color? lockSelectdColor;
@@ -1599,51 +1609,52 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   @override
   void initState() {
+    Color c=MyColors.colorPrimary;
     unlockCurrentColor = widget.unlockCurrentColor;
     lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
     densityCurrentColor = widget.densityCurrentColor;
-    selectedColor = MColor(mainColor: Color(0xff4e7dcb), densityColors: [
-      Color(0xffc9d8ef),
-      Color(0xffb8cbea),
-      Color(0xffa6bee5),
-      Color(0xff94b1df),
-      Color(0xff83a4da),
-      Color(0xff7197d5),
-      Color(0xff5f8ad0),
-      Color(0xff4e7dcb),
-      Color(0xff4e7dcb),
-      Color(0xff4670b6),
-      Color(0xff3e64a2),
-      Color(0xff36578e),
-      Color(0xff2e4b79),
-      Color(0xff273e65),
-      Color(0xff1f3251),
-      Color(0xff17253c),
-      Color(0xff0f1928),
-      Color(0xff070c14),
-      Color(0xff000000),
-    ]);
-    lselectedColor = LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
-      Color(0xffc9d8ef),
-      Color(0xffb8cbea),
-      Color(0xffa6bee5),
-      Color(0xff94b1df),
-      Color(0xff83a4da),
-      Color(0xff7197d5),
-      Color(0xff5f8ad0),
-      Color(0xff4e7dcb),
-      Color(0xff4e7dcb),
-      Color(0xff4670b6),
-      Color(0xff3e64a2),
-      Color(0xff36578e),
-      Color(0xff2e4b79),
-      Color(0xff273e65),
-      Color(0xff1f3251),
-      Color(0xff17253c),
-      Color(0xff0f1928),
-      Color(0xff070c14),
-      Color(0xff000000),
-    ]);
+
+    selectedColor=colors.singleWhere((element) => element.mainColor==c,orElse: (){
+     return MColor(mainColor: Colors.white, densityColors: []);
+
+    });
+    lselectedColor=lcolors.singleWhere((element) {
+
+      print("${element.lmainColor}=========$c");
+      Color d=Color(int.parse("0x"+"${element.lmainColor.value.toRadixString(16)}"));
+      print("$d=========$c");
+
+        if( d==MyColors.lockColorfordefault)return true
+        ;else{
+          return false;
+        }
+
+    },orElse: (){
+      return LColor(lmainColor: Colors.white, ldensityColors: []);
+    })
+    ;
+
+    // lselectedColor = LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
+    //   Color(0xffc9d8ef),
+    //   Color(0xffb8cbea),
+    //   Color(0xffa6bee5),
+    //   Color(0xff94b1df),
+    //   Color(0xff83a4da),
+    //   Color(0xff7197d5),
+    //   Color(0xff5f8ad0),
+    //   Color(0xff4e7dcb),
+    //   Color(0xff4e7dcb),
+    //   Color(0xff4670b6),
+    //   Color(0xff3e64a2),
+    //   Color(0xff36578e),
+    //   Color(0xff2e4b79),
+    //   Color(0xff273e65),
+    //   Color(0xff1f3251),
+    //   Color(0xff17253c),
+    //   Color(0xff0f1928),
+    //   Color(0xff070c14),
+    //   Color(0xff000000),
+    // ]);
     super.initState();
   }
 
@@ -1717,6 +1728,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {
+                          MyColors.lockColorfordefault=lockSelectdColor!;
                           MyColors.colorPrimary = colorSelection!;
 
                           int red = MyColors.colorPrimary.red;
@@ -1737,10 +1749,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.lightModeCheck = true;
                             MyColors.darkModeCheck = false;
                           }
-                          if (MyColors.densitycheck) {
-                            Utility.setTryColorPreference("Color", "");
-                          } else
-                            Utility.setTryColorPreference("Color", MyColors.colorPrimary.value.toRadixString(16));
+
+                            Utility.setTryColorPreference("Color", lockSelectdColor!.value.toRadixString(16));
+
+
+
+
 
                           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                             // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
@@ -1809,6 +1823,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                     height: height * 0.05,
                     child: GestureDetector(
                       onTap: () {
+
                         MyColors.colorPrimary = unlockSelectdColor!;
                         int red = MyColors.colorPrimary.red;
                         int blue = MyColors.colorPrimary.blue;
@@ -1835,7 +1850,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           statusBarColor: MyColors.colorPrimary, // status bar color
                         ));
                         Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
-                        Utility.setTryColorPreference("Color", "");
+
                         themepicker(unlockSelectdColor!.value.toString());
 
                         widget.onThemeChange();

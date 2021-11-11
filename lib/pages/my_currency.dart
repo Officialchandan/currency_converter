@@ -18,7 +18,6 @@ import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:share/share.dart';
 
 class MyCurrency extends StatefulWidget {
-  MyCurrency({Key? key}) : super(key: key);
 
   @override
   _MyCurrencyState createState() => _MyCurrencyState();

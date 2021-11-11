@@ -102,11 +102,13 @@ class LockColorPicker extends StatefulWidget {
             MyColors.unclockCheck=false;
             MyColors.densitycheck=false;
             MyColors.lockCheck=true;
+
+            MyColors.eyeIconSetup=false;
             changeColor();
 
           },
           borderRadius: BorderRadius.circular(50.0),
-          child:  colorPreference == color.lmainColor.value.toRadixString(16)
+          child:  colorPreference == color.lmainColor.value.toRadixString(16)&&MyColors.eyeIconSetup
               ? Icon(
             Icons.visibility_outlined,
             color: useWhiteForeground(color.lmainColor) ? Colors.white : Colors.black,
@@ -162,13 +164,14 @@ class _LockColorPickerState extends State<LockColorPicker> {
       if (colorPreference == widget.availableColors[i].lmainColor.value.toRadixString(16)) {
         c = Color(int.parse("0x" + "${colorPreference}"));
          lockcolor=LColor(lmainColor: c, ldensityColors: []);
-
-        widget.availableColors.removeAt(i);
+         LColor temp=widget.availableColors[0];
+        widget.availableColors[0]=widget.availableColors[i];
+       widget.availableColors[i]=temp;
 
         break;
       }
     }
-    widget.availableColors.insert(0,lockcolor! );
+
 
 
     setState(() {});

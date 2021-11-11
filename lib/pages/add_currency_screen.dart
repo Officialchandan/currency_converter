@@ -36,6 +36,7 @@ class _AddCurrencyState extends State<AddCurrency> {
     List<DataModel> data = await dbHelper.getUnselectedData();
     unselectedList.addAll(data);
     selectedController.add(selectedList);
+
     unselectedController.add(unselectedList);
 
     debugPrint("selectedList $selectedList");
