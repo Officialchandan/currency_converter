@@ -24,7 +24,8 @@ class MyTabBarWidget extends StatefulWidget {
   State<MyTabBarWidget> createState() => _MyTabBarWidgetState();
 }
 
-class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStateMixin {
+class _MyTabBarWidgetState extends State<MyTabBarWidget>
+    with SingleTickerProviderStateMixin {
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
@@ -37,7 +38,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-      systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+      systemNavigationBarIconBrightness:
+          MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
@@ -80,6 +82,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                   _tabController.index = _tabController.previousIndex;
                 }
               },
+              physics: const BouncingScrollPhysics(parent: ScrollPhysics()),
               indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
@@ -87,7 +90,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                     width: 40,
                     height: 35,
                     child: Image.asset("assets/images/tab-ic1.png",
-                        fit: BoxFit.fill,
+                        fit: BoxFit.contain,
                         //scale: 6,
                         color: MyColors.textColor),
                   ),
@@ -133,7 +136,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
         ),
         systemOverlayStyle: SystemUiOverlayStyle(
           // statusBarBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-          statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+          statusBarIconBrightness:
+              MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
 
           // sys
         ),
@@ -195,7 +199,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
     return showModalBottomSheet(
         isDismissible: false,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         ),
 
         //backgroundColor: Colors.transparent,
@@ -204,7 +209,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
           return IntrinsicHeight(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
                 gradient: LinearGradient(
                   colors: [
                     MyColors.colorPrimary.withOpacity(0.5),
@@ -217,7 +224,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
                     width: 60,
                     height: 60,
                     margin: const EdgeInsets.only(top: 15, bottom: 8),
@@ -231,7 +240,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                   Text(
                     "rate_the_app".tr().toString(),
                     textScaleFactor: Constants.textScaleFactor,
-                    style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.roboto(
+                        fontSize: 17,
+                        color: MyColors.textColor,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 8,
@@ -290,7 +302,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                     ),
                   ),
                   Container(
-                      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 30),
                       child: Divider(
                         color: MyColors.textColor,
                         height: 22.2,
@@ -301,25 +314,28 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
                     height: 40,
                     margin: const EdgeInsets.only(top: 5),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: MyColors.textColor),
+                      style:
+                          ElevatedButton.styleFrom(primary: MyColors.textColor),
                       onPressed: () {
                         Navigator.pop(context);
-                        if (_tabController.previousIndex == 2 || _tabController.previousIndex == 4) {
-                          _tabController.animateTo(_tabController.previousIndex);
+                        if (_tabController.previousIndex == 2 ||
+                            _tabController.previousIndex == 4) {
+                          _tabController
+                              .animateTo(_tabController.previousIndex);
                         }
                       },
                       child: AutoSizeText(
                         "not_now".tr().toString(),
-                        style: TextStyle(fontSize: 18, color: MyColors.colorPrimary, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: MyColors.colorPrimary,
+                            fontWeight: FontWeight.bold),
                         maxLines: 1,
                       ),
                     ),
                   ),
                   const SizedBox(
                     height: 13.0,
-
-
-
                   )
                 ],
               ),
@@ -354,6 +370,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
   }
 }
 
+class _MyTabbedPageState {}
+
 class CurrencyData {
   String key;
   double value;
@@ -361,7 +379,11 @@ class CurrencyData {
   bool changeIcon = false;
   TextEditingController controller = TextEditingController();
 
-  CurrencyData({required this.key, required this.value, this.favorite = false, this.changeIcon = false});
+  CurrencyData(
+      {required this.key,
+      required this.value,
+      this.favorite = false,
+      this.changeIcon = false});
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
@@ -378,7 +400,10 @@ class CurrencyData {
     Map map = jsonDecode(data);
 
     return CurrencyData(
-        key: map["key"] ?? "", value: map["value"] ?? "", favorite: map["favorite"] ?? false, changeIcon: map["changeIcon"] ?? false);
+        key: map["key"] ?? "",
+        value: map["value"] ?? "",
+        favorite: map["favorite"] ?? false,
+        changeIcon: map["changeIcon"] ?? false);
   }
 
   @override

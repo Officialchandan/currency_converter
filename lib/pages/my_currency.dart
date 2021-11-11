@@ -18,6 +18,8 @@ import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:share/share.dart';
 
 class MyCurrency extends StatefulWidget {
+  MyCurrency({Key? key}) : super(key: key);
+
   @override
   _MyCurrencyState createState() => _MyCurrencyState();
 }
@@ -35,14 +37,19 @@ class _MyCurrencyState extends State<MyCurrency> {
   StreamController<List<DataModel>> streamController = StreamController();
   StreamController<DataModel> dataController = StreamController();
   bool isCalculatorVisible = false;
+  var calculatorTextSize;
+  String equation = "0";
+  String result = "0";
+  String expression = "";
   double equationFontSize = 38.0;
   double resultFontSize = 48.0;
+  bool isbool = true;
 
   bool firstTime = true;
   DataModel? selectedData;
 
   Future getSelectedList() async {
-    // firstTime = true;
+    firstTime = true;
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
     debugPrint("selectedList-->$selectedList");
@@ -64,6 +71,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   void didUpdateWidget(MyCurrency oldWidget) {
     if (mounted) {
       debugPrint("MyCurrency-> didUpdateWidget");
+      debugPrint("expression-> $expression");
       debugPrint("selectedData-> $selectedData");
 
       onRefresh();
@@ -111,6 +119,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
+    calculatorTextSize = appheight * 0.050;
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
@@ -386,7 +395,8 @@ class _MyCurrencyState extends State<MyCurrency> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share(
+        "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   void onRefresh() async {
@@ -398,10 +408,13 @@ class _MyCurrencyState extends State<MyCurrency> {
       int index = selectedList.indexWhere((element) => element.code == code);
       if (index != -1) {
         selectedList[index].controller.text = value;
-        calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+        calculateExchangeRate(
+            selectedList[index].controller.text, index, selectedList[index]);
       }
     }
-    setState(() {});
+    void setStateIfMounted(f) {
+      if (mounted) setState(f);
+    }
   }
 }
 
