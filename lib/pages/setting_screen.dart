@@ -198,6 +198,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   InkWell(
                     onTap: () async {
+                      MyColors.eyeIconSetup=true;
                       await showColorPickerDialog(context);
                     },
                     child: _isContainerVisible

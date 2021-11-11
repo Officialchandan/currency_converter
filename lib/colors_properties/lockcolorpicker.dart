@@ -102,11 +102,13 @@ class LockColorPicker extends StatefulWidget {
             MyColors.unclockCheck=false;
             MyColors.densitycheck=false;
             MyColors.lockCheck=true;
+
+            MyColors.eyeIconSetup=false;
             changeColor();
 
           },
           borderRadius: BorderRadius.circular(50.0),
-          child:  colorPreference == color.lmainColor.value.toRadixString(16)
+          child:  colorPreference == color.lmainColor.value.toRadixString(16)&&MyColors.eyeIconSetup
               ? Icon(
             Icons.visibility_outlined,
             color: useWhiteForeground(color.lmainColor) ? Colors.white : Colors.black,

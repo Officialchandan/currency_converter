@@ -42,4 +42,6 @@ class MyColors {
 
   static Color lockColorfordefault=Color(0xff9e9e9e);
 
+  static bool eyeIconSetup=true;
+
 }

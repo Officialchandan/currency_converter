@@ -206,7 +206,7 @@ class _CalculatorState extends State<Calculator> {
 
   buttonPressed(String buttonText) {
 
-    print("####################$equation");
+
 
     if ((equation.substring(equation.length - 1) == "+" && buttonText == "+") ||
         (equation.substring(equation.length - 1) == "+" && buttonText == "-") ||
@@ -366,6 +366,7 @@ class _CalculatorState extends State<Calculator> {
           resultFontSize = 38.0;
           if (equation == "0") {
             widget.txtController.clear();
+
             _insertText(buttonText);
           } else {
 

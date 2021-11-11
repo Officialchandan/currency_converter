@@ -52,6 +52,7 @@ class DensityColorPicker extends StatefulWidget {
           onTap: () {
             changeColor();
             MyColors.densitycheck = true;
+            MyColors.eyeIconSetup=false;
 
             MyColors.lockCheck=false;
             MyColors.unclockCheck=false;
