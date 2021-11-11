@@ -14,9 +14,7 @@ import 'package:flutter/painting.dart';
 class CurrencyToWidget extends StatefulWidget {
   final Function(String currencyCode, String image, String symbol) onSelect;
 
-  const CurrencyToWidget(
-      {required this.isContainerVisibleTwo, Key? key, required this.onSelect})
-      : super(key: key);
+  const CurrencyToWidget({required this.isContainerVisibleTwo, Key? key, required this.onSelect}) : super(key: key);
   final bool isContainerVisibleTwo;
 
   @override
@@ -67,12 +65,8 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
             borderRadius: BorderRadius.circular(5.0),
           ),
           duration: const Duration(seconds: 0),
-          height: widget.isContainerVisibleTwo
-              ? MediaQuery.of(context).size.height - 280
-              : 0.0,
-          width: widget.isContainerVisibleTwo
-              ? MediaQuery.of(context).size.width
-              : 0.0,
+          height: widget.isContainerVisibleTwo ? MediaQuery.of(context).size.height - 280 : 0.0,
+          width: widget.isContainerVisibleTwo ? MediaQuery.of(context).size.width : 0.0,
           child: Column(
             children: [
               Padding(
@@ -96,14 +90,8 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                               List<DataModel> searchList = [];
 
                               for (var element in countrycode) {
-                                if (element.code
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(text.trim().toLowerCase()) ||
-                                    element.name
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(text.trim().toLowerCase())) {
+                                if (element.code.toString().toLowerCase().contains(text.trim().toLowerCase()) ||
+                                    element.name.toString().toLowerCase().contains(text.trim().toLowerCase())) {
                                   searchList.add(element);
                                 }
                               }
@@ -112,10 +100,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Search",
-                              hintStyle: TextStyle(
-                                  fontSize: 17,
-                                  color: MyColors.insideTextFieldColor,
-                                  fontWeight: FontWeight.w700),
+                              hintStyle: TextStyle(fontSize: 17, color: MyColors.insideTextFieldColor, fontWeight: FontWeight.w700),
                             ),
                           ),
                           Container(
@@ -130,7 +115,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height - 350,
+                height: MediaQuery.of(context).size.height - 335,
                 child: StreamBuilder<List<DataModel>>(
                     stream: streamController.stream,
                     initialData: countrycode,
@@ -145,65 +130,47 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      widget.onSelect(model1.code,
-                                          model1.image!, model1.symbol!);
+                                      widget.onSelect(model1.code, model1.image!, model1.symbol!);
                                     },
                                     child: Container(
-                                        margin: const EdgeInsets.fromLTRB(
-                                            10, 1, 10, 0),
-                                        padding: const EdgeInsets.only(left: 0),
+                                        margin: const EdgeInsets.fromLTRB(10, 1, 10, 0),
+                                        padding: const EdgeInsets.only(left: 0, bottom: 0),
                                         decoration: BoxDecoration(
                                           color: MyColors.textColor,
-                                          borderRadius:
-                                              BorderRadius.circular(7),
+                                          borderRadius: BorderRadius.circular(7),
                                         ),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             SizedBox(
                                                 width: 35,
                                                 height: 35,
                                                 child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
+                                                    borderRadius: BorderRadius.circular(20),
                                                     child: Image.asset(
                                                       model1.image!,
                                                       fit: BoxFit.cover,
                                                     ))),
                                             Text(
                                               model1.code,
-                                              textScaleFactor:
-                                                  Constants.textScaleFactor,
+                                              textScaleFactor: Constants.textScaleFactor,
                                               style: TextStyle(
-                                                  color: MyColors
-                                                      .insideTextFieldColor,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
+                                                  color: MyColors.insideTextFieldColor, fontSize: 18, fontWeight: FontWeight.bold),
                                             ),
                                             SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  40.0,
+                                              width: MediaQuery.of(context).size.width / 40.0,
                                             ),
                                             SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  .45,
+                                              width: MediaQuery.of(context).size.width * .45,
                                               child: Text(
                                                 model1.code.toUpperCase().tr(),
                                                 // model1.name!,
-                                                textScaleFactor:
-                                                    Constants.textScaleFactor,
+                                                textScaleFactor: Constants.textScaleFactor,
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w400,
-                                                  color: MyColors
-                                                      .insideTextFieldColor,
+                                                  color: MyColors.insideTextFieldColor,
                                                   fontSize: 15.7,
                                                 ),
                                               ),
@@ -224,8 +191,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                                   ? Icon(
                                                       Icons.star_sharp,
                                                       size: 27.0,
-                                                      color:
-                                                          MyColors.colorPrimary,
+                                                      color: MyColors.colorPrimary,
                                                     )
                                                   : const Icon(
                                                       Icons.star_border,
@@ -239,8 +205,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                   Container(
                                     color: Colors.grey.shade500,
                                     height: 0.7,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 10),
+                                    margin: const EdgeInsets.symmetric(horizontal: 10),
                                   )
                                 ],
                               );
