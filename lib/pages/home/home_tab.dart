@@ -59,7 +59,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
 
-  TextEditingController calculateCurrency = TextEditingController(text: "1");
+  TextEditingController calculateCurrency = TextEditingController(text: MyColors.equationForCopy);
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
 
@@ -304,6 +304,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 setState(() {});
                               },
                               onChanged: (text) {
+
                                 debugPrint("onchange---------> $text");
                                 getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
@@ -554,8 +555,15 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             padding: const EdgeInsets.only(top: 16.0),
                             child: GestureDetector(
                               onLongPress: () {
+                                equation=MyColors.equationForCopy;
+                                String decimal=".00";
+
+                                 if(equation.contains("."))
+                                  {
+                                    decimal="";
+                                  }
                                 Clipboard.setData(ClipboardData(
-                                        text: "${calculateCurrency.text}" +
+                                        text: "${calculateCurrency.text}" +decimal+
                                             " ${edtFrom.text}" +
                                             " = " +
                                             "${Utility.getFormatText(text)}" +
@@ -661,11 +669,15 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     });
   }
 
-  void particularrow() async {}
+
 
   Future<String> getConverterAPI(String form, String to, String rate) async {
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
+
+
+
+
 
     try {
       double a = double.parse(formRow.first.values.toList()[3]);

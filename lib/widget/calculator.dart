@@ -156,6 +156,8 @@ class _CalculatorState extends State<Calculator> {
 
               child: MaterialButton(
                   onLongPress: () {
+
+
                     if (buttonText == "⌫") {
                       expression = "";
                       // equation = "0";
@@ -203,6 +205,9 @@ class _CalculatorState extends State<Calculator> {
   }
 
   buttonPressed(String buttonText) {
+
+    print("####################$equation");
+
     if ((equation.substring(equation.length - 1) == "+" && buttonText == "+") ||
         (equation.substring(equation.length - 1) == "+" && buttonText == "-") ||
         (equation.substring(equation.length - 1) == "+" && buttonText == "×") ||
@@ -342,6 +347,7 @@ class _CalculatorState extends State<Calculator> {
                 double.parse(result).toStringAsFixed(MyColors.decimalFormat);
             expression = result;
             equation = result;
+
             widget.txtController.clear();
             _insertText(result);
             // widget.onChange(widget.txtController.text);
@@ -354,6 +360,7 @@ class _CalculatorState extends State<Calculator> {
             // widget.onChange(widget.txtController.text);
           }
         } else {
+
           debugPrint("isbool-->$isbool");
           equationFontSize = 48.0;
           resultFontSize = 38.0;
@@ -361,6 +368,7 @@ class _CalculatorState extends State<Calculator> {
             widget.txtController.clear();
             _insertText(buttonText);
           } else {
+
             _insertText(buttonText);
           }
         }
@@ -369,6 +377,8 @@ class _CalculatorState extends State<Calculator> {
         // isbool = true;
       });
     }
+    print("####################$equation");
+     MyColors.equationForCopy=equation;
   }
 
   void _insertText(String myText) {
