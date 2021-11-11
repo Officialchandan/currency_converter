@@ -18,7 +18,6 @@ import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:share/share.dart';
 
 class MyCurrency extends StatefulWidget {
-
   @override
   _MyCurrencyState createState() => _MyCurrencyState();
 }
@@ -36,13 +35,8 @@ class _MyCurrencyState extends State<MyCurrency> {
   StreamController<List<DataModel>> streamController = StreamController();
   StreamController<DataModel> dataController = StreamController();
   bool isCalculatorVisible = false;
-  var calculatorTextSize;
-  String equation = "0";
-  String result = "0";
-  String expression = "";
   double equationFontSize = 38.0;
   double resultFontSize = 48.0;
-  bool isbool = true;
 
   bool firstTime = true;
   DataModel? selectedData;
@@ -70,7 +64,6 @@ class _MyCurrencyState extends State<MyCurrency> {
   void didUpdateWidget(MyCurrency oldWidget) {
     if (mounted) {
       debugPrint("MyCurrency-> didUpdateWidget");
-      debugPrint("expression-> $expression");
       debugPrint("selectedData-> $selectedData");
 
       onRefresh();
@@ -118,7 +111,6 @@ class _MyCurrencyState extends State<MyCurrency> {
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
-    calculatorTextSize = appheight * 0.050;
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
@@ -230,8 +222,33 @@ class _MyCurrencyState extends State<MyCurrency> {
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               if (selectedData != null && selectedData!.code != snapshot.data!.code) {
+                String s = snapshot.data!.controller.text;
+
+                debugPrint("s--->$s");
+                List<String> str = s.split("");
+
+                for (int i = 0; i < str.length; i++) {
+                  if (str[i] == "," || str[i] == "." || str[i] == " ") {
+                    str.removeAt(i);
+                  }
+                }
+
+                debugPrint("str--->$str");
+                str.insert(str.length - MyColors.decimalFormat, ".");
+                s = "";
+
+                for (var element in str) {
+                  s += element;
+                }
+                snapshot.data!.controller.text = s;
+
                 snapshot.data!.controller.selection =
                     TextSelection(baseOffset: 0, extentOffset: snapshot.data!.controller.value.text.length);
+
+                int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
+                if (i != -1) {
+                  calculateExchangeRate(snapshot.data!.controller.text, i, snapshot.data!);
+                }
               }
 
               selectedData = snapshot.data;
@@ -239,8 +256,6 @@ class _MyCurrencyState extends State<MyCurrency> {
               return Calculator(
                 txtController: snapshot.data!.controller,
                 onChange: (text) async {
-                  expression = text;
-
                   await Utility.setStringPreference("value", text);
                   await Utility.setStringPreference("code", snapshot.data!.code);
                   Constants.selectedEditableCurrencyCode = snapshot.data!.code;

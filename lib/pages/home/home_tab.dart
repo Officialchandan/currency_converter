@@ -288,6 +288,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               },
                               onChanged: (text) {
                                 debugPrint("onchange---------> $text");
+
                                 getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
                                 calculateCurrency.selection =

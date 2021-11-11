@@ -112,7 +112,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 // print(isSwitched);
                               });
                             },
-                            activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                            activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                             activeColor: MyColors.textColor,
                           ),
                         ),
@@ -198,7 +198,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold))),
                   InkWell(
                     onTap: () async {
-                      MyColors.eyeIconSetup=true;
+                      MyColors.eyeIconSetup = true;
                       await showColorPickerDialog(context);
                     },
                     child: _isContainerVisible
@@ -804,7 +804,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                     height: 10,
                                     margin: EdgeInsets.only(top: 2, left: 0),
                                     child: Switch(
-                                      inactiveTrackColor: MyColors.darkModeCheck ? MyColors.colorPrimary : Colors.grey.shade300,
                                       inactiveThumbColor: MyColors.textColor,
                                       value: isMultiConverter,
                                       onChanged: (value) {
@@ -813,7 +812,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                           // print(isSwitched);
                                         });
                                       },
-                                      activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                                      activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
+                                      inactiveTrackColor: MyColors.darkModeCheck ? MyColors.colorPrimary : Colors.grey.shade300,
                                       activeColor: MyColors.textColor,
                                     ),
                                   ),
@@ -888,7 +888,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         // print(isSwitched);
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -926,7 +926,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         }
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -954,7 +954,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                         // print(isSwitched);
                                       });
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.grey.shade500,
+                                    activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
                                   ),
                                 ],
@@ -1255,7 +1255,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   LColor lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
   Color densityCurrentColor = Colors.white;
 
-  MColor selectedColor = MColor(mainColor:Colors.white, densityColors: []);
+  MColor selectedColor = MColor(mainColor: Colors.white, densityColors: []);
   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
 
   List<MColor> colors = [
@@ -1289,8 +1289,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Color(0xff76BA50),
       Color(0xff65B13A),
       Color(0xff54a925),
-      Color(0xff43871D ),
-      Color(0xff3A7619 ),
+      Color(0xff43871D),
+      Color(0xff3A7619),
       Color(0xff326516),
       Color(0xff295412),
       Color(0xff21430E),
@@ -1589,7 +1589,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade700,
       Colors.blueGrey.shade800,
       Colors.blueGrey.shade900,
-    ]),   LColor(lmainColor: Colors.black, ldensityColors: [
+    ]),
+    LColor(lmainColor: Colors.black, ldensityColors: [
       Colors.black12,
       Colors.black26,
       Colors.black38,
@@ -1597,7 +1598,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.black54,
       Colors.black87,
       Colors.black,
-
     ]),
   ];
   Color? lockSelectdColor;
@@ -1609,30 +1609,27 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   @override
   void initState() {
-    Color c=MyColors.colorPrimary;
+    Color c = MyColors.colorPrimary;
     unlockCurrentColor = widget.unlockCurrentColor;
     lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
     densityCurrentColor = widget.densityCurrentColor;
 
-    selectedColor=colors.singleWhere((element) => element.mainColor==c,orElse: (){
-     return MColor(mainColor: Colors.white, densityColors: []);
-
+    selectedColor = colors.singleWhere((element) => element.mainColor == c, orElse: () {
+      return MColor(mainColor: Colors.white, densityColors: []);
     });
-    lselectedColor=lcolors.singleWhere((element) {
-
+    lselectedColor = lcolors.singleWhere((element) {
       print("${element.lmainColor}=========$c");
-      Color d=Color(int.parse("0x"+"${element.lmainColor.value.toRadixString(16)}"));
+      Color d = Color(int.parse("0x" + "${element.lmainColor.value.toRadixString(16)}"));
       print("$d=========$c");
 
-        if( d==MyColors.lockColorfordefault)return true
-        ;else{
-          return false;
-        }
-
-    },orElse: (){
+      if (d == MyColors.lockColorfordefault)
+        return true;
+      else {
+        return false;
+      }
+    }, orElse: () {
       return LColor(lmainColor: Colors.white, ldensityColors: []);
-    })
-    ;
+    });
 
     // lselectedColor = LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
     //   Color(0xffc9d8ef),
@@ -1728,7 +1725,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {
-                          MyColors.lockColorfordefault=lockSelectdColor!;
+                          MyColors.lockColorfordefault = lockSelectdColor!;
                           MyColors.colorPrimary = colorSelection!;
 
                           int red = MyColors.colorPrimary.red;
@@ -1750,11 +1747,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.darkModeCheck = false;
                           }
 
-                            Utility.setTryColorPreference("Color", lockSelectdColor!.value.toRadixString(16));
-
-
-
-
+                          Utility.setTryColorPreference("Color", lockSelectdColor!.value.toRadixString(16));
 
                           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                             // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
@@ -1823,7 +1816,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                     height: height * 0.05,
                     child: GestureDetector(
                       onTap: () {
-
                         MyColors.colorPrimary = unlockSelectdColor!;
                         int red = MyColors.colorPrimary.red;
                         int blue = MyColors.colorPrimary.blue;
