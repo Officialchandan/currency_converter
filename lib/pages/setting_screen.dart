@@ -7,6 +7,7 @@ import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -38,6 +39,23 @@ class _SettingScreenState extends State<SettingScreen> {
   ScrollController scrollController = ScrollController();
   double _value = 0.0;
   double x = 0.0;
+
+  final Map<ColorSwatch<Object>, String> customSwatches = <ColorSwatch<Object>, String>{
+    const MaterialColor(0xFFfae738, <int, Color>{
+      50: Color(0xFFfffee9),
+      100: Color(0xFFfff9c6),
+      200: Color(0xFFfff59f),
+      300: Color(0xFFfff178),
+      400: Color(0xFFfdec59),
+      500: Color(0xFFfae738),
+      600: Color(0xFFf3dd3d),
+      700: Color(0xFFdfc735),
+      800: Color(0xFFcbb02f),
+      900: Color(0xFFab8923),
+    }): 'Alpine',
+    ColorTools.createPrimarySwatch(MyColors.colorPrimary): 'Rust',
+    ColorTools.createAccentSwatch(MyColors.colorPrimary): 'Lavender',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -1159,38 +1177,42 @@ class _SettingScreenState extends State<SettingScreen> {
             child: Center(
               child: IntrinsicHeight(
                 child: Container(
-                    margin: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    // child: ColorPicker(
-                    //   color: MyColors.colorPrimary,
-                    //   onColorChanged: (Color color) => setState(() => MyColors.colorPrimary = color),
-                    //   enableShadesSelection: true,
-                    //   pickersEnabled: const <ColorPickerType, bool>{
-                    //     ColorPickerType.both: false,
-                    //     ColorPickerType.primary: true,
-                    //     ColorPickerType.accent: true,
-                    //     ColorPickerType.bw: false,
-                    //     ColorPickerType.custom: true,
-                    //     ColorPickerType.wheel: true,
-                    //   },
-                    //   // customColorSwatchesAndNames: customSwatches, // Our custom swatch colors.,
-                    // )
-                    child: ColorPickerDialog(
-                      lockedColor: lockedcolortry,
-                      onColorSelect: onColorSelect,
-                      densitychangeColor: densitychangeColor,
-                      lockchangeColor: lockchangeColor,
-                      unlockchangeColor: unlockchangeColor,
-                      densityCurrentColor: densityCurrentColor,
-                      lockCurrentColor: lockCurrentColor,
-                      unlockCurrentColor: unlockCurrentColor,
-                      unlockColorSelect: lockedcolortry,
-                      onThemeChange: widget.onThemeChange,
-                    )),
+                  margin: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  // child: ColorPicker(
+                  //   color: MyColors.colorPrimary,
+                  //   onColorChanged: (Color color) => setState(() => MyColors.colorPrimary = color),
+                  //   enableShadesSelection: true,
+                  //   showRecentColors: false,
+                  //
+                  //   pickersEnabled: const <ColorPickerType, bool>{
+                  //     ColorPickerType.both: false,
+                  //     ColorPickerType.primary: false,
+                  //     ColorPickerType.accent: false,
+                  //     ColorPickerType.bw: false,
+                  //     ColorPickerType.custom: true,
+                  //     ColorPickerType.wheel: false,
+                  //   },
+                  //   customColorSwatchesAndNames: customSwatches, // Our custom swatch colors.,
+                  // )
+
+                  child: ColorPickerDialog(
+                    lockedColor: lockedcolortry,
+                    onColorSelect: onColorSelect,
+                    densitychangeColor: densitychangeColor,
+                    lockchangeColor: lockchangeColor,
+                    unlockchangeColor: unlockchangeColor,
+                    densityCurrentColor: densityCurrentColor,
+                    lockCurrentColor: lockCurrentColor,
+                    unlockCurrentColor: unlockCurrentColor,
+                    unlockColorSelect: lockedcolortry,
+                    onThemeChange: widget.onThemeChange,
+                  ),
+                ),
               ),
             ),
           );

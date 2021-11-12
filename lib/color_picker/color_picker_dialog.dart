@@ -8,6 +8,7 @@ import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -366,26 +367,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade900,
     ]),
     LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 1),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.100),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.200),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.300),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.4),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.50),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.60),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.70),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.80),
-      Color.fromRGBO(MyColors.colorPrimary.red, MyColors.colorPrimary.green, MyColors.colorPrimary.blue, 0.90),
-      Color(MyColors.colorPrimary.value),
+      // Color(MyColors.colorPrimary.value),
 
-      // MyColors.colorPrimary.withOpacity(0.100),
-      // MyColors.colorPrimary.withOpacity(0.200),
-      // MyColors.colorPrimary.withOpacity(0.400),
-      // MyColors.colorPrimary.withOpacity(0.500),
-      // MyColors.colorPrimary.withOpacity(0.600),
-      // MyColors.colorPrimary.withOpacity(0.700),
-      // MyColors.colorPrimary.withOpacity(0.800),
-      // MyColors.colorPrimary.withOpacity(0.900),
+      ColorTools.createAccentSwatch(MyColors.colorPrimary).shade50,
+      ColorTools.createAccentSwatch(MyColors.colorPrimary).shade100,
+      ColorTools.createAccentSwatch(MyColors.colorPrimary).shade200,
+      ColorTools.createAccentSwatch(MyColors.colorPrimary).shade400,
+      MyColors.colorPrimary,
+      ColorTools.createAccentSwatch(MyColors.colorPrimary).shade700,
     ]),
     // LColor(lmainColor: Colors.black, ldensityColors: [
     //   Colors.black12,
