@@ -37,7 +37,7 @@ class Constants {
     {
       "code": "AED",
       "image": "assets/pngCountryImages/AED.png",
-      "country_name": "United Arab Emirates Dirha",
+      "country_name": "United Arab Emirates Dirham",
       "Symbol": "د.إ"
     },
     {

@@ -74,7 +74,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                   Icon(
                     Icons.search,
                     size: 22,
-                    color: Colors.black,
+                    color: Colors.grey.shade400,
                   ),
                   const SizedBox(
                     width: 10,
@@ -105,7 +105,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                             hintText: "search".tr().toString(),
                             hintStyle: TextStyle(
                                 fontSize: 17,
-                                color: Colors.black,
+                                color: Colors.grey.shade400,
                                 fontWeight: FontWeight.w700),
                           ),
                         ),
@@ -154,16 +154,21 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
-                                              width: 40,
-                                              height: 40,
-                                              child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  child: Image.asset(
-                                                    model1.image!,
-                                                    fit: BoxFit.cover,
-                                                  ))),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                4.0, 4.0, 0.0, 4.0),
+                                            child: SizedBox(
+                                                width: 35,
+                                                height: 35,
+                                                child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    child: Image.asset(
+                                                      model1.image!,
+                                                      fit: BoxFit.cover,
+                                                    ))),
+                                          ),
                                           Text(
                                             model1.code,
                                             textScaleFactor:
@@ -184,7 +189,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                .45,
+                                                .54,
                                             child: Text(
                                               model1.code
                                                   .toUpperCase()
@@ -202,6 +207,9 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             ),
                                           ),
                                           IconButton(
+                                            padding: const EdgeInsets.only(
+                                                right: 7.0, left: 0.0),
+                                            constraints: const BoxConstraints(),
                                             splashRadius: 15,
                                             onPressed: () async {
                                               if (model1.fav == 0) {
