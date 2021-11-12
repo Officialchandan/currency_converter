@@ -114,8 +114,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                               hintText: "search".tr().toString(),
                               hintStyle: TextStyle(
                                   fontSize: 17,
-                                  color: Colors.black
-                                  ,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w700),
                             ),
                           ),
@@ -131,7 +130,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height - 335,
+                height: MediaQuery.of(context).size.height * 0.5865,
                 child: StreamBuilder<List<DataModel>>(
                     stream: streamController.stream,
                     initialData: countrycode,
