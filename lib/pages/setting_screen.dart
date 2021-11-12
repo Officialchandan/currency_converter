@@ -414,8 +414,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold),
                                 )),
                             Image.asset(
-                              "assets/images/tab-ic5.png",
-                              scale: 9 + Constants.textScaleFactor,
+                              "assets/images/@3x/tab-ic5.png",
+                              scale: 9   - (Constants.textScaleFactor),
                               color: MyColors.textColor,
                             ),
                           ],
@@ -642,7 +642,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       width: 10,
                                     ),
                                     Text("A",
-                                        textScaleFactor: 0.9,
+                                        textScaleFactor: 0.85,
                                         style:
                                             GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500)),
                                   ],
@@ -702,7 +702,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                     Text(
                                       "A",
-                                      textScaleFactor: 0.95,
+                                      textScaleFactor: 0.9,
                                       style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500),
                                     ),
                                   ],

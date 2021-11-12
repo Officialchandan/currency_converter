@@ -644,7 +644,7 @@ class Item extends StatelessWidget {
                       children: [
                         Image.asset(
                           "assets/images/up-down.png",
-                          scale: 9,
+                          scale: 2.3,
                         ),
                         const SizedBox(
                           width: 7,
@@ -657,7 +657,7 @@ class Item extends StatelessWidget {
                           },
                           child: Image.asset(
                             "assets/images/cross.png",
-                            scale: 9,
+                            scale: 2.3,
                             color: MyColors.colorPrimary,
                           ),
                         ),
