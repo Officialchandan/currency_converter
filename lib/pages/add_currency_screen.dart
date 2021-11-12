@@ -179,7 +179,9 @@ class _AddCurrencyState extends State<AddCurrency> {
                                             selectedList.removeAt(index);
                                             selectedController.add(selectedList);
                                             unselectedController.add(unselectedList);
+                                           
                                           },
+
                                           child: Icon(
                                             Icons.close,
                                             size: 29,

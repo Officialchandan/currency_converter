@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -875,6 +876,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       setState(() {
                                         if (MyColors.displayflag) {
                                           if (MyColors.displaysymbol) {
+
                                             MyColors.displaysymbol = false;
                                             MyColors.displaycode = true;
                                           } else
@@ -887,6 +889,11 @@ class _SettingScreenState extends State<SettingScreen> {
 
                                         // print(isSwitched);
                                       });
+                                       Utility.setBoolDisplayCodePreference("code",MyColors.displaycode);
+                                       Utility.setBoolDisplayflagPreference("flag",MyColors.displayflag);
+                                       Utility.setBoolDisplaysymbolPreference("symbol",MyColors.displaysymbol);
+
+
                                     },
                                     activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
@@ -925,6 +932,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.displaycode = false;
                                         }
                                       });
+                                      Utility.setBoolDisplayCodePreference("code",MyColors.displaycode);
+                                      Utility.setBoolDisplayflagPreference("flag",MyColors.displayflag);
+                                      Utility.setBoolDisplaysymbolPreference("symbol",MyColors.displaysymbol);
                                     },
                                     activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
@@ -953,6 +963,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.displayflag = !MyColors.displayflag;
                                         // print(isSwitched);
                                       });
+                                      Utility.setBoolDisplayCodePreference("code",MyColors.displaycode);
+                                      Utility.setBoolDisplayflagPreference("flag",MyColors.displayflag);
+                                      Utility.setBoolDisplaysymbolPreference("symbol",MyColors.displaysymbol);
                                     },
                                     activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
@@ -1608,6 +1621,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   bool density = false;
   bool lock = false;
 
+  get currentColor => null;
+
   @override
   void initState() {
     Color c=MyColors.colorPrimary;
@@ -1846,6 +1861,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               height: height * 0.05,
               child: GestureDetector(
                 onTap: () {
+
+
                   showCustomColorPickerDialog(context);
                 },
                 child: AutoSizeText(
@@ -1922,7 +1939,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         context: context,
         barrierDismissible: true,
         barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        barrierColor: Colors.black45,
+        barrierColor: Colors.grey[100],
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
           double width = MediaQuery.of(context).size.width;
@@ -1939,7 +1956,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: CustomColorPicker(onThemeChange: widget.onThemeChange),
+                 child: CustomColorPicker(onThemeChange: widget.onThemeChange),
               ),
             ]),
           );

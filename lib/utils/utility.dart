@@ -104,6 +104,38 @@ class Utility {
     return prefs.setString(key, value);
   }
 
+
+  static Future<bool> getBoolDisplayCodePreference(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(key) ?? true;
+  }
+
+  static Future<bool> setBoolDisplayCodePreference(String key, bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setBool(key, value);
+
+  } static Future<bool> getBoolDisplayflagPreference(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(key) ?? false;
+  }
+
+  static Future<bool> setBoolDisplayflagPreference(String key, bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setBool(key, value);
+
+  }static Future<bool> getBoolDisplaysymbolPreference(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(key) ?? false;
+  }
+
+  static Future<bool> setBoolDisplaysymbolPreference(String key, bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setBool(key, value);
+
+  }
+
+
+
   static Future getColorTheme() async {
     String colorCode = await getStringPreference(Constants.themeColor);
     debugPrint("color->>>> $colorCode");
