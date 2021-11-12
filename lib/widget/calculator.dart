@@ -190,6 +190,12 @@ class _CalculatorState extends State<Calculator> {
   }
 
   buttonPressed(String buttonText) {
+    if (widget.txtController.text.isEmpty) {
+      widget.txtController.text = "0";
+      equation = "0";
+      expression = "";
+    }
+
     equation = widget.txtController.text;
     expression = widget.txtController.text;
     if ((equation.substring(equation.length - 1) == "+" && buttonText == "+") ||

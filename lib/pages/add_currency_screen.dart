@@ -111,6 +111,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                     stream: selectedController.stream,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
+                        debugPrint("onTap3->${selectedList.length}");
                         return Column(
                           children: List.generate(snapshot.data!.length, (index) {
                             DataModel data = snapshot.data![index];
@@ -167,17 +168,27 @@ class _AddCurrencyState extends State<AddCurrency> {
                                     children: [
                                       InkWell(
                                           onTap: () {
+                                            debugPrint("onTap");
                                             data.iconForSelection = !data.iconForSelection;
-                                            int i = unselectedList.indexWhere((element) => element.code == data.code);
 
-                                            unselectedList[i].iconForSelection = false;
+                                            int i = selectedList.indexWhere((element) => element.code == data.code);
 
+                                            debugPrint("i---->$i");
+                                            selectedList[i].iconForSelection = false;
                                             data.iconForSelection = false;
                                             data.selected = 0;
-                                            dbHelper.update(data.toMap());
 
+                                            dbHelper.update(data.toMap());
+                                            debugPrint("onTap1->${selectedList.length}");
+
+                                            unselectedList.add(selectedList[i]);
                                             selectedList.removeAt(index);
+                                            debugPrint("onTap2->${selectedList.length}");
+
                                             selectedController.add(selectedList);
+
+                                            unselectedList.sort((a, b) => a.code.compareTo(b.code));
+
                                             unselectedController.add(unselectedList);
                                            
                                           },

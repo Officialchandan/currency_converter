@@ -105,7 +105,8 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> order() async {
     Database db = await instance.database;
 
-    List<Map<String, dynamic>> data = await db.rawQuery("SELECT * FROM " + tableName + " ORDER BY " + favCountry + " DESC");
+    List<Map<String, dynamic>> data =
+        await db.rawQuery("SELECT * FROM " + tableName + " ORDER BY " + favCountry + " DESC, $countryCode ASC ");
     debugPrint("->>>$data");
     return data;
   }

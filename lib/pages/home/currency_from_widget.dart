@@ -121,7 +121,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.5965,
+              height: MediaQuery.of(context).size.height * 0.5865,
               child: StreamBuilder<List<DataModel>>(
                   stream: streamController.stream,
                   initialData: countrycode,

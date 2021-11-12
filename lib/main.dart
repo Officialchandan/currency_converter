@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final dbHelper = DatabaseHelper.instance;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -51,8 +53,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context)
-              .copyWith(textScaleFactor: Constants.textScaleFactor),
+          data: MediaQuery.of(context).copyWith(textScaleFactor: Constants.textScaleFactor),
           child: child!,
         );
       },
@@ -92,8 +93,7 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       // statusBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
 
-      systemNavigationBarIconBrightness:
-          !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+      systemNavigationBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
@@ -101,18 +101,18 @@ class _MyAppState extends State<MyApp> {
 }
 
 Future<void> insertData() async {
-  DatabaseHelper dbHelper = DatabaseHelper.instance;
-  String url =
-      "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+  await insertDefaultData();
+
   Dio _dio = Dio();
   try {
+    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
     Response response = await _dio.get(url);
     if (response.statusCode == 200) {
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
+
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList
-            .singleWhere((element) => element["code"] == key, orElse: () {
+        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
           return {};
@@ -123,23 +123,9 @@ Future<void> insertData() async {
             code: key,
             image: map["image"],
             name: map["country_name"],
-            fav: (key == "USD" ||
-                    key == "EUR" ||
-                    key == "GBP" ||
-                    key == "CAD" ||
-                    key == "INR" ||
-                    key == "MXN" ||
-                    key == "BTC")
-                ? 1
-                : 0,
-            selected: (key == "USD" ||
-                    key == "EUR" ||
-                    key == "GBP" ||
-                    key == "CAD" ||
-                    key == "INR" ||
-                    key == "MXN")
-                ? 1
-                : 0,
+            fav:
+                (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN" || key == "BTC") ? 1 : 0,
+            selected: (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN") ? 1 : 0,
             symbol: map["Symbol"]);
 
         int id = await dbHelper.insert(currencyData.toMap());
@@ -152,15 +138,93 @@ Future<void> insertData() async {
   }
 }
 
+Future insertDefaultData() async {
+  bool firstTime = await Utility.getBooleanPreference("firstTime");
+
+  if (!firstTime) {
+    DataModel currencyUSD = DataModel(
+      value: "0",
+      code: "USD",
+      image: "assets/pngCountryImages/USD.png",
+      name: "United States Dollar",
+      fav: 0,
+      selected: 1,
+      symbol: "\$",
+      timeStamp: DateTime.now().millisecondsSinceEpoch,
+    );
+    await dbHelper.insert(currencyUSD.toMap());
+
+    DataModel currencyEUR = DataModel(
+      value: "0",
+      code: "EUR",
+      image: "assets/pngCountryImages/EUR.png",
+      name: "Euro",
+      fav: 0,
+      selected: 1,
+      symbol: "€",
+      timeStamp: DateTime.now().millisecondsSinceEpoch,
+    );
+    await dbHelper.insert(currencyEUR.toMap());
+
+    DataModel currencyGBP = DataModel(
+      value: "0",
+      code: "GBP",
+      image: "assets/pngCountryImages/GBP.png",
+      name: "British Pound Sterling",
+      fav: 0,
+      selected: 1,
+      symbol: "£",
+      timeStamp: DateTime.now().millisecondsSinceEpoch,
+    );
+    await dbHelper.insert(currencyGBP.toMap());
+
+    DataModel currencyCAD = DataModel(
+      value: "0",
+      code: "CAD",
+      image: "assets/pngCountryImages/CAD.png",
+      name: "Canadian Dollar",
+      fav: 0,
+      selected: 1,
+      symbol: "Can\$",
+      timeStamp: DateTime.now().millisecondsSinceEpoch,
+    );
+    await dbHelper.insert(currencyCAD.toMap());
+
+    DataModel currencyINR = DataModel(
+      value: "0",
+      code: "INR",
+      image: "assets/pngCountryImages/INR.png",
+      name: "Indian Rupee",
+      fav: 1,
+      selected: 1,
+      symbol: "₹",
+      timeStamp: DateTime.now().millisecondsSinceEpoch,
+    );
+    await dbHelper.insert(currencyINR.toMap());
+
+    DataModel currencyMXN = DataModel(
+      value: "0",
+      code: "MXN",
+      image: "assets/pngCountryImages/MXN.png",
+      name: "Mexican Peso",
+      fav: 1,
+      selected: 1,
+      symbol: "Mex\$",
+      timeStamp: DateTime.now().millisecondsSinceEpoch,
+    );
+    await dbHelper.insert(currencyMXN.toMap());
+
+    await Utility.setBooleanPreference("firstTime", true);
+  }
+}
+
 insertion() async {
-  MyColors.displaycode = await Utility.getBoolDisplayCodePreference("code");
-  MyColors.displayflag = await Utility.getBoolDisplayflagPreference("flag");
-  MyColors.displaysymbol =
-      await Utility.getBoolDisplaysymbolPreference("symbol");
+  MyColors.displaycode = await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
+  MyColors.displayflag = await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
+  MyColors.displaysymbol = await Utility.getBoolDisplaysymbolPreference(Constants.SELECTED_SYMBOL);
 
   String monetary = await Utility.getStringPreference(Constants.monetaryFormat);
   String decimal = await Utility.getStringPreference(Constants.decimalFormat);
-
   monetary = monetary == "" ? "1" : monetary;
   decimal = decimal == "" ? "2" : decimal;
   MyColors.monetaryFormat = int.parse(monetary);
