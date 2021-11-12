@@ -158,7 +158,9 @@ class _MyCurrencyState extends State<MyCurrency> {
                       centerTitle: true,
                       toolbarHeight: 50,
                       title: Text(
-                        "updated_date".tr().toString() + ": " + Utility.getFormatDate(),
+                        "updated_date".tr().toString() +
+                            ": " +
+                            Utility.getFormatDate(),
                         textScaleFactor: Constants.textScaleFactor,
                         // textAlign: TextAlign.center,
                         style: TextStyle(
@@ -192,7 +194,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                               if (index == 0 && firstTime) {
                                 debugPrint("firstTime$firstTime");
                                 selectedList[index].controller.text = "1";
-                                calculateExchangeRate("1", 0, selectedList[index]);
+                                calculateExchangeRate(
+                                    "1", 0, selectedList[index]);
                                 firstTime = false;
                               }
                               // selectedList[index].controller.text = getFormatText(
@@ -209,7 +212,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                                   streamController.add(selectedList);
                                 },
                                 onChange: (text) {
-                                  calculateExchangeRate(text, index, selectedList[index]);
+                                  calculateExchangeRate(
+                                      text, index, selectedList[index]);
                                 },
                                 onTap: () {
                                   isCalculatorVisible = true;
@@ -231,7 +235,8 @@ class _MyCurrencyState extends State<MyCurrency> {
           stream: dataController.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-              if (selectedData != null && selectedData!.code != snapshot.data!.code) {
+              if (selectedData != null &&
+                  selectedData!.code != snapshot.data!.code) {
                 String s = snapshot.data!.controller.text;
 
                 debugPrint("s--->$s");
@@ -252,12 +257,15 @@ class _MyCurrencyState extends State<MyCurrency> {
                 }
                 snapshot.data!.controller.text = s;
 
-                snapshot.data!.controller.selection =
-                    TextSelection(baseOffset: 0, extentOffset: snapshot.data!.controller.value.text.length);
+                snapshot.data!.controller.selection = TextSelection(
+                    baseOffset: 0,
+                    extentOffset: snapshot.data!.controller.value.text.length);
 
-                int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
+                int i = selectedList.indexWhere(
+                    (element) => element.code == snapshot.data!.code);
                 if (i != -1) {
-                  calculateExchangeRate(snapshot.data!.controller.text, i, snapshot.data!);
+                  calculateExchangeRate(
+                      snapshot.data!.controller.text, i, snapshot.data!);
                 }
               }
 
@@ -267,11 +275,13 @@ class _MyCurrencyState extends State<MyCurrency> {
                 txtController: snapshot.data!.controller,
                 onChange: (text) async {
                   await Utility.setStringPreference("value", text);
-                  await Utility.setStringPreference("code", snapshot.data!.code);
+                  await Utility.setStringPreference(
+                      "code", snapshot.data!.code);
                   Constants.selectedEditableCurrencyCode = snapshot.data!.code;
                   Constants.selectedEditableCurrencyValue = text;
 
-                  int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
+                  int i = selectedList.indexWhere(
+                      (element) => element.code == snapshot.data!.code);
                   if (i != -1) {
                     calculateExchangeRate(text, i, snapshot.data!);
                   }
@@ -288,7 +298,8 @@ class _MyCurrencyState extends State<MyCurrency> {
           backgroundColor: MyColors.textColor,
           onPressed: () async {
             streamController.add([]);
-            await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
+            await Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddCurrency()));
             await getSelectedList();
 
             FocusScope.of(context).unfocus();
@@ -298,9 +309,11 @@ class _MyCurrencyState extends State<MyCurrency> {
             debugPrint("code-->$code");
             dataController.addError("error");
             if (value.isNotEmpty && code.isNotEmpty) {
-              int index = selectedList.indexWhere((element) => element.code == code);
+              int index =
+                  selectedList.indexWhere((element) => element.code == code);
               selectedList[index].controller.text = value;
-              calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+              calculateExchangeRate(selectedList[index].controller.text, index,
+                  selectedList[index]);
               // streamController.a
             }
           },
@@ -321,13 +334,17 @@ class _MyCurrencyState extends State<MyCurrency> {
       debugPrint("d$d");
       for (DataModel element in selectedList) {
         if (element.code != model.code) {
-          double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
+          double conversionRate = ((double.parse(model.value) * 100) /
+                  (double.parse(element.value) * 100)) *
+              (d);
 
           debugPrint("conversionRate->$conversionRate");
-          String m = await getFormatText(conversionRate.toStringAsFixed(MyColors.decimalFormat));
+          String m = await getFormatText(
+              conversionRate.toStringAsFixed(MyColors.decimalFormat));
 
           element.controller.text = m;
-          element.controller.selection = TextSelection.fromPosition(TextPosition(offset: element.controller.text.length));
+          element.controller.selection = TextSelection.fromPosition(
+              TextPosition(offset: element.controller.text.length));
           element.exchangeValue = m;
         }
       }
@@ -442,7 +459,8 @@ class Item extends StatelessWidget {
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == ReorderableItemState.dragProxy || state == ReorderableItemState.dragProxyFinished) {
+    if (state == ReorderableItemState.dragProxy ||
+        state == ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
       decoration = BoxDecoration(
         color: MyColors.textColor,
@@ -604,6 +622,7 @@ class Item extends StatelessWidget {
                     controller: data.controller,
                     textAlignVertical: TextAlignVertical.center,
                     autocorrect: true,
+                    cursorColor: MyColors.colorPrimary,
                     maxLength: 30,
                     maxLines: 1,
                     maxFontSize: 17.0,
@@ -618,18 +637,21 @@ class Item extends StatelessWidget {
                     showCursor: true,
                     readOnly: false,
                     decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
+                        contentPadding: EdgeInsets.only(
+                            left: 1.0, right: 1.0, bottom: 15.0),
                         counterText: "",
                         border: InputBorder.none),
                     onChanged: (String text) {
                       data.controller.text = text;
                       // text = data.controller.text;
-                      data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
+                      data.controller.selection = TextSelection.fromPosition(
+                          TextPosition(offset: data.controller.text.length));
                       onChange(text);
                       // calculateExchangeRate(text);
                     },
                     onTap: () async {
-                      data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
+                      data.controller.selection = TextSelection.fromPosition(
+                          TextPosition(offset: data.controller.text.length));
                       // isCalculatorVisible = true;
                       // dataController.add(data);
 
