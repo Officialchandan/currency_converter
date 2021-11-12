@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 
 class Locals {
   static List<bool> icon = [
-
-
-
-
-
-
     false,
     false,
     false,
@@ -104,10 +98,6 @@ class Locals {
   static const Georgina = Locale('ka');
 
   static List<Map<String, Locale>> language = [
-
-
-
-
     {"عربي (Arabic)": Locals.Arabic},
     {"հայերեն (Armenian)": Locals.Armenian},
     {"বাংলা  (Bengali)": Locals.Bengali},

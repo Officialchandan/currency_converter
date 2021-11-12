@@ -219,7 +219,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 ),
               ),
               child: Column(
-
                 children: [
                   Container(
                     decoration: BoxDecoration(

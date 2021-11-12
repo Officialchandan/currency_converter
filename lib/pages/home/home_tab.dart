@@ -292,10 +292,12 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               onChanged: (text) {
                                 debugPrint("onchange---------> $text");
 
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
+                                getConverterAPI(
+                                    currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
                                 calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                    TextSelection.fromPosition(TextPosition(
+                                        offset: calculateCurrency.text.length));
                               },
                             ),
                           ),
@@ -622,7 +624,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   }
 
   Future<void> Insert() async {
-    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url =
+        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
 
     Dio _dio = Dio();
     try {
@@ -632,7 +635,13 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         Map res = response.data!;
         Map<String, dynamic> quotes = res["quotes"];
         quotes.forEach((key, value) async {
-          DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
+          DataModel currencyData = DataModel(
+              value: value.toString(),
+              code: key,
+              image: "",
+              name: "",
+              fav: 0,
+              selected: 0);
 
           await dbHelper.insert(currencyData.toMap());
 

@@ -42,6 +42,8 @@ class _LanguageState extends State<Language> {
             padding: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
             child: Column(
                 children: List.generate(Locals.language.length, (index) {
+              debugPrint("language->${Locals.language[index].values.first.languageCode}");
+
               return GestureDetector(
                 onTap: () async {
                   for (int i = 0; i < Locals.icon.length; i++) {
@@ -82,7 +84,7 @@ class _LanguageState extends State<Language> {
                           Container(
                             padding: EdgeInsets.only(right: 10),
                             child: Locals.icon[index]
-                                ?  Icon(
+                                ? Icon(
                                     Icons.check_sharp,
                                     color: MyColors.colorPrimary,
                                   )

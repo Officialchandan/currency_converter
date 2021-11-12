@@ -1,4 +1,3 @@
-import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/tramandconditions/privacy_policy.dart';
 import 'package:currency_converter/tramandconditions/support_page.dart';
@@ -16,6 +15,8 @@ class TeramAndCondition extends StatefulWidget {
 
 class _TeramAndConditionState extends State<TeramAndCondition> with SingleTickerProviderStateMixin {
   late TabController _tabControllers;
+
+  List<String> tabs = ["support".tr(), "terms".tr(), "privacy_policy".tr()];
 
   @override
   void initState() {
@@ -38,7 +39,7 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
         child: Column(
           children: [
             Container(
-              height: 35,
+              height: 40,
               decoration: BoxDecoration(
                 color: MyColors.textColor.withOpacity(.3),
                 borderRadius: BorderRadius.circular(
@@ -51,47 +52,30 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
                     borderRadius: BorderRadius.circular(7), // Creates border
                     color: MyColors.textColor.withOpacity(.9)),
                 labelColor: Colors.white,
+                labelPadding: EdgeInsets.all(0),
                 unselectedLabelColor: Colors.transparent,
-                tabs: <Widget>[
-                  Tab(
-                    child: Text(
-                      "support".tr().toString(),
-                      maxLines: 1,
-                      textScaleFactor: Constants.textScaleFactor,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: MyColors.colorPrimary,
-                        fontWeight: FontWeight.bold,
+                tabs: tabs
+                    .map(
+                      (e) => Container(
+                        width: MediaQuery.of(context).size.width * 0.30,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(0),
+                        child: AutoSizeText(
+                          e,
+                          maxLines: 1,
+                          maxFontSize: 14,
+                          textAlign: TextAlign.center,
+                          minFontSize: 10,
+                          textScaleFactor: Constants.textScaleFactor,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: MyColors.colorPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Tab(
-                    child: Text(
-                      "terms".tr().toString(),
-                      maxLines: 1,
-                      textScaleFactor: Constants.textScaleFactor,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: MyColors.colorPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Tab(
-                    child: AutoSizeText(
-                      "privacy_policy".tr().toString(),
-                      maxLines: 1,
-                      textScaleFactor: Constants.textScaleFactor,
-
-                      // maxFontSize: 22,
-                      style: TextStyle(
-
-                        color: MyColors.colorPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
+                    )
+                    .toList(),
               ),
             ),
             Expanded(
