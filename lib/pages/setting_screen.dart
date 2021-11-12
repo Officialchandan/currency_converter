@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/color_picker/color_picker_dialog.dart';
 import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -13,7 +12,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../colors_properties/customcolorpicker.dart';
+import '../colors_properties/densitycolorpicker.dart';
+import '../colors_properties/lockcolorpicker.dart';
+import '../colors_properties/unlockcolorpicker.dart';
 import 'home/home_page.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -589,13 +593,16 @@ class _SettingScreenState extends State<SettingScreen> {
                                                           )),
                                                     ),
                                                     const SizedBox(height: 5),
-                                                    Text("by_currency_wiki".tr().toString(),
-                                                        textScaleFactor: Constants.textScaleFactor,
-                                                        style: GoogleFonts.roboto(
-                                                          color: MyColors.textColor,
-                                                          fontWeight: FontWeight.normal,
-                                                          fontSize: 16,
-                                                        ))
+                                                    Container(
+                                                      margin: EdgeInsets.only(left: 5),
+                                                      child: Text("by_currency_wiki".tr().toString(),
+                                                          textScaleFactor: Constants.textScaleFactor,
+                                                          style: GoogleFonts.roboto(
+                                                            color: MyColors.textColor,
+                                                            fontWeight: FontWeight.normal,
+                                                            fontSize: 16,
+                                                          )),
+                                                    )
                                                   ],
                                                 ),
                                               ),

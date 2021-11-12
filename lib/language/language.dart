@@ -72,8 +72,8 @@ class _LanguageState extends State<Language> {
                         children: [
                           Container(
                               margin: const EdgeInsets.all(7),
-                              padding: index == 0
-                                  ? EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.45)
+                              padding: index == 0||index==18
+                                  ? EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.591)
                                   : EdgeInsets.only(left: 0),
                               height: 30,
                               child: Text(
