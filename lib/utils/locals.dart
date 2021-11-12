@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 
 class Locals {
   static List<bool> icon = [
-
-
-
-
-
-
     false,
     false,
     false,
@@ -54,7 +48,6 @@ class Locals {
     false,
     false
 
-
     //47
   ];
   static const english = Locale('en');
@@ -97,17 +90,13 @@ class Locals {
   static const Arabic = Locale('ar');
   static const Bosnian = Locale('bs');
   static const Lithuanian = Locale('lt');
-  static const Hebrew = Locale('he');
+  static const Hebrew = Locale('iw');
   static const French = Locale('fr', 'FR');
   static const Filipino = Locale('fil');
   static const Russian = Locale('ru', 'RU');
   static const Georgina = Locale('ka');
 
   static List<Map<String, Locale>> language = [
-
-
-
-
     {"عربي (Arabic)": Locals.Arabic},
     {"հայերեն (Armenian)": Locals.Armenian},
     {"বাংলা  (Bengali)": Locals.Bengali},
@@ -158,7 +147,6 @@ class Locals {
   ];
 
   static const supportedLang = [
-    Hebrew,
     Georgina,
     Filipino,
     French,
