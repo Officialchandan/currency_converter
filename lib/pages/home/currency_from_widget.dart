@@ -71,7 +71,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   Icon(
+                  const Icon(
                     Icons.search,
                     size: 22,
                     color: Colors.black,
@@ -121,7 +121,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 350,
+              height: MediaQuery.of(context).size.height * 0.5866,
               child: StreamBuilder<List<DataModel>>(
                   stream: streamController.stream,
                   initialData: countrycode,
@@ -180,11 +180,12 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                                     .width /
                                                 40.0,
                                           ),
-                                          SizedBox(
+                                          Container(
+                                            color: Colors.red,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                .45,
+                                                .50,
                                             child: Text(
                                               model1.code
                                                   .toUpperCase()
@@ -255,9 +256,6 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                       ),
                     );
                   }),
-            ),
-            const SizedBox(
-              height: 14.0,
             ),
           ],
         ),
