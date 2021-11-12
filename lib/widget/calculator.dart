@@ -109,7 +109,7 @@ class _CalculatorState extends State<Calculator> {
             margin: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.left,
             ),
-            height: MediaQuery.of(context).size.height * 0.057 * buttonHeight,
+            height: MediaQuery.of(context).size.height * 0.059 * buttonHeight,
             color: MyColors.lightModeCheck ? Colors.white : MyColors.colorPrimary,
             child: Container(
               //**Alline height */
