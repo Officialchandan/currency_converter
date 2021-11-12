@@ -49,7 +49,6 @@ class _MyCurrencyState extends State<MyCurrency> {
   DataModel? selectedData;
 
   Future getSelectedList() async {
-    firstTime = true;
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
     debugPrint("selectedList-->$selectedList");
@@ -204,7 +203,12 @@ class _MyCurrencyState extends State<MyCurrency> {
                                 isFirst: index == 0,
                                 isLast: index == selectedList.length - 1,
                                 draggingMode: _draggingMode,
-                                onItemRemove: () {
+                                onItemRemove: () async {
+                                  if (selectedList[index].code == await Utility.getStringPreference("code")) {
+                                    await Utility.setStringPreference("value", "1");
+                                    await Utility.setStringPreference("code", "");
+                                  }
+
                                   selectedList.removeAt(index);
                                   streamController.add(selectedList);
                                 },
@@ -213,6 +217,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                                 },
                                 onTap: () {
                                   isCalculatorVisible = true;
+
+                                  debugPrint("index------->$index");
                                   dataController.add(selectedList[index]);
                                 },
                               );
@@ -231,7 +237,7 @@ class _MyCurrencyState extends State<MyCurrency> {
           stream: dataController.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-              if (selectedData != null && selectedData!.code != snapshot.data!.code) {
+              if ((selectedData != null && selectedData!.code != snapshot.data!.code) || firstTime) {
                 String s = snapshot.data!.controller.text;
 
                 debugPrint("s--->$s");
@@ -244,7 +250,10 @@ class _MyCurrencyState extends State<MyCurrency> {
                 }
 
                 debugPrint("str--->$str");
-                str.insert(str.length - MyColors.decimalFormat, ".");
+                debugPrint("${str.length - MyColors.decimalFormat}");
+                if ((str.length - MyColors.decimalFormat) > 0) {
+                  str.insert(str.length - MyColors.decimalFormat, ".");
+                }
                 s = "";
 
                 for (var element in str) {
@@ -289,7 +298,10 @@ class _MyCurrencyState extends State<MyCurrency> {
           onPressed: () async {
             streamController.add([]);
             await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
-            await getSelectedList();
+
+            selectedList.clear();
+            selectedList = await dbHelper.getSelectedData();
+            debugPrint("selectedList-->$selectedList");
 
             FocusScope.of(context).unfocus();
             String value = await Utility.getStringPreference("value");
@@ -299,10 +311,18 @@ class _MyCurrencyState extends State<MyCurrency> {
             dataController.addError("error");
             if (value.isNotEmpty && code.isNotEmpty) {
               int index = selectedList.indexWhere((element) => element.code == code);
-              selectedList[index].controller.text = value;
-              calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+              if (index != -1) {
+                selectedList[index].controller.text = value;
+                calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+              }
+
               // streamController.a
+            } else {
+              debugPrint("savedvalueisnothere");
+              firstTime = true;
             }
+
+            streamController.add(selectedList);
           },
           child: Icon(
             Icons.add,
@@ -395,8 +415,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   void onRefresh() async {
@@ -408,12 +427,11 @@ class _MyCurrencyState extends State<MyCurrency> {
       int index = selectedList.indexWhere((element) => element.code == code);
       if (index != -1) {
         selectedList[index].controller.text = value;
-        calculateExchangeRate(
-            selectedList[index].controller.text, index, selectedList[index]);
+        calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
       }
     }
-    void setStateIfMounted(f) {
-      if (mounted) setState(f);
+    if (mounted) {
+      setState(() {});
     }
   }
 }

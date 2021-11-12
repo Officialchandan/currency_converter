@@ -4,12 +4,10 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
-import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_converter/widget/calculator.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
-import 'package:dio/dio.dart';
 // ignore: implementation_imports
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +35,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   String flagfrom = "assets/pngCountryImages/USD.png";
   String flagto = "assets/pngCountryImages/EUR.png";
 
-  List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
   String text = "0.86";
   bool arrowPosition = false;
@@ -289,10 +286,17 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               onChanged: (text) {
                                 debugPrint("onchange---------> $text");
 
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
-                                calculateCurrency.text = text;
-                                calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                if (text.isEmpty) {
+                                  getConverterAPI(currencyCodeFrom, currencyCodeTo, "0");
+                                  calculateCurrency.text = "0";
+                                  calculateCurrency.selection =
+                                      TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                } else {
+                                  getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
+                                  calculateCurrency.text = text;
+                                  calculateCurrency.selection =
+                                      TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                }
                               },
                             ),
                           ),
@@ -616,42 +620,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                       height: 0,
                     )),
         ));
-  }
-
-  Future<void> Insert() async {
-    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
-
-    Dio _dio = Dio();
-    try {
-      Response response = await _dio.get(url);
-      if (response.statusCode == 200) {
-        //ConverterData converterData = ConverterData.fromJson(response.toString());
-        Map res = response.data!;
-        Map<String, dynamic> quotes = res["quotes"];
-        quotes.forEach((key, value) async {
-          DataModel currencyData = DataModel(value: value.toString(), code: key, image: "", name: "", fav: 0, selected: 0);
-
-          await dbHelper.insert(currencyData.toMap());
-
-          //
-        });
-
-        showAll();
-      } else {
-        print("NOT FOUND DATA");
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void showAll() async {
-    List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
-    allRows.forEach((element) {
-      // debugPrint("element-->$element");
-      DataModel currencyData = DataModel.fromMap(element);
-      countrycode.add(currencyData);
-    });
   }
 
   Future<String> getConverterAPI(String form, String to, String rate) async {

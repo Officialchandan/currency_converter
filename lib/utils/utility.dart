@@ -16,8 +16,18 @@ class Utility {
   static Future<bool> setStringPreference(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
-
   }
+
+  static Future<bool> getBooleanPreference(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(key) ?? false;
+  }
+
+  static Future<bool> setBooleanPreference(String key, bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setBool(key, value);
+  }
+
   static Future<String> getTryColorPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key) ?? "";
@@ -50,7 +60,6 @@ class Utility {
 
   static Future<String> getSymbolFromPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
-
     return prefs.getString(key) ?? "\$";
   }
 
@@ -61,7 +70,6 @@ class Utility {
 
   static Future<String> getSymboltoPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
-
     return prefs.getString(key) ?? "€";
   }
 
@@ -72,7 +80,6 @@ class Utility {
 
   static Future<int> getMonetaryValuePreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
-
     return prefs.getInt(key) ?? 1;
   }
 
@@ -83,7 +90,6 @@ class Utility {
 
   static Future<int> getDecimalValuePreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
-
     return prefs.getInt(key) ?? 2;
   }
 
@@ -94,12 +100,10 @@ class Utility {
 
   static Future<String> getFormatExmaplePreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
-
     return prefs.getString(key) ?? "123456.02";
   }
 
-  static Future<bool> setFormatExmaplePreference(
-      String key, String value) async {
+  static Future<bool> setFormatExmaplePreference(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
   }
@@ -130,10 +134,6 @@ class Utility {
       debugPrint("date--> $date");
       return date;
     }
-  }
-
-  static getTestStyle({int fontSize = 14}) {
-    int textSize = fontSize;
   }
 
   static String getFormatText(String s) {
