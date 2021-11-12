@@ -180,12 +180,11 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                                     .width /
                                                 40.0,
                                           ),
-                                          Container(
-                                            color: Colors.red,
+                                          SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                .50,
+                                                .45,
                                             child: Text(
                                               model1.code
                                                   .toUpperCase()
@@ -256,6 +255,9 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                       ),
                     );
                   }),
+            ),
+            const SizedBox(
+              height: 14.0,
             ),
           ],
         ),
