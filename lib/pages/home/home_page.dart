@@ -197,7 +197,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         isDismissible: false,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         ),
 
         //backgroundColor: Colors.transparent,
@@ -207,8 +207,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
                 gradient: LinearGradient(
                   colors: [
                     MyColors.colorPrimary.withOpacity(0.5),
@@ -219,6 +219,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 ),
               ),
               child: Column(
+
                 children: [
                   Container(
                     decoration: BoxDecoration(

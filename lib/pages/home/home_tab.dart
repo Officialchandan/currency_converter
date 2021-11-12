@@ -266,6 +266,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               maxLines: 1,
                               maxFontSize: 18.0,
                               minFontSize: 7.0,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(RegExp(r'^\d+(?:\.\d+)?$')),
+                              ],
                               style: TextStyle(
                                 color: MyColors.colorPrimary,
                                 fontWeight: FontWeight.w600,
@@ -384,8 +387,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 border: InputBorder.none,
                                 prefixIcon: Container(
                                   padding: const EdgeInsets.all(5),
-                                  height: 10,
-                                  width: 10,
+                                  height: 9.5,
+                                  width: 9.5,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
                                     child: Image.asset(

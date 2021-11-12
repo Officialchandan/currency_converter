@@ -1,3 +1,4 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/tramandconditions/privacy_policy.dart';
 import 'package:currency_converter/tramandconditions/support_page.dart';
@@ -37,7 +38,7 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
         child: Column(
           children: [
             Container(
-              height: 40,
+              height: 35,
               decoration: BoxDecoration(
                 color: MyColors.textColor.withOpacity(.3),
                 borderRadius: BorderRadius.circular(
@@ -77,12 +78,14 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
                     ),
                   ),
                   Tab(
-                    child: Text(
+                    child: AutoSizeText(
                       "privacy_policy".tr().toString(),
                       maxLines: 1,
                       textScaleFactor: Constants.textScaleFactor,
+
+                      // maxFontSize: 22,
                       style: TextStyle(
-                        fontSize: 16,
+
                         color: MyColors.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),

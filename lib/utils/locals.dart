@@ -158,7 +158,7 @@ class Locals {
   ];
 
   static const supportedLang = [
-    Hebrew,
+
     Georgina,
     Filipino,
     French,

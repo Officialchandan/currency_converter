@@ -29,7 +29,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: IntrinsicHeight(
+      body: Container(
+        height: MediaQuery.of(context).size.height*0.695,
         child: Column(children: [
           Container(
               margin: const EdgeInsets.only(
