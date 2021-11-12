@@ -577,13 +577,16 @@ class _SettingScreenState extends State<SettingScreen> {
                                                           )),
                                                     ),
                                                     const SizedBox(height: 5),
-                                                    Text("by_currency_wiki".tr().toString(),
-                                                        textScaleFactor: Constants.textScaleFactor,
-                                                        style: GoogleFonts.roboto(
-                                                          color: MyColors.textColor,
-                                                          fontWeight: FontWeight.normal,
-                                                          fontSize: 16,
-                                                        ))
+                                                    Container(
+                                                      margin: EdgeInsets.only(left: 5),
+                                                      child: Text("by_currency_wiki".tr().toString(),
+                                                          textScaleFactor: Constants.textScaleFactor,
+                                                          style: GoogleFonts.roboto(
+                                                            color: MyColors.textColor,
+                                                            fontWeight: FontWeight.normal,
+                                                            fontSize: 16,
+                                                          )),
+                                                    )
                                                   ],
                                                 ),
                                               ),
@@ -1951,7 +1954,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             style: const TextStyle(decoration: TextDecoration.none),
             child: Stack(children: [
               Container(
-                height: height * 0.65,
+                height: height * 0.695,
                 margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
