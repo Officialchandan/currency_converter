@@ -43,6 +43,8 @@ class _SettingScreenState extends State<SettingScreen> {
   double _value = 0.0;
   double x = 0.0;
 
+
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
