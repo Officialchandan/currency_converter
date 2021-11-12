@@ -68,7 +68,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
           ),
           duration: const Duration(seconds: 0),
           height: widget.isContainerVisibleTwo
-              ? MediaQuery.of(context).size.height - 280
+              ? MediaQuery.of(context).size.height
               : 0.0,
           width: widget.isContainerVisibleTwo
               ? MediaQuery.of(context).size.width
@@ -80,10 +80,10 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.search,
                       size: 22,
-                      color: Colors.black,
+                      color: Colors.grey.shade300,
                     ),
                     const SizedBox(
                       width: 10,
@@ -114,7 +114,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                               hintText: "search".tr().toString(),
                               hintStyle: TextStyle(
                                   fontSize: 17,
-                                  color: Colors.black,
+                                  color: Colors.grey.shade400,
                                   fontWeight: FontWeight.w700),
                             ),
                           ),
@@ -161,17 +161,22 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            SizedBox(
-                                                width: 35,
-                                                height: 35,
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    child: Image.asset(
-                                                      model1.image!,
-                                                      fit: BoxFit.cover,
-                                                    ))),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      4.0, 4.0, 0.0, 4.0),
+                                              child: SizedBox(
+                                                  width: 35,
+                                                  height: 35,
+                                                  child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      child: Image.asset(
+                                                        model1.image!,
+                                                        fit: BoxFit.cover,
+                                                      ))),
+                                            ),
                                             Text(
                                               model1.code,
                                               textScaleFactor:
@@ -192,7 +197,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  .45,
+                                                  .54,
                                               child: Text(
                                                 model1.code.toUpperCase().tr(),
                                                 // model1.name!,
@@ -209,6 +214,10 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                               ),
                                             ),
                                             IconButton(
+                                              padding: const EdgeInsets.only(
+                                                  right: 7.0, left: 0.0),
+                                              constraints:
+                                                  const BoxConstraints(),
                                               splashRadius: 15,
                                               onPressed: () async {
                                                 if (model1.fav == 0) {
@@ -223,13 +232,13 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                               icon: model1.fav == 1
                                                   ? Icon(
                                                       Icons.star_sharp,
-                                                      size: 27.0,
+                                                      size: 30.0,
                                                       color:
                                                           MyColors.colorPrimary,
                                                     )
                                                   : const Icon(
                                                       Icons.star_border,
-                                                      size: 27.0,
+                                                      size: 30.0,
                                                       color: Colors.grey,
                                                     ),
                                             )
