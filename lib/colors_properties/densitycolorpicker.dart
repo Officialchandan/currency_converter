@@ -45,7 +45,7 @@ class DensityColorPicker extends StatefulWidget {
       width: 50,
       margin: const EdgeInsets.only(right: 10, top: 5, bottom: 5, left: 10),
       decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(0.0), color: color, border: Border.all(color: Colors.black87, width: 0.8)),
+          BoxDecoration(borderRadius: BorderRadius.circular(0.0), color: color),
       child: Material(
         color: Colors.transparent,
         child: InkWell(

@@ -83,47 +83,44 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with TickerProviderStat
               indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  icon: Container(
-                    width: 40,
-                    height: 35,
-                    child: Image.asset("assets/images/tab-ic1.png",
-                        fit: BoxFit.contain,
-                        //scale: 6,
-                        color: MyColors.textColor),
+                  icon: Image.asset(
+                    "assets/images/tab-ic1.png",
+                    scale: 2,
+                    color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic2.png",
-                    scale: 7,
+                    scale: 2,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic3.png",
-                    scale: 7,
+                    scale: 2,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic4.png",
-                    scale: 7,
+                    scale: 2,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic5.png",
-                    scale: 7,
+                    scale: 2,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
                     "assets/images/tab-ic6.png",
-                    scale: 7,
+                    scale: 2,
                     color: MyColors.textColor,
                   ),
                 ),

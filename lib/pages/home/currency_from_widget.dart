@@ -121,7 +121,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 350,
+              height: MediaQuery.of(context).size.height*.5,
               child: StreamBuilder<List<DataModel>>(
                   stream: streamController.stream,
                   initialData: countrycode,
@@ -155,6 +155,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
+                                            margin: EdgeInsets.all(0),
                                               width: 40,
                                               height: 40,
                                               child: ClipRRect(
