@@ -1926,6 +1926,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           ],
         )
       ],
+
     );
   }
 
