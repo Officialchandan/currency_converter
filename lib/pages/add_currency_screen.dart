@@ -190,7 +190,9 @@ class _AddCurrencyState extends State<AddCurrency> {
                                             unselectedList.sort((a, b) => a.code.compareTo(b.code));
 
                                             unselectedController.add(unselectedList);
+                                           
                                           },
+
                                           child: Icon(
                                             Icons.close,
                                             size: 29,

@@ -414,8 +414,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   style: GoogleFonts.roboto(fontSize: 18, color: MyColors.textColor, fontWeight: FontWeight.bold),
                                 )),
                             Image.asset(
-                              "assets/images/tab-ic5.png",
-                              scale: 9 + Constants.textScaleFactor,
+                              "assets/images/@3x/tab-ic5.png",
+                              scale: 9   - (Constants.textScaleFactor),
                               color: MyColors.textColor,
                             ),
                           ],
@@ -642,7 +642,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       width: 10,
                                     ),
                                     Text("A",
-                                        textScaleFactor: 0.9,
+                                        textScaleFactor: 0.85,
                                         style:
                                             GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500)),
                                   ],
@@ -702,7 +702,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     ),
                                     Text(
                                       "A",
-                                      textScaleFactor: 0.95,
+                                      textScaleFactor: 0.9,
                                       style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -875,6 +875,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       setState(() {
                                         if (MyColors.displayflag) {
                                           if (MyColors.displaysymbol) {
+
                                             MyColors.displaysymbol = false;
                                             MyColors.displaycode = true;
                                           } else
@@ -887,6 +888,11 @@ class _SettingScreenState extends State<SettingScreen> {
 
                                         // print(isSwitched);
                                       });
+                                       Utility.setBoolDisplayCodePreference("code",MyColors.displaycode);
+                                       Utility.setBoolDisplayflagPreference("flag",MyColors.displayflag);
+                                       Utility.setBoolDisplaysymbolPreference("symbol",MyColors.displaysymbol);
+
+
                                     },
                                     activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
@@ -925,6 +931,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.displaycode = false;
                                         }
                                       });
+                                      Utility.setBoolDisplayCodePreference("code",MyColors.displaycode);
+                                      Utility.setBoolDisplayflagPreference("flag",MyColors.displayflag);
+                                      Utility.setBoolDisplaysymbolPreference("symbol",MyColors.displaysymbol);
                                     },
                                     activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
@@ -953,6 +962,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.displayflag = !MyColors.displayflag;
                                         // print(isSwitched);
                                       });
+                                      Utility.setBoolDisplayCodePreference("code",MyColors.displaycode);
+                                      Utility.setBoolDisplayflagPreference("flag",MyColors.displayflag);
+                                      Utility.setBoolDisplaysymbolPreference("symbol",MyColors.displaysymbol);
                                     },
                                     activeTrackColor: MyColors.lightModeCheck ? MyColors.colorPrimary : Colors.black38,
                                     activeColor: MyColors.textColor,
@@ -1914,6 +1926,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           ],
         )
       ],
+
     );
   }
 
@@ -1932,7 +1945,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             style: const TextStyle(decoration: TextDecoration.none),
             child: Stack(children: [
               Container(
-                height: height * 0.71,
+                height: height * 0.65,
                 margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(

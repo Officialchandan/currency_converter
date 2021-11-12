@@ -86,47 +86,44 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  icon: Container(
-                    width: 40,
-                    height: 35,
-                    child: Image.asset("assets/images/tab-ic1.png",
-                        fit: BoxFit.contain,
-                        //scale: 6,
-                        color: MyColors.textColor),
-                  ),
-                ),
-                Tab(
                   icon: Image.asset(
-                    "assets/images/tab-ic2.png",
-                    scale: 7,
+                    "assets/images/@3x/tab-ic1.png",
+                    scale: 1,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
-                    "assets/images/tab-ic3.png",
-                    scale: 7,
+                    "assets/images/@3x/tab-ic2.png",
+                    scale: 1,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
-                    "assets/images/tab-ic4.png",
-                    scale: 7,
+                    "assets/images/@3x/tab-ic3.png",
+                    scale: 1,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
-                    "assets/images/tab-ic5.png",
-                    scale: 7,
+                    "assets/images/@3x/tab-ic4.png",
+                    scale: 1,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   icon: Image.asset(
-                    "assets/images/tab-ic6.png",
-                    scale: 7,
+                    "assets/images/@3x/tab-ic5.png",
+                    scale: 1,
+                    color: MyColors.textColor,
+                  ),
+                ),
+                Tab(
+                  icon: Image.asset(
+                    "assets/images/@3x/tab-ic6.png",
+                    scale: 1,
                     color: MyColors.textColor,
                   ),
                 ),

@@ -219,6 +219,10 @@ Future insertDefaultData() async {
 }
 
 insertion() async {
+  MyColors.displaycode=await Utility.getBoolDisplayCodePreference("code");
+  MyColors.displayflag= await Utility.getBoolDisplayflagPreference("flag");
+  MyColors.displaysymbol= await Utility.getBoolDisplaysymbolPreference("symbol");
+
   String monetary = await Utility.getStringPreference(Constants.monetaryFormat);
   String decimal = await Utility.getStringPreference(Constants.decimalFormat);
   monetary = monetary == "" ? "1" : monetary;
