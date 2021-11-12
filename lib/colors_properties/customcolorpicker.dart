@@ -1,3 +1,4 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
@@ -9,7 +10,8 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class CustomColorPicker extends StatefulWidget {
   final Function onThemeChange;
-  const CustomColorPicker({required this.onThemeChange, Key? key}) : super(key: key);
+  const CustomColorPicker({required this.onThemeChange, Key? key})
+      : super(key: key);
 
   @override
   _CustomColorPickerState createState() => _CustomColorPickerState();
@@ -30,7 +32,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
       body: IntrinsicHeight(
         child: Column(children: [
           Container(
-              margin: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
+              margin: const EdgeInsets.only(
+                  top: 15, right: 10, bottom: 0, left: 10),
               child: ColorPicker(
                 pickerColor: currentColor,
                 onColorChanged: changeColor,
@@ -61,7 +64,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                     int blue = currentColor.blue;
                     int green = currentColor.green;
 
-                    var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                    var grayscale =
+                        (0.299 * red) + (0.587 * green) + (0.114 * blue);
                     print("************************-> $grayscale");
 
                     if (grayscale > 170) {
@@ -83,14 +87,20 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                       // statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
                       //
                       //
-                      systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+                      systemNavigationBarIconBrightness: MyColors.lightModeCheck
+                          ? Brightness.light
+                          : Brightness.dark,
 
-                      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                      systemNavigationBarColor:
+                          MyColors.colorPrimary, // navigation bar color
                       statusBarColor: MyColors.colorPrimary, // status bar color
                     ));
                     widget.onThemeChange();
 
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (_) => MyTabBarWidget()),
+                        (route) => false);
                   },
                 ),
               ),
@@ -115,10 +125,15 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
 
                 setState(() {});
               },
-              child: Text(
+              child: AutoSizeText(
                 "cpv_presets".tr().toString(),
+                maxLines: 1,
                 textScaleFactor: Constants.textScaleFactor,
-                style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    letterSpacing: 0.8,
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700),
               ),
             ),
           ),
