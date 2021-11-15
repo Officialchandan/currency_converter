@@ -367,18 +367,18 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade900,
     ]),
 
-    LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade50,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade100,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade200,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade300,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade400,
-      MyColors.colorPrimary,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade500,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade600,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade700,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade800,
-      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade900,
+    LColor(lmainColor: MyColors.lockColorfordefault, ldensityColors: [
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade50,
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade100,
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade200,
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade300,
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade400,
+
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade500,
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade600,
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade700,
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade800,
+      ColorTools.createPrimarySwatch(MyColors.lockColorfordefault).shade900,
       // Utility.lighten(MyColors.colorPrimary, 0.10),
       // Utility.lighten(MyColors.colorPrimary, 0.20),
       // Utility.lighten(MyColors.colorPrimary, 0.30),
@@ -390,16 +390,17 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       // Utility.darken(MyColors.colorPrimary, 0.20),
       // Utility.darken(MyColors.colorPrimary, 0.25),
     ]),
-    // LColor(lmainColor: Colors.black, ldensityColors: [
-    //   Colors.black12,
-    //   Colors.black26,
-    //   Colors.black38,
-    //   Colors.black45,
-    //   Colors.black54,
-    //   Colors.black87,
-    //   Colors.black,
-    // ]),
+
   ];
+  LColor blackColor=LColor(lmainColor: Colors.black, ldensityColors: [
+    Colors.black12,
+    Colors.black26,
+    Colors.black38,
+    Colors.black45,
+    Colors.black54,
+    Colors.black87,
+    Colors.black,
+  ]);
   Color lockSelectdColor = Colors.blue;
   Color? unlockSelectdColor;
   Color? colorSelection;
@@ -409,7 +410,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   @override
   void initState() {
-    Color c = MyColors.colorPrimary;
+    Color c = MyColors.lockColorfordefault;
     unlockCurrentColor = widget.unlockCurrentColor;
     lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
     densityCurrentColor = widget.densityCurrentColor;
@@ -438,40 +439,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       ]);
     });
 
-    lselectedColor = lcolors.singleWhere((element) {
-      print("${element.lmainColor}=========$c");
-      Color d = Color(int.parse("0x" + "${element.lmainColor.value.toRadixString(16)}"));
+    // lcolors.removeLast();
+    // lcolors.add(blackColor);
+
+     for(int i=0;i<lcolors.length;i++) {
+      print("${lcolors[i].lmainColor}=========$c");
+      Color d = Color(int.parse("0x" + "${lcolors[i].lmainColor.value.toRadixString(16)}"));
       print("$d=========$c");
 
-      if (d == MyColors.lockColorfordefault)
-        return true;
-      else {
-        return false;
-      }
-    }, orElse: () {
-      return LColor(lmainColor: Colors.blue, ldensityColors: [
-        Color(0xffc9d8ef),
-        Color(0xffb8cbea),
-        Color(0xffa6bee5),
-        Color(0xff94b1df),
-        Color(0xff83a4da),
-        Color(0xff7197d5),
-        Color(0xff5f8ad0),
-        Color(0xff4e7dcb),
-        Color(0xff4e7dcb),
-        Color(0xff4670b6),
-        Color(0xff3e64a2),
-        Color(0xff36578e),
-        Color(0xff2e4b79),
-        Color(0xff273e65),
-        Color(0xff1f3251),
-        Color(0xff17253c),
-        Color(0xff0f1928),
-        Color(0xff070c14),
-        Color(0xff000000),
-      ]);
-    });
+      if (d == MyColors.lockColorfordefault) {
+        lselectedColor=lcolors[i];
+        break;
 
+
+
+      }
+
+    }
     // lselectedColor = LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
     //   Color(0xffc9d8ef),
     //   Color(0xffb8cbea),
@@ -495,6 +479,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     // ]);
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -566,6 +551,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                         onPressed: () {
+
+                          if(MyColors.densitycheck)
+                            {
+                              MyColors.densityeye=densitySelectedColor;
+                            }
+
+
                           MyColors.lockColorfordefault = lockSelectdColor;
                           MyColors.colorPrimary = colorSelection!;
 
@@ -588,7 +580,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.darkModeCheck = false;
                           }
 
-                          Utility.setTryColorPreference("Color", lockSelectdColor.value.toRadixString(16));
+                          Utility.setTryColorPreference("Color", colorSelection!.value.toRadixString(16));
 
                           SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                             // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,

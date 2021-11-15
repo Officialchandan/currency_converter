@@ -9,6 +9,7 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_converter/widget/calculator.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:dio/dio.dart';
 // ignore: implementation_imports
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -258,6 +259,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             width: MediaQuery.of(context).size.width * 0.50,
                             // width: 150,
                             child: AutoSizeTextField(
+
                               controller: calculateCurrency,
                               textAlignVertical: TextAlignVertical.center,
                               autocorrect: true,
@@ -289,10 +291,12 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               onChanged: (text) {
                                 debugPrint("onchange---------> $text");
 
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
+                                getConverterAPI(
+                                    currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
                                 calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                    TextSelection.fromPosition(TextPosition(
+                                        offset: calculateCurrency.text.length));
                               },
                             ),
                           ),
@@ -361,6 +365,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   fontSize: 18,
                                 ),
 
+
                                 controller: edtFrom,
                                 showCursor: false,
                                 readOnly: true,
@@ -411,6 +416,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                       const Spacer(),
                       InkWell(
                         child: Container(
+
                             width: appwidth * 0.45,
                             height: 50,
                             decoration: BoxDecoration(
@@ -480,6 +486,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                           margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.8),
                           child: Image.asset(
                             "assets/images/tooltip.png",
+
                           ),
                         )
                       : Container(),

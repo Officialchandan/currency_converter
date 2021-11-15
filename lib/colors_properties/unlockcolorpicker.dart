@@ -79,6 +79,7 @@ class UnlockColorPicker extends StatefulWidget {
             MyColors.unclockCheck=true;
             MyColors.lockCheck=false;
             MyColors.densitycheck=false;
+
             changeColor();
           },
 
