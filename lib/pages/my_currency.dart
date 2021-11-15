@@ -620,6 +620,7 @@ class Item extends StatelessWidget {
                 Expanded(
                   child: AutoSizeTextField(
                     controller: data.controller,
+                    cursorColor: MyColors.colorPrimary,
                     textAlignVertical: TextAlignVertical.center,
                     autocorrect: true,
                     maxLength: 30,
