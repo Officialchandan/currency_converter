@@ -1,3 +1,4 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/tramandconditions/privacy_policy.dart';
 import 'package:currency_converter/tramandconditions/support_page.dart';
@@ -13,7 +14,8 @@ class TeramAndCondition extends StatefulWidget {
   _TeramAndConditionState createState() => _TeramAndConditionState();
 }
 
-class _TeramAndConditionState extends State<TeramAndCondition> with SingleTickerProviderStateMixin {
+class _TeramAndConditionState extends State<TeramAndCondition>
+    with SingleTickerProviderStateMixin {
   late TabController _tabControllers;
 
   List<String> tabs = ["support".tr(), "terms".tr(), "privacy_policy".tr()];
@@ -79,11 +81,14 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
               ),
             ),
             Expanded(
-              child: TabBarView(physics: const NeverScrollableScrollPhysics(), controller: _tabControllers, children: const [
-                SupportPage(),
-                TermsPage(),
-                PrivacyPolicyPage(),
-              ]),
+              child: TabBarView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: _tabControllers,
+                  children: const [
+                    SupportPage(),
+                    TermsPage(),
+                    PrivacyPolicyPage(),
+                  ]),
             )
           ],
         ),
