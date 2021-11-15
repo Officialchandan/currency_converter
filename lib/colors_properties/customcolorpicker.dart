@@ -2,6 +2,7 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,9 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                     textScaleFactor: Constants.textScaleFactor,
                   ),
                   onPressed: () {
+                    MyColors.lockColorfordefault=currentColor;
+                    Utility.setTryColorPreference("Color", currentColor.value.toRadixString(16));
+
                     int red = currentColor.red;
                     int blue = currentColor.blue;
                     int green = currentColor.green;

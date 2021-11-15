@@ -40,8 +40,11 @@ class MyColors {
 
   static String equationForCopy="1";
 
-  static Color lockColorfordefault=Color(0xff9e9e9e);
+  static Color lockColorfordefault=Color(0xff4e7dcb);
 
   static bool eyeIconSetup=true;
+
+  static Color densityeye=Color(0xff4e7dcb);
+
 
 }
