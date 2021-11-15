@@ -108,7 +108,6 @@ class Utility {
     return prefs.setString(key, value);
   }
 
-
   static Future<bool> getBoolDisplayCodePreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(key) ?? true;
@@ -117,8 +116,9 @@ class Utility {
   static Future<bool> setBoolDisplayCodePreference(String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
+  }
 
-  } static Future<bool> getBoolDisplayflagPreference(String key) async {
+  static Future<bool> getBoolDisplayflagPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(key) ?? false;
   }
@@ -126,8 +126,9 @@ class Utility {
   static Future<bool> setBoolDisplayflagPreference(String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
+  }
 
-  }static Future<bool> getBoolDisplaysymbolPreference(String key) async {
+  static Future<bool> getBoolDisplaysymbolPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(key) ?? false;
   }
@@ -135,10 +136,7 @@ class Utility {
   static Future<bool> setBoolDisplaysymbolPreference(String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
-
   }
-
-
 
   static Future getColorTheme() async {
     String colorCode = await getStringPreference(Constants.themeColor);
@@ -224,5 +222,24 @@ class Utility {
       return text1;
     }
     return text1;
+  }
+
+  static Color lighten(Color color, [double amount = 0.49]) {
+    assert(amount >= 0 && amount <= 1);
+
+    final hsl = HSLColor.fromColor(color);
+
+    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+
+    return hslLight.toColor();
+  }
+
+  static Color darken(Color color, [double amount = .1]) {
+    assert(amount >= 0 && amount <= 1);
+
+    final hsl = HSLColor.fromColor(color);
+    final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+
+    return hslDark.toColor();
   }
 }

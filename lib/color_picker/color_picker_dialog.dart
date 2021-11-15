@@ -8,6 +8,7 @@ import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -365,25 +366,39 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade800,
       Colors.blueGrey.shade900,
     ]),
-    // LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
-    //   // Color(MyColors.colorPrimary.value),
-    //
-    //   ColorTools.createAccentSwatch(MyColors.colorPrimary).shade50,
-    //   ColorTools.createAccentSwatch(MyColors.colorPrimary).shade100,
-    //   ColorTools.createAccentSwatch(MyColors.colorPrimary).shade200,
-    //   ColorTools.createAccentSwatch(MyColors.colorPrimary).shade400,
-    //   MyColors.colorPrimary,
-    //   ColorTools.createAccentSwatch(MyColors.colorPrimary).shade700,
-    // ]),
-    LColor(lmainColor: Colors.black, ldensityColors: [
-      Colors.black12,
-      Colors.black26,
-      Colors.black38,
-      Colors.black45,
-      Colors.black54,
-      Colors.black87,
-      Colors.black,
+
+    LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade50,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade100,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade200,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade300,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade400,
+      MyColors.colorPrimary,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade500,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade600,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade700,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade800,
+      ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade900,
+      // Utility.lighten(MyColors.colorPrimary, 0.10),
+      // Utility.lighten(MyColors.colorPrimary, 0.20),
+      // Utility.lighten(MyColors.colorPrimary, 0.30),
+      // Utility.lighten(MyColors.colorPrimary, 0.40),
+      // Utility.lighten(MyColors.colorPrimary, 0.50),
+      // MyColors.colorPrimary,
+      // Utility.darken(MyColors.colorPrimary, 0.10),
+      // Utility.darken(MyColors.colorPrimary, 0.15),
+      // Utility.darken(MyColors.colorPrimary, 0.20),
+      // Utility.darken(MyColors.colorPrimary, 0.25),
     ]),
+    // LColor(lmainColor: Colors.black, ldensityColors: [
+    //   Colors.black12,
+    //   Colors.black26,
+    //   Colors.black38,
+    //   Colors.black45,
+    //   Colors.black54,
+    //   Colors.black87,
+    //   Colors.black,
+    // ]),
   ];
   Color lockSelectdColor = Colors.blue;
   Color? unlockSelectdColor;
@@ -422,6 +437,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         Color(0xff000000),
       ]);
     });
+
     lselectedColor = lcolors.singleWhere((element) {
       print("${element.lmainColor}=========$c");
       Color d = Color(int.parse("0x" + "${element.lmainColor.value.toRadixString(16)}"));
