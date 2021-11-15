@@ -1,3 +1,4 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/tramandconditions/privacy_policy.dart';
 import 'package:currency_converter/tramandconditions/support_page.dart';
