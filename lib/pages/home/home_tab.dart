@@ -259,6 +259,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                             width: MediaQuery.of(context).size.width * 0.50,
                             // width: 150,
                             child: AutoSizeTextField(
+
                               controller: calculateCurrency,
                               textAlignVertical: TextAlignVertical.center,
                               autocorrect: true,
@@ -266,9 +267,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               maxLines: 1,
                               maxFontSize: 18.0,
                               minFontSize: 7.0,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(RegExp(r'^\d+(?:\.\d+)?$')),
-                              ],
+                              cursorColor: MyColors.colorPrimary,
                               style: TextStyle(
                                 color: MyColors.colorPrimary,
                                 fontWeight: FontWeight.w600,
@@ -335,7 +334,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 },
                                 child: Image.asset(
                                   "assets/images/right-left.png",
-                                  scale: 8,
+                                  scale: 2,
                                 )),
                           ),
                         ),
@@ -356,55 +355,59 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: TextFormField(
-                              style: TextStyle(
-                                color: MyColors.insideTextFieldColor,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.5,
-                                fontSize: 18,
-                              ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 2.5),
+                              child: TextFormField(
+                                style: TextStyle(
+                                  color: MyColors.insideTextFieldColor,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1.5,
+                                  fontSize: 18,
+                                ),
 
-                              controller: edtFrom,
-                              showCursor: false,
-                              readOnly: true,
-                              autofocus: false,
-                              // keyboardType: TextInputType.none,
-                              onTap: () {
-                                if (_isContainerVisible) {
-                                  _isContainerVisible = false;
-                                } else {
-                                  isCalculatorVisible = false;
-                                  _isContainerVisible = true;
-                                }
-                                if (_isContainerVisibleTwo) {
-                                  _isContainerVisibleTwo = false;
-                                }
-                                //*d
 
-                                setState(() {
-                                  arrowPosition = !arrowPosition;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  height: 9.5,
-                                  width: 9.5,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Image.asset(
-                                      flagfrom,
-                                      fit: BoxFit.cover,
+                                controller: edtFrom,
+                                showCursor: false,
+                                readOnly: true,
+                                autofocus: false,
+                                // keyboardType: TextInputType.none,
+                                onTap: () {
+                                  if (_isContainerVisible) {
+                                    _isContainerVisible = false;
+                                  } else {
+                                    isCalculatorVisible = false;
+                                    _isContainerVisible = true;
+                                  }
+                                  if (_isContainerVisibleTwo) {
+                                    _isContainerVisibleTwo = false;
+                                  }
+                                  //*d
+
+                                  setState(() {
+                                    arrowPosition = !arrowPosition;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  prefixIcon: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    height: 9.5,
+                                    width: 9.5,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: Image.asset(
+                                        flagfrom,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: MyColors.insideTextFieldColor,
-                                    size: 23.0,
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: MyColors.insideTextFieldColor,
+                                      size: 23.0,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -413,56 +416,60 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                       const Spacer(),
                       InkWell(
                         child: Container(
+
                             width: appwidth * 0.45,
                             height: 50,
                             decoration: BoxDecoration(
                               color: MyColors.textColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: TextField(
-                              style: TextStyle(
-                                color: MyColors.insideTextFieldColor,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.5,
-                                fontSize: 18,
-                              ),
-                              controller: edtTo,
-                              showCursor: false,
-                              readOnly: true,
-                              autofocus: false,
-                              // keyboardType: TextInputType.none,
-                              onTap: () {
-                                if (_isContainerVisibleTwo) {
-                                  _isContainerVisibleTwo = false;
-                                } else {
-                                  _isContainerVisible = false;
-                                  isCalculatorVisible = false;
-                                  _isContainerVisibleTwo = true;
-                                }
-                                setState(() {
-                                  arrowPositionTwo = !arrowPositionTwo;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  width: 15,
-                                  height: 15,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: Image.asset(
-                                      flagto,
-                                      fit: BoxFit.cover,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 2.5),
+                              child: TextField(
+                                style: TextStyle(
+                                  color: MyColors.insideTextFieldColor,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1.5,
+                                  fontSize: 18,
+                                ),
+                                controller: edtTo,
+                                showCursor: false,
+                                readOnly: true,
+                                autofocus: false,
+                                // keyboardType: TextInputType.none,
+                                onTap: () {
+                                  if (_isContainerVisibleTwo) {
+                                    _isContainerVisibleTwo = false;
+                                  } else {
+                                    _isContainerVisible = false;
+                                    isCalculatorVisible = false;
+                                    _isContainerVisibleTwo = true;
+                                  }
+                                  setState(() {
+                                    arrowPositionTwo = !arrowPositionTwo;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  prefixIcon: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    width: 15,
+                                    height: 15,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: Image.asset(
+                                        flagto,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: MyColors.insideTextFieldColor,
-                                    size: 23.0,
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: MyColors.insideTextFieldColor,
+                                      size: 23.0,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -479,7 +486,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                           margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.8),
                           child: Image.asset(
                             "assets/images/tooltip.png",
-                            scale: 7,
+
                           ),
                         )
                       : Container(),
@@ -489,7 +496,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                           width: MediaQuery.of(context).size.width,
                           height: 10,
                           padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2),
-                          child: Image.asset("assets/images/tooltip.png"),
+                          child: Image.asset("assets/images/tooltip.png",),
                         )
                       : Container(),
                   _isContainerVisible

@@ -180,7 +180,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Image.asset(
                             "assets/images/tooltip.png",
                             color: Colors.white,
-                            scale: 9,
+
                           ),
                         )
                       : Container(),
