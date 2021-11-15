@@ -32,11 +32,9 @@ class _AddCurrencyState extends State<AddCurrency> {
   void getAllData() async {
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
-    // unselectedList.addAll(selectedList);
-    List<DataModel> data = await dbHelper.getUnselectedData();
-    unselectedList.addAll(data);
     selectedController.add(selectedList);
 
+    unselectedList = await dbHelper.getUnselectedData();
     unselectedController.add(unselectedList);
 
     debugPrint("selectedList $selectedList");
@@ -177,6 +175,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                             selectedList[i].iconForSelection = false;
                                             data.iconForSelection = false;
                                             data.selected = 0;
+                                            data.timeStamp = 0;
 
                                             dbHelper.update(data.toMap());
                                             debugPrint("onTap1->${selectedList.length}");
@@ -190,9 +189,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                             unselectedList.sort((a, b) => a.code.compareTo(b.code));
 
                                             unselectedController.add(unselectedList);
-                                           
                                           },
-
                                           child: Icon(
                                             Icons.close,
                                             size: 29,

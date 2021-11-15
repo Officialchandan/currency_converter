@@ -85,6 +85,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
               labelPadding: EdgeInsets.all(0),
               tabs: <Widget>[
                 Tab(
+
                   child: Image.asset(
                     "assets/images/@3x/tab-ic1.png",
                     scale: 1,

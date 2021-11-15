@@ -46,7 +46,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''CREATE TABLE $tableName (
             $ColumnId INTEGER PRIMARY KEY,
-            $countryCode TEXT NOT NULL,
+            $countryCode TEXT NOT NULL UNIQUE,
             $countryImage TEXT NOT NULL,
             $currencyValue TEXT NOT NULL,
             $favCountry INTEGER NOT NULL,
@@ -166,7 +166,8 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> data = await db.query(tableName, where: "$selectedCountry = ?", whereArgs: [0]);
+      List<Map<String, dynamic>> data = await db.query(tableName,
+          where: "$selectedCountry = ?", whereArgs: [0], orderBy: "$countryCode ASC", groupBy: "$countryCode");
 
       if (data.isNotEmpty) {
         for (var element in data) {

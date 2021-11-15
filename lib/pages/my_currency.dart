@@ -671,6 +671,7 @@ class Item extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             data.selected = 0;
+                            data.timeStamp = 0;
                             dbHelper.update(data.toMap());
                             onItemRemove();
                           },
