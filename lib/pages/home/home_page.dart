@@ -82,46 +82,65 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
               },
               physics: const BouncingScrollPhysics(parent: ScrollPhysics()),
               indicatorColor: Colors.white,
+              labelPadding: EdgeInsets.all(0),
               tabs: <Widget>[
                 Tab(
-                  icon: Image.asset(
+                  child: Image.asset(
                     "assets/images/@3x/tab-ic1.png",
                     scale: 1,
+                    width: 35,
+                    height: 35,
+                    fit: BoxFit.cover,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
-                  icon: Image.asset(
+                  child: Image.asset(
                     "assets/images/@3x/tab-ic2.png",
                     scale: 1,
+                    width: 28,
+                    height: 28,
+                    fit: BoxFit.cover,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
-                  icon: Image.asset(
+                  child: Image.asset(
                     "assets/images/@3x/tab-ic3.png",
                     scale: 1,
+                    width: 28,
+                    height: 28,
+                    fit: BoxFit.cover,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
-                  icon: Image.asset(
+                  child: Image.asset(
                     "assets/images/@3x/tab-ic4.png",
                     scale: 1,
+                    width: 28,
+                    height: 28,
+                    fit: BoxFit.cover,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
-                  icon: Image.asset(
+                  child: Image.asset(
                     "assets/images/@3x/tab-ic5.png",
                     scale: 1,
+                    width: 28,
+                    height: 28,
+                    fit: BoxFit.cover,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
-                  icon: Image.asset(
+                  child: Image.asset(
                     "assets/images/@3x/tab-ic6.png",
                     scale: 1,
+                    width: 28,
+                    height: 28,
+                    fit: BoxFit.cover,
                     color: MyColors.textColor,
                   ),
                 ),
