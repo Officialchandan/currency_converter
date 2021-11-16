@@ -33,9 +33,11 @@ const List<Color> _defaultColors = [
 ];
 String? colorPreference;
 
-typedef PickerLayoutBuilder = Widget Function(BuildContext context, List<LColor> colors, PickerItem child);
+typedef PickerLayoutBuilder = Widget Function(
+    BuildContext context, List<LColor> colors, PickerItem child);
 typedef PickerItem = Widget Function(LColor color);
-typedef PickerItemBuilder = Widget Function(LColor color, bool isCurrentColor, void Function() changeColor);
+typedef PickerItemBuilder = Widget Function(
+    LColor color, bool isCurrentColor, void Function() changeColor);
 
 class LockColorPicker extends StatefulWidget {
   const LockColorPicker({
@@ -52,7 +54,8 @@ class LockColorPicker extends StatefulWidget {
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
 
-  static Widget defaultLayoutBuilder(BuildContext context, List<LColor> colors, PickerItem child) {
+  static Widget defaultLayoutBuilder(
+      BuildContext context, List<LColor> colors, PickerItem child) {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return SizedBox(
@@ -68,7 +71,8 @@ class LockColorPicker extends StatefulWidget {
     );
   }
 
-  static Widget defaultItemBuilder(LColor color, bool isCurrentColor, void Function() changeColor) {
+  static Widget defaultItemBuilder(
+      LColor color, bool isCurrentColor, void Function() changeColor) {
     return Material(
         color: Colors.transparent,
         child: InkWell(
@@ -92,24 +96,30 @@ class LockColorPicker extends StatefulWidget {
               borderRadius: BorderRadius.circular(0.0),
               color: color.lmainColor,
             ),
-            child: colorPreference == color.lmainColor.value.toRadixString(16) && MyColors.eyeIconSetup
-                ? Icon(
-                    Icons.visibility_outlined,
-                    color: useWhiteForeground(color.lmainColor) ? Colors.white : Colors.black,
-                  )
-                : AnimatedOpacity(
-                    duration: const Duration(milliseconds: 210),
-                    opacity: isCurrentColor ? 1.0 : 0.0,
-                    child: MyColors.lockCheck
-                        ? Icon(
-                            Icons.done,
-                            color: useWhiteForeground(color.lmainColor) ? Colors.white : Colors.black,
-                          )
-                        : Text(
-                            "        ",
-                            textScaleFactor: Constants.textScaleFactor,
-                          ),
-                  ),
+            child:
+                colorPreference == color.lmainColor.value.toRadixString(16) &&
+                        MyColors.eyeIconSetup
+                    ? Icon(
+                        Icons.visibility_outlined,
+                        color: useWhiteForeground(color.lmainColor)
+                            ? Colors.white
+                            : Colors.black,
+                      )
+                    : AnimatedOpacity(
+                        duration: const Duration(milliseconds: 210),
+                        opacity: isCurrentColor ? 1.0 : 0.0,
+                        child: MyColors.lockCheck
+                            ? Icon(
+                                Icons.done,
+                                color: useWhiteForeground(color.lmainColor)
+                                    ? Colors.white
+                                    : Colors.black,
+                              )
+                            : Text(
+                                "        ",
+                                textScaleFactor: Constants.textScaleFactor,
+                              ),
+                      ),
           ),
         ));
   }
@@ -138,8 +148,10 @@ class _LockColorPickerState extends State<LockColorPicker> {
     return widget.layoutBuilder(
       context,
       widget.availableColors,
-      (LColor color, [bool? _, Function? __]) =>
-          widget.itemBuilder(color, _currentColor.lmainColor == color.lmainColor, () => changeColor(color)),
+      (LColor color, [bool? _, Function? __]) => widget.itemBuilder(
+          color,
+          _currentColor.lmainColor == color.lmainColor,
+          () => changeColor(color)),
     );
   }
 
@@ -148,7 +160,8 @@ class _LockColorPickerState extends State<LockColorPicker> {
     Color? c;
     LColor? lockcolor;
     for (int i = 0; i < widget.availableColors.length; i++) {
-      if (colorPreference == widget.availableColors[i].lmainColor.value.toRadixString(16)) {
+      if (colorPreference ==
+          widget.availableColors[i].lmainColor.value.toRadixString(16)) {
         c = Color(int.parse("0x" + "${colorPreference}"));
         lockcolor = LColor(lmainColor: c, ldensityColors: []);
         LColor temp = widget.availableColors[0];
