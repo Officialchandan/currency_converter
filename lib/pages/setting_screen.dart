@@ -437,7 +437,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           children: [
                             Container(
                                 margin: const EdgeInsets.only(
-                                  right: 15,
+                                  right: 5.6,
                                 ),
                                 child: Text(
                                   "wedget_transparency".tr().toString(),

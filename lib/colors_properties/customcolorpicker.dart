@@ -31,8 +31,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        height: MediaQuery.of(context).size.height*0.695,
-        child: Column(children: [
+        height: MediaQuery.of(context).size.height * 0.695,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
               margin: const EdgeInsets.only(
                   top: 15, right: 10, bottom: 0, left: 10),
@@ -62,8 +62,9 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                     textScaleFactor: Constants.textScaleFactor,
                   ),
                   onPressed: () {
-                    MyColors.lockColorfordefault=currentColor;
-                    Utility.setTryColorPreference("Color", currentColor.value.toRadixString(16));
+                    MyColors.lockColorfordefault = currentColor;
+                    Utility.setTryColorPreference(
+                        "Color", currentColor.value.toRadixString(16));
 
                     int red = currentColor.red;
                     int blue = currentColor.blue;
@@ -119,22 +120,19 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                       )))
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(
-              right: 250,
-              top: 30,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
 
-                setState(() {});
-              },
+              setState(() {});
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
               child: AutoSizeText(
-                "cpv_presets".tr().toString(),
+                "cpv_presets".tr().toString().toUpperCase(),
                 maxLines: 1,
                 textScaleFactor: Constants.textScaleFactor,
-                style: TextStyle(
+                style: const TextStyle(
                     letterSpacing: 0.8,
                     color: Colors.black,
                     fontSize: 16,
