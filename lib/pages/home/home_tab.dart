@@ -275,7 +275,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                               keyboardType: TextInputType.none,
                               showCursor: true,
                               readOnly: false,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
+                                  hoverColor: MyColors.colorPrimary,
                                   contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
                                   counterText: "",
                                   border: InputBorder.none),

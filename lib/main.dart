@@ -7,6 +7,7 @@ import 'package:currency_converter/utils/locals.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,9 +59,13 @@ class _MyAppState extends State<MyApp> {
         );
       },
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        fontFamily: GoogleFonts.roboto().fontFamily,
-      ),
+          scaffoldBackgroundColor: Colors.white,
+          fontFamily: GoogleFonts.roboto().fontFamily,
+          inputDecorationTheme: InputDecorationTheme(
+            hoverColor: MyColors.colorPrimary,
+          ),
+          primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
+          primaryColor: MyColors.colorPrimary),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
