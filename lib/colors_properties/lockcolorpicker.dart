@@ -6,9 +6,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_colorpicker/src/utils.dart';
 
 const List<Color> _defaultColors = [
@@ -159,9 +157,6 @@ class _LockColorPickerState extends State<LockColorPicker> {
 
         break;
       }
-
-
-        }
     }
 
     setState(() {});

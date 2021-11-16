@@ -37,13 +37,6 @@ class _MyCurrencyState extends State<MyCurrency> {
   StreamController<List<DataModel>> streamController = StreamController();
   StreamController<DataModel> dataController = StreamController();
   bool isCalculatorVisible = false;
-  var calculatorTextSize;
-  String equation = "0";
-  String result = "0";
-  String expression = "";
-  double equationFontSize = 38.0;
-  double resultFontSize = 48.0;
-  bool isbool = true;
 
   bool firstTime = true;
   DataModel? selectedData;
@@ -70,7 +63,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   void didUpdateWidget(MyCurrency oldWidget) {
     if (mounted) {
       debugPrint("MyCurrency-> didUpdateWidget");
-      debugPrint("expression-> $expression");
+
       debugPrint("selectedData-> $selectedData");
 
       onRefresh();
@@ -118,7 +111,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
-    calculatorTextSize = appheight * 0.050;
+
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
@@ -135,15 +128,6 @@ class _MyCurrencyState extends State<MyCurrency> {
           padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
           height: appheight,
           width: appwidth,
-          // decoration: BoxDecoration(
-          //     gradient: LinearGradient(
-          //   colors: [
-          //     MyColors.colorPrimary.withOpacity(0.45),
-          //     MyColors.colorPrimary.withOpacity(1.0),
-          //   ],
-          //   begin: Alignment.topCenter,
-          //   end: Alignment.bottomCenter,
-          // )),
           child: ReorderableList(
             onReorder: this._reorderCallback,
             onReorderDone: this._reorderDone,
@@ -194,12 +178,9 @@ class _MyCurrencyState extends State<MyCurrency> {
                                 calculateExchangeRate("1", 0, selectedList[index]);
                                 firstTime = false;
                               }
-                              // selectedList[index].controller.text = getFormatText(
-                              //     double.parse(selectedList[index].controller.text.replaceAll(",", "").replaceAll("-", ""))
-                              //         .toStringAsFixed(MyColors.decimalFormat));
+
                               return Item(
                                 data: selectedList[index],
-                                // first and last attributes affect border drawn during dragging
                                 isFirst: index == 0,
                                 isLast: index == selectedList.length - 1,
                                 draggingMode: _draggingMode,
@@ -250,8 +231,9 @@ class _MyCurrencyState extends State<MyCurrency> {
                 }
 
                 debugPrint("str--->$str");
+                debugPrint("decimalFormat--->${MyColors.decimalFormat}");
                 debugPrint("${str.length - MyColors.decimalFormat}");
-                if ((str.length - MyColors.decimalFormat) > 0) {
+                if ((str.length - MyColors.decimalFormat) > 0 && MyColors.decimalFormat > 0) {
                   str.insert(str.length - MyColors.decimalFormat, ".");
                 }
                 s = "";
@@ -315,8 +297,6 @@ class _MyCurrencyState extends State<MyCurrency> {
                 selectedList[index].controller.text = value;
                 calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
               }
-
-              // streamController.a
             } else {
               debugPrint("savedvalueisnothere");
               firstTime = true;
@@ -640,7 +620,19 @@ class Item extends StatelessWidget {
                         contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
                         counterText: "",
                         border: InputBorder.none),
-                    onChanged: (String text) {
+                    onChanged: (String text) async {
+                      if (text.isEmpty) {
+                        text = "0";
+                        await Utility.setStringPreference("value", "1");
+                        await Utility.setStringPreference("code", data.code);
+                        Constants.selectedEditableCurrencyCode = data.code;
+                        Constants.selectedEditableCurrencyValue = "1";
+                      } else {
+                        await Utility.setStringPreference("value", text);
+                        await Utility.setStringPreference("code", data.code);
+                        Constants.selectedEditableCurrencyCode = data.code;
+                        Constants.selectedEditableCurrencyValue = text;
+                      }
                       data.controller.text = text;
                       // text = data.controller.text;
                       data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));

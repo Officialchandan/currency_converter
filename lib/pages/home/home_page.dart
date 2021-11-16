@@ -85,63 +85,62 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
               labelPadding: EdgeInsets.all(0),
               tabs: <Widget>[
                 Tab(
-
                   child: Image.asset(
-                    "assets/images/@3x/tab-ic1.png",
+                    "assets/images/tab-ic1.png",
                     scale: 1,
-                    width: 35,
-                    height: 35,
-                    fit: BoxFit.cover,
+                    width: 32,
+                    height: 32,
+                    fit: BoxFit.contain,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   child: Image.asset(
-                    "assets/images/@3x/tab-ic2.png",
+                    "assets/images/tab-ic2.png",
                     scale: 1,
                     width: 28,
                     height: 28,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   child: Image.asset(
-                    "assets/images/@3x/tab-ic3.png",
+                    "assets/images/tab-ic3.png",
                     scale: 1,
                     width: 28,
                     height: 28,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   child: Image.asset(
-                    "assets/images/@3x/tab-ic4.png",
+                    "assets/images/tab-ic4.png",
                     scale: 1,
                     width: 28,
                     height: 28,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   child: Image.asset(
-                    "assets/images/@3x/tab-ic5.png",
+                    "assets/images/tab-ic5.png",
                     scale: 1,
                     width: 28,
                     height: 28,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     color: MyColors.textColor,
                   ),
                 ),
                 Tab(
                   child: Image.asset(
-                    "assets/images/@3x/tab-ic6.png",
+                    "assets/images/tab-ic6.png",
                     scale: 1,
                     width: 28,
                     height: 28,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     color: MyColors.textColor,
                   ),
                 ),

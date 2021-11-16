@@ -6,11 +6,13 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 
 class AddCurrency extends StatefulWidget {
   const AddCurrency({Key? key}) : super(key: key);
+
   @override
   _AddCurrencyState createState() => _AddCurrencyState();
 }
@@ -165,7 +167,7 @@ class _AddCurrencyState extends State<AddCurrency> {
                                   Row(
                                     children: [
                                       InkWell(
-                                          onTap: () {
+                                          onTap: () async {
                                             debugPrint("onTap");
                                             data.iconForSelection = !data.iconForSelection;
 
@@ -178,6 +180,11 @@ class _AddCurrencyState extends State<AddCurrency> {
                                             data.timeStamp = 0;
 
                                             dbHelper.update(data.toMap());
+                                            if (data.code == await Utility.getStringPreference("code")) {
+                                              await Utility.setStringPreference("value", "1");
+                                              await Utility.setStringPreference("code", "");
+                                            }
+
                                             debugPrint("onTap1->${selectedList.length}");
 
                                             unselectedList.add(selectedList[i]);
