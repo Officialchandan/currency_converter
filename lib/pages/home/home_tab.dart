@@ -165,7 +165,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                     centerTitle: true,
                     toolbarHeight: 50,
                     title: Text(
-                      "updated_date".tr().toString() + ": " + Utility.getFormatDate(),
+                      "updated_date".tr().toString() + " " + Utility.getFormatDate(),
                       textScaleFactor: Constants.textScaleFactor,
                       // textAlign: TextAlign.center,
                       style: TextStyle(
@@ -293,6 +293,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 if (text.isEmpty) {
                                   text = "0";
                                 }
+                                text = text.replaceAll(new RegExp(r'[^0-9]'), '');
+                                debugPrint("aStr---------> $text");
                                 MyColors.equationForCopy = text;
                                 getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
                                 calculateCurrency.text = text;
