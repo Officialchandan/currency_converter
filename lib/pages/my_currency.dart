@@ -245,7 +245,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                 debugPrint("str--->$str");
                 debugPrint("decimalFormat--->${MyColors.decimalFormat}");
                 debugPrint("${str.length - MyColors.decimalFormat}");
-                if ((str.length - MyColors.decimalFormat) > 0 && MyColors.decimalFormat > 0) {
+                if ((str.length - MyColors.decimalFormat) > 0 &&
+                    MyColors.decimalFormat > 0) {
                   str.insert(str.length - MyColors.decimalFormat, ".");
                 }
                 s = "";
