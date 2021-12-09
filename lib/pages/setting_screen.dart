@@ -63,6 +63,8 @@ class _SettingScreenState extends State<SettingScreen> {
         .of(context)
         .size
         .height;
+
+
     var width = MediaQuery
         .of(context)
         .size
