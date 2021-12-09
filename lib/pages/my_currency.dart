@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -107,7 +106,7 @@ class _MyCurrencyState extends State<MyCurrency> {
     debugPrint("Reordering finished for ${draggedItem.code}");
   }
 
-  DraggingMode _draggingMode = DraggingMode.iOS;
+  final DraggingMode _draggingMode = DraggingMode.iOS;
 
   @override
   Widget build(BuildContext context) {
@@ -131,8 +130,8 @@ class _MyCurrencyState extends State<MyCurrency> {
           height: appheight,
           width: appwidth,
           child: ReorderableList(
-            onReorder: this._reorderCallback,
-            onReorderDone: this._reorderDone,
+            onReorder: _reorderCallback,
+            onReorderDone: _reorderDone,
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverList(
@@ -246,17 +245,10 @@ class _MyCurrencyState extends State<MyCurrency> {
                 s = s.replaceAll(RegExp(r'[^0-9]'), '');
                 List<String> str = s.split("");
 
-                // for (int i = 0; i < str.length; i++) {
-                //   if (str[i] == "," || str[i] == "." || str[i] == " ") {
-                //     str.removeAt(i);
-                //   }
-                // }
-
                 debugPrint("str--->$str");
                 debugPrint("decimalFormat--->${MyColors.decimalFormat}");
                 debugPrint("${str.length - MyColors.decimalFormat}");
-                if ((str.length - MyColors.decimalFormat) > 0 &&
-                    MyColors.decimalFormat > 0) {
+                if ((str.length - MyColors.decimalFormat) > 0 && MyColors.decimalFormat > 0) {
                   str.insert(str.length - MyColors.decimalFormat, ".");
                 }
                 s = "";
@@ -346,8 +338,7 @@ class _MyCurrencyState extends State<MyCurrency> {
           double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
 
           debugPrint("conversionRate->$conversionRate");
-          String m = await getFormatText(conversionRate.toStringAsFixed(MyColors.decimalFormat));
-
+          String m = getFormatText(conversionRate.toStringAsFixed(MyColors.decimalFormat));
           element.controller.text = m;
           element.controller.selection = TextSelection.fromPosition(TextPosition(offset: element.controller.text.length));
           element.exchangeValue = m;
@@ -360,11 +351,8 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   String getFormatText(String s) {
     String text1 = "";
-    debugPrint("MyColors.decimalformat-->${MyColors.decimalFormat}");
-    debugPrint("getFormatText-->$s");
 
     int i = MyColors.monetaryFormat;
-    debugPrint("monetaryFormat-->$i");
     int afterdecimal = MyColors.decimalFormat;
 
     // double amount =
@@ -385,32 +373,31 @@ class _MyCurrencyState extends State<MyCurrency> {
       return text1;
     } else if (i == 2) {
       text1 = mformat.format(s.replaceAll(".", ""));
-      log(text1);
+
       text1 = text1.replaceAll(".", " ");
-      log(text1);
+
       text1 = text1.replaceAll(",", ".");
-      log(text1);
+
       text1 = text1.replaceAll(" ", ",");
       return text1;
       //text = text.replaceFirstMapped(".", (match) => "1");
     } else if (i == 3) {
       text1 = mformat.format(s.replaceAll(".", ""));
       text1 = text1.replaceAll(".", "=");
-      log(text1);
+
       text1 = text1.replaceAll(",", ".");
-      log(text1);
+
       text1 = text1.replaceAll(".", " ");
       text1 = text1.replaceAll("=", ".");
 
-      log(text1);
       return text1;
     } else if (i == 4) {
       text1 = mformat.format(s.replaceAll(".", ""));
-      log(text1);
+
       text1 = text1.replaceAll(",", " ");
-      log(text1);
+
       text1 = text1.replaceAll(".", ",");
-      log(text1);
+
       return text1;
     }
     return text1;

@@ -246,10 +246,10 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
 
   void orderedData() async {
     List<Map<String, dynamic>> orderableData = await dbHelper.order();
-    orderableData.forEach((element) {
+    for (var element in orderableData) {
       DataModel currencyData = DataModel.fromMap(element);
       countrycode.add(currencyData);
-    });
+    }
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);
     }
@@ -258,11 +258,11 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
 
   void showAll() async {
     List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
-    allRows.forEach((element) {
+    for (var element in allRows) {
       debugPrint("element-->$element");
       DataModel currencyData = DataModel.fromMap(element);
       countrycode.add(currencyData);
-    });
+    }
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);
     }

@@ -56,14 +56,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   @override
   void initState() {
     widget.onInitialize(this);
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //   systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-    //   statusBarColor: MyColors.colorPrimary, // status bar color
-    // ));
-
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-    // Insert();
+
     getCurrencyCode();
 
     super.initState();
@@ -76,7 +71,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-    text = Utility.getFormatText(await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text));
+
+    text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
 
     if (mounted) {
       setState(() {});
@@ -642,6 +638,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   }
 
   Future<String> getConverterAPI(String form, String to, String rate) async {
+    debugPrint("rate--->$rate");
+
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
 
