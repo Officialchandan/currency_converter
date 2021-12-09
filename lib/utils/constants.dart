@@ -25,6 +25,7 @@ class Constants {
   static String selectedEditableCurrencyCode = "";
   static String selectedEditableCurrencyValue = "";
 
+
   static const List<Map<String, dynamic>> countryList = [
     {
       "code": "OMR",

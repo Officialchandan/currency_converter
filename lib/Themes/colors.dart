@@ -57,5 +57,5 @@ class MyColors {
 
   static bool eyeIconSetup = true;
 
-  static Color densityeye = Color(0xff4e7dcb);
+  static Color densityColor = Color(0xff4e7dcb);
 }

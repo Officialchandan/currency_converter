@@ -18,6 +18,16 @@ class Utility {
     return prefs.setString(key, value);
   }
 
+  static Future<String> getStringPreferenceForDensityColor(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key) ?? "0xff4e7dcb";
+  }
+
+  static Future<bool> setStringPreferenceForDensityColor(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(key, value);
+  }
+
   static Future<bool> getBooleanPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(key) ?? false;

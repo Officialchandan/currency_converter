@@ -544,7 +544,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               width: width * 0.87,
               height: height * 0.077,
               child: DensityColorPicker(
-                  pickerColor: densityCurrentColor,
+                  pickerColor: MyColors.densityColor,
                   onColorChanged: densitychangeColor,
                   availableColors: MyColors.lastTimeCheck ? selectedColor.densityColors : lselectedColor.ldensityColors)),
         ),
@@ -766,8 +766,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void densitychangeColor(Color color) {
+
+    Utility.setStringPreference("DensityColor",color.value.toString());
+    MyColors.densityColor=color;
     MyColors.unclockCheck = false;
     MyColors.lockCheck = false;
+    
 
     widget.lockedColor = true;
     density = true;
@@ -787,4 +791,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.themeColor, code);
   }
+
+ 
 }
