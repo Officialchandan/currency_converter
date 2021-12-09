@@ -473,6 +473,7 @@ class Item extends StatelessWidget {
   final Function onItemRemove;
   final Function(String text) onChange;
   final Function onTap;
+  bool isbool = true;
 
   final dbHelper = DatabaseHelper.instance;
 
@@ -501,7 +502,8 @@ class Item extends StatelessWidget {
             child: Row(
               children: [
                 MyColors.displayflag && MyColors.displaycode
-                    ? ReorderableListener(
+                    ? DelayedReorderableListener(
+                        delay: Duration(seconds: 1),
                         canStart: () {
                           return false;
                         },
@@ -521,7 +523,8 @@ class Item extends StatelessWidget {
                       ),
 
                 MyColors.displaycode
-                    ? ReorderableListener(
+                    ? DelayedReorderableListener(
+                        delay: Duration(seconds: 1),
                         child: Container(
                           margin: const EdgeInsets.only(left: 8.0),
                           height: 35.0,
@@ -558,7 +561,8 @@ class Item extends StatelessWidget {
                       )
                     : //Currency Code
                     MyColors.displayflag
-                        ? ReorderableListener(
+                        ? DelayedReorderableListener(
+                            delay: Duration(seconds: 1),
                             child: SizedBox(
                                 width: 40,
                                 height: 40,
@@ -570,7 +574,8 @@ class Item extends StatelessWidget {
                                     ))),
                           )
                         : //flag
-                        ReorderableListener(
+                        DelayedReorderableListener(
+                            delay: Duration(seconds: 1),
                             child: Container(
                               margin: const EdgeInsets.only(left: 8.0),
                               height: 35.0,
@@ -603,7 +608,8 @@ class Item extends StatelessWidget {
                   width: 5,
                 ),
                 MyColors.displayflag && MyColors.displaysymbol
-                    ? ReorderableListener(
+                    ? DelayedReorderableListener(
+                        delay: Duration(seconds: 1),
                         child: Container(
                           margin: const EdgeInsets.only(left: 8.0),
                           height: 35.0,
@@ -642,58 +648,67 @@ class Item extends StatelessWidget {
                     data: MediaQuery.of(context).copyWith(
                       textScaleFactor: Constants.textScaleFactor,
                     ),
-                    child: AutoSizeTextField(
-                      controller: data.controller,
-                      cursorColor: MyColors.colorPrimary,
-                      textAlignVertical: TextAlignVertical.center,
-                      autocorrect: true,
-                      maxLength: 30,
-                      maxLines: 1,
-                      maxFontSize: 17.0,
-                      minFontSize: 7.0,
-                      style: TextStyle(
-                        color: MyColors.colorPrimary,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.none,
-                      showCursor: true,
-                      readOnly: false,
-                      decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.only(
-                              left: 1.0, right: 1.0, bottom: 15.0),
-                          counterText: "",
-                          border: InputBorder.none),
-                      onChanged: (String text) async {
-                        if (text.isEmpty) {
-                          text = "0";
-                        }
-                        text = text.replaceAll(RegExp(r'[^0-9]'), '');
-                        await Utility.setStringPreference("value", text);
-                        await Utility.setStringPreference("code", data.code);
-                        Constants.selectedEditableCurrencyCode = data.code;
-                        Constants.selectedEditableCurrencyValue = text;
-                        data.controller.text = text;
-                        // text = data.controller.text;
-                        data.controller.selection = TextSelection.fromPosition(
-                            TextPosition(offset: data.controller.text.length));
-                        onChange(text);
-                        // calculateExchangeRate(text);
+                    child: DelayedReorderableListener(
+                      delay: const Duration(milliseconds: 400),
+                      canStart: () {
+                        return true;
                       },
-                      onTap: () async {
-                        data.controller.selection = TextSelection.fromPosition(
-                            TextPosition(offset: data.controller.text.length));
-                        // isCalculatorVisible = true;
-                        // dataController.add(data);
+                      key: key,
+                      child: AutoSizeTextField(
+                        controller: data.controller,
+                        cursorColor: MyColors.colorPrimary,
+                        textAlignVertical: TextAlignVertical.center,
+                        autocorrect: true,
+                        maxLength: 30,
+                        maxLines: 1,
+                        maxFontSize: 17.0,
+                        minFontSize: 7.0,
+                        style: TextStyle(
+                          color: MyColors.colorPrimary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.none,
+                        showCursor: true,
+                        readOnly: false,
+                        decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(
+                                left: 1.0, right: 1.0, bottom: 15.0),
+                            counterText: "",
+                            border: InputBorder.none),
+                        onChanged: (String text) async {
+                          if (text.isEmpty) {
+                            text = "0";
+                          }
+                          text = text.replaceAll(RegExp(r'[^0-9]'), '');
+                          await Utility.setStringPreference("value", text);
+                          await Utility.setStringPreference("code", data.code);
+                          Constants.selectedEditableCurrencyCode = data.code;
+                          Constants.selectedEditableCurrencyValue = text;
+                          data.controller.text = text;
+                          // text = data.controller.text;
+                          data.controller.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: data.controller.text.length));
+                          onChange(text);
+                          // calculateExchangeRate(text);
+                        },
+                        onTap: () async {
+                          data.controller.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: data.controller.text.length));
+                          // isCalculatorVisible = true;
+                          // dataController.add(data);
 
-                        onTap();
-                      },
+                          onTap();
+                        },
+                      ),
                     ),
                   ),
                 ),
-
-                ReorderableListener(
+                DelayedReorderableListener(
+                  delay: Duration(seconds: 1),
                   child: Container(
                     width: 50,
                     child: Row(

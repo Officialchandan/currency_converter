@@ -118,7 +118,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
               ],
             ),
             Text(
-              textShow("${demoText}"),
+              textShow(demoText),
               textScaleFactor: Constants.textScaleFactor,
               style: TextStyle(
                 color: MyColors.textColor,
@@ -257,8 +257,6 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 17,
                                           color: MyColors.textColor),
-                                      maxFontSize: 20,
-                                      minFontSize: 16,
                                     ),
                                   ),
                                   // Text("${monetaryFormat[index]["format"]}",
@@ -390,7 +388,6 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                       "${decimalFormat[index]["format"]}",
                                       textScaleFactor:
                                           Constants.textScaleFactor,
-                                      maxFontSize: 20,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 17,
