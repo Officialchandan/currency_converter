@@ -59,7 +59,7 @@ dependencies:
   flutter_reorderable_list:
   syncfusion_flutter_sliders:
   intl:
-  flutter_svg: ^0.23.0+1
+  flutter_svg: any
   flex_color_picker:
 
 
