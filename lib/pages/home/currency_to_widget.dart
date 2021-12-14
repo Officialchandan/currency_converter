@@ -289,7 +289,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
     orderableData.forEach((element) {
       DataModel currencyData = DataModel.fromMap(element);
       countrycode.add(currencyData);
-      log("${countrycode.last}");
+      // log("${countrycode.last}");
     });
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);

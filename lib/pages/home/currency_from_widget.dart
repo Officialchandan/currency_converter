@@ -138,7 +138,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
                             DataModel model1 = snapshot.data![index];
-                            log(model1.toString());
+                            // log(model1.toString());
                             return Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [

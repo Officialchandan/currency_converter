@@ -4,6 +4,7 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/google_admob/ad_helper.dart';
 import 'package:currency_converter/pages/add_currency_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/cupertino.dart' hide ReorderableList;
 import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter/services.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:share/share.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -40,6 +42,8 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   bool firstTime = true;
   DataModel? selectedData;
+  late BannerAd _bannerAd;
+  bool isBannerAdReady = false;
 
   Future getSelectedList() async {
     selectedList.clear();
@@ -53,8 +57,32 @@ class _MyCurrencyState extends State<MyCurrency> {
     return selectedList.indexWhere((DataModel d) => d.key == key);
   }
 
+  void addMobMulticonverter() {
+    _bannerAd = BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          isBannerAdReady = false;
+          ad.dispose();
+        },
+      ),
+    );
+
+    _bannerAd.load();
+  }
+
   @override
   void initState() {
+    addMobMulticonverter();
+
     getSelectedList();
     super.initState();
 
@@ -126,128 +154,200 @@ class _MyCurrencyState extends State<MyCurrency> {
       },
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Container(
-          padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
-          height: appheight,
-          width: appwidth,
-          child: ReorderableList(
-            onReorder: _reorderCallback,
-            onReorderDone: _reorderDone,
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    AppBar(
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      centerTitle: true,
-                      toolbarHeight: 50,
-                      title: Text(
-                        "updated_date".tr().toString() +
-                            " " +
-                            Utility.getFormatDate(),
-                        textScaleFactor: Constants.textScaleFactor,
-                        // textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: MyColors.textColor,
-                          fontSize: 16.5,
+        body: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
+                height: appheight,
+                width: appwidth,
+                child: ReorderableList(
+                  onReorder: _reorderCallback,
+                  onReorderDone: _reorderDone,
+                  child: Expanded(
+                    child: CustomScrollView(
+                      slivers: <Widget>[
+                        SliverList(
+                          delegate: SliverChildListDelegate([
+                            AppBar(
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
+                              centerTitle: true,
+                              toolbarHeight: 50,
+                              title: Text(
+                                "updated_date".tr().toString() +
+                                    " " +
+                                    Utility.getFormatDate(),
+                                textScaleFactor: Constants.textScaleFactor,
+                                // textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: 16.5,
+                                ),
+                              ),
+                              actions: [
+                                InkWell(
+                                  onTap: () {
+                                    _onShareWithEmptyOrigin(context);
+                                  },
+                                  child: Icon(
+                                    Icons.share,
+                                    color: MyColors.textColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]),
                         ),
-                      ),
-                      actions: [
-                        InkWell(
-                          onTap: () {
-                            _onShareWithEmptyOrigin(context);
+                        StreamBuilder(
+                          builder: (context, snapshot) {
+                            return SliverPadding(
+                                padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).padding.bottom,
+                                ),
+                                sliver: SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                    (BuildContext context, int index) {
+                                      if (index == 0 && firstTime) {
+                                        debugPrint("firstTime$firstTime");
+                                        selectedList[index].controller.text =
+                                            "1";
+                                        calculateExchangeRate(
+                                            "1", 0, selectedList[index]);
+                                        firstTime = false;
+                                      }
+
+                                      return Item(
+                                        data: selectedList[index],
+                                        isFirst: index == 0,
+                                        isLast:
+                                            index == selectedList.length - 1,
+                                        draggingMode: _draggingMode,
+                                        onItemRemove: () async {
+                                          if (selectedList[index].code ==
+                                              await Utility.getStringPreference(
+                                                  "code")) {
+                                            await Utility.setStringPreference(
+                                                "value", "1");
+                                            await Utility.setStringPreference(
+                                                "code", "");
+                                          }
+
+                                          selectedList.removeAt(index);
+
+                                          if (selectedList.isNotEmpty) {
+                                            String s = selectedList.first.value
+                                                .replaceAll(
+                                                    RegExp(r'[^0-9]'), '');
+                                            List<String> str = s.split("");
+                                            if ((str.length -
+                                                        MyColors
+                                                            .decimalFormat) >
+                                                    0 &&
+                                                MyColors.decimalFormat > 0) {
+                                              str.insert(
+                                                  str.length -
+                                                      MyColors.decimalFormat,
+                                                  ".");
+                                            }
+                                            s = "";
+                                            for (var element in str) {
+                                              s += element;
+                                            }
+
+                                            await Utility.setStringPreference(
+                                                "value", s);
+                                            await Utility.setStringPreference(
+                                                "code",
+                                                selectedList.first.code);
+                                            selectedList.first.value = s;
+                                            selectedData = selectedList.first;
+                                          }
+
+                                          streamController.add(selectedList);
+                                        },
+                                        onChange: (text) {
+                                          calculateExchangeRate(
+                                              text, index, selectedList[index]);
+                                        },
+                                        onTap: () {
+                                          isCalculatorVisible = true;
+
+                                          debugPrint("index------->$index");
+                                          dataController
+                                              .add(selectedList[index]);
+                                        },
+                                      );
+                                    },
+                                    childCount: selectedList.length,
+                                  ),
+                                ));
                           },
-                          child: Icon(
-                            Icons.share,
-                            color: MyColors.textColor,
-                          ),
+                          stream: streamController.stream,
                         ),
                       ],
                     ),
-                  ]),
+                  ),
                 ),
-                StreamBuilder(
-                  builder: (context, snapshot) {
-                    return SliverPadding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).padding.bottom,
-                        ),
-                        sliver: SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              if (index == 0 && firstTime) {
-                                debugPrint("firstTime$firstTime");
-                                selectedList[index].controller.text = "1";
-                                calculateExchangeRate(
-                                    "1", 0, selectedList[index]);
-                                firstTime = false;
-                              }
-
-                              return Item(
-                                data: selectedList[index],
-                                isFirst: index == 0,
-                                isLast: index == selectedList.length - 1,
-                                draggingMode: _draggingMode,
-                                onItemRemove: () async {
-                                  if (selectedList[index].code ==
-                                      await Utility.getStringPreference(
-                                          "code")) {
-                                    await Utility.setStringPreference(
-                                        "value", "1");
-                                    await Utility.setStringPreference(
-                                        "code", "");
-                                  }
-
-                                  selectedList.removeAt(index);
-
-                                  if (selectedList.isNotEmpty) {
-                                    String s = selectedList.first.value
-                                        .replaceAll(RegExp(r'[^0-9]'), '');
-                                    List<String> str = s.split("");
-                                    if ((str.length - MyColors.decimalFormat) >
-                                            0 &&
-                                        MyColors.decimalFormat > 0) {
-                                      str.insert(
-                                          str.length - MyColors.decimalFormat,
-                                          ".");
-                                    }
-                                    s = "";
-                                    for (var element in str) {
-                                      s += element;
-                                    }
-
-                                    await Utility.setStringPreference(
-                                        "value", s);
-                                    await Utility.setStringPreference(
-                                        "code", selectedList.first.code);
-                                    selectedList.first.value = s;
-                                    selectedData = selectedList.first;
-                                  }
-
-                                  streamController.add(selectedList);
-                                },
-                                onChange: (text) {
-                                  calculateExchangeRate(
-                                      text, index, selectedList[index]);
-                                },
-                                onTap: () {
-                                  isCalculatorVisible = true;
-
-                                  debugPrint("index------->$index");
-                                  dataController.add(selectedList[index]);
-                                },
-                              );
-                            },
-                            childCount: selectedList.length,
-                          ),
-                        ));
-                  },
-                  stream: streamController.stream,
-                ),
-              ],
+              ),
             ),
-          ),
+            isBannerAdReady
+                ? Positioned(
+                    bottom: 0,
+                    right: 9,
+                    left: 9,
+                    child: SizedBox(
+                      height: _bannerAd.size.height.toDouble(),
+                      width: _bannerAd.size.width.toDouble(),
+                      child: AdWidget(ad: _bannerAd),
+                    ),
+                  )
+                : const SizedBox(
+                    height: 0.0,
+                    width: 0.0,
+                  ),
+            Positioned(
+              bottom: 30,
+              child: FloatingActionButton(
+                backgroundColor: MyColors.textColor,
+                onPressed: () async {
+                  streamController.add([]);
+                  await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddCurrency()));
+
+                  selectedList.clear();
+                  selectedList = await dbHelper.getSelectedData();
+                  debugPrint("selectedList-->$selectedList");
+
+                  FocusScope.of(context).unfocus();
+                  String value = await Utility.getStringPreference("value");
+                  String code = await Utility.getStringPreference("code");
+                  debugPrint("value-->$value");
+                  debugPrint("code-->$code");
+                  dataController.addError("error");
+                  if (value.isNotEmpty && code.isNotEmpty) {
+                    int index = selectedList
+                        .indexWhere((element) => element.code == code);
+                    if (index != -1) {
+                      selectedList[index].controller.text = value;
+                      calculateExchangeRate(selectedList[index].controller.text,
+                          index, selectedList[index]);
+                    }
+                  } else {
+                    debugPrint("savedvalueisnothere");
+                    firstTime = true;
+                  }
+
+                  streamController.add(selectedList);
+                },
+                child: SvgPicture.asset("assets/images/plus-icon.svg",
+                    color: MyColors.colorPrimary),
+              ),
+            ),
+          ],
         ),
         bottomNavigationBar: StreamBuilder<DataModel>(
           stream: dataController.stream,
@@ -312,41 +412,6 @@ class _MyCurrencyState extends State<MyCurrency> {
               height: 0,
             );
           },
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: MyColors.textColor,
-          onPressed: () async {
-            streamController.add([]);
-            await Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddCurrency()));
-
-            selectedList.clear();
-            selectedList = await dbHelper.getSelectedData();
-            debugPrint("selectedList-->$selectedList");
-
-            FocusScope.of(context).unfocus();
-            String value = await Utility.getStringPreference("value");
-            String code = await Utility.getStringPreference("code");
-            debugPrint("value-->$value");
-            debugPrint("code-->$code");
-            dataController.addError("error");
-            if (value.isNotEmpty && code.isNotEmpty) {
-              int index =
-                  selectedList.indexWhere((element) => element.code == code);
-              if (index != -1) {
-                selectedList[index].controller.text = value;
-                calculateExchangeRate(selectedList[index].controller.text,
-                    index, selectedList[index]);
-              }
-            } else {
-              debugPrint("savedvalueisnothere");
-              firstTime = true;
-            }
-
-            streamController.add(selectedList);
-          },
-          child: SvgPicture.asset("assets/images/plus-icon.svg",
-              color: MyColors.colorPrimary),
         ),
       ),
     );

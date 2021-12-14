@@ -61,9 +61,9 @@ dependencies:
   intl:
   flutter_svg: any
   flex_color_picker:
-
-
-
+  google_mobile_ads: any
+  flutter_admob_app_open: 
+  
 
 
 dev_dependencies:
@@ -96,8 +96,8 @@ flutter:
    - assets/language_final/
    - assets/language/
    - assets/images/
-   - assets/images/@2x/
-   - assets/images/@3x/
+  
+   
 
   
      
