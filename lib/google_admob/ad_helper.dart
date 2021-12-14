@@ -15,16 +15,15 @@ class AdHelper {
   static getOpenAdd() async {
     const appAppOpenAdUnitId = "ca-app-pub-3096560792937908/2624180523";
     AdRequestAppOpen targetingInfo = const AdRequestAppOpen(
-        keywords: <String>['flutterio', 'beautiful apps'],
-        contentUrl: 'https://flutter.io',
-        nonPersonalizedAds: true,
-        testDevices: ['22c3712a-2a0a-469b-98ca-b6ac0368dd3d']);
+      keywords: <String>['flutterio', 'beautiful apps'],
+      contentUrl: 'https://flutter.io',
+      nonPersonalizedAds: false,
+    );
     print("hello Addhelper");
 
     await FlutterAdmobAppOpen.instance.initialize(
       appAppOpenAdUnitId: appAppOpenAdUnitId,
       targetingInfo: targetingInfo,
-      appId: "ca-app-pub-3096560792937908~8277815192",
     );
   }
 }

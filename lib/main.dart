@@ -10,6 +10,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_admob_app_open/ad_request_app_open.dart';
+import 'package:flutter_admob_app_open/flutter_admob_app_open.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,10 +21,17 @@ final dbHelper = DatabaseHelper.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await MobileAds.instance.initialize();
 
   await EasyLocalization.ensureInitialized();
+  await MobileAds.instance.initialize().then((value) {
+    MobileAds.instance.updateRequestConfiguration(
+      //Add more configs
+      RequestConfiguration(
+          testDeviceIds: ["22c3712a-2a0a-469b-98ca-b6ac0368dd3d"]),
+    );
+  });
 
+  await AdHelper.getOpenAdd();
   await insertData();
   await insertion();
   runApp(EasyLocalization(
@@ -46,11 +55,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     getTheme();
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500), () {
-      setState(() async {
-        await AdHelper.getOpenAdd();
-      });
-    });
   }
 
   @override
