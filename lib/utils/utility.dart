@@ -13,6 +13,18 @@ class Utility {
     return prefs.getString(key) ?? "";
   }
 
+  ///********* */
+
+  static Future<String> getAdId(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(id) ?? "";
+  }
+
+  static Future<bool> setAdId(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(key, value);
+  }
+
   static Future<bool> setStringPreference(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
@@ -23,7 +35,8 @@ class Utility {
     return prefs.getString(key) ?? "0xff4e7dcb";
   }
 
-  static Future<bool> setStringPreferenceForDensityColor(String key, String value) async {
+  static Future<bool> setStringPreferenceForDensityColor(
+      String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
   }
@@ -113,7 +126,8 @@ class Utility {
     return prefs.getString(key) ?? "123456.02";
   }
 
-  static Future<bool> setFormatExmaplePreference(String key, String value) async {
+  static Future<bool> setFormatExmaplePreference(
+      String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
   }
@@ -123,7 +137,8 @@ class Utility {
     return prefs.getBool(key) ?? true;
   }
 
-  static Future<bool> setBoolDisplayCodePreference(String key, bool value) async {
+  static Future<bool> setBoolDisplayCodePreference(
+      String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
   }
@@ -133,7 +148,8 @@ class Utility {
     return prefs.getBool(key) ?? false;
   }
 
-  static Future<bool> setBoolDisplayflagPreference(String key, bool value) async {
+  static Future<bool> setBoolDisplayflagPreference(
+      String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
   }
@@ -143,7 +159,8 @@ class Utility {
     return prefs.getBool(key) ?? false;
   }
 
-  static Future<bool> setBoolDisplaysymbolPreference(String key, bool value) async {
+  static Future<bool> setBoolDisplaysymbolPreference(
+      String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
   }
@@ -239,7 +256,8 @@ class Utility {
 
     final hsl = HSLColor.fromColor(color);
 
-    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    final hslLight =
+        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
 
     return hslLight.toColor();
   }

@@ -4,7 +4,7 @@ class Constants {
   static const String SELECTED_CODE = "SELECTED_CODE";
   static const String SELECTED_FLAG = "SELECTED_FLAG";
   static const String SELECTED_SYMBOL = "SELECTED_SYMBOL";
-
+  static const String GET_ID = "GET_ID";
   static const String currencyCodeFrom = "currencyCodeFrom";
   static const String currencyCodeTo = "currencyCodeTo";
   static const String themeColor = "theme";
@@ -24,7 +24,6 @@ class Constants {
 
   static String selectedEditableCurrencyCode = "";
   static String selectedEditableCurrencyValue = "";
-
 
   static const List<Map<String, dynamic>> countryList = [
     {

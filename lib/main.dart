@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:advertising_id/advertising_id.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
@@ -8,30 +11,24 @@ import 'package:currency_converter/utils/utility.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_admob_app_open/ad_request_app_open.dart';
-import 'package:flutter_admob_app_open/flutter_admob_app_open.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'google_admob/ad_helper.dart';
+import 'package:native_admob_flutter/native_admob_flutter.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final dbHelper = DatabaseHelper.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await EasyLocalization.ensureInitialized();
-  await MobileAds.instance.initialize().then((value) {
-    MobileAds.instance.updateRequestConfiguration(
-      //Add more configs
-      RequestConfiguration(
-          testDeviceIds: ["22c3712a-2a0a-469b-98ca-b6ac0368dd3d"]),
-    );
-  });
+  await MobileAds.initialize();
+  print(' Vchadnan ====>${await Utility.getAdId(Constants.GET_ID)}');
+  MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
 
-  await AdHelper.getOpenAdd();
+  print('Vchadnan${await Utility.getAdId(Constants.GET_ID)}');
   await insertData();
   await insertion();
   runApp(EasyLocalization(
@@ -51,10 +48,80 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String advertisingIds = '';
+  bool? _isLimitAdTrackingEnabled;
+
   @override
   void initState() {
+    initPlatformState();
     getTheme();
+    isFirstTime();
+
     super.initState();
+  }
+
+  Future<bool> isFirstTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? firstTime = prefs.getBool('first_time');
+
+    var isFirstTime = prefs.getBool('first_time');
+    if (isFirstTime != null && !isFirstTime) {
+      prefs.setBool('first_time', false);
+      getOpenAd();
+      return false;
+    } else {
+      prefs.setBool('first_time', false);
+
+      return true;
+    }
+  }
+
+  initPlatformState() async {
+    String advertisingId;
+    bool? isLimitAdTrackingEnabled;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      advertisingId = (await AdvertisingId.id(true))!;
+    } on PlatformException {
+      advertisingId = 'Failed to get platform version.';
+    }
+
+    try {
+      isLimitAdTrackingEnabled = await AdvertisingId.isLimitAdTrackingEnabled;
+    } on PlatformException {
+      isLimitAdTrackingEnabled = false;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+
+    // setState(()  {
+    advertisingIds = advertisingId;
+    _isLimitAdTrackingEnabled = isLimitAdTrackingEnabled;
+    print("advertisingIds part $advertisingIds");
+
+    await Utility.setAdId(Constants.GET_ID, advertisingIds.toString());
+    String adname = await Utility.getAdId(Constants.GET_ID);
+    print("advertisingIds ____<<<>>> $adname");
+    // });
+  }
+
+  void getOpenAd() async {
+    const appOpenAdTestUnitId = 'ca-app-pub-3940256099942544/3419835294';
+    final AppOpenAd appOpenAd = AppOpenAd();
+    if (!appOpenAd.isAvailable) {
+      await appOpenAd.load(unitId: appOpenAdTestUnitId);
+    }
+    if (appOpenAd.isAvailable) {
+      await appOpenAd.show();
+    }
+  }
+
+  @override
+  void dispose() {
+    getOpenAd();
+    super.dispose();
   }
 
   @override
@@ -75,6 +142,7 @@ class _MyAppState extends State<MyApp> {
             hoverColor: MyColors.colorPrimary,
           ),
           primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
           primaryColor: MyColors.colorPrimary),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

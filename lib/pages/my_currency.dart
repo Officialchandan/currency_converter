@@ -20,7 +20,7 @@ import 'package:share/share.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MyCurrency extends StatefulWidget {
-  MyCurrency({Key? key}) : super(key: key);
+  const MyCurrency({Key? key}) : super(key: key);
 
   @override
   _MyCurrencyState createState() => _MyCurrencyState();
@@ -154,18 +154,19 @@ class _MyCurrencyState extends State<MyCurrency> {
       },
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
-                height: appheight,
-                width: appwidth,
-                child: ReorderableList(
-                  onReorder: _reorderCallback,
-                  onReorderDone: _reorderDone,
-                  child: Expanded(
+        body: SizedBox(
+          height: appheight,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
+                  height: appheight,
+                  width: appwidth,
+                  child: ReorderableList(
+                    onReorder: _reorderCallback,
+                    onReorderDone: _reorderDone,
                     child: CustomScrollView(
                       slivers: <Widget>[
                         SliverList(
@@ -291,63 +292,66 @@ class _MyCurrencyState extends State<MyCurrency> {
                   ),
                 ),
               ),
-            ),
-            isBannerAdReady
-                ? Positioned(
-                    bottom: 0,
-                    right: 9,
-                    left: 9,
-                    child: SizedBox(
-                      height: _bannerAd.size.height.toDouble(),
-                      width: _bannerAd.size.width.toDouble(),
-                      child: AdWidget(ad: _bannerAd),
+              isBannerAdReady
+                  ? Positioned(
+                      bottom: 0,
+                      right: 9,
+                      left: 9,
+                      child: SizedBox(
+                        height: _bannerAd.size.height.toDouble(),
+                        width: _bannerAd.size.width.toDouble(),
+                        child: AdWidget(ad: _bannerAd),
+                      ),
+                    )
+                  : const SizedBox(
+                      height: 0.0,
+                      width: 0.0,
                     ),
-                  )
-                : const SizedBox(
-                    height: 0.0,
-                    width: 0.0,
-                  ),
-            Positioned(
-              bottom: 30,
-              child: FloatingActionButton(
-                backgroundColor: MyColors.textColor,
-                onPressed: () async {
-                  streamController.add([]);
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AddCurrency()));
+              Positioned(
+                right: isBannerAdReady ? 15 : 15,
+                bottom: isBannerAdReady ? 65 : 20,
+                child: FloatingActionButton(
+                  backgroundColor: MyColors.textColor,
+                  onPressed: () async {
+                    streamController.add([]);
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddCurrency()));
 
-                  selectedList.clear();
-                  selectedList = await dbHelper.getSelectedData();
-                  debugPrint("selectedList-->$selectedList");
+                    selectedList.clear();
+                    selectedList = await dbHelper.getSelectedData();
+                    debugPrint("selectedList-->$selectedList");
 
-                  FocusScope.of(context).unfocus();
-                  String value = await Utility.getStringPreference("value");
-                  String code = await Utility.getStringPreference("code");
-                  debugPrint("value-->$value");
-                  debugPrint("code-->$code");
-                  dataController.addError("error");
-                  if (value.isNotEmpty && code.isNotEmpty) {
-                    int index = selectedList
-                        .indexWhere((element) => element.code == code);
-                    if (index != -1) {
-                      selectedList[index].controller.text = value;
-                      calculateExchangeRate(selectedList[index].controller.text,
-                          index, selectedList[index]);
+                    FocusScope.of(context).unfocus();
+                    String value = await Utility.getStringPreference("value");
+                    String code = await Utility.getStringPreference("code");
+                    debugPrint("value-->$value");
+                    debugPrint("code-->$code");
+                    dataController.addError("error");
+                    if (value.isNotEmpty && code.isNotEmpty) {
+                      int index = selectedList
+                          .indexWhere((element) => element.code == code);
+                      if (index != -1) {
+                        selectedList[index].controller.text = value;
+                        calculateExchangeRate(
+                            selectedList[index].controller.text,
+                            index,
+                            selectedList[index]);
+                      }
+                    } else {
+                      debugPrint("savedvalueisnothere");
+                      firstTime = true;
                     }
-                  } else {
-                    debugPrint("savedvalueisnothere");
-                    firstTime = true;
-                  }
 
-                  streamController.add(selectedList);
-                },
-                child: SvgPicture.asset("assets/images/plus-icon.svg",
-                    color: MyColors.colorPrimary),
+                    streamController.add(selectedList);
+                  },
+                  child: SvgPicture.asset("assets/images/plus-icon.svg",
+                      color: MyColors.colorPrimary),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         bottomNavigationBar: StreamBuilder<DataModel>(
           stream: dataController.stream,
