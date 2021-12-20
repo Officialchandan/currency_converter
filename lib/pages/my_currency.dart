@@ -13,6 +13,7 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart' hide ReorderableList;
 import 'package:flutter/material.dart' hide ReorderableList;
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -91,13 +92,12 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   @override
   void didUpdateWidget(MyCurrency oldWidget) {
-    if (mounted) {
-      debugPrint("MyCurrency-> didUpdateWidget");
+    debugPrint("MyCurrency-> didUpdateWidget");
 
-      debugPrint("selectedData-> $selectedData");
+    debugPrint("selectedData-> $selectedData");
 
-      onRefresh();
-    }
+    onRefresh();
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -110,11 +110,14 @@ class _MyCurrencyState extends State<MyCurrency> {
     //   return false;
 
     final draggedItem = selectedList[draggingIndex];
-    setState(() {
-      debugPrint("Reordering $item -> $newPosition");
-      selectedList.removeAt(draggingIndex);
-      selectedList.insert(newPositionIndex, draggedItem);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      setState(() {
+        debugPrint("Reordering $item -> $newPosition");
+        selectedList.removeAt(draggingIndex);
+        selectedList.insert(newPositionIndex, draggedItem);
+      });
     });
+
     return true;
   }
 
@@ -137,15 +140,33 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   final DraggingMode _draggingMode = DraggingMode.iOS;
 
+  Future<bool> rebuild() async {
+    if (!mounted) return false;
+
+    // if there's a current frame,
+    if (SchedulerBinding.instance!.schedulerPhase != SchedulerPhase.idle) {
+      // wait for the end of that frame.
+      await SchedulerBinding.instance!.endOfFrame;
+      if (!mounted) return false;
+    }
+
+    setState(() {});
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
-
+    double convertH = 0.380;
+    double convertY;
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
           isCalculatorVisible = false;
+          appheight - convertH;
+          setState(() {});
+
           dataController.addError("error");
         } else {
           SystemNavigator.pop();
@@ -161,8 +182,9 @@ class _MyCurrencyState extends State<MyCurrency> {
               Positioned(
                 top: 0,
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
-                  height: appheight,
+                  padding: EdgeInsets.fromLTRB(12, 5, 12,
+                      isCalculatorVisible == true ? appheight * convertH : 10),
+                  height: appheight * 0.898,
                   width: appwidth,
                   child: ReorderableList(
                     onReorder: _reorderCallback,
@@ -295,12 +317,17 @@ class _MyCurrencyState extends State<MyCurrency> {
               isBannerAdReady
                   ? Positioned(
                       bottom: 0,
-                      right: 9,
-                      left: 9,
-                      child: SizedBox(
+                      right: 4,
+                      left: 4,
+                      child: Container(
+                        width: appwidth,
                         height: _bannerAd.size.height.toDouble(),
-                        width: _bannerAd.size.width.toDouble(),
-                        child: AdWidget(ad: _bannerAd),
+                        color: MyColors.colorPrimary,
+                        child: SizedBox(
+                          height: _bannerAd.size.height.toDouble(),
+                          width: _bannerAd.size.width.toDouble(),
+                          child: AdWidget(ad: _bannerAd),
+                        ),
                       ),
                     )
                   : const SizedBox(
@@ -313,6 +340,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                 child: FloatingActionButton(
                   backgroundColor: MyColors.textColor,
                   onPressed: () async {
+                    print(
+                        "_bannerAd.size.height.toDouble() ${_bannerAd.size.height.toDouble()}");
                     streamController.add([]);
                     await Navigator.push(
                         context,
@@ -518,9 +547,9 @@ class _MyCurrencyState extends State<MyCurrency> {
             selectedList[index].controller.text, index, selectedList[index]);
       }
     }
-    if (mounted) {
-      setState(() {});
-    }
+    if (!await rebuild()) return;
+
+    setState(() {});
   }
 }
 
@@ -569,6 +598,8 @@ class Item extends StatelessWidget {
     Widget dragHandle = draggingMode == DraggingMode.iOS
         ? IntrinsicHeight(
             child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 MyColors.displayflag && MyColors.displaycode
                     ? DelayedReorderableListener(
@@ -595,7 +626,7 @@ class Item extends StatelessWidget {
                     ? DelayedReorderableListener(
                         delay: Duration(seconds: 1),
                         child: Container(
-                          margin: const EdgeInsets.only(left: 8.0),
+                          margin: const EdgeInsets.only(left: 3.0),
                           height: 35.0,
                           width: 60.0,
                           decoration: BoxDecoration(
@@ -646,7 +677,7 @@ class Item extends StatelessWidget {
                         DelayedReorderableListener(
                             delay: Duration(seconds: 1),
                             child: Container(
-                              margin: const EdgeInsets.only(left: 8.0),
+                              margin: const EdgeInsets.only(left: 3.0),
                               height: 35.0,
                               width: 60.0,
                               decoration: BoxDecoration(
@@ -680,7 +711,7 @@ class Item extends StatelessWidget {
                     ? DelayedReorderableListener(
                         delay: Duration(seconds: 1),
                         child: Container(
-                          margin: const EdgeInsets.only(left: 8.0),
+                          margin: const EdgeInsets.only(left: 3.0),
                           height: 35.0,
                           width: 60.0,
                           decoration: BoxDecoration(

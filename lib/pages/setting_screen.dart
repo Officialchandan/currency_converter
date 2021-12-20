@@ -3,6 +3,7 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/color_picker/color_picker_dialog.dart';
 import 'package:currency_converter/language/language.dart';
+import 'package:currency_converter/pages/my_currency.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
@@ -38,6 +39,7 @@ class _SettingScreenState extends State<SettingScreen> {
   ScrollController scrollController = ScrollController();
   double _value = 0.0;
   double x = 0.0;
+  bool boolMulit = true;
 
   final Map<ColorSwatch<Object>, String> customSwatches =
       <ColorSwatch<Object>, String>{
@@ -56,6 +58,11 @@ class _SettingScreenState extends State<SettingScreen> {
     ColorTools.createPrimarySwatch(MyColors.colorPrimary): 'Rust',
     ColorTools.createAccentSwatch(MyColors.colorPrimary): 'Lavender',
   };
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -915,10 +922,14 @@ class _SettingScreenState extends State<SettingScreen> {
                                         const EdgeInsets.only(top: 2, left: 0),
                                     child: Switch(
                                       inactiveThumbColor: MyColors.textColor,
-                                      value: isMultiConverter,
-                                      onChanged: (value) {
+                                      value: MyColors.muliConverter,
+                                      onChanged: (value) async {
                                         setState(() {
-                                          isMultiConverter = value;
+                                          MyColors.muliConverter = value;
+                                          Utility.setMulticonverter(
+                                              Constants.MultiConverter,
+                                              MyColors.muliConverter);
+
                                           // print(isSwitched);
                                         });
                                       },
@@ -1301,10 +1312,8 @@ class _SettingScreenState extends State<SettingScreen> {
     print("OnColorSelect-->");
     widget.onThemeChange;
 
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const MyTabBarWidget()),
-        (route) => false);
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
   }
 
   showColorPickerDialog(BuildContext context) async {

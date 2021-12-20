@@ -43,7 +43,9 @@ class _TeramAndConditionState extends State<TeramAndCondition>
             Container(
               height: 40,
               decoration: BoxDecoration(
-                color: MyColors.textColor.withOpacity(.3),
+                color: MyColors.darkModeCheck
+                    ? const Color(0xff545763)
+                    : MyColors.textColor.withOpacity(.8),
                 borderRadius: BorderRadius.circular(
                   7.0,
                 ),
@@ -51,11 +53,14 @@ class _TeramAndConditionState extends State<TeramAndCondition>
               child: TabBar(
                 controller: _tabControllers,
                 indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7), // Creates border
-                    color: MyColors.textColor.withOpacity(.9)),
+                  borderRadius: BorderRadius.circular(7), // Creates border
+                  color: MyColors.textColor.withOpacity(.9),
+                ),
                 labelColor: Colors.white,
-                labelPadding: EdgeInsets.all(0),
-                unselectedLabelColor: Colors.transparent,
+                labelPadding: const EdgeInsets.all(0),
+                unselectedLabelColor: MyColors.darkModeCheck
+                    ? const Color(0xff545763)
+                    : Colors.transparent,
                 tabs: tabs
                     .map(
                       (e) => Container(

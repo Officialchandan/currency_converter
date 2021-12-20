@@ -67,39 +67,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
     getCurrencyCode();
     super.initState();
-    setState(() {});
-  }
-
-  void addMob() {
-    _bannerAd = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.largeBanner,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          isBannerAdReady = false;
-          ad.dispose();
-        },
-      ),
-    );
-
-    _bannerAd.load();
-  }
-
-  @override
-  void dispose() {
-    _bannerAd.dispose();
-
-    calculateCurrency.clear();
-    calculateCurrency.text = "0";
-
-    super.dispose();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -145,7 +115,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       text = await getConverterAPI(
           currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     }
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void currencyCodeFromSave(String code) async {
@@ -156,6 +128,38 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   void currencyCodeToSave(String code) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.currencyCodeTo, code);
+  }
+
+  void addMob() {
+    _bannerAd = BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.largeBanner,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          isBannerAdReady = false;
+          ad.dispose();
+        },
+      ),
+    );
+
+    _bannerAd.load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd.dispose();
+
+    calculateCurrency.clear();
+    calculateCurrency.text = "0";
+
+    super.dispose();
   }
 
   @override

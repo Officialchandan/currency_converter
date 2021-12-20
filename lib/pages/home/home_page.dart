@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:core';
-
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -30,6 +29,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
+  bool muliticonverter = false;
   late TabController _tabController;
   TabChangeListener? listener;
 
@@ -44,6 +44,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
+
+    print("initState ${MyColors.muliConverter}");
+
     setState(() {});
     super.initState();
 
@@ -55,9 +58,29 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     });
 
     SystemChannels.textInput.invokeMethod('TextInput.hide');
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _tabController.animateTo(
+        multiConverterListener(),
+        duration: const Duration(milliseconds: 1000),
+      );
+    });
   }
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // @override
+  // void didChangeDependencies() {
+  //   _tabController.addListener(() {
+  //     multiConverterListener(_tabController.index);
+  //     print("multiConverterListener ${_tabController.index}");
+  //   });
+  //   super.didChangeDependencies();
+  // }
+
+  // @override
+  // void didUpdateWidget(covariant MyTabBarWidget oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +104,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               onTap: (_selectedIndex) async {
                 if (_selectedIndex == 3) {
                   _tabController.index = _tabController.previousIndex;
+                } else if (MyColors.muliConverter) {
+                  _tabController.index = _selectedIndex;
                 }
               },
               physics: const BouncingScrollPhysics(parent: ScrollPhysics()),
@@ -197,6 +222,20 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   onThemeChange() {
+    setState(() {});
+  }
+
+  multiConverterListener() {
+    switch (MyColors.muliConverter == true) {
+      case true:
+        _tabController.index = 1;
+        break;
+      case false:
+        _tabController.index;
+        break;
+      default:
+    }
+
     setState(() {});
   }
 

@@ -8,6 +8,16 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Utility {
+  static Future<bool> getMulticonverter(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(key) ?? false;
+  }
+
+  static Future<bool> setMulticonverter(String key, bool multi) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setBool(key, multi);
+  }
+
   static Future<String> getStringPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key) ?? "";

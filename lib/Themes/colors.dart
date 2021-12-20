@@ -41,6 +41,7 @@ class MyColors {
   static bool displaycode = true;
   static bool displaysymbol = false;
   static bool displayflag = false;
+  static bool muliConverter = false;
 
   static int formatDemo = 123456;
 

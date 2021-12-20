@@ -321,6 +321,10 @@ Future insertDefaultData() async {
 insertion() async {
   MyColors.displaycode =
       await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
+
+  MyColors.muliConverter =
+      await Utility.getMulticonverter(Constants.MultiConverter);
+
   MyColors.displayflag =
       await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
   MyColors.displaysymbol =
