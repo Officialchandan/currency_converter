@@ -182,7 +182,7 @@ class _MyCurrencyState extends State<MyCurrency> {
               Positioned(
                 top: 0,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(12, 5, 12,
+                  padding: EdgeInsets.fromLTRB(12, 0, 12,
                       isCalculatorVisible == true ? appheight * convertH : 10),
                   height: appheight * 0.898,
                   width: appwidth,

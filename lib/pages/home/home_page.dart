@@ -58,29 +58,22 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     });
 
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      _tabController.animateTo(
-        multiConverterListener(),
-        duration: const Duration(milliseconds: 1000),
-      );
+    Future.delayed(const Duration(seconds: 3), () {
+      if (_tabController.index == null || (MyColors.muliConverter == true)) {
+        print("The value of null");
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          _tabController.animateTo(
+            multiConverterListener(_tabController.index),
+          );
+        });
+      } else if (_tabController.index != null ||
+          (MyColors.muliConverter == false)) {
+        print("The value of NOT null");
+      }
     });
   }
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // @override
-  // void didChangeDependencies() {
-  //   _tabController.addListener(() {
-  //     multiConverterListener(_tabController.index);
-  //     print("multiConverterListener ${_tabController.index}");
-  //   });
-  //   super.didChangeDependencies();
-  // }
-
-  // @override
-  // void didUpdateWidget(covariant MyTabBarWidget oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +97,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               onTap: (_selectedIndex) async {
                 if (_selectedIndex == 3) {
                   _tabController.index = _tabController.previousIndex;
-                } else if (MyColors.muliConverter) {
-                  _tabController.index = _selectedIndex;
                 }
+                //  else if (MyColors.muliConverter) {
+                //   _tabController.index = _selectedIndex;
+                // }
               },
               physics: const BouncingScrollPhysics(parent: ScrollPhysics()),
               indicatorColor: Colors.white,
@@ -225,13 +219,14 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     setState(() {});
   }
 
-  multiConverterListener() {
+  multiConverterListener(int index) {
     switch (MyColors.muliConverter == true) {
       case true:
         _tabController.index = 1;
+
         break;
       case false:
-        _tabController.index;
+        _tabController.index = index;
         break;
       default:
     }

@@ -23,10 +23,11 @@ final dbHelper = DatabaseHelper.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
   await MobileAds.initialize();
-  print(' Vchadnan ====>${await Utility.getAdId(Constants.GET_ID)}');
   MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
+  await EasyLocalization.ensureInitialized();
+
+  print(' Vchadnan ====>${await Utility.getAdId(Constants.GET_ID)}');
 
   print('Vchadnan${await Utility.getAdId(Constants.GET_ID)}');
   await insertData();
@@ -55,6 +56,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     initPlatformState();
     getTheme();
+    getOpenAd();
     isFirstTime();
 
     super.initState();
@@ -67,7 +69,9 @@ class _MyAppState extends State<MyApp> {
     var isFirstTime = prefs.getBool('first_time');
     if (isFirstTime != null && !isFirstTime) {
       prefs.setBool('first_time', false);
+
       getOpenAd();
+
       return false;
     } else {
       prefs.setBool('first_time', false);
