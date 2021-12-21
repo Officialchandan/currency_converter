@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.example.currency_converter">
-
+    <uses-permission android:name="com.android.vending.BILLING" />    
 	<uses-permission android:name="android.permission.INTERNET" />
-
+    
 	<application
 		android:icon="@mipmap/app_icon"
 		android:label="CurrencyConverter"
@@ -32,6 +32,7 @@
 			<meta-data
 				android:name="io.flutter.embedding.android.SplashScreenDrawable"
 				android:resource="@drawable/launch_background" />
+				
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -42,5 +43,10 @@
 		<meta-data
 			android:name="flutterEmbedding"
 			android:value="2" />
+		<meta-data
+		    android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~4354546703"/>
+				
+			
 	</application>
 </manifest>

@@ -10,6 +10,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CurrencyToWidget extends StatefulWidget {
   final Function(String currencyCode, String image, String symbol) onSelect;
@@ -80,10 +81,11 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.search,
-                      size: 22,
-                      color: Colors.grey.shade300,
+                    SvgPicture.asset(
+                      "assets/images/ic_search_24px.svg",
+                      height: 16,
+                      fit: BoxFit.scaleDown,
+                      color: Colors.grey.shade400,
                     ),
                     const SizedBox(
                       width: 10,
@@ -215,34 +217,36 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                                               ),
                                             ),
                                             IconButton(
-                                              padding: const EdgeInsets.only(
-                                                  right: 7.0, left: 0.0),
-                                              constraints:
-                                                  const BoxConstraints(),
-                                              splashRadius: 15,
-                                              onPressed: () async {
-                                                if (model1.fav == 0) {
-                                                  model1.fav = 1;
-                                                } else {
-                                                  model1.fav = 0;
-                                                }
-                                                updateAll(model1);
-                                                countrycode = [];
-                                                orderedData();
-                                              },
-                                              icon: model1.fav == 1
-                                                  ? Icon(
-                                                      Icons.star_sharp,
-                                                      size: 30.0,
-                                                      color:
-                                                          MyColors.colorPrimary,
-                                                    )
-                                                  : const Icon(
-                                                      Icons.star_border,
-                                                      size: 30.0,
-                                                      color: Colors.grey,
-                                                    ),
-                                            )
+                                                padding: const EdgeInsets.only(
+                                                    right: 7.0, left: 0.0),
+                                                constraints:
+                                                    const BoxConstraints(),
+                                                splashRadius: 15,
+                                                onPressed: () async {
+                                                  if (model1.fav == 0) {
+                                                    model1.fav = 1;
+                                                  } else {
+                                                    model1.fav = 0;
+                                                  }
+                                                  updateAll(model1);
+                                                  countrycode = [];
+                                                  orderedData();
+                                                },
+                                                icon: model1.fav == 1
+                                                    ? SvgPicture.asset(
+                                                        "assets/images/star_24px.svg",
+                                                        height: 27,
+                                                        width: 27,
+                                                        color: MyColors
+                                                            .colorPrimary,
+                                                      )
+                                                    : SvgPicture.asset(
+                                                        "assets/images/star_border_24px.svg",
+                                                        height: 27,
+                                                        width: 27,
+                                                        color: Colors
+                                                            .grey.shade400,
+                                                      ))
                                           ],
                                         )),
                                   ),
@@ -285,7 +289,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
     orderableData.forEach((element) {
       DataModel currencyData = DataModel.fromMap(element);
       countrycode.add(currencyData);
-      log("${countrycode.last}");
+      // log("${countrycode.last}");
     });
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);

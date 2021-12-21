@@ -11,8 +11,7 @@ class MyColors {
       colorPrimary; //{  this is a color of calculator button, we need to take this because some time it change some time not}
   static Color textColor =
       Colors.white; //{ this is color of all text except textfield text}
-  static Color insideTextFieldColor =
-      Color(0xff333333); //{ this is a color of text,which is inside textField }
+  static Color insideTextFieldColor = const Color(0xff333333);
 
   static bool lightModeCheck = true; //{
   static bool darkModeCheck = false; //{
@@ -42,6 +41,7 @@ class MyColors {
   static bool displaycode = true;
   static bool displaysymbol = false;
   static bool displayflag = false;
+  static bool muliConverter = false;
 
   static int formatDemo = 123456;
 
@@ -57,5 +57,5 @@ class MyColors {
 
   static bool eyeIconSetup = true;
 
-  static Color densityeye = Color(0xff4e7dcb);
+  static Color densityColor = Color(0xff4e7dcb);
 }

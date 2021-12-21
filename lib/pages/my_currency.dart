@@ -4,6 +4,7 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/google_admob/ad_helper.dart';
 import 'package:currency_converter/pages/add_currency_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -12,12 +13,15 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart' hide ReorderableList;
 import 'package:flutter/material.dart' hide ReorderableList;
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:share/share.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MyCurrency extends StatefulWidget {
-  MyCurrency({Key? key}) : super(key: key);
+  const MyCurrency({Key? key}) : super(key: key);
 
   @override
   _MyCurrencyState createState() => _MyCurrencyState();
@@ -39,6 +43,8 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   bool firstTime = true;
   DataModel? selectedData;
+  late BannerAd _bannerAd;
+  bool isBannerAdReady = false;
 
   Future getSelectedList() async {
     selectedList.clear();
@@ -52,8 +58,32 @@ class _MyCurrencyState extends State<MyCurrency> {
     return selectedList.indexWhere((DataModel d) => d.key == key);
   }
 
+  void addMobMulticonverter() {
+    _bannerAd = BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          isBannerAdReady = false;
+          ad.dispose();
+        },
+      ),
+    );
+
+    _bannerAd.load();
+  }
+
   @override
   void initState() {
+    addMobMulticonverter();
+
     getSelectedList();
     super.initState();
 
@@ -62,13 +92,12 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   @override
   void didUpdateWidget(MyCurrency oldWidget) {
-    if (mounted) {
-      debugPrint("MyCurrency-> didUpdateWidget");
+    debugPrint("MyCurrency-> didUpdateWidget");
 
-      debugPrint("selectedData-> $selectedData");
+    debugPrint("selectedData-> $selectedData");
 
-      onRefresh();
-    }
+    onRefresh();
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -81,11 +110,14 @@ class _MyCurrencyState extends State<MyCurrency> {
     //   return false;
 
     final draggedItem = selectedList[draggingIndex];
-    setState(() {
-      debugPrint("Reordering $item -> $newPosition");
-      selectedList.removeAt(draggingIndex);
-      selectedList.insert(newPositionIndex, draggedItem);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      setState(() {
+        debugPrint("Reordering $item -> $newPosition");
+        selectedList.removeAt(draggingIndex);
+        selectedList.insert(newPositionIndex, draggedItem);
+      });
     });
+
     return true;
   }
 
@@ -108,15 +140,33 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   final DraggingMode _draggingMode = DraggingMode.iOS;
 
+  Future<bool> rebuild() async {
+    if (!mounted) return false;
+
+    // if there's a current frame,
+    if (SchedulerBinding.instance!.schedulerPhase != SchedulerPhase.idle) {
+      // wait for the end of that frame.
+      await SchedulerBinding.instance!.endOfFrame;
+      if (!mounted) return false;
+    }
+
+    setState(() {});
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
-
+    double convertH = 0.380;
+    double convertY;
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
           isCalculatorVisible = false;
+          appheight - convertH;
+          setState(() {});
+
           dataController.addError("error");
         } else {
           SystemNavigator.pop();
@@ -125,119 +175,220 @@ class _MyCurrencyState extends State<MyCurrency> {
       },
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Container(
-          padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
+        body: SizedBox(
           height: appheight,
-          width: appwidth,
-          child: ReorderableList(
-            onReorder: _reorderCallback,
-            onReorderDone: _reorderDone,
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    AppBar(
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      centerTitle: true,
-                      toolbarHeight: 50,
-                      title: Text(
-                        "updated_date".tr().toString() + " " + Utility.getFormatDate(),
-                        textScaleFactor: Constants.textScaleFactor,
-                        // textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: MyColors.textColor,
-                          fontSize: 16.5,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(12, 0, 12,
+                      isCalculatorVisible == true ? appheight * convertH : 10),
+                  height: appheight * 0.898,
+                  width: appwidth,
+                  child: ReorderableList(
+                    onReorder: _reorderCallback,
+                    onReorderDone: _reorderDone,
+                    child: CustomScrollView(
+                      slivers: <Widget>[
+                        SliverList(
+                          delegate: SliverChildListDelegate([
+                            AppBar(
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
+                              centerTitle: true,
+                              toolbarHeight: 50,
+                              title: Text(
+                                "updated_date".tr().toString() +
+                                    " " +
+                                    Utility.getFormatDate(),
+                                textScaleFactor: Constants.textScaleFactor,
+                                // textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: MyColors.textColor,
+                                  fontSize: 16.5,
+                                ),
+                              ),
+                              actions: [
+                                InkWell(
+                                  onTap: () {
+                                    _onShareWithEmptyOrigin(context);
+                                  },
+                                  child: Icon(
+                                    Icons.share,
+                                    color: MyColors.textColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]),
                         ),
-                      ),
-                      actions: [
-                        InkWell(
-                          onTap: () {
-                            _onShareWithEmptyOrigin(context);
+                        StreamBuilder(
+                          builder: (context, snapshot) {
+                            return SliverPadding(
+                                padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).padding.bottom,
+                                ),
+                                sliver: SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                    (BuildContext context, int index) {
+                                      if (index == 0 && firstTime) {
+                                        debugPrint("firstTime$firstTime");
+                                        selectedList[index].controller.text =
+                                            "1";
+                                        calculateExchangeRate(
+                                            "1", 0, selectedList[index]);
+                                        firstTime = false;
+                                      }
+
+                                      return Item(
+                                        data: selectedList[index],
+                                        isFirst: index == 0,
+                                        isLast:
+                                            index == selectedList.length - 1,
+                                        draggingMode: _draggingMode,
+                                        onItemRemove: () async {
+                                          if (selectedList[index].code ==
+                                              await Utility.getStringPreference(
+                                                  "code")) {
+                                            await Utility.setStringPreference(
+                                                "value", "1");
+                                            await Utility.setStringPreference(
+                                                "code", "");
+                                          }
+
+                                          selectedList.removeAt(index);
+
+                                          if (selectedList.isNotEmpty) {
+                                            String s = selectedList.first.value
+                                                .replaceAll(
+                                                    RegExp(r'[^0-9]'), '');
+                                            List<String> str = s.split("");
+                                            if ((str.length -
+                                                        MyColors
+                                                            .decimalFormat) >
+                                                    0 &&
+                                                MyColors.decimalFormat > 0) {
+                                              str.insert(
+                                                  str.length -
+                                                      MyColors.decimalFormat,
+                                                  ".");
+                                            }
+                                            s = "";
+                                            for (var element in str) {
+                                              s += element;
+                                            }
+
+                                            await Utility.setStringPreference(
+                                                "value", s);
+                                            await Utility.setStringPreference(
+                                                "code",
+                                                selectedList.first.code);
+                                            selectedList.first.value = s;
+                                            selectedData = selectedList.first;
+                                          }
+
+                                          streamController.add(selectedList);
+                                        },
+                                        onChange: (text) {
+                                          calculateExchangeRate(
+                                              text, index, selectedList[index]);
+                                        },
+                                        onTap: () {
+                                          isCalculatorVisible = true;
+
+                                          debugPrint("index------->$index");
+                                          dataController
+                                              .add(selectedList[index]);
+                                        },
+                                      );
+                                    },
+                                    childCount: selectedList.length,
+                                  ),
+                                ));
                           },
-                          child: Icon(
-                            Icons.share,
-                            color: MyColors.textColor,
-                          ),
+                          stream: streamController.stream,
                         ),
                       ],
                     ),
-                  ]),
+                  ),
                 ),
-                StreamBuilder(
-                  builder: (context, snapshot) {
-                    return SliverPadding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).padding.bottom,
+              ),
+              isBannerAdReady
+                  ? Positioned(
+                      bottom: 0,
+                      right: 4,
+                      left: 4,
+                      child: Container(
+                        width: appwidth,
+                        height: _bannerAd.size.height.toDouble(),
+                        color: MyColors.colorPrimary,
+                        child: SizedBox(
+                          height: _bannerAd.size.height.toDouble(),
+                          width: _bannerAd.size.width.toDouble(),
+                          child: AdWidget(ad: _bannerAd),
                         ),
-                        sliver: SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              if (index == 0 && firstTime) {
-                                debugPrint("firstTime$firstTime");
-                                selectedList[index].controller.text = "1";
-                                calculateExchangeRate("1", 0, selectedList[index]);
-                                firstTime = false;
-                              }
+                      ),
+                    )
+                  : const SizedBox(
+                      height: 0.0,
+                      width: 0.0,
+                    ),
+              Positioned(
+                right: isBannerAdReady ? 15 : 15,
+                bottom: isBannerAdReady ? 65 : 20,
+                child: FloatingActionButton(
+                  backgroundColor: MyColors.textColor,
+                  onPressed: () async {
+                    print(
+                        "_bannerAd.size.height.toDouble() ${_bannerAd.size.height.toDouble()}");
+                    streamController.add([]);
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddCurrency()));
 
-                              return Item(
-                                data: selectedList[index],
-                                isFirst: index == 0,
-                                isLast: index == selectedList.length - 1,
-                                draggingMode: _draggingMode,
-                                onItemRemove: () async {
-                                  if (selectedList[index].code == await Utility.getStringPreference("code")) {
-                                    await Utility.setStringPreference("value", "1");
-                                    await Utility.setStringPreference("code", "");
-                                  }
+                    selectedList.clear();
+                    selectedList = await dbHelper.getSelectedData();
+                    debugPrint("selectedList-->$selectedList");
 
-                                  selectedList.removeAt(index);
+                    FocusScope.of(context).unfocus();
+                    String value = await Utility.getStringPreference("value");
+                    String code = await Utility.getStringPreference("code");
+                    debugPrint("value-->$value");
+                    debugPrint("code-->$code");
+                    dataController.addError("error");
+                    if (value.isNotEmpty && code.isNotEmpty) {
+                      int index = selectedList
+                          .indexWhere((element) => element.code == code);
+                      if (index != -1) {
+                        selectedList[index].controller.text = value;
+                        calculateExchangeRate(
+                            selectedList[index].controller.text,
+                            index,
+                            selectedList[index]);
+                      }
+                    } else {
+                      debugPrint("savedvalueisnothere");
+                      firstTime = true;
+                    }
 
-                                  if (selectedList.isNotEmpty) {
-                                    String s = selectedList.first.value.replaceAll(RegExp(r'[^0-9]'), '');
-                                    List<String> str = s.split("");
-                                    if ((str.length - MyColors.decimalFormat) > 0 && MyColors.decimalFormat > 0) {
-                                      str.insert(str.length - MyColors.decimalFormat, ".");
-                                    }
-                                    s = "";
-                                    for (var element in str) {
-                                      s += element;
-                                    }
-
-                                    await Utility.setStringPreference("value", s);
-                                    await Utility.setStringPreference("code", selectedList.first.code);
-                                    selectedList.first.value = s;
-                                    selectedData = selectedList.first;
-                                  }
-
-                                  streamController.add(selectedList);
-                                },
-                                onChange: (text) {
-                                  calculateExchangeRate(text, index, selectedList[index]);
-                                },
-                                onTap: () {
-                                  isCalculatorVisible = true;
-
-                                  debugPrint("index------->$index");
-                                  dataController.add(selectedList[index]);
-                                },
-                              );
-                            },
-                            childCount: selectedList.length,
-                          ),
-                        ));
+                    streamController.add(selectedList);
                   },
-                  stream: streamController.stream,
+                  child: SvgPicture.asset("assets/images/plus-icon.svg",
+                      color: MyColors.colorPrimary),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         bottomNavigationBar: StreamBuilder<DataModel>(
           stream: dataController.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-              if ((selectedData != null && selectedData!.code != snapshot.data!.code) || firstTime) {
+              if ((selectedData != null &&
+                      selectedData!.code != snapshot.data!.code) ||
+                  firstTime) {
                 String s = snapshot.data!.controller.text;
 
                 debugPrint("s--->$s");
@@ -248,7 +399,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                 debugPrint("str--->$str");
                 debugPrint("decimalFormat--->${MyColors.decimalFormat}");
                 debugPrint("${str.length - MyColors.decimalFormat}");
-                if ((str.length - MyColors.decimalFormat) > 0 && MyColors.decimalFormat > 0) {
+                if ((str.length - MyColors.decimalFormat) > 0 &&
+                    MyColors.decimalFormat > 0) {
                   str.insert(str.length - MyColors.decimalFormat, ".");
                 }
                 s = "";
@@ -257,12 +409,15 @@ class _MyCurrencyState extends State<MyCurrency> {
                   s += element;
                 }
                 snapshot.data!.controller.text = s;
-                snapshot.data!.controller.selection =
-                    TextSelection(baseOffset: 0, extentOffset: snapshot.data!.controller.value.text.length);
+                snapshot.data!.controller.selection = TextSelection(
+                    baseOffset: 0,
+                    extentOffset: snapshot.data!.controller.value.text.length);
 
-                int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
+                int i = selectedList.indexWhere(
+                    (element) => element.code == snapshot.data!.code);
                 if (i != -1) {
-                  calculateExchangeRate(snapshot.data!.controller.text, i, snapshot.data!);
+                  calculateExchangeRate(
+                      snapshot.data!.controller.text, i, snapshot.data!);
                 }
               }
 
@@ -272,11 +427,13 @@ class _MyCurrencyState extends State<MyCurrency> {
                 txtController: snapshot.data!.controller,
                 onChange: (text) async {
                   await Utility.setStringPreference("value", text);
-                  await Utility.setStringPreference("code", snapshot.data!.code);
+                  await Utility.setStringPreference(
+                      "code", snapshot.data!.code);
                   Constants.selectedEditableCurrencyCode = snapshot.data!.code;
                   Constants.selectedEditableCurrencyValue = text;
 
-                  int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
+                  int i = selectedList.indexWhere(
+                      (element) => element.code == snapshot.data!.code);
                   if (i != -1) {
                     calculateExchangeRate(text, i, snapshot.data!);
                   }
@@ -289,41 +446,6 @@ class _MyCurrencyState extends State<MyCurrency> {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: MyColors.textColor,
-          onPressed: () async {
-            streamController.add([]);
-            await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
-
-            selectedList.clear();
-            selectedList = await dbHelper.getSelectedData();
-            debugPrint("selectedList-->$selectedList");
-
-            FocusScope.of(context).unfocus();
-            String value = await Utility.getStringPreference("value");
-            String code = await Utility.getStringPreference("code");
-            debugPrint("value-->$value");
-            debugPrint("code-->$code");
-            dataController.addError("error");
-            if (value.isNotEmpty && code.isNotEmpty) {
-              int index = selectedList.indexWhere((element) => element.code == code);
-              if (index != -1) {
-                selectedList[index].controller.text = value;
-                calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
-              }
-            } else {
-              debugPrint("savedvalueisnothere");
-              firstTime = true;
-            }
-
-            streamController.add(selectedList);
-          },
-          child: Icon(
-            Icons.add,
-            size: 40,
-            color: MyColors.colorPrimary,
-          ),
-        ),
       ),
     );
   }
@@ -335,12 +457,16 @@ class _MyCurrencyState extends State<MyCurrency> {
       debugPrint("d$d");
       for (DataModel element in selectedList) {
         if (element.code != model.code) {
-          double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
+          double conversionRate = ((double.parse(model.value) * 100) /
+                  (double.parse(element.value) * 100)) *
+              (d);
 
           debugPrint("conversionRate->$conversionRate");
-          String m = getFormatText(conversionRate.toStringAsFixed(MyColors.decimalFormat));
+          String m = getFormatText(
+              conversionRate.toStringAsFixed(MyColors.decimalFormat));
           element.controller.text = m;
-          element.controller.selection = TextSelection.fromPosition(TextPosition(offset: element.controller.text.length));
+          element.controller.selection = TextSelection.fromPosition(
+              TextPosition(offset: element.controller.text.length));
           element.exchangeValue = m;
         }
       }
@@ -404,7 +530,8 @@ class _MyCurrencyState extends State<MyCurrency> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share(
+        "https://play.google.com/store/apps/details?id=com.tencent.ig");
   }
 
   void onRefresh() async {
@@ -416,12 +543,13 @@ class _MyCurrencyState extends State<MyCurrency> {
       int index = selectedList.indexWhere((element) => element.code == code);
       if (index != -1) {
         selectedList[index].controller.text = value;
-        calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
+        calculateExchangeRate(
+            selectedList[index].controller.text, index, selectedList[index]);
       }
     }
-    if (mounted) {
-      setState(() {});
-    }
+    if (!await rebuild()) return;
+
+    setState(() {});
   }
 }
 
@@ -443,13 +571,15 @@ class Item extends StatelessWidget {
   final Function onItemRemove;
   final Function(String text) onChange;
   final Function onTap;
+  bool isbool = true;
 
   final dbHelper = DatabaseHelper.instance;
 
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == ReorderableItemState.dragProxy || state == ReorderableItemState.dragProxyFinished) {
+    if (state == ReorderableItemState.dragProxy ||
+        state == ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
       decoration = BoxDecoration(
         color: MyColors.textColor,
@@ -468,9 +598,12 @@ class Item extends StatelessWidget {
     Widget dragHandle = draggingMode == DraggingMode.iOS
         ? IntrinsicHeight(
             child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 MyColors.displayflag && MyColors.displaycode
-                    ? ReorderableListener(
+                    ? DelayedReorderableListener(
+                        delay: Duration(seconds: 1),
                         canStart: () {
                           return false;
                         },
@@ -490,9 +623,10 @@ class Item extends StatelessWidget {
                       ),
 
                 MyColors.displaycode
-                    ? ReorderableListener(
+                    ? DelayedReorderableListener(
+                        delay: Duration(seconds: 1),
                         child: Container(
-                          margin: const EdgeInsets.only(left: 8.0),
+                          margin: const EdgeInsets.only(left: 3.0),
                           height: 35.0,
                           width: 60.0,
                           decoration: BoxDecoration(
@@ -527,7 +661,8 @@ class Item extends StatelessWidget {
                       )
                     : //Currency Code
                     MyColors.displayflag
-                        ? ReorderableListener(
+                        ? DelayedReorderableListener(
+                            delay: Duration(seconds: 1),
                             child: SizedBox(
                                 width: 40,
                                 height: 40,
@@ -539,9 +674,10 @@ class Item extends StatelessWidget {
                                     ))),
                           )
                         : //flag
-                        ReorderableListener(
+                        DelayedReorderableListener(
+                            delay: Duration(seconds: 1),
                             child: Container(
-                              margin: const EdgeInsets.only(left: 8.0),
+                              margin: const EdgeInsets.only(left: 3.0),
                               height: 35.0,
                               width: 60.0,
                               decoration: BoxDecoration(
@@ -572,9 +708,10 @@ class Item extends StatelessWidget {
                   width: 5,
                 ),
                 MyColors.displayflag && MyColors.displaysymbol
-                    ? ReorderableListener(
+                    ? DelayedReorderableListener(
+                        delay: Duration(seconds: 1),
                         child: Container(
-                          margin: const EdgeInsets.only(left: 8.0),
+                          margin: const EdgeInsets.only(left: 3.0),
                           height: 35.0,
                           width: 60.0,
                           decoration: BoxDecoration(
@@ -607,61 +744,77 @@ class Item extends StatelessWidget {
                       ),
 
                 Expanded(
-                  child: AutoSizeTextField(
-                    controller: data.controller,
-                    cursorColor: MyColors.colorPrimary,
-                    textAlignVertical: TextAlignVertical.center,
-                    autocorrect: true,
-                    maxLength: 30,
-                    maxLines: 1,
-                    maxFontSize: 17.0,
-                    minFontSize: 7.0,
-                    style: TextStyle(
-                      color: MyColors.colorPrimary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
+                  child: MediaQuery(
+                    data: MediaQuery.of(context).copyWith(
+                      textScaleFactor: Constants.textScaleFactor,
                     ),
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.none,
-                    showCursor: true,
-                    readOnly: false,
-                    decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
-                        counterText: "",
-                        border: InputBorder.none),
-                    onChanged: (String text) async {
-                      if (text.isEmpty) {
-                        text = "0";
-                      }
-                      text = text.replaceAll(RegExp(r'[^0-9]'), '');
-                      await Utility.setStringPreference("value", text);
-                      await Utility.setStringPreference("code", data.code);
-                      Constants.selectedEditableCurrencyCode = data.code;
-                      Constants.selectedEditableCurrencyValue = text;
-                      data.controller.text = text;
-                      // text = data.controller.text;
-                      data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
-                      onChange(text);
-                      // calculateExchangeRate(text);
-                    },
-                    onTap: () async {
-                      data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
-                      // isCalculatorVisible = true;
-                      // dataController.add(data);
+                    child: DelayedReorderableListener(
+                      delay: const Duration(milliseconds: 400),
+                      canStart: () {
+                        return true;
+                      },
+                      key: key,
+                      child: AutoSizeTextField(
+                        controller: data.controller,
+                        cursorColor: MyColors.colorPrimary,
+                        textAlignVertical: TextAlignVertical.center,
+                        autocorrect: true,
+                        maxLength: 30,
+                        maxLines: 1,
+                        maxFontSize: 17.0,
+                        minFontSize: 7.0,
+                        style: TextStyle(
+                          color: MyColors.colorPrimary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.none,
+                        showCursor: true,
+                        readOnly: false,
+                        decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(
+                                left: 1.0, right: 1.0, bottom: 15.0),
+                            counterText: "",
+                            border: InputBorder.none),
+                        onChanged: (String text) async {
+                          if (text.isEmpty) {
+                            text = "0";
+                          }
+                          text = text.replaceAll(RegExp(r'[^0-9]'), '');
+                          await Utility.setStringPreference("value", text);
+                          await Utility.setStringPreference("code", data.code);
+                          Constants.selectedEditableCurrencyCode = data.code;
+                          Constants.selectedEditableCurrencyValue = text;
+                          data.controller.text = text;
+                          // text = data.controller.text;
+                          data.controller.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: data.controller.text.length));
+                          onChange(text);
+                          // calculateExchangeRate(text);
+                        },
+                        onTap: () async {
+                          data.controller.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: data.controller.text.length));
+                          // isCalculatorVisible = true;
+                          // dataController.add(data);
 
-                      onTap();
-                    },
+                          onTap();
+                        },
+                      ),
+                    ),
                   ),
                 ),
-
-                ReorderableListener(
+                DelayedReorderableListener(
+                  delay: Duration(seconds: 1),
                   child: Container(
                     width: 50,
                     child: Row(
                       children: [
-                        Image.asset(
-                          "assets/images/up-down.png",
-                          scale: 2.3,
+                        SvgPicture.asset(
+                          "assets/images/arrows-vertical.svg",
                         ),
                         const SizedBox(
                           width: 7,
@@ -673,9 +826,8 @@ class Item extends StatelessWidget {
                             dbHelper.update(data.toMap());
                             onItemRemove();
                           },
-                          child: Image.asset(
-                            "assets/images/cross.png",
-                            scale: 2.3,
+                          child: SvgPicture.asset(
+                            "assets/images/close-red.svg",
                             color: MyColors.colorPrimary,
                           ),
                         ),

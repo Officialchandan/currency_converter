@@ -9,6 +9,7 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AddCurrency extends StatefulWidget {
   const AddCurrency({Key? key}) : super(key: key);
@@ -59,8 +60,8 @@ class _AddCurrencyState extends State<AddCurrency> {
             ),
           ),
           leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
+            icon: SvgPicture.asset(
+              "assets/images/arrow-left.svg",
               color: MyColors.textColor,
             ),
             onPressed: () {
@@ -113,7 +114,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                       if (snapshot.hasData) {
                         debugPrint("onTap3->${selectedList.length}");
                         return Column(
-                          children: List.generate(snapshot.data!.length, (index) {
+                          children:
+                              List.generate(snapshot.data!.length, (index) {
                             DataModel data = snapshot.data![index];
                             return Container(
                               height: 45,
@@ -124,23 +126,27 @@ class _AddCurrencyState extends State<AddCurrency> {
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
-                                          margin: const EdgeInsets.only(right: 15),
+                                          margin:
+                                              const EdgeInsets.only(right: 15),
                                           width: 40,
                                           height: 40,
                                           child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(30),
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
                                               child: Image.asset(
                                                 data.image!,
                                                 fit: BoxFit.cover,
                                               ))),
                                       Text(
                                         data.code,
-                                        textScaleFactor: Constants.textScaleFactor,
+                                        textScaleFactor:
+                                            Constants.textScaleFactor,
                                         style: TextStyle(
                                           color: MyColors.insideTextFieldColor,
                                           fontWeight: FontWeight.bold,
@@ -154,10 +160,13 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         width: 180,
                                         child: AutoSizeText(
                                           data.code.toUpperCase().tr(),
+                                          textScaleFactor:
+                                              Constants.textScaleFactor,
                                           // data.name!,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            color: MyColors.insideTextFieldColor,
+                                            color:
+                                                MyColors.insideTextFieldColor,
                                             fontSize: 16,
                                           ),
                                         ),
@@ -167,43 +176,58 @@ class _AddCurrencyState extends State<AddCurrency> {
                                   Row(
                                     children: [
                                       InkWell(
-                                          onTap: () async {
-                                            debugPrint("onTap");
-                                            data.iconForSelection = !data.iconForSelection;
+                                        onTap: () async {
+                                          debugPrint("onTap");
+                                          data.iconForSelection =
+                                              !data.iconForSelection;
 
-                                            int i = selectedList.indexWhere((element) => element.code == data.code);
+                                          int i = selectedList.indexWhere(
+                                              (element) =>
+                                                  element.code == data.code);
 
-                                            debugPrint("i---->$i");
-                                            selectedList[i].iconForSelection = false;
-                                            data.iconForSelection = false;
-                                            data.selected = 0;
-                                            data.timeStamp = 0;
+                                          debugPrint("i---->$i");
+                                          selectedList[i].iconForSelection =
+                                              false;
+                                          data.iconForSelection = false;
+                                          data.selected = 0;
+                                          data.timeStamp = 0;
 
-                                            dbHelper.update(data.toMap());
-                                            if (data.code == await Utility.getStringPreference("code")) {
-                                              await Utility.setStringPreference("value", "1");
-                                              await Utility.setStringPreference("code", "");
-                                            }
+                                          dbHelper.update(data.toMap());
+                                          if (data.code ==
+                                              await Utility.getStringPreference(
+                                                  "code")) {
+                                            await Utility.setStringPreference(
+                                                "value", "1");
+                                            await Utility.setStringPreference(
+                                                "code", "");
+                                          }
 
-                                            debugPrint("onTap1->${selectedList.length}");
+                                          debugPrint(
+                                              "onTap1->${selectedList.length}");
 
-                                            unselectedList.add(selectedList[i]);
-                                            selectedList.removeAt(index);
-                                            debugPrint("onTap2->${selectedList.length}");
+                                          unselectedList.add(selectedList[i]);
+                                          selectedList.removeAt(index);
+                                          debugPrint(
+                                              "onTap2->${selectedList.length}");
 
-                                            selectedController.add(selectedList);
+                                          selectedController.add(selectedList);
 
-                                            unselectedList.sort((a, b) => a.code.compareTo(b.code));
+                                          unselectedList.sort((a, b) =>
+                                              a.code.compareTo(b.code));
 
-                                            unselectedController.add(unselectedList);
-                                          },
-                                          child: Icon(
-                                            Icons.close,
-                                            size: 29,
-                                            color: MyColors.colorPrimary,
-                                          )),
+                                          unselectedController
+                                              .add(unselectedList);
+                                        },
+                                        child: SvgPicture.asset(
+                                          "assets/images/close.svg",
+                                          color: MyColors.colorPrimary,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 7.3,
+                                      ),
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             );
@@ -240,7 +264,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                         log("snapshot-->${snapshot.data}");
 
                         return Column(
-                          children: List.generate(snapshot.data!.length, (index) {
+                          children:
+                              List.generate(snapshot.data!.length, (index) {
                             DataModel model = snapshot.data![index];
                             return Container(
                               height: 45,
@@ -252,16 +277,19 @@ class _AddCurrencyState extends State<AddCurrency> {
                               ),
                               // alignment: Alignment.center,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
-                                          margin: const EdgeInsets.only(right: 15),
+                                          margin:
+                                              const EdgeInsets.only(right: 15),
                                           width: 40,
                                           height: 40,
                                           child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(20),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
                                               child: Image.asset(
                                                 model.image!,
                                                 fit: BoxFit.cover,
@@ -272,6 +300,8 @@ class _AddCurrencyState extends State<AddCurrency> {
                                       SizedBox(
                                           child: AutoSizeText(
                                         model.code,
+                                        textScaleFactor:
+                                            Constants.textScaleFactor,
                                         style: TextStyle(
                                           color: MyColors.insideTextFieldColor,
                                           fontWeight: FontWeight.bold,
@@ -282,15 +312,20 @@ class _AddCurrencyState extends State<AddCurrency> {
                                         width: 10,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width * .45,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .45,
                                         child: AutoSizeText(
                                           model.code.toUpperCase().tr(),
+                                          textScaleFactor:
+                                              Constants.textScaleFactor,
                                           // model.name!,
                                           maxLines: 1,
                                           minFontSize: 15,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            color: MyColors.insideTextFieldColor,
+                                            color:
+                                                MyColors.insideTextFieldColor,
                                             fontSize: 16,
                                           ),
                                         ),
@@ -298,30 +333,31 @@ class _AddCurrencyState extends State<AddCurrency> {
                                     ],
                                   ),
                                   IconButton(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      onPressed: () async {
-                                        if (!model.iconForSelection) {
-                                          model.iconForSelection = true;
-                                          model.selected = 1;
-                                          model.timeStamp = DateTime.now().millisecondsSinceEpoch;
-                                          dbHelper.update(model.toMap());
-                                          selectedList.add(model);
-                                          selectedController.add(selectedList);
-                                          unselectedList[index] = model;
-                                          unselectedController.add(unselectedList);
-                                        }
-                                      },
-                                      icon: model.iconForSelection
-                                          ? Icon(
-                                              Icons.check_sharp,
-                                              size: 29,
-                                              color: MyColors.colorPrimary,
-                                            )
-                                          : Icon(
-                                              Icons.add,
-                                              size: 29,
-                                              color: MyColors.colorPrimary,
-                                            )),
+                                    padding: const EdgeInsets.only(left: 10),
+                                    onPressed: () async {
+                                      if (!model.iconForSelection) {
+                                        model.iconForSelection = true;
+                                        model.selected = 1;
+                                        model.timeStamp = DateTime.now()
+                                            .millisecondsSinceEpoch;
+                                        dbHelper.update(model.toMap());
+                                        selectedList.add(model);
+                                        selectedController.add(selectedList);
+                                        unselectedList[index] = model;
+                                        unselectedController
+                                            .add(unselectedList);
+                                      }
+                                    },
+                                    icon: model.iconForSelection
+                                        ? SvgPicture.asset(
+                                            "assets/images/right.svg",
+                                            color: MyColors.colorPrimary,
+                                          )
+                                        : SvgPicture.asset(
+                                            "assets/images/plus-icon.svg",
+                                            color: MyColors.colorPrimary,
+                                          ),
+                                  ),
                                 ],
                               ),
                             );

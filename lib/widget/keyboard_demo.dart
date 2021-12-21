@@ -130,9 +130,9 @@ class CustomKeyboard extends StatelessWidget {
   final ValueSetter<String> onTextInput;
   final VoidCallback onBackspace;
 
-  void _textInputHandler(String text) => onTextInput?.call(text);
+  void _textInputHandler(String text) => onTextInput.call(text);
 
-  void _backspaceHandler() => onBackspace?.call();
+  void _backspaceHandler() => onBackspace.call();
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +247,7 @@ class TextKey extends StatelessWidget {
           color: Colors.blue.shade300,
           child: InkWell(
             onTap: () {
-              onTextInput?.call(text);
+              onTextInput.call(text);
             },
             child: Container(
               child: Center(child: Text(text)),
@@ -279,7 +279,7 @@ class BackspaceKey extends StatelessWidget {
           color: Colors.blue.shade300,
           child: InkWell(
             onTap: () {
-              onBackspace?.call();
+              onBackspace.call();
             },
             child: Container(
               child: Center(

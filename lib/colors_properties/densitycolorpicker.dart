@@ -90,6 +90,8 @@ class _DensityColorPickerState extends State<DensityColorPicker> {
 
   void changeColor(Color color) {
     setState(() => _currentColor = color);
+
+
     widget.onColorChanged(color);
   }
 
