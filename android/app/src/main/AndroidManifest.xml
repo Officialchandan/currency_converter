@@ -1,18 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.example.currency_converter">
-    <uses-permission android:name="com.android.vending.BILLING" />    
+	<uses-permission android:name="com.android.vending.BILLING" />
 	<uses-permission android:name="android.permission.INTERNET" />
-    
+
 	<application
+		android:allowBackup="false"
+		android:fullBackupContent="false"
 		android:icon="@mipmap/app_icon"
 		android:label="CurrencyConverter"
 		android:roundIcon="@mipmap/app_icon"
+
 		android:supportsRtl="false">
 		<activity
 			android:name=".MainActivity"
 			android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-			android:hardwareAccelerated="true"
+			android:exported="true"
 
+			android:hardwareAccelerated="true"
 			android:launchMode="singleTop"
 			android:screenOrientation="portrait"
 			android:theme="@style/LaunchTheme"
@@ -32,7 +36,7 @@
 			<meta-data
 				android:name="io.flutter.embedding.android.SplashScreenDrawable"
 				android:resource="@drawable/launch_background" />
-				
+
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -44,9 +48,8 @@
 			android:name="flutterEmbedding"
 			android:value="2" />
 		<meta-data
-		    android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~4354546703"/>
-				
-			
+			android:name="com.google.android.gms.ads.APPLICATION_ID"
+			android:value="ca-app-pub-3940256099942544~4354546703" />
+
 	</application>
 </manifest>

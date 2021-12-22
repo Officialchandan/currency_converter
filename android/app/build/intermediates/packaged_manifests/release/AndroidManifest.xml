@@ -35,7 +35,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:allowBackup="false"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:fullBackupContent="false"
         android:icon="@mipmap/app_icon"
         android:label="CurrencyConverter"
         android:roundIcon="@mipmap/app_icon"
@@ -43,6 +45,7 @@
         <activity
             android:name="com.example.currency_converter.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:exported="true"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
