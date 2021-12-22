@@ -40,7 +40,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
-  String text = "0.86";
+  String text = "0.00";
   bool arrowPosition = false;
   bool arrowPositionTwo = false;
   double conversionRate = 0;
@@ -67,9 +67,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
     getCurrencyCode();
     super.initState();
-    if (mounted) {
-      setState(() {});
-    }
   }
 
   @override
@@ -114,6 +111,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
       text = await getConverterAPI(
           currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+      onTabChange();
     }
     if (mounted) {
       setState(() {});

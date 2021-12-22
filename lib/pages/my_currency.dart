@@ -5,6 +5,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/google_admob/ad_helper.dart';
+import 'package:currency_converter/menegment/get_menegment.dart';
 import 'package:currency_converter/pages/add_currency_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -16,6 +17,9 @@ import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:share/share.dart';
 import 'package:flutter_svg/svg.dart';
@@ -39,55 +43,46 @@ class _MyCurrencyState extends State<MyCurrency> {
   final dbHelper = DatabaseHelper.instance;
   StreamController<List<DataModel>> streamController = StreamController();
   StreamController<DataModel> dataController = StreamController();
+  AppController appController = Get.put(AppController());
   bool isCalculatorVisible = false;
 
   bool firstTime = true;
   DataModel? selectedData;
   late BannerAd _bannerAd;
   bool isBannerAdReady = false;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    getSelectedList();
+
+    super.initState();
+  }
+
+  animatedFlutterLogoState() {
+    _timer = Timer(const Duration(milliseconds: 400), () {
+      setState(() {
+        addMobMulticonverter();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer!.cancel();
+  }
 
   Future getSelectedList() async {
     selectedList.clear();
     selectedList = await dbHelper.getSelectedData();
-    debugPrint("selectedList-->$selectedList");
     streamController.add(selectedList);
+    debugPrint("selectedList-->$selectedList");
   }
 
   // Returns index of item with given key
   int _indexOfKey(Key key) {
     return selectedList.indexWhere((DataModel d) => d.key == key);
-  }
-
-  void addMobMulticonverter() {
-    _bannerAd = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          isBannerAdReady = false;
-          ad.dispose();
-        },
-      ),
-    );
-
-    _bannerAd.load();
-  }
-
-  @override
-  void initState() {
-    addMobMulticonverter();
-
-    getSelectedList();
-    super.initState();
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {});
   }
 
   @override
@@ -140,18 +135,26 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   final DraggingMode _draggingMode = DraggingMode.iOS;
 
-  Future<bool> rebuild() async {
-    if (!mounted) return false;
+  void addMobMulticonverter() {
+    print("addMobMulticonverter---->");
+    _bannerAd = BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          isBannerAdReady = false;
+          ad.dispose();
+        },
+      ),
+    );
 
-    // if there's a current frame,
-    if (SchedulerBinding.instance!.schedulerPhase != SchedulerPhase.idle) {
-      // wait for the end of that frame.
-      await SchedulerBinding.instance!.endOfFrame;
-      if (!mounted) return false;
-    }
-
-    setState(() {});
-    return true;
+    _bannerAd.load();
   }
 
   @override
@@ -159,7 +162,6 @@ class _MyCurrencyState extends State<MyCurrency> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     double convertH = 0.380;
-    double convertY;
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
@@ -314,7 +316,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                   ),
                 ),
               ),
-              isBannerAdReady
+              isBannerAdReady == true
                   ? Positioned(
                       bottom: 0,
                       right: 4,
@@ -335,13 +337,11 @@ class _MyCurrencyState extends State<MyCurrency> {
                       width: 0.0,
                     ),
               Positioned(
-                right: isBannerAdReady ? 15 : 15,
-                bottom: isBannerAdReady ? 65 : 20,
+                right: isBannerAdReady == true ? 15 : 15,
+                bottom: isBannerAdReady == true ? 65 : 20,
                 child: FloatingActionButton(
                   backgroundColor: MyColors.textColor,
                   onPressed: () async {
-                    print(
-                        "_bannerAd.size.height.toDouble() ${_bannerAd.size.height.toDouble()}");
                     streamController.add([]);
                     await Navigator.push(
                         context,
@@ -547,9 +547,6 @@ class _MyCurrencyState extends State<MyCurrency> {
             selectedList[index].controller.text, index, selectedList[index]);
       }
     }
-    if (!await rebuild()) return;
-
-    setState(() {});
   }
 }
 
