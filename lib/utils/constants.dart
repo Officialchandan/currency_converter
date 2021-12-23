@@ -1,4 +1,5 @@
 enum Fonts { small, medium, large }
+enum Entitlements { free, paid }
 
 class Constants {
   static const String SELECTED_CODE = "SELECTED_CODE";

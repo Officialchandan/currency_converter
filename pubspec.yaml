@@ -68,7 +68,7 @@ dependencies:
   flutter_advertising_id: any 
   advertising_id: ^2.1.1
   get: any
-
+  
 
 dev_dependencies:
 
