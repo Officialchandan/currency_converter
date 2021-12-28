@@ -6,7 +6,10 @@ class Constants {
   static const String SELECTED_FLAG = "SELECTED_FLAG";
   static const String SELECTED_SYMBOL = "SELECTED_SYMBOL";
   static const String GET_ID = "GET_ID";
+
   static const String MultiConverter = "MultiConverter";
+  static const String REMOVE_AD = "REMOVE_AD";
+
   static const String currencyCodeFrom = "currencyCodeFrom";
   static const String currencyCodeTo = "currencyCodeTo";
   static const String themeColor = "theme";

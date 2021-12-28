@@ -6,7 +6,6 @@
 
 	<application
 		android:allowBackup="false"
-		android:fullBackupContent="false"
 		android:icon="@mipmap/app_icon"
 		android:label="CurrencyConverter"
 		android:roundIcon="@mipmap/app_icon"

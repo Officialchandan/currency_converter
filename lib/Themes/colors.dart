@@ -42,7 +42,7 @@ class MyColors {
   static bool displaysymbol = false;
   static bool displayflag = false;
   static bool muliConverter = false;
-
+  static bool removeAd = false;
   static int formatDemo = 123456;
 
   static bool unclockCheck = false;

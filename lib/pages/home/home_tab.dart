@@ -60,12 +60,21 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   @override
   void initState() {
-    addMob();
+    // if (MyColors.removeAd == true) {
+    //   print("MyColors.removeAd ${MyColors.removeAd}");
+    //   Future.delayed(const Duration(days: 365), () {
+    //     MyColors.removeAd = false;
+    //     addMob();
+    //   });
+    // } else {
+    //   addMob();
+    // }
     widget.onInitialize(this);
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
 
     getCurrencyCode();
+    addMob();
     super.initState();
   }
 
@@ -320,7 +329,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 readOnly: false,
                                 decoration: InputDecoration(
                                     hoverColor: MyColors.colorPrimary,
-                                    contentPadding: EdgeInsets.only(
+                                    contentPadding: const EdgeInsets.only(
                                         left: 1.0, right: 1.0, bottom: 15.0),
                                     counterText: "",
                                     border: InputBorder.none),

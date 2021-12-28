@@ -14,21 +14,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 final dbHelper = DatabaseHelper.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await MobileAds.initialize();
   MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
   await EasyLocalization.ensureInitialized();
-
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
+  }
   print(' Vchadnan ====>${await Utility.getAdId(Constants.GET_ID)}');
 
   print('Vchadnan${await Utility.getAdId(Constants.GET_ID)}');
   await insertData();
   await insertion();
+
   runApp(EasyLocalization(
       child: MyApp(),
       path: "assets/language",
@@ -121,6 +127,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     getOpenAd();
+
     super.dispose();
   }
 
@@ -147,7 +154,7 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 
@@ -324,6 +331,7 @@ insertion() async {
 
   MyColors.muliConverter =
       await Utility.getMulticonverter(Constants.MultiConverter);
+  MyColors.removeAd = await Utility.getRemoveAd(Constants.REMOVE_AD);
 
   MyColors.displayflag =
       await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);

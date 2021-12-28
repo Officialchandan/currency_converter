@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/color_picker/color_picker_dialog.dart';
+import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -39,6 +40,24 @@ class _SettingScreenState extends State<SettingScreen> {
   double _value = 0.0;
   double x = 0.0;
   bool boolMulit = true;
+  AppsflyerSdk? _appsflyerSdk;
+  Map? _deepLinkData;
+  Map? _gcd;
+
+  // final AppsFlyerOptions options = AppsFlyerOptions(
+
+  //     afDevKey: DotEnv().env["DEV_KEY"] ?? "",
+  //     appId: DotEnv().env["APP_ID"] ?? "",
+
+  //     showDebug: true,
+  //           timeToWaitForATTUserAuthorization: 30);
+
+  Map<String, dynamic> appsFlyerOptions = {
+    "afDevKey": "afDevKey",
+    "afAppId": "appId",
+    "isDebug": true,
+    "disableAdvertisingIdentifier": true
+  };
 
   final Map<ColorSwatch<Object>, String> customSwatches =
       <ColorSwatch<Object>, String>{
@@ -60,8 +79,49 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   void initState() {
+    // _appsflyerSdk!.initSdk(
+    //     registerConversionDataCallback: true,
+    //     registerOnAppOpenAttributionCallback: true,
+    //     registerOnDeepLinkingCallback: true);
     super.initState();
   }
+
+//  void removeAD() {
+//     _appsflyerSdk = AppsflyerSdk(appsFlyerOptions);
+//     _appsflyerSdk!.onAppOpenAttribution((res) {
+//       print("onAppOpenAttribution res: " + res.toString());
+//       setState(() {
+//         _deepLinkData = res;
+//       });
+//     });
+//     _appsflyerSdk!.onInstallConversionData((res) {
+//       print("onInstallConversionData res: " + res.toString());
+//       setState(() {
+//         _gcd = res;
+//       });
+//     });
+//     _appsflyerSdk!.onDeepLinking((DeepLinkResult dp) {
+//       switch (dp.status) {
+//         case Status.FOUND:
+//           print(dp.deepLink?.toString());
+//           print("deep link value: ${dp.deepLink?.deepLinkValue}");
+//           break;
+//         case Status.NOT_FOUND:
+//           print("deep link not found");
+//           break;
+//         case Status.ERROR:
+//           print("deep link error: ${dp.error}");
+//           break;
+//         case Status.PARSE_ERROR:
+//           print("deep link status parsing error");
+//           break;
+//       }
+//       print("onDeepLinking res: " + dp.toString());
+//       setState(() {
+//         _deepLinkData = dp.toJson();
+//       });
+//     });
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +195,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ? MyColors.colorPrimary
                                 : Colors.grey.shade300,
                             inactiveThumbColor: MyColors.textColor,
-                            value: isSwitched,
-                            onChanged: (value) {
+                            value: MyColors.removeAd,
+                            onChanged: (value) async {
                               setState(() {
-                                isSwitched = value;
-                                // print(isSwitched);
+                                MyColors.removeAd = value;
+                                Utility.setMulticonverter(
+                                    Constants.REMOVE_AD, MyColors.removeAd);
                               });
                             },
                             activeTrackColor: MyColors.lightModeCheck

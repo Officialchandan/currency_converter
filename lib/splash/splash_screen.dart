@@ -36,7 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
     //
     // await insert();
 
-    String dateFormat = await Utility.getStringPreference(Constants.DATE_FROMAT);
+    String dateFormat =
+        await Utility.getStringPreference(Constants.DATE_FROMAT);
     if (dateFormat.isNotEmpty) {
       Constants.dateFormat = dateFormat;
     } else {
@@ -50,6 +51,13 @@ class _SplashScreenState extends State<SplashScreen> {
       Constants.selectedFontSize = Constants.fontSmall;
     }
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyTabBarWidget()));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaleFactor: Constants.textScaleFactor,
+                ),
+                child: const MyTabBarWidget())));
   }
 }

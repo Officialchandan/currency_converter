@@ -26,7 +26,7 @@ class MyTabBarWidget extends StatefulWidget {
 }
 
 class _MyTabBarWidgetState extends State<MyTabBarWidget>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
@@ -56,8 +56,19 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       tabChangeListener(_tabController.index);
       debugPrint("index1->${_tabController.index}");
     });
+    WidgetsBinding.instance!.addObserver(this);
+  }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
+    debugPrint("didChangeAppLifecycleState $state");
     if (MyColors.muliConverter == true) {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         try {
@@ -96,9 +107,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 if (_selectedIndex == 3) {
                   _tabController.index = _tabController.previousIndex;
                 }
-                //  else if (MyColors.muliConverter) {
-                //   _tabController.index = _selectedIndex;
-                // }
               },
               physics: const BouncingScrollPhysics(parent: ScrollPhysics()),
               indicatorColor: Colors.white,
