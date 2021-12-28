@@ -48,10 +48,12 @@ class ColorPickerDialog extends StatefulWidget {
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
   Color unlockCurrentColor = Colors.blue;
-  LColor lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
+  LColor lockCurrentColor =
+      LColor(lmainColor: Colors.white, ldensityColors: []);
   Color densityCurrentColor = Colors.blue;
 
-  MColor selectedColor = MColor(mainColor: MyColors.colorPrimary, densityColors: []);
+  MColor selectedColor =
+      MColor(mainColor: MyColors.colorPrimary, densityColors: []);
   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
 
   List<MColor> colors = [
@@ -399,7 +401,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
     debugPrint("index---->$index");
     if (index == -1) {
-      LColor newLockColor = LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
+      LColor newLockColor =
+          LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
         ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade50,
         ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade100,
         ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade200,
@@ -426,7 +429,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       lcolors.add(newLockColor);
     }
 
-    selectedColor = colors.singleWhere((element) => element.mainColor == c, orElse: () {
+    selectedColor =
+        colors.singleWhere((element) => element.mainColor == c, orElse: () {
       return MColor(mainColor: MyColors.colorPrimary, densityColors: [
         Color(0xffc9d8ef),
         Color(0xffb8cbea),
@@ -455,7 +459,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
     int i = lcolors.indexWhere((element) {
       print("${element.lmainColor}=========$c");
-      Color d = Color(int.parse("0x" + "${element.lmainColor.value.toRadixString(16)}"));
+      Color d = Color(
+          int.parse("0x" + "${element.lmainColor.value.toRadixString(16)}"));
       print("$d=========$c");
 
       if (d == MyColors.lockColorfordefault)
@@ -504,7 +509,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           child: Text(
             "unlocked".tr().toString(),
             textScaleFactor: Constants.textScaleFactor,
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
+            style: TextStyle(
+                fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
           ),
         ),
         Container(
@@ -524,7 +530,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           child: Text(
             "locked".tr().toString(),
             textScaleFactor: Constants.textScaleFactor,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ),
         Container(
@@ -540,13 +547,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         ),
         Center(
           child: Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               width: width * 0.87,
               height: height * 0.077,
               child: DensityColorPicker(
                   pickerColor: MyColors.densityColor,
                   onColorChanged: densitychangeColor,
-                  availableColors: MyColors.lastTimeCheck ? selectedColor.densityColors : lselectedColor.ldensityColors)),
+                  availableColors: MyColors.lastTimeCheck
+                      ? selectedColor.densityColors
+                      : lselectedColor.ldensityColors)),
         ),
         const SizedBox(
           height: 5,
@@ -560,7 +569,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.indigoAccent),
                         onPressed: () {
                           MyColors.lockColorfordefault = lockSelectdColor;
                           MyColors.colorPrimary = colorSelection!;
@@ -569,7 +579,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           int blue = MyColors.colorPrimary.blue;
                           int green = MyColors.colorPrimary.green;
 
-                          var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                          var grayscale =
+                              (0.299 * red) + (0.587 * green) + (0.114 * blue);
                           print("************************-> $grayscale");
 
                           if (grayscale > 200) {
@@ -584,13 +595,20 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.darkModeCheck = false;
                           }
 
-                          Utility.setTryColorPreference("Color", lockSelectdColor.value.toRadixString(16));
+                          Utility.setTryColorPreference("Color",
+                              lockSelectdColor.value.toRadixString(16));
 
-                          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                          SystemChrome.setSystemUIOverlayStyle(
+                              SystemUiOverlayStyle(
                             // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                            systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                            systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-                            statusBarColor: MyColors.colorPrimary, // status bar color
+                            systemNavigationBarIconBrightness:
+                                MyColors.lightModeCheck
+                                    ? Brightness.light
+                                    : Brightness.dark,
+                            systemNavigationBarColor:
+                                MyColors.colorPrimary, // navigation bar color
+                            statusBarColor:
+                                MyColors.colorPrimary, // status bar color
                           ));
 
                           widget.onThemeChange();
@@ -608,7 +626,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       width: width * 0.45,
                       height: height * 0.05,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.indigoAccent),
                         onPressed: () {},
                         child: Text(
                           "unlock".tr().toString(),
@@ -639,7 +658,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 child: AutoSizeText(
                   "cpv_custom".tr().toString(),
                   textScaleFactor: Constants.textScaleFactor,
-                  style: TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      letterSpacing: 0.8,
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                   maxLines: 1,
                 ),
               ),
@@ -658,7 +681,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         int blue = MyColors.colorPrimary.blue;
                         int green = MyColors.colorPrimary.green;
 
-                        var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                        var grayscale =
+                            (0.299 * red) + (0.587 * green) + (0.114 * blue);
                         print("************************-> $grayscale");
 
                         if (grayscale > 200) {
@@ -672,13 +696,20 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           MyColors.lightModeCheck = true;
                           MyColors.darkModeCheck = false;
                         }
-                        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                        SystemChrome.setSystemUIOverlayStyle(
+                            SystemUiOverlayStyle(
                           // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                          systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                          systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-                          statusBarColor: MyColors.colorPrimary, // status bar color
+                          systemNavigationBarIconBrightness:
+                              MyColors.lightModeCheck
+                                  ? Brightness.light
+                                  : Brightness.dark,
+                          systemNavigationBarColor:
+                              MyColors.colorPrimary, // navigation bar color
+                          statusBarColor:
+                              MyColors.colorPrimary, // status bar color
                         ));
-                        Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
+                        Utility.setStringPreference(Constants.themeColor,
+                            unlockSelectdColor!.value.toString());
 
                         themepicker(unlockSelectdColor!.value.toString());
 
@@ -690,7 +721,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       child: Text(
                         "cpv_select".tr().toString(),
                         textScaleFactor: Constants.textScaleFactor,
-                        style: TextStyle(letterSpacing: 1.0, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            letterSpacing: 1.0,
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   )
@@ -708,10 +743,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     showGeneralDialog(
         context: context,
         barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: Colors.black45,
         transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
           double width = MediaQuery.of(context).size.width;
           double height = MediaQuery.of(context).size.height;
 
@@ -766,12 +803,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   }
 
   void densitychangeColor(Color color) {
-
-    Utility.setStringPreference("DensityColor",color.value.toString());
-    MyColors.densityColor=color;
+    Utility.setStringPreference("DensityColor", color.value.toString());
+    MyColors.densityColor = color;
     MyColors.unclockCheck = false;
     MyColors.lockCheck = false;
-    
 
     widget.lockedColor = true;
     density = true;
@@ -784,13 +819,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     );
     setState(() => densityCurrentColor = color);
     widget.densitychangeColor(color);
-    debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+    debugPrint(
+        "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
   static void themepicker(String code) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.themeColor, code);
   }
-
- 
 }

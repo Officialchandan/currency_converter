@@ -47,8 +47,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 paletteType: PaletteType.hsl,
                 portraitOnly: false,
                 pickerAreaBorderRadius: const BorderRadius.only(
-                  topLeft: const Radius.circular(2.0),
-                  topRight: const Radius.circular(2.0),
+                  topLeft: Radius.circular(2.0),
+                  topRight: Radius.circular(2.0),
                 ),
               )),
           Row(

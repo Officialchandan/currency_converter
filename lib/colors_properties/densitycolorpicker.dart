@@ -9,9 +9,11 @@ import 'package:flutter_colorpicker/src/utils.dart';
 
 late Color _currentColor;
 
-typedef PickerLayoutBuilder = Widget Function(BuildContext context, List<Color> colors, PickerItem child);
+typedef PickerLayoutBuilder = Widget Function(
+    BuildContext context, List<Color> colors, PickerItem child);
 typedef PickerItem = Widget Function(Color color);
-typedef PickerItemBuilder = Widget Function(Color color, bool isCurrentColor, void Function() changeColor);
+typedef PickerItemBuilder = Widget Function(
+    Color color, bool isCurrentColor, void Function() changeColor);
 
 class DensityColorPicker extends StatefulWidget {
   var color1;
@@ -30,7 +32,8 @@ class DensityColorPicker extends StatefulWidget {
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
 
-  static Widget defaultLayoutBuilder(BuildContext context, List<Color> colors, PickerItem child) {
+  static Widget defaultLayoutBuilder(
+      BuildContext context, List<Color> colors, PickerItem child) {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return ListView(
@@ -39,7 +42,8 @@ class DensityColorPicker extends StatefulWidget {
     );
   }
 
-  static Widget defaultItemBuilder(Color color, bool isCurrentColor, void Function() changeColor) {
+  static Widget defaultItemBuilder(
+      Color color, bool isCurrentColor, void Function() changeColor) {
     return Container(
       height: 60,
       width: 50,
@@ -52,11 +56,10 @@ class DensityColorPicker extends StatefulWidget {
           onTap: () {
             changeColor();
             MyColors.densitycheck = true;
-            MyColors.eyeIconSetup=false;
+            MyColors.eyeIconSetup = false;
 
-            MyColors.lockCheck=false;
-            MyColors.unclockCheck=false;
-
+            MyColors.lockCheck = false;
+            MyColors.unclockCheck = false;
           },
           borderRadius: BorderRadius.circular(50.0),
           child: AnimatedOpacity(
@@ -65,7 +68,8 @@ class DensityColorPicker extends StatefulWidget {
             child: MyColors.densitycheck
                 ? Icon(
                     Icons.done,
-                    color: useWhiteForeground(color) ? Colors.white : Colors.black,
+                    color:
+                        useWhiteForeground(color) ? Colors.white : Colors.black,
                   )
                 : Text(
                     "",
@@ -91,7 +95,6 @@ class _DensityColorPickerState extends State<DensityColorPicker> {
   void changeColor(Color color) {
     setState(() => _currentColor = color);
 
-
     widget.onColorChanged(color);
   }
 
@@ -100,8 +103,8 @@ class _DensityColorPickerState extends State<DensityColorPicker> {
     return widget.layoutBuilder(
       context,
       widget.availableColors,
-      (Color color, [bool? _, Function? __]) =>
-          widget.itemBuilder(color, _currentColor.value == color.value, () => changeColor(color)),
+      (Color color, [bool? _, Function? __]) => widget.itemBuilder(
+          color, _currentColor.value == color.value, () => changeColor(color)),
     );
   }
 }
