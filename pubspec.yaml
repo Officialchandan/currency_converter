@@ -61,14 +61,14 @@ dependencies:
   flutter_svg: any
   flex_color_picker:
   google_mobile_ads: any
-  in_app_purchase: ^1.0.9
   native_admob_flutter: any
   provider: any
   flutter_advertising_id: any 
   advertising_id: ^2.1.1
   get: any
-  appsflyer_sdk:
-
+  purchases_flutter: 
+  in_app_purchase: any
+  in_app_purchase_ios: 
 dev_dependencies:
 
   flutter_test:

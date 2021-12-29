@@ -2,7 +2,8 @@ import 'dart:ui';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/color_picker/color_picker_dialog.dart';
-import 'package:appsflyer_sdk/appsflyer_sdk.dart';
+import 'package:currency_converter/in_app_purchase/app_purchase.dart';
+import 'package:currency_converter/in_app_purchase/revenue_cat.dart';
 import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -14,6 +15,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:purchases_flutter/object_wrappers.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'home/home_page.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -40,25 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
   double _value = 0.0;
   double x = 0.0;
   bool boolMulit = true;
-  AppsflyerSdk? _appsflyerSdk;
-  Map? _deepLinkData;
-  Map? _gcd;
-
-  // final AppsFlyerOptions options = AppsFlyerOptions(
-
-  //     afDevKey: DotEnv().env["DEV_KEY"] ?? "",
-  //     appId: DotEnv().env["APP_ID"] ?? "",
-
-  //     showDebug: true,
-  //           timeToWaitForATTUserAuthorization: 30);
-
-  Map<String, dynamic> appsFlyerOptions = {
-    "afDevKey": "afDevKey",
-    "afAppId": "appId",
-    "isDebug": true,
-    "disableAdvertisingIdentifier": true
-  };
-
+  final package = Package;
   final Map<ColorSwatch<Object>, String> customSwatches =
       <ColorSwatch<Object>, String>{
     const MaterialColor(0xFFfae738, <int, Color>{
@@ -79,49 +65,10 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   void initState() {
-    // _appsflyerSdk!.initSdk(
-    //     registerConversionDataCallback: true,
-    //     registerOnAppOpenAttributionCallback: true,
-    //     registerOnDeepLinkingCallback: true);
+    PurchaseApi.init();
+
     super.initState();
   }
-
-//  void removeAD() {
-//     _appsflyerSdk = AppsflyerSdk(appsFlyerOptions);
-//     _appsflyerSdk!.onAppOpenAttribution((res) {
-//       print("onAppOpenAttribution res: " + res.toString());
-//       setState(() {
-//         _deepLinkData = res;
-//       });
-//     });
-//     _appsflyerSdk!.onInstallConversionData((res) {
-//       print("onInstallConversionData res: " + res.toString());
-//       setState(() {
-//         _gcd = res;
-//       });
-//     });
-//     _appsflyerSdk!.onDeepLinking((DeepLinkResult dp) {
-//       switch (dp.status) {
-//         case Status.FOUND:
-//           print(dp.deepLink?.toString());
-//           print("deep link value: ${dp.deepLink?.deepLinkValue}");
-//           break;
-//         case Status.NOT_FOUND:
-//           print("deep link not found");
-//           break;
-//         case Status.ERROR:
-//           print("deep link error: ${dp.error}");
-//           break;
-//         case Status.PARSE_ERROR:
-//           print("deep link status parsing error");
-//           break;
-//       }
-//       print("onDeepLinking res: " + dp.toString());
-//       setState(() {
-//         _deepLinkData = dp.toJson();
-//       });
-//     });
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -202,6 +149,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                 Utility.setMulticonverter(
                                     Constants.REMOVE_AD, MyColors.removeAd);
                               });
+                              await PurchaseApi.init();
+                              await PurchaseApi.purchasePackage();
+                              print(
+                                  "PurchaseApi.package ${PurchaseApi.package}");
                             },
                             activeTrackColor: MyColors.lightModeCheck
                                 ? MyColors.colorPrimary

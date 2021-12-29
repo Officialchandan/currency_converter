@@ -17,6 +17,7 @@ import 'package:native_admob_flutter/native_admob_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'in_app_purchase/app_purchase.dart';
 
 final dbHelper = DatabaseHelper.instance;
 
@@ -26,10 +27,14 @@ void main() async {
   await MobileAds.initialize();
   MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
   await EasyLocalization.ensureInitialized();
+  // PurchaseApi.init();
   if (defaultTargetPlatform == TargetPlatform.android) {
+    // For play billing library 2.0 on Android, it is mandatory to call
+    // [enablePendingPurchases](https://developer.android.com/reference/com/android/billingclient/api/BillingClient.Builder.html#enablependingpurchases)
+    // as part of initializing the app.
     InAppPurchaseAndroidPlatformAddition.enablePendingPurchases();
   }
-  print(' Vchadnan ====>${await Utility.getAdId(Constants.GET_ID)}');
+  // print(' Vchadnan ====>${await Utility.getAdId(Constants.GET_ID)}');
 
   print('Vchadnan${await Utility.getAdId(Constants.GET_ID)}');
   await insertData();
@@ -59,7 +64,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     initPlatformState();
     getTheme();
-
     isFirstTime();
 
     super.initState();
