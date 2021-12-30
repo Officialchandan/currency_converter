@@ -53,28 +53,29 @@ class UnlockColorPicker extends StatefulWidget {
   }
 
   static Widget defaultItemBuilder(MColor color, bool isCurrentColor, void Function() changeColor) {
-    return Container(
-      height: 60,
-      width: 43,
-      // padding: EdgeInsets.all(30),
-      margin: const EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          MyColors.lastTimeCheck = true;
+          MyColors.unclockCheck = true;
+          MyColors.lockCheck = false;
+          MyColors.densitycheck = false;
 
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(0.0),
-        color: color.mainColor,
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () {
-            MyColors.lastTimeCheck = true;
-            MyColors.unclockCheck = true;
-            MyColors.lockCheck = false;
-            MyColors.densitycheck = false;
+          changeColor();
+        },
+        child: Container(
+          height: 60,
+          width: 43,
+          // padding: EdgeInsets.all(30),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
 
-            changeColor();
-          },
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(0.0),
+            color: color.mainColor,
+            border: Border.all(color: Colors.black, width: 0.5),
+          ),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
             opacity: isCurrentColor ? 1.0 : 0.0,
