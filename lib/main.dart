@@ -2,6 +2,7 @@ import 'package:advertising_id/advertising_id.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
+import 'package:currency_converter/offical_app_purchase/provider.dart';
 import 'package:currency_converter/splash/splash_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/locals.dart';
@@ -18,6 +19,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'in_app_purchase/app_purchase.dart';
+
+import 'offical_app_purchase/home_screen.dart';
 
 final dbHelper = DatabaseHelper.instance;
 
@@ -41,7 +44,8 @@ void main() async {
   await insertion();
 
   runApp(EasyLocalization(
-      child: MyApp(),
+      child: ChangeNotifierProvider(
+          create: (context) => ProviderModel(), child: MyApp()),
       path: "assets/language",
       fallbackLocale: Locale('en'),
       useFallbackTranslations: true,
@@ -158,7 +162,7 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: const SplashScreen(),
+      home: const HomeScreen(),
     );
   }
 

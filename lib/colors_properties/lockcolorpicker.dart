@@ -2,12 +2,13 @@
 
 library block_colorpicker;
 
+import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/src/utils.dart';
+
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/src/utils.dart';
 
 const List<Color> _defaultColors = [
   Colors.red,
@@ -41,12 +42,13 @@ typedef PickerItemBuilder = Widget Function(
 
 class LockColorPicker extends StatefulWidget {
   const LockColorPicker({
+    Key? key,
     required this.pickerColor,
     required this.onColorChanged,
     required this.availableColors,
     this.layoutBuilder = defaultLayoutBuilder,
     this.itemBuilder = defaultItemBuilder,
-  });
+  }) : super(key: key);
 
   final LColor pickerColor;
   final ValueChanged<LColor> onColorChanged;
@@ -66,7 +68,11 @@ class LockColorPicker extends StatefulWidget {
         crossAxisSpacing: 0,
         mainAxisSpacing: 0,
         crossAxisCount: orientation == Orientation.portrait ? 5 : 6,
-        children: colors.map((LColor color) => child(color)).toList(),
+        children: colors
+            .map((LColor color) => child(color))
+            .toList()
+            .reversed
+            .toList(),
       ),
     );
   }
@@ -163,10 +169,23 @@ class _LockColorPickerState extends State<LockColorPicker> {
       if (colorPreference ==
           widget.availableColors[i].lmainColor.value.toRadixString(16)) {
         c = Color(int.parse("0x" + "${colorPreference}"));
+
+        String x = c.value.bitLength
+            .toRadixString(16)
+            .replaceAll(0.toString(), 20.toString());
+
         lockcolor = LColor(lmainColor: c, ldensityColors: []);
         LColor temp = widget.availableColors[0];
         widget.availableColors[0] = widget.availableColors[i];
         widget.availableColors[i] = temp;
+        if (MyColors.densitycheck == true) {
+          LColor temp = widget.availableColors[0];
+          widget.availableColors[0] = widget.availableColors[i];
+          widget.availableColors[i] = temp;
+          LColor temp2 = widget.availableColors.first;
+          widget.availableColors.first = widget.availableColors.last;
+          widget.availableColors.last = temp2;
+        }
 
         break;
       }

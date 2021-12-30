@@ -400,7 +400,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     });
 
     debugPrint("index---->$index");
-    if (index == -1) {
+    if (index == 1) {
       LColor newLockColor =
           LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
         ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade50,
