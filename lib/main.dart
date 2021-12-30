@@ -13,11 +13,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-import 'in_app_purchase/app_purchase.dart';
+import 'package:native_admob_flutter/native_admob_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final dbHelper = DatabaseHelper.instance;
 
@@ -141,8 +139,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context)
-              .copyWith(textScaleFactor: Constants.textScaleFactor),
+          data: MediaQuery.of(context).copyWith(textScaleFactor: Constants.textScaleFactor),
           child: child!,
         );
       },
@@ -187,8 +184,7 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       // statusBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
 
-      systemNavigationBarIconBrightness:
-          !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+      systemNavigationBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
@@ -200,16 +196,14 @@ Future<void> insertData() async {
 
   Dio _dio = Dio();
   try {
-    String url =
-        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
     Response response = await _dio.get(url);
     if (response.statusCode == 200) {
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
 
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList
-            .singleWhere((element) => element["code"] == key, orElse: () {
+        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
           return {};
@@ -220,23 +214,9 @@ Future<void> insertData() async {
             code: key,
             image: map["image"],
             name: map["country_name"],
-            fav: (key == "USD" ||
-                    key == "EUR" ||
-                    key == "GBP" ||
-                    key == "CAD" ||
-                    key == "INR" ||
-                    key == "MXN" ||
-                    key == "BTC")
-                ? 1
-                : 0,
-            selected: (key == "USD" ||
-                    key == "EUR" ||
-                    key == "GBP" ||
-                    key == "CAD" ||
-                    key == "INR" ||
-                    key == "MXN")
-                ? 1
-                : 0,
+            fav:
+                (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN" || key == "BTC") ? 1 : 0,
+            selected: (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN") ? 1 : 0,
             symbol: map["Symbol"]);
 
         int id = await dbHelper.insert(currencyData.toMap());
@@ -330,17 +310,13 @@ Future insertDefaultData() async {
 }
 
 insertion() async {
-  MyColors.displaycode =
-      await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
+  MyColors.displaycode = await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
 
-  MyColors.muliConverter =
-      await Utility.getMulticonverter(Constants.MultiConverter);
+  MyColors.muliConverter = await Utility.getMulticonverter(Constants.MultiConverter);
   MyColors.removeAd = await Utility.getRemoveAd(Constants.REMOVE_AD);
 
-  MyColors.displayflag =
-      await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
-  MyColors.displaysymbol =
-      await Utility.getBoolDisplaysymbolPreference(Constants.SELECTED_SYMBOL);
+  MyColors.displayflag = await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
+  MyColors.displaysymbol = await Utility.getBoolDisplaysymbolPreference(Constants.SELECTED_SYMBOL);
 
   String monetary = await Utility.getStringPreference(Constants.monetaryFormat);
   String decimal = await Utility.getStringPreference(Constants.decimalFormat);

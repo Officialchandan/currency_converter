@@ -1,4 +1,4 @@
-import 'dart:collection';
+import 'dart:async';
 
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -25,8 +25,8 @@ class ColorPickerDialog extends StatefulWidget {
   final Color unlockCurrentColor;
   final Color lockCurrentColor;
   final Color densityCurrentColor;
-  bool lockedColor;
-  bool unlockColorSelect;
+  bool isLockedColor;
+  bool isUnlockColorSelect;
 
   ColorPickerDialog(
       {required this.onColorSelect,
@@ -36,8 +36,8 @@ class ColorPickerDialog extends StatefulWidget {
       required this.densityCurrentColor,
       required this.lockCurrentColor,
       required this.unlockCurrentColor,
-      required this.lockedColor,
-      required this.unlockColorSelect,
+      required this.isLockedColor,
+      required this.isUnlockColorSelect,
       required this.onThemeChange,
       Key? key})
       : super(key: key);
@@ -48,100 +48,23 @@ class ColorPickerDialog extends StatefulWidget {
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
   Color unlockCurrentColor = Colors.blue;
-  LColor lockCurrentColor =
-      LColor(lmainColor: Colors.white, ldensityColors: []);
+  LColor lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
   Color densityCurrentColor = Colors.blue;
 
-  MColor selectedColor =
-      MColor(mainColor: MyColors.colorPrimary, densityColors: []);
+  MColor selectedColor = MColor(mainColor: MyColors.colorPrimary, densityColors: []);
   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
 
-  List<MColor> colors = [
-    MColor(mainColor: Color(0xff4e7dcb), densityColors: [
-      Color(0xffc9d8ef),
-      Color(0xffb8cbea),
-      Color(0xffa6bee5),
-      Color(0xff94b1df),
-      Color(0xff83a4da),
-      Color(0xff7197d5),
-      Color(0xff5f8ad0),
-      Color(0xff4e7dcb),
-      Color(0xff4e7dcb),
-      Color(0xff4670b6),
-      Color(0xff3e64a2),
-      Color(0xff36578e),
-      Color(0xff2e4b79),
-      Color(0xff273e65),
-      Color(0xff1f3251),
-      Color(0xff17253c),
-      Color(0xff0f1928),
-      Color(0xff070c14),
-      Color(0xff000000),
-    ]),
-    MColor(mainColor: Color(0xff54a925), densityColors: [
-      Color(0xffcbe5bd),
-      Color(0xffbadca7),
-      Color(0xffa9d492),
-      Color(0xff98CB7C),
-      Color(0xff87C266),
-      Color(0xff76BA50),
-      Color(0xff65B13A),
-      Color(0xff54a925),
-      Color(0xff43871D),
-      Color(0xff3A7619),
-      Color(0xff326516),
-      Color(0xff295412),
-      Color(0xff21430E),
-      Color(0xff19320B),
-      Color(0xff102107),
-      Color(0xff081003),
-      Color(0xff000000),
-    ]),
-    MColor(mainColor: Color(0xffc95856), densityColors: [
-      Color(0xfff4dddd),
-      Color(0xffeecccc),
-      Color(0xffe9bcbb),
-      Color(0xffe4abaa),
-      Color(0xffde9a99),
-      Color(0xffd98a88),
-      Color(0xffd37977),
-      Color(0xffce6866),
-      Color(0xffc95856),
-      Color(0xffc95856),
-      Color(0xffb44f4d),
-      Color(0xffa04644),
-      Color(0xff8c3d3c),
-      Color(0xff783433),
-      Color(0xff642c2b),
-      Color(0xff502322),
-      Color(0xff3c1a19),
-      Color(0xff281111),
-      Color(0xff140808),
-      Color(0xff000000),
-    ]),
-    MColor(mainColor: Color(0xffffa415), densityColors: [
-      Color(0xffffdaa1),
-      Color(0xffffd18a),
-      Color(0xffffc872),
-      Color(0xffffbf5b),
-      Color(0xffffb643),
-      Color(0xffffad2c),
-      Color(0xffffa415),
-      Color(0xffffa415),
-      Color(0xffe59312),
-      Color(0xffcc8310),
-      Color(0xffb2720e),
-      Color(0xff99620c),
-      Color(0xff7f520a),
-      Color(0xff664108),
-      Color(0xff4c3106),
-      Color(0xff332004),
-      Color(0xff191002),
-      Color(0xff000000),
-    ]),
-  ];
+  List<MColor> unlockColorList = Constants.unlockColors;
+  List<LColor> mList = [];
+  Color selectedDensityColor = const Color(0xff4e7dcb);
 
-  List<LColor> lcolors = [
+  StreamController<List<Color>> densityColorStream = StreamController();
+  StreamController<List<MColor>> unlockColorStream = StreamController();
+  StreamController<List<LColor>> lockColorStream = StreamController();
+  StreamController<bool> unlockColorController = StreamController();
+  StreamController<bool> lockColorController = StreamController();
+
+  List<LColor> lockedColorList = [
     LColor(lmainColor: Colors.red, ldensityColors: [
       Colors.red.shade50,
       Colors.red.shade100,
@@ -370,130 +293,84 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       Colors.blueGrey.shade800,
       Colors.blueGrey.shade900,
     ]),
-
-    // LColor(lmainColor: Colors.black, ldensityColors: [
-    //   Colors.black12,
-    //   Colors.black26,
-    //   Colors.black38,
-    //   Colors.black45,
-    //   Colors.black54,
-    //   Colors.black87,
-    //   Colors.black,
-    // ]),
   ];
+
   Color lockSelectdColor = Colors.blue;
   Color? unlockSelectdColor;
   Color? colorSelection;
   Color densitySelectedColor = Colors.red;
-  bool density = false;
-  bool lock = false;
 
   @override
   void initState() {
+    debugPrint("lockedColorList--->${Constants.lockedColors.length}");
     Color c = MyColors.colorPrimary;
+    getSelectedColor();
+    // getLockedColor();
+    unlockColorController.add(widget.isUnlockColorSelect);
+    lockColorController.add(widget.isLockedColor);
+
     unlockCurrentColor = widget.unlockCurrentColor;
     lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
     densityCurrentColor = widget.densityCurrentColor;
 
-    int index = lcolors.indexWhere((element) {
+    int selectedLockColorIndex = lockedColorList.indexWhere((element) => element.lmainColor.hex == c.hex);
+    int selectedUnlockColorIndex = unlockColorList.indexWhere((element) => element.mainColor.hex == c.hex);
+
+    debugPrint("selectedLockColorIndex---->$selectedLockColorIndex");
+    debugPrint("selectedUnlockColorIndex---->$selectedUnlockColorIndex");
+
+    // if (selectedLockColorIndex == -1 && selectedUnlockColorIndex == -1) {
+    //   LColor newLockColor = LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade50,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade100,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade200,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade300,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade400,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade500,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade600,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade700,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade800,
+    //     ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade900,
+    //   ]);
+    //
+    //   // lockedColorList.add(newLockColor);
+    //
+    // }
+
+    // if (selectedLockColorIndex != -1 && selectedUnlockColorIndex == -1) {
+    //   lockCurrentColor = lockedColorList[selectedLockColorIndex];
+    //   // lockedColorList.add(newLockColor);
+    //
+    // }
+
+    if (selectedUnlockColorIndex != -1) {
+      selectedColor = unlockColorList[selectedUnlockColorIndex];
+    }
+
+    debugPrint("selectedColor---->$selectedColor");
+
+    // List<LColor> result = LinkedHashSet<LColor>.from(lockedColorList).toList();
+    // lockedColorList = result;
+
+    int i = lockedColorList.indexWhere((element) {
       return element.lmainColor.hex == c.hex;
+      // print("${element.lmainColor}=========$c");
+      // Color d = Color(int.parse("0x" + "${element.lmainColor.value.toRadixString(16)}"));
+      // print("$d=========$c");
+      //
+      // if (d == MyColors.lockColorfordefault) {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
     });
 
-    debugPrint("index---->$index");
-    if (index == -1) {
-      LColor newLockColor =
-          LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade50,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade100,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade200,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade300,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade400,
-        MyColors.colorPrimary,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade500,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade600,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade700,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade800,
-        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade900,
-        // Utility.lighten(MyColors.colorPrimary, 0.10),
-        // Utility.lighten(MyColors.colorPrimary, 0.20),
-        // Utility.lighten(MyColors.colorPrimary, 0.30),
-        // Utility.lighten(MyColors.colorPrimary, 0.40),
-        // Utility.lighten(MyColors.colorPrimary, 0.50),
-        // MyColors.colorPrimary,
-        // Utility.darken(MyColors.colorPrimary, 0.10),
-        // Utility.darken(MyColors.colorPrimary, 0.15),
-        // Utility.darken(MyColors.colorPrimary, 0.20),
-        // Utility.darken(MyColors.colorPrimary, 0.25),
-      ]);
+    debugPrint("selectedNewLockColorIndex---->$i");
 
-      lcolors.add(newLockColor);
-    }
-
-    selectedColor =
-        colors.singleWhere((element) => element.mainColor == c, orElse: () {
-      return MColor(mainColor: MyColors.colorPrimary, densityColors: [
-        Color(0xffc9d8ef),
-        Color(0xffb8cbea),
-        Color(0xffa6bee5),
-        Color(0xff94b1df),
-        Color(0xff83a4da),
-        Color(0xff7197d5),
-        Color(0xff5f8ad0),
-        Color(0xff4e7dcb),
-        Color(0xff4e7dcb),
-        Color(0xff4670b6),
-        Color(0xff3e64a2),
-        Color(0xff36578e),
-        Color(0xff2e4b79),
-        Color(0xff273e65),
-        Color(0xff1f3251),
-        Color(0xff17253c),
-        Color(0xff0f1928),
-        Color(0xff070c14),
-        Color(0xff000000),
-      ]);
-    });
-
-    List<LColor> result = LinkedHashSet<LColor>.from(lcolors).toList();
-    lcolors = result;
-
-    int i = lcolors.indexWhere((element) {
-      print("${element.lmainColor}=========$c");
-      Color d = Color(
-          int.parse("0x" + "${element.lmainColor.value.toRadixString(16)}"));
-      print("$d=========$c");
-
-      if (d == MyColors.lockColorfordefault)
-        return true;
-      else {
-        return false;
-      }
-    });
     if (i != -1) {
-      lselectedColor = lcolors[i];
+      lselectedColor = lockedColorList[i];
     }
 
-    // lselectedColor = LColor(lmainColor: Color(0xff4e7dcb), ldensityColors: [
-    //   Color(0xffc9d8ef),
-    //   Color(0xffb8cbea),
-    //   Color(0xffa6bee5),
-    //   Color(0xff94b1df),
-    //   Color(0xff83a4da),
-    //   Color(0xff7197d5),
-    //   Color(0xff5f8ad0),
-    //   Color(0xff4e7dcb),
-    //   Color(0xff4e7dcb),
-    //   Color(0xff4670b6),
-    //   Color(0xff3e64a2),
-    //   Color(0xff36578e),
-    //   Color(0xff2e4b79),
-    //   Color(0xff273e65),
-    //   Color(0xff1f3251),
-    //   Color(0xff17253c),
-    //   Color(0xff0f1928),
-    //   Color(0xff070c14),
-    //   Color(0xff000000),
-    // ]);
     super.initState();
   }
 
@@ -509,8 +386,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           child: Text(
             "unlocked".tr().toString(),
             textScaleFactor: Constants.textScaleFactor,
-            style: TextStyle(
-                fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
           ),
         ),
         Container(
@@ -518,30 +394,83 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           width: MediaQuery.of(context).size.width * 0.87,
           //height: MediaQuery.of(context).size.height * 0.4,
           child: IntrinsicHeight(
-            child: UnlockColorPicker(
-              pickerColor: selectedColor,
-              onColorChanged: unlockchangeColor,
-              availableColors: colors,
-            ),
-          ),
+              child: StreamBuilder<List<MColor>>(
+            stream: unlockColorStream.stream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<MColor> colors = snapshot.data!;
+
+                int index = colors.indexWhere((element) => element.mainColor.hex == MyColors.colorPrimary.hex);
+                MColor selected = selectedColor;
+
+                if (index != -1) {
+                  selected = colors[index];
+                }
+
+                return UnlockColorPicker(
+                  pickerColor: selected,
+                  onColorChanged: onUnlockColorChange,
+                  availableColors: colors,
+                );
+              }
+
+              return UnlockColorPicker(
+                pickerColor: selectedColor,
+                onColorChanged: onUnlockColorChange,
+                availableColors: unlockColorList,
+              );
+            },
+          )),
         ),
         Container(
-          margin: EdgeInsets.only(left: 25, top: 5),
+          margin: const EdgeInsets.only(left: 25, top: 5),
           child: Text(
             "locked".tr().toString(),
             textScaleFactor: Constants.textScaleFactor,
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ),
         Container(
-          margin: EdgeInsets.only(left: 15, top: 5),
+          margin: const EdgeInsets.only(left: 15, top: 5),
           width: MediaQuery.of(context).size.width * 0.87,
           child: IntrinsicHeight(
-            child: LockColorPicker(
-              pickerColor: lockCurrentColor,
-              onColorChanged: lockchangeColor,
-              availableColors: lcolors,
+            child: StreamBuilder<List<LColor>>(
+              stream: lockColorStream.stream,
+              builder: (context, snapshot) {
+                debugPrint("snapshot--->$snapshot");
+                if (snapshot.hasData) {
+                  List<LColor> lockedColors = snapshot.data!;
+                  debugPrint("lockedColors--->${lockedColors.length}");
+                  int selectedLockedColorIndex =
+                      lockedColors.indexWhere((element) => element.lmainColor.hex == MyColors.colorPrimary.hex);
+                  LColor? selectedLockedColor;
+                  debugPrint("selected--->$selectedLockedColorIndex");
+                  if (selectedLockedColorIndex != -1) {
+                    if (selectedLockedColorIndex > 0) {
+                      selectedLockedColor = lockedColors[selectedLockedColorIndex];
+                      LColor mColor = lockedColors[0];
+
+                      lockedColors[0] = selectedLockedColor;
+                      lockedColors[selectedLockedColorIndex] = mColor;
+                    } else {
+                      selectedLockedColor = lockedColors[selectedLockedColorIndex];
+                    }
+                  }
+
+                  return LockColorPicker(
+                    pickerColor: selectedLockedColor ?? LColor(lmainColor: Colors.white, ldensityColors: []),
+                    onColorChanged: onLockColorChange,
+                    availableColors: lockedColors,
+                  );
+                }
+
+                // return Container();
+                return LockColorPicker(
+                  pickerColor: lockCurrentColor,
+                  onColorChanged: onLockColorChange,
+                  availableColors: lockedColorList,
+                );
+              },
             ),
           ),
         ),
@@ -550,37 +479,143 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               margin: const EdgeInsets.only(top: 10),
               width: width * 0.87,
               height: height * 0.077,
-              child: DensityColorPicker(
-                  pickerColor: MyColors.densityColor,
-                  onColorChanged: densitychangeColor,
-                  availableColors: MyColors.lastTimeCheck
-                      ? selectedColor.densityColors
-                      : lselectedColor.ldensityColors)),
+              child: StreamBuilder<List<Color>>(
+                stream: densityColorStream.stream,
+                builder: (context, snapshot) {
+                  List<Color> colors = snapshot.data!;
+
+                  if (snapshot.hasData) {
+                    return DensityColorPicker(
+                        pickerColor: selectedDensityColor, onColorChanged: onDensityColorChange, availableColors: colors);
+                  }
+
+                  return DensityColorPicker(
+                      pickerColor: selectedDensityColor,
+                      onColorChanged: onDensityColorChange,
+                      availableColors: MyColors.lastTimeCheck ? selectedColor.densityColors : lselectedColor.ldensityColors);
+                },
+              )),
         ),
         const SizedBox(
           height: 5,
         ),
-        widget.lockedColor
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                      margin: EdgeInsets.only(top: 5),
-                      width: width * 0.45,
-                      height: height * 0.05,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.indigoAccent),
-                        onPressed: () {
-                          MyColors.lockColorfordefault = lockSelectdColor;
-                          MyColors.colorPrimary = colorSelection!;
+        StreamBuilder<bool>(
+            stream: lockColorController.stream,
+            builder: (context, snap) {
+              if (snap.hasData && snap.data!) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.only(top: 5),
+                        width: width * 0.45,
+                        height: height * 0.05,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
+                          onPressed: () {
+                            MyColors.lockColorfordefault = lockSelectdColor;
+                            MyColors.colorPrimary = colorSelection!;
 
+                            int red = MyColors.colorPrimary.red;
+                            int blue = MyColors.colorPrimary.blue;
+                            int green = MyColors.colorPrimary.green;
+
+                            var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                            print("************************-> $grayscale");
+
+                            if (grayscale > 200) {
+                              MyColors.textColor = Colors.grey.shade700;
+                              MyColors.insideTextFieldColor = Colors.white;
+                              MyColors.darkModeCheck = true;
+                              MyColors.lightModeCheck = false;
+                            } else {
+                              MyColors.textColor = Colors.white;
+                              MyColors.insideTextFieldColor = Colors.black;
+                              MyColors.lightModeCheck = true;
+                              MyColors.darkModeCheck = false;
+                            }
+
+                            Utility.setTryColorPreference("Color", lockSelectdColor.value.toRadixString(16));
+
+                            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                              // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+                              systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+                              systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                              statusBarColor: MyColors.colorPrimary, // status bar color
+                            ));
+
+                            widget.onThemeChange();
+                            Navigator.pop(context);
+                          },
+                          child: AutoSizeText(
+                            "try_this_color".tr().toString(),
+                            textScaleFactor: Constants.textScaleFactor,
+                            style: const TextStyle(fontSize: 16),
+                            maxLines: 1,
+                          ),
+                        )),
+                    Container(
+                        margin: const EdgeInsets.only(top: 5),
+                        width: width * 0.45,
+                        height: height * 0.05,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
+                          onPressed: () {},
+                          child: Text(
+                            "unlock".tr().toString(),
+                            textScaleFactor: Constants.textScaleFactor,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        )),
+                  ],
+                );
+              }
+
+              return Text(
+                "",
+                textScaleFactor: Constants.textScaleFactor,
+              );
+            }),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                left: 25,
+                top: 20,
+              ),
+              width: width * 0.55,
+              height: height * 0.05,
+              child: GestureDetector(
+                onTap: () {
+                  showCustomColorPickerDialog(context);
+                },
+                child: AutoSizeText(
+                  "cpv_custom".tr().toString(),
+                  textScaleFactor: Constants.textScaleFactor,
+                  style: const TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            StreamBuilder<bool>(
+                stream: unlockColorController.stream,
+                builder: (context, snap) {
+                  if (snap.hasData && snap.data!) {
+                    return Container(
+                      margin: const EdgeInsets.only(
+                        top: 10,
+                      ),
+                      width: width * 0.25,
+                      height: height * 0.05,
+                      child: GestureDetector(
+                        onTap: () {
+                          MyColors.colorPrimary = unlockSelectdColor!;
                           int red = MyColors.colorPrimary.red;
                           int blue = MyColors.colorPrimary.blue;
                           int green = MyColors.colorPrimary.green;
 
-                          var grayscale =
-                              (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                          var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
                           print("************************-> $grayscale");
 
                           if (grayscale > 200) {
@@ -594,145 +629,35 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             MyColors.lightModeCheck = true;
                             MyColors.darkModeCheck = false;
                           }
-
-                          Utility.setTryColorPreference("Color",
-                              lockSelectdColor.value.toRadixString(16));
-
-                          SystemChrome.setSystemUIOverlayStyle(
-                              SystemUiOverlayStyle(
+                          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                             // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                            systemNavigationBarIconBrightness:
-                                MyColors.lightModeCheck
-                                    ? Brightness.light
-                                    : Brightness.dark,
-                            systemNavigationBarColor:
-                                MyColors.colorPrimary, // navigation bar color
-                            statusBarColor:
-                                MyColors.colorPrimary, // status bar color
+                            systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+                            systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                            statusBarColor: MyColors.colorPrimary, // status bar color
                           ));
+                          Utility.setStringPreference(Constants.themeColor, unlockSelectdColor!.value.toString());
+
+                          themepicker(unlockSelectdColor!.value.toString());
 
                           widget.onThemeChange();
                           Navigator.pop(context);
+
+                          // setState(() {});
                         },
-                        child: AutoSizeText(
-                          "try_this_color".tr().toString(),
-                          textScaleFactor: Constants.textScaleFactor,
-                          style: TextStyle(fontSize: 16),
-                          maxLines: 1,
-                        ),
-                      )),
-                  Container(
-                      margin: EdgeInsets.only(top: 5),
-                      width: width * 0.45,
-                      height: height * 0.05,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.indigoAccent),
-                        onPressed: () {},
                         child: Text(
-                          "unlock".tr().toString(),
+                          "cpv_select".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(letterSpacing: 1.0, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                      )),
-                ],
-              )
-            : Text(
-                "",
-                textScaleFactor: Constants.textScaleFactor,
-              ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: EdgeInsets.only(
-                left: 25,
-                top: 20,
-              ),
-              width: width * 0.55,
-              height: height * 0.05,
-              child: GestureDetector(
-                onTap: () {
-                  showCustomColorPickerDialog(context);
-                },
-                child: AutoSizeText(
-                  "cpv_custom".tr().toString(),
-                  textScaleFactor: Constants.textScaleFactor,
-                  style: TextStyle(
-                      letterSpacing: 0.8,
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                  maxLines: 1,
-                ),
-              ),
-            ),
-            widget.unlockColorSelect
-                ? Container(
-                    margin: EdgeInsets.only(
-                      top: 10,
-                    ),
-                    width: width * 0.25,
-                    height: height * 0.05,
-                    child: GestureDetector(
-                      onTap: () {
-                        MyColors.colorPrimary = unlockSelectdColor!;
-                        int red = MyColors.colorPrimary.red;
-                        int blue = MyColors.colorPrimary.blue;
-                        int green = MyColors.colorPrimary.green;
-
-                        var grayscale =
-                            (0.299 * red) + (0.587 * green) + (0.114 * blue);
-                        print("************************-> $grayscale");
-
-                        if (grayscale > 200) {
-                          MyColors.textColor = Colors.grey.shade700;
-                          MyColors.insideTextFieldColor = Colors.white;
-                          MyColors.darkModeCheck = true;
-                          MyColors.lightModeCheck = false;
-                        } else {
-                          MyColors.textColor = Colors.white;
-                          MyColors.insideTextFieldColor = Colors.black;
-                          MyColors.lightModeCheck = true;
-                          MyColors.darkModeCheck = false;
-                        }
-                        SystemChrome.setSystemUIOverlayStyle(
-                            SystemUiOverlayStyle(
-                          // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                          systemNavigationBarIconBrightness:
-                              MyColors.lightModeCheck
-                                  ? Brightness.light
-                                  : Brightness.dark,
-                          systemNavigationBarColor:
-                              MyColors.colorPrimary, // navigation bar color
-                          statusBarColor:
-                              MyColors.colorPrimary, // status bar color
-                        ));
-                        Utility.setStringPreference(Constants.themeColor,
-                            unlockSelectdColor!.value.toString());
-
-                        themepicker(unlockSelectdColor!.value.toString());
-
-                        widget.onThemeChange();
-                        Navigator.pop(context);
-
-                        setState(() {});
-                      },
-                      child: Text(
-                        "cpv_select".tr().toString(),
-                        textScaleFactor: Constants.textScaleFactor,
-                        style: TextStyle(
-                            letterSpacing: 1.0,
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  )
-                : Text(
+                    );
+                  }
+
+                  return Text(
                     "",
                     textScaleFactor: Constants.textScaleFactor,
-                  ),
+                  );
+                })
           ],
         )
       ],
@@ -743,12 +668,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     showGeneralDialog(
         context: context,
         barrierDismissible: true,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: Colors.black45,
         transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation,
-            Animation secondaryAnimation) {
+        pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
           double width = MediaQuery.of(context).size.width;
           double height = MediaQuery.of(context).size.height;
 
@@ -770,61 +693,138 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         });
   }
 
-  void unlockchangeColor(MColor color) {
+  void onUnlockColorChange(MColor color) {
     MyColors.lockCheck = false;
     MyColors.densitycheck = false;
-    widget.lockedColor = false;
-
-    widget.unlockColorSelect = true;
+    lockColorController.add(false);
+    unlockColorController.add(true);
     var code = (color.mainColor.value.toRadixString(16));
     unlockSelectdColor = Color(int.parse("0x$code"));
-
+    densityColorStream.add(color.densityColors);
     selectedColor = color;
-    setState(
-      () => unlockCurrentColor = color.mainColor,
-    );
+    lockColorStream.add(mList);
+    // setState(
+    //   () => unlockCurrentColor = color.mainColor,
+    // );
     // widget.unlockchangeColor(color.mainColor);
   }
 
-  void lockchangeColor(LColor color) {
+  void onLockColorChange(LColor color) {
     MyColors.unclockCheck = false;
     MyColors.densitycheck = false;
 
-    widget.unlockColorSelect = false;
-    widget.lockedColor = true;
+    unlockColorController.add(false);
+    lockColorController.add(true);
     var code = (color.lmainColor.value.toRadixString(16));
     lockSelectdColor = Color(int.parse("0x$code"));
     colorSelection = lockSelectdColor;
     lselectedColor = color;
+    densityColorStream.add(color.ldensityColors);
+    unlockColorStream.add(unlockColorList);
 
-    setState(
-      () => lockCurrentColor = color,
-    );
+    // setState(
+    //   () => lockCurrentColor = color,
+    // );
   }
 
-  void densitychangeColor(Color color) {
+  void onDensityColorChange(Color color) {
     Utility.setStringPreference("DensityColor", color.value.toString());
-    MyColors.densityColor = color;
+    selectedDensityColor = color;
     MyColors.unclockCheck = false;
     MyColors.lockCheck = false;
 
-    widget.lockedColor = true;
-    density = true;
+    // widget.isLockedColor = true;
+
+    lockColorController.add(true);
     var code = (color.value.toRadixString(16));
     densitySelectedColor = Color(int.parse("0x$code"));
     colorSelection = densitySelectedColor;
+    lockColorStream.add(mList);
+    lockSelectdColor = Color(int.parse("0x$code"));
+    unlockColorStream.add(unlockColorList);
 
-    setState(
-      () => unlockCurrentColor = color,
-    );
-    setState(() => densityCurrentColor = color);
+    // setState(
+    //   () => unlockCurrentColor = color,
+    // );
+    // setState(() => densityCurrentColor = color);
     widget.densitychangeColor(color);
-    debugPrint(
-        "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+    debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
   static void themepicker(String code) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.themeColor, code);
+  }
+
+  void getSelectedColor() async {
+    Color c = MyColors.colorPrimary;
+    mList.clear();
+
+    int selectedLockColorIndex = lockedColorList.indexWhere((element) => element.lmainColor.hex == c.hex);
+    int selectedUnlockColorIndex = unlockColorList.indexWhere((element) => element.mainColor.hex == c.hex);
+
+    if (selectedLockColorIndex == -1 && selectedUnlockColorIndex == -1) {
+      LColor newLockColor = LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade50,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade100,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade200,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade300,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade400,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade500,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade600,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade700,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade800,
+        ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade900,
+      ]);
+      mList.add(newLockColor);
+      mList.addAll(lockedColorList);
+    } else {
+      mList.addAll(lockedColorList);
+    }
+
+    selectedLockColorIndex = mList.indexWhere((element) => element.lmainColor.hex == c.hex);
+    selectedUnlockColorIndex = unlockColorList.indexWhere((element) => element.mainColor.hex == c.hex);
+
+    if (selectedLockColorIndex != -1) {
+      lockCurrentColor = mList[selectedLockColorIndex];
+      densityColorStream.add(mList[selectedLockColorIndex].ldensityColors);
+    }
+
+    if (selectedUnlockColorIndex != -1) {
+      densityColorStream.add(unlockColorList[selectedUnlockColorIndex].densityColors);
+    }
+    unlockColorStream.add(unlockColorList);
+
+    String colorPreference = await Utility.getTryColorPreference("Color");
+    int index = mList.indexWhere((element) => element.lmainColor.value.toRadixString(16) == colorPreference);
+    print("index------>$index");
+    print("colorPreference------>$colorPreference");
+
+    if (colorPreference != "" && index != -1) {
+      LColor temp = mList[0];
+      mList[0] = mList[index];
+      mList[index] = temp;
+    } else {
+      Color mcolor = Color(int.parse("0x$colorPreference"));
+      LColor newLockColor = LColor(lmainColor: mcolor, ldensityColors: [
+        ColorTools.createPrimarySwatch(mcolor).shade50,
+        ColorTools.createPrimarySwatch(mcolor).shade100,
+        ColorTools.createPrimarySwatch(mcolor).shade200,
+        ColorTools.createPrimarySwatch(mcolor).shade300,
+        ColorTools.createPrimarySwatch(mcolor).shade400,
+        ColorTools.createPrimarySwatch(mcolor).shade500,
+        ColorTools.createPrimarySwatch(mcolor).shade600,
+        ColorTools.createPrimarySwatch(mcolor).shade700,
+        ColorTools.createPrimarySwatch(mcolor).shade800,
+        ColorTools.createPrimarySwatch(mcolor).shade900,
+      ]);
+
+      mList.add(newLockColor);
+      LColor temp = mList[0];
+      mList[0] = mList.last;
+      mList.last = temp;
+    }
+
+    lockColorStream.add(mList);
   }
 }
