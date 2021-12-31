@@ -28,13 +28,13 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     signingConfigs {
         debug {
-            storeFile file('/home/tekzee-d17/Desktop/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
+            storeFile file('/Users/mac/Desktop/pankaj/git/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
             storePassword 'CurrencyWiki'
             keyAlias 'CurrencyWiki'
             keyPassword 'CurrencyWiki'
         }
         release {
-            storeFile file('/home/tekzee-d17/Desktop/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
+            storeFile file('/Users/mac/Desktop/pankaj/git/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
             storePassword 'CurrencyWiki'
             keyAlias 'CurrencyWiki'
             keyPassword 'CurrencyWiki'
