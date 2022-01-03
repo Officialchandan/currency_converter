@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.currency_converter"
-    android:versionCode="1"
-    android:versionName="1.0.0" >
+    package="com.currencywiki.currencyconverter"
+    android:versionCode="26"
+    android:versionName="3.6" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -10,9 +10,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" /> <!-- Optional permission for Analytics to run. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Optional permission for Analytics to run. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" /> <!-- Android package visibility setting -->
     <queries>
@@ -39,7 +37,6 @@
     <application
         android:allowBackup="false"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-        android:fullBackupContent="@xml/appsflyer_backup_rules"
         android:icon="@mipmap/app_icon"
         android:label="CurrencyConverter"
         android:roundIcon="@mipmap/app_icon"
@@ -101,7 +98,7 @@
 
         <provider
             android:name="io.flutter.plugins.share.ShareFileProvider"
-            android:authorities="com.example.currency_converter.flutter.share_provider"
+            android:authorities="com.currencywiki.currencyconverter.flutter.share_provider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -111,7 +108,7 @@
 
         <meta-data
             android:name="com.google.android.play.billingclient.version"
-            android:value="3.0.2" />
+            android:value="4.0.0" />
 
         <activity
             android:name="com.android.billingclient.api.ProxyBillingActivity"
@@ -142,7 +139,7 @@
 
         <provider
             android:name="com.google.android.gms.ads.MobileAdsInitProvider"
-            android:authorities="com.example.currency_converter.mobileadsinitprovider"
+            android:authorities="com.currencywiki.currencyconverter.mobileadsinitprovider"
             android:exported="false"
             android:initOrder="100" />
 
@@ -162,7 +159,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.currency_converter.androidx-startup"
+            android:authorities="com.currencywiki.currencyconverter.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
@@ -260,6 +257,12 @@
                 <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+            android:authorities="com.currencywiki.currencyconverter.lifecycle-process"
+            android:exported="false"
+            android:multiprocess="true" />
 
         <service
             android:name="androidx.room.MultiInstanceInvalidationService"
