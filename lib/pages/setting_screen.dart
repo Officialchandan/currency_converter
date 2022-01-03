@@ -285,11 +285,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                       );
                                     }
 
-                                    if (productDetails.id ==
-                                        _kSilverSubscriptionId) {
-                                      // _inAppPurchase.buyNonConsumable(
-                                      //   purchaseParam: purchaseParam,
-                                      // );
+                                    if (productDetails.id == _kUpgradeId) {
+                                      _inAppPurchase.buyConsumable(
+                                          purchaseParam: purchaseParam,
+                                          autoConsume:
+                                              _kAutoConsume || Platform.isIOS);
                                     } else {
                                       _inAppPurchase.buyNonConsumable(
                                           purchaseParam: purchaseParam);
