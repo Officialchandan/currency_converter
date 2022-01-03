@@ -258,6 +258,12 @@
             </intent-filter>
         </receiver>
 
+        <provider
+            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+            android:authorities="com.currencywiki.currencyconverter.lifecycle-process"
+            android:exported="false"
+            android:multiprocess="true" />
+
         <service
             android:name="androidx.room.MultiInstanceInvalidationService"
             android:directBootAware="true"
