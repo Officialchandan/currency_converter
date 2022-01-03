@@ -195,7 +195,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                 listener = tabChangeListener;
               },
             ),
-            const MyCurrency(),
+            MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaleFactor: Constants.textScaleFactor,
+                ),
+                child: const MyCurrency()),
             const DecimalScreens(),
             const InkWell(),
             const TeramAndCondition(),

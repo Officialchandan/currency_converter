@@ -66,9 +66,8 @@ dependencies:
   flutter_advertising_id: any 
   advertising_id: ^2.1.1
   get: any
-  purchases_flutter: 
-  in_app_purchase:
-  in_app_purchase_ios: 
+  in_app_purchase: ^2.0.1
+   
 dev_dependencies:
 
   flutter_test:
