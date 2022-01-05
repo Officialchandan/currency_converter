@@ -1,13 +1,19 @@
+import 'dart:io';
+
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/in_app_parchase/in_methods_app.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 class CustomColorPicker extends StatefulWidget {
   final Function onThemeChange;
@@ -113,7 +119,71 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
               Container(
                   width: 150,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        debugPrint("PRESSED UNLOCK BUTTON");
+                        Map<String, PurchaseDetails> purchases =
+                            Map.fromEntries(InMethodsApp.purchases
+                                .map((PurchaseDetails purchase) {
+                          if (purchase.pendingCompletePurchase) {
+                            InMethodsApp.inAppPurchase
+                                .completePurchase(purchase);
+                          }
+                          return MapEntry<String, PurchaseDetails>(
+                              purchase.productID, purchase);
+                        }));
+
+                        InMethodsApp.productList.addAll(InMethodsApp.products
+                            .map((ProductDetails productDetails) {
+                          PurchaseDetails? previousPurchase =
+                              purchases[productDetails.id];
+
+                          if (previousPurchase != null) {
+                            InMethodsApp().confirmPriceChange(context);
+                          } else {
+                            late PurchaseParam purchaseParam;
+
+                            if (Platform.isAndroid) {
+                              final oldSubscription = InMethodsApp()
+                                  .getOldSubscription(
+                                      productDetails, purchases);
+
+                              purchaseParam = GooglePlayPurchaseParam(
+                                  productDetails: productDetails,
+                                  applicationUserName: null,
+                                  changeSubscriptionParam: (oldSubscription !=
+                                          null)
+                                      ? ChangeSubscriptionParam(
+                                          oldPurchaseDetails: oldSubscription,
+                                          prorationMode: ProrationMode
+                                              .immediateWithTimeProration,
+                                        )
+                                      : null);
+                            } else {
+                              purchaseParam = PurchaseParam(
+                                productDetails: productDetails,
+                                applicationUserName: null,
+                              );
+                            }
+
+                            if (productDetails.id == KeysForId.kUpgradeId) {
+                              InMethodsApp.inAppPurchase.buyNonConsumable(
+                                purchaseParam: purchaseParam,
+                                // autoConsume:
+                                //     KeysForId.kAutoConsume || Platform.isIOS
+                              );
+                              setState(() {});
+                            } else {
+                              InMethodsApp.inAppPurchase.buyNonConsumable(
+                                purchaseParam: purchaseParam,
+                                // autoConsume:
+                                //     KeysForId.kAutoConsume || Platform.isIOS
+                              );
+                              setState(() {});
+                            }
+                          }
+                          return const ListTile();
+                        }));
+                      },
                       child: Text(
                         "unlock".tr().toString(),
                         textScaleFactor: Constants.textScaleFactor,
