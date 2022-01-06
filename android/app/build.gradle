@@ -28,13 +28,13 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     signingConfigs {
         debug {
-            storeFile file('/Users/mac/Desktop/pankaj/git/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
+            storeFile file('/home/tekzee-d17/Desktop/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
             storePassword 'CurrencyWiki'
             keyAlias 'CurrencyWiki'
             keyPassword 'CurrencyWiki'
         }
         release {
-            storeFile file('/Users/mac/Desktop/pankaj/git/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
+             storeFile file('/home/tekzee-d17/Desktop/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
             storePassword 'CurrencyWiki'
             keyAlias 'CurrencyWiki'
             keyPassword 'CurrencyWiki'
@@ -66,17 +66,26 @@ android {
         multiDexEnabled true
         versionCode 26
         versionName '3.6'
-        
+        signingConfig signingConfigs.release
+
     }
 
     buildTypes {
         release {
     
            
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            multiDexEnabled true
         }
-        
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            multiDexEnabled true
+        }
+
     }
+    buildToolsVersion '30.0.2'
 }
 
 flutter {

@@ -10,6 +10,7 @@ import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'consumable_store.dart';
+import 'in_methods_app.dart';
 
 const bool _kAutoConsume = true;
 
@@ -149,10 +150,10 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
     if (_purchasePending) {
       stack.add(
         Stack(
-          children: const [
+          children: [
             Opacity(
               opacity: 0.3,
-              child: ModalBarrier(dismissible: false, color: Colors.grey),
+              child: const ModalBarrier(dismissible: false, color: Colors.grey),
             ),
             Center(
               child: CircularProgressIndicator(),
@@ -202,21 +203,21 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
 
   Card _buildProductList() {
     if (_loading) {
-      return const Card(
+      return Card(
           child: (ListTile(
               leading: CircularProgressIndicator(),
               title: Text('Fetching products...'))));
     }
     if (!_isAvailable) {
-      return const Card();
+      return Card();
     }
-    const ListTile productHeader = ListTile(title: Text('Products for Sale'));
+    final ListTile productHeader = ListTile(title: Text('Products for Sale'));
     List<ListTile> productList = <ListTile>[];
     if (_notFoundIds.isNotEmpty) {
       productList.add(ListTile(
           title: Text('[${_notFoundIds.join(", ")}] not found',
               style: TextStyle(color: ThemeData.light().errorColor)),
-          subtitle: const Text(
+          subtitle: Text(
               'This app needs special configuration to run. Please see example/README.md for instructions.')));
     }
 
@@ -243,7 +244,7 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
             trailing: previousPurchase != null
                 ? IconButton(
                     onPressed: () => confirmPriceChange(context),
-                    icon: const Icon(Icons.upgrade))
+                    icon: Icon(Icons.upgrade))
                 : TextButton(
                     child: Text(productDetails.price),
                     style: TextButton.styleFrom(
@@ -251,44 +252,42 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
                       primary: Colors.white,
                     ),
                     onPressed: () {
-                      try {
-                        late PurchaseParam purchaseParam;
+                      late PurchaseParam purchaseParam;
 
-                        if (Platform.isAndroid) {
-                          // NOTE: If you are making a subscription purchase/upgrade/downgrade, we recommend you to
-                          // verify the latest status of you your subscription by using server side receipt validation
-                          // and update the UI accordingly. The subscription purchase status shown
-                          // inside the app may not be accurate.
-                          final oldSubscription =
-                              _getOldSubscription(productDetails, purchases);
+                      if (Platform.isAndroid) {
+                        // NOTE: If you are making a subscription purchase/upgrade/downgrade, we recommend you to
+                        // verify the latest status of you your subscription by using server side receipt validation
+                        // and update the UI accordingly. The subscription purchase status shown
+                        // inside the app may not be accurate.
+                        final oldSubscription =
+                            getOldSubscription(productDetails, purchases);
 
-                          purchaseParam = GooglePlayPurchaseParam(
-                              productDetails: productDetails,
-                              applicationUserName: null,
-                              changeSubscriptionParam: (oldSubscription != null)
-                                  ? ChangeSubscriptionParam(
-                                      oldPurchaseDetails: oldSubscription,
-                                      prorationMode: ProrationMode
-                                          .immediateWithTimeProration,
-                                    )
-                                  : null);
-                        } else {
-                          purchaseParam = PurchaseParam(
+                        purchaseParam = GooglePlayPurchaseParam(
                             productDetails: productDetails,
                             applicationUserName: null,
-                          );
-                        }
-                        print("purchaseParam $purchaseParam");
-                        if (productDetails.id == _kUpgradeId) {
-                          _inAppPurchase.buyConsumable(
-                              purchaseParam: purchaseParam,
-                              autoConsume: _kAutoConsume || Platform.isIOS);
-                        } else {
-                          _inAppPurchase.buyNonConsumable(
-                              purchaseParam: purchaseParam);
-                        }
-                      } catch (e) {
-                        print("eeeeee $e");
+                            changeSubscriptionParam: (oldSubscription != null)
+                                ? ChangeSubscriptionParam(
+                                    oldPurchaseDetails: oldSubscription,
+                                    prorationMode: ProrationMode
+                                        .immediateWithTimeProration,
+                                  )
+                                : null);
+                      } else {
+                        purchaseParam = PurchaseParam(
+                          productDetails: productDetails,
+                          applicationUserName: null,
+                        );
+                      }
+
+                      if (productDetails.id == _kUpgradeId) {
+                        _inAppPurchase.buyConsumable(
+                            purchaseParam: purchaseParam,
+                            autoConsume:
+                                KeysForId.kAutoConsume || Platform.isIOS);
+                      } else {
+                        _inAppPurchase.buyNonConsumable(
+                          purchaseParam: purchaseParam,
+                        );
                       }
                     },
                   ));
@@ -302,20 +301,20 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
 
   Card _buildConsumableBox() {
     if (_loading) {
-      return const Card(
+      return Card(
           child: (ListTile(
               leading: CircularProgressIndicator(),
               title: Text('Fetching consumables...'))));
     }
     if (!_isAvailable || _notFoundIds.contains(_kUpgradeId)) {
-      return const Card();
+      return Card();
     }
-    const ListTile consumableHeader =
+    final ListTile consumableHeader =
         ListTile(title: Text('Purchased consumables'));
     final List<Widget> tokens = _consumables.map((String id) {
       return GridTile(
         child: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.stars,
             size: 42.0,
             color: Colors.orange,
@@ -328,12 +327,12 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
     return Card(
         child: Column(children: <Widget>[
       consumableHeader,
-      const Divider(),
+      Divider(),
       GridView.count(
         crossAxisCount: 5,
         children: tokens,
         shrinkWrap: true,
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
       )
     ]));
   }
@@ -350,7 +349,7 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           TextButton(
-            child: const Text('Restore purchases'),
+            child: Text('Restore purchases'),
             style: TextButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColor,
               primary: Colors.white,
@@ -451,7 +450,7 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
         sku: 'purchaseId',
       );
       if (priceChangeConfirmationResult.responseCode == BillingResponse.ok) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Price change accepted'),
         ));
       } else {
@@ -470,7 +469,7 @@ class _MyInAppPurchaseState extends State<MyInAppPurchase> {
     }
   }
 
-  GooglePlayPurchaseDetails? _getOldSubscription(
+  GooglePlayPurchaseDetails? getOldSubscription(
       ProductDetails productDetails, Map<String, PurchaseDetails> purchases) {
     // This is just to demonstrate a subscription upgrade or downgrade.
     // This method assumes that you have only 2 subscriptions under a group, 'subscription_silver' & 'subscription_gold'.

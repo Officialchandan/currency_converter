@@ -108,7 +108,7 @@
 
         <meta-data
             android:name="com.google.android.play.billingclient.version"
-            android:value="4.0.0" />
+            android:value="3.0.2" />
 
         <activity
             android:name="com.android.billingclient.api.ProxyBillingActivity"
@@ -257,12 +257,6 @@
                 <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
             </intent-filter>
         </receiver>
-
-        <provider
-            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-            android:authorities="com.currencywiki.currencyconverter.lifecycle-process"
-            android:exported="false"
-            android:multiprocess="true" />
 
         <service
             android:name="androidx.room.MultiInstanceInvalidationService"

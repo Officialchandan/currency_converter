@@ -10,22 +10,20 @@
 // import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 // import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
-
-
 // const bool _kAutoConsume = true;
 
 // const String _kUpgradeId = 'currency.app_unlock_color';
 // const String _kSilverSubscriptionId = 'currency.app_no_ads';
+// List<PurchaseDetails> purchases = [];
+
 // const List<String> _kProductIds = <String>[
 //   _kUpgradeId,
 //   _kSilverSubscriptionId,
 // ];
 
-
 // class ProviderModel with ChangeNotifier {
-//   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
-//   late StreamSubscription<List<PurchaseDetails>> _subscription;
-//   // List<ListTile> productList = <ListTile>[];
+//   final InAppPurchase inAppPurchase = InAppPurchase.instance;
+//   late StreamSubscription<List<PurchaseDetails>> subscription;
 
 //   List<String> _notFoundIds = [];
 //   List<ProductDetails> _products = [];
@@ -38,32 +36,27 @@
 
 //   Future<void> initInApp() async {
 //     final Stream<List<PurchaseDetails>> purchaseUpdated =
-//         _inAppPurchase.purchaseStream;
-//     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
+//         inAppPurchase.purchaseStream;
+//     subscription = purchaseUpdated.listen((purchaseDetailsList) {
 //       _listenToPurchaseUpdated(purchaseDetailsList);
 //     }, onDone: () {
-//       _subscription.cancel();
+//       subscription.cancel();
 //     }, onError: (error) {
 //       // handle error here.
 //     });
 //     await initStoreInfo();
 //   }
 
-
 //   verifyPreviousPurchases() async {
 //     print("=============================verifyPreviousPurchases");
 //     await inAppPurchase.restorePurchases();
 //     await Future.delayed(const Duration(milliseconds: 100), () {
 //       for (var pur in purchases) {
-//         if (pur.productID.contains('non_consumable')) {
+//         if (pur.productID.contains('currency.app_unlock_color')) {
 //           removeAds = true;
 //         }
-//         if (pur.productID.contains('silver_subscription')) {
+//         if (pur.productID.contains('currency.app_no_ads')) {
 //           silverSubscription = true;
-//         }
-
-//         if (pur.productID.contains('gold_subscription')) {
-//           goldSubscription = true;
 //         }
 //       }
 
@@ -73,9 +66,29 @@
 //     notifyListeners();
 //   }
 
+//   bool _removeAds = false;
+//   bool get removeAds => _removeAds;
+//   set removeAds(bool value) {
+//     _removeAds = value;
+//     notifyListeners();
+//   }
+
+//   bool _silverSubscription = false;
+//   bool get silverSubscription => _silverSubscription;
+//   set silverSubscription(bool value) {
+//     _silverSubscription = value;
+//     notifyListeners();
+//   }
+
+//   bool _finishedLoad = false;
+//   bool get finishedLoad => _finishedLoad;
+//   set finishedLoad(bool value) {
+//     _finishedLoad = value;
+//     notifyListeners();
+//   }
 
 //   Future<void> initStoreInfo() async {
-//     final bool isAvailable = await _inAppPurchase.isAvailable();
+//     final bool isAvailable = await inAppPurchase.isAvailable();
 //     if (!isAvailable) {
 //       _isAvailable = isAvailable;
 //       _products = [];
@@ -88,13 +101,13 @@
 //     }
 
 //     if (Platform.isIOS) {
-//       var iosPlatformAddition = _inAppPurchase
+//       var iosPlatformAddition = inAppPurchase
 //           .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
 //       await iosPlatformAddition.setDelegate(ExamplePaymentQueueDelegate());
 //     }
 
 //     ProductDetailsResponse productDetailResponse =
-//         await _inAppPurchase.queryProductDetails(_kProductIds.toSet());
+//         await inAppPurchase.queryProductDetails(_kProductIds.toSet());
 //     if (productDetailResponse.error != null) {
 //       _queryProductError = productDetailResponse.error!.message;
 //       _isAvailable = isAvailable;
@@ -132,11 +145,11 @@
 //   Future<void> consume(String id) async {
 //     await ConsumableStore.consume(id);
 //     final List<String> consumables = await ConsumableStore.load();
-//       _consumables = consumables;
+//     _consumables = consumables;
 //   }
 
 //   void showPendingUI() {
-//       _purchasePending = true;
+//     _purchasePending = true;
 //   }
 
 //   void deliverProduct(PurchaseDetails purchaseDetails) async {
@@ -144,16 +157,16 @@
 //     if (purchaseDetails.productID == _kUpgradeId) {
 //       await ConsumableStore.save(purchaseDetails.purchaseID!);
 //       List<String> consumables = await ConsumableStore.load();
-//         _purchasePending = false;
-//         _consumables = consumables;
+//       _purchasePending = false;
+//       _consumables = consumables;
 //     } else {
-//         _purchases.add(purchaseDetails);
-//         _purchasePending = false;
+//       _purchases.add(purchaseDetails);
+//       _purchasePending = false;
 //     }
 //   }
 
 //   void handleError(IAPError error) {
-//       _purchasePending = false;
+//     _purchasePending = false;
 //   }
 
 //   Future<bool> _verifyPurchase(PurchaseDetails purchaseDetails) {
@@ -186,13 +199,13 @@
 //         if (Platform.isAndroid) {
 //           if (!_kAutoConsume && purchaseDetails.productID == _kUpgradeId) {
 //             final InAppPurchaseAndroidPlatformAddition androidAddition =
-//                 _inAppPurchase.getPlatformAddition<
+//                 inAppPurchase.getPlatformAddition<
 //                     InAppPurchaseAndroidPlatformAddition>();
 //             await androidAddition.consumePurchase(purchaseDetails);
 //           }
 //         }
 //         if (purchaseDetails.pendingCompletePurchase) {
-//           await _inAppPurchase.completePurchase(purchaseDetails);
+//           await inAppPurchase.completePurchase(purchaseDetails);
 //         }
 //       }
 //     });
@@ -200,9 +213,8 @@
 
 //   Future<void> confirmPriceChange(BuildContext context) async {
 //     if (Platform.isAndroid) {
-//       final InAppPurchaseAndroidPlatformAddition androidAddition =
-//           _inAppPurchase
-//               .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+//       final InAppPurchaseAndroidPlatformAddition androidAddition = inAppPurchase
+//           .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
 //       var priceChangeConfirmationResult =
 //           await androidAddition.launchPriceChangeConfirmationFlow(
 //         sku: 'purchaseId',
@@ -221,7 +233,7 @@
 //       }
 //     }
 //     if (Platform.isIOS) {
-//       var iapStoreKitPlatformAddition = _inAppPurchase
+//       var iapStoreKitPlatformAddition = inAppPurchase
 //           .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
 //       await iapStoreKitPlatformAddition.showPriceConsentIfNeeded();
 //     }
