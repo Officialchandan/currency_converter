@@ -122,11 +122,14 @@ class _ChartScreenState extends State<ChartScreen> {
                   enableDoubleTapZooming: true,
                 ),
                 primaryYAxis: NumericAxis(
-                  majorGridLines: const MajorGridLines(
-                    color: Color(0xff505050),
-                  ),
-                  axisLine: AxisLine(color: Colors.red),
-                  borderColor: Colors.red,
+                  majorGridLines: MajorGridLines(
+                      color: MyColors.isDarkMode
+                          ? const Color(0xff505050)
+                          : const Color(0xffe2e2e2)),
+                  axisLine: AxisLine(
+                      color: MyColors.isDarkMode
+                          ? const Color(0xff505050)
+                          : const Color(0xffe2e2e2)),
                   numberFormat: NumberFormat(),
                   labelPosition: ChartDataLabelPosition.inside,
                   labelStyle: TextStyle(
@@ -138,9 +141,14 @@ class _ChartScreenState extends State<ChartScreen> {
                       fontWeight: FontWeight.w400),
                 ),
                 primaryXAxis: DateTimeAxis(
-                  majorGridLines: const MajorGridLines(
-                    color: Color(0xff505050),
-                  ),
+                  majorGridLines: MajorGridLines(
+                      color: MyColors.isDarkMode
+                          ? const Color(0xff505050)
+                          : const Color(0xffe2e2e2)),
+                  axisLine: AxisLine(
+                      color: MyColors.isDarkMode
+                          ? const Color(0xff505050)
+                          : const Color(0xffe2e2e2)),
                   labelStyle: TextStyle(
                       color: MyColors.isDarkMode
                           ? const Color(0xffe5e5e5)
