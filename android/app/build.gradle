@@ -1,0 +1,98 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('/home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/assets/currencyConvert.jks')
+            storePassword 'CurrencyWiki'
+            keyAlias 'CurrencyWiki'
+            keyPassword 'CurrencyWiki'
+        }
+        release {
+            storeFile file('/home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/assets/currencyConvert.jks')
+            storePassword 'CurrencyWiki'
+            keyAlias 'CurrencyWiki'
+            keyPassword 'CurrencyWiki'
+        }
+    }
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        configurations.all {
+        resolutionStrategy { force 'androidx.core:core:1.6.0' }
+        }
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).  
+        applicationId "com.currencywiki.currencyconverter"
+        minSdkVersion 21
+        targetSdkVersion 31
+        multiDexEnabled true
+        versionCode 26
+        versionName '3.6'
+        signingConfig signingConfigs.release
+
+    }
+
+    buildTypes {
+        release {
+    
+           
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            multiDexEnabled true
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            multiDexEnabled true
+        }
+
+    }
+    buildToolsVersion '30.0.2'
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+}

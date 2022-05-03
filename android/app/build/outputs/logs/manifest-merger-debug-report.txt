@@ -1,0 +1,779 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:1:1-55:12
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:1:1-55:12
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:1:1-55:12
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:1:1-55:12
+MERGED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:1:1-55:12
+MERGED from [:shared_preferences_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
+MERGED from [:sqflite] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:fluttertoast] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:advertising_id] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/advertising_id/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-14:12
+MERGED from [:path_provider_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/path_provider_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_inapp_purchase] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/flutter_inapp_purchase/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-19:12
+MERGED from [:native_admob_flutter] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/native_admob_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.window:window-java:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff8182d1b777fa9b1c9b82a6b221980/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:17:1-33:12
+MERGED from [com.google.android.gms:play-services-ads:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6034451c5ba21d56a05f05d9c7f114b0/jetified-play-services-ads-20.6.0/AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:17:1-32:12
+MERGED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:17:1-47:12
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:17:1-67:12
+MERGED from [com.google.android.gms:play-services-ads-base:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/d6872c3acb0714a6948bca0aa23e99e0/jetified-play-services-ads-base-20.6.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-appset:16.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/1a6532d7da9dc94033e367fac9febb9e/jetified-play-services-appset-16.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/72df56a5d0fcd015f4a8452cec6d9e06/jetified-play-services-tagmanager-v4-impl-18.0.1/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:17:1-31:12
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.android.gms:play-services-stats:17.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/85381cc0b52f1c0ff99d3b29f0f86385/jetified-play-services-stats-17.0.3/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.ump:user-messaging-platform:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/29e1184c34848062764e91b8124f1066/jetified-user-messaging-platform-1.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4c1964e97dab99a309d44e0cae71e4b3/jetified-play-services-ads-identifier-18.0.1/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/289cf2464b127a0c655c883e2e077ba1/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e6e2676e0fa2feeb1c0dfc0c2fe7ab3b/jetified-play-services-measurement-base-18.0.3/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/424528e25b5f3425cbdb0c5a457a1d25/jetified-play-services-basement-18.0.0/AndroidManifest.xml:16:1-26:12
+MERGED from [androidx.fragment:fragment:1.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/816e6b42c09a1b6e597cc572f3a17589/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.browser:browser:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6b3cc3c9591bcc28271ccada0c32c060/browser-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/702f506b0aea781a2defd5fda9323547/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e55a4fa628324a33d327f8ada4a51070/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/7a098e640199185c6916ae526be82686/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/2799de8c94d7928f032a0c93fe6e835e/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/80b30caf82cd8493a14c0caf3cb95e9f/jetified-activity-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:17:1-145:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/ccbb7b0de26bb8a28665ef640b12cd28/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/376caf584ad34a5ed188ae2d2a9509f4/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a0960204ee639b947b6d39c5085252cb/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/8fd8bbd611262ac5cb6b577cf553038d/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/cce015a5a66879e665a46a90eefce845/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/9d6c1aed2346409884a8510f6db7ed16/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff145bb56a7b20d437faa41ad74237c/core-1.6.0/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4a18f62fdff0dcc5c83d4d950c3a4411/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/daf6c7ceba57931dffe481d38cd577d6/lifecycle-runtime-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/84bea709552a2823ea56d5e1f18512f1/jetified-savedstate-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/2dc9f37a8eea970904aadd07a388a46c/lifecycle-livedata-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/8fa1c2540a9d26356edfc0f6c36c13fa/lifecycle-livedata-core-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.startup:startup-runtime:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5c81af2ad77146d13079023f8772b0bd/jetified-startup-runtime-1.0.0/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c41730030e4f8e702000cd1ebee6ce9f/jetified-tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/f5eafe47b6744b9d6fce9d2f508593c5/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/bf5b96e9abd2aed653efd48f3521888d/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c56b5f7dcb3430ce685ec699ea6f3ad3/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e773f566621ffaa15040280be419d16a/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ae8016e527e21cd566dc68ba974ca22/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/f38e52d9370653a0a9d5706e8b749a68/sqlite-framework-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.sqlite:sqlite:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/db7146196ef39f1c81eb7fe773118e99/sqlite-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fb00dd5d74f4518948e74407745a961e/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/25f49062eb1ed4e1e1113ea3f2d165b9/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/1d829511e1f78dad3821b230ef9ec7fa/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:2:1-23:12
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5a166ab4c162403512e361cf1ee00169/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:17:1-24:12
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+	package
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:2:2-42
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:1:1-55:12
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:1:1-55:12
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:4:2-64
+MERGED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:4:2-64
+MERGED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:4:2-64
+MERGED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-67
+MERGED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-67
+MERGED from [:native_admob_flutter] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/native_admob_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-67
+MERGED from [:native_admob_flutter] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/native_admob_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-67
+MERGED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:23:5-67
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:4:19-61
+uses-permission#com.android.vending.BILLING
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:5:5-67
+MERGED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:10:5-67
+MERGED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:10:5-67
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:5:22-64
+application
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:7:2-54:16
+MERGED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-13:19
+MERGED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-13:19
+MERGED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-12:19
+MERGED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-17:19
+MERGED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-17:19
+MERGED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:24:5-30:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:24:5-30:19
+MERGED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:29:5-45:19
+MERGED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:29:5-45:19
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:46:5-65:19
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:46:5-65:19
+MERGED from [com.google.android.gms:play-services-ads-base:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/d6872c3acb0714a6948bca0aa23e99e0/jetified-play-services-ads-base-20.6.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-ads-base:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/d6872c3acb0714a6948bca0aa23e99e0/jetified-play-services-ads-base-20.6.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-appset:16.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/1a6532d7da9dc94033e367fac9febb9e/jetified-play-services-appset-16.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-appset:16.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/1a6532d7da9dc94033e367fac9febb9e/jetified-play-services-appset-16.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/72df56a5d0fcd015f4a8452cec6d9e06/jetified-play-services-tagmanager-v4-impl-18.0.1/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/72df56a5d0fcd015f4a8452cec6d9e06/jetified-play-services-tagmanager-v4-impl-18.0.1/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:29:5-20
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:29:5-20
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-stats:17.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/85381cc0b52f1c0ff99d3b29f0f86385/jetified-play-services-stats-17.0.3/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/85381cc0b52f1c0ff99d3b29f0f86385/jetified-play-services-stats-17.0.3/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4c1964e97dab99a309d44e0cae71e4b3/jetified-play-services-ads-identifier-18.0.1/AndroidManifest.xml:25:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4c1964e97dab99a309d44e0cae71e4b3/jetified-play-services-ads-identifier-18.0.1/AndroidManifest.xml:25:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/289cf2464b127a0c655c883e2e077ba1/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/289cf2464b127a0c655c883e2e077ba1/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e6e2676e0fa2feeb1c0dfc0c2fe7ab3b/jetified-play-services-measurement-base-18.0.3/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e6e2676e0fa2feeb1c0dfc0c2fe7ab3b/jetified-play-services-measurement-base-18.0.3/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/424528e25b5f3425cbdb0c5a457a1d25/jetified-play-services-basement-18.0.0/AndroidManifest.xml:20:5-24:19
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/424528e25b5f3425cbdb0c5a457a1d25/jetified-play-services-basement-18.0.0/AndroidManifest.xml:20:5-24:19
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:30:5-143:19
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:30:5-143:19
+MERGED from [androidx.core:core:1.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff145bb56a7b20d437faa41ad74237c/core-1.6.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff145bb56a7b20d437faa41ad74237c/core-1.6.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.startup:startup-runtime:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5c81af2ad77146d13079023f8772b0bd/jetified-startup-runtime-1.0.0/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5c81af2ad77146d13079023f8772b0bd/jetified-startup-runtime-1.0.0/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/f5eafe47b6744b9d6fce9d2f508593c5/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/f5eafe47b6744b9d6fce9d2f508593c5/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:24:5-29:19
+MERGED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:24:5-29:19
+MERGED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:12:5-21:19
+MERGED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:12:5-21:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff145bb56a7b20d437faa41ad74237c/core-1.6.0/AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:13:3-30
+	android:label
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:10:3-36
+	android:roundIcon
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:11:3-39
+	android:icon
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:9:3-34
+	android:allowBackup
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:8:3-30
+activity#com.example.currency_converter.MainActivity
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:14:3-44:14
+	android:screenOrientation
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:21:4-40
+	android:launchMode
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:20:4-34
+	android:hardwareAccelerated
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:19:4-38
+	android:windowSoftInputMode
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:23:4-51
+	android:exported
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:17:4-27
+	android:configChanges
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:16:4-154
+	android:theme
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:22:4-38
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:15:4-32
+meta-data#io.flutter.embedding.android.NormalTheme
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:28:4-30:45
+	android:resource
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:30:5-42
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:29:5-60
+meta-data#io.flutter.embedding.android.SplashScreenDrawable
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:36:4-38:54
+	android:resource
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:38:5-51
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:37:5-69
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:40:4-43:20
+action#android.intent.action.MAIN
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:41:5-57
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:41:13-54
+category#android.intent.category.LAUNCHER
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:42:5-65
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:42:15-62
+meta-data#flutterEmbedding
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:47:3-49:24
+	android:value
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:49:4-21
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:48:4-35
+meta-data#com.google.android.gms.ads.APPLICATION_ID
+ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:50:3-52:61
+	android:value
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:52:4-58
+	android:name
+		ADDED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml:51:4-60
+uses-sdk
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml
+MERGED from [:shared_preferences_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:advertising_id] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/advertising_id/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:advertising_id] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/advertising_id/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/path_provider_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/path_provider_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_inapp_purchase] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/flutter_inapp_purchase/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_inapp_purchase] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/flutter_inapp_purchase/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:native_admob_flutter] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/native_admob_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:native_admob_flutter] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/native_admob_flutter/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [androidx.window:window-java:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff8182d1b777fa9b1c9b82a6b221980/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window-java:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff8182d1b777fa9b1c9b82a6b221980/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-ads:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6034451c5ba21d56a05f05d9c7f114b0/jetified-play-services-ads-20.6.0/AndroidManifest.xml:21:5-23:52
+MERGED from [com.google.android.gms:play-services-ads:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6034451c5ba21d56a05f05d9c7f114b0/jetified-play-services-ads-20.6.0/AndroidManifest.xml:21:5-23:52
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-base:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/d6872c3acb0714a6948bca0aa23e99e0/jetified-play-services-ads-base-20.6.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-ads-base:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/d6872c3acb0714a6948bca0aa23e99e0/jetified-play-services-ads-base-20.6.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-appset:16.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/1a6532d7da9dc94033e367fac9febb9e/jetified-play-services-appset-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-appset:16.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/1a6532d7da9dc94033e367fac9febb9e/jetified-play-services-appset-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/72df56a5d0fcd015f4a8452cec6d9e06/jetified-play-services-tagmanager-v4-impl-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/72df56a5d0fcd015f4a8452cec6d9e06/jetified-play-services-tagmanager-v4-impl-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-stats:17.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/85381cc0b52f1c0ff99d3b29f0f86385/jetified-play-services-stats-17.0.3/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/85381cc0b52f1c0ff99d3b29f0f86385/jetified-play-services-stats-17.0.3/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.ump:user-messaging-platform:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/29e1184c34848062764e91b8124f1066/jetified-user-messaging-platform-1.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.ump:user-messaging-platform:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/29e1184c34848062764e91b8124f1066/jetified-user-messaging-platform-1.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4c1964e97dab99a309d44e0cae71e4b3/jetified-play-services-ads-identifier-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4c1964e97dab99a309d44e0cae71e4b3/jetified-play-services-ads-identifier-18.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/289cf2464b127a0c655c883e2e077ba1/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/289cf2464b127a0c655c883e2e077ba1/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e6e2676e0fa2feeb1c0dfc0c2fe7ab3b/jetified-play-services-measurement-base-18.0.3/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e6e2676e0fa2feeb1c0dfc0c2fe7ab3b/jetified-play-services-measurement-base-18.0.3/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/424528e25b5f3425cbdb0c5a457a1d25/jetified-play-services-basement-18.0.0/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/424528e25b5f3425cbdb0c5a457a1d25/jetified-play-services-basement-18.0.0/AndroidManifest.xml:18:5-43
+MERGED from [androidx.fragment:fragment:1.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/816e6b42c09a1b6e597cc572f3a17589/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/816e6b42c09a1b6e597cc572f3a17589/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6b3cc3c9591bcc28271ccada0c32c060/browser-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6b3cc3c9591bcc28271ccada0c32c060/browser-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/702f506b0aea781a2defd5fda9323547/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/702f506b0aea781a2defd5fda9323547/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e55a4fa628324a33d327f8ada4a51070/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e55a4fa628324a33d327f8ada4a51070/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/7a098e640199185c6916ae526be82686/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/7a098e640199185c6916ae526be82686/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/2799de8c94d7928f032a0c93fe6e835e/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/2799de8c94d7928f032a0c93fe6e835e/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/80b30caf82cd8493a14c0caf3cb95e9f/jetified-activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/80b30caf82cd8493a14c0caf3cb95e9f/jetified-activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/ccbb7b0de26bb8a28665ef640b12cd28/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/ccbb7b0de26bb8a28665ef640b12cd28/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/376caf584ad34a5ed188ae2d2a9509f4/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/376caf584ad34a5ed188ae2d2a9509f4/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a0960204ee639b947b6d39c5085252cb/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a0960204ee639b947b6d39c5085252cb/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/8fd8bbd611262ac5cb6b577cf553038d/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/8fd8bbd611262ac5cb6b577cf553038d/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/cce015a5a66879e665a46a90eefce845/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/cce015a5a66879e665a46a90eefce845/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/9d6c1aed2346409884a8510f6db7ed16/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/9d6c1aed2346409884a8510f6db7ed16/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff145bb56a7b20d437faa41ad74237c/core-1.6.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ff145bb56a7b20d437faa41ad74237c/core-1.6.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4a18f62fdff0dcc5c83d4d950c3a4411/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4a18f62fdff0dcc5c83d4d950c3a4411/jetified-lifecycle-service-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/daf6c7ceba57931dffe481d38cd577d6/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/daf6c7ceba57931dffe481d38cd577d6/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/84bea709552a2823ea56d5e1f18512f1/jetified-savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/84bea709552a2823ea56d5e1f18512f1/jetified-savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/2dc9f37a8eea970904aadd07a388a46c/lifecycle-livedata-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/2dc9f37a8eea970904aadd07a388a46c/lifecycle-livedata-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/8fa1c2540a9d26356edfc0f6c36c13fa/lifecycle-livedata-core-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/8fa1c2540a9d26356edfc0f6c36c13fa/lifecycle-livedata-core-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.startup:startup-runtime:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5c81af2ad77146d13079023f8772b0bd/jetified-startup-runtime-1.0.0/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5c81af2ad77146d13079023f8772b0bd/jetified-startup-runtime-1.0.0/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c41730030e4f8e702000cd1ebee6ce9f/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c41730030e4f8e702000cd1ebee6ce9f/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/f5eafe47b6744b9d6fce9d2f508593c5/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/f5eafe47b6744b9d6fce9d2f508593c5/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/bf5b96e9abd2aed653efd48f3521888d/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/bf5b96e9abd2aed653efd48f3521888d/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c56b5f7dcb3430ce685ec699ea6f3ad3/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c56b5f7dcb3430ce685ec699ea6f3ad3/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e773f566621ffaa15040280be419d16a/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/e773f566621ffaa15040280be419d16a/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ae8016e527e21cd566dc68ba974ca22/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4ae8016e527e21cd566dc68ba974ca22/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/f38e52d9370653a0a9d5706e8b749a68/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/f38e52d9370653a0a9d5706e8b749a68/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/db7146196ef39f1c81eb7fe773118e99/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite:2.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/db7146196ef39f1c81eb7fe773118e99/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fb00dd5d74f4518948e74407745a961e/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fb00dd5d74f4518948e74407745a961e/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/25f49062eb1ed4e1e1113ea3f2d165b9/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/25f49062eb1ed4e1e1113ea3f2d165b9/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/1d829511e1f78dad3821b230ef9ec7fa/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/1d829511e1f78dad3821b230ef9ec7fa/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:6:5-8:41
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5a166ab4c162403512e361cf1ee00169/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5a166ab4c162403512e361cf1ee00169/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml
+INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.google.android.gms:play-services-ads:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6034451c5ba21d56a05f05d9c7f114b0/jetified-play-services-ads-20.6.0/AndroidManifest.xml:23:9-49
+	android:targetSdkVersion
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/debug/AndroidManifest.xml
+meta-data#io.flutter.embedded_views_preview
+ADDED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:10:9-12:36
+	android:value
+		ADDED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-33
+	android:name
+		ADDED from [:google_mobile_ads] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/google_mobile_ads/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-61
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
+	android:exported
+		ADDED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
+	android:theme
+		ADDED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
+	android:name
+		ADDED from [:url_launcher_android] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
+provider#io.flutter.plugins.share.ShareFileProvider
+ADDED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
+	android:grantUriPermissions
+		ADDED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
+	android:authorities
+		ADDED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-74
+	android:exported
+		ADDED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
+	android:name
+		ADDED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-70
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-15:68
+	android:resource
+		ADDED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-65
+	android:name
+		ADDED from [:share] /home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/build/share/intermediates/library_manifest/debug/AndroidManifest.xml:14:17-67
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0-beta04] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/83c0701f163fc8f853a35a495a15ad62/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+provider#androidx.lifecycle.ProcessLifecycleOwnerInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:25:9-29:43
+	android:authorities
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:27:13-69
+	android:multiprocess
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:29:13-40
+	android:exported
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:28:13-37
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/c646fcfe49083d2270ca23887536e190/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:26:13-79
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:24:5-79
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:26:5-79
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:26:5-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:24:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:27:5-68
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:27:5-68
+MERGED from [com.google.android.gms:play-services-analytics-impl:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/6685113a03b4fc3e02aceeea9f3dbaf1/jetified-play-services-analytics-impl-18.0.1/AndroidManifest.xml:27:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.3] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/fe1d6e87a4615c38f0ba14fc574da31c/jetified-play-services-measurement-sdk-api-18.0.3/AndroidManifest.xml:25:5-68
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:25:5-68
+MERGED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:25:5-68
+	android:name
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:27:22-65
+receiver#com.google.android.gms.analytics.AnalyticsReceiver
+ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:30:9-34:20
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:32:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:33:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:31:13-78
+service#com.google.android.gms.analytics.AnalyticsService
+ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:36:9-39:40
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:38:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:39:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:37:13-77
+service#com.google.android.gms.analytics.AnalyticsJobService
+ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:40:9-44:72
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:42:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:43:13-37
+	android:permission
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:44:13-69
+	android:name
+		ADDED from [com.google.android.gms:play-services-analytics:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/98591c196266e6ce269e93de754fdff8/jetified-play-services-analytics-18.0.1/AndroidManifest.xml:41:13-80
+uses-permission#com.google.android.gms.permission.AD_ID
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4c1964e97dab99a309d44e0cae71e4b3/jetified-play-services-ads-identifier-18.0.1/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4c1964e97dab99a309d44e0cae71e4b3/jetified-play-services-ads-identifier-18.0.1/AndroidManifest.xml:23:5-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:25:22-76
+queries
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:28:5-44:15
+intent#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+data:scheme:https
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:31:9-37:18
+action#android.intent.action.VIEW
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:32:13-65
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:32:21-62
+category#android.intent.category.BROWSABLE
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:34:13-74
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:34:23-71
+data
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:36:13-44
+	android:scheme
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:36:19-41
+intent#action:name:android.support.customtabs.action.CustomTabsService
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:40:9-42:18
+action#android.support.customtabs.action.CustomTabsService
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:41:13-90
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:41:21-87
+activity#com.google.android.gms.ads.AdActivity
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:49:9-53:64
+	android:exported
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:52:13-37
+	android:configChanges
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:51:13-122
+	android:theme
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:53:13-61
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:50:13-65
+provider#com.google.android.gms.ads.MobileAdsInitProvider
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:55:9-59:39
+	android:authorities
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:57:13-73
+	android:exported
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:58:13-37
+	android:initOrder
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:59:13-36
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:56:13-76
+service#com.google.android.gms.ads.AdService
+ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:61:9-64:40
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:63:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:64:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:20.6.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/a523c4bb1a03cf6445fe345fffbe9af4/jetified-play-services-ads-lite-20.6.0/AndroidManifest.xml:62:13-64
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/67a92930be2eec3cf2c766c638f413c9/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/424528e25b5f3425cbdb0c5a457a1d25/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/424528e25b5f3425cbdb0c5a457a1d25/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/424528e25b5f3425cbdb0c5a457a1d25/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:27:5-81
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:27:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:28:5-77
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:28:22-74
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:31:9-39:20
+MERGED from [androidx.startup:startup-runtime:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5c81af2ad77146d13079023f8772b0bd/jetified-startup-runtime-1.0.0/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/5c81af2ad77146d13079023f8772b0bd/jetified-startup-runtime-1.0.0/AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:35:13-31
+	android:authorities
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:33:13-68
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:34:13-37
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:32:13-67
+meta-data#androidx.work.WorkManagerInitializer
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:36:13-38:52
+	android:value
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:38:17-49
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:37:17-68
+service#androidx.work.impl.background.systemalarm.SystemAlarmService
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:41:9-46:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:44:13-72
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:45:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:46:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:43:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:42:13-88
+service#androidx.work.impl.background.systemjob.SystemJobService
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:47:9-53:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:50:13-70
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:51:13-36
+	android:permission
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:52:13-69
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:53:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:49:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:48:13-84
+service#androidx.work.impl.foreground.SystemForegroundService
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:54:9-59:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:57:13-77
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:58:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:59:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:56:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:55:13-81
+receiver#androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:61:9-66:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:64:13-35
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:65:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:66:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:63:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:62:13-88
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:67:9-77:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:70:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:71:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:72:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:69:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:68:13-106
+intent-filter#action:name:android.intent.action.ACTION_POWER_CONNECTED+action:name:android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:73:13-76:29
+action#android.intent.action.ACTION_POWER_CONNECTED
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:74:17-87
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:74:25-84
+action#android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:75:17-90
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:75:25-87
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:78:9-88:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:81:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:82:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:83:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:80:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:79:13-104
+intent-filter#action:name:android.intent.action.BATTERY_LOW+action:name:android.intent.action.BATTERY_OKAY
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:84:13-87:29
+action#android.intent.action.BATTERY_OKAY
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:85:17-77
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:85:25-74
+action#android.intent.action.BATTERY_LOW
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:86:17-76
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:86:25-73
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:89:9-99:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:92:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:93:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:94:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:91:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:90:13-104
+intent-filter#action:name:android.intent.action.DEVICE_STORAGE_LOW+action:name:android.intent.action.DEVICE_STORAGE_OK
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:95:13-98:29
+action#android.intent.action.DEVICE_STORAGE_LOW
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:96:17-83
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:96:25-80
+action#android.intent.action.DEVICE_STORAGE_OK
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:97:17-82
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:97:25-79
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:100:9-109:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:103:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:104:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:105:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:102:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:101:13-103
+intent-filter#action:name:android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:106:13-108:29
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:107:17-79
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:107:25-76
+receiver#androidx.work.impl.background.systemalarm.RescheduleReceiver
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:110:9-121:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:113:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:114:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:115:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:112:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:111:13-88
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.TIMEZONE_CHANGED+action:name:android.intent.action.TIME_SET
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:116:13-120:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:117:17-79
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:117:25-76
+action#android.intent.action.TIME_SET
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:118:17-73
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:118:25-70
+action#android.intent.action.TIMEZONE_CHANGED
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:119:17-81
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:119:25-78
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:122:9-131:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:125:13-72
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:126:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:127:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:124:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:123:13-99
+intent-filter#action:name:androidx.work.impl.background.systemalarm.UpdateProxies
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:128:13-130:29
+action#androidx.work.impl.background.systemalarm.UpdateProxies
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:129:17-98
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:129:25-95
+receiver#androidx.work.impl.diagnostics.DiagnosticsReceiver
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:132:9-142:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:135:13-35
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:136:13-36
+	android:permission
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:137:13-57
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:138:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:134:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:133:13-78
+intent-filter#action:name:androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:139:13-141:29
+action#androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:140:17-88
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/738e521acabce9099cf85b3b1a2c0607/work-runtime-2.7.0/AndroidManifest.xml:140:25-85
+service#androidx.room.MultiInstanceInvalidationService
+ADDED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:25:9-28:40
+	android:exported
+		ADDED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:28:13-37
+	android:directBootAware
+		ADDED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:27:13-43
+	android:name
+		ADDED from [androidx.room:room-runtime:2.2.5] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/4e50fb64d3f40507e78a27a7c5f107e3/room-runtime-2.2.5/AndroidManifest.xml:26:13-74
+meta-data#com.google.android.play.billingclient.version
+ADDED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:13:9-15:37
+	android:value
+		ADDED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:15:13-34
+	android:name
+		ADDED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:14:13-73
+activity#com.android.billingclient.api.ProxyBillingActivity
+ADDED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:17:9-20:75
+	android:configChanges
+		ADDED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:19:13-96
+	android:theme
+		ADDED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:20:13-72
+	android:name
+		ADDED from [com.android.billingclient:billing:3.0.0] /home/tekzee-d17/.gradle/caches/transforms-2/files-2.1/3a39ed02687d3501842aacfc831370b9/jetified-billing-3.0.0/AndroidManifest.xml:18:13-78
