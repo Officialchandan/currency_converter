@@ -44,7 +44,7 @@ class _ChartScreenState extends State<ChartScreen> {
   }
 
   init() async {
-    getUser(edtFrom: widget.textFrom, edtTo: widget.textTo);
+    chartData(edtFrom: widget.textFrom, edtTo: widget.textTo);
   }
 
   @override
@@ -201,7 +201,7 @@ class _ChartScreenState extends State<ChartScreen> {
     ];
   }
 
-  void getUser({required String edtFrom, required String edtTo}) async {
+  void chartData({required String edtFrom, required String edtTo}) async {
     String url =
         "https://www.currency.wiki/api/currency/quotes/$edtFrom/$edtTo/784565d2-9c14-4b25-8235-06f6c5029b15";
     Dio _dio = Dio();
