@@ -2,6 +2,7 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,11 +33,13 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             child: HtmlWidget(
               "html_policy".tr().toString(),
               onTapUrl: (url) {
+                HapticFeedback.vibrate();
                 return _launchURL(url);
               },
               textStyle: TextStyle(
                 color: MyColors.textColor,
                 fontSize: 15,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ),
@@ -48,6 +51,87 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
       return await launch(url);
     } catch (e) {
       return false;
+    }
+  }
+
+  _launchURL1() async {
+    const url = 'https://policies.google.com/privacy';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL2() async {
+    const url = 'https://policies.google.com/privacy';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL3() async {
+    const url = 'https://support.google.com/analytics/answer/6004245';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL4() async {
+    const url = 'https://policies.google.com/technologies/partner-sites';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL5() async {
+    const url = 'https://www.facebook.com/about/privacy';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL6() async {
+    const url = 'https://support.google.com/ads/answer/2662922?hl=en';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL7() async {
+    const url = 'https://policies.google.com/technologies/partner-sites';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL8() async {
+    const url = 'https://www.facebook.com/about/privacy';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURL9() async {
+    const url = 'https://www.google.com/policies/privacy/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 }

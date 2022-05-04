@@ -12,6 +12,7 @@ class Locals {
     false,
     false,
     false,
+    false,
     true,
     false,
     false,
@@ -48,7 +49,6 @@ class Locals {
     false,
     false
 
-
     //47
   ];
   static const english = Locale('en');
@@ -79,11 +79,11 @@ class Locals {
   static const Chinese = Locale('zh', 'CN');
   static const Polish = Locale('pl', 'PL');
   static const Romanian = Locale('ro');
-  static const Serbian = Locale('sr');
+  static const Serbian = Locale('sr', 'SRP');
   static const Tamil = Locale('ta', 'IN');
   static const Slovak = Locale('sk');
   static const Slovenian = Locale('sl');
-  static const Telugu = Locale('te', 'IN');
+  static const Telugu = Locale('te');
   static const Swedish = Locale('sv', 'SE');
   static const Turkish = Locale('tr', 'TR');
   static const Vietnamese = Locale('vi');
@@ -92,6 +92,7 @@ class Locals {
   static const Bosnian = Locale('bs');
   static const Lithuanian = Locale('lt');
   static const Hebrew = Locale('he');
+  static const norsk = Locale('no');
   static const French = Locale('fr', 'FR');
   static const Filipino = Locale('fil');
   static const Russian = Locale('ru', 'RU');
@@ -112,6 +113,7 @@ class Locals {
     {"English": Locals.english},
     {"Pilipino(Filipino)": Locals.Filipino},
     {"Suomalainen  (Finnish)": Locals.Finnish},
+    {"français(French)": Locals.French},
     {"დახმარება (Georgina)": Locals.Georgina},
     {"Deutsche  (German)": Locals.German},
     {"Ελληνικά (Greek)": Locals.Greek},
@@ -121,12 +123,13 @@ class Locals {
     {"Magyar (Hungarian)": Locals.Hungarian},
     {"bahasa Indonesia (Indonesian)": Locals.Indonesian},
     {"Italiana (Italian)  ": Locals.Italian},
-    {"日本  (Japanese)": Locals.Japanese},
+    {"日本語 (Japanese)": Locals.Japanese},
     {"Latvietis (Latvian)": Locals.Latvian},
     {"Melayu (Malay)": Locals.Malay},
     {"मराठी (Marathi)": Locals.Marathi},
     {"नेपाली (Nepali)": Locals.nepali},
-    {"norsk(norwegian)": Locals.French},
+    {"norsk(norwegian)": Locals.norsk},
+
     {"Bosanski(Bosnian)": Locals.Bosnian},
     {"Polskie (Polish)": Locals.Polish},
     {"português  (Portuguese)": Locals.Portuguese},
@@ -148,9 +151,9 @@ class Locals {
   ];
 
   static const supportedLang = [
-
     Georgina,
     Filipino,
+    norsk,
     French,
     Russian,
     Arabic,

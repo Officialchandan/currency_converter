@@ -69,7 +69,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
           ),
           duration: const Duration(seconds: 0),
           height: widget.isContainerVisibleTwo
-              ? MediaQuery.of(context).size.height
+              ? MediaQuery.of(context).size.height * 0.632
               : 0.0,
           width: widget.isContainerVisibleTwo
               ? MediaQuery.of(context).size.width
@@ -132,8 +132,8 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                   ],
                 ),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.5965,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5641,
                 child: StreamBuilder<List<DataModel>>(
                     stream: streamController.stream,
                     initialData: countrycode,
@@ -142,6 +142,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                         return ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length,
+                            padding: const EdgeInsets.only(bottom: 10),
                             itemBuilder: (context, index) {
                               DataModel model1 = snapshot.data![index];
                               return Column(

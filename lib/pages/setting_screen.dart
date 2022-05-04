@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/color_picker/color_picker_dialog.dart';
-import 'package:in_app_purchase_android/billing_client_wrappers.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-import 'package:currency_converter/in_app_parchase/in_methods_app.dart';
+import 'package:currency_converter/in_app_parchase/product_provider.dart';
 import 'package:currency_converter/language/language.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -18,66 +15,62 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
+import 'package:provider/provider.dart';
+
 import 'home/home_page.dart';
 
 class SettingScreen extends StatefulWidget {
   final Function onThemeChange;
-
   const SettingScreen(this.onThemeChange, {Key? key}) : super(key: key);
 
   @override
   _SettingScreenState createState() => _SettingScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _SettingScreenState extends State<SettingScreen>
+    with WidgetsBindingObserver {
   bool lockedcolortry = false;
   bool _isContainerVisible = false;
   Color unlockCurrentColor = MyColors.colorPrimary;
   Color lockCurrentColor = const Color(0xff443a49);
   Color densityCurrentColor = MyColors.colorPrimary;
   ScrollController scrollController = ScrollController();
+  List<ListTile> productList = <ListTile>[];
   double _value = 0.0;
   double x = 0.0;
+  bool removeAd = false;
+  late InAppProvider _appProvider;
 
   @override
   void initState() {
-    final Stream<List<PurchaseDetails>> purchaseUpdated =
-        InMethodsApp.inAppPurchase.purchaseStream;
-    InMethodsApp.subscription = purchaseUpdated.listen((purchaseDetailsList) {
-      InMethodsApp().listenToPurchaseUpdated(purchaseDetailsList);
-    }, onDone: () {
-      InMethodsApp.subscription.cancel();
-    }, onError: (error) {
-      // handle error here.
-    });
-    InMethodsApp().initStoreInfo();
+    final provider = Provider.of<InAppProvider>(context, listen: false);
+    _appProvider = provider;
+    _appProvider.initPlatformState();
+    if (Constants.isPurchase == "[]") {
+      Constants.removeAd = false;
+    } else {
+      Constants.removeAd = true;
+    }
     super.initState();
   }
 
   @override
   void dispose() {
-    if (Platform.isIOS) {
-      var iosPlatformAddition = InMethodsApp.inAppPurchase
-          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
-      iosPlatformAddition.setDelegate(null);
-    }
-    InMethodsApp.subscription.cancel();
+    _appProvider.conectionSubscription.cancel();
+    _appProvider.purchaseUpdatedSubscription.cancel();
+    _appProvider.purchaseErrorSubscription.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-
+    final provider = Provider.of<InAppProvider>(context);
     var width = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
         if (_isContainerVisible) {
           Future.value(_isContainerVisible = false);
-          setState(() {});
+          if (mounted) setState(() {});
         } else {
           SystemNavigator.pop();
           return true;
@@ -106,9 +99,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               fontWeight: FontWeight.bold))),
                   Container(
                     // margin: EdgeInsets.only(right: 20),
-
                     padding: const EdgeInsets.only(
-                        left: 10, top: 5, bottom: 5, right: 20),
+                        left: 15, top: 5, bottom: 5, right: 20),
                     decoration: BoxDecoration(
                         color: Colors.black26,
                         borderRadius: BorderRadius.circular(10)),
@@ -136,88 +128,28 @@ class _SettingScreenState extends State<SettingScreen> {
                           height: 10,
                           margin: const EdgeInsets.all(5),
                           child: Switch(
-                            inactiveTrackColor: MyColors.darkModeCheck
-                                ? MyColors.colorPrimary
-                                : Colors.grey.shade300,
+                            inactiveTrackColor: !MyColors.isDarkMode
+                                ? Colors.grey.shade300
+                                : MyColors.colorPrimary,
                             inactiveThumbColor: MyColors.textColor,
-                            value: MyColors.removeAd,
+                            value: Constants.removeAd,
                             onChanged: (value) async {
-                              setState(() {
-                                MyColors.removeAd = value;
-
-                                Utility.setBooleanPreference(
-                                    Constants.REMOVE_AD, MyColors.removeAd);
-                              });
-                              if (MyColors.removeAd == true) {
-                                Map<String, PurchaseDetails> purchases =
-                                    Map.fromEntries(InMethodsApp.purchases
-                                        .map((PurchaseDetails purchase) {
-                                  if (purchase.pendingCompletePurchase) {
-                                    InMethodsApp.inAppPurchase
-                                        .completePurchase(purchase);
-                                  }
-                                  return MapEntry<String, PurchaseDetails>(
-                                      purchase.productID, purchase);
-                                }));
-
-                                InMethodsApp.productList.addAll(InMethodsApp
-                                    .products
-                                    .map((ProductDetails productDetails) {
-                                  PurchaseDetails? previousPurchase =
-                                      purchases[productDetails.id];
-
-                                  Utility.setBooleanPreference(
-                                      Constants.REMOVE_AD, MyColors.removeAd);
-
-                                  if (previousPurchase != null) {
-                                    MyColors.removeAd = value;
-                                    InMethodsApp().confirmPriceChange(context);
-                                  } else {
-                                    late PurchaseParam purchaseParam;
-
-                                    if (Platform.isAndroid) {
-                                      // NOTE: If you are making a subscription purchase/upgrade/downgrade, we recommend you to
-                                      // verify the latest status of you your subscription by using server side receipt validation
-                                      // and update the UI accordingly. The subscription purchase status shown
-                                      // inside the app may not be accurate.
-                                      final oldSubscription = InMethodsApp()
-                                          .getOldSubscription(
-                                              productDetails, purchases);
-
-                                      purchaseParam = GooglePlayPurchaseParam(
-                                          productDetails: productDetails,
-                                          applicationUserName: null,
-                                          changeSubscriptionParam:
-                                              (oldSubscription != null)
-                                                  ? ChangeSubscriptionParam(
-                                                      oldPurchaseDetails:
-                                                          oldSubscription,
-                                                      prorationMode: ProrationMode
-                                                          .immediateWithTimeProration,
-                                                    )
-                                                  : null);
-                                    } else {
-                                      purchaseParam = PurchaseParam(
-                                        productDetails: productDetails,
-                                        applicationUserName: null,
-                                      );
-                                    }
-
-                                    if (productDetails.id ==
-                                        KeysForId.kUpgradeId) {
-                                    } else {
-                                      InMethodsApp.inAppPurchase
-                                          .buyNonConsumable(
-                                              purchaseParam: purchaseParam);
-                                      debugPrint(
-                                          "Consumble app  -- > $purchaseParam");
-                                    }
-                                  }
-                                  return const ListTile();
-                                }));
+                              if (Constants.isPurchase == "[]") {
+                                Constants.removeAd = value;
+                                if (Constants.removeAd) {
+                                  await provider
+                                      .getSubscriptions(provider.productLists);
+                                  String getSubscription = provider
+                                      .getSubscriptionItems
+                                      .map((subItem) async =>
+                                          await provider.requestSubscription(
+                                              subItem.productId!))
+                                      .toString();
+                                }
                               }
+                              setState(() {});
                             },
-                            activeTrackColor: MyColors.lightModeCheck
+                            activeTrackColor: !MyColors.isDarkMode
                                 ? MyColors.colorPrimary
                                 : const Color(0xff333333).withOpacity(0.507),
                             activeColor: MyColors.textColor,
@@ -253,11 +185,8 @@ class _SettingScreenState extends State<SettingScreen> {
                       setState(() {});
                     },
                     child: Container(
-
-                        // margin: EdgeInsets.only(right: 22),
-
                         padding: const EdgeInsets.only(
-                            top: 10, left: 10, right: 10, bottom: 14),
+                            top: 10, left: 15, right: 10, bottom: 14),
                         decoration: BoxDecoration(
                             color: Colors.black26,
                             borderRadius: BorderRadius.circular(10)),
@@ -319,38 +248,43 @@ class _SettingScreenState extends State<SettingScreen> {
                   InkWell(
                     onTap: () async {
                       MyColors.eyeIconSetup = true;
+                      setState(() {});
                       await showColorPickerDialog(context);
                     },
                     child: _isContainerVisible
                         ? Container()
-                        : Container(
-                            // margin: EdgeInsets.only(right: 22),
-                            height: 50,
-                            width: width * .95,
-                            padding: const EdgeInsets.only(
-                                top: 15, left: 15, right: 15, bottom: 15),
-                            decoration: BoxDecoration(
-                                color: Colors.black26,
-                                borderRadius: BorderRadius.circular(10)),
+                        : MediaQuery(
+                            data: MediaQuery.of(context).copyWith(
+                                textScaleFactor: Constants.textScaleFactor),
                             child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white60,
-                                      MyColors.colorPrimary,
-                                    ],
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    stops: const [0.0, 0.5]),
-                                borderRadius: BorderRadius.circular(7),
-                                border: Border.all(
-                                    width: 1.2, color: MyColors.textColor),
-                              ),
-                              child: Text(
-                                "",
-                                textScaleFactor: Constants.textScaleFactor,
-                              ),
-                            )),
+                                // margin: EdgeInsets.only(right: 22),
+                                height: 50,
+                                width: width * .95,
+                                padding: const EdgeInsets.only(
+                                    top: 15, left: 15, right: 15, bottom: 15),
+                                decoration: BoxDecoration(
+                                    color: Colors.black26,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        colors: [
+                                          Colors.white60,
+                                          MyColors.colorPrimary,
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        stops: const [0.0, 0.5]),
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                        width: 1.2, color: MyColors.textColor),
+                                  ),
+                                  child: Text(
+                                    "",
+                                    textScaleFactor: Constants.textScaleFactor,
+                                  ),
+                                )),
+                          ),
                   ),
                   _isContainerVisible
                       ? Container()
@@ -379,10 +313,9 @@ class _SettingScreenState extends State<SettingScreen> {
                               Row(
                                 children: [
                                   InkWell(
-                                    onTap: () {
-                                      if (!MyColors.lightModeCheck) {
-                                        MyColors.lightModeCheck = true;
-                                        MyColors.darkModeCheck = false;
+                                    onTap: () async {
+                                      if (MyColors.isDarkMode) {
+                                        MyColors.isDarkMode = false;
 
                                         // MyColors.darkModeCheck = !MyColors.darkModeCheck;
                                         MyColors.textColor = Colors.white;
@@ -399,17 +332,23 @@ class _SettingScreenState extends State<SettingScreen> {
                                           statusBarColor: MyColors
                                               .colorPrimary, // status bar color
                                         ));
+
+                                        await Utility.setBooleanPreference(
+                                          Constants.isDarkMode,
+                                          false,
+                                        );
+
                                         widget.onThemeChange();
                                       }
                                       setState(() {});
                                     },
-                                    child: MyColors.lightModeCheck
+                                    child: !MyColors.isDarkMode
                                         ? SvgPicture.asset(
                                             "assets/images/check-round.svg",
                                             width: 17,
                                             height: 17,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           )
@@ -418,7 +357,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 17,
                                             height: 17,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           ),
@@ -438,10 +377,9 @@ class _SettingScreenState extends State<SettingScreen> {
                               Row(
                                 children: [
                                   InkWell(
-                                    onTap: () {
-                                      if (!MyColors.darkModeCheck) {
-                                        MyColors.darkModeCheck = true;
-                                        MyColors.lightModeCheck = false;
+                                    onTap: () async {
+                                      if (!MyColors.isDarkMode) {
+                                        MyColors.isDarkMode = true;
 
                                         // MyColors.lightModeCheck = !MyColors.lightModeCheck;
                                         MyColors.textColor =
@@ -461,17 +399,22 @@ class _SettingScreenState extends State<SettingScreen> {
                                               .colorPrimary, // status bar color
                                         ));
 
+                                        await Utility.setBooleanPreference(
+                                          Constants.isDarkMode,
+                                          true,
+                                        );
+
                                         widget.onThemeChange();
                                       }
                                       setState(() {});
                                     },
-                                    child: MyColors.darkModeCheck
+                                    child: MyColors.isDarkMode
                                         ? SvgPicture.asset(
                                             "assets/images/check-round.svg",
                                             width: 17,
                                             height: 17,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           )
@@ -480,7 +423,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 17,
                                             height: 17,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           ),
@@ -528,7 +471,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           margin: const EdgeInsets.only(right: 0, top: 15),
                           width: width * .94,
                           padding: const EdgeInsets.only(
-                              top: 10, left: 0, right: 10, bottom: 10),
+                              top: 10, left: 0, right: 8, bottom: 10),
                           decoration: BoxDecoration(
                               color: Colors.black26,
                               borderRadius: BorderRadius.circular(10)),
@@ -819,7 +762,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 17,
                                             height: 17,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           )
@@ -828,7 +771,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 17,
                                             height: 17,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           ),
@@ -866,7 +809,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 18.5,
                                             height: 18.5,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           )
@@ -875,7 +818,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 18.5,
                                             height: 18.5,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           ),
@@ -916,7 +859,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 19.7,
                                             height: 19.7,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           )
@@ -925,7 +868,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 19.7,
                                             height: 19.7,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           ),
@@ -949,7 +892,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ? Container()
                       : Container(
                           margin: const EdgeInsets.only(
-                              left: 10, bottom: 5, top: 25),
+                              left: 0, bottom: 5, top: 25),
                           child: Text("when_opening_app".tr().toString(),
                               textScaleFactor: Constants.textScaleFactor,
                               style: GoogleFonts.roboto(
@@ -963,7 +906,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               right: 0, top: 8, bottom: 5),
                           width: width * .945,
                           padding: const EdgeInsets.only(
-                              top: 15, left: 10, right: 20, bottom: 15),
+                              top: 15, left: 15, right: 20, bottom: 15),
                           decoration: BoxDecoration(
                               color: Colors.black26,
                               borderRadius: BorderRadius.circular(10)),
@@ -977,8 +920,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                      margin:
-                                          EdgeInsets.only(bottom: 5, left: 2),
+                                      margin: const EdgeInsets.only(
+                                          bottom: 5, left: 2),
                                       child: Text(
                                           "display_multi_converter"
                                               .tr()
@@ -991,28 +934,28 @@ class _SettingScreenState extends State<SettingScreen> {
                                               fontWeight: FontWeight.bold))),
                                   Container(
                                     width: 30,
-                                    height: 10,
+                                    height: 30,
                                     margin:
                                         const EdgeInsets.only(top: 2, left: 0),
                                     child: Switch(
                                       inactiveThumbColor: MyColors.textColor,
+                                      activeTrackColor: !MyColors.isDarkMode
+                                          ? MyColors.colorPrimary
+                                          : const Color(0xff333333)
+                                              .withOpacity(0.507),
+                                      inactiveTrackColor: MyColors.isDarkMode
+                                          ? MyColors.colorPrimary
+                                          : Colors.grey.shade300,
+                                      activeColor: MyColors.textColor,
                                       value: MyColors.muliConverter,
-                                      onChanged: (value) async {
+                                      onChanged: (value) {
                                         setState(() {
                                           MyColors.muliConverter = value;
-                                          Utility.setBooleanPreference(
+                                          Utility.setMulticonverter(
                                               Constants.MultiConverter,
                                               MyColors.muliConverter);
                                         });
                                       },
-                                      activeTrackColor: MyColors.lightModeCheck
-                                          ? MyColors.colorPrimary
-                                          : const Color(0xff333333)
-                                              .withOpacity(0.507),
-                                      inactiveTrackColor: MyColors.darkModeCheck
-                                          ? MyColors.colorPrimary
-                                          : Colors.grey.shade300,
-                                      activeColor: MyColors.textColor,
                                     ),
                                   ),
                                 ],
@@ -1049,34 +992,61 @@ class _SettingScreenState extends State<SettingScreen> {
                   _isContainerVisible
                       ? Container()
                       : Container(
-                          margin: const EdgeInsets.only(
-                              right: 0, top: 8, bottom: 5),
+                          margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
                           width: width * .945,
-                          padding: const EdgeInsets.only(
-                              top: 5, left: 10, right: 5, bottom: 5),
+                          padding: EdgeInsets.only(
+                              top: 0, left: 15, right: 5, bottom: 5),
                           decoration: BoxDecoration(
                               color: Colors.black26,
                               borderRadius: BorderRadius.circular(10)),
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.only(top: 12),
-                                    child: Text(
-                                        "display_currency_code".tr().toString(),
-                                        textScaleFactor:
-                                            Constants.textScaleFactor,
-                                        style: GoogleFonts.roboto(
-                                            fontSize: 17,
-                                            color: MyColors.textColor,
-                                            fontWeight: FontWeight.normal)),
+                                  // Container(
+
+                                  //   padding: EdgeInsets.only(top: 12),
+                                  //   child: Expanded(
+                                  //     child: AutoSizeText(
+                                  //         "display_currency_code"
+                                  //             .tr()
+                                  //             .toString(),
+                                  //         textScaleFactor:
+                                  //             Constants.textScaleFactor,
+                                  //         maxLines: 2,
+                                  //         softWrap: true,
+                                  //         style: GoogleFonts.roboto(
+                                  //             fontSize: 17,
+                                  //             color: MyColors.textColor,
+                                  //             fontWeight: FontWeight.normal)),
+                                  //   ),
+                                  // ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 12),
+                                      child: RichText(
+                                          textScaleFactor:
+                                              Constants.textScaleFactor,
+                                          text: TextSpan(children: [
+                                            TextSpan(
+                                                text: "display_currency_code"
+                                                    .tr()
+                                                    .toString(),
+                                                style: GoogleFonts.roboto(
+                                                    fontSize: 17,
+                                                    color: MyColors.textColor,
+                                                    fontWeight:
+                                                        FontWeight.normal)),
+                                          ])),
+                                    ),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck
+                                    inactiveTrackColor: MyColors.isDarkMode
                                         ? MyColors.colorPrimary
                                         : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
@@ -1097,17 +1067,17 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.displaysymbol = false;
                                         }
                                       });
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplayCodePreference(
                                           Constants.SELECTED_CODE,
                                           MyColors.displaycode);
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplayflagPreference(
                                           Constants.SELECTED_FLAG,
                                           MyColors.displayflag);
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplaysymbolPreference(
                                           Constants.SELECTED_SYMBOL,
                                           MyColors.displaysymbol);
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck
+                                    activeTrackColor: !MyColors.isDarkMode
                                         ? MyColors.colorPrimary
                                         : const Color(0xff333333)
                                             .withOpacity(0.507),
@@ -1120,20 +1090,41 @@ class _SettingScreenState extends State<SettingScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.only(top: 12),
-                                    child: Text(
-                                      "display_currency_symbol".tr().toString(),
-                                      textScaleFactor:
-                                          Constants.textScaleFactor,
-                                      style: GoogleFonts.roboto(
-                                          color: MyColors.textColor,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 17),
+                                  // Container(
+                                  //   padding: EdgeInsets.only(top: 12),
+                                  //   child: AutoSizeText(
+                                  //     "display_currency_symbol".tr().toString(),
+                                  //     textScaleFactor:
+                                  //         Constants.textScaleFactor,
+                                  //     maxLines: 2,
+                                  //     softWrap: true,
+                                  //     style: GoogleFonts.roboto(
+                                  //         color: MyColors.textColor,
+                                  //         fontWeight: FontWeight.normal,
+                                  //         fontSize: 17),
+                                  //   ),
+                                  // ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 12),
+                                      child: RichText(
+                                          textScaleFactor:
+                                              Constants.textScaleFactor,
+                                          text: TextSpan(children: [
+                                            TextSpan(
+                                                text: "display_currency_symbol"
+                                                    .tr()
+                                                    .toString(),
+                                                style: GoogleFonts.roboto(
+                                                    color: MyColors.textColor,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 17)),
+                                          ])),
                                     ),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck
+                                    inactiveTrackColor: MyColors.isDarkMode
                                         ? MyColors.colorPrimary
                                         : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
@@ -1156,17 +1147,17 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.displaycode = false;
                                         }
                                       });
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplayCodePreference(
                                           Constants.SELECTED_CODE,
                                           MyColors.displaycode);
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplayflagPreference(
                                           Constants.SELECTED_FLAG,
                                           MyColors.displayflag);
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplaysymbolPreference(
                                           Constants.SELECTED_SYMBOL,
                                           MyColors.displaysymbol);
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck
+                                    activeTrackColor: !MyColors.isDarkMode
                                         ? MyColors.colorPrimary
                                         : const Color(0xff333333)
                                             .withOpacity(0.507),
@@ -1179,19 +1170,41 @@ class _SettingScreenState extends State<SettingScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.only(top: 12),
-                                    child: Text(
-                                        "display_currency_flag".tr().toString(),
-                                        textScaleFactor:
-                                            Constants.textScaleFactor,
-                                        style: GoogleFonts.roboto(
-                                            fontSize: 17,
-                                            color: MyColors.textColor,
-                                            fontWeight: FontWeight.normal)),
+                                  // Container(
+                                  //   padding: const EdgeInsets.only(top: 12),
+                                  //   child: AutoSizeText(
+                                  //       "display_currency_flag".tr().toString(),
+                                  //       maxLines: 2,
+                                  //       softWrap: true,
+                                  //       textScaleFactor:
+                                  //           Constants.textScaleFactor,
+                                  //       style: GoogleFonts.roboto(
+                                  //           fontSize: 17,
+                                  //           color: MyColors.textColor,
+                                  //           fontWeight: FontWeight.normal)),
+                                  // ),
+
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 12),
+                                      child: RichText(
+                                          textScaleFactor:
+                                              Constants.textScaleFactor,
+                                          text: TextSpan(children: [
+                                            TextSpan(
+                                                text: "display_currency_flag"
+                                                    .tr()
+                                                    .toString(),
+                                                style: GoogleFonts.roboto(
+                                                    fontSize: 17,
+                                                    color: MyColors.textColor,
+                                                    fontWeight:
+                                                        FontWeight.normal)),
+                                          ])),
+                                    ),
                                   ),
                                   Switch(
-                                    inactiveTrackColor: MyColors.darkModeCheck
+                                    inactiveTrackColor: MyColors.isDarkMode
                                         ? MyColors.colorPrimary
                                         : Colors.grey.shade300,
                                     inactiveThumbColor: MyColors.textColor,
@@ -1205,17 +1218,17 @@ class _SettingScreenState extends State<SettingScreen> {
                                               !MyColors.displayflag;
                                         }
                                       });
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplayCodePreference(
                                           Constants.SELECTED_CODE,
                                           MyColors.displaycode);
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplayflagPreference(
                                           Constants.SELECTED_FLAG,
                                           MyColors.displayflag);
-                                      Utility.setBooleanPreference(
+                                      Utility.setBoolDisplaysymbolPreference(
                                           Constants.SELECTED_SYMBOL,
                                           MyColors.displaysymbol);
                                     },
-                                    activeTrackColor: MyColors.lightModeCheck
+                                    activeTrackColor: !MyColors.isDarkMode
                                         ? MyColors.colorPrimary
                                         : const Color(0xff333333)
                                             .withOpacity(0.507),
@@ -1270,7 +1283,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 19.7,
                                             height: 19.7,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           )
@@ -1279,7 +1292,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 19.7,
                                             height: 19.7,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           ),
@@ -1317,7 +1330,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 19.7,
                                             height: 19.7,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           )
@@ -1326,7 +1339,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             width: 19.7,
                                             height: 19.7,
                                             fit: BoxFit.fill,
-                                            color: MyColors.darkModeCheck
+                                            color: MyColors.isDarkMode
                                                 ? const Color(0xff333333)
                                                 : Colors.white,
                                           ),
@@ -1366,7 +1379,8 @@ class _SettingScreenState extends State<SettingScreen> {
   void lockChangeColor(Color color) {
     widget.onThemeChange;
     setState(() => lockCurrentColor = color);
-    debugPrint("selected color -> ${lockCurrentColor.value.toRadixString(16)}");
+    debugPrint(
+        "selected color c -> ${lockCurrentColor.value.toRadixString(16)}");
   }
 
   void densityChangeColor(Color color) {
@@ -1378,7 +1392,7 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   void onColorSelect(Color themeColor, BuildContext context) {
-    print("OnColorSelect-->");
+    debugPrint("OnColorSelect-->");
     widget.onThemeChange;
 
     Navigator.pushAndRemoveUntil(context,
@@ -1430,7 +1444,6 @@ class _SettingScreenState extends State<SettingScreen> {
 class MColor {
   Color mainColor;
   List<Color> densityColors;
-
   MColor({required this.mainColor, required this.densityColors});
 }
 

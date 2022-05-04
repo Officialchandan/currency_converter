@@ -6,7 +6,7 @@ library hsv_picker;
 
 import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/src/hsv_picker.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_colorpicker/src/utils.dart';
 
 // The default layout of Color Picker.
@@ -429,7 +429,7 @@ class _SlidePickerState extends State<SlidePicker> {
           TrackType.saturationForHSL,
           TrackType.lightness,
         ],
-        if (widget.paletteType == PaletteType.rgb) ...[
+        if (widget.paletteType == PaletteType.rgbWithBlue) ...[
           TrackType.red,
           TrackType.green,
           TrackType.blue,

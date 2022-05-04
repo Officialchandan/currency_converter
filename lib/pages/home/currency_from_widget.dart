@@ -59,11 +59,11 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
         curve: _isExpanded ? Curves.elasticOut : Curves.easeInSine,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         duration: const Duration(seconds: 0),
         height: widget.isContainerVisible
-            ? MediaQuery.of(context).size.height
+            ? MediaQuery.of(context).size.height * 0.632
             : 0.0,
         width:
             widget.isContainerVisible ? MediaQuery.of(context).size.width : 0.0,
@@ -125,8 +125,8 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                 ],
               ),
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.5965,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5641,
               child: StreamBuilder<List<DataModel>>(
                   stream: streamController.stream,
                   initialData: countrycode,
@@ -134,6 +134,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
                     if (snapshot.hasData) {
                       return ListView.builder(
                           shrinkWrap: true,
+                          padding: const EdgeInsets.only(bottom: 10),
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
                             DataModel model1 = snapshot.data![index];

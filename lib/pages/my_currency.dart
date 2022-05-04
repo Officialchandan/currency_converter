@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
-import 'package:currency_converter/google_admob/ad_helper.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_converter/widget/banner_add_widget.dart';
@@ -23,7 +23,9 @@ import 'package:share/share.dart';
 import 'add_currency_screen.dart';
 
 class MyCurrency extends StatefulWidget {
-  const MyCurrency({Key? key}) : super(key: key);
+  MyCurrency({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MyCurrencyState createState() => _MyCurrencyState();
@@ -42,7 +44,6 @@ class _MyCurrencyState extends State<MyCurrency> {
   StreamController<List<DataModel>> streamController = StreamController();
   StreamController<DataModel> dataController = StreamController();
   bool isCalculatorVisible = false;
-
   bool firstTime = true;
   DataModel? selectedData;
   BannerAd? _bannerAd;
@@ -50,18 +51,17 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   @override
   void initState() {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {});
     getSelectedList();
     super.initState();
-
-    WidgetsBinding.instance!.addPostFrameCallback((_) {});
   }
 
   @override
   Widget build(BuildContext context) {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
-    double convertH = 0.380;
-    double convertY;
+    double convertH = 0.310;
+
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
@@ -103,7 +103,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                               title: Text(
                                 "updated_date".tr().toString() +
                                     " " +
-                                    Utility.getFormatDate(),
+                                    Utility.getFormatDate().toString(),
                                 textScaleFactor: Constants.textScaleFactor,
                                 // textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -197,7 +197,11 @@ class _MyCurrencyState extends State<MyCurrency> {
                                               text, index, selectedList[index]);
                                         },
                                         onTap: () {
-                                          isCalculatorVisible = true;
+                                          SchedulerBinding.instance!
+                                              .addPostFrameCallback((_) {
+                                            isCalculatorVisible = true;
+                                            setState(() {});
+                                          });
 
                                           debugPrint("index------->$index");
                                           dataController
@@ -408,37 +412,10 @@ class _MyCurrencyState extends State<MyCurrency> {
     return selectedList.indexWhere((DataModel d) => d.key == key);
   }
 
-  Future<void> addMobMulticonverter() async {
-    print("addMobMulticonverter");
-    _bannerAd = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          isBannerAdReady = false;
-          ad.dispose();
-        },
-      ),
-    );
-
-    _bannerAd!.load();
-  }
-
   @override
   void didUpdateWidget(MyCurrency oldWidget) {
-    debugPrint("MyCurrency-> didUpdateWidget");
-
     debugPrint("selectedData-> $selectedData");
-
     onRefresh();
-
     super.didUpdateWidget(oldWidget);
   }
 
@@ -451,7 +428,7 @@ class _MyCurrencyState extends State<MyCurrency> {
     //   return false;
 
     final draggedItem = selectedList[draggingIndex];
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
       setState(() {
         debugPrint("Reordering $item -> $newPosition");
         selectedList.removeAt(draggingIndex);
@@ -477,20 +454,6 @@ class _MyCurrencyState extends State<MyCurrency> {
 
     await dbHelper.update(draggedItem.toMap());
     debugPrint("Reordering finished for ${draggedItem.code}");
-  }
-
-  Future<bool> rebuild() async {
-    if (!mounted) return false;
-
-    // if there's a current frame,
-    if (SchedulerBinding.instance!.schedulerPhase != SchedulerPhase.idle) {
-      // wait for the end of that frame.
-      await SchedulerBinding.instance!.endOfFrame;
-      if (!mounted) return false;
-    }
-
-    setState(() {});
-    return true;
   }
 
   void calculateExchangeRate(String text, int index, DataModel model) async {
@@ -520,7 +483,24 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   String getFormatText(String s) {
     String text1 = "";
-
+    if (s.contains("e")) {
+      HapticFeedback.vibrate();
+      BotToast.showText(
+        text: "Value limit exeed",
+        animationDuration: const Duration(milliseconds: 100),
+        // align: const Alignment(0.0, 0.0),
+        align: Alignment.center,
+        contentColor: const Color(0xff333333),
+        contentPadding: const EdgeInsets.all(10.0),
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.w400,
+          color: Colors.white,
+          fontSize: 17.0,
+        ),
+        borderRadius: BorderRadius.circular(8.0),
+      );
+      debugPrint("getFormatText");
+    }
     int i = MyColors.monetaryFormat;
     int afterdecimal = MyColors.decimalFormat;
 
@@ -573,13 +553,11 @@ class _MyCurrencyState extends State<MyCurrency> {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share(
-        "https://play.google.com/store/apps/details?id=com.tencent.ig");
+    await Share.share("https://currencywiki.app/");
   }
 
   void onRefresh() async {
     FocusScope.of(context).unfocus();
-
     String value = await Utility.getStringPreference("value");
     String code = await Utility.getStringPreference("code");
     dataController.addError("error");
@@ -591,9 +569,9 @@ class _MyCurrencyState extends State<MyCurrency> {
             selectedList[index].controller.text, index, selectedList[index]);
       }
     }
-    if (!await rebuild()) return;
-
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 }
 
@@ -825,12 +803,14 @@ class Item extends StatelessWidget {
                           if (text.isEmpty) {
                             text = "0";
                           }
+
                           text = text.replaceAll(RegExp(r'[^0-9]'), '');
                           await Utility.setStringPreference("value", text);
                           await Utility.setStringPreference("code", data.code);
                           Constants.selectedEditableCurrencyCode = data.code;
                           Constants.selectedEditableCurrencyValue = text;
                           data.controller.text = text;
+
                           // text = data.controller.text;
                           data.controller.selection =
                               TextSelection.fromPosition(TextPosition(

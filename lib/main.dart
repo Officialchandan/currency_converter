@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:advertising_id/advertising_id.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:currency_converter/Themes/colors.dart';
+import 'package:currency_converter/database/color_data.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/splash/splash_screen.dart';
@@ -17,8 +19,11 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
+
+import 'in_app_parchase/product_provider.dart';
 
 final dbHelper = DatabaseHelper.instance;
 Workmanager workmanager = Workmanager();
@@ -63,22 +68,23 @@ void backgroundCallback(Uri? data) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   workmanager.initialize(callbackDispatcher, isInDebugMode: kDebugMode);
-
+  await Utility.getBooleanPreference(Constants.isDarkMode);
   await MobileAds.initialize();
-  MobileAds.setTestDeviceIds([await Utility.getStringPreference(Constants.GET_ID)]);
+  MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
   await EasyLocalization.ensureInitialized();
-
-  debugPrint('ad_id-->${await Utility.getStringPreference(Constants.GET_ID)}');
   await insertData();
   await insertion();
-
-  runApp(EasyLocalization(
-      child: const MyApp(),
-      path: "assets/language",
-      fallbackLocale: const Locale('en'),
-      useFallbackTranslations: true,
-      useOnlyLangCode: true,
-      supportedLocales: Locals.supportedLang));
+  await insertColors();
+  runApp(ChangeNotifierProvider<InAppProvider>(
+    create: (_) => InAppProvider(),
+    child: EasyLocalization(
+        child: MyApp(),
+        path: "assets/language",
+        fallbackLocale: const Locale('en'),
+        useFallbackTranslations: true,
+        useOnlyLangCode: true,
+        supportedLocales: Locals.supportedLang),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -94,9 +100,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    initPlatformState();
     getTheme();
-    isFirstTime();
+    Future.delayed(const Duration(seconds: 10), () {
+      if (Constants.isPurchase == "[]") {
+        isFirstTime();
+      }
+    });
     HomeWidget.setAppGroupId('YOUR_GROUP_ID');
     HomeWidget.registerBackgroundCallback(backgroundCallback);
     super.initState();
@@ -189,18 +198,16 @@ class _MyAppState extends State<MyApp> {
     var isFirstTime = prefs.getBool('first_time');
     if (isFirstTime != null && !isFirstTime) {
       prefs.setBool('first_time', false);
-
       getOpenAd();
-
       return false;
     } else {
       prefs.setBool('first_time', false);
-
       return true;
     }
   }
 
   initPlatformState() async {
+    await Utility.getBooleanPreference(Constants.REMOVE_AD);
     String advertisingId;
     bool? isLimitAdTrackingEnabled;
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -215,20 +222,9 @@ class _MyAppState extends State<MyApp> {
     } on PlatformException {
       isLimitAdTrackingEnabled = false;
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-
-    // setState(()  {
     advertisingIds = advertisingId;
     _isLimitAdTrackingEnabled = isLimitAdTrackingEnabled;
-    print("advertisingIds part $advertisingIds");
-
-    await Utility.setStringPreference(Constants.GET_ID, advertisingIds.toString());
-    String adname = await Utility.getStringPreference(Constants.GET_ID);
-    print("advertisingIds ____<<<>>> $adname");
-    // });
+    await Utility.setAdId(Constants.GET_ID, advertisingIds.toString());
   }
 
   void getOpenAd() async {
@@ -242,22 +238,22 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  final botToastBuilder = BotToastInit();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
+        child = botToastBuilder(context, child);
+
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: Constants.textScaleFactor),
-          child: child!,
+          child: child,
         );
       },
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           fontFamily: GoogleFonts.roboto().fontFamily,
-          inputDecorationTheme: InputDecorationTheme(
-            hoverColor: MyColors.colorPrimary,
-          ),
           primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           primaryColor: MyColors.colorPrimary),
@@ -269,34 +265,49 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getTheme() async {
-    await Utility.getColorTheme();
+    // await Utility.getColorTheme();
 
     int red = MyColors.colorPrimary.red;
     int blue = MyColors.colorPrimary.blue;
     int green = MyColors.colorPrimary.green;
-
     var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
     print("************************-> $grayscale");
+    if (await Utility.getBooleanPreference(Constants.isDarkMode)) {
+      MyColors.isDarkMode = true;
+      // MyColors.lightModeCheck = !MyColors.lightModeCheck;
+      MyColors.textColor = const Color(0xff333333);
+      MyColors.insideTextFieldColor = Colors.white;
+      MyColors.calcuColor = const Color(0xff333333);
 
-    if (grayscale > 128) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarColor: MyColors.colorPrimary, // status bar color
+      ));
+    } else if (grayscale > 200) {
+      debugPrint("Hello Dark Mode Colors");
       MyColors.textColor = Colors.grey.shade700;
       MyColors.insideTextFieldColor = Colors.white;
-      MyColors.darkModeCheck = true;
-      MyColors.lightModeCheck = false;
+
+      MyColors.isDarkMode = true;
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        // statusBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+        statusBarColor: MyColors.colorPrimary, // status bar color
+      ));
     } else {
+      debugPrint("grayscale > 1 $grayscale");
       MyColors.textColor = Colors.white;
       MyColors.insideTextFieldColor = Colors.black;
-      MyColors.lightModeCheck = true;
-      MyColors.darkModeCheck = false;
+      MyColors.isDarkMode = false;
+
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+        statusBarColor: MyColors.colorPrimary, // status bar color
+      ));
     }
-
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      // statusBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-
-      systemNavigationBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
-      statusBarColor: MyColors.colorPrimary, // status bar color
-    ));
   }
 }
 
@@ -327,7 +338,6 @@ Future<void> insertData() async {
                 (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN" || key == "BTC") ? 1 : 0,
             selected: (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN") ? 1 : 0,
             symbol: map["Symbol"]);
-
         int id = await dbHelper.insert(currencyData.toMap());
       });
     } else {
@@ -419,13 +429,12 @@ Future insertDefaultData() async {
 }
 
 insertion() async {
-  MyColors.displaycode = await Utility.getBooleanPreference(Constants.SELECTED_CODE);
+  MyColors.displaycode = await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
 
-  MyColors.muliConverter = await Utility.getBooleanPreference(Constants.MultiConverter);
-  MyColors.removeAd = await Utility.getBooleanPreference(Constants.REMOVE_AD);
+  MyColors.muliConverter = await Utility.getMulticonverter(Constants.MultiConverter);
 
-  MyColors.displayflag = await Utility.getBooleanPreference(Constants.SELECTED_FLAG);
-  MyColors.displaysymbol = await Utility.getBooleanPreference(Constants.SELECTED_SYMBOL);
+  MyColors.displayflag = await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
+  MyColors.displaysymbol = await Utility.getBoolDisplaysymbolPreference(Constants.SELECTED_SYMBOL);
 
   String monetary = await Utility.getStringPreference(Constants.monetaryFormat);
   String decimal = await Utility.getStringPreference(Constants.decimalFormat);
@@ -433,4 +442,85 @@ insertion() async {
   decimal = decimal == "" ? "2" : decimal;
   MyColors.monetaryFormat = int.parse(monetary);
   MyColors.decimalFormat = int.parse(decimal);
+}
+
+insertColors() async {
+  if (await dbHelper.isColorsExist()) {
+    for (var color in Constants.unlockColors) {
+      String colorCode = color.mainColor.value.toRadixString(16);
+
+      await dbHelper.insertColor(ColorTable(
+        previousColor: 0,
+        colorCode: colorCode,
+        selected: 0,
+        isLocked: ColorsConst.unLockedColor,
+      ));
+
+      for (var dencityColor in color.densityColors) {
+        String code = dencityColor.value.toRadixString(16);
+        await dbHelper.insertDensityColor(DensityColor(
+          previousColor: "0",
+          colorCode: code,
+          selected: "0",
+          parentColorCode: colorCode,
+        ));
+      }
+    }
+
+    for (var color in Constants.lockedColors) {
+      String colorCode = color.lmainColor.value.toRadixString(16);
+
+      await dbHelper.insertColor(ColorTable(
+        previousColor: 0,
+        colorCode: colorCode,
+        selected: 1,
+        isLocked: ColorsConst.lockedColor,
+      ));
+
+      for (var dencityColor in color.ldensityColors) {
+        String code = dencityColor.value.toRadixString(16);
+        await dbHelper.insertDensityColor(DensityColor(
+          previousColor: "0",
+          colorCode: code,
+          selected: "0",
+          parentColorCode: colorCode,
+        ));
+      }
+    }
+
+    String colorCode = Constants.unlockColors.first.mainColor.value.toRadixString(16);
+    await dbHelper.selectColor(ColorTable(
+      previousColor: 0,
+      colorCode: colorCode,
+      selected: 1,
+      isLocked: ColorsConst.unLockedColor,
+    ));
+  }
+
+  List<ColorTable> selectedColor = await dbHelper.getSelectedColor();
+
+  if (selectedColor.isNotEmpty) {
+    ColorTable colorTable = selectedColor.first;
+
+    if (colorTable.isLocked == ColorsConst.lockedColor) {
+      await dbHelper.selectColor(ColorTable(
+        previousColor: 0,
+        colorCode: colorTable.colorCode,
+        selected: 1,
+        isLocked: ColorsConst.lockedColor,
+      ));
+      String colorCode = Constants.unlockColors.first.mainColor.value.toRadixString(16);
+      await dbHelper.selectColor(ColorTable(
+        previousColor: 0,
+        colorCode: colorCode,
+        selected: 0,
+        isLocked: ColorsConst.unLockedColor,
+      ));
+      MyColors.colorPrimary = Constants.unlockColors.first.mainColor;
+    } else {
+      int code = int.parse("0x" + colorTable.colorCode);
+      Color c = Color(code);
+      MyColors.colorPrimary = c;
+    }
+  }
 }

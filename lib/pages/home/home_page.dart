@@ -9,7 +9,6 @@ import 'package:currency_converter/pages/my_currency.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
 import 'package:currency_converter/utils/constants.dart';
-import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,28 +35,54 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   TabChangeListener? listener;
 
   String theme = "";
+  String theme1 = "";
 
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
       systemNavigationBarIconBrightness:
-          MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+          !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
-
-    debugPrint("initState ${MyColors.muliConverter}");
-
-    super.initState();
-
     _tabController = TabController(length: 6, vsync: this, initialIndex: 0);
-
     _tabController.addListener(() {
       tabChangeListener(_tabController.index);
       debugPrint("index1->${_tabController.index}");
     });
     WidgetsBinding.instance!.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    debugPrint("didChangeAppLifecycleState $state");
+
+    if (MyColors.muliConverter == true) {
+      if (state == AppLifecycleState.resumed) {
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          try {
+            _tabController.animateTo(
+              1,
+            );
+          } catch (e) {
+            debugPrint("exception in navigation to my currency-->$e");
+          }
+        });
+      }
+    } else if (state == AppLifecycleState.resumed) {
+      try {
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          _tabController.animateTo(
+            0,
+          );
+        });
+      } catch (e) {
+        debugPrint("exception in navigation to my currency-->$e");
+      }
+    }
   }
 
   @override
@@ -67,27 +92,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-    debugPrint("didChangeAppLifecycleState $state");
-    if (MyColors.muliConverter == true) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        try {
-          _tabController.animateTo(
-            1,
-          );
-        } catch (e) {
-          debugPrint("exception in navigation to my currency-->$e");
-        }
-      });
-    }
-  }
-
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
   Widget build(BuildContext context) {
-    String textCurrency = "USA";
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -168,7 +173,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         systemOverlayStyle: SystemUiOverlayStyle(
           // statusBarBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
           statusBarIconBrightness:
-              MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+              !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
 
           // sys
         ),
@@ -197,10 +202,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               },
             ),
             MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  textScaleFactor: Constants.textScaleFactor,
-                ),
-                child: const MyCurrency()),
+              data: MediaQuery.of(context).copyWith(
+                textScaleFactor: Constants.textScaleFactor,
+              ),
+              child: MyCurrency(),
+            ),
             const DecimalScreens(),
             const InkWell(),
             const TeramAndCondition(),
@@ -213,7 +219,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
 
   tabChangeListener(int index) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-
     if (index == 0 && listener != null) {
       listener!.onTabChange();
     }
@@ -222,7 +227,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     if (index == 3) {
       ratingBottomSheet(context);
     }
-
     setState(() {});
   }
 
@@ -398,24 +402,27 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   getColorTheme() async {
     final prefs = await SharedPreferences.getInstance();
     theme = prefs.getString(Constants.themeColor) ?? "";
-
     debugPrint("color->>>> $theme");
+
+    final prefs1 = await SharedPreferences.getInstance();
+    theme1 = prefs1.getString(Constants.themeofDensityColor) ?? "";
+    debugPrint("color->>>> $theme1");
 
     if (theme.isNotEmpty) {
       int value = int.parse(theme);
       var code = (value.toRadixString(16));
       debugPrint("color code ->>>>$code");
       MyColors.colorPrimary = Color(int.parse("0x$code"));
-      Utility.setStringPreference(Constants.primaryColorCode, MyColors.colorPrimary.value.toRadixString(16));
-    } else {
-      debugPrint("color is empty");
+    } else if (theme1.isNotEmpty) {
+      int value = int.parse(theme1);
+      var code = (value.toRadixString(16));
+      debugPrint("color code ->>>>$code");
+      MyColors.colorPrimary = Color(int.parse("0x$code"));
     }
 
     setState(() {});
   }
 }
-
-class _MyTabbedPageState {}
 
 class CurrencyData {
   String key;

@@ -1,5 +1,6 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/google_admob/ad_helper.dart';
+import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -16,12 +17,17 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
 
   @override
   void initState() {
-    addMobMulticonverter();
+    init();
     super.initState();
   }
 
+  void init() async {
+    if (Constants.isPurchase == "[]") {
+      addMobMulticonverter();
+    }
+  }
+
   Future<void> addMobMulticonverter() async {
-    print("addMobMulticonverter");
     _bannerAd = BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
@@ -46,7 +52,9 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
 
   @override
   void dispose() {
-    _bannerAd!.dispose();
+    if (Constants.isPurchase == "[]") {
+      _bannerAd!.dispose();
+    }
     super.dispose();
   }
 

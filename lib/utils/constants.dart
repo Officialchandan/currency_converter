@@ -2,9 +2,16 @@ import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:flutter/material.dart';
 
 enum Fonts { small, medium, large }
-enum Entitlements { free, paid }
 
 class Constants {
+  static LColor? isdensityColor;
+  // static Map<String, PurchaseDetails>? purchase;
+  // static PurchaseDetails? previousPurchase;
+  static bool removeAdsTrue = false;
+  static bool removeAd = false;
+  static String isPurchase = "[]";
+  static const String isIndexTrue = "isIndexTrue";
+  static const String isDarkMode = "isDarkMode";
   static const String SELECTED_CODE = "SELECTED_CODE";
   static const String SELECTED_FLAG = "SELECTED_FLAG";
   static const String SELECTED_SYMBOL = "SELECTED_SYMBOL";
@@ -16,6 +23,7 @@ class Constants {
   static const String currencyCodeFrom = "currencyCodeFrom";
   static const String currencyCodeTo = "currencyCodeTo";
   static const String themeColor = "theme";
+  static const String themeofDensityColor = "themeofDensityColor";
   static const String currencySaveData = "currencysavedata";
   static const String monetaryFormat = "monetaryFormat";
   static const String decimalFormat = "decimalFormat";
@@ -26,7 +34,8 @@ class Constants {
   static const String fontSmall = "fontSmall";
   static const String fontMedium = "fontMedium";
   static const String fontLarge = "fontLarge";
-  static const String primaryColorCode = "primaryColorCode";
+  static const String selectedLockedColor = "selected_locked_color";
+
   static String dateFormat = mmDdYyyy;
   static String selectedFontSize = fontSmall;
   static double textScaleFactor = 0.9;

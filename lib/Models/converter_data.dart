@@ -4,15 +4,10 @@
 
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
-
 class ConverterData {
-  List<String> m = [];
   ConverterData({this.from, this.to});
-
   Map<String, double>? from;
   Map<String, double>? to;
-
   factory ConverterData.fromJson(String str) =>
       ConverterData.fromMap(json.decode(str));
 

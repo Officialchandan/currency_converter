@@ -1,26 +1,26 @@
-import 'dart:developer';
-
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
-import 'package:currency_converter/google_admob/ad_helper.dart';
-import 'package:currency_converter/ui/graph/linear_graph_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_converter/widget/calculator.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 // ignore: implementation_imports
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../in_app_parchase/product_provider.dart';
+import '../../widget/add_screen_widget.dart';
+import 'chart_screen.dart';
 import 'currency_from_widget.dart';
 import 'currency_to_widget.dart';
 import 'home_page.dart';
@@ -39,7 +39,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   String symbol = "\$";
   String flagfrom = "assets/pngCountryImages/USD.png";
   String flagto = "assets/pngCountryImages/EUR.png";
-
   List<DataModel> countrycode = [];
   final dbHelper = DatabaseHelper.instance;
   String text = "0.00";
@@ -49,84 +48,60 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   bool isCalculatorVisible = false;
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
-  late BannerAd _bannerAd;
-  bool isBannerAdReady = false;
-
   TextEditingController calculateCurrency = TextEditingController(text: MyColors.equationForCopy);
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
-
   String currencyCodeFrom = "USD";
   String currencyCodeTo = "INR";
 
+  late InAppProvider _inAppProvider;
   @override
   void initState() {
-    // if (MyColors.removeAd == true) {
-    //   print("MyColors.removeAd ${MyColors.removeAd}");
-    //   Future.delayed(const Duration(days: 365), () {
-    //     MyColors.removeAd = false;
-    //     addMob();
-    //   });
-    // } else {
-    //   addMob();
-    // }
-    widget.onInitialize(this);
+    final provider = Provider.of<InAppProvider>(context, listen: false);
+    _inAppProvider = provider;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-
+    getHistory();
+    widget.onInitialize(this);
     getCurrencyCode();
-    addMob();
+    initializeDateFormatting();
+    Utility.getFormatDate();
+    Utility.check();
+    SchedulerBinding.instance!.addPostFrameCallback((_) {});
     super.initState();
+  }
+
+  getHistory() async {
+    await _inAppProvider.initPlatformState();
+    await _inAppProvider.getPurchaseHistory();
+    print("Constants.isPurchase${Constants.isPurchase}");
   }
 
   @override
   void onTabChange() async {
+    await Utility.getBooleanPreference(Constants.REMOVE_AD);
     debugPrint("onTabChange");
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-
     text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
-    Utility.setStringPreference(Constants.currencySaveData, text);
-    Utility.setStringPreference(Constants.currencyCodeFrom, currencyCodeFrom);
-    Utility.setStringPreference(Constants.currencyCodeTo, currencyCodeTo);
-
-    if (mounted) {
-      setState(() {});
-    }
   }
-
-  // @override
-  // void didUpdateWidget(TapHome oldWidget) {
-  //   debugPrint("home_tab-> didUpdateWidget");
-  //   isCalculatorVisible = false;
-
-  //   // _isContainerVisible = false;
-  //   // _isContainerVisibleTwo = false;
-  //   super.didUpdateWidget(oldWidget);
-  //   setState(() {});
-  // }
 
   getCurrencyCode() async {
     final prefs = await SharedPreferences.getInstance();
+    await Utility.getLangIndexPreference("LanuageIndex");
     currencyCodeFrom = prefs.getString(Constants.currencyCodeFrom) ?? "USD";
     currencyCodeTo = prefs.getString(Constants.currencyCodeTo) ?? "EUR";
-
     if (currencyCodeFrom.isNotEmpty && currencyCodeTo.isNotEmpty) {
       edtFrom.text = currencyCodeFrom;
       edtTo.text = currencyCodeTo;
       flagfrom = "assets/pngCountryImages/$currencyCodeFrom.png";
       flagto = "assets/pngCountryImages/$currencyCodeTo.png";
-
-      symbol = await Utility.getStringPreference("hello");
-      symbol2 = await Utility.getStringPreference("to");
-
+      symbol = await Utility.getSymbolFromPreference("hello");
+      symbol2 = await Utility.getSymboltoPreference("to");
       text = await getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
-      onTabChange();
     }
-    if (mounted) {
-      setState(() {});
-    }
+    setStateIfMounted();
   }
 
   void currencyCodeFromSave(String code) async {
@@ -139,35 +114,16 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     prefs.setString(Constants.currencyCodeTo, code);
   }
 
-  void addMob() {
-    _bannerAd = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.largeBanner,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          isBannerAdReady = false;
-          ad.dispose();
-        },
-      ),
-    );
-
-    _bannerAd.load();
+  setStateIfMounted() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
   void dispose() {
-    _bannerAd.dispose();
-
     calculateCurrency.clear();
     calculateCurrency.text = "0";
-
     super.dispose();
   }
 
@@ -193,7 +149,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Container(
-            padding: const EdgeInsets.fromLTRB(12, 5, 12, 10),
+            padding: const EdgeInsets.fromLTRB(12, 5, 12, 0),
             height: appheight,
             width: appwidth,
             child: SingleChildScrollView(
@@ -206,7 +162,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                     centerTitle: true,
                     toolbarHeight: 50,
                     title: Text(
-                      "updated_date".tr().toString() + " " + Utility.getFormatDate(),
+                      "updated_date".tr().toString() + " " + Utility.getFormatDate().toString(),
                       textScaleFactor: Constants.textScaleFactor,
                       // textAlign: TextAlign.center,
                       style: TextStyle(
@@ -322,25 +278,23 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                 keyboardType: TextInputType.none,
                                 showCursor: true,
                                 readOnly: false,
-                                decoration: InputDecoration(
-                                    hoverColor: MyColors.colorPrimary,
-                                    contentPadding: const EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
+                                decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
                                     counterText: "",
                                     border: InputBorder.none),
                                 onTap: () {
                                   isCalculatorVisible = true;
                                   _isContainerVisible = false;
                                   _isContainerVisibleTwo = false;
-
                                   setState(() {});
                                 },
                                 onChanged: (text) {
-                                  debugPrint("onchange---------> $text");
+                                  print("onchange---------> $text");
 
                                   if (text.isEmpty) {
                                     text = "0";
                                   }
-                                  text = text.replaceAll(new RegExp(r'[^0-9]'), '');
+                                  text = text.replaceAll(RegExp(r'[^0-9]'), '');
                                   debugPrint("aStr---------> $text");
                                   MyColors.equationForCopy = text;
                                   getConverterAPI(currencyCodeFrom, currencyCodeTo, text);
@@ -420,12 +374,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                     letterSpacing: 1.5,
                                     fontSize: 18,
                                   ),
-
                                   controller: edtFrom,
                                   showCursor: false,
                                   readOnly: true,
                                   autofocus: false,
-                                  // keyboardType: TextInputType.none,
                                   onTap: () {
                                     if (_isContainerVisible) {
                                       _isContainerVisible = false;
@@ -437,9 +389,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                       _isContainerVisibleTwo = false;
                                     }
 
-                                    if (_isContainerVisible == false && _isContainerVisibleTwo == false) {
-                                      addMob();
-                                    } else {}
+                                    if (_isContainerVisible == false && _isContainerVisibleTwo == false) {}
 
                                     setState(() {
                                       arrowPosition = !arrowPosition;
@@ -465,7 +415,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                           height: 15.0,
                                           width: 20.0,
                                           fit: BoxFit.scaleDown,
-                                          color: MyColors.darkModeCheck ? Colors.grey.shade400 : const Color(0xff333333)),
+                                          color: !MyColors.isDarkMode ? const Color(0xff333333) : Colors.grey.shade400),
                                     ),
                                   ),
                                 ),
@@ -507,9 +457,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   isCalculatorVisible = false;
                                   _isContainerVisibleTwo = true;
                                 }
-                                if (_isContainerVisible == false && _isContainerVisibleTwo == false) {
-                                  addMob();
-                                } else {}
+                                if (_isContainerVisible == false && _isContainerVisibleTwo == false) {}
+
                                 setState(() {
                                   arrowPositionTwo = !arrowPositionTwo;
                                 });
@@ -535,7 +484,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                     height: 15.0,
                                     width: 20.0,
                                     fit: BoxFit.scaleDown,
-                                    color: MyColors.darkModeCheck ? Colors.grey.shade400 : const Color(0xff333333),
+                                    color: MyColors.isDarkMode ? Colors.grey.shade400 : const Color(0xff333333),
                                   ),
                                 ),
                               ),
@@ -569,118 +518,135 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                         )
                       : Container(),
                   _isContainerVisible
-                      ? CurrencyFromWidget(
-                          isContainerVisible: _isContainerVisible,
-                          onSelect: (String currencyCode, String image, String symbol1) {
-                            symbol = symbol1;
-                            currencyCodeFrom = currencyCode;
-                            flagfrom = image;
-                            Utility.setStringPreference("hello", symbol);
+                      ? IntrinsicHeight(
+                          child: CurrencyFromWidget(
+                            isContainerVisible: _isContainerVisible,
+                            onSelect: (String currencyCode, String image, String symbol1) {
+                              symbol = symbol1;
+                              currencyCodeFrom = currencyCode;
+                              flagfrom = image;
+                              Utility.setSymbolFromPreference("hello", symbol);
 
-                            currencyCodeFromSave(currencyCodeFrom);
-                            edtFrom.text = currencyCode;
+                              currencyCodeFromSave(currencyCodeFrom);
+                              edtFrom.text = currencyCode;
 
-                            _isContainerVisible = false;
-                            getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
-                            calculateCurrency.selection =
-                                TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                              _isContainerVisible = false;
+                              getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+                              calculateCurrency.selection =
+                                  TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
 
-                            setState(() {});
-                          },
+                              setState(() {});
+                            },
+                          ),
                         )
                       : _isContainerVisibleTwo
-                          ? CurrencyToWidget(
-                              isContainerVisibleTwo: _isContainerVisibleTwo,
-                              onSelect: (String currencyCode, String image, String symbol) {
-                                symbol2 = symbol;
-                                flagto = image;
-                                Utility.setStringPreference("to", symbol2);
+                          ? IntrinsicHeight(
+                              child: CurrencyToWidget(
+                                isContainerVisibleTwo: _isContainerVisibleTwo,
+                                onSelect: (String currencyCode, String image, String symbol) {
+                                  symbol2 = symbol;
+                                  flagto = image;
+                                  Utility.setSymbolFromPreference("to", symbol2);
 
-                                currencyCodeTo = currencyCode;
-                                currencyCodeToSave(currencyCodeTo);
-                                edtTo.text = currencyCode;
-                                _isContainerVisibleTwo = false;
-                                getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
-                                calculateCurrency.selection =
-                                    TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
-                                setState(() {});
-                              },
+                                  currencyCodeTo = currencyCode;
+                                  currencyCodeToSave(currencyCodeTo);
+                                  edtTo.text = currencyCode;
+                                  _isContainerVisibleTwo = false;
+                                  getConverterAPI(currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+                                  calculateCurrency.selection =
+                                      TextSelection.fromPosition(TextPosition(offset: calculateCurrency.text.length));
+                                  setState(() {});
+                                },
+                              ),
                             )
                           : const SizedBox(
-                              height: 0,
-                              width: 0,
+                              height: 15,
                             ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => const LinearGraphScreen()));
-                        },
-                        icon: const Icon(Icons.bar_chart),
-                      )),
+                  _isContainerVisible || _isContainerVisibleTwo
+                      ? const SizedBox()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ChartScreen(
+                                              textFrom: edtFrom.text,
+                                              textTo: edtTo.text,
+                                            )));
+                              },
+                              child: Image.asset("assets/images/bar-chart.png",
+                                  height: 29.0,
+                                  width: 33.0,
+                                  fit: BoxFit.scaleDown,
+                                  color: MyColors.isDarkMode ? const Color(0xff333333) : Colors.white),
+                            ),
+                          ],
+                        ),
                   Center(
                     child: _isContainerVisible || _isContainerVisibleTwo
                         ? Container()
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 0.0),
-                            child: GestureDetector(
-                              onLongPress: () {
-                                HapticFeedback.vibrate();
-                                String decimal = ".00";
+                        : GestureDetector(
+                            onLongPress: () {
+                              HapticFeedback.vibrate();
+                              String decimal = ".00";
 
-                                if (calculateCurrency.text.contains(".")) {
-                                  decimal = "";
-                                }
-                                Clipboard.setData(ClipboardData(
-                                        text: Utility.getFormatText(calculateCurrency.text + decimal) +
-                                            " ${edtFrom.text}" +
-                                            "  = " +
-                                            Utility.getFormatText(text) +
-                                            " ${edtTo.text}" +
-                                            " " +
-                                            "by_currency_wiki".tr()))
-                                    .then((result) {
-                                  Fluttertoast.showToast(
-                                      msg: "copied_to_clipboard".tr(),
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: const Color(0xff333333),
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
-                                });
-                              },
-                              child: Container(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ConstrainedBox(
+                              if (calculateCurrency.text.contains(".")) {
+                                decimal = "";
+                              }
+                              Clipboard.setData(ClipboardData(
+                                      text: Utility.getFormatText(calculateCurrency.text + decimal) +
+                                          " ${edtFrom.text}" +
+                                          "  = " +
+                                          Utility.getFormatText(text) +
+                                          " ${edtTo.text}" +
+                                          " " +
+                                          "by_currency_wiki".tr()))
+                                  .then((result) {
+                                Fluttertoast.showToast(
+                                    msg: "copied_to_clipboard".tr(),
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: const Color(0xff333333),
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              });
+                            },
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ConstrainedBox(
                                       constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 80, minWidth: 50),
-                                      child: AutoSizeText(
-                                        Utility.getFormatText(text),
+                                      child: AutoSizeText.rich(
+                                        TextSpan(
+                                          text: Utility.getFormatText(text),
+                                        ),
                                         wrapWords: true,
                                         maxLines: 1,
-                                        textScaleFactor: Constants.textScaleFactor,
                                         maxFontSize: 32.0,
-                                        minFontSize: 8.0,
+                                        minFontSize: 5.0,
+                                        presetFontSizes: const [32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6],
+                                        softWrap: true,
                                         style: TextStyle(color: MyColors.textColor, fontSize: 32, fontWeight: FontWeight.w400),
-                                      ),
+                                      )),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  AutoSizeText.rich(
+                                    TextSpan(
+                                      text: edtTo.text,
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    AutoSizeText(
-                                      edtTo.text,
-                                      textScaleFactor: Constants.textScaleFactor,
-                                      maxFontSize: 18.0,
-                                      minFontSize: 7.0,
-                                      style: TextStyle(color: MyColors.textColor, fontSize: 20, fontWeight: FontWeight.w600),
-                                    ),
-                                  ],
-                                ),
+                                    textScaleFactor: Constants.textScaleFactor,
+                                    maxFontSize: 18.0,
+                                    minFontSize: 0.0,
+                                    softWrap: true,
+                                    style: TextStyle(color: MyColors.textColor, fontSize: 20, fontWeight: FontWeight.w600),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -688,18 +654,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   SizedBox(
                     height: appheight * 0.03,
                   ),
-                  isBannerAdReady
-                      ? Center(
-                          child: SizedBox(
-                            height: _bannerAd.size.height.toDouble(),
-                            width: _bannerAd.size.width.toDouble(),
-                            child: AdWidget(ad: _bannerAd),
-                          ),
-                        )
-                      : const SizedBox(
-                          height: 0.0,
-                          width: 0.0,
-                        ),
+                  _isContainerVisible || _isContainerVisibleTwo ? const SizedBox() : const Center(child: AddScreenWidget()),
                 ],
               ),
             ),
@@ -753,65 +708,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   }
 
   _onShareWithEmptyOrigin(BuildContext context) async {
-    await Share.share("https://play.google.com/store/apps/details?id=com.tencent.ig");
-  }
-
-  String getFormatText(String s) {
-    getConverterAPI(currencyCodeFrom, currencyCodeTo, s);
-    String text1 = text;
-    debugPrint("MyColors.decimalformat-->${MyColors.decimalFormat}");
-    debugPrint("getFormatText-->$s");
-
-    int i = MyColors.monetaryFormat;
-    debugPrint("monetaryFormat-->$i");
-    int afterdecimal = MyColors.decimalFormat;
-
-    // double amount =
-    //       double.parse(s);
-    //
-    // debugPrint("amount-->$amount");
-    CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
-      decimalDigits: afterdecimal,
-      symbol: "",
-    );
-    if (i == 1) {
-      text1 = mformat.format(s.replaceAll(".", ""));
-
-      text1 = text1.replaceAll(",", ",");
-
-      text1 = text1.replaceAll(".", ".");
-
-      return text1;
-    } else if (i == 2) {
-      text1 = mformat.format(s.replaceAll(".", ""));
-      log(text1);
-      text1 = text1.replaceAll(".", " ");
-      log(text1);
-      text1 = text1.replaceAll(",", ".");
-      log(text1);
-      text1 = text1.replaceAll(" ", ",");
-      return text1;
-      //text = text.replaceFirstMapped(".", (match) => "1");
-    } else if (i == 3) {
-      text1 = mformat.format(s.replaceAll(".", ""));
-      text1 = text1.replaceAll(".", "=");
-      log(text1);
-      text1 = text1.replaceAll(",", ".");
-      log(text1);
-      text1 = text1.replaceAll(".", " ");
-      text1 = text1.replaceAll("=", ".");
-
-      log(text1);
-      return text1;
-    } else if (i == 4) {
-      text1 = mformat.format(s.replaceAll(".", ""));
-      log(text1);
-      text1 = text1.replaceAll(",", " ");
-      log(text1);
-      text1 = text1.replaceAll(".", ",");
-      log(text1);
-      return text1;
-    }
-    return text1;
+    await Share.share("https://currencywiki.app/");
   }
 }

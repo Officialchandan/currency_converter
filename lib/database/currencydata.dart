@@ -1,7 +1,4 @@
-import 'dart:convert';
-
-import 'package:currency_converter/Themes/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class DataModel {
   String? name;

@@ -2,15 +2,18 @@
 
 library block_colorpicker;
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/src/utils.dart';
 
-typedef PickerLayoutBuilder = Widget Function(BuildContext context, List<MColor> colors, PickerItem child);
+typedef PickerLayoutBuilder = Widget Function(
+    BuildContext context, List<MColor> colors, PickerItem child);
 typedef PickerItem = Widget Function(MColor color);
-typedef PickerItemBuilder = Widget Function(MColor color, bool isCurrentColor, void Function() changeColor);
+typedef PickerItemBuilder = Widget Function(
+    MColor color, bool isCurrentColor, void Function() changeColor);
 
 class UnlockColorPicker extends StatefulWidget {
   const UnlockColorPicker({
@@ -27,15 +30,28 @@ class UnlockColorPicker extends StatefulWidget {
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
 
-  static Widget defaultLayoutBuilder(BuildContext context, List<MColor> colors, PickerItem child) {
+  static Widget defaultLayoutBuilder(
+      BuildContext context, List<MColor> colors, PickerItem child) {
     Orientation orientation = MediaQuery.of(context).orientation;
 
+    double heightFactor = 1;
+
+    heightFactor = (colors.length / 5);
+
+    int r = colors.length % 5;
+
+    if (r != 0) {
+      heightFactor = heightFactor.toInt() + 1;
+    } else {
+      heightFactor = heightFactor.floorToDouble();
+    }
+
     return IntrinsicHeight(
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.09,
+      child: SizedBox(
+        height: (MediaQuery.of(context).size.height * 0.09) * heightFactor,
 
         child: GridView.count(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.all(0),
           //physics: NeverScrollableScrollPhysics(),
           crossAxisSpacing: 0,
@@ -52,7 +68,8 @@ class UnlockColorPicker extends StatefulWidget {
     );
   }
 
-  static Widget defaultItemBuilder(MColor color, bool isCurrentColor, void Function() changeColor) {
+  static Widget defaultItemBuilder(
+      MColor color, bool isCurrentColor, void Function() changeColor) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -63,6 +80,22 @@ class UnlockColorPicker extends StatefulWidget {
           MyColors.densitycheck = false;
 
           changeColor();
+        },
+        onLongPress: () {
+          debugPrint("longpresss---->");
+          BotToast.showText(
+            text: "#${color.mainColor.value.toRadixString(16)}",
+            animationDuration: const Duration(milliseconds: 100),
+            align: const Alignment(0.0, 0.74),
+            contentColor: Colors.black.withOpacity(0.9),
+            contentPadding: const EdgeInsets.all(10.0),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+              fontSize: 17.0,
+            ),
+            borderRadius: BorderRadius.circular(8.0),
+          );
         },
         child: Container(
           height: 60,
@@ -82,7 +115,9 @@ class UnlockColorPicker extends StatefulWidget {
             child: MyColors.unclockCheck
                 ? Icon(
                     Icons.done,
-                    color: useWhiteForeground(color.mainColor) ? Colors.white : Colors.black,
+                    color: useWhiteForeground(color.mainColor)
+                        ? Colors.white
+                        : Colors.black,
                   )
                 : Text(
                     "        ",
@@ -122,8 +157,8 @@ class _UnlockColorPickerState extends State<UnlockColorPicker> {
     return widget.layoutBuilder(
       context,
       widget.availableColors,
-      (MColor color, [bool? _, Function? __]) =>
-          widget.itemBuilder(color, _currentColor.mainColor == color.mainColor, () => changeColor(color)),
+      (MColor color, [bool? _, Function? __]) => widget.itemBuilder(color,
+          _currentColor.mainColor == color.mainColor, () => changeColor(color)),
     );
   }
 }

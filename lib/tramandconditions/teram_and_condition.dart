@@ -14,7 +14,8 @@ class TeramAndCondition extends StatefulWidget {
   _TeramAndConditionState createState() => _TeramAndConditionState();
 }
 
-class _TeramAndConditionState extends State<TeramAndCondition> with SingleTickerProviderStateMixin {
+class _TeramAndConditionState extends State<TeramAndCondition>
+    with SingleTickerProviderStateMixin {
   late TabController _tabControllers;
 
   List<String> tabs = ["support".tr(), "terms".tr(), "privacy_policy".tr()];
@@ -42,7 +43,9 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
             Container(
               height: 40,
               decoration: BoxDecoration(
-                color: MyColors.darkModeCheck ? const Color(0xff545763) : MyColors.textColor.withOpacity(.8),
+                color: MyColors.isDarkMode
+                    ? const Color(0xff545763)
+                    : MyColors.textColor.withOpacity(.8),
                 borderRadius: BorderRadius.circular(
                   7.0,
                 ),
@@ -55,20 +58,21 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
                 ),
                 labelColor: Colors.white,
                 labelPadding: const EdgeInsets.all(0),
-                unselectedLabelColor: MyColors.darkModeCheck ? const Color(0xff545763) : Colors.transparent,
+                unselectedLabelColor: MyColors.isDarkMode
+                    ? const Color(0xff545763)
+                    : Colors.transparent,
                 tabs: tabs
                     .map(
                       (e) => Container(
                         width: MediaQuery.of(context).size.width * 0.30,
                         alignment: Alignment.center,
-                        padding: const EdgeInsets.all(0),
-                        child: AutoSizeText(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
                           e,
                           maxLines: 1,
-                          maxFontSize: 14,
                           textAlign: TextAlign.center,
-                          minFontSize: 10,
                           textScaleFactor: Constants.textScaleFactor,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 14,
                             color: MyColors.colorPrimary,
@@ -81,11 +85,14 @@ class _TeramAndConditionState extends State<TeramAndCondition> with SingleTicker
               ),
             ),
             Expanded(
-              child: TabBarView(physics: const NeverScrollableScrollPhysics(), controller: _tabControllers, children: const [
-                SupportPage(),
-                TermsPage(),
-                PrivacyPolicyPage(),
-              ]),
+              child: TabBarView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: _tabControllers,
+                  children: const [
+                    SupportPage(),
+                    TermsPage(),
+                    PrivacyPolicyPage(),
+                  ]),
             )
           ],
         ),
