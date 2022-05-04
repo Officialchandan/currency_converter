@@ -35,7 +35,7 @@ class Constants {
   static const String fontMedium = "fontMedium";
   static const String fontLarge = "fontLarge";
   static const String selectedLockedColor = "selected_locked_color";
-
+  static const String primaryColorCode = "primaryColorCode";
   static String dateFormat = mmDdYyyy;
   static String selectedFontSize = fontSmall;
   static double textScaleFactor = 0.9;

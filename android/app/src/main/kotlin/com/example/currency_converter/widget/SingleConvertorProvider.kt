@@ -199,7 +199,10 @@ class SingleConvertorProvider : HomeWidgetProvider() {
 
                 val widgetInfo = appWidgetManager.getAppWidgetInfo(widgetId)
 //                val colorFrom: Int = Utility.getIntegerPref("color_code_start", context!!)
-                val colorcode = Utility.getStringPref("primaryColorCode", context!!)
+                var colorcode = Utility.getStringPref("primaryColorCode", context!!)
+                if(colorcode.isEmpty()){
+                    colorcode = "ff4e7dcb"
+                }
                 Log.e(javaClass.name, "colorcode-->$colorcode")
 
                 val colorFrom: Int = Color.parseColor("#$colorcode")

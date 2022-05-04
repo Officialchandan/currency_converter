@@ -265,7 +265,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getTheme() async {
-    // await Utility.getColorTheme();
+    await Utility.getColorTheme();
 
     int red = MyColors.colorPrimary.red;
     int blue = MyColors.colorPrimary.blue;

@@ -85,7 +85,12 @@ class ListWidgetConfigActivity : AppCompatActivity() {
 
     private fun initView(appWidgetId: Int) {
 
-        val colorCode = Utility.getStringPref("primaryColorCode", this)
+        var colorCode = Utility.getStringPref("primaryColorCode", this)
+
+        if(colorCode.isEmpty()){
+            colorCode = "ff4e7dcb"
+        }
+
         val color: Int = Color.parseColor("#$colorCode")
         val colorTran = Utility.getColorWithAlpha(color, 1f)
         var gd = Utility.getWidgetGradientDrawable(colorTran, 0, 0, 0f);
