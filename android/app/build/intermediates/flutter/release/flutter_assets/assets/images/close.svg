@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16.265" height="16.265" viewBox="0 0 16.265 16.265">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="16.265" height="16.265" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="close" clip-path="url(#clip-path)">
+    <rect id="Rectangle_759" data-name="Rectangle 759" width="20.547" height="2.455" transform="translate(16.265 1.736) rotate(135)" fill="#967af3"/>
+    <rect id="Rectangle_760" data-name="Rectangle 760" width="20.547" height="2.455" transform="translate(1.736 0) rotate(45)" fill="#967af3"/>
+  </g>
+</svg>
