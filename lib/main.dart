@@ -73,9 +73,9 @@ void main() async {
   await insertion();
 
   runApp(EasyLocalization(
-      child: MyApp(),
+      child: const MyApp(),
       path: "assets/language",
-      fallbackLocale: Locale('en'),
+      fallbackLocale: const Locale('en'),
       useFallbackTranslations: true,
       useOnlyLangCode: true,
       supportedLocales: Locals.supportedLang));
