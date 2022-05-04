@@ -62,7 +62,9 @@ class _AddScreenWidget extends State<AddScreenWidget> {
 
   @override
   void dispose() {
-    _bannerAd.dispose();
+    if (Constants.isPurchase == "[]") {
+      _bannerAd.dispose();
+    }
     super.dispose();
   }
 }

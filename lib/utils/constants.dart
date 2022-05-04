@@ -9,7 +9,7 @@ class Constants {
   // static PurchaseDetails? previousPurchase;
   static bool removeAdsTrue = false;
   static bool removeAd = false;
-  static var isPurchase = "";
+  static String isPurchase = "[]";
   static const String isIndexTrue = "isIndexTrue";
   static const String isDarkMode = "isDarkMode";
   static const String SELECTED_CODE = "SELECTED_CODE";
