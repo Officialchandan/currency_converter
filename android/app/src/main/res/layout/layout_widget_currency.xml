@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/widget_item"
+	android:layout_width="match_parent"
+	android:padding="@dimen/_4sdp"
+	android:layout_height="wrap_content">
+
+	<ImageView
+		android:id="@+id/img_flag"
+		android:layout_width="@dimen/_30sdp"
+		android:layout_height="@dimen/_30sdp"
+		android:layout_alignParentLeft="true"
+		android:layout_centerVertical="true"
+		android:scaleType="centerCrop"
+		android:src="@drawable/ic_united_states_of_america"
+		/>
+
+	<TextView
+		android:id="@+id/txt_code"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_marginLeft="@dimen/_5sdp"
+		android:layout_toRightOf="@+id/img_flag"
+		android:text="@string/usd"
+		android:textSize="@dimen/_16sdp" />
+
+	<TextView
+		android:id="@+id/txtRate"
+		style="@style/boldTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:text="254.55"
+		android:textSize="@dimen/_13sdp"
+		/>
+
+	<TextView
+		android:id="@+id/txtPercent"
+		style="@style/boldTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/txtRate"
+		android:layout_alignParentRight="true"
+		android:text="+155.5555"
+		android:textSize="@dimen/_10sdp"
+		/>
+
+</RelativeLayout>

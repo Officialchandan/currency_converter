@@ -144,7 +144,7 @@ class _LockColorPickerState extends State<LockColorPicker> {
   }
 
   void getColorFromPreference() async {
-    colorPreference = await Utility.getTryColorPreference("Color");
+    colorPreference = await Utility.getStringPreference("Color");
     Color? c;
     LColor? lockcolor;
 

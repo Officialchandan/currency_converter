@@ -3,6 +3,7 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SupportPage extends StatefulWidget {
   const SupportPage({Key? key}) : super(key: key);
@@ -30,6 +31,9 @@ class _SupportPageState extends State<SupportPage> {
           ),
           child: HtmlWidget(
             "html_support".tr().toString(),
+            onTapUrl: (url) {
+              return _launchURL(url);
+            },
             textStyle: TextStyle(
               color: MyColors.textColor,
               fontSize: 15,
@@ -38,5 +42,13 @@ class _SupportPageState extends State<SupportPage> {
         ),
       )),
     );
+  }
+
+  Future<bool> _launchURL(String url) async {
+    try {
+      return await launch(url);
+    } catch (e) {
+      return false;
+    }
   }
 }

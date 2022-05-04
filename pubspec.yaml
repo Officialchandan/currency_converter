@@ -67,7 +67,16 @@ dependencies:
   advertising_id: ^2.1.1
   get: any
   in_app_purchase: ^2.0.1
-  in_app_purchase_ios: 0.2.0+1   
+  in_app_purchase_ios: 0.2.0+1
+
+  #For App widget
+  home_widget:
+  workmanager:
+
+  flutter_echarts:
+  syncfusion_flutter_charts:
+  syncfusion_flutter_core:
+
 dev_dependencies:
 
   flutter_test:

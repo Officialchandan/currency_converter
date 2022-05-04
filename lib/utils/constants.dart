@@ -26,6 +26,7 @@ class Constants {
   static const String fontSmall = "fontSmall";
   static const String fontMedium = "fontMedium";
   static const String fontLarge = "fontLarge";
+  static const String primaryColorCode = "primaryColorCode";
   static String dateFormat = mmDdYyyy;
   static String selectedFontSize = fontSmall;
   static double textScaleFactor = 0.9;

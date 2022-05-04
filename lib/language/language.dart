@@ -46,7 +46,7 @@ class _LanguageState extends State<Language> {
                 onTap: () async {
                   for (int i = 0; i < Locals.icon.length; i++) {
                     if (index == i) {
-                      Utility.setLangIndexPreference("LanuageIndex", index);
+                      Utility.setIntPreference("LanuageIndex", index);
                       Locals.icon[i] = true;
                     } else {
                       Locals.icon[i] = false;

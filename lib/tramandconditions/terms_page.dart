@@ -18,6 +18,14 @@ class _TermsPageState extends State<TermsPage> {
     super.initState();
   }
 
+  Future<bool> _launchURL(String url) async {
+    try {
+      return await launch(url);
+    } catch (e) {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,57 +37,14 @@ class _TermsPageState extends State<TermsPage> {
                 data: MediaQuery.of(context).copyWith(
                   textScaleFactor: Constants.textScaleFactor,
                 ),
-                child: HtmlWidget("html_terms".tr().toString(),
+                child: HtmlWidget("html_terms".tr().toString(), onTapUrl: (url) {
+                  return _launchURL(url);
+                },
                     textStyle: TextStyle(
                       color: MyColors.textColor,
                       fontSize: 15,
                     )),
               ))),
     );
-  }
-
-  _launchURL() async {
-    const url = 'https://freeicons.io/profile/3335';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL1() async {
-    const url = 'https://freeicons.io/profile/3';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL3() async {
-    const url = 'https://www.flaticon.com';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL4() async {
-    const url = 'https://www.freepik.com';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL5() async {
-    const url = 'https://www.amcharts.com/';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

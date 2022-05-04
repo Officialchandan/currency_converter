@@ -9,6 +9,7 @@ import 'package:currency_converter/pages/my_currency.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -397,6 +398,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   getColorTheme() async {
     final prefs = await SharedPreferences.getInstance();
     theme = prefs.getString(Constants.themeColor) ?? "";
+
     debugPrint("color->>>> $theme");
 
     if (theme.isNotEmpty) {
@@ -404,6 +406,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       var code = (value.toRadixString(16));
       debugPrint("color code ->>>>$code");
       MyColors.colorPrimary = Color(int.parse("0x$code"));
+      Utility.setStringPreference(Constants.primaryColorCode, MyColors.colorPrimary.value.toRadixString(16));
     } else {
       debugPrint("color is empty");
     }

@@ -6,19 +6,18 @@ import 'package:currency_converter/in_app_parchase/in_methods_app.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
-import 'package:in_app_purchase_android/billing_client_wrappers.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 class CustomColorPicker extends StatefulWidget {
   final Function onThemeChange;
-  const CustomColorPicker({required this.onThemeChange, Key? key})
-      : super(key: key);
+  const CustomColorPicker({required this.onThemeChange, Key? key}) : super(key: key);
 
   @override
   _CustomColorPickerState createState() => _CustomColorPickerState();
@@ -40,8 +39,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
         height: MediaQuery.of(context).size.height * 0.695,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
-              margin: const EdgeInsets.only(
-                  top: 15, right: 10, bottom: 0, left: 10),
+              margin: const EdgeInsets.only(top: 15, right: 10, bottom: 0, left: 10),
               child: ColorPicker(
                 pickerColor: currentColor,
                 onColorChanged: changeColor,
@@ -69,15 +67,13 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                   ),
                   onPressed: () {
                     MyColors.lockColorfordefault = currentColor;
-                    Utility.setTryColorPreference(
-                        "Color", currentColor.value.toRadixString(16));
+                    Utility.setStringPreference("Color", currentColor.value.toRadixString(16));
 
                     int red = currentColor.red;
                     int blue = currentColor.blue;
                     int green = currentColor.green;
 
-                    var grayscale =
-                        (0.299 * red) + (0.587 * green) + (0.114 * blue);
+                    var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
                     print("************************-> $grayscale");
 
                     if (grayscale > 170) {
@@ -99,20 +95,14 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                       // statusBarIconBrightness: MyColors.lightModeCheck?Brightness.light:Brightness.dark,
                       //
                       //
-                      systemNavigationBarIconBrightness: MyColors.lightModeCheck
-                          ? Brightness.light
-                          : Brightness.dark,
+                      systemNavigationBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
 
-                      systemNavigationBarColor:
-                          MyColors.colorPrimary, // navigation bar color
+                      systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
                       statusBarColor: MyColors.colorPrimary, // status bar color
                     ));
                     widget.onThemeChange();
 
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (_) => MyTabBarWidget()),
-                        (route) => false);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
                   },
                 ),
               ),
@@ -122,20 +112,15 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                       onPressed: () async {
                         debugPrint("PRESSED UNLOCK BUTTON");
                         Map<String, PurchaseDetails> purchases =
-                            Map.fromEntries(InMethodsApp.purchases
-                                .map((PurchaseDetails purchase) {
+                            Map.fromEntries(InMethodsApp.purchases.map((PurchaseDetails purchase) {
                           if (purchase.pendingCompletePurchase) {
-                            InMethodsApp.inAppPurchase
-                                .completePurchase(purchase);
+                            InMethodsApp.inAppPurchase.completePurchase(purchase);
                           }
-                          return MapEntry<String, PurchaseDetails>(
-                              purchase.productID, purchase);
+                          return MapEntry<String, PurchaseDetails>(purchase.productID, purchase);
                         }));
 
-                        InMethodsApp.productList.addAll(InMethodsApp.products
-                            .map((ProductDetails productDetails) {
-                          PurchaseDetails? previousPurchase =
-                              purchases[productDetails.id];
+                        InMethodsApp.productList.addAll(InMethodsApp.products.map((ProductDetails productDetails) {
+                          PurchaseDetails? previousPurchase = purchases[productDetails.id];
 
                           if (previousPurchase != null) {
                             InMethodsApp().confirmPriceChange(context);
@@ -143,19 +128,15 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                             late PurchaseParam purchaseParam;
 
                             if (Platform.isAndroid) {
-                              final oldSubscription = InMethodsApp()
-                                  .getOldSubscription(
-                                      productDetails, purchases);
+                              final oldSubscription = InMethodsApp().getOldSubscription(productDetails, purchases);
 
                               purchaseParam = GooglePlayPurchaseParam(
                                   productDetails: productDetails,
                                   applicationUserName: null,
-                                  changeSubscriptionParam: (oldSubscription !=
-                                          null)
+                                  changeSubscriptionParam: (oldSubscription != null)
                                       ? ChangeSubscriptionParam(
                                           oldPurchaseDetails: oldSubscription,
-                                          prorationMode: ProrationMode
-                                              .immediateWithTimeProration,
+                                          prorationMode: ProrationMode.immediateWithTimeProration,
                                         )
                                       : null);
                             } else {
@@ -202,11 +183,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 "cpv_presets".tr().toString().toUpperCase(),
                 maxLines: 1,
                 textScaleFactor: Constants.textScaleFactor,
-                style: const TextStyle(
-                    letterSpacing: 0.8,
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700),
+                style: const TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),
           ),

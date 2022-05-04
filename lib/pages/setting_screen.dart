@@ -145,7 +145,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               setState(() {
                                 MyColors.removeAd = value;
 
-                                Utility.setMulticonverter(
+                                Utility.setBooleanPreference(
                                     Constants.REMOVE_AD, MyColors.removeAd);
                               });
                               if (MyColors.removeAd == true) {
@@ -166,7 +166,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   PurchaseDetails? previousPurchase =
                                       purchases[productDetails.id];
 
-                                  Utility.setMulticonverter(
+                                  Utility.setBooleanPreference(
                                       Constants.REMOVE_AD, MyColors.removeAd);
 
                                   if (previousPurchase != null) {
@@ -1000,7 +1000,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       onChanged: (value) async {
                                         setState(() {
                                           MyColors.muliConverter = value;
-                                          Utility.setMulticonverter(
+                                          Utility.setBooleanPreference(
                                               Constants.MultiConverter,
                                               MyColors.muliConverter);
                                         });
@@ -1097,13 +1097,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.displaysymbol = false;
                                         }
                                       });
-                                      Utility.setBoolDisplayCodePreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_CODE,
                                           MyColors.displaycode);
-                                      Utility.setBoolDisplayflagPreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_FLAG,
                                           MyColors.displayflag);
-                                      Utility.setBoolDisplaysymbolPreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_SYMBOL,
                                           MyColors.displaysymbol);
                                     },
@@ -1156,13 +1156,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                           MyColors.displaycode = false;
                                         }
                                       });
-                                      Utility.setBoolDisplayCodePreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_CODE,
                                           MyColors.displaycode);
-                                      Utility.setBoolDisplayflagPreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_FLAG,
                                           MyColors.displayflag);
-                                      Utility.setBoolDisplaysymbolPreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_SYMBOL,
                                           MyColors.displaysymbol);
                                     },
@@ -1205,13 +1205,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                               !MyColors.displayflag;
                                         }
                                       });
-                                      Utility.setBoolDisplayCodePreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_CODE,
                                           MyColors.displaycode);
-                                      Utility.setBoolDisplayflagPreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_FLAG,
                                           MyColors.displayflag);
-                                      Utility.setBoolDisplaysymbolPreference(
+                                      Utility.setBooleanPreference(
                                           Constants.SELECTED_SYMBOL,
                                           MyColors.displaysymbol);
                                     },

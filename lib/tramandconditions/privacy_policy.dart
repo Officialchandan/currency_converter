@@ -31,6 +31,9 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             ),
             child: HtmlWidget(
               "html_policy".tr().toString(),
+              onTapUrl: (url) {
+                return _launchURL(url);
+              },
               textStyle: TextStyle(
                 color: MyColors.textColor,
                 fontSize: 15,
@@ -40,93 +43,11 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
         ));
   }
 
-  _launchURL() async {
-    const url = 'https://policies.google.com/privacy';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL1() async {
-    const url = 'https://policies.google.com/privacy';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL2() async {
-    const url = 'https://policies.google.com/privacy';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL3() async {
-    const url = 'https://support.google.com/analytics/answer/6004245';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL4() async {
-    const url = 'https://policies.google.com/technologies/partner-sites';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL5() async {
-    const url = 'https://www.facebook.com/about/privacy';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL6() async {
-    const url = 'https://support.google.com/ads/answer/2662922?hl=en';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL7() async {
-    const url = 'https://policies.google.com/technologies/partner-sites';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL8() async {
-    const url = 'https://www.facebook.com/about/privacy';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURL9() async {
-    const url = 'https://www.google.com/policies/privacy/';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
+  Future<bool> _launchURL(String url) async {
+    try {
+      return await launch(url);
+    } catch (e) {
+      return false;
     }
   }
 }

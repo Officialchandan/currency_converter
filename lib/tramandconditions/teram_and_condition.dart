@@ -14,8 +14,7 @@ class TeramAndCondition extends StatefulWidget {
   _TeramAndConditionState createState() => _TeramAndConditionState();
 }
 
-class _TeramAndConditionState extends State<TeramAndCondition>
-    with SingleTickerProviderStateMixin {
+class _TeramAndConditionState extends State<TeramAndCondition> with SingleTickerProviderStateMixin {
   late TabController _tabControllers;
 
   List<String> tabs = ["support".tr(), "terms".tr(), "privacy_policy".tr()];
@@ -43,9 +42,7 @@ class _TeramAndConditionState extends State<TeramAndCondition>
             Container(
               height: 40,
               decoration: BoxDecoration(
-                color: MyColors.darkModeCheck
-                    ? const Color(0xff545763)
-                    : MyColors.textColor.withOpacity(.8),
+                color: MyColors.darkModeCheck ? const Color(0xff545763) : MyColors.textColor.withOpacity(.8),
                 borderRadius: BorderRadius.circular(
                   7.0,
                 ),
@@ -58,9 +55,7 @@ class _TeramAndConditionState extends State<TeramAndCondition>
                 ),
                 labelColor: Colors.white,
                 labelPadding: const EdgeInsets.all(0),
-                unselectedLabelColor: MyColors.darkModeCheck
-                    ? const Color(0xff545763)
-                    : Colors.transparent,
+                unselectedLabelColor: MyColors.darkModeCheck ? const Color(0xff545763) : Colors.transparent,
                 tabs: tabs
                     .map(
                       (e) => Container(
@@ -86,14 +81,11 @@ class _TeramAndConditionState extends State<TeramAndCondition>
               ),
             ),
             Expanded(
-              child: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: _tabControllers,
-                  children: const [
-                    SupportPage(),
-                    TermsPage(),
-                    PrivacyPolicyPage(),
-                  ]),
+              child: TabBarView(physics: const NeverScrollableScrollPhysics(), controller: _tabControllers, children: const [
+                SupportPage(),
+                TermsPage(),
+                PrivacyPolicyPage(),
+              ]),
             )
           ],
         ),

@@ -8,24 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Utility {
-  static Future<bool> getRemoveAd(String key) async {
+  static Future<bool> setStringPreference(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(key) ?? false;
-  }
-
-  static Future<bool> setRemoveAd(String key, bool removeAd) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(key, removeAd);
-  }
-
-  static Future<bool> getMulticonverter(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(key) ?? false;
-  }
-
-  static Future<bool> setMulticonverter(String key, bool multi) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(key, multi);
+    return prefs.setString(key, value);
   }
 
   static Future<String> getStringPreference(String key) async {
@@ -33,32 +18,9 @@ class Utility {
     return prefs.getString(key) ?? "";
   }
 
-  ///********* */
-
-  static Future<String> getAdId(String id) async {
+  static Future<bool> setBooleanPreference(String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(id) ?? "";
-  }
-
-  static Future<bool> setAdId(String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(key, value);
-  }
-
-  static Future<bool> setStringPreference(String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(key, value);
-  }
-
-  static Future<String> getStringPreferenceForDensityColor(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? "0xff4e7dcb";
-  }
-
-  static Future<bool> setStringPreferenceForDensityColor(
-      String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(key, value);
+    return prefs.setBool(key, value);
   }
 
   static Future<bool> getBooleanPreference(String key) async {
@@ -66,29 +28,14 @@ class Utility {
     return prefs.getBool(key) ?? false;
   }
 
-  static Future<bool> setBooleanPreference(String key, bool value) async {
+  static Future<bool> setIntPreference(String key, int value) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(key, value);
-  }
-
-  static Future<String> getTryColorPreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? "";
-  }
-
-  static Future<bool> setTryColorPreference(String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(key, value);
+    return prefs.setInt(key, value);
   }
 
   static Future<int> getIntPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getInt(key) ?? 0;
-  }
-
-  static Future<bool> setIntPreference(String key, int value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setInt(key, value);
   }
 
   static Future<int> getLangIndexPreference(String key) async {
@@ -99,90 +46,6 @@ class Utility {
   static Future<bool> setLangIndexPreference(String key, int value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setInt(key, value);
-  }
-
-  static Future<String> getSymbolFromPreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? "\$";
-  }
-
-  static Future<bool> setSymbolFromPreference(String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(key, value);
-  }
-
-  static Future<String> getSymboltoPreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? "€";
-  }
-
-  static Future<bool> setSymboltoPreference(String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(key, value);
-  }
-
-  static Future<int> getMonetaryValuePreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(key) ?? 1;
-  }
-
-  static Future<bool> setMonetaryValuePreference(String key, int value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setInt(key, value);
-  }
-
-  static Future<int> getDecimalValuePreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(key) ?? 2;
-  }
-
-  static Future<bool> setDecimalValuePreference(String key, int value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setInt(key, value);
-  }
-
-  static Future<String> getFormatExmaplePreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key) ?? "123456.02";
-  }
-
-  static Future<bool> setFormatExmaplePreference(
-      String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(key, value);
-  }
-
-  static Future<bool> getBoolDisplayCodePreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(key) ?? true;
-  }
-
-  static Future<bool> setBoolDisplayCodePreference(
-      String key, bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(key, value);
-  }
-
-  static Future<bool> getBoolDisplayflagPreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(key) ?? false;
-  }
-
-  static Future<bool> setBoolDisplayflagPreference(
-      String key, bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(key, value);
-  }
-
-  static Future<bool> getBoolDisplaysymbolPreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(key) ?? false;
-  }
-
-  static Future<bool> setBoolDisplaysymbolPreference(
-      String key, bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(key, value);
   }
 
   static Future getColorTheme() async {
@@ -198,34 +61,25 @@ class Utility {
     } else {
       debugPrint("color is empty");
     }
+    setStringPreference(Constants.primaryColorCode, MyColors.colorPrimary.value.toRadixString(16));
   }
 
   static String getFormatDate() {
     DateTime dateTime = DateTime.now();
     if (Constants.dateFormat == Constants.ddMmYyyy) {
-      String date = DateFormat('dd/MM/yyyy').format(dateTime).toString();
-      debugPrint("date--> $date");
-      return date;
+      return DateFormat('dd/MM/yyyy').format(dateTime).toString();
     } else {
-      String date = DateFormat('MM/dd/yyyy').format(dateTime).toString();
-      debugPrint("date--> $date");
-      return date;
+      return DateFormat('MM/dd/yyyy').format(dateTime).toString();
     }
   }
 
   static String getFormatText(String s) {
     String text1 = "";
-    debugPrint("MyColors.decimalformat-->${MyColors.decimalFormat}");
-    debugPrint("getFormatText-->$s");
 
     int i = MyColors.monetaryFormat;
-    debugPrint("monetaryFormat-->$i");
+
     int afterdecimal = MyColors.decimalFormat;
 
-    // double amount =
-    //       double.parse(s);
-    //
-    // debugPrint("amount-->$amount");
     CurrencyTextInputFormatter mformat = CurrencyTextInputFormatter(
       decimalDigits: afterdecimal,
       symbol: "",
@@ -276,8 +130,7 @@ class Utility {
 
     final hsl = HSLColor.fromColor(color);
 
-    final hslLight =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
 
     return hslLight.toColor();
   }
