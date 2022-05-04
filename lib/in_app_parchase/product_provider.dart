@@ -132,7 +132,7 @@ class InAppProvider with ChangeNotifier {
           'type': describeEnum(_TypeInApp.subs),
         },
       );
-      log("getInappPurchaseHistory-->$getInappPurchaseHistory");
+      log("getInAppPurchaseHistory-->$getInappPurchaseHistory");
       // items = await FlutterInappPurchase.instance.getPurchaseHistory();
       Constants.isPurchase = getInappPurchaseHistory;
       notifyListeners();
