@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<LinearLayout
+		android:id="@+id/containerView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		tools:context=".activity.SelectCurrencyActivity">
+
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appBar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/colorPrimary">
+
+			<Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="54dp"
+				android:background="@color/colorPrimary">
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+
+					<ImageButton
+						android:id="@+id/img_back"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:background="@android:color/transparent"
+						android:src="@drawable/ic_back_light"
+
+						/>
+
+					<androidx.appcompat.widget.AppCompatButton
+						android:id="@+id/btnAddWidget"
+						style="@style/myButton"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:background="@android:color/transparent"
+						android:text="@string/add_widget"
+						android:textColor="@color/white"
+						android:textSize="@dimen/_13sdp"
+						/>
+				</RelativeLayout>
+			</Toolbar>
+		</com.google.android.material.appbar.AppBarLayout>
+
+		<androidx.core.widget.NestedScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+
+			android:fillViewport="true"
+			>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="@dimen/_15sdp">
+
+				<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/txtSelect"
+					style="@style/boldTextView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingBottom="@dimen/_10sdp"
+					android:text="@string/selected"
+					android:textSize="@dimen/_14sdp"
+					/>
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/recyclerSelected"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/_3sdp"
+					android:layout_marginBottom="@dimen/_3sdp"
+					android:clipToPadding="false"
+					android:nestedScrollingEnabled="false"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					/>
+
+				<androidx.appcompat.widget.AppCompatTextView
+					android:id="@+id/txtUnSelect"
+					style="@style/boldTextView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingTop="@dimen/_10sdp"
+					android:paddingBottom="@dimen/_10sdp"
+					android:text="@string/currency_list"
+					android:textSize="@dimen/_14sdp"
+					/>
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/recyclerUnSelected"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/_1sdp"
+					android:clipToPadding="false"
+					android:nestedScrollingEnabled="false"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					/>
+
+			</LinearLayout>
+		</androidx.core.widget.NestedScrollView>
+
+		<ProgressBar
+			android:id="@+id/progressBar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:visibility="gone"
+			/>
+
+	</LinearLayout>
+</layout>

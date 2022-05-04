@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".activity.ListWidgetConfigActivity">
+
+	<LinearLayout
+		android:id="@+id/containerView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/colorPrimary"
+		android:orientation="vertical">
+
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appBar"
+			android:layout_width="match_parent"
+			android:layout_height="56dp"
+			android:background="@color/colorPrimary"
+			>
+
+			<Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="56dp"
+				android:background="@color/colorPrimary"
+				>
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+
+					<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/txtToolbar"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:layout_marginEnd="@dimen/_37sdp"
+						android:text="@string/title_select_base_currency"
+						android:textColor="@color/white"
+						android:textSize="@dimen/_16sdp"
+						/>
+				</RelativeLayout>
+			</Toolbar>
+		</com.google.android.material.appbar.AppBarLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="@dimen/_15sdp">
+
+			<TextView
+				android:id="@+id/txtTitleBaseCurrency"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/title_select_base_currency"
+				android:textColor="#FFFFFF"
+				android:textSize="@dimen/_16sdp"
+				android:textStyle="bold"
+				/>
+
+			<RelativeLayout
+				android:id="@+id/layout_base_currency"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/_4sdp"
+				android:background="@drawable/white_round"
+				android:padding="@dimen/_6sdp">
+
+				<com.google.android.material.imageview.ShapeableImageView
+					android:id="@+id/img_flag"
+					android:layout_width="@dimen/_30sdp"
+					android:layout_height="@dimen/_30sdp"
+					android:layout_alignParentLeft="true"
+					android:layout_centerVertical="true"
+					android:scaleType="centerCrop"
+					android:src="@drawable/ic_united_states_of_america"
+					/>
+
+				<TextView
+					android:id="@+id/tv_base_currency"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_marginLeft="@dimen/_6sdp"
+					android:layout_marginRight="@dimen/_6sdp"
+					android:layout_toLeftOf="@+id/img_arrow_down"
+					android:layout_toRightOf="@+id/img_flag"
+					android:text="@string/usd"
+					android:textColor="#000000"
+					android:textSize="@dimen/_16sdp" />
+
+				<ImageView
+					android:id="@+id/img_arrow_down"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentRight="true"
+					android:layout_centerVertical="true"
+					android:src="@drawable/arrow_down" />
+
+			</RelativeLayout>
+
+			<TextView
+				android:id="@+id/txtTitleAmount"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/_12sdp"
+				android:text="@string/amount"
+				android:textColor="#FFFFFF"
+				android:textSize="@dimen/_16sdp"
+				android:textStyle="bold"
+				/>
+
+			<androidx.appcompat.widget.AppCompatEditText
+				android:id="@+id/editAmount"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/white_round"
+				android:inputType="numberDecimal"
+				android:paddingStart="@dimen/_6sdp"
+				android:paddingTop="@dimen/_10sdp"
+				android:paddingEnd="@dimen/_6sdp"
+				android:paddingBottom="@dimen/_10sdp"
+				android:text="1"
+				android:textColor="@color/black"
+
+				android:textSize="@dimen/_16sdp"
+				/>
+
+			<androidx.appcompat.widget.AppCompatButton
+				android:id="@+id/btnNext"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="right"
+				android:layout_marginTop="@dimen/_12sdp"
+				android:background="@drawable/white_round"
+				android:paddingHorizontal="@dimen/_18sdp"
+				android:paddingVertical="@dimen/_4sdp"
+				android:text="@string/next"
+				android:textColor="@color/black"
+				android:textSize="@dimen/_13sdp"
+				/>
+
+			<androidx.appcompat.widget.AppCompatTextView
+				android:id="@+id/textSize"
+
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/_8sdp"
+				android:layout_marginTop="@dimen/_22sdp"
+				android:text="@string/visual_size"
+				android:textColor="#FFFFFF"
+				android:textSize="@dimen/_16sdp"
+				android:textStyle="bold"
+				/>
+
+			<LinearLayout
+				android:id="@+id/sizeView1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginTop="@dimen/_6sdp"
+				android:background="@drawable/transparent_layout_background"
+				android:orientation="horizontal"
+				android:padding="@dimen/_10sdp"
+				>
+
+				<RadioGroup
+					android:id="@+id/radioGroup"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:layout_gravity="center"
+					android:gravity="center"
+					android:weightSum="5">
+
+					<RadioButton
+						android:id="@+id/radio_small"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:button="@drawable/radiobuttonstyle"
+						android:checked="true"
+						android:text="A"
+						android:textColor="#FFFFFF"
+						android:textSize="@dimen/font_size_small"
+
+						/>
+
+					<RadioButton
+						android:id="@+id/radio_medium"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:button="@drawable/radiobuttonstyle"
+						android:text="A"
+						android:textColor="#FFFFFF"
+						android:textSize="@dimen/font_size_medium"
+
+						/>
+
+					<RadioButton
+						android:id="@+id/radio_large"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:button="@drawable/radiobuttonstyle"
+						android:text="A"
+						android:textColor="#FFFFFF"
+						android:textSize="@dimen/font_size_large"
+
+						/>
+
+				</RadioGroup>
+			</LinearLayout>
+
+			<androidx.appcompat.widget.AppCompatTextView
+				android:id="@+id/textTransparency"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/_8sdp"
+				android:layout_marginTop="@dimen/_12sdp"
+				android:text="@string/widget_transparency"
+				android:textColor="#FFFFFF"
+				android:textSize="@dimen/_16sdp"
+				android:textStyle="bold"
+				/>
+
+			<LinearLayout
+				android:id="@+id/transparencyView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/_8sdp"
+				android:background="@drawable/transparent_layout_background"
+				android:gravity="center_vertical"
+				android:orientation="horizontal"
+				android:weightSum="10"
+				>
+
+				<RelativeLayout
+					android:layout_width="@dimen/weight0"
+					android:layout_height="wrap_content"
+					android:layout_weight="4">
+
+					<androidx.appcompat.widget.AppCompatSeekBar
+						android:id="@+id/seekBarWidgetOpacity"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_alignParentLeft="true"
+						android:layout_centerVertical="true"
+						android:layout_marginStart="@dimen/_8sdp"
+						android:layout_marginLeft="@dimen/_8sdp"
+						android:layout_toLeftOf="@+id/txtWidgetOpacity"
+						android:progress="0"
+						android:progressDrawable="@drawable/custom_slider"
+						android:thumb="@drawable/slider_thumb"
+						/>
+
+					<androidx.appcompat.widget.AppCompatTextView
+						android:id="@+id/txtWidgetOpacity"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:layout_gravity="center_vertical"
+						android:text="100"
+						android:textColor="@color/white"
+						android:textSize="@dimen/_12sdp"
+
+						/>
+
+				</RelativeLayout>
+
+				<LinearLayout
+					android:id="@+id/widgetContainer"
+					android:layout_width="@dimen/weight0"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="@dimen/_4sdp"
+					android:layout_marginTop="@dimen/_12sdp"
+					android:layout_marginEnd="@dimen/_10sdp"
+					android:layout_marginBottom="@dimen/_12sdp"
+					android:layout_weight="6"
+					android:background="@drawable/currency_widget_background"
+					android:padding="@dimen/_4sdp"
+					>
+
+					<RelativeLayout
+						android:id="@+id/widgetPreview"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@drawable/widget_background"
+						android:padding="@dimen/_4sdp"
+						>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtUSD"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_alignParentTop="true"
+							android:layout_alignParentRight="true"
+							android:layout_marginTop="@dimen/_6sdp"
+							android:layout_marginEnd="@dimen/_6sdp"
+							android:gravity="center_vertical"
+							android:text="@string/_1_usd"
+							android:textStyle="bold"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+							tools:ignore="SpUsage" />
+
+						<View
+							android:id="@+id/view1"
+							android:layout_width="@dimen/weight0"
+							android:layout_height="1dp"
+							android:layout_below="@+id/txtUSD"
+							android:layout_alignParentRight="true"
+							android:background="#FFFFFF"
+							app:layout_constraintEnd_toEndOf="@+id/txtUSD"
+							app:layout_constraintStart_toStartOf="@+id/txtUSD"
+							app:layout_constraintTop_toBottomOf="@+id/txtUSD" />
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtEUR"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/view1"
+							android:layout_alignParentLeft="true"
+							android:layout_marginStart="@dimen/_6sdp"
+							android:layout_marginTop="@dimen/_3sdp"
+							android:drawableStart="@drawable/ic_european_union"
+							android:drawablePadding="@dimen/_4sdp"
+							android:gravity="center_vertical"
+							android:text="EUR"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+							android:textStyle="bold"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtExchange"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/view1"
+							android:layout_alignParentRight="true"
+							android:layout_marginTop="@dimen/_3sdp"
+							android:layout_marginEnd="@dimen/_6sdp"
+							android:text="0.8541"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+							android:textStyle="bold"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtRateExchange"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtExchange"
+							android:layout_alignParentRight="true"
+							android:text="+0.0310"
+							android:textStyle="bold"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_7sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtGbp"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtEUR"
+							android:layout_alignParentLeft="true"
+							android:layout_marginStart="@dimen/_6sdp"
+							android:textStyle="bold"
+							android:layout_marginTop="@dimen/_3sdp"
+							android:drawableStart="@drawable/ic_united_kingdom"
+							android:drawablePadding="@dimen/_4sdp"
+							android:gravity="center_vertical"
+							android:text="GBP"
+							android:textColor="@color/white"
+
+							android:textSize="@dimen/_12sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtExchange1"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtEUR"
+							android:layout_alignParentRight="true"
+							android:layout_marginTop="@dimen/_3sdp"
+							android:textStyle="bold"
+							android:layout_marginEnd="@dimen/_6sdp"
+							android:text="0.7748"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtRateExchange1"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtExchange1"
+							android:layout_alignParentRight="true"
+							android:text="+0.0800"
+							android:textStyle="bold"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_7sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtCad"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtGbp"
+							android:layout_alignParentLeft="true"
+							android:layout_marginStart="@dimen/_6sdp"
+							android:layout_marginTop="@dimen/_3sdp"
+							android:drawableStart="@drawable/ic_canada"
+							android:drawablePadding="@dimen/_4sdp"
+							android:gravity="center_vertical"
+							android:text="CAD"
+							android:textStyle="bold"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtExchange2"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtGbp"
+							android:layout_alignParentRight="true"
+							android:layout_marginTop="@dimen/_3sdp"
+							android:layout_marginEnd="@dimen/_6sdp"
+							android:text="1.3295"
+							android:textStyle="bold"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtRateExchange2"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtExchange2"
+							android:layout_alignParentRight="true"
+							android:text="+0.0540"
+							android:textStyle="bold"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_7sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtBtc"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtCad"
+							android:layout_alignParentLeft="true"
+							android:layout_marginStart="@dimen/_6sdp"
+							android:layout_marginTop="@dimen/_3sdp"
+							android:drawableStart="@drawable/ic_bitcoin_flag"
+							android:drawablePadding="@dimen/_4sdp"
+							android:gravity="center_vertical"
+							android:textStyle="bold"
+							android:text="BTC"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtExchange3"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtCad"
+							android:layout_alignParentRight="true"
+							android:layout_marginTop="@dimen/_3sdp"
+							android:layout_marginEnd="@dimen/_6sdp"
+							android:text="0.0001"
+							android:textStyle="bold"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtRateExchange3"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtExchange3"
+							android:layout_alignParentRight="true"
+							android:text="-0.0590"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_7sdp"
+							android:textStyle="bold"
+							/>
+
+						<androidx.appcompat.widget.AppCompatTextView
+							android:id="@+id/txtBy"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/txtBtc"
+							android:layout_alignParentLeft="true"
+							android:layout_marginStart="@dimen/_6sdp"
+							android:layout_marginTop="@dimen/_6sdp"
+							android:textStyle="bold"
+							android:text="@string/by_currency_wiki"
+							android:textColor="@color/white"
+							android:textSize="@dimen/_12sdp"
+
+							/>
+
+					</RelativeLayout>
+				</LinearLayout>
+
+			</LinearLayout>
+
+		</LinearLayout>
+	</LinearLayout>
+
+</layout>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".activity.SingleWidgetConfigurationActivity"
+	>
+
+	<LinearLayout
+
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="#fff"
+		android:orientation="vertical"
+		>
+
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/app_bar"
+			android:layout_width="match_parent"
+			android:layout_height="56dp"
+			android:layout_alignParentTop="true">
+
+			<Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="56dp"
+				android:background="#4e7dcb"
+				android:gravity="center"
+				app:popupTheme="@style/NormalTheme"
+				>
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<Button
+						android:id="@+id/tv_add_widget"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:layout_gravity="center"
+						android:layout_marginRight="15dp"
+						android:background="@android:color/transparent"
+						android:gravity="center"
+						android:text="@string/add_widget"
+						android:textColor="#ffffff"
+						android:textSize="@dimen/_13sdp"
+						/>
+
+				</RelativeLayout>
+
+			</Toolbar>
+		</com.google.android.material.appbar.AppBarLayout>
+
+		<LinearLayout
+			android:id="@+id/parent_layout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_below="@+id/app_bar"
+			android:background="@drawable/activity_background"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginHorizontal="20dp"
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal"
+				android:visibility="visible"
+				android:weightSum="2">
+
+				<RelativeLayout
+					android:id="@+id/layout_form"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginRight="5dp"
+					android:layout_weight="1"
+
+					android:background="@drawable/currency_widget_background"
+					android:padding="5dp"
+					>
+
+					<com.google.android.material.imageview.ShapeableImageView
+						android:id="@+id/flag_img_from"
+						android:layout_width="35dp"
+						android:layout_height="35dp"
+						android:layout_alignParentLeft="true"
+						android:scaleType="centerCrop"
+						android:src="@drawable/usa_flag"
+						app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+						app:strokeWidth="0dp"
+
+						/>
+
+					<TextView
+						android:id="@+id/tv_currency_code_from"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:layout_marginLeft="10dp"
+						android:layout_toRightOf="@+id/flag_img_from"
+						android:text="USD"
+						android:textColor="#000000"
+						android:textSize="18dp"
+						/>
+
+					<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:src="@drawable/arrow_down" />
+
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:id="@+id/layout_to"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="5dp"
+					android:layout_weight="1"
+					android:background="@drawable/currency_widget_background"
+					android:padding="5dp"
+					>
+
+					<com.google.android.material.imageview.ShapeableImageView
+						android:id="@+id/flag_img_to"
+						android:layout_width="35dp"
+						android:layout_height="35dp"
+						android:layout_alignParentLeft="true"
+						android:background="#00FFFFFF"
+						android:scaleType="centerCrop"
+						android:src="@drawable/ind_flag"
+						app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+						app:strokeWidth="0dp"
+
+						/>
+
+					<TextView
+						android:id="@+id/tv_currency_code_to"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:layout_marginLeft="10dp"
+						android:layout_toRightOf="@+id/flag_img_to"
+						android:text="IND"
+						android:textColor="#000000"
+						android:textSize="18dp"
+						/>
+
+					<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:scaleType="fitXY"
+
+						android:src="@drawable/arrow_down" />
+				</RelativeLayout>
+
+			</LinearLayout>
+
+			<TextView
+				android:id="@+id/tv_visual_size"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:text="@string/visual_size"
+				android:textColor="#FFFFFF"
+				android:textSize="@dimen/_16sdp"
+				android:textStyle="bold"
+				android:visibility="gone"
+				/>
+
+			<LinearLayout
+				android:id="@+id/layout_visual_size"
+				android:layout_width="match_parent"
+				android:layout_height="50dp"
+				android:layout_marginHorizontal="20dp"
+				android:background="@drawable/transparent_layout_background"
+				android:gravity="center_vertical"
+				android:orientation="horizontal"
+				android:visibility="visible">
+
+				<RadioGroup
+					android:id="@+id/radio_group_visual"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:gravity="center"
+					android:orientation="horizontal"
+					android:weightSum="5">
+
+					<RadioButton
+						android:id="@+id/radio_small"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:button="@drawable/radiobuttonstyle"
+						android:checked="true"
+						android:text="A"
+						android:textColor="#FFFFFF"
+						android:textSize="@dimen/font_size_small"
+
+						/>
+
+					<RadioButton
+						android:id="@+id/radio_medium"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:button="@drawable/radiobuttonstyle"
+						android:text="A"
+						android:textColor="#FFFFFF"
+						android:textSize="@dimen/font_size_medium"
+
+						/>
+
+					<RadioButton
+						android:id="@+id/radio_large"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:button="@drawable/radiobuttonstyle"
+						android:text="A"
+						android:textColor="#FFFFFF"
+						android:textSize="@dimen/font_size_large"
+
+						/>
+
+				</RadioGroup>
+
+			</LinearLayout>
+
+			<TextView
+				android:id="@+id/tv_widget_transparency"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:text="@string/widget_transparency"
+				android:textColor="#FFFFFF"
+				android:textSize="@dimen/_16sdp"
+				android:textStyle="bold"
+				android:visibility="visible" />
+
+			<LinearLayout
+				android:id="@+id/layout_widget_transparency"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginHorizontal="20dp"
+				android:background="@drawable/transparent_layout_background"
+				android:orientation="horizontal"
+				android:padding="10dp"
+				android:visibility="visible"
+				android:weightSum="11"
+				>
+
+				<SeekBar
+					android:id="@+id/seekbar"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:layout_margin="0dp"
+					android:layout_weight="4"
+					android:progressDrawable="@drawable/custom_slider"
+					android:thumb="@drawable/slider_thumb"
+
+					/>
+				<!--<com.google.android.material.slider.Slider
+					android:id="@+id/tv_slider"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="3"
+					android:valueFrom="0"
+					android:valueTo="100"
+
+					app:thumbColor="#FFFFFF"
+					app:thumbRadius="8dp"
+					app:trackColorActive="#80FFFFFF"
+					app:trackColorInactive="#FFFFFF" />-->
+
+				<TextView
+					android:id="@+id/tv_slider_value"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:layout_weight="1"
+					android:text="100"
+					android:textColor="#FFFFFF"
+					android:textSize="16dp"
+
+					/>
+
+				<LinearLayout
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="6"
+					android:background="@drawable/currency_widget_background"
+					android:padding="3dp">
+
+					<LinearLayout
+						android:id="@+id/widget_transparency"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@drawable/widget_background"
+						android:orientation="vertical">
+
+						<RelativeLayout
+							android:id="@+id/transparent_layout"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:padding="5dp"
+							>
+
+<!--							<com.google.android.material.imageview.ShapeableImageView-->
+<!--								android:id="@+id/widget_flag_from"-->
+<!--								android:layout_width="27dp"-->
+<!--								android:layout_height="27dp"-->
+<!--								android:layout_alignParentLeft="true"-->
+<!--								android:layout_centerVertical="true"-->
+<!--								android:background="#00FFFFFF"-->
+<!--								android:scaleType="fitXY"-->
+<!--								android:src="@drawable/usa_flag"-->
+<!--								app:shapeAppearanceOverlay="@style/roundedImageViewRounded"-->
+<!--								app:strokeWidth="0dp"-->
+
+<!--								/>-->
+
+							<TextView
+								android:id="@+id/tv_from_widget"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_alignParentLeft="true"
+								android:layout_centerInParent="true"
+								android:layout_marginLeft="8dp"
+								android:drawableLeft="@drawable/ic_united_states_of_america"
+								android:drawablePadding="4dp"
+								android:gravity="center_vertical"
+								android:text="@string/usa"
+								android:textColor="#FFFFFF"
+								android:textSize="@dimen/_12sdp"
+								android:textStyle="bold" />
+
+							<TextView
+								android:id="@+id/tv1"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_centerInParent="true"
+								android:layout_centerVertical="true"
+								android:text="/"
+								android:textColor="#FFFFFF"
+								/>
+
+
+
+							<TextView
+								android:id="@+id/tv_to_widget"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_centerVertical="true"
+								android:layout_marginLeft="8dp"
+								android:drawableLeft="@drawable/ic_european_union"
+								android:layout_toRightOf="@+id/tv1"
+								android:gravity="center_vertical"
+								android:drawablePadding="@dimen/_4sdp"
+								android:text="@string/eur"
+								android:textStyle="bold"
+								android:textColor="#FFFFFF"
+								android:textSize="@dimen/_12sdp"
+
+								/>
+
+						</RelativeLayout>
+
+						<TextView
+							android:id="@+id/tv_rate_widget"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center"
+							android:layout_marginLeft="5dp"
+							android:layout_marginTop="2dp"
+							android:text="0.7895"
+							android:textColor="#FFFFFF"
+							android:textStyle="bold"
+							android:textSize="@dimen/_16sdp"
+
+							/>
+
+						<TextView
+							android:id="@+id/tv_diff_widget"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_gravity="center"
+							android:layout_marginLeft="8dp"
+							android:layout_marginTop="3dp"
+							android:text="\t\t\t-0.7895"
+							android:textColor="#FFFFFF"
+							android:textSize="@dimen/_10sdp"
+
+							/>
+
+						<TextView
+							android:id="@+id/currency_wiki"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="8dp"
+							android:layout_marginTop="4dp"
+							android:text="@string/by_currency_wiki"
+							android:textColor="#FFFFFF"
+							android:textSize="@dimen/_12sdp"
+
+							/>
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<RelativeLayout
+				android:id="@+id/arrow_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginHorizontal="10dp"
+				android:visibility="visible"
+				>
+
+				<ImageView
+					android:id="@+id/img_arrow_from"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentLeft="true"
+					android:layout_marginLeft="25dp"
+					android:src="@drawable/ic_arrow_top" />
+
+				<View
+					android:id="@+id/view"
+					android:layout_width="0dp"
+					android:layout_height="0dp"
+					android:layout_centerHorizontal="true" />
+
+				<ImageView
+					android:id="@+id/img_arrow_to"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="25dp"
+					android:layout_toRightOf="@+id/view"
+					android:src="@drawable/ic_arrow_top" />
+
+			</RelativeLayout>
+
+			<LinearLayout
+				android:id="@+id/layout_countries"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginHorizontal="20dp"
+				android:background="@drawable/currency_widget_background"
+				android:orientation="vertical"
+				android:padding="10dp">
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<EditText
+						android:id="@+id/edt_search"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_alignParentLeft="true"
+						android:layout_marginRight="5dp"
+						android:layout_toLeftOf="@+id/img_clear"
+						android:background="#88ffffff"
+						android:backgroundTint="#88ffffff"
+						android:drawableLeft="@drawable/search"
+						android:drawablePadding="10dp"
+						android:hint="Search"
+						android:padding="5dp"
+						android:textColor="#000000"
+						android:textColorHint="#6A6A6A"
+						android:textSize="15dp"
+						/>
+
+					<ImageView
+						android:id="@+id/img_clear"
+						android:layout_width="18dp"
+						android:layout_height="18dp"
+						android:layout_alignParentRight="true"
+						android:layout_centerVertical="true"
+						android:src="@drawable/ic_close"
+
+						/>
+				</RelativeLayout>
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="#000000"
+
+					/>
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/rv_currency"
+					android:layout_width="match_parent"
+
+					android:layout_height="match_parent" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</LinearLayout>
+</layout>

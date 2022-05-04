@@ -68,7 +68,17 @@ dependencies:
   get: any
   bot_toast: ^4.0.1
   flutter_inapp_purchase: 5.0.0
+
+
+
+  #For App widget
+  home_widget:
+  workmanager:
+
+  flutter_echarts:
   syncfusion_flutter_charts:
+  syncfusion_flutter_core:
+
 dev_dependencies:
 
   flutter_test:

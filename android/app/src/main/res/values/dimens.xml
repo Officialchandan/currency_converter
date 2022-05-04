@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="font_size_small">14sp</dimen>
+	<dimen name="font_size_medium">16sp</dimen>
+	<dimen name="font_size_large">18sp</dimen>
+
+	<!--small font size-->
+	<dimen name="widget_value">17sp</dimen>
+	<dimen name="widget_diff">14sp</dimen>
+	<dimen name="widget_name_size">16sp</dimen>
+	<dimen name="widget_to">16sp</dimen>
+	<dimen name="currency_wiki">14sp</dimen>
+
+	<!--medium font size-->
+	<dimen name="medium_widget_value">18sp</dimen>
+	<dimen name="medium_widget_diff">15sp</dimen>
+	<dimen name="medium_widget_name_size">17sp</dimen>
+	<dimen name="medium_widget_to">17sp</dimen>
+	<dimen name="medium_currency_wiki">15sp</dimen>
+
+	<!--large font size-->
+	<dimen name="large_widget_value">19sp</dimen>
+	<dimen name="large_widget_diff">16sp</dimen>
+	<dimen name="large_widget_name_size">18sp</dimen>
+	<dimen name="large_widget_to">18sp</dimen>
+	<dimen name="large_currency_wiki">16sp</dimen>
+	<dimen name="_14sdp">14dp</dimen>
+	<dimen name="_13sdp">13dp</dimen>
+	<dimen name="_11sdp">11dp</dimen>
+	<dimen name="_10sdp">10dp</dimen>
+	<dimen name="_12sdp">12dp</dimen>
+	<dimen name="_15sdp">15dp</dimen>
+	<dimen name="_16sdp">16dp</dimen>
+	<dimen name="_17sdp">17dp</dimen>
+	<dimen name="_4sdp">4dp</dimen>
+	<dimen name="_18sdp">18dp</dimen>
+	<dimen name="_64sdp">64dp</dimen>
+	<dimen name="_122sdp">122dp</dimen>
+	<dimen name="weight0">0dp</dimen>
+	<dimen name="_37sdp">37sp</dimen>
+	<dimen name="_2sdp">2dp</dimen>
+	<dimen name="_30sdp">30dp</dimen>
+	<dimen name="_6sdp">6dp</dimen>
+	<dimen name="_8sdp">8dp</dimen>
+	<dimen name="_22sdp">22dp</dimen>
+	<dimen name="_3sdp">3dp</dimen>
+	<dimen name="_7sdp">7dp</dimen>
+	<dimen name="_9sdp">9dp</dimen>
+	<dimen name="_5sdp">5dp</dimen>
+	<dimen name="_1sdp">1dp</dimen>
+	<dimen name="_20sdp">20dp</dimen>
+	<dimen name="_24sdp">24dp</dimen>
+
+</resources>

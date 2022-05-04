@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="widget_color">#ffC0190C</color>
+	<color name="colorAccent">#03dac5</color>
+	<color name="colorPrimary">#4f7ccb</color>
+	<color name="colorPrimaryDark">#ffffff</color>
+	<color name="white">#ffffff</color>
+	<color name="textLight">#ffffff</color>
+	<color name="black">#000000</color>
+	<color name="textDark">#000000</color>
+</resources>

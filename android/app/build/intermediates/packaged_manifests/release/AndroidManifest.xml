@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.currencywiki.currencyconverter"
-    android:versionCode="26"
-    android:versionName="3.6" >
+    android:versionCode="25"
+    android:versionName="3.5" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -40,7 +40,8 @@
         android:icon="@mipmap/app_icon"
         android:label="CurrencyConverter"
         android:roundIcon="@mipmap/app_icon"
-        android:supportsRtl="false" >
+        android:supportsRtl="false"
+        android:testOnly="true" >
         <activity
             android:name="com.example.currency_converter.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -81,6 +82,62 @@
              Don't delete the meta-data below.
 			 This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
         -->
+        <activity
+            android:name="com.example.currency_converter.activity.SingleWidgetConfigurationActivity"
+            android:exported="true"
+            android:label="@string/title_activity_example_app_widget_configuration"
+            android:theme="@style/Theme.AppCompat" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Single convertor widget receiver -->
+        <receiver
+            android:name="com.example.currency_converter.widget.SingleConvertorProvider"
+            android:exported="true"
+            android:label="Single Convertor" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/single_convertor_provider" />
+        </receiver>
+
+        <!-- Multi convertor widget receiver -->
+        <receiver
+            android:name="com.example.currency_converter.widget.ListWidgetProvider"
+            android:exported="true"
+            android:label="Multi Convertor" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/multi_convertor_provider" />
+        </receiver>
+
+        <!-- Used for Background Work -->
+        <receiver
+            android:name="es.antonborri.home_widget.HomeWidgetBackgroundReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="es.antonborri.home_widget.action.BACKGROUND" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="es.antonborri.home_widget.HomeWidgetBackgroundService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
@@ -113,11 +170,15 @@
             android:name="androidx.window.sidecar"
             android:required="false" />
 
-        <provider
-            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-            android:authorities="com.currencywiki.currencyconverter.lifecycle-process"
+        <meta-data
+            android:name="com.google.android.play.billingclient.version"
+            android:value="3.0.2" />
+
+        <activity
+            android:name="com.android.billingclient.api.ProxyBillingActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:exported="false"
-            android:multiprocess="true" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
@@ -165,7 +226,13 @@
             android:authorities="com.currencywiki.currencyconverter.androidx-startup"
             android:exported="false" >
             <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup" />
+            <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
                 android:value="androidx.startup" />
         </provider>
 

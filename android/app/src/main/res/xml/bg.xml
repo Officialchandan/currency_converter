@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" linked="true">
+    <entry key="iso">български
+    </entry>
+    <entry key="AED">Обединени арабски емирства Дирхам
+    </entry>
+    <entry key="AFN">Афганистанец
+    </entry>
+    <entry key="ALL">Албански лек
+    </entry>
+    <entry key="AMD">Арменски драм
+    </entry>
+    <entry key="ANG">Холандска антилска гилдия
+    </entry>
+    <entry key="AOA">Анголан Кванза
+    </entry>
+    <entry key="ARS">Аржентински песо
+    </entry>
+    <entry key="AUD">Австралийски долар
+    </entry>
+    <entry key="AWG">Арубан Флорин
+    </entry>
+    <entry key="AZN">Азербайджански манат
+    </entry>
+    <entry key="BAM">Конвертируема марка Босна и Херцеговина
+    </entry>
+    <entry key="BBD">Барбадски долар
+    </entry>
+    <entry key="BDT">Бангладеши Така
+    </entry>
+    <entry key="BGN">Български лев
+    </entry>
+    <entry key="BHD">Бахрейнски динар
+    </entry>
+    <entry key="BIF">Бурундийски франк
+    </entry>
+    <entry key="BMD">Бермудски долар
+    </entry>
+    <entry key="BND">Бруней долар
+    </entry>
+    <entry key="BOB">Боливийски боливиано
+    </entry>
+    <entry key="BRL">Бразилски Реал
+    </entry>
+    <entry key="BSD">Бахамски долар
+    </entry>
+    <entry key="BTC">Bitcoin
+    </entry>
+    <entry key="BTN">Бутански Нгултрум
+    </entry>
+    <entry key="BWP">Ботсванан Пула
+    </entry>
+    <entry key="BYN">Беларуска рубла
+    </entry>
+    <entry key="BZD">Белиз долар
+    </entry>
+    <entry key="CAD">Канадски долар
+    </entry>
+    <entry key="CDF">Конгоански франк
+    </entry>
+    <entry key="CHF">Швейцарски франк
+    </entry>
+    <entry key="CLF">Чилийска разчетна единица (UF)
+    </entry>
+    <entry key="CLP">Чилийско песо
+    </entry>
+    <entry key="CNY">Китайски юан
+    </entry>
+    <entry key="COP">Колумбийското песо
+    </entry>
+    <entry key="CRC">Коста Рика Колон
+    </entry>
+    <entry key="CUC">Кубинско кабрио песо
+    </entry>
+    <entry key="CUP">Кубинско песо
+    </entry>
+    <entry key="CVE">Ескудо на Кабо Верде
+    </entry>
+    <entry key="CZK">Чешка република Коруна
+    </entry>
+    <entry key="DJF">Франк Джибутиан
+    </entry>
+    <entry key="DKK">Датска крона
+    </entry>
+    <entry key="DOP">Доминиканско песо
+    </entry>
+    <entry key="DZD">Алжирски динари
+    </entry>
+    <entry key="EGP">Египетска лира
+    </entry>
+    <entry key="ERN">Еритрейска Накфа
+    </entry>
+    <entry key="ETB">Етиопски бир
+    </entry>
+    <entry key="EUR">евро
+    </entry>
+    <entry key="FJD">Фиджийски долар
+    </entry>
+    <entry key="FKP">Фолклендските острови лира
+    </entry>
+    <entry key="GBP">Британска лира стерлинги
+    </entry>
+    <entry key="GEL">Грузинската Лари
+    </entry>
+    <entry key="GGP">Гернси лира
+    </entry>
+    <entry key="GHS">Ганайски Седи
+    </entry>
+    <entry key="GIP">Гибралтар лира
+    </entry>
+    <entry key="GMD">Гамбийски Даласи
+    </entry>
+    <entry key="GNF">Гвинейски франк
+    </entry>
+    <entry key="GTQ">Гватемалски Кетсал
+    </entry>
+    <entry key="GYD">Гвианарски долар
+    </entry>
+    <entry key="HKD">Хонконгски долар
+    </entry>
+    <entry key="HNL">Хондуран Лемпира
+    </entry>
+    <entry key="HRK">Хърватска куна
+    </entry>
+    <entry key="HTG">Хаитян Гурд
+    </entry>
+    <entry key="HUF">Унгарски форинт
+    </entry>
+    <entry key="IDR">Индонезийски рупия
+    </entry>
+    <entry key="ILS">Нов израелски шекел
+    </entry>
+    <entry key="IMP">Манкс лира
+    </entry>
+    <entry key="INR">Индийска рупия
+    </entry>
+    <entry key="IQD">Иракски динар
+    </entry>
+    <entry key="IRR">Ирански риал
+    </entry>
+    <entry key="ISK">Исландска Крона
+    </entry>
+    <entry key="JEP">Джърси Паунд
+    </entry>
+    <entry key="JMD">Ямайски долар
+    </entry>
+    <entry key="JOD">Йордански динар
+    </entry>
+    <entry key="JPY">Японска йена
+    </entry>
+    <entry key="KES">Кенийски шилинг
+    </entry>
+    <entry key="KGS">Киргизстан Сом
+    </entry>
+    <entry key="KHR">Камбоджийски риел
+    </entry>
+    <entry key="KMF">Коморския франк
+    </entry>
+    <entry key="KPW">Севернокорейски спечелил
+    </entry>
+    <entry key="KRW">Южнокорейски спечелил
+    </entry>
+    <entry key="KWD">Кувейтски динар
+    </entry>
+    <entry key="KYD">Долар на Каймановите острови
+    </entry>
+    <entry key="KZT">Казахстански тенге
+    </entry>
+    <entry key="LAK">Лаотиан Кип
+    </entry>
+    <entry key="LBP">Ливанска лира
+    </entry>
+    <entry key="LKR">Шри Ланка рупия
+    </entry>
+    <entry key="LRD">Либерийски долар
+    </entry>
+    <entry key="LSL">Лесото Лоти
+    </entry>
+    <entry key="LTL">Литовски лит
+    </entry>
+    <entry key="LVL">Латвийски лат
+    </entry>
+    <entry key="LYD">Либийски динар
+    </entry>
+    <entry key="MAD">Марокански дирхам
+    </entry>
+    <entry key="MDL">Молдовски лев
+    </entry>
+    <entry key="MGA">Малагасийски Ariary
+    </entry>
+    <entry key="MKD">Македонски денар
+    </entry>
+    <entry key="MMK">Мианма Кьят
+    </entry>
+    <entry key="MNT">Монголски тугрик
+    </entry>
+    <entry key="MOP">Маканеца Патака
+    </entry>
+    <entry key="MRO">Мавритански Угуия
+    </entry>
+    <entry key="MUR">Маврикийска рупия
+    </entry>
+    <entry key="MVR">Малдивска Руфия
+    </entry>
+    <entry key="MWK">Малави квача
+    </entry>
+    <entry key="MXN">Мексиканско песо
+    </entry>
+    <entry key="MYR">Малайзийски ринггит
+    </entry>
+    <entry key="MZN">Мозамбикски Metical
+    </entry>
+    <entry key="NAD">Намибийски долар
+    </entry>
+    <entry key="NGN">Нигерийска Найра
+    </entry>
+    <entry key="NIO">Никарагуан Кордова
+    </entry>
+    <entry key="NOK">Норвежка крона
+    </entry>
+    <entry key="NPR">Непалска рупия
+    </entry>
+    <entry key="NZD">Новозеландски долар
+    </entry>
+    <entry key="OMR">Омански риал
+    </entry>
+    <entry key="PAB">Панамска Балбоа
+    </entry>
+    <entry key="PEN">Перуанският Нуево Сол
+    </entry>
+    <entry key="PGK">Папуа Нова Гвинея Кина
+    </entry>
+    <entry key="PHP">Филипинско песо
+    </entry>
+    <entry key="PKR">Пакистанска рупия
+    </entry>
+    <entry key="PLN">Полски злоти
+    </entry>
+    <entry key="PYG">Парагвайски гуарани
+    </entry>
+    <entry key="QAR">Катарски риал
+    </entry>
+    <entry key="RON">Румънски лев
+    </entry>
+    <entry key="RSD">Сръбски динари
+    </entry>
+    <entry key="RUB">Руска рубла
+    </entry>
+    <entry key="RWF">Франк Руанда
+    </entry>
+    <entry key="SAR">Саудитски Риал
+    </entry>
+    <entry key="SBD">Долар на Соломоновите острови
+    </entry>
+    <entry key="SCR">Сейшелоа Рупия
+    </entry>
+    <entry key="SDG">Суданска лира
+    </entry>
+    <entry key="SEK">Шведска крона
+    </entry>
+    <entry key="SGD">Сингапурски долар
+    </entry>
+    <entry key="SHP">Свети Елена лира
+    </entry>
+    <entry key="SLL">Сиера Леоан Леоне
+    </entry>
+    <entry key="SOS">Сомалийски шилинг
+    </entry>
+    <entry key="SRD">Суринамски долар
+    </entry>
+    <entry key="STD">Сао Томе и Принсипи Добра
+    </entry>
+    <entry key="SVC">Салвадоран Колон
+    </entry>
+    <entry key="SYP">Сирийска лира
+    </entry>
+    <entry key="SZL">Свази Лилангени
+    </entry>
+    <entry key="THB">Тай Бат
+    </entry>
+    <entry key="TJS">Таджикистански сомони
+    </entry>
+    <entry key="TMT">Туркменистански манат
+    </entry>
+    <entry key="TND">Тунизийски динар
+    </entry>
+    <entry key="TOP">Tongan Paʻanga
+    </entry>
+    <entry key="TRY">Турска лира
+    </entry>
+    <entry key="TTD">Тринидад и Тобаго долар
+    </entry>
+    <entry key="TWD">Нов тайвански долар
+    </entry>
+    <entry key="TZS">Танзански шилинг
+    </entry>
+    <entry key="UAH">Украинска гривна
+    </entry>
+    <entry key="UGX">Угандански шилинг
+    </entry>
+    <entry key="USD">Щатски долар
+    </entry>
+    <entry key="UYU">Уругвайско песо
+    </entry>
+    <entry key="UZS">Узбекистан Сом
+    </entry>
+    <entry key="VES">Венецуела Боливар Фуерте
+    </entry>
+    <entry key="VND">Виетнамски донг
+    </entry>
+    <entry key="VUV">Вануату Вату
+    </entry>
+    <entry key="WST">Самоанска тала
+    </entry>
+    <entry key="XAF">CFA Franc BEAC
+    </entry>
+    <entry key="XAG">Сребро (тройунция)
+    </entry>
+    <entry key="XAU">Злато (тройунция)
+    </entry>
+    <entry key="XCD">Източнокарибски долар
+    </entry>
+    <entry key="XDR">Специални права на тираж
+    </entry>
+    <entry key="XOF">CFA Франк BCEAO
+    </entry>
+    <entry key="XPF">CFP Франк
+    </entry>
+    <entry key="YER">Йеменски риал
+    </entry>
+    <entry key="ZAR">Южноафрикански ранд
+    </entry>
+    <entry key="ZMK">Zambian Kwacha (преди 2013 г.)
+    </entry>
+    <entry key="ZMW">Замбие квача
+    </entry>
+    <entry key="ZWL">Зимбабвийски долар
+    </entry>
+</map>
