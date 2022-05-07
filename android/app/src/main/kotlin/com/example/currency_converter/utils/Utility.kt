@@ -15,6 +15,118 @@ class Utility {
 
     companion object {
 
+        fun setCurrencyCode1(
+            context: Context,
+            value: String,
+            widgetId: Int
+        ): Boolean {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putString(Constants.currencyFrom + widgetId, value)
+            editor.apply()
+            return editor.commit()
+        }
+
+        fun getCurrencyCode1(context: Context, widgetId: Int): String {
+
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+
+            val v = prefs.getString(Constants.currencyFrom + widgetId, "USD")
+
+            return if (v != null && v.isNotEmpty()) {
+                v
+            } else {
+                "USD"
+            }
+
+
+        }
+
+
+        fun setCurrencyCode2(
+            context: Context,
+            value: String,
+            widgetId: Int
+        ): Boolean {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putString(Constants.currencyTo + widgetId, value)
+            editor.apply()
+            return editor.commit()
+        }
+
+        fun getCurrencyCode2(context: Context, widgetId: Int): String {
+
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+
+            val v = prefs.getString(Constants.currencyTo + widgetId, "EUR")
+
+            return if (v != null && v.isNotEmpty()) {
+                v
+            } else {
+                "EUR"
+            }
+
+
+        }
+
+        fun setExchangeValue(context: Context, value: String, widgetId: Int): Boolean {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putString(Constants.currencyRate + widgetId, value)
+            editor.apply()
+            return editor.commit()
+
+
+        }
+
+        fun getExchangeValue(context: Context, widgetId: Int): String {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+
+            val v = prefs.getString(Constants.currencyRate + widgetId, "0.0")
+
+            return if (v != null && v.isNotEmpty()) {
+                v
+            } else {
+                "0.0"
+            }
+        }
+
+
+        fun getWidgetColor(
+            context: Context
+        ): String {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+            val v = prefs.getString("flutter." + "primaryColorCode", "ff4e7dcb")
+            return if (v != null && v.isNotEmpty()) {
+                v
+            } else {
+                "ff4e7dcb"
+            }
+        }
+
+
         fun isDarkTheme(
             context: Context
         ): Boolean {
@@ -36,7 +148,7 @@ class Utility {
                 Context.MODE_PRIVATE
             );
             val editor: SharedPreferences.Editor = prefs.edit()
-            editor.putString("flutter." + key, value)
+            editor.putString("flutter.$key", value)
             editor.apply()
 
 
@@ -54,7 +166,7 @@ class Utility {
                 "FlutterSharedPreferences",
                 Context.MODE_PRIVATE
             );
-            return prefs.getString("flutter." + key, "")!!
+            return prefs.getString("flutter.$key", "")!!
         }
 
         fun setIntegerPref(
@@ -65,7 +177,7 @@ class Utility {
                 Context.MODE_PRIVATE
             );
             val editor: SharedPreferences.Editor = prefs.edit()
-            editor.putInt("flutter." + key, value)
+            editor.putInt("flutter.$key", value)
             editor.apply()
             return editor.commit()
         }
@@ -78,6 +190,31 @@ class Utility {
                 Context.MODE_PRIVATE
             );
             return prefs.getInt("flutter.$key", 0)
+        }
+
+        fun saveSingleWidgetTransparency(context: Context, value: Int, appWidgetId: Int): Boolean {
+
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            )
+            val edit = prefs.edit()
+
+            edit.putInt(Constants.widgetTransparent + appWidgetId, value)
+            edit.apply()
+            return edit.commit()
+        }
+
+        fun getSingleWidgetTransparency(context: Context, appWidgetId: Int): Int {
+
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            )
+
+
+            return prefs.getInt(Constants.widgetTransparent + appWidgetId, 0)
+
         }
 
 
@@ -125,7 +262,7 @@ class Utility {
 
             val editor = prefs.edit()
             editor.putString(
-                Constants.selectedCurrencyList + "$appWidgetId",
+                Constants.listWidgetData + "$appWidgetId",
                 data
             )!!
             editor.apply()
@@ -138,7 +275,7 @@ class Utility {
                 Context.MODE_PRIVATE
             )
             return prefs.getString(
-                Constants.baseCurrency + "$appWidgetId",
+                Constants.listWidgetData + "$appWidgetId",
                 ""
             )!!
         }

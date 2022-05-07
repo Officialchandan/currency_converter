@@ -1,6 +1,5 @@
 package com.example.currency_converter.activity
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -23,12 +22,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currency_converter.R
-import com.example.currency_converter.widget.SingleConvertorProvider
 import com.example.currency_converter.adapter.CurrencyCodeAdapter
 import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.databinding.SingleConvertorConfigActivityBinding
 import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
+import com.example.currency_converter.widget.SingleConvertorProvider
 import com.example.interfaces.ItemClickListener
 import com.example.model.Country
 import com.google.android.material.appbar.AppBarLayout
@@ -41,6 +40,8 @@ import retrofit2.Response
 class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
     lateinit var binding: SingleConvertorConfigActivityBinding
+
+    var appWidgetId = 0
 
     var toolbar: Toolbar? = null
     var tvSlider: TextView? = null
@@ -81,7 +82,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         init()
 
 
-        val appWidgetId = intent?.extras?.getInt(
+        appWidgetId = intent?.extras?.getInt(
             AppWidgetManager.EXTRA_APPWIDGET_ID,
             AppWidgetManager.INVALID_APPWIDGET_ID
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
@@ -91,31 +92,14 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         binding.tvAddWidget.setOnClickListener(View.OnClickListener {
 
-            var from: String = Utility.getStringPref(Constants.currencyFrom, this)
-            var to: String = Utility.getStringPref(Constants.currencyTo, this)
-            var value: String = Utility.getStringPref(Constants.currencyRate, this)
 
-            if (from.isEmpty()) {
-                from = "USD";
-            }
-            if (to.isEmpty()) {
-                to = "EUR";
-            }
-            Log.e(javaClass.name, "from-->$from\t\tto-->$to\t\tvalue-->$value")
-
-
-            if (title.isEmpty() || to.isEmpty()) {
+            if (binding.tvCurrencyCodeFrom.text.toString().isEmpty() || binding.tvCurrencyCodeTo.text.toString().isEmpty()) {
                 Toast.makeText(this, "Both the field is required", Toast.LENGTH_LONG).show();
             } else {
-
+                var from: String = binding.tvCurrencyCodeFrom.text.toString()
+                var to: String = binding.tvCurrencyCodeTo.text.toString()
                 val appWidgetManager = AppWidgetManager.getInstance(this)
                 getConvertRate(from, to, this, appWidgetManager, widgetId = appWidgetId)
-//
-//                converotRate(from, to, this, appWidgetManager, widgetId = appWidgetId)
-
-//                var res = Utility.getFlagRaw("ad", this)
-//                Log.e(javaClass.simpleName, "res-->$res")
-
 
             }
 
@@ -127,6 +111,9 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
 
     private fun init() {
+
+        val flagArray = this.resources.obtainTypedArray(R.array.country_flag)
+        val currencyList = this.resources.getStringArray(R.array.currency_code)
 
         arrowLayout = findViewById(R.id.arrow_layout)
         layoutCountries = findViewById(R.id.layout_countries)
@@ -165,16 +152,11 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         tvSlider!!.text = "0";
 
-        val prefs = applicationContext.getSharedPreferences(
-            "FlutterSharedPreferences",
-            Context.MODE_PRIVATE
-        );
 
-        val colorcode = prefs.getString("flutter." + "primaryColorCode", "ff4e7dcb")
-        Log.e(javaClass.name, "colorcode-->$colorcode")
+        val widgetColor = Utility.getWidgetColor(context = this)
+        val color: Int = Color.parseColor("#$widgetColor")
 
-        val color: Int = Color.parseColor("#$colorcode")
-        Log.e(javaClass.name, "colorcodehes-->${color.toString(16)}")
+
         val appBarLayout: AppBarLayout = findViewById<AppBarLayout>(R.id.app_bar)
         appBarLayout.setBackgroundColor(getColorWithAlpha(color, 0.8f))
         appBarLayout.setStatusBarForegroundColor(getColorWithAlpha(color, 0.8f))
@@ -199,23 +181,12 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         widgetTransparencyLayout!!.background = gd1
 
 
-        var from: String = Utility.getStringPref("currencyCodeFrom", this)
-        var to: String = Utility.getStringPref("currencyCodeTo", this)
+        var from: String = Utility.getCurrencyCode1(this, appWidgetId)
+        val to: String = Utility.getCurrencyCode2(this, appWidgetId)
 
-        if (from.isEmpty()) {
-            from = "USD"
-            Utility.setStringPref("currencyCodeFrom", from, this)
-        }
-        if (to.isEmpty()) {
-            to = "EUR";
-            Utility.setStringPref("currencyCodeTo", to, this)
-        }
-        var currencyList = this.resources.getStringArray(R.array.currency_code)
+        val index: Int = currencyList.indexOf(from)
+        val index1: Int = currencyList.indexOf(to)
 
-        var index: Int = currencyList.indexOf(from)
-        var index1: Int = currencyList.indexOf(to)
-
-        val flagArray = this.resources.obtainTypedArray(R.array.country_flag)
         val imgFrom = flagArray.getDrawable(index)
         val imgTo = flagArray.getDrawable(index1)
 
@@ -227,11 +198,11 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             binding.edtSearch.text.clear()
         })
 
-        val trans = Utility.getIntegerPref(Constants.widgetTransparent, applicationContext)
+        val trans = Utility.getSingleWidgetTransparency(this, appWidgetId)
         setupWidgetTransparency(trans, color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.seekbar.setProgress(trans,true)
-        }else{
+            binding.seekbar.setProgress(trans, true)
+        } else {
             binding.seekbar.progress = trans
         }
 
@@ -252,9 +223,9 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         var fontSize = Utility.getIntegerPref(Constants.fontSize, this)
 
-        if(fontSize==0){
+        if (fontSize == 0) {
             fontSize = 1;
-            Utility.setIntegerPref(Constants.fontSize, 1,this)
+            Utility.setIntegerPref(Constants.fontSize, 1, this)
         }
 
         when (fontSize) {
@@ -489,7 +460,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         radioGroup.setOnCheckedChangeListener { p0, id ->
             when (id) {
                 R.id.radio_small -> {
-                    Utility.setIntegerPref(Constants.fontSize, 1,this)
+                    Utility.setIntegerPref(Constants.fontSize, 1, this)
                     Utility.setTextViewSize(
                         binding.tvFromWidget,
                         this.resources.getDimension(R.dimen._12sdp)
@@ -515,7 +486,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
                 }
                 R.id.radio_medium -> {
-                    Utility.setIntegerPref(Constants.fontSize, 2,this)
+                    Utility.setIntegerPref(Constants.fontSize, 2, this)
                     Utility.setTextViewSize(
                         binding.tvFromWidget,
                         this.resources.getDimension(R.dimen._13sdp)
@@ -539,7 +510,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
                 }
                 R.id.radio_large -> {
-                    Utility.setIntegerPref(Constants.fontSize, 3,this)
+                    Utility.setIntegerPref(Constants.fontSize, 3, this)
                     Utility.setTextViewSize(
                         binding.tvFromWidget,
                         this.resources.getDimension(R.dimen._14sdp)
@@ -578,7 +549,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                 fromUser: Boolean
             ) {
 
-                Utility.setIntegerPref(Constants.widgetTransparent, progress, applicationContext)
+                Utility.saveSingleWidgetTransparency(applicationContext, progress, appWidgetId)
                 setupWidgetTransparency(progress, color);
             }
 
@@ -656,20 +627,18 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         layoutVisualSize!!.visibility = View.VISIBLE
         tvVisualSize!!.visibility = View.VISIBLE
 
-
-
-
         if (type == 1) {
-            Utility.setStringPref("currencyCodeFrom", country.code, this)
-            tvCurrencyCodeFrom!!.text = country.code
-            imgFlagFrom!!.setImageDrawable(country.flag)
-            imgFlagFrom!!.scaleType = ImageView.ScaleType.FIT_XY
+
+            Utility.setCurrencyCode1(this, country.code, appWidgetId)
+            binding.tvCurrencyCodeFrom.text = country.code
+            binding.flagImgFrom.setImageDrawable(country.flag)
+            binding.flagImgFrom.scaleType = ImageView.ScaleType.CENTER_CROP
         }
         if (type == 2) {
-            Utility.setStringPref("currencyCodeTo", country.code, this)
-            tvCurrencyCodeTo!!.text = country.code
-            imgFlagTo!!.setImageDrawable(country.flag)
-            imgFlagFrom!!.scaleType = ImageView.ScaleType.FIT_XY
+            Utility.setCurrencyCode2(this, country.code, appWidgetId)
+            binding.tvCurrencyCodeTo!!.text = country.code
+            binding.flagImgTo.setImageDrawable(country.flag)
+            binding.flagImgTo.scaleType = ImageView.ScaleType.CENTER_CROP
         }
 
 
@@ -733,16 +702,17 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                             var diff = todayRate - yesterdayRate
                             Utility.setStringPref("difference", diff.toString(), context);
 
-                            Utility.setStringPref(
-                                "currencySaveData",
+                            Utility.setExchangeValue(
+                                context,
                                 todayRate.toString(),
-                                context
-                            );
+                                widgetId
+
+                            )
 
                             SingleConvertorProvider.updateWidget(
                                 context,
                                 appWidgetManager,
-                                widgetId
+                                widgetId,false
                             )
 
 
@@ -750,91 +720,6 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                                 Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
                             setResult(Activity.RESULT_OK, resultValue)
                             finish()
-
-                        }
-                    }
-
-                }
-            }, { error ->
-                Log.e(javaClass.simpleName, "error-->$error")
-
-            })
-
-
-    }
-
-
-    @SuppressLint("CheckResult")
-    fun converotRate(
-        from: String,
-        to: String,
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        widgetId: Int
-    ) {
-        Log.e("Internet Connection", "asdf")
-        ApiClient.instance.convertRate(from, to)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response: Response<JsonObject> ->
-
-                val responseCode = response.code()
-                Log.e(javaClass.simpleName, responseCode.toString())
-                when (responseCode) {
-                    200 -> {
-                        val responseData: JsonObject? = response.body()
-                        Log.e(
-                            javaClass.simpleName,
-                            "responseData-->" + response.body().toString()
-                        )
-
-                        if (responseData != null) {
-
-                            val jsonFrom: JsonObject = responseData.getAsJsonObject("from")
-                            val jsonTo: JsonObject = responseData.getAsJsonObject("to")
-                            Log.e(javaClass.simpleName, "jsonFrom-->$jsonFrom")
-                            Log.e(javaClass.simpleName, "jsonTo-->$jsonTo")
-
-                            val sizeFrom = jsonFrom.keySet().size
-                            val sizeTo = jsonTo.keySet().size
-
-
-                            var firstForm =
-                                jsonFrom.get(jsonFrom.keySet().toList().last()).toString()
-                            var firstTO = jsonTo.get(jsonTo.keySet().toList().last()).toString()
-
-                            var secondFrom =
-                                jsonFrom.get(jsonFrom.keySet().toList().get(sizeFrom - 2))
-                                    .toString()
-                            var secondTo =
-                                jsonFrom.get(jsonTo.keySet().toList().get(sizeTo - 2)).toString()
-                            var d: Double =
-                                (firstForm.toDouble() * 100) / (firstTO.toDouble() * 100)
-
-                            var d1: Double =
-                                (firstForm.toDouble() * 100) / (firstTO.toDouble() * 100)
-
-                            var d3 = d1 - d
-
-                            Utility.setStringPref("difference", d3.toString(), context);
-                            Log.e(javaClass.simpleName, "firstForm-->$firstForm")
-                            Log.e(javaClass.simpleName, "firstTO-->$firstTO")
-                            var rate = d.toString()
-
-                            Utility.setStringPref("currencySaveData", rate, context);
-
-                            SingleConvertorProvider.updateWidget(
-                                context,
-                                appWidgetManager,
-                                widgetId
-                            )
-
-
-                            val resultValue =
-                                Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-                            setResult(Activity.RESULT_OK, resultValue)
-                            finish()
-
 
                         }
                     }

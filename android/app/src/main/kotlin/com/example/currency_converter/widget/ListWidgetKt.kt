@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
 import android.view.View
@@ -86,7 +85,7 @@ class ListWidgetKt {
             val views =
                 RemoteViews(context.packageName, R.layout.multi_convertor_layout)
 
-            val jsonString: String = Utility.loadItemsPref(
+            val jsonString: String = Utility.getListWidgetData(
                 context,
                 appWidgetId
             )
@@ -104,26 +103,11 @@ class ListWidgetKt {
             val visualSize: Int = Utility.loadVisual(context, appWidgetId)
 
 
-            var json = JSONArray()
-            if (jsonString.isEmpty()) {
+            Log.e(javaClass.simpleName, "json--> $jsonString")
 
-                json.put("USD")
-                json.put("EUR")
-                json.put("GBP")
-                json.put("CAD")
-                json.put("INR")
+//            getRate(context, views, json, baseCurrency, amount.toDouble(), appWidgetId, visualSize, appWidgetManager)
+            setRemoteAdapter(context, views, jsonString, baseCurrency, amount.toDouble(), appWidgetId, visualSize, appWidgetManager)
 
-            } else {
-                json = JSONArray(jsonString)
-            }
-
-
-
-            Log.e(javaClass.simpleName, "json--> $json")
-
-
-
-            getRate(context, views, json, baseCurrency, amount.toDouble(), appWidgetId, visualSize, appWidgetManager)
 
             val str2: String = MyOnClick
 
@@ -176,9 +160,9 @@ class ListWidgetKt {
             views.setTextViewText(R.id.txtProvider, "Currency.wiki")
             views.setTextViewTextSize(R.id.tvPipe, 0, updateDateTextSize)
 
-            var ListWidgetProviderWidth =
+            var listWidgetProviderWidth =
                 appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMinWidth", 0)
-            var ListWidgetProviderHeight =
+            var listWidgetProviderHeight =
                 appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMaxHeight", 0)
 
 //        if (ListWidgetProviderWidth <= 0 || ListWidgetProviderHeight <= 0) {
@@ -197,20 +181,19 @@ class ListWidgetKt {
 //        }
 
             val widgetInfo = appWidgetManager.getAppWidgetInfo(appWidgetId)
-            val colorCode = Utility.getStringPref("primaryColorCode", context)
-            Log.e(javaClass.simpleName, "colorCode--> $colorCode")
+            val colorCode = Utility.getWidgetColor( context)
             val colorFrom: Int = Color.parseColor("#$colorCode")
             val trans = Utility.getListWidgetTransparency(context, appWidgetId)
             Log.e(javaClass.simpleName, "trans--> $trans")
             var transparancy: Float = 1f - (trans.toFloat() / 100)
 
 
-            val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparancy), 0, 0, 16f)
+            val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparancy), 0, 0, 20f)
             val bitmap =
                 SingleConvertorProvider.drawableToBitmap(
                     gradientDrawable,
-                    widgetInfo.minWidth,
-                    widgetInfo.minHeight
+                    listWidgetProviderWidth*3,
+                    listWidgetProviderHeight*3
                 )
             views.setImageViewBitmap(R.id.imgContainer, bitmap)
 
@@ -294,56 +277,30 @@ class ListWidgetKt {
                 )
             }
 
+
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
         fun setRemoteAdapter(
             context: Context?,
             views: RemoteViews,
-            currencyList: ArrayList<Currency>,
+            json: String,
             baseCurrency: String?,
             amount: Double,
             appWidgetId: Int,
             visualSize: Int,
-            appWidgetManager: AppWidgetManager
+            appWidgetManager: AppWidgetManager,
         ) {
-
-            val codeList = ArrayList<String>()
-            val rateList = ArrayList<String>()
-            val diffList = ArrayList<String>()
-            val flagList = ArrayList<Drawable>()
-
-
-
-            currencyList.forEach {
-
-                codeList.add(it.code)
-                rateList.add(it.value)
-                flagList.add(it.flag)
-                diffList.add(it.differenc)
-            }
-
-            Log.e(javaClass.simpleName, "setRemoteAdapter->$currencyList")
 
             Intrinsics.checkNotNullParameter(context, "context")
             Intrinsics.checkNotNullParameter(views, "views")
-//            Intrinsics.checkNotNullParameter(jsonItems, "jsonItems")
             Intrinsics.checkNotNullParameter(baseCurrency, "baseCurrency")
             val intent = Intent(context, ListWidgetService::class.java)
-            intent.putExtra("jsonItems", "jsonItems")
-            intent.putStringArrayListExtra("codeList", codeList)
-            intent.putStringArrayListExtra("rateList", rateList)
-            intent.putStringArrayListExtra("diffList", diffList)
-
-
-
-
-
-
+            intent.putExtra("jsonItems", json)
             intent.putExtra("baseCurrency", baseCurrency)
             intent.putExtra("amount", amount)
             intent.putExtra("visualSize", visualSize)
-            intent.putExtra("appWidgetId", 0)
+            intent.putExtra("appWidgetId",appWidgetId)
 
 
             views.setRemoteAdapter(R.id.listCurrency, intent)
@@ -352,7 +309,6 @@ class ListWidgetKt {
 
 
             toastIntent.action = Constants.TOAST_ACTION
-
             toastIntent.putExtra("appWidgetId", appWidgetId)
             intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
 
@@ -366,7 +322,8 @@ class ListWidgetKt {
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
-            appWidgetManager.updateAppWidget(appWidgetId, views)
+
+//            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
 
@@ -433,7 +390,7 @@ class ListWidgetKt {
 
                                     val yesterdayRate2 = yesterday.get(to.uppercase()).toString()
                                     val yesterdayRate =
-                                        ((yesterdayRate1.toDouble() * 100) / (yesterdayRate2.toDouble() * 100))*amount
+                                        ((yesterdayRate1.toDouble() * 100) / (yesterdayRate2.toDouble() * 100)) * amount
 
 
                                     var diff = todayRate - yesterdayRate
@@ -454,16 +411,16 @@ class ListWidgetKt {
                                 }
 
 
-                                setRemoteAdapter(
-                                    context,
-                                    views,
-                                    currencyItems,
-                                    baseCurrency,
-                                    amount,
-                                    appWidgetId,
-                                    visualSize,
-                                    appWidgetManager
-                                )
+//                                setRemoteAdapter(
+//                                    context,
+//                                    views,
+//                                    currencyItems,
+//                                    baseCurrency,
+//                                    amount,
+//                                    appWidgetId,
+//                                    visualSize,
+//                                    appWidgetManager
+//                                )
 
                             }
                         }

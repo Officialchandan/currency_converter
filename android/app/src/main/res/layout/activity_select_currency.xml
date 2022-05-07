@@ -74,6 +74,7 @@
 					android:gravity="center"
 					android:paddingBottom="@dimen/_10sdp"
 					android:text="@string/selected"
+					android:textColor="@color/white"
 					android:textSize="@dimen/_14sdp"
 					/>
 
@@ -97,6 +98,7 @@
 					android:paddingTop="@dimen/_10sdp"
 					android:paddingBottom="@dimen/_10sdp"
 					android:text="@string/currency_list"
+					android:textColor="@color/white"
 					android:textSize="@dimen/_14sdp"
 					/>
 

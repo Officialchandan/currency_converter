@@ -11,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.RemoteViews
 import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
@@ -35,8 +36,20 @@ class SingleConvertorProvider : HomeWidgetProvider() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         Log.e(javaClass.simpleName, "onReceive--> ${intent?.data}")
+        Log.e(javaClass.simpleName, "onReceive--> ${intent?.action}")
 
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        val extras = intent!!.extras
 
+        val widgetId = extras!!.getInt("appWidgetId", 0)
+        if (intent.action.toString() == ACTION_REFRESH_WIDGET) {
+
+            updateWidget(context, appWidgetManager, widgetId, true)
+            Log.e(javaClass.simpleName, "widgetId-->$widgetId")
+            val from: String = Utility.getCurrencyCode1(context!!, widgetId)
+            val to: String = Utility.getCurrencyCode2(context, widgetId)
+            converotRate(from, to, context, appWidgetManager, widgetId)
+        }
 
         super.onReceive(context, intent)
     }
@@ -78,23 +91,18 @@ class SingleConvertorProvider : HomeWidgetProvider() {
     ) {
 
         Log.e(javaClass.simpleName, "onUpdate--> ")
-
-
         for (widgetId in appWidgetIds) {
             Log.e(javaClass.simpleName, "widgetId-->$widgetId")
-
-            var from: String = Utility.getStringPref("currencyCodeFrom", context!!)
-            var to: String = Utility.getStringPref("currencyCodeTo", context!!)
-
-            if (from.isNotEmpty() && to.isNotEmpty()) {
-                converotRate(from, to, context, appWidgetManager, widgetId)
-            }
+            val from: String = Utility.getCurrencyCode1(context, widgetId)
+            val to: String = Utility.getCurrencyCode2(context, widgetId)
+            converotRate(from, to, context, appWidgetManager, widgetId)
         }
     }
 
 
     companion object {
         val ACTION_WIDGET_CONFIGURE = "ConfigureWidget"
+        val ACTION_REFRESH_WIDGET = "RefereshSingleWidget"
 
         fun getCircularBitmapFrom(bitmap: Bitmap?): Bitmap? {
             val i: Int
@@ -194,38 +202,49 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             return gradientDrawable2
         }
 
-        fun updateWidget(context: Context?, appWidgetManager: AppWidgetManager, widgetId: Int) {
+        fun updateWidget(context: Context?, appWidgetManager: AppWidgetManager, widgetId: Int, isProcess: Boolean) {
             val views = RemoteViews(context?.packageName, R.layout.single_converter_layout).apply {
 
-                val widgetInfo = appWidgetManager.getAppWidgetInfo(widgetId)
-//                val colorFrom: Int = Utility.getIntegerPref("color_code_start", context!!)
-                var colorcode = Utility.getStringPref("primaryColorCode", context!!)
-                if(colorcode.isEmpty()){
-                    colorcode = "ff4e7dcb"
-                }
-                Log.e(javaClass.name, "colorcode-->$colorcode")
 
-                val colorFrom: Int = Color.parseColor("#$colorcode")
-                val trans = Utility.getIntegerPref(Constants.widgetTransparent, context)
-                var transparancy: Float = 1f - (trans.toFloat() / 100)
-                val color = Utility.getColorWithAlpha(colorFrom, transparancy)
-                val gradientDrawable = getWidgetGradientDrawable(color, 0, 0, 16f)
+                if (isProcess) {
+                    setViewVisibility(R.id.progressWhite, View.VISIBLE)
+                    setViewVisibility(R.id.btnRefresh, View.GONE)
+                } else {
+                    setViewVisibility(R.id.progressWhite, View.GONE)
+                    setViewVisibility(R.id.btnRefresh, View.VISIBLE)
+                }
+
+
+                val colorCode = Utility.getWidgetColor(context!!)
+                val widgetColor: Int = Color.parseColor("#$colorCode")
+                val trans = Utility.getSingleWidgetTransparency(context, widgetId)
+                val transparency: Float = 1f - (trans.toFloat() / 100)
+                val listWidgetProviderWidth =
+                    appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMinWidth", 0)
+                val listWidgetProviderHeight =
+                    appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMaxHeight", 0)
+
+                val gradientDrawable = getWidgetGradientDrawable(Utility.getColorWithAlpha(widgetColor, transparency), 0, 0, 20f)
                 val bitmap =
-                    drawableToBitmap(gradientDrawable, widgetInfo.minWidth, widgetInfo.minHeight)
+                    drawableToBitmap(
+                        gradientDrawable,
+                        listWidgetProviderWidth * 3,
+                        listWidgetProviderHeight * 3
+                    )
+
                 setImageViewBitmap(R.id.bck_image, bitmap)
 
-                val value: String = Utility.getStringPref("currencySaveData", context!!)
+
+                val value: String = Utility.getExchangeValue(context, widgetId)
                 val diff: String = Utility.getStringPref("difference", context)
-                val from: String = Utility.getStringPref("currencyCodeFrom", context)
-                val to: String = Utility.getStringPref("currencyCodeTo", context)
+                val from: String = Utility.getCurrencyCode1(context, widgetId)
+                val to: String = Utility.getCurrencyCode2(context, widgetId)
                 var decimalFormat = Utility.getStringPref("decimalFormat", context)
                 if (decimalFormat.isEmpty()) {
                     decimalFormat = "2"
                 }
 
-                Log.e(javaClass.simpleName, "value-->$value")
-                Log.e(javaClass.simpleName, "from-->$from")
-                Log.e(javaClass.simpleName, "to-->$to")
+
                 setTextViewText(
                     R.id.tv_value, "%.${decimalFormat}f".format(value.toDouble())
                 )
@@ -282,7 +301,6 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                 }
 
                 when (fontSize) {
-
                     1 -> {
 
                         setTextViewTextSize(
@@ -309,7 +327,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                         setTextViewTextSize(
                             R.id.txtProvider,
                             0,
-                            context.resources.getDimension(R.dimen._10sdp)
+                            context.resources.getDimension(R.dimen._9sdp)
                         )
 
 
@@ -338,7 +356,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                         setTextViewTextSize(
                             R.id.txtProvider,
                             0,
-                            context.resources.getDimension(R.dimen._11sdp)
+                            context.resources.getDimension(R.dimen._10sdp)
                         )
                     }
                     3 -> {
@@ -365,11 +383,9 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                         setTextViewTextSize(
                             R.id.txtProvider,
                             0,
-                            context.resources.getDimension(R.dimen._12sdp)
+                            context.resources.getDimension(R.dimen._11sdp)
                         )
                     }
-
-
                 }
 
                 // Open App on Widget Click
@@ -380,33 +396,41 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                     )
                 }
 
+
                 setOnClickPendingIntent(R.id.widget_container, pendingIntent)
-
-                setOnClickPendingIntent(R.id.btnSettings, getConfigurePendingIntent(context,widgetId))
-                setOnClickPendingIntent(R.id.btnSettingsDark, getConfigurePendingIntent(context,widgetId))
-
-                setOnClickPendingIntent(R.id.btnRefresh, getRefreshPendingIntent(context, widgetId))
-                setOnClickPendingIntent(R.id.btnRefreshDark, getRefreshPendingIntent(context, widgetId))
-
+                setOnClickPendingIntent(R.id.btnSettings, getConfigurePendingIntent(context, widgetId))
+                setOnClickPendingIntent(R.id.btnSettingsDark, getConfigurePendingIntent(context, widgetId))
+                setOnClickPendingIntent(R.id.btnRefresh, getRefreshPendingIntent(context, widgetId, ACTION_REFRESH_WIDGET))
+                setOnClickPendingIntent(R.id.btnRefreshDark, getRefreshPendingIntent(context, widgetId, ACTION_REFRESH_WIDGET))
 
             }
             appWidgetManager.updateAppWidget(widgetId, views)
         }
 
-        private fun getRefreshPendingIntent(context: Context, widgetId: Int): PendingIntent {
-            val intentUpdate = Intent(
-                context,
-                SingleConvertorProvider::class.java
-            )
-            intentUpdate.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        private fun getRefreshPendingIntent(context: Context, widgetId: Int, action: String): PendingIntent {
 
-            intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, intArrayOf(widgetId))
-
-
+            val intent = Intent(context, SingleConvertorProvider::class.java)
+            intent.action = action
+            intent.putExtra("appWidgetId", widgetId)
             return PendingIntent.getBroadcast(
-                context, widgetId, intentUpdate,
+                context,
+                widgetId,
+                intent,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
+
+//            val intentUpdate = Intent(
+//                context,
+//                SingleConvertorProvider::class.java
+//            )
+//            intentUpdate.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+//            intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, intArrayOf(widgetId))
+
+
+//            return PendingIntent.getBroadcast(
+//                context, widgetId, intentUpdate,
+//                PendingIntent.FLAG_UPDATE_CURRENT
+//            )
         }
 
         private fun getConfigurePendingIntent(context: Context, widgetId: Int): PendingIntent {
@@ -446,54 +470,34 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                     when (responseCode) {
                         200 -> {
                             val responseData: JsonObject? = response.body()
-                            Log.e(
-                                javaClass.simpleName,
-                                "responseData-->" + response.body().toString()
-                            )
 
                             if (responseData != null) {
                                 val quote = responseData.getAsJsonObject("quotes")
                                 val yesterday = responseData.getAsJsonObject("quotes_yesterday")
-                                Log.e(
-                                    javaClass.simpleName,
-                                    "quote-->$quote"
-                                )
-                                Log.e(
-                                    javaClass.simpleName,
-                                    "yesterday-->$yesterday"
-                                )
+
 
                                 val todayRate1 = quote.get(from.uppercase()).toString()
                                 val todayRate2 = quote.get(to.uppercase()).toString()
 
                                 val todayRate =
                                     (todayRate1.toDouble() * 100) / (todayRate2.toDouble() * 100)
-                                Log.e(
-                                    javaClass.simpleName,
-                                    "today rate-->$todayRate"
-                                )
 
                                 val yesterdayRate1 = yesterday.get(from.uppercase()).toString()
                                 val yesterdayRate2 = yesterday.get(to.uppercase()).toString()
                                 val yesterdayRate =
                                     (yesterdayRate1.toDouble() * 100) / (yesterdayRate2.toDouble() * 100)
-                                Log.e(
-                                    javaClass.simpleName,
-                                    "yesterday rate-->$yesterdayRate"
-                                )
 
-                                var diff = todayRate - yesterdayRate
+                                val diff = todayRate - yesterdayRate
                                 Utility.setStringPref("difference", diff.toString(), context);
 
-                                Utility.setStringPref(
-                                    "currencySaveData",
+                                Utility.setExchangeValue(
+                                    context,
                                     todayRate.toString(),
-                                    context
-                                );
+                                    widgetId = widgetId
 
+                                )
 
-                                updateWidget(context, appWidgetManager, widgetId)
-
+                                updateWidget(context, appWidgetManager, widgetId, false)
 
                             }
                         }

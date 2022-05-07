@@ -51,6 +51,15 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       debugPrint("index1->${_tabController.index}");
     });
     WidgetsBinding.instance!.addObserver(this);
+    if (MyColors.muliConverter) {
+      try {
+        _tabController.animateTo(
+          1,
+        );
+      } catch (e) {
+        debugPrint("exception in navigation to my currency-->$e");
+      }
+    }
     super.initState();
   }
 
@@ -59,8 +68,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     super.didChangeAppLifecycleState(state);
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     debugPrint("didChangeAppLifecycleState $state");
-
-    if (MyColors.muliConverter == true) {
+    if (MyColors.muliConverter) {
       if (state == AppLifecycleState.resumed) {
         WidgetsBinding.instance!.addPostFrameCallback((_) {
           try {

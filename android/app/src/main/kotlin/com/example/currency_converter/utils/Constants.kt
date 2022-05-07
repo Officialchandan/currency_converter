@@ -17,6 +17,7 @@ class Constants {
         const val fontSizeListWidget = "font_size_list_widget"
         const val listWidgetTransparent = "list_widget_transparent"
         const val selectedCurrencyList = "selectedCurrencyList"
+        const val listWidgetData = "listWidgetData"
 
         const val TOAST_ACTION = "com.currency.android.listWidget.TOAST_ACTION"
 

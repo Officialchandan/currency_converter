@@ -1,9 +1,11 @@
 package com.example.currency_converter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -15,16 +17,35 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.currency_converter.activity.SelectCurrencyActivity
+import com.example.currency_converter.adapter.CurrencyCodeAdapter
+import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.databinding.ActivityListWidgetConfigBinding
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.utils.Utility.Companion.getColorWithAlpha
 import com.example.currency_converter.widget.ListWidgetKt
+import com.example.interfaces.ItemClickListener
+import com.example.model.Country
+import com.google.gson.JsonObject
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import org.json.JSONArray
+import org.json.JSONObject
+import retrofit2.Response
 
-class ListWidgetConfigActivity : AppCompatActivity() {
+class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
     lateinit var binding: ActivityListWidgetConfigBinding
     var appWidgetId = 0
+    var showCurrencyPicker = false
+    var currencyList = ArrayList<Country>()
+
+    lateinit var currencyCode: Array<String>
+    lateinit var currencyName: Array<String>
+    lateinit var currencyFlag: TypedArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,19 +81,23 @@ class ListWidgetConfigActivity : AppCompatActivity() {
 
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
 
             Log.e(javaClass.simpleName, "onActivityResult-->${data!!.extras!!.get("data")}")
-            val appWidgetManager = AppWidgetManager.getInstance(this)
-            ListWidgetKt.updateAppWidget(this, appWidgetManager, appWidgetId, false)
+            var json = data.extras!!.get("data")
 
-            val resultValue =
-                Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-            setResult(Activity.RESULT_OK, resultValue)
-            finish()
+
+            if (data.toString().isNotEmpty()) {
+                val appWidgetManager = AppWidgetManager.getInstance(this)
+                getRate(
+                    this, JSONArray(json.toString()), binding.tvBaseCurrency.text.toString().trim(), binding.editAmount.text.toString().toDouble(),
+                    appWidgetId, appWidgetManager
+                )
+            }
+
+
         }
 
 
@@ -83,13 +108,19 @@ class ListWidgetConfigActivity : AppCompatActivity() {
         setResult(Activity.RESULT_CANCELED)
     }
 
+
     private fun initView(appWidgetId: Int) {
 
-        var colorCode = Utility.getStringPref("primaryColorCode", this)
+        binding.imgArrow.visibility = View.GONE
+        binding.layoutCurrencyList.visibility = View.GONE
 
-        if(colorCode.isEmpty()){
-            colorCode = "ff4e7dcb"
-        }
+        currencyCode = this.resources.getStringArray(R.array.currency_code)
+        currencyName = this.resources.getStringArray(R.array.currency_name)
+        currencyFlag = this.resources.obtainTypedArray(R.array.country_flag)
+
+        var colorCode = Utility.getWidgetColor( this)
+
+
 
         val color: Int = Color.parseColor("#$colorCode")
         val colorTran = Utility.getColorWithAlpha(color, 1f)
@@ -106,6 +137,14 @@ class ListWidgetConfigActivity : AppCompatActivity() {
             baseCurrency = "USD"
         }
         binding.tvBaseCurrency.text = baseCurrency
+
+        val i = currencyCode.indexOf(baseCurrency)
+
+        var flag = currencyFlag.getDrawable(i)
+        binding.imgFlag.setImageDrawable(flag)
+
+
+
 
         var baseAmount: String = Utility.loadAmount(this, appWidgetId)
         if (baseAmount.isEmpty()) {
@@ -131,9 +170,71 @@ class ListWidgetConfigActivity : AppCompatActivity() {
             binding.seekBarWidgetOpacity.progress = trans
         }
         setupWidgetTransparency(trans, color);
-
         setupRadio(this, appWidgetId)
         setupSeekbar(this, color)
+
+        setupCurrencyAdapter(this)
+
+        binding.layoutBaseCurrency.setOnClickListener(View.OnClickListener {
+
+
+            if (showCurrencyPicker) {
+                showCurrencyPicker = false
+                binding.layoutCurrencyList.visibility = View.GONE
+                binding.imgArrow.visibility = View.GONE
+
+            } else {
+                showCurrencyPicker = true
+                binding.layoutCurrencyList.visibility = View.VISIBLE
+                binding.imgArrow.visibility = View.VISIBLE
+            }
+
+        })
+
+
+    }
+
+    private fun setupCurrencyAdapter(context: Context) {
+
+
+        var fabList = ArrayList<Country>()
+        var list = ArrayList<Country>()
+
+
+
+
+        for (index in currencyCode.indices) {
+            if (currencyCode[index] == "USD" ||
+                currencyCode[index] == "BTC" ||
+                currencyCode[index] == "CAD" ||
+                currencyCode[index] == "EUR" ||
+                currencyCode[index] == "GBP" ||
+                currencyCode[index] == "INR"
+            ) {
+                fabList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", true, false))
+            } else {
+                list.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", false, false))
+            }
+        }
+
+        currencyList.addAll(fabList)
+        currencyList.addAll(list)
+
+        binding.rvCurrency.layoutManager = LinearLayoutManager(this)
+        binding.rvCurrency.adapter = CurrencyCodeAdapter(currencyList, 1, this, this)
+
+        val divider = DividerItemDecoration(
+            binding.rvCurrency.context,
+            DividerItemDecoration.VERTICAL
+        )
+
+
+        getDrawable(R.drawable.line_divider)?.let {
+            divider.setDrawable(
+                it
+            )
+        }
+        binding.rvCurrency!!.addItemDecoration(divider);
 
 
     }
@@ -347,7 +448,7 @@ class ListWidgetConfigActivity : AppCompatActivity() {
         }
     }
 
-    fun setupRadio(context: Context, appWidgetId: Int) {
+    private fun setupRadio(context: Context, appWidgetId: Int) {
 
 
         binding.radioGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
@@ -400,4 +501,121 @@ class ListWidgetConfigActivity : AppCompatActivity() {
         binding.widgetPreview.background = gradientDrawable
         binding.txtWidgetOpacity.text = trans.toString()
     }
+
+    override fun onItemSelect(country: Country, type: Int) {
+        showCurrencyPicker = false
+        binding.layoutCurrencyList.visibility = View.GONE
+        binding.imgArrow.visibility = View.GONE
+        binding.tvBaseCurrency.text = country.code
+        binding.imgFlag.setImageDrawable(country.flag)
+
+        Utility.saveBaseCurrency(this, country.code, appWidgetId)
+
+
+    }
+
+
+    @SuppressLint("CheckResult")
+    fun getRate(
+        context: Context?,
+        jsonItems: JSONArray,
+        baseCurrency: String?,
+        amount: Double,
+        appWidgetId: Int,
+        appWidgetManager: AppWidgetManager
+    ) {
+
+        var disposable: Disposable? = null
+
+        disposable = ApiClient.instance.getConvertRate()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ response: Response<JsonObject> ->
+
+                val responseCode = response.code()
+                Log.e(javaClass.simpleName, responseCode.toString())
+                when (responseCode) {
+                    200 -> {
+                        val responseData: JsonObject? = response.body()
+                        Log.e(
+                            javaClass.simpleName,
+                            "responseData-->" + response.body().toString()
+                        )
+
+                        if (responseData != null) {
+                            val quote = responseData.getAsJsonObject("quotes")
+                            val yesterday = responseData.getAsJsonObject("quotes_yesterday")
+                            Log.e(
+                                javaClass.simpleName,
+                                "quote-->$quote"
+                            )
+                            Log.e(
+                                javaClass.simpleName,
+                                "yesterday-->$yesterday"
+                            )
+
+                            val todayRate1 = quote.get(baseCurrency!!.uppercase()).toString()
+                            val yesterdayRate1 =
+                                yesterday.get(baseCurrency.uppercase()).toString()
+
+                            val codeList =
+                                context!!.resources.getStringArray(R.array.currency_code)
+                            val nameList =
+                                context.resources.getStringArray(R.array.currency_name)
+                            val flagList =
+                                context.resources.obtainTypedArray(R.array.country_flag)
+
+
+                            val jsonArray = JSONArray()
+
+
+                            for (index in 0 until jsonItems.length()) {
+
+                                val to = jsonItems.get(index).toString()
+                                val todayRate2 = quote.get(to.uppercase()).toString()
+                                val todayRate =
+                                    ((todayRate1.toDouble() * 100) / (todayRate2.toDouble() * 100)) * amount
+
+                                val yesterdayRate2 = yesterday.get(to.uppercase()).toString()
+                                val yesterdayRate =
+                                    ((yesterdayRate1.toDouble() * 100) / (yesterdayRate2.toDouble() * 100)) * amount
+
+
+                                var diff = todayRate - yesterdayRate
+
+                                val i = codeList.indexOf(to)
+
+                                var jsonObj = JSONObject()
+                                jsonObj.put("code", to);
+                                jsonObj.put("name", nameList[i]!!)
+                                jsonObj.put("todayRate", todayRate.toString())
+                                jsonObj.put("diff", diff.toString())
+                                jsonObj.put("flagIndex", i)
+
+                                jsonArray.put(jsonObj)
+
+                            }
+
+
+                            Utility.saveListWidgetData(this, jsonArray.toString(), appWidgetId)
+
+                            ListWidgetKt.updateAppWidget(this, appWidgetManager, appWidgetId, false)
+
+                            val resultValue =
+                                Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+                            setResult(Activity.RESULT_OK, resultValue)
+                            finish()
+
+                        }
+                    }
+
+                }
+            }, { error ->
+                Log.e(javaClass.simpleName, "error-->$error")
+
+            })
+
+
+    }
+
 }
