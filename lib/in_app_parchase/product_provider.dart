@@ -9,8 +9,8 @@ import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import '../utils/constants.dart';
 
 enum _TypeInApp { inapp, subs }
-String describeEnum(Object enumEntry) {
-  if (enumEntry is Enum) return enumEntry.name;
+String describeEnum(_TypeInApp enumEntry) {
+  if (enumEntry is Enum) return enumEntry.toString();
   final String description = enumEntry.toString();
   final int indexOfDot = description.indexOf('.');
   assert(
@@ -37,10 +37,7 @@ class InAppProvider with ChangeNotifier {
   late StreamSubscription conectionSubscription;
   late StreamSubscription purchaseUpdatedSubscription;
   late StreamSubscription purchaseErrorSubscription;
-  final List<String> productLists = [
-    "currency.app_unlock_color",
-    "currency.app_no_ads"
-  ];
+  final List<String> productLists = ["currency.app_unlock_color", "currency.app_no_ads"];
   List<IAPItem> items = [];
   List<IAPItem> getSubscriptionItems = [];
   List<PurchasedItem> purchases = [];
@@ -53,24 +50,19 @@ class InAppProvider with ChangeNotifier {
     }
     await FlutterInappPurchase.instance.initConnection;
     try {
-      String consumeAllItems =
-          await FlutterInappPurchase.instance.consumeAllItems;
+      String consumeAllItems = await FlutterInappPurchase.instance.consumeAllItems;
       print("consumeAllItems$consumeAllItems");
     } catch (err) {
       print('err-$err');
     }
-    conectionSubscription =
-        FlutterInappPurchase.connectionUpdated.listen((connected) {});
+    conectionSubscription = FlutterInappPurchase.connectionUpdated.listen((connected) {});
 
-    purchaseUpdatedSubscription =
-        FlutterInappPurchase.purchaseUpdated.listen((productItem) {});
-    purchaseErrorSubscription =
-        FlutterInappPurchase.purchaseError.listen((purchaseError) {});
+    purchaseUpdatedSubscription = FlutterInappPurchase.purchaseUpdated.listen((productItem) {});
+    purchaseErrorSubscription = FlutterInappPurchase.purchaseError.listen((purchaseError) {});
   }
 
   Future getProduct() async {
-    List<IAPItem> items =
-        await FlutterInappPurchase.instance.getProducts(productLists);
+    List<IAPItem> items = await FlutterInappPurchase.instance.getProducts(productLists);
     for (var item in items) {
       this.items.add(item);
     }
@@ -98,8 +90,7 @@ class InAppProvider with ChangeNotifier {
 
   Future<List<IAPItem>> getSubscriptions(List<String> skus) async {
     print("getSubscription");
-    List<IAPItem> subItemList =
-        await FlutterInappPurchase.instance.getSubscriptions(skus);
+    List<IAPItem> subItemList = await FlutterInappPurchase.instance.getSubscriptions(skus);
 
     for (var subItem in subItemList) {
       getSubscriptionItems.add(subItem);
@@ -114,8 +105,7 @@ class InAppProvider with ChangeNotifier {
   requestSubscription(String sku) async {
     print("requestSubscription");
     try {
-      List<String> listItem =
-          await FlutterInappPurchase.instance.requestSubscription(sku);
+      List<String> listItem = await FlutterInappPurchase.instance.requestSubscription(sku);
       print("listItem--$listItem");
       notifyListeners();
     } catch (e) {

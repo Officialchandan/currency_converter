@@ -46,9 +46,9 @@ class CurrencyCodeAdapter(
         holder.tvName.text = (model.name)
 
         if (model.favorite) {
-            holder.imgStar.setImageResource(android.R.drawable.star_on)
+            holder.imgStar.setImageResource(R.drawable.ic_star)
         } else {
-            holder.imgStar.setImageResource(android.R.drawable.star_off)
+            holder.imgStar.setImageResource(R.drawable.ic_star_border)
         }
 
         holder.itemLayout.setOnClickListener(View.OnClickListener {

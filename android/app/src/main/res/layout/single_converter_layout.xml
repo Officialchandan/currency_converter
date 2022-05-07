@@ -100,8 +100,8 @@
 
 			<ImageView
 				android:id="@+id/img_arrow"
-				android:layout_width="15dp"
-				android:layout_height="15dp"
+				android:layout_width="13dp"
+				android:layout_height="13dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignParentRight="true"
 				android:src="@drawable/arrow_up" />
@@ -131,7 +131,6 @@
 				android:id="@+id/txtProvider"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/_6sdp"
 				android:layout_marginTop="@dimen/_5sdp"
 				android:layout_weight="1"
 				android:textColor="@color/white"

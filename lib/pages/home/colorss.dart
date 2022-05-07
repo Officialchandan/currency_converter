@@ -6,7 +6,7 @@ library hsv_picker;
 
 import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/src/hsv_picker.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_colorpicker/src/utils.dart';
 
 // The default layout of Color Picker.
@@ -196,7 +196,8 @@ class _ColorsPickerState extends State<ColorsPicker> {
       currentHsvColor,
       (HSVColor color) {
         // Update text in `hexInputController` if provided.
-        widget.hexInputController?.text = colorToHex(color.toColor(), enableAlpha: widget.enableAlpha);
+        widget.hexInputController?.text =
+            colorToHex(color.toColor(), enableAlpha: widget.enableAlpha);
         setState(() => currentHsvColor = color);
         widget.onColorChanged(currentHsvColor.toColor());
       },
@@ -211,7 +212,8 @@ class _ColorsPickerState extends State<ColorsPicker> {
         currentHsvColor,
         (HSVColor color) {
           // Update text in `hexInputController` if provided.
-          widget.hexInputController?.text = colorToHex(color.toColor(), enableAlpha: widget.enableAlpha);
+          widget.hexInputController?.text =
+              colorToHex(color.toColor(), enableAlpha: widget.enableAlpha);
           setState(() => currentHsvColor = color);
           widget.onColorChanged(currentHsvColor.toColor());
         },
@@ -222,7 +224,8 @@ class _ColorsPickerState extends State<ColorsPicker> {
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).orientation == Orientation.portrait || widget.portraitOnly) {
+    if (MediaQuery.of(context).orientation == Orientation.portrait ||
+        widget.portraitOnly) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,7 +233,8 @@ class _ColorsPickerState extends State<ColorsPicker> {
           Row(children: [
             SizedBox(
               width: 100,
-              height: widget.colorPickerWidth * widget.pickerAreaHeightPercent / 2,
+              height:
+                  widget.colorPickerWidth * widget.pickerAreaHeightPercent / 2,
               child: colorPickerArea(),
             ),
             Padding(
@@ -429,7 +433,7 @@ class _SlidePickerState extends State<SlidePicker> {
           TrackType.saturationForHSL,
           TrackType.lightness,
         ],
-        if (widget.paletteType == PaletteType.rgb) ...[
+        if (widget.paletteType == PaletteType.rgbWithBlue) ...[
           TrackType.red,
           TrackType.green,
           TrackType.blue,
@@ -447,7 +451,8 @@ class _SlidePickerState extends State<SlidePicker> {
                     palette.toString().split('.').last[0].toUpperCase(),
                     textScaleFactor: Constants.textScaleFactor,
                     style: widget.sliderTextStyle ??
-                        Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold, fontSize: 16.0),
+                        Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontWeight: FontWeight.bold, fontSize: 16.0),
                   ),
                 ),
               Expanded(child: colorPickerSlider(palette)),

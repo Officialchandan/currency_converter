@@ -22,16 +22,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../in_app_parchase/product_provider.dart';
 
 enum _TypeInApp { inapp, subs }
-String describeEnum(Object enumEntry) {
-  if (enumEntry is Enum) return enumEntry.name;
-  final String description = enumEntry.toString();
-  final int indexOfDot = description.indexOf('.');
-  assert(
-    indexOfDot != -1 && indexOfDot < description.length - 1,
-    'The provided object "$enumEntry" is not an enum.',
-  );
-  return description.substring(indexOfDot + 1);
-}
+// String describeEnum(Object enumEntry) {
+//   if (enumEntry is Enum) return enumEntry.index;
+//   final String description = enumEntry.toString();
+//   final int indexOfDot = description.indexOf('.');
+//   assert(
+//     indexOfDot != -1 && indexOfDot < description.length - 1,
+//     'The provided object "$enumEntry" is not an enum.',
+//   );
+//   return description.substring(indexOfDot + 1);
+// }
 
 class ColorPickerDialog extends StatefulWidget {
   final Function onThemeChange;
@@ -65,12 +65,10 @@ class ColorPickerDialog extends StatefulWidget {
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
   Color unlockCurrentColor = Colors.blue;
-  LColor lockCurrentColor =
-      LColor(lmainColor: Colors.white, ldensityColors: []);
+  LColor lockCurrentColor = LColor(lmainColor: Colors.white, ldensityColors: []);
   Color densityCurrentColor = Colors.blue;
   String _platformVersion = 'Unknown';
-  MColor selectedColor =
-      MColor(mainColor: MyColors.colorPrimary, densityColors: []);
+  MColor selectedColor = MColor(mainColor: MyColors.colorPrimary, densityColors: []);
   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
 
   List<MColor> unlockColorList = [];
@@ -85,10 +83,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   late StreamSubscription _conectionSubscription;
   late StreamSubscription _purchaseUpdatedSubscription;
   late StreamSubscription _purchaseErrorSubscription;
-  final List<String> _productLists = [
-    "currency.app_unlock_color",
-    "currency.app_no_ads"
-  ];
+  final List<String> _productLists = ["currency.app_unlock_color", "currency.app_no_ads"];
   late InAppProvider _inAppProvider;
 
   List<LColor> lockedColorList = [];
@@ -130,10 +125,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             child: Text(
               "unlocked".tr().toString(),
               textScaleFactor: Constants.textScaleFactor,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 15,
-                  color: Colors.black),
+              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),
             ),
           ),
           Container(
@@ -156,9 +148,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 }
 
                 return UnlockColorPicker(
-                    pickerColor: selectedColor,
-                    onColorChanged: onUnlockColorChange,
-                    availableColors: unlockColorList
+                    pickerColor: selectedColor, onColorChanged: onUnlockColorChange, availableColors: unlockColorList
                     // ..add(selectedColor),
                     );
               },
@@ -169,10 +159,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             child: Text(
               "locked".tr().toString(),
               textScaleFactor: Constants.textScaleFactor,
-              style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
             ),
           ),
           Container(
@@ -184,28 +171,23 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 if (snapshot.hasData) {
                   List<LColor> lockedColors = snapshot.data!;
 
-                  int selectedLockedColorIndex =
-                      lockedColors.indexWhere((element) {
-                    return element.lmainColor.hex ==
-                        lockCurrentColor.lmainColor.hex;
+                  int selectedLockedColorIndex = lockedColors.indexWhere((element) {
+                    return element.lmainColor.hex == lockCurrentColor.lmainColor.hex;
                   });
                   LColor? selectedLockedColor;
                   if (selectedLockedColorIndex != -1) {
                     if (selectedLockedColorIndex > 0) {
-                      selectedLockedColor =
-                          lockedColors[selectedLockedColorIndex];
+                      selectedLockedColor = lockedColors[selectedLockedColorIndex];
                       LColor mColor = lockedColors[0];
 
                       lockedColors[0] = selectedLockedColor;
                       lockedColors[selectedLockedColorIndex] = mColor;
                     } else {
-                      selectedLockedColor =
-                          lockedColors[selectedLockedColorIndex];
+                      selectedLockedColor = lockedColors[selectedLockedColorIndex];
                     }
                   }
                   return LockColorPicker(
-                    pickerColor: selectedLockedColor ??
-                        LColor(lmainColor: Colors.white, ldensityColors: []),
+                    pickerColor: selectedLockedColor ?? LColor(lmainColor: Colors.white, ldensityColors: []),
                     onColorChanged: onLockColorChange,
                     availableColors: lockedColors,
                   );
@@ -231,17 +213,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                     if (snapshot.hasData) {
                       List<Color> colors = snapshot.data!;
                       return DensityColorPicker(
-                          pickerColor: selectedDensityColor,
-                          onColorChanged: onDensityColorChange,
-                          availableColors: colors);
+                          pickerColor: selectedDensityColor, onColorChanged: onDensityColorChange, availableColors: colors);
                     }
 
                     return DensityColorPicker(
                         pickerColor: selectedDensityColor,
                         onColorChanged: onDensityColorChange,
-                        availableColors: MyColors.lastTimeCheck
-                            ? selectedColor.densityColors
-                            : lselectedColor.ldensityColors);
+                        availableColors: MyColors.lastTimeCheck ? selectedColor.densityColors : lselectedColor.ldensityColors);
                   },
                 )),
           ),
@@ -260,23 +238,18 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           width: width * 0.45,
                           height: height * 0.05,
                           child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.indigoAccent),
+                            style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                             onPressed: () async {
                               MyColors.lockColorfordefault = lockSelectdColor;
                               MyColors.colorPrimary = colorSelection!;
 
-                              Utility.setStringPreference(
-                                  Constants.selectedLockedColor,
-                                  lockSelectdColor.value.toRadixString(16));
+                              Utility.setStringPreference(Constants.selectedLockedColor, lockSelectdColor.value.toRadixString(16));
 
                               int red = MyColors.colorPrimary.red;
                               int blue = MyColors.colorPrimary.blue;
                               int green = MyColors.colorPrimary.green;
 
-                              var grayscale = (0.299 * red) +
-                                  (0.587 * green) +
-                                  (0.114 * blue);
+                              var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
                               debugPrint("grayscale----> $grayscale");
 
                               if (grayscale > 200) {
@@ -289,17 +262,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 MyColors.insideTextFieldColor = Colors.black;
                                 MyColors.isDarkMode = false;
                               }
-                              SystemChrome.setSystemUIOverlayStyle(
-                                  SystemUiOverlayStyle(
+                              SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                                 // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                                systemNavigationBarIconBrightness:
-                                    !MyColors.isDarkMode
-                                        ? Brightness.light
-                                        : Brightness.dark,
-                                systemNavigationBarColor: MyColors
-                                    .colorPrimary, // navigation bar color
-                                statusBarColor:
-                                    MyColors.colorPrimary, // status bar color
+                                systemNavigationBarIconBrightness: !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
+                                systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                                statusBarColor: MyColors.colorPrimary, // status bar color
                               ));
                               widget.onThemeChange();
                               Navigator.pop(context);
@@ -316,55 +283,36 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           width: width * 0.45,
                           height: height * 0.05,
                           child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.indigoAccent),
+                            style: ElevatedButton.styleFrom(primary: Colors.indigoAccent),
                             onPressed: () async {
                               await provider.getProduct();
-                              provider.items
-                                  .map((item) => provider.requestPurchase(item))
-                                  .toList();
-                              provider.purchaseUpdatedSubscription =
-                                  FlutterInappPurchase.purchaseUpdated
-                                      .listen((productItem) async {
+                              provider.items.map((item) => provider.requestPurchase(item)).toList();
+                              provider.purchaseUpdatedSubscription = FlutterInappPurchase.purchaseUpdated.listen((productItem) async {
                                 if (productItem!.productId!.isNotEmpty) {
-                                  MyColors.lockColorfordefault =
-                                      lockSelectdColor;
+                                  MyColors.lockColorfordefault = lockSelectdColor;
                                   MyColors.colorPrimary = colorSelection!;
-                                  Utility.setStringPreference(
-                                      Constants.selectedLockedColor,
-                                      lockSelectdColor.value.toRadixString(16));
+                                  Utility.setStringPreference(Constants.selectedLockedColor, lockSelectdColor.value.toRadixString(16));
                                   int red = MyColors.colorPrimary.red;
                                   int blue = MyColors.colorPrimary.blue;
                                   int green = MyColors.colorPrimary.green;
-                                  var grayscale = (0.299 * red) +
-                                      (0.587 * green) +
-                                      (0.114 * blue);
+                                  var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
 
                                   if (grayscale > 200) {
                                     MyColors.textColor = Colors.grey.shade700;
-                                    MyColors.insideTextFieldColor =
-                                        Colors.white;
+                                    MyColors.insideTextFieldColor = Colors.white;
                                     MyColors.isDarkMode = true;
                                   } else {
                                     MyColors.textColor = Colors.white;
-                                    MyColors.insideTextFieldColor =
-                                        Colors.black;
+                                    MyColors.insideTextFieldColor = Colors.black;
                                     MyColors.isDarkMode = false;
                                   }
-                                  SystemChrome.setSystemUIOverlayStyle(
-                                      SystemUiOverlayStyle(
+                                  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                                     // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                                    systemNavigationBarIconBrightness:
-                                        !MyColors.isDarkMode
-                                            ? Brightness.light
-                                            : Brightness.dark,
-                                    systemNavigationBarColor: MyColors
-                                        .colorPrimary, // navigation bar color
-                                    statusBarColor: MyColors
-                                        .colorPrimary, // status bar color
+                                    systemNavigationBarIconBrightness: !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
+                                    systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                                    statusBarColor: MyColors.colorPrimary, // status bar color
                                   ));
-                                  String code =
-                                      lockSelectdColor.value.toRadixString(16);
+                                  String code = lockSelectdColor.value.toRadixString(16);
                                   await dbHelper.deSelectColor();
                                   await dbHelper.insertColor(ColorTable(
                                     previousColor: 0,
@@ -374,43 +322,21 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   ));
                                   if (densitySelectedColor != null) {
                                     Set<Color> densityColorList = {
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade50,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade100,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade200,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade300,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade400,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade500,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade600,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade700,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade800,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade900,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade50,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade100,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade200,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade300,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade400,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade500,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade600,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade700,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade800,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade900,
                                     };
 
                                     for (var dencityColor in densityColorList) {
-                                      String code1 =
-                                          dencityColor.value.toRadixString(16);
-                                      await dbHelper
-                                          .insertDensityColor(DensityColor(
+                                      String code1 = dencityColor.value.toRadixString(16);
+                                      await dbHelper.insertDensityColor(DensityColor(
                                         previousColor: "0",
                                         colorCode: code1,
                                         selected: "0",
@@ -418,11 +344,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       ));
                                     }
                                   }
-                                  await dbHelper.removeColor(ColorTable(
-                                      colorCode: code,
-                                      selected: 1,
-                                      previousColor: 0,
-                                      isLocked: ColorsConst.lockedColor));
+                                  await dbHelper.removeColor(
+                                      ColorTable(colorCode: code, selected: 1, previousColor: 0, isLocked: ColorsConst.lockedColor));
                                   widget.onThemeChange();
                                   Navigator.pop(context);
                                 }
@@ -471,11 +394,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           child: AutoSizeText(
                             "cpv_custom".tr().toString(),
                             textScaleFactor: Constants.textScaleFactor,
-                            style: const TextStyle(
-                                letterSpacing: 0.8,
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
+                            style: const TextStyle(letterSpacing: 0.8, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
                             maxLines: 1,
                           ),
                         ),
@@ -497,10 +416,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                               height: height * 0.05,
                               child: GestureDetector(
                                 onTap: () async {
-                                  if (unlockSelectdColor != null &&
-                                      densitySelectedColor != null) {
-                                    String code = densitySelectedColor!.value
-                                        .toRadixString(16);
+                                  if (unlockSelectdColor != null && densitySelectedColor != null) {
+                                    String code = densitySelectedColor!.value.toRadixString(16);
                                     await dbHelper.deSelectColor();
                                     await dbHelper.insertColor(ColorTable(
                                       previousColor: 0,
@@ -510,43 +427,21 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     ));
 
                                     Set<Color> densityColorList = {
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade50,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade100,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade200,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade300,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade400,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade500,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade600,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade700,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade800,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade900,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade50,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade100,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade200,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade300,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade400,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade500,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade600,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade700,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade800,
+                                      ColorTools.createPrimarySwatch(densitySelectedColor!).shade900,
                                     };
 
                                     for (var dencityColor in densityColorList) {
-                                      String code1 =
-                                          dencityColor.value.toRadixString(16);
-                                      await dbHelper
-                                          .insertDensityColor(DensityColor(
+                                      String code1 = dencityColor.value.toRadixString(16);
+                                      await dbHelper.insertDensityColor(DensityColor(
                                         previousColor: "0",
                                         colorCode: code1,
                                         selected: "0",
@@ -554,12 +449,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       ));
                                     }
 
-                                    MyColors.colorPrimary =
-                                        densitySelectedColor!;
+                                    MyColors.colorPrimary = densitySelectedColor!;
                                   } else if (unlockSelectdColor != null) {
                                     await dbHelper.deSelectColor();
-                                    String colorCode = unlockSelectdColor!.value
-                                        .toRadixString(16);
+                                    String colorCode = unlockSelectdColor!.value.toRadixString(16);
                                     await dbHelper.selectColor(ColorTable(
                                       previousColor: 0,
                                       colorCode: colorCode,
@@ -574,14 +467,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   int blue = MyColors.colorPrimary.blue;
                                   int green = MyColors.colorPrimary.green;
 
-                                  var grayscale = (0.299 * red) +
-                                      (0.587 * green) +
-                                      (0.114 * blue);
+                                  var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
 
                                   if (grayscale > 200) {
                                     MyColors.textColor = Colors.grey.shade700;
-                                    MyColors.insideTextFieldColor =
-                                        Colors.white;
+                                    MyColors.insideTextFieldColor = Colors.white;
 
                                     MyColors.isDarkMode = true;
 
@@ -591,35 +481,27 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     );
                                   } else {
                                     MyColors.textColor = Colors.white;
-                                    MyColors.insideTextFieldColor =
-                                        Colors.black;
+                                    MyColors.insideTextFieldColor = Colors.black;
                                     MyColors.isDarkMode = false;
                                     await Utility.setBooleanPreference(
                                       Constants.isDarkMode,
                                       false,
                                     );
                                   }
-                                  SystemChrome.setSystemUIOverlayStyle(
-                                      SystemUiOverlayStyle(
+                                  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                                     // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                                    systemNavigationBarIconBrightness:
-                                        !MyColors.isDarkMode
-                                            ? Brightness.light
-                                            : Brightness.dark,
-                                    systemNavigationBarColor: MyColors
-                                        .colorPrimary, // navigation bar color
-                                    statusBarColor: MyColors
-                                        .colorPrimary, // status bar color
+                                    systemNavigationBarIconBrightness: !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
+                                    systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
+                                    statusBarColor: MyColors.colorPrimary, // status bar color
                                   ));
-
+                                  Utility.setStringPreference(Constants.primaryColorCode, unlockSelectdColor!.value.toRadixString(16));
                                   // Utility.setStringPreference(Constants.themeColor,
                                   //     unlockSelectdColor!.value.toString());
 
                                   // Utility.setStringPreference(
                                   //     Constants.themeofDensityColor,
                                   //     densitySelectedColor.value.toString());
-                                  unlockColorController
-                                      .add(widget.isUnlockColorSelect);
+                                  unlockColorController.add(widget.isUnlockColorSelect);
                                   // themepicker(densitySelectedColor.value.toString());
                                   // themepicker(unlockSelectdColor!.value.toString());
 
@@ -630,10 +512,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   "cpv_select".tr().toString(),
                                   textScaleFactor: Constants.textScaleFactor,
                                   style: const TextStyle(
-                                      letterSpacing: 1.0,
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                                      letterSpacing: 1.0, color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
                                 ),
                               ),
                             );
@@ -658,12 +537,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     showGeneralDialog(
         context: context,
         barrierDismissible: true,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: Colors.black45,
         transitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (BuildContext buildContext, Animation animation,
-            Animation secondaryAnimation) {
+        pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
           double width = MediaQuery.of(context).size.width;
           double height = MediaQuery.of(context).size.height;
 
@@ -736,8 +613,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     unlockColorStream.add(unlockColorList);
 
     widget.densitychangeColor(color);
-    debugPrint(
-        "selected color -> ${densityCurrentColor.value.toRadixString(16)}");
+    debugPrint("selected color -> ${densityCurrentColor.value.toRadixString(16)}");
   }
 
   static void themepicker(String code) async {
@@ -749,14 +625,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     Color c = MyColors.colorPrimary;
     lockedColorList.clear();
 
-    int selectedLockColorIndex = lockedColorList
-        .indexWhere((element) => element.lmainColor.hex == c.hex);
-    int selectedUnlockColorIndex =
-        unlockColorList.indexWhere((element) => element.mainColor.hex == c.hex);
+    int selectedLockColorIndex = lockedColorList.indexWhere((element) => element.lmainColor.hex == c.hex);
+    int selectedUnlockColorIndex = unlockColorList.indexWhere((element) => element.mainColor.hex == c.hex);
 
     if (selectedLockColorIndex == -1 && selectedUnlockColorIndex == -1) {
-      LColor newLockColor =
-          LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
+      LColor newLockColor = LColor(lmainColor: MyColors.colorPrimary, ldensityColors: [
         ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade50,
         ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade100,
         ColorTools.createPrimarySwatch(MyColors.colorPrimary).shade200,
@@ -774,27 +647,21 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       lockedColorList.addAll(lockedColorList);
     }
 
-    selectedLockColorIndex = lockedColorList
-        .indexWhere((element) => element.lmainColor.hex == c.hex);
-    selectedUnlockColorIndex =
-        unlockColorList.indexWhere((element) => element.mainColor.hex == c.hex);
+    selectedLockColorIndex = lockedColorList.indexWhere((element) => element.lmainColor.hex == c.hex);
+    selectedUnlockColorIndex = unlockColorList.indexWhere((element) => element.mainColor.hex == c.hex);
 
     if (selectedLockColorIndex != -1) {
       lockCurrentColor = lockedColorList[selectedLockColorIndex];
-      densityColorStream
-          .add(unlockColorList[selectedLockColorIndex].densityColors);
+      densityColorStream.add(unlockColorList[selectedLockColorIndex].densityColors);
     }
 
     if (selectedUnlockColorIndex != -1) {
-      densityColorStream
-          .add(unlockColorList[selectedUnlockColorIndex].densityColors);
+      densityColorStream.add(unlockColorList[selectedUnlockColorIndex].densityColors);
     }
     unlockColorStream.add(unlockColorList);
 
-    String colorPreference =
-        await Utility.getStringPreference(Constants.selectedLockedColor);
-    int index = lockedColorList.indexWhere((element) =>
-        element.lmainColor.value.toRadixString(16) == colorPreference);
+    String colorPreference = await Utility.getStringPreference(Constants.selectedLockedColor);
+    int index = lockedColorList.indexWhere((element) => element.lmainColor.value.toRadixString(16) == colorPreference);
     debugPrint("index------>$index");
     debugPrint("colorPreference------>$colorPreference");
 
@@ -869,8 +736,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     debugPrint("lockedColorList---------------->${lockedColorList.length}");
     unlockColorStream.add(unlockColorList);
     lockColorStream.add(lockedColorList);
-    int index = unlockColorList.indexWhere(
-        (element) => element.mainColor.hex == MyColors.colorPrimary.hex);
+    int index = unlockColorList.indexWhere((element) => element.mainColor.hex == MyColors.colorPrimary.hex);
     if (index != -1) {
       selectedColor = unlockColorList[index];
       densityColorStream.add(selectedColor.densityColors);
@@ -879,14 +745,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       MyColors.densitycheck = false;
     }
 
-    String lockedColor =
-        await Utility.getStringPreference(Constants.selectedLockedColor);
+    String lockedColor = await Utility.getStringPreference(Constants.selectedLockedColor);
 
-    bool isColorExist = await dbHelper.checkColorCodeExist(ColorTable(
-        colorCode: lockedColor,
-        isLocked: ColorsConst.lockedColor,
-        previousColor: 0,
-        selected: 1));
+    bool isColorExist = await dbHelper
+        .checkColorCodeExist(ColorTable(colorCode: lockedColor, isLocked: ColorsConst.lockedColor, previousColor: 0, selected: 1));
     Color mcolor = Color(int.parse("0x$lockedColor"));
     if (!isColorExist) {
       Set<Color> densityColor = {
@@ -902,12 +764,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         ColorTools.createPrimarySwatch(mcolor).shade900,
       };
 
-      lockedColorList.add(
-          LColor(lmainColor: mcolor, ldensityColors: densityColor.toList()));
+      lockedColorList.add(LColor(lmainColor: mcolor, ldensityColors: densityColor.toList()));
     }
 
-    int lockedColorIndex = lockedColorList
-        .indexWhere((element) => element.lmainColor.hex == mcolor.hex);
+    int lockedColorIndex = lockedColorList.indexWhere((element) => element.lmainColor.hex == mcolor.hex);
 
     if (lockedColorIndex != -1) {
       lockCurrentColor = lockedColorList[lockedColorIndex];
@@ -928,16 +788,13 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   Future<List<LColor>> getLockedColor(List<ColorTable> colors) async {
     List<LColor> lockedColor = [];
-    List<ColorTable> color = colors
-        .where((element) => element.isLocked == ColorsConst.lockedColor)
-        .toList();
+    List<ColorTable> color = colors.where((element) => element.isLocked == ColorsConst.lockedColor).toList();
 
     await Future.forEach(color, (ColorTable element) async {
       int colorCode = int.parse("0x" + element.colorCode);
       List<Color> ldensityColors = [];
 
-      List<DensityColor> dsColor =
-          await dbHelper.getDensityColors(element.colorCode);
+      List<DensityColor> dsColor = await dbHelper.getDensityColors(element.colorCode);
 
       debugPrint("dsColor-->${dsColor.length}");
 
@@ -946,8 +803,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
         ldensityColors.add(Color(code));
       });
 
-      LColor lColor =
-          LColor(lmainColor: Color(colorCode), ldensityColors: ldensityColors);
+      LColor lColor = LColor(lmainColor: Color(colorCode), ldensityColors: ldensityColors);
       debugPrint("lColor-->${lColor.ldensityColors.length}");
 
       lockedColor.add(lColor);
@@ -959,23 +815,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   Future<List<MColor>> getUnlockColor(List<ColorTable> colors) async {
     List<MColor> unLockedColor = [];
-    List<ColorTable> color = colors
-        .where((element) => element.isLocked == ColorsConst.unLockedColor)
-        .toList();
+    List<ColorTable> color = colors.where((element) => element.isLocked == ColorsConst.unLockedColor).toList();
 
     await Future.forEach(color, (ColorTable element) async {
       int colorCode = int.parse("0x" + element.colorCode);
       List<Color> densityColors = [];
-      List<DensityColor> dsColor =
-          await dbHelper.getDensityColors(element.colorCode);
+      List<DensityColor> dsColor = await dbHelper.getDensityColors(element.colorCode);
       debugPrint("dsColor-->${dsColor.length}");
       await Future.forEach(dsColor, (DensityColor ds) async {
         int code = int.parse("0x" + ds.colorCode);
         densityColors.add(Color(code));
       });
 
-      MColor mColor =
-          MColor(mainColor: Color(colorCode), densityColors: densityColors);
+      MColor mColor = MColor(mainColor: Color(colorCode), densityColors: densityColors);
       debugPrint("lColor-->${mColor.densityColors.length}");
 
       unLockedColor.add(mColor);

@@ -41,7 +41,7 @@ class SelectCurrencyActivity : AppCompatActivity() {
 
 
     private fun initView(widgetId: Int) {
-        val colorCode = Utility.getStringPref("primaryColorCode", this)
+        val colorCode = Utility.getWidgetColor( this)
         val color: Int = Color.parseColor("#$colorCode")
         val colorTran = Utility.getColorWithAlpha(color, 1f)
         var gd = Utility.getWidgetGradientDrawable(colorTran, 0, 0, 0f);
@@ -93,10 +93,10 @@ class SelectCurrencyActivity : AppCompatActivity() {
             Utility.saveItemsPref(this, jsonArray.toString(), widgetId)
             var data = Intent()
 
-            data.putExtra("data",jsonArray.toString())
+            data.putExtra("data", jsonArray.toString())
 
 
-            setResult(Activity.RESULT_OK,data )
+            setResult(Activity.RESULT_OK, data)
             finish()
 
 
@@ -112,39 +112,54 @@ class SelectCurrencyActivity : AppCompatActivity() {
         countryList: Array<String>,
         flagList: TypedArray
     ) {
-
-
         Log.e(javaClass.simpleName, "currencyList-->${currencyList.size}")
-
-        for (index in currencyList.indices) {
-            val code = currencyList[index]
-            val name = countryList[index]
-            val flag = flagList.getDrawable(index)
-            unSelected.add(Country(flag!!, code, name, "0.00", false, false))
-        }
-
-        Log.e(javaClass.simpleName, "unSelected-->${unSelected.size}")
-
-
         for (index in 0 until jsonArray.length()) {
             val symbol: String = jsonArray.getString(index)
-
-            var i = currencyList.indexOf(symbol.uppercase())
+            val i = currencyList.indexOf(symbol.uppercase())
             val flag = flagList.getDrawable(i)
             val currencyName = countryList[i]
-
             val currency = Country(flag!!, symbol, currencyName, "0.00", false, false)
             selected.add(currency)
-
-            val selectedIndex = unSelected.indexOf(currency)
-            Log.e(javaClass.simpleName, "selectedIndex-->$selectedIndex")
-            if (selectedIndex > -1) {
-                unSelected.removeAt(selectedIndex)
-            }
-
-
         }
+
+
+
+
+
+        for (i in currencyList.indices) {
+            val code = currencyList[i]
+            val name = countryList[i]
+            val flag = flagList.getDrawable(i)
+            val currency = Country(flag!!, code, name, "0.00", false, false)
+            unSelected.add(currency)
+        }
+
+        val list = unSelected.minus(selected).toList()
+        Log.e(javaClass.simpleName, "list-->${list.size}")
+        unSelected = ArrayList<Country>(list)
+
         Log.e(javaClass.simpleName, "unSelected-->${unSelected.size}")
+        Log.e(javaClass.simpleName, "Selected-->${selected.size}")
+
+//        for (index in 0 until jsonArray.length()) {
+//            val symbol: String = jsonArray.getString(index)
+//
+//            var i = currencyList.indexOf(symbol.uppercase())
+//            val flag = flagList.getDrawable(i)
+//            val currencyName = countryList[i]
+//
+//            val currency = Country(flag!!, symbol, currencyName, "0.00", false, false)
+//            selected.add(currency)
+//
+//            val selectedIndex = unSelected.indexOf(currency)
+//            Log.e(javaClass.simpleName, "selectedIndex-->$selectedIndex")
+//            if (selectedIndex > -1) {
+//                unSelected.removeAt(selectedIndex)
+//            }
+//
+//
+//        }
+
 
         binding.recyclerSelected.layoutManager = LinearLayoutManager(context)
         binding.recyclerUnSelected.layoutManager = LinearLayoutManager(context)
@@ -188,5 +203,10 @@ class SelectCurrencyActivity : AppCompatActivity() {
         binding.recyclerUnSelected.adapter = unSelectedAdapter
 
 
+    }
+
+    fun <T> Collection<T>.filterNotIn(collection: Collection<T>): Collection<T> {
+        val set = collection.toSet()
+        return filterNot { set.contains(it) }
     }
 }

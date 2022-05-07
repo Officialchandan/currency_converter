@@ -12,6 +12,7 @@ import android.widget.RemoteViewsService
 import com.example.currency_converter.R
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.SingleConvertorProvider
+import org.json.JSONArray
 import java.math.BigDecimal
 import kotlin.jvm.internal.Intrinsics
 
@@ -45,7 +46,7 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
 
     override fun onDataSetChanged() {
         Log.e(javaClass.simpleName, "onDataSetChanged->")
-//        initData()
+        initData()
     }
 
     override fun onDestroy() {}
@@ -73,11 +74,11 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
         val d: Double = diffrence[position].toDouble();
         if (d < 0) {
             view.setTextViewText(
-                R.id.txtPercent, "" + "%.4f".format(d )
+                R.id.txtPercent, "" + "%.4f".format(d)
             )
         } else {
             view.setTextViewText(
-                R.id.txtPercent, "+" + "%.4f".format(d )
+                R.id.txtPercent, "+" + "%.4f".format(d)
             )
         }
 
@@ -165,51 +166,61 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
         codeList.clear()
         diffrence.clear()
         exchangeRate.clear()
+
+
+        val flagArray = context.resources.obtainTypedArray(R.array.country_flag)
         val intent = mIntent
         var num: Int? = null
 
-        val stringExtra = if (intent != null) intent.getStringExtra("baseCurrency") else "USD"
+        val stringExtra = intent.getStringExtra("baseCurrency")
         Log.e(javaClass.simpleName, "stringExtra->$stringExtra")
         Intrinsics.checkNotNull(stringExtra)
         baseCurrency = stringExtra
 
-        val valueOf = if (intent != null) java.lang.Double.valueOf(
+        val valueOf = java.lang.Double.valueOf(
             intent.getDoubleExtra(
                 "amount",
                 1.0
             )
-        ) else 1.0
+        )
         Intrinsics.checkNotNull(valueOf)
-        amount = BigDecimal(valueOf!!.toDouble())
+        amount = BigDecimal(valueOf.toDouble())
         Log.e(javaClass.simpleName, "valueOf->$valueOf")
 
 
-        if (intent != null) {
-            num = Integer.valueOf(intent.getIntExtra("visualSize", 1))
-        }
+        num = Integer.valueOf(intent.getIntExtra("visualSize", 1))
         Intrinsics.checkNotNull(num)
         visualSize = num!!.toInt()
         Log.e(javaClass.simpleName, "visualSize->$visualSize")
 
+        val jsonString = intent.getStringExtra("jsonItems")
+        Log.e(javaClass.simpleName, "jsonString->$jsonString")
 
-        codeList = intent.getStringArrayListExtra("codeList")!!
-        exchangeRate = intent.getStringArrayListExtra("rateList")!!
-        diffrence = intent.getStringArrayListExtra("diffList")!!
+        if (jsonString!!.isNotEmpty()) {
+            val json = JSONArray(jsonString)
+            Log.e(javaClass.simpleName, "json->$json")
+
+
+            for (index in 0 until json.length()) {
+                val obj = json.getJSONObject(index)!!
+                codeList.add(obj.getString("code"))
+                exchangeRate.add(obj.getString("todayRate"))
+                diffrence.add(obj.getString("diff"))
+                val i = obj.getInt("flagIndex")
+                flag.add(flagArray.getDrawable(i)!!)
+            }
+
+
+        }
+
+
 
         Log.e(javaClass.simpleName, "codeList->$codeList")
         Log.e(javaClass.simpleName, "exchangeRate->$exchangeRate")
         Log.e(javaClass.simpleName, "diffrence->$diffrence")
 
-        val widgetId = intent.getIntExtra("appWidgetId", 100)!!
+        val widgetId = intent.getIntExtra("appWidgetId", 100)
         Log.e(javaClass.simpleName, "widgetId->$widgetId")
-
-        val flagArray = context.resources.obtainTypedArray(R.array.country_flag)
-        val codeArray = context.resources.getStringArray(R.array.currency_code)
-
-        codeList.forEach {
-            val i = codeArray.indexOf(it.uppercase())
-            flag.add(flagArray.getDrawable(i)!!)
-        }
 
 
     }

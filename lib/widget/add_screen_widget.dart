@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:currency_converter/google_admob/ad_helper.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   bool isBannerAdReady = false;
   @override
   void initState() {
+    log("AddScreenWidget--->");
     init();
     super.initState();
   }
@@ -26,12 +29,14 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   }
 
   void addMob() {
+    log("addMob--->");
     _bannerAd = BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
       size: AdSize.largeBanner,
       listener: BannerAdListener(
         onAdLoaded: (_) {
+          log("onAdLoaded--->");
           setState(() {
             isBannerAdReady = true;
           });
