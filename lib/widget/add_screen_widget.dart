@@ -20,6 +20,7 @@ class _AddScreenWidget extends State<AddScreenWidget> {
 
   void init() {
     if (Constants.isPurchase == "[]") {
+      print("adMob-<<<<<");
       addMob();
     }
   }

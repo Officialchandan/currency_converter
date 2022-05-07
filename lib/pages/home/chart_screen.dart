@@ -206,12 +206,16 @@ class _ChartScreenState extends State<ChartScreen> {
   void chartData({required String edtFrom, required String edtTo}) async {
     String url =
         "https://www.currency.wiki/api/currency/quotes/$edtFrom/$edtTo/784565d2-9c14-4b25-8235-06f6c5029b15";
+    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime(now.year, now.month, now.day - 2);
+    print("time-->$dateTime");
     Dio _dio = Dio();
     try {
       Response response = await _dio.get(url);
       if (response.statusCode == 200) {
         ConverterData data = ConverterData.fromMap(response.data);
-        for (int i = 0; i < data.from!.length; i++) {
+        for (int i = 0; i < data.from!.values.length; i++) {
+          print("data-->${data.from!.values.length}");
           double value = (data.from!.values.toList()[i] * 100) /
               (data.to!.values.toList()[i] * 100);
           if (i == 0) {

@@ -719,7 +719,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   SizedBox(
                     height: appheight * 0.03,
                   ),
-                  _isContainerVisible || _isContainerVisibleTwo
+                  _isContainerVisible ||
+                          _isContainerVisibleTwo ||
+                          Constants.isPurchase == "[]"
                       ? const SizedBox()
                       : const Center(child: AddScreenWidget()),
                 ],
@@ -767,7 +769,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       double b = double.parse(toRow.first.values.toList()[3]);
       conversionRate = ((a * 100) / (b * 100)) * (double.parse(rate));
       text = conversionRate.toStringAsFixed(MyColors.decimalFormat);
-      setState(() {});
+      setStateIfMounted();
       return Utility.getFormatText(text);
     } catch (e) {
       print(e);
