@@ -85,6 +85,33 @@ class ListWidgetKt {
             val views =
                 RemoteViews(context.packageName, R.layout.multi_convertor_layout)
 
+
+
+
+
+
+            val colorCode = Utility.getWidgetColor(context)
+
+            Log.e(javaClass.simpleName, "colorCode-->$colorCode")
+            val colorFrom: Int = Color.parseColor("#$colorCode")
+            val trans = Utility.getListWidgetTransparency(context, appWidgetId)
+            Log.e(javaClass.simpleName, "trans--> $trans")
+            val transparency: Float = 1f - (trans.toFloat() / 100)
+
+            val listWidgetProviderWidth =
+                appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMinWidth", 0)
+            val listWidgetProviderHeight =
+                appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMaxHeight", 0)
+
+            val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparency), 0, 0, 20f)
+            val bitmap =
+                SingleConvertorProvider.drawableToBitmap(
+                    gradientDrawable,
+                    listWidgetProviderWidth*3,
+                    listWidgetProviderHeight*3
+                )
+            views.setImageViewBitmap(R.id.imgContainer, bitmap)
+
             val jsonString: String = Utility.getListWidgetData(
                 context,
                 appWidgetId
@@ -103,41 +130,12 @@ class ListWidgetKt {
             val visualSize: Int = Utility.loadVisual(context, appWidgetId)
 
 
+
             Log.e(javaClass.simpleName, "json--> $jsonString")
 
 //            getRate(context, views, json, baseCurrency, amount.toDouble(), appWidgetId, visualSize, appWidgetManager)
             setRemoteAdapter(context, views, jsonString, baseCurrency, amount.toDouble(), appWidgetId, visualSize, appWidgetManager)
 
-
-            val str2: String = MyOnClick
-
-            views.setOnClickPendingIntent(
-                R.id.btnRefresh, getPendingSelfIntentForConvertList(
-                    context,
-                    str2,
-                    appWidgetId
-                )
-            )
-            views.setOnClickPendingIntent(
-                R.id.btnRefreshDark, getPendingSelfIntentForConvertList(
-                    context,
-                    str2,
-                    appWidgetId
-                )
-            )
-
-            views.setOnClickPendingIntent(
-                R.id.btnSettings, getSettingPendingIntent(
-                    context,
-                    appWidgetId
-                )
-            )
-            views.setOnClickPendingIntent(
-                R.id.btnSettingsDark, getSettingPendingIntent(
-                    context,
-                    appWidgetId
-                )
-            )
 
 //        val instance: AppCurrency = AppCurrency.Companion.getInstance()
 //        Intrinsics.checkNotNull(instance)
@@ -160,43 +158,7 @@ class ListWidgetKt {
             views.setTextViewText(R.id.txtProvider, "Currency.wiki")
             views.setTextViewTextSize(R.id.tvPipe, 0, updateDateTextSize)
 
-            var listWidgetProviderWidth =
-                appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMinWidth", 0)
-            var listWidgetProviderHeight =
-                appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMaxHeight", 0)
 
-//        if (ListWidgetProviderWidth <= 0 || ListWidgetProviderHeight <= 0) {
-//            val instance2: AppCurrency = AppCurrency.Companion.getInstance()
-//            Intrinsics.checkNotNull(instance2)
-//            val providerInfo =
-//                AppWidgetManager.getInstance(instance2.getApplicationContext())
-//                    .getAppWidgetInfo(appWidgetId)
-//            ListWidgetProviderWidth = providerInfo.minWidth
-//            ListWidgetProviderHeight = providerInfo.minHeight
-//        }
-//
-//        if (ListWidgetProviderWidth <= 0 || ListWidgetProviderHeight <= 0) {
-//            ListWidgetProviderWidth = SVG.Style.FONT_WEIGHT_NORMAL
-//            ListWidgetProviderHeight = 300
-//        }
-
-            val colorCode = Utility.getWidgetColor(context)
-
-            Log.e(javaClass.simpleName, "colorCode-->$colorCode")
-            val colorFrom: Int = Color.parseColor("#$colorCode")
-            val trans = Utility.getListWidgetTransparency(context, appWidgetId)
-            Log.e(javaClass.simpleName, "trans--> $trans")
-            var transparancy: Float = 1f - (trans.toFloat() / 100)
-
-
-            val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparancy), 0, 0, 20f)
-            val bitmap =
-                SingleConvertorProvider.drawableToBitmap(
-                    gradientDrawable,
-                    listWidgetProviderWidth*3,
-                    listWidgetProviderHeight*3
-                )
-            views.setImageViewBitmap(R.id.imgContainer, bitmap)
 
 
             val amountText: String = amount.toString()
@@ -233,12 +195,7 @@ class ListWidgetKt {
                 views.setViewVisibility(R.id.txtSymbolDark, View.VISIBLE)
                 i = 8
             } else {
-//                views.setTextColor(
-//                    R.id.txtSymbol, ContextCompat.getColor(
-//                        context,
-//                        R.color.textLight
-//                    )
-//                )
+
                 views.setTextColor(
                     R.id.txtProvider, ContextCompat.getColor(
                         context,
@@ -281,6 +238,37 @@ class ListWidgetKt {
                     R.id.listCurrency
                 )
             }
+
+
+            val str2: String = MyOnClick
+
+            views.setOnClickPendingIntent(
+                R.id.btnRefresh, getPendingSelfIntentForConvertList(
+                    context,
+                    str2,
+                    appWidgetId
+                )
+            )
+            views.setOnClickPendingIntent(
+                R.id.btnRefreshDark, getPendingSelfIntentForConvertList(
+                    context,
+                    str2,
+                    appWidgetId
+                )
+            )
+
+            views.setOnClickPendingIntent(
+                R.id.btnSettings, getSettingPendingIntent(
+                    context,
+                    appWidgetId
+                )
+            )
+            views.setOnClickPendingIntent(
+                R.id.btnSettingsDark, getSettingPendingIntent(
+                    context,
+                    appWidgetId
+                )
+            )
 
 
             appWidgetManager.updateAppWidget(appWidgetId, views)

@@ -66,9 +66,17 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
             R.id.txt_code,
             codeList[position]
         )
+
+        var decimalFormat = Utility.getStringPref("decimalFormat", context)
+        if (decimalFormat.isEmpty()) {
+            decimalFormat = "2"
+        }
+
+
+
         view.setTextViewText(
             R.id.txtRate,
-            "%.2f".format(exchangeRate[position].toDouble())
+            "%.${decimalFormat}f".format(exchangeRate[position].toDouble())
         )
 
         val d: Double = diffrence[position].toDouble();

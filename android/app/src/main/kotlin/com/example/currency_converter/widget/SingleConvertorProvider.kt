@@ -218,20 +218,24 @@ class SingleConvertorProvider : HomeWidgetProvider() {
 
 
                 val colorCode = Utility.getWidgetColor(context!!)
-                val widgetColor: Int = Color.parseColor("#$colorCode")
+
+                Log.e(javaClass.simpleName, "colorCode-->$colorCode")
+                val colorFrom: Int = Color.parseColor("#$colorCode")
                 val trans = Utility.getSingleWidgetTransparency(context, widgetId)
+                Log.e(javaClass.simpleName, "trans--> $trans")
                 val transparency: Float = 1f - (trans.toFloat() / 100)
+
                 val listWidgetProviderWidth =
                     appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMinWidth", 0)
                 val listWidgetProviderHeight =
                     appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMaxHeight", 0)
 
-                val gradientDrawable = getWidgetGradientDrawable(Utility.getColorWithAlpha(widgetColor, transparency), 0, 0, 20f)
+                val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparency), 0, 0, 20f)
                 val bitmap =
-                    drawableToBitmap(
+                    SingleConvertorProvider.drawableToBitmap(
                         gradientDrawable,
-                        listWidgetProviderWidth * 3,
-                        listWidgetProviderHeight * 3
+                        listWidgetProviderWidth*3,
+                        listWidgetProviderHeight*3
                     )
 
                 setImageViewBitmap(R.id.bck_image, bitmap)
