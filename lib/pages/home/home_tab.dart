@@ -719,11 +719,11 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   SizedBox(
                     height: appheight * 0.03,
                   ),
-                  _isContainerVisible ||
-                          _isContainerVisibleTwo ||
-                          Constants.isPurchase == "[]"
+                  _isContainerVisible || _isContainerVisibleTwo
                       ? const SizedBox()
-                      : const Center(child: AddScreenWidget()),
+                      : Constants.isPurchase == "[]"
+                          ? const Center(child: AddScreenWidget())
+                          : const SizedBox(),
                 ],
               ),
             ),
