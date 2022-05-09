@@ -180,8 +180,9 @@ class ListWidgetKt {
 //            ListWidgetProviderHeight = 300
 //        }
 
-            val widgetInfo = appWidgetManager.getAppWidgetInfo(appWidgetId)
-            val colorCode = Utility.getWidgetColor( context)
+            val colorCode = Utility.getWidgetColor(context)
+
+            Log.e(javaClass.simpleName, "colorCode-->$colorCode")
             val colorFrom: Int = Color.parseColor("#$colorCode")
             val trans = Utility.getListWidgetTransparency(context, appWidgetId)
             Log.e(javaClass.simpleName, "trans--> $trans")
@@ -224,10 +225,11 @@ class ListWidgetKt {
 
 
                 views.setViewVisibility(R.id.btnRefresh, View.GONE)
-                views.setViewVisibility(R.id.btnRefreshDark, View.VISIBLE)
                 views.setViewVisibility(R.id.btnSettings, View.GONE)
-                views.setViewVisibility(R.id.btnSettingsDark, View.VISIBLE)
                 views.setViewVisibility(R.id.txtSymbolLight, View.GONE)
+
+                views.setViewVisibility(R.id.btnRefreshDark, View.VISIBLE)
+                views.setViewVisibility(R.id.btnSettingsDark, View.VISIBLE)
                 views.setViewVisibility(R.id.txtSymbolDark, View.VISIBLE)
                 i = 8
             } else {

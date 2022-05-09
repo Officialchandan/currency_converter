@@ -19,6 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Response
+import kotlin.jvm.internal.Intrinsics
 
 class ListWidgetProvider : HomeWidgetProvider() {
 
@@ -26,12 +27,11 @@ class ListWidgetProvider : HomeWidgetProvider() {
 
         Log.e(javaClass.simpleName, "onReceive--> ${intent?.data}")
         Log.e(javaClass.simpleName, "onReceive--> ${intent?.action}")
-
-        val appWidgetManager = AppWidgetManager.getInstance(context)
-        val extras = intent!!.extras
-
-        val widgetId = extras!!.getInt("appWidgetId", 0)
         if (intent?.action.toString() == MyOnClick) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val extras = intent!!.extras
+
+            val widgetId = extras!!.getInt("appWidgetId", 0)
             ListWidgetKt.updateAppWidget(context!!, appWidgetManager, widgetId, true)
             val baseCurrency = Utility.loadBaseCurrency(context, widgetId)
             val amount = Utility.loadAmount(context, widgetId)
@@ -43,6 +43,7 @@ class ListWidgetProvider : HomeWidgetProvider() {
 
 
         }
+
 
         super.onReceive(context, intent)
     }
@@ -76,42 +77,16 @@ class ListWidgetProvider : HomeWidgetProvider() {
             ListWidgetKt.updateAppWidget(context, appWidgetManager, widgetId, false)
 
 
-//            val views = RemoteViews(context.packageName, R.layout.multi_convertor_layout).apply {
-//                // Open App on Widget Click
-//                val pendingIntent = HomeWidgetLaunchIntent.getActivity(
-//                    context,
-//                    MainActivity::class.java)
-//                setOnClickPendingIntent(R.id.container, pendingIntent)
-//
-//                // Swap Title Text by calling Dart Code in the Background
-//                setTextViewText(
-//                    R.id.title, widgetData.getString("title", null)
-//                    ?: "No Title Set")
-//
-//                val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(
-//                    context,
-//                    Uri.parse("homeWidgetExample://multiConvertorTitleClick")
-//                )
-//                setOnClickPendingIntent(R.id.title, backgroundIntent)
-//
-//                val message = widgetData.getString("message", null)
-//
-//                setTextViewText(
-//                    R.id.message, message
-//                    ?: "No Message Set")
-//                // Detect App opened via Click inside Flutter
-//                val pendingIntentWithData = HomeWidgetLaunchIntent.getActivity(
-//                    context,
-//                    MainActivity::class.java,
-//                    Uri.parse("homeWidgetExample://message?message=$message"))
-//                setOnClickPendingIntent(R.id.message, pendingIntentWithData)
-//            }
-//
-//            appWidgetManager.updateAppWidget(widgetId, views)
         }
     }
 
     companion object {
+        fun notifyUpdate(appWidgetManager: AppWidgetManager, appWidgetIds: IntArray?) {
+            Intrinsics.checkNotNullParameter(appWidgetManager, "appWidgetManager")
+            Intrinsics.checkNotNullParameter(appWidgetIds, "appWidgetIds")
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.listCurrency)
+        }
+
         @SuppressLint("CheckResult")
         fun getRate(
             context: Context?,

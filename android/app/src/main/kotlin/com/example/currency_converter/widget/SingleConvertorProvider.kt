@@ -38,11 +38,11 @@ class SingleConvertorProvider : HomeWidgetProvider() {
         Log.e(javaClass.simpleName, "onReceive--> ${intent?.data}")
         Log.e(javaClass.simpleName, "onReceive--> ${intent?.action}")
 
-        val appWidgetManager = AppWidgetManager.getInstance(context)
-        val extras = intent!!.extras
 
-        val widgetId = extras!!.getInt("appWidgetId", 0)
-        if (intent.action.toString() == ACTION_REFRESH_WIDGET) {
+        if (intent!!.action.toString() == ACTION_REFRESH_WIDGET) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val extras = intent!!.extras
+            val widgetId = extras!!.getInt("appWidgetId", 0)
 
             updateWidget(context, appWidgetManager, widgetId, true)
             Log.e(javaClass.simpleName, "widgetId-->$widgetId")
@@ -50,7 +50,6 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             val to: String = Utility.getCurrencyCode2(context, widgetId)
             converotRate(from, to, context, appWidgetManager, widgetId)
         }
-
         super.onReceive(context, intent)
     }
 
@@ -103,6 +102,9 @@ class SingleConvertorProvider : HomeWidgetProvider() {
     companion object {
         val ACTION_WIDGET_CONFIGURE = "ConfigureWidget"
         val ACTION_REFRESH_WIDGET = "RefereshSingleWidget"
+
+
+
 
         fun getCircularBitmapFrom(bitmap: Bitmap?): Bitmap? {
             val i: Int
@@ -271,10 +273,10 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                     )
                 }
 
-                var currencyList = context.resources.getStringArray(R.array.currency_code)
+                val currencyList = context.resources.getStringArray(R.array.currency_code)
 
-                var index: Int = currencyList.indexOf(from)
-                var index1: Int = currencyList.indexOf(to)
+                val index: Int = currencyList.indexOf(from)
+                val index1: Int = currencyList.indexOf(to)
 
                 val flagArray = context.resources.obtainTypedArray(R.array.country_flag)
                 val imgFrom = flagArray.getDrawable(index)
@@ -387,6 +389,62 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                         )
                     }
                 }
+                val i: Int
+
+
+                if (Utility.isDarkTheme(context)) {
+                    setTextColor(R.id.tv_value, context.resources.getColor(R.color.textDark))
+                    setTextColor(R.id.tv_change_rate, context.resources.getColor(R.color.textDark))
+                    setTextColor(R.id.txtProvider, context.resources.getColor(R.color.textDark))
+                    setTextColor(R.id.tv_from, context.resources.getColor(R.color.textDark))
+                    setTextColor(R.id.tv_to, context.resources.getColor(R.color.textDark))
+                    setTextColor(R.id.tvPipe, context.resources.getColor(R.color.textDark))
+
+                    setViewVisibility(R.id.btnRefreshDark, View.VISIBLE)
+                    setViewVisibility(R.id.btnSettingsDark, View.VISIBLE)
+                    setViewVisibility(R.id.btnSettings, View.GONE)
+                    setViewVisibility(R.id.btnRefresh, View.GONE)
+                    i = 8
+
+                } else {
+                    setTextColor(R.id.tv_value, context.resources.getColor(R.color.textLight))
+                    setTextColor(R.id.tv_change_rate, context.resources.getColor(R.color.textLight))
+                    setTextColor(R.id.txtProvider, context.resources.getColor(R.color.textLight))
+                    setTextColor(R.id.tv_from, context.resources.getColor(R.color.textLight))
+                    setTextColor(R.id.tv_to, context.resources.getColor(R.color.textLight))
+                    setTextColor(R.id.tvPipe, context.resources.getColor(R.color.textLight))
+
+                    setViewVisibility(R.id.btnRefreshDark, View.GONE)
+                    setViewVisibility(R.id.btnSettingsDark, View.GONE)
+                    setViewVisibility(R.id.btnRefresh, View.VISIBLE)
+                    setViewVisibility(R.id.btnSettings, View.VISIBLE)
+                    i = 8
+
+                }
+
+                if (isProcess) {
+                    setViewVisibility(R.id.btnRefresh, View.GONE)
+                    setViewVisibility(R.id.btnRefreshDark, View.GONE)
+                    if (Utility.isDarkTheme(context)) {
+                        setViewVisibility(R.id.progressDark, View.VISIBLE)
+                        setViewVisibility(R.id.progressWhite, View.GONE)
+                    } else {
+                        setViewVisibility(R.id.progressDark, View.GONE)
+                        setViewVisibility(R.id.progressWhite, View.VISIBLE)
+                    }
+                } else {
+                    setViewVisibility(R.id.progressWhite, View.GONE)
+                    setViewVisibility(R.id.progressDark, View.GONE)
+                    if (Utility.isDarkTheme(context)) {
+                        setViewVisibility(R.id.btnRefreshDark, View.VISIBLE)
+                        setViewVisibility(R.id.btnRefresh, View.GONE)
+                    } else {
+                        setViewVisibility(R.id.btnRefresh, View.VISIBLE)
+                        setViewVisibility(R.id.btnRefreshDark, View.GONE)
+                    }
+
+                }
+
 
                 // Open App on Widget Click
                 val pendingIntent = context.let {

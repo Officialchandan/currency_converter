@@ -447,4 +447,14 @@ class Utility {
 
     return hslDark.toColor();
   }
+
+  static notifyThemeChange() async {
+    const platform = MethodChannel('com.example.currency_converter/notifyThemeChange');
+    try {
+      final result = await platform.invokeMethod('notifyThemeChange');
+      debugPrint("exception--->$result");
+    } on PlatformException catch (e) {
+      debugPrint("exception--->$e");
+    }
+  }
 }

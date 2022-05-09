@@ -82,9 +82,17 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
             )
         }
 
-        view.setTextColor(R.id.txtRate, context.resources.getColor(R.color.white))
-        view.setTextColor(R.id.txt_code, context.resources.getColor(R.color.white))
-        view.setTextColor(R.id.txtPercent, context.resources.getColor(R.color.white))
+        if(Utility.isDarkTheme(context)){
+            view.setTextColor(R.id.txtRate, context.resources.getColor(R.color.textDark))
+            view.setTextColor(R.id.txt_code, context.resources.getColor(R.color.textDark))
+            view.setTextColor(R.id.txtPercent, context.resources.getColor(R.color.textDark))
+        }else{
+            view.setTextColor(R.id.txtRate, context.resources.getColor(R.color.white))
+            view.setTextColor(R.id.txt_code, context.resources.getColor(R.color.white))
+            view.setTextColor(R.id.txtPercent, context.resources.getColor(R.color.white))
+        }
+
+
 
         when (visualSize) {
             1 -> {

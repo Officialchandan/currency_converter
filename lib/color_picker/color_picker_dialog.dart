@@ -495,6 +495,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     statusBarColor: MyColors.colorPrimary, // status bar color
                                   ));
                                   Utility.setStringPreference(Constants.primaryColorCode, unlockSelectdColor!.value.toRadixString(16));
+                                  Utility.notifyThemeChange();
                                   // Utility.setStringPreference(Constants.themeColor,
                                   //     unlockSelectdColor!.value.toString());
 

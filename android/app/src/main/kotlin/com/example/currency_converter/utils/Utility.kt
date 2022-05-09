@@ -135,7 +135,7 @@ class Utility {
                 Context.MODE_PRIVATE
             );
 
-            return prefs.getBoolean("flutter." + "theme1", false)
+            return prefs.getBoolean("flutter." + "isDarkMode", false)
 
 
         }
