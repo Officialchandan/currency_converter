@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	package="com.example.currency_converter">
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="com.android.vending.BILLING" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 	<application
+		android:name=".activity.MyApplication"
 		android:allowBackup="false"
 		android:icon="@mipmap/app_icon"
 		android:label="CurrencyConverter"
 		android:roundIcon="@mipmap/app_icon"
-		android:supportsRtl="false">
+		android:supportsRtl="false"
+		>
 
 		<activity
 			android:name=".MainActivity"
 			android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
 			android:exported="true"
-
 			android:hardwareAccelerated="true"
 			android:launchMode="singleTop"
 			android:screenOrientation="portrait"
@@ -34,15 +37,11 @@
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
-		</activity>
-
-
-
-		<!-- Single widget configure activity -->
+		</activity> <!-- Single widget configure activity -->
 		<activity
 			android:name=".activity.SingleWidgetConfigurationActivity"
 			android:exported="true"
-			android:theme="@style/Theme.AppCompat.NoActionBar">
+			android:theme="@style/MyTheme">
 
 			<!--
             <intent-filter>
@@ -55,24 +54,18 @@
 				<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 			</intent-filter>
 		</activity> <!-- Single widget configure activity -->
-
-
-
 		<activity
 			android:name=".activity.SelectCurrencyActivity"
 			android:exported="false"
-			android:theme="@style/Theme.AppCompat.NoActionBar"
-			/>
-
+			android:theme="@style/MyTheme" />
 		<activity
 			android:name=".ListWidgetConfigActivity"
 			android:exported="true"
-			android:theme="@style/Theme.AppCompat.NoActionBar">
+			android:theme="@style/MyTheme">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 			</intent-filter>
 		</activity> <!-- Single convertor widget receiver -->
-
 		<receiver
 			android:name=".widget.SingleConvertorProvider"
 			android:exported="true"
@@ -86,7 +79,6 @@
 				android:name="android.appwidget.provider"
 				android:resource="@xml/single_convertor_provider" />
 		</receiver> <!-- Single convertor widget receiver -->
-
 		<!-- Multi convertor widget receiver -->
 		<receiver
 			android:name=".widget.ListWidgetProvider"
@@ -113,7 +105,6 @@
 			android:name="es.antonborri.home_widget.HomeWidgetBackgroundService"
 			android:exported="true"
 			android:permission="android.permission.BIND_JOB_SERVICE" />
-
 		<service
 			android:name=".widget_service.ListWidgetService"
 			android:permission="android.permission.BIND_REMOTEVIEWS" />

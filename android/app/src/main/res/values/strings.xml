@@ -23,5 +23,7 @@
 	<string name="currency_list">CURRENCY LIST</string>
 	<string name="united_states_dollar">United States Dollar</string>
 	<string name="search">Search</string>
+	<string name="_0_0400">0.0400%</string>
+	<string name="_0_00">0.00</string>
 
 </resources>

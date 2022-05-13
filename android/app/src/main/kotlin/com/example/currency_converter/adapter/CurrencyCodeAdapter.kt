@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currency_converter.R
+import com.example.currency_converter.utils.Utility
 import com.example.interfaces.ItemClickListener
 import com.example.model.Country
 import java.util.*
@@ -45,7 +46,7 @@ class CurrencyCodeAdapter(
         holder.tvCode.text = (model.code)
         holder.tvName.text = (model.name)
 
-        if (model.favorite) {
+        if (model.favorite==1) {
             holder.imgStar.setImageResource(R.drawable.ic_star)
         } else {
             holder.imgStar.setImageResource(R.drawable.ic_star_border)
@@ -55,8 +56,17 @@ class CurrencyCodeAdapter(
             listener.onItemSelect(model, type)
 
         })
-        // sets the text to the textview from our itemHolder class
-//        holder.textView.text = ItemsViewModel.text
+
+        if(Utility.isDarkTheme(context)){
+            holder.itemLayout.setBackgroundResource(R.drawable.dartk_round)
+            holder.tvCode.setTextColor(context.resources.getColor(R.color.white))
+            holder.tvName.setTextColor(context.resources.getColor(R.color.white))
+
+        }else{
+            holder.tvCode.setTextColor(context.resources.getColor(R.color.black))
+            holder.tvName.setTextColor(context.resources.getColor(R.color.black))
+            holder.itemLayout.setBackgroundResource(R.drawable.white_round)
+        }
     }
 
     override fun getItemCount(): Int {

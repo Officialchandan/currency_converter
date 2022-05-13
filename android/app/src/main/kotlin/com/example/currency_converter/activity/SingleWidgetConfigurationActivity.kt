@@ -15,14 +15,17 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.*
+import android.widget.ImageView
+import android.widget.RadioGroup
+import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.currency_converter.R
 import com.example.currency_converter.adapter.CurrencyCodeAdapter
+import com.example.currency_converter.ads.AppOpenManager
 import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.databinding.SingleConvertorConfigActivityBinding
 import com.example.currency_converter.utils.Constants
@@ -30,7 +33,6 @@ import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.SingleConvertorProvider
 import com.example.interfaces.ItemClickListener
 import com.example.model.Country
-import com.google.android.material.appbar.AppBarLayout
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -40,48 +42,16 @@ import retrofit2.Response
 class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
     lateinit var binding: SingleConvertorConfigActivityBinding
-
+    lateinit var appOpenAdManager: AppOpenManager
     var appWidgetId = 0
-
-    var toolbar: Toolbar? = null
-    var tvSlider: TextView? = null
-    var tvFrom: TextView? = null
-    var tv_to: TextView? = null
-    var tvfromWidget: TextView? = null
-    var tvToWidget: TextView? = null
-    var tvConversionValue: TextView? = null
-    var tvConversionDiff: TextView? = null
-    var tvCurrencyWiki: TextView? = null
-    var tvAdd: TextView? = null
-    var tvCurrencyCodeFrom: TextView? = null
-    var tvCurrencyCodeTo: TextView? = null
-    var layoutFrom: RelativeLayout? = null
-    var layoutTo: RelativeLayout? = null
-    var arrowLayout: RelativeLayout? = null
-    var layoutCountries: LinearLayout? = null
-    var imgFlagFrom: ImageView? = null
-    var imgFlagTo: ImageView? = null
-    var widgetTransparencyLayout: LinearLayout? = null
-    var layoutWidgetTransparency: LinearLayout? = null
-    var layoutVisualSize: LinearLayout? = null
-    var tvWidgetTransparency: TextView? = null
-    var tvVisualSize: TextView? = null
-    var img_arrow_from: ImageView? = null
-    var img_arrow_to: ImageView? = null
-    var showCurrencyList: Int = 0
-    var rvCurrency: RecyclerView? = null
-    var edtSearch: EditText? = null
-
+    var showCurrencyList2: Boolean = false
+    var showCurrencyList1: Boolean = false
     var countryList = ArrayList<Country>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.single_convertor_config_activity)
-        adjustFontScale(resources.configuration, 1F)
-        getCurrencyList()
-        init()
-
-
         appWidgetId = intent?.extras?.getInt(
             AppWidgetManager.EXTRA_APPWIDGET_ID,
             AppWidgetManager.INVALID_APPWIDGET_ID
@@ -89,22 +59,33 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         Log.e(javaClass.name, "appWidgetId-->$appWidgetId")
 
+        getCurrencyList()
+        init()
 
-        binding.tvAddWidget.setOnClickListener(View.OnClickListener {
+        binding.tvAddWidget.setOnClickListener {
 
 
             if (binding.tvCurrencyCodeFrom.text.toString().isEmpty() || binding.tvCurrencyCodeTo.text.toString().isEmpty()) {
-                Toast.makeText(this, "Both the field is required", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Both the field is required", Toast.LENGTH_LONG).show()
             } else {
-                var from: String = binding.tvCurrencyCodeFrom.text.toString()
-                var to: String = binding.tvCurrencyCodeTo.text.toString()
+                val from: String = binding.tvCurrencyCodeFrom.text.toString()
+                val to: String = binding.tvCurrencyCodeTo.text.toString()
                 val appWidgetManager = AppWidgetManager.getInstance(this)
                 getConvertRate(from, to, this, appWidgetManager, widgetId = appWidgetId)
 
             }
 
 
-        })
+        }
+
+
+        val application = application as? MyApplication
+
+        if(application?.appOpenAdManager!=null){
+            Log.e(javaClass.name, "appOpenAdManager---")
+            application.appOpenAdManager?.showAdIfAvailable()
+        }
+
 
 
     }
@@ -115,60 +96,38 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         val flagArray = this.resources.obtainTypedArray(R.array.country_flag)
         val currencyList = this.resources.getStringArray(R.array.currency_code)
 
-        arrowLayout = findViewById(R.id.arrow_layout)
-        layoutCountries = findViewById(R.id.layout_countries)
-        layoutWidgetTransparency = findViewById(R.id.layout_widget_transparency)
-        tvWidgetTransparency = findViewById(R.id.tv_widget_transparency)
-        tvVisualSize = findViewById(R.id.tv_visual_size)
-        layoutVisualSize = findViewById(R.id.layout_visual_size)
-        tvSlider = findViewById(R.id.tv_slider_value)
-        tvFrom = findViewById(R.id.tv_from)
-        tv_to = findViewById(R.id.tv_to)
-        tvfromWidget = findViewById(R.id.tv_from_widget)
-        tvToWidget = findViewById(R.id.tv_to_widget)
-        tvConversionValue = findViewById(R.id.tv_rate_widget)
-        tvConversionValue = findViewById(R.id.tv_diff_widget)
 
-        tvCurrencyWiki = findViewById(R.id.currency_wiki)
-        tvConversionDiff = findViewById(R.id.tv_diff_widget)
-        rvCurrency = findViewById(R.id.rv_currency)
-        tvCurrencyCodeFrom = findViewById(R.id.tv_currency_code_from)
-        tvCurrencyCodeTo = findViewById(R.id.tv_currency_code_to)
-        layoutFrom = findViewById(R.id.layout_form)
-        layoutTo = findViewById(R.id.layout_to)
-        imgFlagFrom = findViewById(R.id.flag_img_from)
-        imgFlagTo = findViewById(R.id.flag_img_to)
-        edtSearch = findViewById(R.id.edt_search)
+        binding.arrowLayout.visibility = View.GONE
+        binding.layoutCountries.visibility = View.GONE
+        binding.layoutWidgetTransparency.visibility = View.VISIBLE
+        binding.tvWidgetTransparency.visibility = View.VISIBLE
+        binding.layoutVisualSize.visibility = View.VISIBLE
+        binding.tvVisualSize.visibility = View.VISIBLE
 
-        arrowLayout!!.visibility = View.GONE
-        layoutCountries!!.visibility = View.GONE
-        layoutWidgetTransparency!!.visibility = View.VISIBLE
-        tvWidgetTransparency!!.visibility = View.VISIBLE
-        layoutVisualSize!!.visibility = View.VISIBLE
-        tvVisualSize!!.visibility = View.VISIBLE
 
-        widgetTransparencyLayout = findViewById(R.id.widget_transparency)
-        val bodyLayout: LinearLayout = findViewById(R.id.parent_layout)
 
-        tvSlider!!.text = "0";
+
+        binding.tvSliderValue.text = "0";
 
 
         val widgetColor = Utility.getWidgetColor(context = this)
         val color: Int = Color.parseColor("#$widgetColor")
 
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = color
 
-        val appBarLayout: AppBarLayout = findViewById<AppBarLayout>(R.id.app_bar)
-        appBarLayout.setBackgroundColor(getColorWithAlpha(color, 0.8f))
-        appBarLayout.setStatusBarForegroundColor(getColorWithAlpha(color, 0.8f))
-        toolbar = findViewById(R.id.toolbar)
-        toolbar!!.setBackgroundColor(color)
+
+
+        binding.appBar.setBackgroundColor(getColorWithAlpha(color, 0.8f))
+        binding.appBar.setStatusBarForegroundColor(getColorWithAlpha(color, 0.8f))
+        binding.toolbar.setBackgroundColor(color)
 
         var gd = GradientDrawable(
             GradientDrawable.Orientation.TOP_BOTTOM,
             intArrayOf(getColorWithAlpha(color, 1f), getColorWithAlpha(color, 0.8f))
         )
         gd.cornerRadius = 0f
-        bodyLayout.background = gd
+        binding.parentLayout.background = gd
 
 
         var gd1 = GradientDrawable(
@@ -178,10 +137,10 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
 
         gd1.cornerRadius = 16.0f
-        widgetTransparencyLayout!!.background = gd1
+        binding.widgetTransparency.background = gd1
 
 
-        var from: String = Utility.getCurrencyCode1(this, appWidgetId)
+        val from: String = Utility.getCurrencyCode1(this, appWidgetId)
         val to: String = Utility.getCurrencyCode2(this, appWidgetId)
 
         val index: Int = currencyList.indexOf(from)
@@ -198,7 +157,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             binding.edtSearch.text.clear()
         })
 
-        val trans = Utility.getSingleWidgetTransparency(this, appWidgetId)
+        val trans = Utility.getWidgetTransparency(this)
         setupWidgetTransparency(trans, color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             binding.seekbar.setProgress(trans, true)
@@ -213,11 +172,39 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         binding.layoutForm.setOnClickListener(View.OnClickListener {
 
-            setAdapter(countryList, type = 1)
+
+            if (showCurrencyList1) {
+                showCurrencyList1 = false
+                binding.arrowLayout.visibility = View.GONE
+                binding.layoutCountries.visibility = View.GONE
+                binding.layoutWidgetTransparency.visibility = View.VISIBLE
+                binding.tvWidgetTransparency.visibility = View.VISIBLE
+                binding.layoutVisualSize.visibility = View.VISIBLE
+                binding.tvVisualSize.visibility = View.VISIBLE
+            } else {
+                showCurrencyList1 = true
+                showCurrencyList2 = false
+                setAdapter(countryList, type = 1)
+            }
+
+
         })
+
         binding.layoutTo.setOnClickListener(View.OnClickListener {
 
-            setAdapter(countryList, 2)
+            if (showCurrencyList2) {
+                showCurrencyList2 = false
+                binding.arrowLayout.visibility = View.GONE
+                binding.layoutCountries.visibility = View.GONE
+                binding.layoutWidgetTransparency.visibility = View.VISIBLE
+                binding.tvWidgetTransparency.visibility = View.VISIBLE
+                binding.layoutVisualSize.visibility = View.VISIBLE
+                binding.tvVisualSize.visibility = View.VISIBLE
+            } else {
+                showCurrencyList2 = true
+                showCurrencyList1 = false
+                setAdapter(countryList, 2)
+            }
 
         })
 
@@ -307,10 +294,59 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         }
 
+        val textColor: Int
+
+        if (Utility.isDarkTheme(this)) {
+            binding.layoutForm.setBackgroundResource(R.drawable.currency_widget_background_dark)
+            binding.layoutTo.setBackgroundResource(R.drawable.currency_widget_background_dark)
+            binding.widgetContainer.setBackgroundResource(R.drawable.currency_widget_background_dark)
+            binding.seekbar.thumb = getDrawable(R.drawable.slider_thumb_dark)
+            binding.seekbar.progressDrawable = getDrawable(R.drawable.custom_slider_dark)
+            binding.radioSmall.setButtonDrawable(R.drawable.radio_button_dark)
+            binding.radioLarge.setButtonDrawable(R.drawable.radio_button_dark)
+            binding.radioMedium.setButtonDrawable(R.drawable.radio_button_dark)
+            binding.tvCurrencyCodeFrom.setTextColor(this.resources.getColor(R.color.white))
+            binding.tvCurrencyCodeTo.setTextColor(this.resources.getColor(R.color.white))
+            textColor = this.resources.getColor(R.color.textDark)
+
+
+        } else {
+            binding.layoutForm.setBackgroundResource(R.drawable.currency_widget_background)
+            binding.layoutTo.setBackgroundResource(R.drawable.currency_widget_background)
+            binding.widgetContainer.setBackgroundResource(R.drawable.currency_widget_background)
+            binding.seekbar.thumb = getDrawable(R.drawable.slider_thumb)
+            binding.seekbar.progressDrawable = getDrawable(R.drawable.custom_slider)
+            binding.radioSmall.setButtonDrawable(R.drawable.radio_button_light)
+            binding.radioLarge.setButtonDrawable(R.drawable.radio_button_light)
+            binding.radioMedium.setButtonDrawable(R.drawable.radio_button_light)
+            binding.tvCurrencyCodeFrom.setTextColor(this.resources.getColor(R.color.black))
+            binding.tvCurrencyCodeTo.setTextColor(this.resources.getColor(R.color.black))
+
+            textColor = this.resources.getColor(R.color.textLight)
+
+        }
+
+        binding.tvAddWidget.setTextColor(textColor)
+        binding.tvVisualSize.setTextColor(textColor)
+        binding.tvWidgetTransparency.setTextColor(textColor)
+        binding.tvSliderValue.setTextColor(textColor)
+        binding.tvFromWidget.setTextColor(textColor)
+        binding.tvToWidget.setTextColor(textColor)
+        binding.tv1.setTextColor(textColor)
+        binding.tvRateWidget.setTextColor(textColor)
+        binding.tvDiffWidget.setTextColor(textColor)
+        binding.currencyWiki.setTextColor(textColor)
+        binding.radioLarge.setTextColor(textColor)
+        binding.radioMedium.setTextColor(textColor)
+        binding.radioSmall.setTextColor(textColor)
+
 
     }
 
     private fun setAdapter(countryList: List<Country>, type: Int) {
+
+//        countryList.sortedBy { it.code }
+//        countryList.sortedByDescending { it.favorite }
 
         binding.arrowLayout.visibility = View.VISIBLE
         binding.layoutCountries.visibility = View.VISIBLE
@@ -331,11 +367,10 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
 
 
-        rvCurrency = findViewById(R.id.rv_currency)
-        rvCurrency!!.layoutManager = LinearLayoutManager(this)
+        binding.rvCurrency.layoutManager = LinearLayoutManager(this)
         val adapter = CurrencyCodeAdapter(countryList, type, this, this)
         val divider = DividerItemDecoration(
-            rvCurrency!!.context,
+            binding.rvCurrency.context,
             DividerItemDecoration.VERTICAL
         )
 
@@ -345,11 +380,9 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                 it
             )
         }
-        rvCurrency!!.addItemDecoration(divider);
+        binding.rvCurrency.addItemDecoration(divider);
 
-
-
-        edtSearch!!.addTextChangedListener(object : TextWatcher {
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.e(javaClass.name, "beforeTextChanged" + p0.toString())
                 print(p0)
@@ -369,7 +402,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             }
 
         })
-        rvCurrency!!.adapter = adapter
+        binding.rvCurrency.adapter = adapter
         adapter.notifyDataSetChanged()
 
 
@@ -380,84 +413,39 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         val nameArray = this.resources.getStringArray(R.array.currency_name)
         val flagArray = this.resources.obtainTypedArray(R.array.country_flag)
 
+        var fabList = ArrayList<Country>()
+        var list = ArrayList<Country>()
+
+
         for (i in codeArray.indices) {
 
-            val country: Country =
-                Country(flagArray.getDrawable(i)!!, codeArray[i], nameArray[i], "0", false, false)
-
-            countryList.add(country)
-
-
+            if (codeArray[i] == "USD" ||
+                codeArray[i] == "BTC" ||
+                codeArray[i] == "CAD" ||
+                codeArray[i] == "EUR" ||
+                codeArray[i] == "MXN" ||
+                codeArray[i] == "GBP" ||
+                codeArray[i] == "INR"
+            ) {
+                val country =
+                    Country(flagArray.getDrawable(i)!!, codeArray[i], nameArray[i], "0", favorite = 1, selected = 0)
+                fabList.add(country)
+            } else {
+                val country =
+                    Country(flagArray.getDrawable(i)!!, codeArray[i], nameArray[i], "0", favorite = 0, selected = 0)
+                list.add(country)
+            }
         }
 
-
-        /* var disposable: Disposable? = null
-         disposable = ApiClient.instance.getConvertRate()
-             .subscribeOn(Schedulers.io())
-             .observeOn(AndroidSchedulers.mainThread())
-             .subscribe({ response: Response<JsonObject> ->
-
-                 val responseCode = response.code()
-                 Log.e(javaClass.simpleName, responseCode.toString())
-                 when (responseCode) {
-                     200 -> {
-                         val responseData: JsonObject? = response.body()
-                         Log.e(
-                             javaClass.simpleName,
-                             "responseData-->" + response.body().toString()
-                         )
-
-                         if (responseData != null) {
-
-                             val jsonFrom: JsonObject = responseData.getAsJsonObject("from")
-                             val jsonTo: JsonObject = responseData.getAsJsonObject("to")
-                             Log.e(javaClass.simpleName, "jsonFrom-->$jsonFrom")
-                             Log.e(javaClass.simpleName, "jsonTo-->$jsonTo")
-
-                             val sizeFrom = jsonFrom.keySet().size
-                             val sizeTo = jsonTo.keySet().size
-
-
-                             var firstForm =
-                                 jsonFrom.get(jsonFrom.keySet().toList().last()).toString()
-                             var firstTO = jsonTo.get(jsonTo.keySet().toList().last()).toString()
-
-
-                             var secondFrom =
-                                 jsonFrom.get(jsonFrom.keySet().toList().get(sizeFrom-2)).toString()
-                             var secondTo =
-                                 jsonFrom.get(jsonTo.keySet().toList().get(sizeTo-2)).toString()
-                             var d: Double =
-                                 (firstForm.toDouble() * 100) / (firstTO.toDouble() * 100)
-
-
-                             var d1: Double =
-                                 (firstForm.toDouble() * 100) / (firstTO.toDouble() * 100)
-
-
-                             var d3 = d1 -  d
-
-
-
-
-
-
-                         }
-                     }
-
-                 }
-             }, { error ->
-                 Log.e(javaClass.simpleName, "error-->$error")
-
-             })*/
-
+        countryList.addAll(fabList)
+        countryList.addAll(list)
 
     }
 
     private fun setRadio() {
         var radioGroup: RadioGroup = findViewById(R.id.radio_group_visual)
 
-        radioGroup.setOnCheckedChangeListener { p0, id ->
+        binding.radioGroupVisual.setOnCheckedChangeListener { p0, id ->
             when (id) {
                 R.id.radio_small -> {
                     Utility.setIntegerPref(Constants.fontSize, 1, this)
@@ -549,7 +537,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                 fromUser: Boolean
             ) {
 
-                Utility.saveSingleWidgetTransparency(applicationContext, progress, appWidgetId)
+                Utility.saveWidgetTransparency(applicationContext, progress)
                 setupWidgetTransparency(progress, color);
             }
 
@@ -586,11 +574,11 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         )
 
         gradientDrawable.cornerRadius = 16.0f
-        widgetTransparencyLayout!!.background = gradientDrawable
+        binding.widgetTransparency.background = gradientDrawable
         binding.tvSliderValue.text = trans.toString()
     }
 
-    fun getColorWithAlpha(color: Int, ratio: Float): Int {
+    private fun getColorWithAlpha(color: Int, ratio: Float): Int {
         var newColor = 0
         val alpha = Math.round(Color.alpha(color) * ratio)
         val r = Color.red(color)
@@ -620,12 +608,14 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
     }
 
     override fun onItemSelect(country: Country, type: Int) {
-        arrowLayout!!.visibility = View.GONE
-        layoutCountries!!.visibility = View.GONE
-        layoutWidgetTransparency!!.visibility = View.VISIBLE
-        tvWidgetTransparency!!.visibility = View.VISIBLE
-        layoutVisualSize!!.visibility = View.VISIBLE
-        tvVisualSize!!.visibility = View.VISIBLE
+        binding.arrowLayout.visibility = View.GONE
+        binding.layoutCountries.visibility = View.GONE
+        binding.layoutWidgetTransparency.visibility = View.VISIBLE
+        binding.tvWidgetTransparency.visibility = View.VISIBLE
+        binding.layoutVisualSize.visibility = View.VISIBLE
+        binding.tvVisualSize.visibility = View.VISIBLE
+        showCurrencyList1 = false
+        showCurrencyList2 = false
 
         if (type == 1) {
 
@@ -712,7 +702,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                             SingleConvertorProvider.updateWidget(
                                 context,
                                 appWidgetManager,
-                                widgetId,false
+                                widgetId, false
                             )
 
 

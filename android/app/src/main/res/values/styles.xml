@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Theme applied to the Android Window while the process is starting -->
-    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
-        <!-- Show a splash screen on the activity. Automatically removed when
-             Flutter draws its first frame -->
-        <item name="android:windowBackground">@drawable/launch_background</item>
-    </style>
-    <!-- Theme applied to the Android Window as soon as the process has started.
-         This theme determines the color of the Android Window while your
-         Flutter UI initializes, as well as behind your Flutter UI while its
-         running.
-         
-         This Theme is only used starting with V2 of Flutter's Android embedding. -->
-    <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
-        <item name="android:windowBackground">@android:color/white</item>
-    </style>
+	<!-- Theme applied to the Android Window while the process is starting -->
+	<style name="LaunchTheme"
+		parent="@android:style/Theme.Black.NoTitleBar">
+		<!-- Show a splash screen on the activity. Automatically removed when
+			 Flutter draws its first frame -->
+		<item name="android:windowBackground">@drawable/launch_background</item>
+	</style>
+	<!-- Theme applied to the Android Window as soon as the process has started.
+		 This theme determines the color of the Android Window while your
+		 Flutter UI initializes, as well as behind your Flutter UI while its
+		 running.
+
+		 This Theme is only used starting with V2 of Flutter's Android embedding. -->
+	<style name="NormalTheme"
+		parent="@android:style/Theme.Black.NoTitleBar">
+		<item name="android:windowBackground">@android:color/white</item>
+	</style>
+
 	<style name="roundedImageViewRounded">
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">50%</item>
@@ -25,11 +28,86 @@
 		<item name="android:fontFamily">@font/roboto_bold</item>
 		<item name="android:letterSpacing">0.02</item>
 	</style>
+
 	<style name="myButton">
 		<item name="android:includeFontPadding">false</item>
 		<item name="android:fontFamily">@font/roboto_bold</item>
 		<item name="android:paddingStart">@dimen/_12sdp</item>
 		<item name="android:paddingEnd">@dimen/_12sdp</item>
 		<item name="android:letterSpacing">0.02</item>
+	</style>
+
+	<style name="Light">
+		<item name="android:windowBackground">@color/white</item>
+		<item name="android:seekBarStyle">@style/seekbarLight</item>
+		<item name="android:textColor">@color/textLight</item>
+		<item name="android:statusBarColor">@color/white</item>
+		<item name="android:navigationBarColor">@color/white</item>
+		<item name="checkboxStyle">@style/checkboxLight</item>
+		<item name="icon">@color/white</item>
+		<item name="imageButtonStyle">@style/imageButtonLight</item>
+		<item name="radioButtonStyle">@style/radioButtonLight</item>
+		<item name="tabIconTint">@color/textLight</item>
+		<item name="windowActionBar">false</item>
+		<item name="actionBarTheme">@style/Theme.Design.NoActionBar</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+
+	<style name="MyTheme"
+		parent="Theme.AppCompat.NoActionBar">
+
+		<item name="android:statusBarColor">@color/colorPrimary</item>
+
+	</style>
+
+	<style name="seekbarLight">
+		<item name="android:colorControlActivated">@color/textLight</item>
+		<item name="android:progressTint">@color/colorPrimary</item>
+		<item name="android:progressBackgroundTint">@color/white</item>
+		<item name="thumbColor">@color/white</item>
+	</style>
+
+	<style name="checkboxLight">
+		<item name="android:textColor">@color/textLight</item>
+		<item name="android:includeFontPadding">false</item>
+		<item name="android:fontFamily">@font/roboto_medium</item>
+		<item name="android:colorControlNormal">@color/white</item>
+		<item name="android:colorControlActivated">@color/white</item>
+		<item name="android:colorControlHighlight">@color/white</item>
+		<item name="android:letterSpacing">0.02</item>
+	</style>
+
+	<style name="imageButtonLight">
+		<item name="buttonTint">@color/textLight</item>
+	</style>
+
+	<style name="imageButtonDark">
+		<item name="buttonTint">@color/textDark</item>
+	</style>
+
+	<style name="radioButtonLight">
+		<item name="android:textColor">@color/textLight</item>
+		<item name="android:includeFontPadding">false</item>
+		<item name="android:fontFamily">@font/roboto_medium</item>
+		<item name="android:letterSpacing">0.02</item>
+	</style>
+
+	<style name="CurrencyConverter">
+		<item name="android:windowBackground">@android:color/white</item>
+		<item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+		<item name="colorOnPrimary">@color/white</item>
+		<item name="colorOnSecondary">@color/white</item>
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryVariant">@color/colorPrimary</item>
+		<item name="colorSecondary">@color/colorPrimary</item>
+		<item name="colorSecondaryVariant">@color/colorPrimary</item>
+	</style>
+
+	<style name="CurrencyConverter.AppBarOverlay">
+
+		<item name="android:statusBarColor">@color/colorPrimary</item>
+	</style>
+
+	<style name="CurrencyConverter.PopupOverlay">
 	</style>
 </resources>

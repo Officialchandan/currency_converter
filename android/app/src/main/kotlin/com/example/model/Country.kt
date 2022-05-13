@@ -8,8 +8,8 @@ data class Country(
     var code: String,
     var name: String,
     var value: String,
-    var favorite: Boolean,
-    var selected: Boolean,
+    var favorite: Int,
+    var selected: Int,
 
 
     )

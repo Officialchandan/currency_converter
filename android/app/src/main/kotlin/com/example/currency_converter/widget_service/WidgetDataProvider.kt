@@ -9,9 +9,11 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.SingleConvertorProvider
+import es.antonborri.home_widget.HomeWidgetLaunchIntent
 import org.json.JSONArray
 import java.math.BigDecimal
 import kotlin.jvm.internal.Intrinsics
@@ -53,7 +55,6 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
 
     /* JADX WARNING: Removed duplicated region for block: B:32:0x01c6  */ /* JADX WARNING: Removed duplicated region for block: B:33:0x01dc  */ /* Code decompiled incorrectly, please refer to instructions dump. */
     override fun getViewAt(position: Int): RemoteViews {
-        Log.e(javaClass.simpleName, "getViewAt->$position")
         val view = RemoteViews(context.packageName, R.layout.layout_widget_currency)
         val bitmapOptions = BitmapFactory.Options()
         bitmapOptions.inSampleSize = 4
@@ -67,16 +68,14 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
             codeList[position]
         )
 
-        var decimalFormat = Utility.getStringPref("decimalFormat", context)
-        if (decimalFormat.isEmpty()) {
-            decimalFormat = "2"
-        }
+
+        val amount = Utility.currencyFormatter(exchangeRate[position], context)
 
 
 
         view.setTextViewText(
             R.id.txtRate,
-            "%.${decimalFormat}f".format(exchangeRate[position].toDouble())
+            Utility.monetaryFormatter(amount, context)
         )
 
         val d: Double = diffrence[position].toDouble();
@@ -90,15 +89,25 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
             )
         }
 
-        if(Utility.isDarkTheme(context)){
+        if (Utility.isDarkTheme(context)) {
             view.setTextColor(R.id.txtRate, context.resources.getColor(R.color.textDark))
             view.setTextColor(R.id.txt_code, context.resources.getColor(R.color.textDark))
             view.setTextColor(R.id.txtPercent, context.resources.getColor(R.color.textDark))
-        }else{
+        } else {
             view.setTextColor(R.id.txtRate, context.resources.getColor(R.color.white))
             view.setTextColor(R.id.txt_code, context.resources.getColor(R.color.white))
             view.setTextColor(R.id.txtPercent, context.resources.getColor(R.color.white))
         }
+
+        val pendingIntent = context.let {
+            HomeWidgetLaunchIntent.getActivity(
+                it,
+                MainActivity::class.java
+            )
+        }
+
+
+        view.setOnClickPendingIntent(R.id.widget_item, pendingIntent)
 
 
 

@@ -1,6 +1,5 @@
 package com.example.currency_converter.widget
 
-import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -11,44 +10,22 @@ import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.ContextCompat
-import com.example.currency_converter.ListWidgetConfigActivity
 import com.example.currency_converter.R
-import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget_service.ListWidgetService
-import com.example.model.Currency
-import com.google.gson.JsonObject
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import org.json.JSONArray
-import retrofit2.Response
 import kotlin.jvm.internal.Intrinsics
 
 class ListWidgetKt {
+
     companion object {
+        private val TAG = "ListWidgetKt"
 
         const val ACTION_LIST_UPDATE_SETTINGS = "intent.action.update_list_widget_settings"
         const val ACTION_WIDGET_CONFIGURE = "ConfigureWidget"
+        const val TOAST_ACTION = "com.currency.android.listWidget.TOAST_ACTION"
+        const val MyOnClick = "myOnClickTag"
 
-        /* access modifiers changed from: private */
-        val MyOnClick = "myOnClickTag"
-        private val buttonClick = false
-
-
-        private fun getSettingPendingIntent(context: Context, widgetId: Int): PendingIntent {
-
-            val configIntent = Intent(context, ListWidgetConfigActivity::class.java)
-            configIntent.action = ACTION_WIDGET_CONFIGURE
-            configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-            return PendingIntent.getActivity(
-                context,
-                widgetId,
-                configIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
-            )
-        }
 
         private fun getPendingSelfIntentForConvertList(
             context: Context?,
@@ -74,7 +51,7 @@ class ListWidgetKt {
         ) {
 
             Log.e(
-                javaClass.simpleName,
+                TAG,
                 "updateAppWidget--> appWidgetIds - $appWidgetId ,appWidgetManager - $appWidgetManager  "
             )
             val symbolTextSize: Float
@@ -84,18 +61,12 @@ class ListWidgetKt {
             Intrinsics.checkNotNullParameter(appWidgetManager, "appWidgetManager")
             val views =
                 RemoteViews(context.packageName, R.layout.multi_convertor_layout)
-
-
-
-
-
-
             val colorCode = Utility.getWidgetColor(context)
 
-            Log.e(javaClass.simpleName, "colorCode-->$colorCode")
+            Log.e(TAG, "colorCode-->$colorCode")
             val colorFrom: Int = Color.parseColor("#$colorCode")
-            val trans = Utility.getListWidgetTransparency(context, appWidgetId)
-            Log.e(javaClass.simpleName, "trans--> $trans")
+            val trans = Utility.getWidgetTransparency(context)
+            Log.e(TAG, "trans--> $trans")
             val transparency: Float = 1f - (trans.toFloat() / 100)
 
             val listWidgetProviderWidth =
@@ -107,8 +78,8 @@ class ListWidgetKt {
             val bitmap =
                 SingleConvertorProvider.drawableToBitmap(
                     gradientDrawable,
-                    listWidgetProviderWidth*3,
-                    listWidgetProviderHeight*3
+                    listWidgetProviderWidth * 3,
+                    listWidgetProviderHeight * 3
                 )
             views.setImageViewBitmap(R.id.imgContainer, bitmap)
 
@@ -131,7 +102,7 @@ class ListWidgetKt {
 
 
 
-            Log.e(javaClass.simpleName, "json--> $jsonString")
+            Log.e(TAG, "json--> $jsonString")
 
 //            getRate(context, views, json, baseCurrency, amount.toDouble(), appWidgetId, visualSize, appWidgetManager)
             setRemoteAdapter(context, views, jsonString, baseCurrency, amount.toDouble(), appWidgetId, visualSize, appWidgetManager)
@@ -159,9 +130,7 @@ class ListWidgetKt {
             views.setTextViewTextSize(R.id.tvPipe, 0, updateDateTextSize)
 
 
-
-
-            val amountText: String = amount.toString()
+            val amountText: String = amount
 //            ExtensionsKt.decimalStringEliminateZeros(BigDecimal(amount))
 
             views.setTextViewText(R.id.txtSymbolDark, "$amountText $baseCurrency = ")
@@ -258,23 +227,34 @@ class ListWidgetKt {
             )
 
             views.setOnClickPendingIntent(
-                R.id.btnSettings, getSettingPendingIntent(
+                R.id.btnSettings, getPendingSelfIntentForConvertList(
                     context,
+                    ACTION_LIST_UPDATE_SETTINGS,
                     appWidgetId
                 )
             )
             views.setOnClickPendingIntent(
-                R.id.btnSettingsDark, getSettingPendingIntent(
+                R.id.btnSettingsDark, getPendingSelfIntentForConvertList(
                     context,
+                    ACTION_LIST_UPDATE_SETTINGS,
                     appWidgetId
                 )
             )
+//            val pendingIntent = context.let {
+//                HomeWidgetLaunchIntent.getActivity(
+//                    it,
+//                    MainActivity::class.java
+//                )
+//            }
+//
+
+//           views.setOnClickPendingIntent(R.id.listCurrency, pendingIntent)
 
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
-        fun setRemoteAdapter(
+        private fun setRemoteAdapter(
             context: Context?,
             views: RemoteViews,
             json: String,
@@ -293,7 +273,7 @@ class ListWidgetKt {
             intent.putExtra("baseCurrency", baseCurrency)
             intent.putExtra("amount", amount)
             intent.putExtra("visualSize", visualSize)
-            intent.putExtra("appWidgetId",appWidgetId)
+            intent.putExtra("appWidgetId", appWidgetId)
 
 
             views.setRemoteAdapter(R.id.listCurrency, intent)
@@ -310,121 +290,13 @@ class ListWidgetKt {
                 R.id.listCurrency,
                 PendingIntent.getBroadcast(
                     context,
-                    0,
+                    appWidgetId,
                     toastIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
 
-//            appWidgetManager.updateAppWidget(appWidgetId, views)
-        }
-
-
-        @SuppressLint("CheckResult")
-        fun getRate(
-            context: Context?,
-            views: RemoteViews,
-            jsonItems: JSONArray,
-            baseCurrency: String?,
-            amount: Double,
-            appWidgetId: Int,
-            visualSize: Int,
-            appWidgetManager: AppWidgetManager
-        ) {
-
-            var disposable: Disposable? = null
-
-            disposable = ApiClient.instance.getConvertRate()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response: Response<JsonObject> ->
-
-                    val responseCode = response.code()
-                    Log.e(javaClass.simpleName, responseCode.toString())
-                    when (responseCode) {
-                        200 -> {
-                            val responseData: JsonObject? = response.body()
-                            Log.e(
-                                javaClass.simpleName,
-                                "responseData-->" + response.body().toString()
-                            )
-
-                            if (responseData != null) {
-                                val quote = responseData.getAsJsonObject("quotes")
-                                val yesterday = responseData.getAsJsonObject("quotes_yesterday")
-                                Log.e(
-                                    javaClass.simpleName,
-                                    "quote-->$quote"
-                                )
-                                Log.e(
-                                    javaClass.simpleName,
-                                    "yesterday-->$yesterday"
-                                )
-
-                                val todayRate1 = quote.get(baseCurrency!!.uppercase()).toString()
-                                val yesterdayRate1 =
-                                    yesterday.get(baseCurrency.uppercase()).toString()
-
-                                val codeList =
-                                    context!!.resources.getStringArray(R.array.currency_code)
-                                val nameList =
-                                    context.resources.getStringArray(R.array.currency_name)
-                                val flagList =
-                                    context.resources.obtainTypedArray(R.array.country_flag)
-                                val currencyItems = ArrayList<Currency>()
-
-
-                                for (index in 0 until jsonItems.length()) {
-
-                                    val to = jsonItems.get(index).toString()
-                                    val todayRate2 = quote.get(to.uppercase()).toString()
-                                    val todayRate =
-                                        ((todayRate1.toDouble() * 100) / (todayRate2.toDouble() * 100)) * amount
-
-                                    val yesterdayRate2 = yesterday.get(to.uppercase()).toString()
-                                    val yesterdayRate =
-                                        ((yesterdayRate1.toDouble() * 100) / (yesterdayRate2.toDouble() * 100)) * amount
-
-
-                                    var diff = todayRate - yesterdayRate
-
-                                    val i = codeList.indexOf(to)
-
-                                    currencyItems.add(
-                                        Currency(
-                                            flagList.getDrawable(i)!!,
-                                            to,
-                                            nameList[i]!!,
-                                            todayRate.toString(),
-                                            diff.toString(),
-                                            false,
-                                            false
-                                        )
-                                    )
-                                }
-
-
-//                                setRemoteAdapter(
-//                                    context,
-//                                    views,
-//                                    currencyItems,
-//                                    baseCurrency,
-//                                    amount,
-//                                    appWidgetId,
-//                                    visualSize,
-//                                    appWidgetManager
-//                                )
-
-                            }
-                        }
-
-                    }
-                }, { error ->
-                    Log.e(javaClass.simpleName, "error-->$error")
-
-                })
-
-
+            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
 

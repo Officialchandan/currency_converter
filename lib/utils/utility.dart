@@ -75,6 +75,16 @@ class Utility {
     return prefs.setInt(key, value);
   }
 
+  static Future<bool> setDoublePreference(String key, double value) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setDouble(key, value);
+  }
+
+  static Future<double> getDoublePreference(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble(key) ?? 0.0;
+  }
+
   static Future<int> getLangIndexPreference(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getInt(key) ?? 11;

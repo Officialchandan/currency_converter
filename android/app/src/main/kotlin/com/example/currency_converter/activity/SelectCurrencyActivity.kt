@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +44,10 @@ class SelectCurrencyActivity : AppCompatActivity() {
     private fun initView(widgetId: Int) {
         val colorCode = Utility.getWidgetColor( this)
         val color: Int = Color.parseColor("#$colorCode")
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = color
+
         val colorTran = Utility.getColorWithAlpha(color, 1f)
         var gd = Utility.getWidgetGradientDrawable(colorTran, 0, 0, 0f);
         binding.containerView.background = gd
@@ -103,6 +108,21 @@ class SelectCurrencyActivity : AppCompatActivity() {
         })
 
 
+
+        if(Utility.isDarkTheme(this)){
+            binding.txtSelect.setTextColor(this.resources.getColor(R.color.black))
+            binding.txtUnSelect.setTextColor(this.resources.getColor(R.color.black))
+            binding.btnAddWidget.setTextColor(this.resources.getColor(R.color.black))
+            binding.imgBack.setImageResource(R.drawable.ic_back_dark)
+        }else
+        {
+            binding.txtSelect.setTextColor(this.resources.getColor(R.color.white))
+            binding.txtUnSelect.setTextColor(this.resources.getColor(R.color.white))
+            binding.btnAddWidget.setTextColor(this.resources.getColor(R.color.white))
+            binding.imgBack.setImageResource(R.drawable.ic_back_light)
+        }
+
+
     }
 
     private fun setSelectedAdapter(
@@ -118,7 +138,7 @@ class SelectCurrencyActivity : AppCompatActivity() {
             val i = currencyList.indexOf(symbol.uppercase())
             val flag = flagList.getDrawable(i)
             val currencyName = countryList[i]
-            val currency = Country(flag!!, symbol, currencyName, "0.00", false, false)
+            val currency = Country(flag!!, symbol, currencyName, "0.00", 0, 0)
             selected.add(currency)
         }
 
@@ -130,7 +150,7 @@ class SelectCurrencyActivity : AppCompatActivity() {
             val code = currencyList[i]
             val name = countryList[i]
             val flag = flagList.getDrawable(i)
-            val currency = Country(flag!!, code, name, "0.00", false, false)
+            val currency = Country(flag!!, code, name, "0.00", 0, 0)
             unSelected.add(currency)
         }
 

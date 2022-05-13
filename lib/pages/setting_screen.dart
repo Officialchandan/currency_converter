@@ -21,6 +21,7 @@ import 'home/home_page.dart';
 
 class SettingScreen extends StatefulWidget {
   final Function onThemeChange;
+
   const SettingScreen(this.onThemeChange, {Key? key}) : super(key: key);
 
   @override
@@ -36,7 +37,6 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
   ScrollController scrollController = ScrollController();
   List<ListTile> productList = <ListTile>[];
   double _value = 0.0;
-  double x = 0.0;
   bool removeAd = false;
   late InAppProvider _appProvider;
 
@@ -50,7 +50,17 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
     } else {
       Constants.removeAd = true;
     }
+    getSetting();
     super.initState();
+  }
+
+  getSetting() async {
+    String value = await Utility.getStringPreference(Constants.widgetTransparent);
+    if (value.isEmpty) {
+      value = "0";
+    }
+    _value = int.parse(value) / 100;
+    setState(() {});
   }
 
   @override
@@ -421,18 +431,23 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
                                       min: 0,
                                       max: 1,
                                       value: _value,
-                                      onChanged: (value) {
+                                      onChanged: (value) async {
                                         setState(() {
-                                          x = _value.toDouble();
                                           _value = value;
                                         });
+
+                                        String t = (_value * 100).toInt().toString();
+
+                                        debugPrint("widgetTransparent-->$t");
+                                        await Utility.setStringPreference(Constants.widgetTransparent, t);
+                                        Utility.notifyThemeChange();
                                       }),
                                 ),
                               ),
                               SizedBox(
                                 width: 28,
                                 child: Text(
-                                  (x * 100).toStringAsFixed(0),
+                                  (_value * 100).toStringAsFixed(0),
                                   textScaleFactor: Constants.textScaleFactor,
                                   style: TextStyle(
                                     color: MyColors.textColor,
@@ -461,7 +476,7 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
                                           ? Container()
                                           : Container(
                                               padding: const EdgeInsets.only(bottom: 5),
-                                              color: MyColors.textColor.withOpacity((x) as double),
+                                              color: MyColors.textColor.withOpacity(_value),
                                               child: AnimatedOpacity(
                                                 duration: const Duration(milliseconds: 700),
                                                 opacity: 1,
@@ -1134,6 +1149,7 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
 class MColor {
   Color mainColor;
   List<Color> densityColors;
+
   MColor({required this.mainColor, required this.densityColors});
 }
 

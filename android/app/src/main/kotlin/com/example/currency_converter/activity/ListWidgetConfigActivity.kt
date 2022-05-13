@@ -10,8 +10,11 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.RadioGroup
 import android.widget.SeekBar
 import android.widget.Toast
@@ -19,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.currency_converter.activity.MyApplication
 import com.example.currency_converter.activity.SelectCurrencyActivity
 import com.example.currency_converter.adapter.CurrencyCodeAdapter
 import com.example.currency_converter.api.ApiClient
@@ -78,6 +82,12 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
         })
 
+        val application = application as? MyApplication
+
+        if(application?.appOpenAdManager!=null){
+            Log.e(javaClass.name, "appOpenAdManager---")
+            application.appOpenAdManager?.showAdIfAvailable()
+        }
 
     }
 
@@ -118,32 +128,25 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         currencyName = this.resources.getStringArray(R.array.currency_name)
         currencyFlag = this.resources.obtainTypedArray(R.array.country_flag)
 
-        var colorCode = Utility.getWidgetColor( this)
-
-
-
+        val colorCode = Utility.getWidgetColor(this)
         val color: Int = Color.parseColor("#$colorCode")
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = color
         val colorTran = Utility.getColorWithAlpha(color, 1f)
         var gd = Utility.getWidgetGradientDrawable(colorTran, 0, 0, 0f);
         binding.containerView.background = gd
-
-
         binding.appBar.setBackgroundColor(color)
         binding.toolbar.setBackgroundColor(color)
-
 
         var baseCurrency = Utility.loadBaseCurrency(this, appWidgetId)
         if (baseCurrency.isEmpty()) {
             baseCurrency = "USD"
         }
         binding.tvBaseCurrency.text = baseCurrency
-
         val i = currencyCode.indexOf(baseCurrency)
 
-        var flag = currencyFlag.getDrawable(i)
+        val flag = currencyFlag.getDrawable(i)
         binding.imgFlag.setImageDrawable(flag)
-
-
 
 
         var baseAmount: String = Utility.loadAmount(this, appWidgetId)
@@ -152,9 +155,7 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         }
         binding.editAmount.setText(baseAmount)
 
-
         var fontSize = Utility.loadVisual(this, appWidgetId)
-
         if (fontSize == 0) {
             fontSize = 1;
             Utility.saveVisual(this, fontSize, appWidgetId)
@@ -162,8 +163,7 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
             setTextViewFontSize(fontSize)
         }
 
-
-        var trans = Utility.getListWidgetTransparency(this, appWidgetId)
+        val trans = Utility.getWidgetTransparency(this)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             binding.seekBarWidgetOpacity.setProgress(trans, true)
         } else {
@@ -172,9 +172,7 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         setupWidgetTransparency(trans, color);
         setupRadio(this, appWidgetId)
         setupSeekbar(this, color)
-
         setupCurrencyAdapter(this)
-
         binding.layoutBaseCurrency.setOnClickListener(View.OnClickListener {
 
 
@@ -192,16 +190,67 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         })
 
 
+        val textColor: Int = if (Utility.isDarkTheme(this)) {
+            binding.tvBaseCurrency.setTextColor(this.resources.getColor(R.color.textLight))
+            binding.editAmount.setTextColor(this.resources.getColor(R.color.textLight))
+            binding.editAmount.setBackgroundResource(R.drawable.dartk_round)
+            binding.layoutBaseCurrency.setBackgroundResource(R.drawable.dartk_round)
+            binding.btnNext.setBackgroundResource(R.drawable.dartk_round)
+            binding.widgetContainer.setBackgroundResource(R.drawable.currency_widget_background_dark)
+            binding.seekBarWidgetOpacity.thumb = getDrawable(R.drawable.slider_thumb_dark)
+            binding.radioLarge.setButtonDrawable(R.drawable.radio_button_dark)
+            binding.radioMedium.setButtonDrawable(R.drawable.radio_button_dark)
+            binding.radioSmall.setButtonDrawable(R.drawable.radio_button_dark)
+            binding.seekBarWidgetOpacity.progressDrawable = getDrawable(R.drawable.custom_slider_dark)
+            this.resources.getColor(R.color.textDark)
+
+        } else {
+            binding.tvBaseCurrency.setTextColor(this.resources.getColor(R.color.textDark))
+            binding.editAmount.setTextColor(this.resources.getColor(R.color.textDark))
+            binding.editAmount.setBackgroundResource(R.drawable.white_round)
+            binding.layoutBaseCurrency.setBackgroundResource(R.drawable.white_round)
+            binding.btnNext.setBackgroundResource(R.drawable.white_round)
+            binding.widgetContainer.setBackgroundResource(R.drawable.currency_widget_background)
+            binding.seekBarWidgetOpacity.thumb = getDrawable(R.drawable.slider_thumb)
+            binding.seekBarWidgetOpacity.progressDrawable = getDrawable(R.drawable.custom_slider)
+            binding.radioLarge.setButtonDrawable(R.drawable.radio_button_light)
+            binding.radioMedium.setButtonDrawable(R.drawable.radio_button_light)
+            binding.radioSmall.setButtonDrawable(R.drawable.radio_button_light)
+            this.resources.getColor(R.color.textLight)
+        }
+        binding.btnNext.setTextColor(color)
+
+        binding.txtTitleBaseCurrency.setTextColor(textColor)
+        binding.txtTitleAmount.setTextColor(textColor)
+        binding.textSize.setTextColor(textColor)
+        binding.textTransparency.setTextColor(textColor)
+        binding.txtWidgetOpacity.setTextColor(textColor)
+        binding.txtEUR.setTextColor(textColor)
+        binding.txtGbp.setTextColor(textColor)
+        binding.txtCad.setTextColor(textColor)
+        binding.txtBtc.setTextColor(textColor)
+        binding.txtUSD.setTextColor(textColor)
+        binding.view1.setBackgroundColor(textColor)
+        binding.txtExchange.setTextColor(textColor)
+        binding.txtExchange1.setTextColor(textColor)
+        binding.txtExchange2.setTextColor(textColor)
+        binding.txtExchange3.setTextColor(textColor)
+        binding.txtRateExchange.setTextColor(textColor)
+        binding.txtRateExchange1.setTextColor(textColor)
+        binding.txtRateExchange2.setTextColor(textColor)
+        binding.txtRateExchange3.setTextColor(textColor)
+        binding.txtBy.setTextColor(textColor)
+        binding.radioSmall.setTextColor(textColor)
+        binding.radioMedium.setTextColor(textColor)
+        binding.radioLarge.setTextColor(textColor)
+
+
     }
 
     private fun setupCurrencyAdapter(context: Context) {
 
-
-        var fabList = ArrayList<Country>()
-        var list = ArrayList<Country>()
-
-
-
+        val fabList = ArrayList<Country>()
+        val list = ArrayList<Country>()
 
         for (index in currencyCode.indices) {
             if (currencyCode[index] == "USD" ||
@@ -209,11 +258,12 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
                 currencyCode[index] == "CAD" ||
                 currencyCode[index] == "EUR" ||
                 currencyCode[index] == "GBP" ||
+                currencyCode[index] == "MXN" ||
                 currencyCode[index] == "INR"
             ) {
-                fabList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", true, false))
+                fabList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 1, 0))
             } else {
-                list.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", false, false))
+                list.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 0, 0))
             }
         }
 
@@ -221,7 +271,8 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         currencyList.addAll(list)
 
         binding.rvCurrency.layoutManager = LinearLayoutManager(this)
-        binding.rvCurrency.adapter = CurrencyCodeAdapter(currencyList, 1, this, this)
+        val adapter = CurrencyCodeAdapter(currencyList, 1, this, this)
+        binding.rvCurrency.adapter = adapter
 
         val divider = DividerItemDecoration(
             binding.rvCurrency.context,
@@ -229,12 +280,48 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         )
 
 
-        getDrawable(R.drawable.line_divider)?.let {
-            divider.setDrawable(
-                it
-            )
+        if(Utility.isDarkTheme(this)){
+            getDrawable(R.drawable.line_divider_dark)?.let {
+                divider.setDrawable(
+                    it
+                )
+            }
+        }else{
+            getDrawable(R.drawable.line_divider)?.let {
+                divider.setDrawable(
+                    it
+                )
+            }
         }
-        binding.rvCurrency!!.addItemDecoration(divider);
+
+        binding.rvCurrency.addItemDecoration(divider);
+
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                Log.e(javaClass.name, "beforeTextChanged" + p0.toString())
+                print(p0)
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                Log.e(javaClass.name, "onTextChanged" + p0.toString())
+//                adapter.filter.filter(p0.toString())
+//                adapter.notifyDataSetChanged()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                Log.e(javaClass.name, "afterTextChanged" + p0.toString())
+                adapter.filter.filter(p0.toString())
+                adapter.notifyDataSetChanged()
+
+            }
+
+        })
+
+        binding.imgClear.setOnClickListener(View.OnClickListener {
+
+            binding.edtSearch.setText("")
+
+        })
 
 
     }
@@ -244,7 +331,7 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         binding.seekBarWidgetOpacity.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                Utility.saveListWidgetTransparency(context, p0!!.progress, appWidgetId)
+                Utility.saveWidgetTransparency(context, p0!!.progress)
                 setupWidgetTransparency(p0.progress, color)
                 Log.e(javaClass.simpleName, "progress-->${p0.progress}")
             }
@@ -536,7 +623,10 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
                 Log.e(javaClass.simpleName, responseCode.toString())
                 when (responseCode) {
                     200 -> {
+
                         val responseData: JsonObject? = response.body()
+
+
                         Log.e(
                             javaClass.simpleName,
                             "responseData-->" + response.body().toString()

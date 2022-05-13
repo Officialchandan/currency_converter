@@ -1,6 +1,7 @@
 package com.example.currency_converter.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currency_converter.R
+import com.example.currency_converter.utils.Utility
 import com.example.interfaces.CurrencySelectListener
 import com.example.model.Country
 import java.util.*
@@ -57,9 +59,27 @@ class CurrencyListAdapter(
 
         }
 
+        val colorCode = Utility.getWidgetColor( context)
+        val color: Int = Color.parseColor("#$colorCode")
+        holder.imgBtn.setColorFilter(color)
+
         holder.imgBtn.setOnClickListener(View.OnClickListener {
             removeItem(item, position)
         })
+
+
+        if(Utility.isDarkTheme(context)){
+
+            holder.layout.setBackgroundResource(R.drawable.dartk_round)
+            holder.txtCode.setTextColor(context.resources.getColor(R.color.white))
+            holder.txtName.setTextColor(context.resources.getColor(R.color.white))
+
+        }else{
+            holder.layout.setBackgroundResource(R.drawable.white_round)
+            holder.txtCode.setTextColor(context.resources.getColor(R.color.black))
+            holder.txtName.setTextColor(context.resources.getColor(R.color.black))
+        }
+
 
     }
 

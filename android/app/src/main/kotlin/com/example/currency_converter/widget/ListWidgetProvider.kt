@@ -7,9 +7,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import com.example.currency_converter.ListWidgetConfigActivity
 import com.example.currency_converter.R
 import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.utils.Utility
+import com.example.currency_converter.widget.ListWidgetKt.Companion.ACTION_LIST_UPDATE_SETTINGS
 import com.example.currency_converter.widget.ListWidgetKt.Companion.MyOnClick
 import com.google.gson.JsonObject
 import es.antonborri.home_widget.HomeWidgetProvider
@@ -37,11 +40,23 @@ class ListWidgetProvider : HomeWidgetProvider() {
             val amount = Utility.loadAmount(context, widgetId)
 
             val jsonString = Utility.loadItemsPref(context, widgetId)
-            if (jsonString.isNotEmpty()) {
-                getRate(context, JSONArray(jsonString), baseCurrency, amount.toDouble(), widgetId, appWidgetManager)
+            if(Utility.isOnline(context)){
+                if (jsonString.isNotEmpty()) {
+                    getRate(context, JSONArray(jsonString), baseCurrency, amount.toDouble(), widgetId, appWidgetManager)
+                }
+            }else{
+                Toast.makeText(context, "Please connect to the internet",Toast.LENGTH_SHORT).show()
+                ListWidgetKt.updateAppWidget(context, appWidgetManager, widgetId, false)
             }
 
 
+
+        } else if (Intrinsics.areEqual(intent?.action.toString(), ACTION_LIST_UPDATE_SETTINGS)) {
+            val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
+            val intentOpenConfigurationActivity = Intent(context, ListWidgetConfigActivity::class.java)
+            intentOpenConfigurationActivity.putExtra("appWidgetId", widgetId2)
+            intentOpenConfigurationActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context?.startActivity(intentOpenConfigurationActivity)
         }
 
 

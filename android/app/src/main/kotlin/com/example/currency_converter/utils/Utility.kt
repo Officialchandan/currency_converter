@@ -6,8 +6,14 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.PictureDrawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
 import android.widget.TextView
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
 import kotlin.jvm.internal.Intrinsics
 
 class Utility {
@@ -150,12 +156,6 @@ class Utility {
             val editor: SharedPreferences.Editor = prefs.edit()
             editor.putString("flutter.$key", value)
             editor.apply()
-
-
-
-
-
-
             return editor.commit()
         }
 
@@ -167,6 +167,39 @@ class Utility {
                 Context.MODE_PRIVATE
             );
             return prefs.getString("flutter.$key", "")!!
+        }
+
+        fun getMonetaryFormat(
+            context: Context
+        ): String {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+
+            val v = prefs.getString("flutter.monetaryFormat", "1")
+
+            return if (v != null && v.isNotEmpty()) {
+                v
+            } else {
+                "1"
+            }
+
+        }
+
+        fun getDecimalFormat(
+            context: Context
+        ): String {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+            val v = prefs.getString("flutter.decimalFormat", "2")!!
+            return if (v != null && v.isNotEmpty()) {
+                v
+            } else {
+                "2"
+            }
         }
 
         fun setIntegerPref(
@@ -192,56 +225,73 @@ class Utility {
             return prefs.getInt("flutter.$key", 0)
         }
 
-        fun saveSingleWidgetTransparency(context: Context, value: Int, appWidgetId: Int): Boolean {
-
+        fun saveWidgetTransparency(context: Context, value: Int): Boolean {
             val prefs = context.getSharedPreferences(
                 "FlutterSharedPreferences",
                 Context.MODE_PRIVATE
-            )
-            val edit = prefs.edit()
+            );
 
-            edit.putInt(Constants.widgetTransparent + appWidgetId, value)
+            val edit = prefs.edit()
+            edit.putString("flutter." + "widgetTransparent", value.toString())
             edit.apply()
             return edit.commit()
         }
 
-        fun getSingleWidgetTransparency(context: Context, appWidgetId: Int): Int {
-
+        fun getWidgetTransparency(context: Context): Int {
             val prefs = context.getSharedPreferences(
                 "FlutterSharedPreferences",
                 Context.MODE_PRIVATE
-            )
+            );
 
+            var v = prefs.getString("flutter." + "widgetTransparent", "0")
+            Log.e(javaClass.simpleName, "getWidgetTransparency-->$v")
 
-            return prefs.getInt(Constants.widgetTransparent + appWidgetId, 0)
-
+            return v!!.toInt()
         }
 
 
-        fun saveListWidgetTransparency(context: Context, value: Int, appWidgetId: Int): Boolean {
+        /*   fun saveSingleWidgetTransparency(context: Context, value: Int, appWidgetId: Int): Boolean {
 
-            val prefs = context.getSharedPreferences(
-                "FlutterSharedPreferences",
-                Context.MODE_PRIVATE
-            )
-            val edit = prefs.edit()
+               val prefs = context.getSharedPreferences(
+                   "FlutterSharedPreferences",
+                   Context.MODE_PRIVATE
+               )
+               val edit = prefs.edit()
 
-            edit.putInt(Constants.listWidgetTransparent + appWidgetId, value)
-            edit.apply()
-            return edit.commit()
-        }
+               edit.putInt(Constants.widgetTransparent + appWidgetId, value)
+               edit.apply()
+               return edit.commit()
+           }
 
-        fun getListWidgetTransparency(context: Context, appWidgetId: Int): Int {
+           fun getSingleWidgetTransparency(context: Context, appWidgetId: Int): Int {
+               val prefs = context.getSharedPreferences(
+                   "FlutterSharedPreferences",
+                   Context.MODE_PRIVATE
+               )
+               return prefs.getInt(Constants.widgetTransparent + appWidgetId, 0)
+           }*/
 
-            val prefs = context.getSharedPreferences(
-                "FlutterSharedPreferences",
-                Context.MODE_PRIVATE
-            )
 
+        /*    fun saveListWidgetTransparency(context: Context, value: Int, appWidgetId: Int): Boolean {
+                val prefs = context.getSharedPreferences(
+                    "FlutterSharedPreferences",
+                    Context.MODE_PRIVATE
+                )
+                val edit = prefs.edit()
+                edit.putInt(Constants.listWidgetTransparent + appWidgetId, value)
+                edit.apply()
+                return edit.commit()
+            }
 
-            return prefs.getInt(Constants.listWidgetTransparent + appWidgetId, 0)
+            fun getListWidgetTransparency(context: Context, appWidgetId: Int): Int {
 
-        }
+                val prefs = context.getSharedPreferences(
+                    "FlutterSharedPreferences",
+                    Context.MODE_PRIVATE
+                )
+                return prefs.getInt(Constants.listWidgetTransparent + appWidgetId, 0)
+
+            }*/
 
         fun loadItemsPref(context: Context, appWidgetId: Int): String {
             val prefs = context.getSharedPreferences(
@@ -546,58 +596,147 @@ class Utility {
 //        }
 
 
-//        fun decimalStringEliminateZeros(real: BigDecimal?,context: Context): String {
-//            val groupFormat: Char
-//            val dotFormat: Char
-//            Intrinsics.checkNotNullParameter(real, "real")
-//            var decimalFormatString = ""
-//
-//          val decimalFormat =   Utility.getIntegerPref(Constants.decimalFormat,context)
-//
-//
-//            when (decimalFormat) {
-//                0 -> decimalFormatString = ".##"
-//                1 -> decimalFormatString = ".###"
-//                2 -> decimalFormatString = ".####"
-//                3 -> decimalFormatString = ".#####"
-//                4 -> decimalFormatString = ".######"
-//            }
-//            val formattedString: String =
-//                com.currencywiki.currencyconverter.util.ExtensionsKt.decimalString(
-//                    real,
-//                    "#,##0$decimalFormatString"
-//                )
-//            when (settingManager.getMonetaryFormat()) {
-//                1 -> {
-//                    dotFormat = ','
-//                    groupFormat = '.'
-//                }
-//                2 -> {
-//                    dotFormat = '.'
-//                    groupFormat = ' '
-//                }
-//                3 -> {
-//                    dotFormat = ','
-//                    groupFormat = ' '
-//                }
-//                else -> {
-//                    dotFormat = '.'
-//                    groupFormat = ','
-//                }
-//            }
-//            return `replace$default`(
-//                `replace$default`(
-//                    `replace$default`(
-//                        formattedString,
-//                        ClassUtils.PACKAGE_SEPARATOR_CHAR as Char,
-//                        amp as Char,
-//                        false,
-//                        4,
-//                        null as Any?
-//                    ), ',', groupFormat, false, 4, null as Any?
-//                ), amp as Char, dotFormat, false, 4, null as Any?
-//            )
-//        }
+        /*fun decimalStringEliminateZeros(real: BigDecimal?, context: Context): String {
+            val groupFormat: Char
+            val dotFormat: Char
+            Intrinsics.checkNotNullParameter(real, "real")
+            var decimalFormatString = ""
+
+            val decimalFormat = getDecimalFormat(context)
+
+
+            when (decimalFormat) {
+                "2" -> decimalFormatString = ".##"
+                "3" -> decimalFormatString = ".###"
+                "4" -> decimalFormatString = ".####"
+                "5" -> decimalFormatString = ".#####"
+                "5" -> decimalFormatString = ".######"
+                else -> decimalFormatString = ""
+            }
+            val formattedString: String =
+                com.currencywiki.currencyconverter.util.ExtensionsKt.decimalString(
+                    real,
+                    "#,##0$decimalFormatString"
+                )
+            when (settingManager.getMonetaryFormat()) {
+                1 -> {
+                    dotFormat = ','
+                    groupFormat = '.'
+                }
+                2 -> {
+                    dotFormat = '.'
+                    groupFormat = ' '
+                }
+                3 -> {
+                    dotFormat = ','
+                    groupFormat = ' '
+                }
+                else -> {
+                    dotFormat = '.'
+                    groupFormat = ','
+                }
+            }
+            return `replace$default`(
+                `replace$default`(
+                    `replace$default`(
+                        formattedString,
+                        ClassUtils.PACKAGE_SEPARATOR_CHAR as Char,
+                        amp as Char,
+                        false,
+                        4,
+                        null as Any?
+                    ), ',', groupFormat, false, 4, null as Any?
+                ), amp as Char, dotFormat, false, 4, null as Any?
+            )
+        }*/
+
+
+        fun currencyFormatter(num: String, context: Context): String {
+
+
+            if (num.isEmpty()) {
+
+                return num;
+            } else {
+                val m = num.toDouble()
+                val format: NumberFormat = NumberFormat.getCurrencyInstance()
+
+                val decimalFormat = getDecimalFormat(context)
+                if (decimalFormat.isNotEmpty()) {
+                    format.maximumFractionDigits = decimalFormat.toInt()
+                    format.minimumFractionDigits = decimalFormat.toInt()
+                } else {
+                    format.maximumFractionDigits = 0
+                }
+
+                val decimalFormatSymbols: DecimalFormatSymbols = (format as DecimalFormat).decimalFormatSymbols
+                decimalFormatSymbols.currencySymbol = ""
+                (format as DecimalFormat).decimalFormatSymbols = decimalFormatSymbols
+                return format.format(m)
+            }
+        }
+
+        fun monetaryFormatter(v: String, context: Context): String {
+
+            if (v.isEmpty()) {
+                return "0"
+            } else {
+                val format = getMonetaryFormat(context)
+
+                var amount = v
+                when (format) {
+
+                    "1" -> {
+                    }
+                    "2" -> {
+
+                        amount = amount.replace(",", "@")
+                        amount = amount.replace(".", ",")
+                        amount = amount.replace("@", ".")
+                    }
+                    "3" -> {
+                        amount = amount.replace(",", " ")
+                    }
+                    "4" -> {
+                        amount = amount.replace(",", " ")
+                        amount = amount.replace(".", ",")
+                    }
+
+
+                }
+                return amount
+
+
+            }
+
+        }
+
+
+        fun isOnline(context: Context): Boolean {
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            if (connectivityManager != null) {
+                val capabilities =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                    } else{
+                        connectivityManager.getNetworkCapabilities(connectivityManager.allNetworks[0])
+                    }
+                if (capabilities != null) {
+                    if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                        return true
+                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                        return true
+                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                        return true
+                    }
+                }
+            }
+            return false
+        }
 
     }
 

@@ -56,8 +56,8 @@
 		android:layout_marginLeft="@dimen/_5sdp"
 		android:background="@android:color/transparent"
 
-
 		android:scaleType="fitXY"
-		android:src="@drawable/ic_close" />
+		android:src="@drawable/ic_close"
+		app:tint="@color/textDark" />
 
 </RelativeLayout>

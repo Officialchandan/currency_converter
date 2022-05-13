@@ -21,6 +21,7 @@ class Constants {
   static const String REMOVE_AD = "REMOVE_AD";
   static const String currencyCodeFrom = "currencyCodeFrom";
   static const String currencyCodeTo = "currencyCodeTo";
+  static const String widgetTransparent = "widgetTransparent";
   static const String themeColor = "theme";
   static const String themeofDensityColor = "themeofDensityColor";
   static const String currencySaveData = "currencysavedata";

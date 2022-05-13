@@ -152,27 +152,21 @@ class _DecimalScreensState extends State<DecimalScreens> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             splashColor: Colors.transparent,
-                            onTap: () {
+                            onTap: () async {
                               if (!monetaryFormat[index]["check"]) {
                                 monetaryFormat[index]["check"] = true;
                                 monetary = monetaryFormat[index]["id"];
-
                                 for (var element in monetaryFormat) {
                                   element["check"] = false;
                                 }
-
                                 monetaryFormat.singleWhere((element) => element["id"] == monetary)["check"] = true;
-
-                                Utility.setStringPreference(Constants.monetaryFormat, monetary);
-
+                                await Utility.setStringPreference(Constants.monetaryFormat, monetary);
                                 MyColors.monetaryFormat = int.parse(monetary);
-
                                 Map<String, dynamic> f =
                                     demoString.singleWhere((element) => element.containsKey("$monetary" "_" + decimal));
-
                                 demoText = f[monetary + "_" + decimal];
-
                                 setState(() {});
+                                Utility.notifyThemeChange();
                               }
                             },
                             child: Container(

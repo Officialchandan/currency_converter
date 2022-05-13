@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
+import android.widget.Toast
 import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
 import com.example.currency_converter.activity.SingleWidgetConfigurationActivity
@@ -48,7 +49,12 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             Log.e(javaClass.simpleName, "widgetId-->$widgetId")
             val from: String = Utility.getCurrencyCode1(context!!, widgetId)
             val to: String = Utility.getCurrencyCode2(context, widgetId)
-            converotRate(from, to, context, appWidgetManager, widgetId)
+           if(Utility.isOnline(context)){
+               converotRate(from, to, context, appWidgetManager, widgetId)
+           }else{
+               Toast.makeText(context,"Please connect to internet",Toast.LENGTH_SHORT).show()
+               updateWidget(context, appWidgetManager, widgetId, false)
+           }
         }
         super.onReceive(context, intent)
     }
@@ -221,7 +227,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
 
                 Log.e(javaClass.simpleName, "colorCode-->$colorCode")
                 val colorFrom: Int = Color.parseColor("#$colorCode")
-                val trans = Utility.getSingleWidgetTransparency(context, widgetId)
+                val trans = Utility.getWidgetTransparency(context)
                 Log.e(javaClass.simpleName, "trans--> $trans")
                 val transparency: Float = 1f - (trans.toFloat() / 100)
 
@@ -245,14 +251,11 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                 val diff: String = Utility.getStringPref("difference", context)
                 val from: String = Utility.getCurrencyCode1(context, widgetId)
                 val to: String = Utility.getCurrencyCode2(context, widgetId)
-                var decimalFormat = Utility.getStringPref("decimalFormat", context)
-                if (decimalFormat.isEmpty()) {
-                    decimalFormat = "2"
-                }
 
+                val amount = Utility.currencyFormatter(value, context)
 
                 setTextViewText(
-                    R.id.tv_value, "%.${decimalFormat}f".format(value.toDouble())
+                    R.id.tv_value, Utility.monetaryFormatter(amount,context)
                 )
 
                 setTextViewText(

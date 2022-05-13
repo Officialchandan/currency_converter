@@ -2,10 +2,11 @@ package com.example.currency_converter.utils
 
 class Constants {
 
-    companion object{
+    companion object {
 
         const val baseCurrency = "base_currency"
-        const val decimalFormat= "decimalFormat"
+        const val monetaryFormat = "monetaryFormat";
+        const val decimalFormat = "decimalFormat";
         const val baseAmount = "base_amount"
         const val widgetTransparent = "widgetTransparent"
         const val colorCodeStart = "color_code_start"
