@@ -9,35 +9,16 @@ import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import '../utils/constants.dart';
 
 enum _TypeInApp { inapp, subs }
-String describeEnum(_TypeInApp enumEntry) {
-  if (enumEntry is Enum) return enumEntry.toString();
-  final String description = enumEntry.toString();
-  final int indexOfDot = description.indexOf('.');
-  assert(
-    indexOfDot != -1 && indexOfDot < description.length - 1,
-    'The provided object "$enumEntry" is not an enum.',
-  );
-  return description.substring(indexOfDot + 1);
-}
-
-List<IAPItem> extractItems(dynamic result) {
-  print("extractItems");
-  List list = json.decode(result.toString());
-  List<IAPItem> products = list
-      .map<IAPItem>(
-        (dynamic product) => IAPItem.fromJSON(product as Map<String, dynamic>),
-      )
-      .toList();
-  // print("products$products");
-  return products;
-}
 
 class InAppProvider with ChangeNotifier {
   final MethodChannel _channel = const MethodChannel('flutter_inapp');
   late StreamSubscription conectionSubscription;
   late StreamSubscription purchaseUpdatedSubscription;
   late StreamSubscription purchaseErrorSubscription;
-  final List<String> productLists = ["currency.app_unlock_color", "currency.app_no_ads"];
+  final List<String> productLists = [
+    "currency.app_unlock_color",
+    "currency.app_no_ads"
+  ];
   List<IAPItem> items = [];
   List<IAPItem> getSubscriptionItems = [];
   List<PurchasedItem> purchases = [];
@@ -50,19 +31,24 @@ class InAppProvider with ChangeNotifier {
     }
     await FlutterInappPurchase.instance.initConnection;
     try {
-      String consumeAllItems = await FlutterInappPurchase.instance.consumeAllItems;
+      String consumeAllItems =
+          await FlutterInappPurchase.instance.consumeAllItems;
       print("consumeAllItems$consumeAllItems");
     } catch (err) {
       print('err-$err');
     }
-    conectionSubscription = FlutterInappPurchase.connectionUpdated.listen((connected) {});
+    conectionSubscription =
+        FlutterInappPurchase.connectionUpdated.listen((connected) {});
 
-    purchaseUpdatedSubscription = FlutterInappPurchase.purchaseUpdated.listen((productItem) {});
-    purchaseErrorSubscription = FlutterInappPurchase.purchaseError.listen((purchaseError) {});
+    purchaseUpdatedSubscription =
+        FlutterInappPurchase.purchaseUpdated.listen((productItem) {});
+    purchaseErrorSubscription =
+        FlutterInappPurchase.purchaseError.listen((purchaseError) {});
   }
 
   Future getProduct() async {
-    List<IAPItem> items = await FlutterInappPurchase.instance.getProducts(productLists);
+    List<IAPItem> items =
+        await FlutterInappPurchase.instance.getProducts(productLists);
     for (var item in items) {
       this.items.add(item);
     }
@@ -75,7 +61,7 @@ class InAppProvider with ChangeNotifier {
     try {
       // await FlutterInappPurchase.instance.requestPurchase(item.productId);
       await _channel.invokeMethod('buyItemByType', <String, dynamic>{
-        'type': describeEnum(_TypeInApp.inapp),
+        'type': EnumUtil.getValueString(_TypeInApp.inapp),
         'sku': item.productId,
         'oldSku': item.productId,
         'prorationMode': -1,
@@ -90,7 +76,8 @@ class InAppProvider with ChangeNotifier {
 
   Future<List<IAPItem>> getSubscriptions(List<String> skus) async {
     print("getSubscription");
-    List<IAPItem> subItemList = await FlutterInappPurchase.instance.getSubscriptions(skus);
+    List<IAPItem> subItemList =
+        await FlutterInappPurchase.instance.getSubscriptions(skus);
 
     for (var subItem in subItemList) {
       getSubscriptionItems.add(subItem);
@@ -105,7 +92,8 @@ class InAppProvider with ChangeNotifier {
   requestSubscription(String sku) async {
     print("requestSubscription");
     try {
-      List<String> listItem = await FlutterInappPurchase.instance.requestSubscription(sku);
+      List<String> listItem =
+          await FlutterInappPurchase.instance.requestSubscription(sku);
       print("listItem--$listItem");
       notifyListeners();
     } catch (e) {
@@ -113,23 +101,78 @@ class InAppProvider with ChangeNotifier {
     }
   }
 
-  Future getPurchaseHistory() async {
+  Future getPurchaseHistoryOfAds() async {
     print("getPurchaseHistory");
     try {
-      String getInappPurchaseHistory = await _channel.invokeMethod(
+      String getPurchaseHistoryOfAds = await _channel.invokeMethod(
         'getPurchaseHistoryByType',
         <String, dynamic>{
-          'type': describeEnum(_TypeInApp.subs),
+          'type': EnumUtil.getValueString(_TypeInApp.subs),
         },
       );
-      log("getInAppPurchaseHistory-->$getInappPurchaseHistory");
+      log("getInAppPurchaseHistory-->$getPurchaseHistoryOfAds");
       // items = await FlutterInappPurchase.instance.getPurchaseHistory();
-      Constants.isPurchase = getInappPurchaseHistory;
+      var historyList = json.decode(getPurchaseHistoryOfAds);
+      print("historyList->${historyList[0]['transactionDate']}");
+      Constants.isPurchaseOfAds = historyList[0]['transactionDate'];
       notifyListeners();
     } catch (e) {
       debugPrint("exception--$e");
     }
-
     notifyListeners();
   }
+
+  Future getAvailablePurchase() async {
+    String msg = "";
+    print("getAvailablePurchase0");
+    try {
+      msg = await FlutterInappPurchase.instance.consumeAllItems;
+      print('getAvailablePurchase1: $msg');
+    } catch (err) {
+      print('getAvailablePurchase2: $err');
+    }
+    print("getAvailablePurchase3-->${msg}");
+    print(
+        "getAvailablePurchase4-->${FlutterInappPurchase.instance.consumeAllItems.toString()}");
+  }
+
+  Future validateReceipt() async {
+    print("validateReceipt");
+    try {
+      var isValid = await FlutterInappPurchase.instance.validateReceiptAndroid(
+          packageName: "com.example.currency_converter",
+          productId: "currency.app_no_ads",
+          productToken:
+              "cmoplgpnmdggnbbapbjdbjdp.AO-J1Ox8HO07vAQs3Okd-2zeEimZytu0e38aUdmFplPeTDdPZiCsBR-pVT2IcL41Ol8kyO06-llTpWDJA8A",
+          accessToken:
+              "cmoplgpnmdggnbbapbjdbjdp.AO-J1Ox8HO07vAQs3Okd-2zeEimZytu0e38aUdmFplPeTDdPZiCsBR-pVT2IcL41Ol8kyO06-llTpWDJA8A");
+      print("isValid-->$isValid");
+    } catch (e) {
+      print("e---->$e");
+    }
+  }
+
+  Future getPurchaseHistoryOfColors() async {
+    print("getPurchaseHistoryOfColors");
+    try {
+      String getPurchaseHistoryOfColors = await _channel.invokeMethod(
+        'getPurchaseHistoryByType',
+        <String, dynamic>{
+          'type': EnumUtil.getValueString(_TypeInApp.inapp),
+        },
+      );
+      log("getPurchaseHistoryOfColors-->$getPurchaseHistoryOfColors");
+      // items = await FlutterInappPurchase.instance.getPurchaseHistory();
+      Constants.isPurchaseOfColors = getPurchaseHistoryOfColors;
+      notifyListeners();
+    } catch (e) {
+      debugPrint("exception--$e");
+    }
+    notifyListeners();
+  }
+}
+
+class EnumUtil {
+  static String getValueString(dynamic enumType) =>
+      enumType.toString().split('.')[1];
 }

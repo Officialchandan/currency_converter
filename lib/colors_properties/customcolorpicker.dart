@@ -242,7 +242,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (_) => MyTabBarWidget()),
-                                (route) => false);
+                                (route) => true);
                           }
                         });
                       },

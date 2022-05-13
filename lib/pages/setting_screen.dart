@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -40,12 +41,21 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
   bool removeAd = false;
   late InAppProvider _appProvider;
 
+  DateTime? dayTimeNow;
+  DateTime? yearCheckTime;
+
   @override
   void initState() {
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _appProvider = provider;
     _appProvider.initPlatformState();
-    if (Constants.isPurchase == "[]") {
+    DateTime purchaseTime =
+        DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+    DateTime timeNow = DateTime.now();
+    dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
+    yearCheckTime =
+        DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+    if (dayTimeNow == yearCheckTime) {
       Constants.removeAd = false;
     } else {
       Constants.removeAd = true;
@@ -130,17 +140,29 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
                           height: 10,
                           margin: const EdgeInsets.all(5),
                           child: Switch(
-                            inactiveTrackColor: !MyColors.isDarkMode ? Colors.grey.shade300 : MyColors.colorPrimary,
+                            inactiveTrackColor: !MyColors.isDarkMode
+                                ? Colors.grey.shade300
+                                : MyColors.colorPrimary,
                             inactiveThumbColor: MyColors.textColor,
                             value: Constants.removeAd,
                             onChanged: (value) async {
-                              if (Constants.isPurchase == "[]") {
+                              if (dayTimeNow == yearCheckTime) {
                                 Constants.removeAd = value;
                                 if (Constants.removeAd) {
-                                  await provider.getSubscriptions(provider.productLists);
-                                  String getSubscription = provider.getSubscriptionItems
-                                      .map((subItem) async => await provider.requestSubscription(subItem.productId!))
+                                  await provider
+                                      .getSubscriptions(provider.productLists);
+                                  String getSubscription = provider
+                                      .getSubscriptionItems
+                                      .map((subItem) async =>
+                                          await provider.requestSubscription(
+                                              subItem.productId!))
                                       .toString();
+                                  print("getSubscription->$getSubscription");
+                                  provider.purchaseUpdatedSubscription =
+                                      FlutterInappPurchase.purchaseUpdated
+                                          .listen((purchase) {
+                                    print("event-->$purchase");
+                                  });
                                 }
                               }
                               setState(() {});
@@ -1149,7 +1171,6 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
 class MColor {
   Color mainColor;
   List<Color> densityColors;
-
   MColor({required this.mainColor, required this.densityColors});
 }
 
