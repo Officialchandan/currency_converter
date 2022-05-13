@@ -54,7 +54,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   TextEditingController edtTo = TextEditingController(text: "EUR");
   String currencyCodeFrom = "USD";
   String currencyCodeTo = "INR";
-
   late InAppProvider _inAppProvider;
   @override
   void initState() {
@@ -62,6 +61,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     _inAppProvider = provider;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
+
     getHistory();
     widget.onInitialize(this);
     getCurrencyCode();
@@ -74,8 +74,11 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   getHistory() async {
     await _inAppProvider.initPlatformState();
-    await _inAppProvider.getPurchaseHistory();
-    print("Constants.isPurchase${Constants.isPurchase}");
+    // await _inAppProvider.validateReceipt();
+    await _inAppProvider.getPurchaseHistoryOfAds();
+    await _inAppProvider.getPurchaseHistoryOfColors();
+    print("Constants.isPurchaseOfAds${Constants.isPurchaseOfAds}");
+    print("Constants.isPurchaseOfColors${Constants.isPurchaseOfColors}");
   }
 
   @override
@@ -144,7 +147,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
             Future.value(isCalculatorVisible = false);
             Future.value(_isContainerVisible = false);
             Future.value(_isContainerVisibleTwo = false);
-
             setState(() {});
           } else {
             SystemNavigator.pop();
@@ -721,9 +723,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   ),
                   _isContainerVisible || _isContainerVisibleTwo
                       ? const SizedBox()
-                      : Constants.isPurchase == "[]"
-                          ? const Center(child: AddScreenWidget())
-                          : const SizedBox(),
+                      : const Center(child: AddScreenWidget())
                 ],
               ),
             ),

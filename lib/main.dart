@@ -57,11 +57,21 @@ void backgroundCallback(Uri? data) async {
   debugPrint("backgroundCallback--->$data");
 
   if (data!.host == 'titleclicked') {
-    final greetings = ['Hello', 'Hallo', 'Bonjour', 'Hola', 'Ciao', '哈洛', '안녕하세요', 'xin chào'];
+    final greetings = [
+      'Hello',
+      'Hallo',
+      'Bonjour',
+      'Hola',
+      'Ciao',
+      '哈洛',
+      '안녕하세요',
+      'xin chào'
+    ];
     final selectedGreeting = greetings[Random().nextInt(greetings.length)];
 
     await HomeWidget.saveWidgetData<String>('title', selectedGreeting);
-    await HomeWidget.updateWidget(name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
+    await HomeWidget.updateWidget(
+        name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
   }
 }
 
@@ -97,18 +107,46 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String advertisingIds = '';
   bool? _isLimitAdTrackingEnabled;
+  late InAppProvider _inAppProvider;
 
   @override
   void initState() {
+    final provider = Provider.of<InAppProvider>(context, listen: false);
+    _inAppProvider = provider;
+    getHistory();
+    getAds();
     getTheme();
-    Future.delayed(const Duration(seconds: 10), () {
-      if (Constants.isPurchase == "[]") {
-        isFirstTime();
-      }
-    });
     HomeWidget.setAppGroupId('YOUR_GROUP_ID');
     HomeWidget.registerBackgroundCallback(backgroundCallback);
     super.initState();
+  }
+
+  getHistory() async {
+    await _inAppProvider.initPlatformState();
+    await _inAppProvider.getPurchaseHistoryOfAds();
+    // print("IN_Main${Constants.isPurchase}");
+  }
+
+  getAds() async {
+    DateTime purchaseTime =
+        DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+    DateTime timeNow = DateTime.now();
+    DateTime dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
+    DateTime yearCheckTime =
+        DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+    if (dayTimeNow == yearCheckTime) {
+      Future.delayed(const Duration(seconds: 7), () {
+        isFirstTime();
+      });
+      await Utility.setBooleanPreference(
+          Constants.checkWidgetPurchaseAds, true);
+    } else {
+      await Utility.setBooleanPreference(
+          Constants.checkWidgetPurchaseAds, false);
+    }
+    var myValue =
+        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    print('myValue->$myValue');
   }
 
   @override
@@ -141,7 +179,8 @@ class _MyAppState extends State<MyApp> {
   _updateWidget() async {
     debugPrint("_updateWidget--->");
     try {
-      return HomeWidget.updateWidget(name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
+      return HomeWidget.updateWidget(
+          name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
     } on PlatformException catch (exception) {
       debugPrint('Error Updating Widget. $exception');
     }
@@ -151,8 +190,11 @@ class _MyAppState extends State<MyApp> {
     debugPrint("_loadData--->");
     try {
       return Future.wait([
-        HomeWidget.getWidgetData<String>('title', defaultValue: 'Default Title').then((value) => debugPrint("title-->$value")),
-        HomeWidget.getWidgetData<String>('message', defaultValue: 'Default Message').then((value) => debugPrint("message-->$value")),
+        HomeWidget.getWidgetData<String>('title', defaultValue: 'Default Title')
+            .then((value) => debugPrint("title-->$value")),
+        HomeWidget.getWidgetData<String>('message',
+                defaultValue: 'Default Message')
+            .then((value) => debugPrint("message-->$value")),
       ]);
     } on PlatformException catch (exception) {
       debugPrint('Error Getting Data. $exception');
@@ -184,7 +226,8 @@ class _MyAppState extends State<MyApp> {
 
   void _startBackgroundUpdate() {
     debugPrint("_startBackgroundUpdate--->");
-    workmanager.registerPeriodicTask('1', 'widgetBackgroundUpdate', frequency: Duration(minutes: 15));
+    workmanager.registerPeriodicTask('1', 'widgetBackgroundUpdate',
+        frequency: Duration(minutes: 15));
   }
 
   void _stopBackgroundUpdate() {
@@ -247,7 +290,8 @@ class _MyAppState extends State<MyApp> {
         child = botToastBuilder(context, child);
 
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: Constants.textScaleFactor),
+          data: MediaQuery.of(context)
+              .copyWith(textScaleFactor: Constants.textScaleFactor),
           child: child,
         );
       },
@@ -316,14 +360,16 @@ Future<void> insertData() async {
 
   Dio _dio = Dio();
   try {
-    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url =
+        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
     Response response = await _dio.get(url);
     if (response.statusCode == 200) {
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
 
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
+        Map<String, dynamic> map = Constants.countryList
+            .singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
           return {};
@@ -334,9 +380,23 @@ Future<void> insertData() async {
             code: key,
             image: map["image"],
             name: map["country_name"],
-            fav:
-                (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN" || key == "BTC") ? 1 : 0,
-            selected: (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN") ? 1 : 0,
+            fav: (key == "USD" ||
+                    key == "EUR" ||
+                    key == "GBP" ||
+                    key == "CAD" ||
+                    key == "INR" ||
+                    key == "MXN" ||
+                    key == "BTC")
+                ? 1
+                : 0,
+            selected: (key == "USD" ||
+                    key == "EUR" ||
+                    key == "GBP" ||
+                    key == "CAD" ||
+                    key == "INR" ||
+                    key == "MXN")
+                ? 1
+                : 0,
             symbol: map["Symbol"]);
         int id = await dbHelper.insert(currencyData.toMap());
       });
@@ -429,12 +489,16 @@ Future insertDefaultData() async {
 }
 
 insertion() async {
-  MyColors.displaycode = await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
+  MyColors.displaycode =
+      await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
 
-  MyColors.muliConverter = await Utility.getMulticonverter(Constants.MultiConverter);
+  MyColors.muliConverter =
+      await Utility.getMulticonverter(Constants.MultiConverter);
 
-  MyColors.displayflag = await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
-  MyColors.displaysymbol = await Utility.getBoolDisplaysymbolPreference(Constants.SELECTED_SYMBOL);
+  MyColors.displayflag =
+      await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
+  MyColors.displaysymbol =
+      await Utility.getBoolDisplaysymbolPreference(Constants.SELECTED_SYMBOL);
 
   String monetary = await Utility.getStringPreference(Constants.monetaryFormat);
   String decimal = await Utility.getStringPreference(Constants.decimalFormat);
@@ -488,7 +552,8 @@ insertColors() async {
       }
     }
 
-    String colorCode = Constants.unlockColors.first.mainColor.value.toRadixString(16);
+    String colorCode =
+        Constants.unlockColors.first.mainColor.value.toRadixString(16);
     await dbHelper.selectColor(ColorTable(
       previousColor: 0,
       colorCode: colorCode,
@@ -509,7 +574,8 @@ insertColors() async {
         selected: 1,
         isLocked: ColorsConst.lockedColor,
       ));
-      String colorCode = Constants.unlockColors.first.mainColor.value.toRadixString(16);
+      String colorCode =
+          Constants.unlockColors.first.mainColor.value.toRadixString(16);
       await dbHelper.selectColor(ColorTable(
         previousColor: 0,
         colorCode: colorCode,

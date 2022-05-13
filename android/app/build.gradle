@@ -28,13 +28,13 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     signingConfigs {
         debug {
-            storeFile file('/Users/mac/Desktop/pankaj/git/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
+            storeFile file('/home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/assets/currencyConvert.jks')
             storePassword 'CurrencyWiki'
             keyAlias 'CurrencyWiki'
             keyPassword 'CurrencyWiki'
         }
         release {
-            storeFile file('/Users/mac/Desktop/pankaj/git/Currency_Converter/android/app/src/main/assets/currencyConvert.jks')
+            storeFile file('/home/tekzee-d17/Desktop/Currency_Converter-build_28_dec_2021/android/app/src/main/assets/currencyConvert.jks')
             storePassword 'CurrencyWiki'
             keyAlias 'CurrencyWiki'
             keyPassword 'CurrencyWiki'
@@ -118,7 +118,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
-
 //    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
 //    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
 //    implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.4.1'

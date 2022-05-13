@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:currency_converter/google_admob/ad_helper.dart';
@@ -13,7 +14,12 @@ class AddScreenWidget extends StatefulWidget {
 
 class _AddScreenWidget extends State<AddScreenWidget> {
   late BannerAd _bannerAd;
+  late NativeAd? _nativeAd;
+  final Completer<NativeAd> nativeAdCompleter = Completer<NativeAd>();
   bool isBannerAdReady = false;
+  DateTime? dayTimeNow;
+  DateTime? yearCheckTime;
+
   @override
   void initState() {
     log("AddScreenWidget--->");
@@ -22,14 +28,18 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   }
 
   void init() {
-    if (Constants.isPurchase == "[]") {
-      print("adMob-<<<<<");
+    DateTime purchaseTime =
+        DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+    DateTime timeNow = DateTime.now();
+    dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
+    yearCheckTime =
+        DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 1);
+    if (dayTimeNow == yearCheckTime) {
       addMob();
     }
   }
 
   void addMob() {
-    log("addMob--->");
     _bannerAd = BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
@@ -48,8 +58,7 @@ class _AddScreenWidget extends State<AddScreenWidget> {
         },
       ),
     );
-
-    _bannerAd.load();
+    Future<void>.delayed(const Duration(seconds: 1), () => _bannerAd.load());
   }
 
   @override
@@ -68,7 +77,7 @@ class _AddScreenWidget extends State<AddScreenWidget> {
 
   @override
   void dispose() {
-    if (Constants.isPurchase == "[]") {
+    if (dayTimeNow == yearCheckTime) {
       _bannerAd.dispose();
     }
     super.dispose();

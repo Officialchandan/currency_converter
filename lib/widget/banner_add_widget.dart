@@ -14,6 +14,8 @@ class BannerAddWidget extends StatefulWidget {
 class _BannerAddWidgetState extends State<BannerAddWidget> {
   BannerAd? _bannerAd;
   bool isBannerAdReady = false;
+  DateTime? dayTimeNow;
+  DateTime? yearCheckTime;
 
   @override
   void initState() {
@@ -22,7 +24,13 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
   }
 
   void init() async {
-    if (Constants.isPurchase == "[]") {
+    DateTime purchaseTime =
+        DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+    DateTime timeNow = DateTime.now();
+    dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
+    yearCheckTime =
+        DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+    if (dayTimeNow == yearCheckTime) {
       addMobMulticonverter();
     }
   }
@@ -52,7 +60,7 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
 
   @override
   void dispose() {
-    if (Constants.isPurchase == "[]") {
+    if (dayTimeNow == yearCheckTime) {
       _bannerAd!.dispose();
     }
     super.dispose();

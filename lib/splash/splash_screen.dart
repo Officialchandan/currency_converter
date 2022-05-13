@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -17,19 +20,44 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   late InAppProvider _inAppProvider;
 
+  late AppsflyerSdk _appsflyerSdk;
   @override
   void initState() {
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _inAppProvider = provider;
     getHistory();
     init();
+    appsFlyer();
     super.initState();
   }
 
   getHistory() async {
     await _inAppProvider.initPlatformState();
-    await _inAppProvider.getPurchaseHistory();
-    print("Constants.isPurchase${Constants.isPurchase}");
+    await _inAppProvider.getPurchaseHistoryOfAds();
+    await _inAppProvider.getPurchaseHistoryOfColors();
+  }
+
+  appsFlyer() {
+    AppsFlyerOptions options = AppsFlyerOptions(
+        afDevKey: "bqqKJwEoTTHopf8vS4r8Z6",
+        appId: "com.currencywiki.currencyconverter",
+        timeToWaitForATTUserAuthorization: 15,
+        showDebug: true);
+    _appsflyerSdk = AppsflyerSdk(options);
+    _appsflyerSdk.onAppOpenAttribution((res) {
+      debugPrint("onAppOpenAttribution res: " + res.toString());
+      log("onAppOpenAttribution res: " + res.toString());
+      setState(() {});
+    });
+    _appsflyerSdk.onInstallConversionData((res) {
+      debugPrint("onInstallConversionData res: " + res.toString());
+      log("onInstallConversionData res:" + res.toString());
+      setState(() {});
+    });
+    _appsflyerSdk.initSdk(
+        registerConversionDataCallback: true,
+        registerOnAppOpenAttributionCallback: true,
+        registerOnDeepLinkingCallback: true);
   }
 
   @override
