@@ -146,6 +146,20 @@ class Utility {
 
         }
 
+
+        fun isSubscriptionPurchased(
+            context: Context
+        ): Boolean {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+
+            return prefs.getBoolean("flutter." + "checkWidgetPurchaseAds", false)
+
+
+        }
+
         fun setStringPref(
             key: String, value: String, context: Context
         ): Boolean {

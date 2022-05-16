@@ -4,14 +4,12 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -60,42 +58,39 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         Log.e(javaClass.name, "appWidgetId-->$appWidgetId")
 
         getCurrencyList()
+
         init()
 
         binding.tvAddWidget.setOnClickListener {
-
-
             if (binding.tvCurrencyCodeFrom.text.toString().isEmpty() || binding.tvCurrencyCodeTo.text.toString().isEmpty()) {
                 Toast.makeText(this, "Both the field is required", Toast.LENGTH_LONG).show()
             } else {
                 val from: String = binding.tvCurrencyCodeFrom.text.toString()
                 val to: String = binding.tvCurrencyCodeTo.text.toString()
+                Utility.setCurrencyCode1(this, from, appWidgetId)
+                Utility.setCurrencyCode2(this, to, appWidgetId)
+
                 val appWidgetManager = AppWidgetManager.getInstance(this)
                 getConvertRate(from, to, this, appWidgetManager, widgetId = appWidgetId)
-
             }
-
-
         }
 
+        if (!Utility.isSubscriptionPurchased(this)) {
+            Log.e(javaClass.name, "isSubscriptionPurchased")
+            val application = application as? MyApplication
 
-        val application = application as? MyApplication
-
-        if(application?.appOpenAdManager!=null){
-            Log.e(javaClass.name, "appOpenAdManager---")
-            application.appOpenAdManager?.showAdIfAvailable()
+            if (application?.appOpenAdManager != null) {
+                Log.e(javaClass.name, "appOpenAdManager---")
+                application.appOpenAdManager?.showAdIfAvailable()
+            }
         }
-
-
 
     }
-
 
     private fun init() {
 
         val flagArray = this.resources.obtainTypedArray(R.array.country_flag)
         val currencyList = this.resources.getStringArray(R.array.currency_code)
-
 
         binding.arrowLayout.visibility = View.GONE
         binding.layoutCountries.visibility = View.GONE
@@ -103,10 +98,6 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         binding.tvWidgetTransparency.visibility = View.VISIBLE
         binding.layoutVisualSize.visibility = View.VISIBLE
         binding.tvVisualSize.visibility = View.VISIBLE
-
-
-
-
         binding.tvSliderValue.text = "0";
 
 
@@ -593,20 +584,6 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         setResult(Activity.RESULT_CANCELED)
     }
 
-    private fun adjustFontScale(configuration: Configuration?, scale: Float) {
-        configuration?.let {
-            it.fontScale = scale
-            val metrics: DisplayMetrics = resources.displayMetrics
-            val wm: WindowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            wm.defaultDisplay.getMetrics(metrics)
-            metrics.scaledDensity = configuration.fontScale * metrics.density
-
-            baseContext.applicationContext.createConfigurationContext(it)
-            baseContext.resources.displayMetrics.setTo(metrics)
-
-        }
-    }
-
     override fun onItemSelect(country: Country, type: Int) {
         binding.arrowLayout.visibility = View.GONE
         binding.layoutCountries.visibility = View.GONE
@@ -619,14 +596,14 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         if (type == 1) {
 
-            Utility.setCurrencyCode1(this, country.code, appWidgetId)
+//            Utility.setCurrencyCode1(this, country.code, appWidgetId)
             binding.tvCurrencyCodeFrom.text = country.code
             binding.flagImgFrom.setImageDrawable(country.flag)
             binding.flagImgFrom.scaleType = ImageView.ScaleType.CENTER_CROP
         }
         if (type == 2) {
-            Utility.setCurrencyCode2(this, country.code, appWidgetId)
-            binding.tvCurrencyCodeTo!!.text = country.code
+//            Utility.setCurrencyCode2(this, country.code, appWidgetId)
+            binding.tvCurrencyCodeTo.text = country.code
             binding.flagImgTo.setImageDrawable(country.flag)
             binding.flagImgTo.scaleType = ImageView.ScaleType.CENTER_CROP
         }
@@ -635,7 +612,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
     }
 
 
-    fun getConvertRate(
+    private fun getConvertRate(
         from: String,
         to: String,
         context: Context,

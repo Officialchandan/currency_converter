@@ -82,11 +82,12 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
         })
 
-        val application = application as? MyApplication
-
-        if(application?.appOpenAdManager!=null){
-            Log.e(javaClass.name, "appOpenAdManager---")
-            application.appOpenAdManager?.showAdIfAvailable()
+        if(!Utility.isSubscriptionPurchased(this)){
+            val application = application as? MyApplication
+            if(application?.appOpenAdManager!=null ){
+                Log.e(javaClass.name, "appOpenAdManager---")
+                application.appOpenAdManager?.showAdIfAvailable()
+            }
         }
 
     }

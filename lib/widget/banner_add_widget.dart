@@ -1,6 +1,7 @@
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/google_admob/ad_helper.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -16,7 +17,7 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
   bool isBannerAdReady = false;
   DateTime? dayTimeNow;
   DateTime? yearCheckTime;
-
+  bool getAppPurchase = false;
   @override
   void initState() {
     init();
@@ -24,13 +25,8 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
   }
 
   void init() async {
-    DateTime purchaseTime =
-        DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
-    DateTime timeNow = DateTime.now();
-    dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
-    yearCheckTime =
-        DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
-    if (dayTimeNow == yearCheckTime) {
+    getAppPurchase = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    if (!getAppPurchase) {
       addMobMulticonverter();
     }
   }
@@ -60,7 +56,7 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
 
   @override
   void dispose() {
-    if (dayTimeNow == yearCheckTime) {
+    if (!getAppPurchase) {
       _bannerAd!.dispose();
     }
     super.dispose();

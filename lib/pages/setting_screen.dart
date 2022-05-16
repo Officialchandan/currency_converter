@@ -49,12 +49,10 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _appProvider = provider;
     _appProvider.initPlatformState();
-    DateTime purchaseTime =
-        DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+    DateTime purchaseTime = DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
     DateTime timeNow = DateTime.now();
     dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
-    yearCheckTime =
-        DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+    yearCheckTime = DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
     if (dayTimeNow == yearCheckTime) {
       Constants.removeAd = false;
     } else {
@@ -140,27 +138,19 @@ class _SettingScreenState extends State<SettingScreen> with WidgetsBindingObserv
                           height: 10,
                           margin: const EdgeInsets.all(5),
                           child: Switch(
-                            inactiveTrackColor: !MyColors.isDarkMode
-                                ? Colors.grey.shade300
-                                : MyColors.colorPrimary,
+                            inactiveTrackColor: !MyColors.isDarkMode ? Colors.grey.shade300 : MyColors.colorPrimary,
                             inactiveThumbColor: MyColors.textColor,
                             value: Constants.removeAd,
                             onChanged: (value) async {
                               if (dayTimeNow == yearCheckTime) {
                                 Constants.removeAd = value;
                                 if (Constants.removeAd) {
-                                  await provider
-                                      .getSubscriptions(provider.productLists);
-                                  String getSubscription = provider
-                                      .getSubscriptionItems
-                                      .map((subItem) async =>
-                                          await provider.requestSubscription(
-                                              subItem.productId!))
+                                  await provider.getSubscriptions(provider.productLists);
+                                  String getSubscription = provider.getSubscriptionItems
+                                      .map((subItem) async => await provider.requestSubscription(subItem.productId!))
                                       .toString();
                                   print("getSubscription->$getSubscription");
-                                  provider.purchaseUpdatedSubscription =
-                                      FlutterInappPurchase.purchaseUpdated
-                                          .listen((purchase) {
+                                  provider.purchaseUpdatedSubscription = FlutterInappPurchase.purchaseUpdated.listen((purchase) {
                                     print("event-->$purchase");
                                   });
                                 }
