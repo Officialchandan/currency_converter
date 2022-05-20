@@ -10,8 +10,8 @@
 
 	<com.google.android.material.imageview.ShapeableImageView
 		android:id="@+id/img_flag"
-		android:layout_width="@dimen/_30sdp"
-		android:layout_height="@dimen/_30sdp"
+		android:layout_width="@dimen/_32sdp"
+		android:layout_height="@dimen/_32sdp"
 		android:layout_alignParentLeft="true"
 		android:scaleType="centerCrop"
 		android:src="@drawable/ic_united_states_of_america"
@@ -27,9 +27,9 @@
 		android:layout_marginLeft="@dimen/_5sdp"
 		android:layout_toRightOf="@+id/img_flag"
 		android:text="@string/usd"
-		android:fontFamily="@font/roboto_medium"
+		android:fontFamily="@font/roboto_bold"
 		android:textColor="@color/black"
-		android:textSize="@dimen/_13sdp"
+		android:textSize="@dimen/_14sdp"
 
 		/>
 
@@ -44,20 +44,19 @@
 		android:layout_toRightOf="@+id/txt_code"
 		android:text="@string/USD"
 		android:textColor="@color/black"
-		android:fontFamily="@font/roboto_medium"
-		android:textSize="@dimen/_12sdp"
+		android:fontFamily="@font/roboto_regular"
+		android:textSize="@dimen/_13sdp"
 
 		/>
 
 	<ImageButton
 		android:id="@+id/img_cancel"
-		android:layout_width="@dimen/_24sdp"
-		android:layout_height="@dimen/_24sdp"
+		android:layout_width="@dimen/_28sdp"
+		android:layout_height="@dimen/_28sdp"
 		android:layout_alignParentRight="true"
 		android:layout_centerVertical="true"
 		android:layout_marginLeft="@dimen/_5sdp"
 		android:background="@android:color/transparent"
-
 		android:scaleType="fitXY"
 		android:src="@drawable/ic_close"
 		app:tint="@color/textDark" />

@@ -386,9 +386,9 @@
 							android:layout_alignParentRight="true"
 							android:layout_marginTop="@dimen/_6sdp"
 							android:fontFamily="@font/roboto_medium"
-							android:gravity="center_vertical"
+							android:gravity="right"
 							android:paddingHorizontal="@dimen/_2sdp"
-							android:text="@string/_1_usd"
+							android:text="1 USD "
 							android:textColor="@color/black"
 							android:textSize="@dimen/_12sdp"
 							/>

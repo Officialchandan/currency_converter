@@ -123,7 +123,7 @@ class InAppProvider with ChangeNotifier {
     bool? result;
     try {
       result = await Constants.appsflyerSdk
-          .logEvent(eventName, eventValues)
+          .logEvent(eventName, eventValues!)
           .then((onValue) {
         logEventResponse = onValue.toString();
         notifyListeners();
