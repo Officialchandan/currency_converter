@@ -54,24 +54,14 @@ void callbackDispatcher() {
 }
 
 void backgroundCallback(Uri? data) async {
-  debugPrint("data--->$data");
+  print("data--->$data");
   debugPrint("backgroundCallback--->$data");
 
   if (data!.host == 'titleclicked') {
-    final greetings = [
-      'Hello',
-      'Hallo',
-      'Bonjour',
-      'Hola',
-      'Ciao',
-      '哈洛',
-      '안녕하세요',
-      'xin chào'
-    ];
+    final greetings = ['Hello', 'Hallo', 'Bonjour', 'Hola', 'Ciao', '哈洛', '안녕하세요', 'xin chào'];
     final selectedGreeting = greetings[Random().nextInt(greetings.length)];
     await HomeWidget.saveWidgetData<String>('title', selectedGreeting);
-    await HomeWidget.updateWidget(
-        name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
+    await HomeWidget.updateWidget(name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
   }
 }
 
@@ -130,40 +120,34 @@ class _MyAppState extends State<MyApp> {
   getHistory() async {
     await _inAppProvider.initPlatformState();
     await _inAppProvider.getPurchaseHistoryOfAds();
-    debugPrint("IN_Main");
+    print("IN_Main");
   }
 
   getAds() async {
     Constants.isPurchaseOfAds =
         await Utility.getIntPreference(Constants.yearCheckTimeCons);
-    debugPrint('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
+    print('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
 
     if (Constants.isPurchaseOfAds == 0) {
-      await Utility.setBooleanPreference(
-          Constants.checkWidgetPurchaseAds, false);
+      await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, false);
     } else {
-      DateTime purchaseTime =
-          DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+      DateTime purchaseTime = DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
       DateTime timeNow = DateTime.now();
       DateTime dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
-      DateTime yearCheckTime = DateTime(
-          purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+      DateTime yearCheckTime = DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
       if (dayTimeNow.millisecond <= yearCheckTime.microsecond) {
-        debugPrint("dayTimeNowdayTimeNow");
-        await Utility.setBooleanPreference(
-            Constants.checkWidgetPurchaseAds, true);
+        print("dayTimeNowdayTimeNow");
+        await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, true);
       } else {
-        debugPrint("falseFalseFalse");
-        await Utility.setBooleanPreference(
-            Constants.checkWidgetPurchaseAds, false);
+        print("falseFalseFalse");
+        await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, false);
         Future.delayed(const Duration(seconds: 7), () {
           isFirstTime();
         });
       }
     }
-    bool myValue =
-        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
-    debugPrint('myValue->$myValue');
+    bool myValue = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    print('myValue->$myValue');
   }
 
   @override
@@ -332,7 +316,7 @@ class _MyAppState extends State<MyApp> {
     int blue = MyColors.colorPrimary.blue;
     int green = MyColors.colorPrimary.green;
     var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
-    debugPrint("************************-> $grayscale");
+    print("************************-> $grayscale");
     if (await Utility.getBooleanPreference(Constants.isDarkMode)) {
       MyColors.isDarkMode = true;
       // MyColors.lightModeCheck = !MyColors.lightModeCheck;
@@ -385,9 +369,8 @@ Future<void> insertData() async {
       Map<String, dynamic> quotes = res["quotes"];
 
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList
-            .singleWhere((element) => element["code"] == key, orElse: () {
-          debugPrint("database data ->$key");
+        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
+          print("database data ->$key");
 
           return {};
         });
@@ -418,10 +401,10 @@ Future<void> insertData() async {
         int id = await dbHelper.insert(currencyData.toMap());
       });
     } else {
-      debugPrint("NOT FOUND DATA");
+      print("NOT FOUND DATA");
     }
   } catch (e) {
-    debugPrint(e.toString());
+    print(e);
   }
 }
 

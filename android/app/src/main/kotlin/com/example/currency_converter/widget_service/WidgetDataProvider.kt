@@ -11,10 +11,12 @@ import android.net.Uri
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import android.widget.Toast
 import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
 import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
+import com.example.currency_converter.widget.ListWidgetKt.Companion.ACTION_WIDGET_CONFIGURE
 import com.example.currency_converter.widget.ListWidgetProvider
 import com.example.currency_converter.widget.SingleConvertorProvider
 import es.antonborri.home_widget.HomeWidgetLaunchIntent
@@ -112,7 +114,6 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
 //        toastIntent.action = Constants.TOAST_ACTION
 //        toastIntent.putExtra("appWidgetId", widgetId)
 //
-//
 //        view.setOnClickPendingIntent(
 //            R.id.widget_item,
 //            PendingIntent.getBroadcast(
@@ -181,6 +182,65 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
             }
 
         }
+
+
+//        view.setOnClickResponse()
+
+
+        //onclick item listview
+        //onclick item listview
+
+        val toastIntent = Intent(context, MainActivity::class.java)
+        toastIntent.action = Constants.TOAST_ACTION
+        toastIntent.putExtra("position", position)
+        toastIntent.putExtra("appWidgetId", widgetId)
+        toastIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        toastIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        context.startActivity(toastIntent)
+
+//        val intent = Intent(context, ListWidgetProvider::class.java)
+//        intent.action = ACTION_WIDGET_CONFIGURE
+//        intent.putExtra("appWidgetId", widgetId)
+//        val pandingIntent =  PendingIntent.getBroadcast(
+//            context,
+//            widgetId,
+//            intent,
+//            PendingIntent.FLAG_UPDATE_CURRENT
+//        )
+//        view.setOnClickPendingIntent(R.id.widget_item,pandingIntent)
+
+//        val fillInIntent = Intent()
+//        fillInIntent.putExtra("sdf", position)
+        view.setOnClickFillInIntent(R.id.widget_item, toastIntent)
+
+//            val toastIntent = Intent(context, ListWidgetProvider::class.java)
+//            toastIntent.action = Constants.TOAST_ACTION
+//            toastIntent.putExtra("appWidgetId", widgetId)
+//            toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
+//
+//
+//            view.setPendingIntentTemplate(
+//                R.id.widget_item,
+//                PendingIntent.getBroadcast(
+//                    context,
+//                    0,
+//                    toastIntent,
+//                    PendingIntent.FLAG_UPDATE_CURRENT
+//                )
+//            )
+
+
+//        // Open App on Widget Click
+//        val pendingIntent = context.let {
+//            HomeWidgetLaunchIntent.getActivity(
+//                it,
+//                MainActivity::class.java
+//            )
+//        }
+//
+//
+//        view.setOnClickPendingIntent(R.id.widget_item, pendingIntent)
+
         return view
     }
 

@@ -54,5 +54,7 @@
 	<dimen name="_0sdp">0dp</dimen>
 	<dimen name="_21sdp">21dp</dimen>
 	<dimen name="_25sdp">25dp</dimen>
+	<dimen name="_32sdp">32dp</dimen>
+	<dimen name="_28sdp">28dp</dimen>
 
 </resources>

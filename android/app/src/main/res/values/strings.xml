@@ -19,7 +19,7 @@
 		translatable="false">USD</string>
 
 	<string name="_1_usd"
-		translatable="false">1 USD </string>
+		translatable="false">1 USD  </string>
 
 	<string name="line_chart">Chart</string>
 	<string name="app_name">CurrencyConverter</string>

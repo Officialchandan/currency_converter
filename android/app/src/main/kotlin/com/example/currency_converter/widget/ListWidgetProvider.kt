@@ -9,11 +9,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.currency_converter.ListWidgetConfigActivity
+import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
 import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.ListWidgetKt.Companion.ACTION_LIST_UPDATE_SETTINGS
 import com.example.currency_converter.widget.ListWidgetKt.Companion.MyOnClick
+import com.example.currency_converter.widget.ListWidgetKt.Companion.TOAST_ACTION
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -53,6 +55,13 @@ class ListWidgetProvider : AppWidgetProvider() {
             intentOpenConfigurationActivity.putExtra("appWidgetId", widgetId2)
             intentOpenConfigurationActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context?.startActivity(intentOpenConfigurationActivity)
+        } else if (Intrinsics.areEqual(intent?.action.toString(), TOAST_ACTION)) {
+            val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
+            val mainActivity = Intent(context, MainActivity::class.java)
+            mainActivity.putExtra("appWidgetId", widgetId2)
+            mainActivity.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            mainActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context?.startActivity(mainActivity)
         }
         super.onReceive(context, intent)
     }

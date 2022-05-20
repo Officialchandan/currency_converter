@@ -74,8 +74,12 @@ class ListWidgetKt {
             val listWidgetProviderHeight =
                 appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMaxHeight", 0)
 
-            val gradientDrawable = Utility.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom,transparency), 0, 0, context.resources.getDimension(R
-                .dimen._16sdp));
+            val gradientDrawable = Utility.getWidgetGradientDrawable(
+                Utility.getColorWithAlpha(colorFrom, transparency), 0, 0, context.resources.getDimension(
+                    R
+                        .dimen._16sdp
+                )
+            );
             val bitmap =
                 SingleConvertorProvider.drawableToBitmap(
                     gradientDrawable,
@@ -244,6 +248,15 @@ class ListWidgetKt {
                 )
             )
 
+//            views.setOnClickPendingIntent(
+//                R.id.layout_list_widget, getPendingSelfIntentForConvertList(
+//                    context,
+//                    ACTION_LIST_UPDATE_SETTINGS,
+//                    appWidgetId
+//                )
+//            )
+
+
 
             val toastIntent = Intent(context, ListWidgetProvider::class.java)
             toastIntent.action = Constants.TOAST_ACTION
@@ -293,23 +306,23 @@ class ListWidgetKt {
             intent.putExtra("visualSize", visualSize)
             intent.putExtra("appWidgetId", appWidgetId)
             views.setRemoteAdapter(R.id.listCurrency, intent)
-
-            val toastIntent = Intent(context, ListWidgetProvider::class.java)
-            toastIntent.action = Constants.TOAST_ACTION
-            toastIntent.putExtra("appWidgetId", appWidgetId)
-            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
-            toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
-
-
-            views.setPendingIntentTemplate(
-                R.id.listCurrency,
-                PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    toastIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                )
-            )
+//
+//            val toastIntent = Intent(context, ListWidgetProvider::class.java)
+//            toastIntent.action = Constants.TOAST_ACTION
+//            toastIntent.putExtra("appWidgetId", appWidgetId)
+//            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
+////            toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
+//
+//
+//            views.setPendingIntentTemplate(
+//                R.id.listCurrency,
+//                PendingIntent.getBroadcast(
+//                    context,
+//                    0,
+//                    toastIntent,
+//                    PendingIntent.FLAG_UPDATE_CURRENT
+//                )
+//            )
 
 //            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
