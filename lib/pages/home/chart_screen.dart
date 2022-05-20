@@ -1,5 +1,6 @@
 import 'package:currency_converter/widget/add_screen_widget.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,7 +62,12 @@ class _ChartScreenState extends State<ChartScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.colorPrimary,
-        title: Text(widget.textFrom + "/" + widget.textTo + " " + "Charts",
+        title: Text(
+            widget.textFrom +
+                "/" +
+                widget.textTo +
+                " " +
+                "line_chart".tr().toString(),
             textScaleFactor: Constants.textScaleFactor,
             style: GoogleFonts.roboto(
               fontSize: 23,

@@ -61,7 +61,6 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     _inAppProvider = provider;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-
     getHistory();
     widget.onInitialize(this);
     getCurrencyCode();
