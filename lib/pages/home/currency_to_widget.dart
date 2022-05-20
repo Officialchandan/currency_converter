@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
@@ -311,6 +310,6 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);
     }
-    print(countrycode);
+    debugPrint(countrycode.toString());
   }
 }

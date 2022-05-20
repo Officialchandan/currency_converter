@@ -35,8 +35,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void info() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
-    print("androidDeviceInfo-->>${androidDeviceInfo.androidId}");
-    print("androidDeviceInfo-->>${androidDeviceInfo.model}");
+    debugPrint("androidDeviceInfo-->>${androidDeviceInfo.androidId}");
+    debugPrint("androidDeviceInfo-->>${androidDeviceInfo.model}");
   }
 
   getHistory() async {
@@ -78,7 +78,8 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     try {
-      Constants.appsflyerSdk.onDeepLinking((onDp) => print("onDp-->$onDp"));
+      Constants.appsflyerSdk
+          .onDeepLinking((onDp) => debugPrint("onDp-->$onDp"));
       Constants.appsflyerSdk.setIsUpdate(true);
     } catch (e) {
       debugPrint("onDeepLinking-->>$e");

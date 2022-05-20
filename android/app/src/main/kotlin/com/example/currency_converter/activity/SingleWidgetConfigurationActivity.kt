@@ -363,7 +363,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         binding.edtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.e(javaClass.name, "beforeTextChanged" + p0.toString())
-                print(p0)
+                debugPrint(p0)
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -597,7 +597,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 //
 //                }
 //                else -> { // Note the block
-//                    print("x is neither 1 nor 2")
+//                    debugPrint("x is neither 1 nor 2")
 //                }
 //            }
 //        }

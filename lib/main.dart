@@ -54,7 +54,7 @@ void callbackDispatcher() {
 }
 
 void backgroundCallback(Uri? data) async {
-  print("data--->$data");
+  debugPrint("data--->$data");
   debugPrint("backgroundCallback--->$data");
 
   if (data!.host == 'titleclicked') {
@@ -130,13 +130,13 @@ class _MyAppState extends State<MyApp> {
   getHistory() async {
     await _inAppProvider.initPlatformState();
     await _inAppProvider.getPurchaseHistoryOfAds();
-    print("IN_Main");
+    debugPrint("IN_Main");
   }
 
   getAds() async {
     Constants.isPurchaseOfAds =
         await Utility.getIntPreference(Constants.yearCheckTimeCons);
-    print('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
+    debugPrint('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
 
     if (Constants.isPurchaseOfAds == 0) {
       await Utility.setBooleanPreference(
@@ -149,11 +149,11 @@ class _MyAppState extends State<MyApp> {
       DateTime yearCheckTime = DateTime(
           purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
       if (dayTimeNow.millisecond <= yearCheckTime.microsecond) {
-        print("dayTimeNowdayTimeNow");
+        debugPrint("dayTimeNowdayTimeNow");
         await Utility.setBooleanPreference(
             Constants.checkWidgetPurchaseAds, true);
       } else {
-        print("falseFalseFalse");
+        debugPrint("falseFalseFalse");
         await Utility.setBooleanPreference(
             Constants.checkWidgetPurchaseAds, false);
         Future.delayed(const Duration(seconds: 7), () {
@@ -163,7 +163,7 @@ class _MyAppState extends State<MyApp> {
     }
     bool myValue =
         await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
-    print('myValue->$myValue');
+    debugPrint('myValue->$myValue');
   }
 
   @override
@@ -332,7 +332,7 @@ class _MyAppState extends State<MyApp> {
     int blue = MyColors.colorPrimary.blue;
     int green = MyColors.colorPrimary.green;
     var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
-    print("************************-> $grayscale");
+    debugPrint("************************-> $grayscale");
     if (await Utility.getBooleanPreference(Constants.isDarkMode)) {
       MyColors.isDarkMode = true;
       // MyColors.lightModeCheck = !MyColors.lightModeCheck;
@@ -387,7 +387,7 @@ Future<void> insertData() async {
       quotes.forEach((key, value) async {
         Map<String, dynamic> map = Constants.countryList
             .singleWhere((element) => element["code"] == key, orElse: () {
-          print("database data ->$key");
+          debugPrint("database data ->$key");
 
           return {};
         });
@@ -418,10 +418,10 @@ Future<void> insertData() async {
         int id = await dbHelper.insert(currencyData.toMap());
       });
     } else {
-      print("NOT FOUND DATA");
+      debugPrint("NOT FOUND DATA");
     }
   } catch (e) {
-    print(e);
+    debugPrint(e.toString());
   }
 }
 

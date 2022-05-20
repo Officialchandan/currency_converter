@@ -76,8 +76,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     // await _inAppProvider.validateReceipt();
     await _inAppProvider.getPurchaseHistoryOfAds();
     await _inAppProvider.getPurchaseHistoryOfColors();
-    print("Constants.isPurchaseOfAds${Constants.isPurchaseOfAds}");
-    print("Constants.isPurchaseOfColors${Constants.isPurchaseOfColors}");
+    debugPrint("Constants.isPurchaseOfAds${Constants.isPurchaseOfAds}");
+    debugPrint("Constants.isPurchaseOfColors${Constants.isPurchaseOfColors}");
   }
 
   @override
@@ -301,7 +301,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   setState(() {});
                                 },
                                 onChanged: (text) {
-                                  print("onchange---------> $text");
+                                  debugPrint("onchange---------> $text");
 
                                   if (text.isEmpty) {
                                     text = "0";
@@ -771,7 +771,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
       setStateIfMounted();
       return Utility.getFormatText(text);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return text;
   }

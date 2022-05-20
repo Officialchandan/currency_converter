@@ -295,7 +295,7 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);
     }
-    print(countrycode);
+    debugPrint(countrycode.toString());
   }
 
   void showAll() async {
@@ -308,6 +308,6 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);
     }
-    print(countrycode);
+    debugPrint(countrycode.toString());
   }
 }

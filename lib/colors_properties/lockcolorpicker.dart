@@ -70,7 +70,7 @@ class LockColorPicker extends StatefulWidget {
     } else {
       heightFactor = heightFactor.floorToDouble();
     }
-    print("heightFactor$heightFactor");
+    debugPrint("heightFactor$heightFactor");
     return SizedBox(
       height: (MediaQuery.of(context).size.height * 0.09) * heightFactor,
       child: GridView.count(
@@ -189,11 +189,11 @@ class _LockColorPickerState extends State<LockColorPicker> {
     // Color? c;
     // LColor? lockcolor;
 
-    print("availableColors------>${widget.availableColors.length}");
+    debugPrint("availableColors------>${widget.availableColors.length}");
     int index = widget.availableColors.indexWhere((element) =>
         element.lmainColor.value.toRadixString(16) == colorPreference);
-    print("index------>$index");
-    print("colorPreference------>$colorPreference");
+    debugPrint("index------>$index");
+    debugPrint("colorPreference------>$colorPreference");
 
     if (colorPreference != null && index != -1) {
       LColor temp = widget.availableColors[0];

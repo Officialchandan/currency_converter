@@ -534,7 +534,7 @@ class _ChartScreenState extends State<ChartScreen> {
         debugPrint("else");
       }
     } catch (e) {
-      print("e--->$e");
+      debugPrint("e--->$e");
     }
   }
 
@@ -571,7 +571,7 @@ class _ChartScreenState extends State<ChartScreen> {
         debugPrint("else");
       }
     } catch (e) {
-      print("e--->$e");
+      debugPrint("e--->$e");
     }
   }
 
@@ -608,7 +608,7 @@ class _ChartScreenState extends State<ChartScreen> {
         debugPrint("else");
       }
     } catch (e) {
-      print("e--->$e");
+      debugPrint("e--->$e");
     }
   }
 
@@ -645,7 +645,7 @@ class _ChartScreenState extends State<ChartScreen> {
         debugPrint("else");
       }
     } catch (e) {
-      print("e--->$e");
+      debugPrint("e--->$e");
     }
   }
 
@@ -659,7 +659,7 @@ class _ChartScreenState extends State<ChartScreen> {
         ConverterData data = ConverterData.fromMap(response.data);
         sampleData.clear();
         for (int i = 0; i <= 356; i++) {
-          print("data-->${data.from!.values.length}");
+          debugPrint("data-->${data.from!.values.length}");
           double value =
               (data.from!.values.toList().reversed.toList()[i] * 100) /
                   (data.to!.values.toList().reversed.toList()[i] * 100);
@@ -683,7 +683,7 @@ class _ChartScreenState extends State<ChartScreen> {
         debugPrint("else");
       }
     } catch (e) {
-      print("e--->$e");
+      debugPrint("e--->$e");
     }
   }
 
@@ -718,7 +718,7 @@ class _ChartScreenState extends State<ChartScreen> {
         debugPrint("else");
       }
     } catch (e) {
-      print("e--->$e");
+      debugPrint("e--->$e");
     }
   }
 

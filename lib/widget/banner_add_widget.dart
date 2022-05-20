@@ -25,7 +25,8 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
   }
 
   void init() async {
-    getAppPurchase = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    getAppPurchase =
+        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
     if (!getAppPurchase) {
       addMobMulticonverter();
     }
@@ -43,7 +44,7 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
+          debugPrint('Failed to load a banner ad: ${err.message}');
           isBannerAdReady = false;
           setState(() {});
           ad.dispose();

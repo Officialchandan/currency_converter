@@ -47,9 +47,9 @@ class InAppProvider with ChangeNotifier {
     try {
       String consumeAllItems =
           await FlutterInappPurchase.instance.consumeAllItems;
-      print("consumeAllItems$consumeAllItems");
+      debugPrint("consumeAllItems$consumeAllItems");
     } catch (err) {
-      print('err-$err');
+      debugPrint('err-$err');
     }
     conectionSubscription =
         FlutterInappPurchase.connectionUpdated.listen((connected) {});
@@ -63,7 +63,7 @@ class InAppProvider with ChangeNotifier {
   Future getProduct() async {
     List<IAPItem> items =
         await FlutterInappPurchase.instance.getProducts(productLists);
-    print("valueOfItems-->$items");
+    debugPrint("valueOfItems-->$items");
     for (var item in items) {
       this.items.add(item);
     }
@@ -73,8 +73,8 @@ class InAppProvider with ChangeNotifier {
       var stringDecode = json.decode(currencyPriceData);
       getProductPrice = stringDecode['price'];
       getProductCurrencyCode = stringDecode['price_currency_code'];
-      print("getSubCurrency-${stringDecode['price_currency_code']}");
-      print("getSubCurrency-${stringDecode['price']}");
+      debugPrint("getSubCurrency-${stringDecode['price_currency_code']}");
+      debugPrint("getSubCurrency-${stringDecode['price']}");
     });
     purchases = [];
     getProductItems = items;
@@ -99,7 +99,7 @@ class InAppProvider with ChangeNotifier {
   }
 
   Future<List<IAPItem>> getSubscriptions(List<String> skus) async {
-    print("getSubscription");
+    debugPrint("getSubscription");
     List<IAPItem> subItemList =
         await FlutterInappPurchase.instance.getSubscriptions(skus);
     getSubscriptionItems = subItemList;
@@ -109,12 +109,12 @@ class InAppProvider with ChangeNotifier {
       var stringDecode = json.decode(currencyPriceData);
       getSubscriptionPrice = stringDecode['price'];
       getSubscriptionCurrencyCode = stringDecode['price_currency_code'];
-      print("getSubCurrency-${stringDecode['price_currency_code']}");
-      print("getSubCurrency-${stringDecode['price']}");
+      debugPrint("getSubCurrency-${stringDecode['price_currency_code']}");
+      debugPrint("getSubCurrency-${stringDecode['price']}");
     });
 
     notifyListeners();
-    print("subItemList-->${subItemList}");
+    debugPrint("subItemList-->${subItemList}");
     return subItemList;
   }
 
@@ -129,18 +129,18 @@ class InAppProvider with ChangeNotifier {
         notifyListeners();
       }).catchError((onError) {});
     } on Exception catch (e) {
-      print("ExLogEvent");
+      debugPrint("ExLogEvent");
     }
-    print("Result logEvent: $result");
+    debugPrint("Result logEvent: $result");
     return null;
   }
 
   requestSubscription(String sku) async {
-    print("requestSubscription");
+    debugPrint("requestSubscription");
     try {
       List<String> listItem =
           await FlutterInappPurchase.instance.requestSubscription(sku);
-      print("listItem--$listItem");
+      debugPrint("listItem--$listItem");
       notifyListeners();
     } catch (e) {
       debugPrint('ee-->$e');
@@ -148,7 +148,7 @@ class InAppProvider with ChangeNotifier {
   }
 
   Future getPurchaseHistoryOfAds() async {
-    print("getPurchaseHistory");
+    debugPrint("getPurchaseHistory");
     try {
       String getPurchaseHistoryOfAds = await _channel.invokeMethod(
         'getPurchaseHistoryByType',
@@ -159,7 +159,7 @@ class InAppProvider with ChangeNotifier {
       log("getInAppPurchaseHistory-->$getPurchaseHistoryOfAds");
       // items = await FlutterInappPurchase.instance.getPurchaseHistory();
       var historyList = json.decode(getPurchaseHistoryOfAds);
-      print("historyList->${historyList[0]['transactionDate']}");
+      debugPrint("historyList->${historyList[0]['transactionDate']}");
       Constants.isPurchaseOfAds = historyList[0]['transactionDate'];
       int time = historyList[0]['transactionDate'];
       Utility.setIntPreference(Constants.yearCheckTimeCons, time);
@@ -172,20 +172,20 @@ class InAppProvider with ChangeNotifier {
 
   Future getAvailablePurchase() async {
     String msg = "";
-    print("getAvailablePurchase0");
+    debugPrint("getAvailablePurchase0");
     try {
       msg = await FlutterInappPurchase.instance.consumeAllItems;
-      print('getAvailablePurchase1: $msg');
+      debugPrint('getAvailablePurchase1: $msg');
     } catch (err) {
-      print('getAvailablePurchase2: $err');
+      debugPrint('getAvailablePurchase2: $err');
     }
-    print("getAvailablePurchase3-->${msg}");
-    print(
+    debugPrint("getAvailablePurchase3-->${msg}");
+    debugPrint(
         "getAvailablePurchase4-->${FlutterInappPurchase.instance.consumeAllItems.toString()}");
   }
 
   Future validateReceipt() async {
-    print("validateReceipt");
+    debugPrint("validateReceipt");
     try {
       var isValid = await FlutterInappPurchase.instance.validateReceiptAndroid(
           packageName: "com.example.currency_converter",
@@ -194,14 +194,14 @@ class InAppProvider with ChangeNotifier {
               "cmoplgpnmdggnbbapbjdbjdp.AO-J1Ox8HO07vAQs3Okd-2zeEimZytu0e38aUdmFplPeTDdPZiCsBR-pVT2IcL41Ol8kyO06-llTpWDJA8A",
           accessToken:
               "cmoplgpnmdggnbbapbjdbjdp.AO-J1Ox8HO07vAQs3Okd-2zeEimZytu0e38aUdmFplPeTDdPZiCsBR-pVT2IcL41Ol8kyO06-llTpWDJA8A");
-      print("isValid-->$isValid");
+      debugPrint("isValid-->$isValid");
     } catch (e) {
-      print("e---->$e");
+      debugPrint("e---->$e");
     }
   }
 
   Future getPurchaseHistoryOfColors() async {
-    print("getPurchaseHistoryOfColors");
+    debugPrint("getPurchaseHistoryOfColors");
     try {
       String getPurchaseHistoryOfColors = await _channel.invokeMethod(
         'getPurchaseHistoryByType',

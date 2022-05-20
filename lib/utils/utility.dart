@@ -212,7 +212,7 @@ class Utility {
 
   static void check() async {
     checkOfValue = await Utility.getLangIndexPreference("LanuageIndex");
-    print(" checkOfValue $checkOfValue");
+    debugPrint(" checkOfValue $checkOfValue");
   }
 
   static String getEn() {
