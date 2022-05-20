@@ -151,6 +151,15 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                             FlutterInappPurchase.purchaseUpdated
                                 .listen((productItem) async {
                           if (productItem!.productId!.isNotEmpty) {
+                            final Map eventValues = {
+                              "af_content_id": uuid.v1(),
+                              "af_currency": provider.getProductCurrencyCode,
+                              "af_revenue": provider.getProductPrice
+                            };
+                            provider.logEvent(
+                                eventName: "CustomColorEvent",
+                                eventValues: eventValues);
+                            print("productItem>>>>>>>");
                             MyColors.lockColorfordefault = currentColor;
                             MyColors.colorPrimary = currentColor;
                             Utility.setStringPreference(
@@ -162,7 +171,6 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                             var grayscale = (0.299 * red) +
                                 (0.587 * green) +
                                 (0.114 * blue);
-
                             if (grayscale > 200) {
                               MyColors.textColor = Colors.grey.shade700;
                               MyColors.insideTextFieldColor = Colors.white;
@@ -237,6 +245,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                                 ));
                               }
                             }
+
                             widget.onThemeChange();
                             Navigator.pushAndRemoveUntil(
                                 context,
@@ -245,6 +254,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                                 (route) => true);
                           }
                         });
+                        setState(() {});
                       },
                       child: Text(
                         "unlock".tr().toString(),

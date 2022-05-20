@@ -24,14 +24,35 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   @override
   void initState() {
     log("AddScreenWidget--->");
-    init();
+    initAds();
     super.initState();
   }
 
-  void init() async {
-    getAppPurchase = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
-    if (!getAppPurchase) {
-      addMob();
+  void initAds() async {
+    Constants.isPurchaseOfAds =
+        await Utility.getIntPreference(Constants.yearCheckTimeCons);
+    print('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
+
+    if (Constants.isPurchaseOfAds == 0) {
+      await Utility.setBooleanPreference(
+          Constants.checkWidgetPurchaseAds, false);
+    } else {
+      DateTime purchaseTime =
+          DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+      DateTime timeNow = DateTime.now();
+      DateTime dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
+      DateTime yearCheckTime = DateTime(
+          purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+      if (dayTimeNow.microsecond <= yearCheckTime.microsecond) {
+        print("dayTimeNowdayTimeNow");
+        getAppPurchase = await Utility.setBooleanPreference(
+            Constants.checkWidgetPurchaseAds, true);
+      } else {
+        print("falseFalseFalse");
+        getAppPurchase = await Utility.setBooleanPreference(
+            Constants.checkWidgetPurchaseAds, false);
+        addMob();
+      }
     }
   }
 

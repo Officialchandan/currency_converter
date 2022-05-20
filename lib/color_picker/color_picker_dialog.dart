@@ -44,7 +44,6 @@ class ColorPickerDialog extends StatefulWidget {
   final Color densityCurrentColor;
   bool isLockedColor;
   bool isUnlockColorSelect;
-
   ColorPickerDialog(
       {required this.onColorSelect,
       required this.lockchangeColor,
@@ -327,6 +326,16 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   FlutterInappPurchase.purchaseUpdated
                                       .listen((productItem) async {
                                 if (productItem!.productId!.isNotEmpty) {
+                                  debugPrint("colorEvent");
+                                  final Map eventValues = {
+                                    "af_content_id": uuid.v1(),
+                                    "af_currency":
+                                        provider.getProductCurrencyCode,
+                                    "af_revenue": provider.getProductPrice
+                                  };
+                                  provider.logEvent(
+                                      eventName: "colorEvent",
+                                      eventValues: eventValues);
                                   MyColors.lockColorfordefault =
                                       lockSelectdColor;
                                   MyColors.colorPrimary = colorSelection!;
@@ -423,10 +432,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       selected: 1,
                                       previousColor: 0,
                                       isLocked: ColorsConst.lockedColor));
+
                                   widget.onThemeChange();
                                   Navigator.pop(context);
                                 }
                               });
+                              setState(() {});
                             },
                             child: Text(
                               "unlock".tr().toString(),

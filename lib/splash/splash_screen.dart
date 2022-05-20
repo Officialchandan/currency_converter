@@ -4,6 +4,7 @@ import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,16 +20,23 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late InAppProvider _inAppProvider;
-
-  late AppsflyerSdk _appsflyerSdk;
+  String logEventResponse = "No event have been sent";
   @override
   void initState() {
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _inAppProvider = provider;
+    info();
     getHistory();
     init();
     appsFlyer();
     super.initState();
+  }
+
+  void info() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
+    print("androidDeviceInfo-->>${androidDeviceInfo.androidId}");
+    print("androidDeviceInfo-->>${androidDeviceInfo.model}");
   }
 
   getHistory() async {
@@ -39,25 +47,52 @@ class _SplashScreenState extends State<SplashScreen> {
 
   appsFlyer() {
     AppsFlyerOptions options = AppsFlyerOptions(
-        afDevKey: "bqqKJwEoTTHopf8vS4r8Z6",
+        afDevKey: "sSciSETKRuU6a8cqCETSSJ",
         appId: "com.currencywiki.currencyconverter",
-        timeToWaitForATTUserAuthorization: 15,
+        disableAdvertisingIdentifier: true,
         showDebug: true);
-    _appsflyerSdk = AppsflyerSdk(options);
-    _appsflyerSdk.onAppOpenAttribution((res) {
-      debugPrint("onAppOpenAttribution res: " + res.toString());
-      log("onAppOpenAttribution res: " + res.toString());
-      setState(() {});
-    });
-    _appsflyerSdk.onInstallConversionData((res) {
-      debugPrint("onInstallConversionData res: " + res.toString());
-      log("onInstallConversionData res:" + res.toString());
-      setState(() {});
-    });
-    _appsflyerSdk.initSdk(
+    Constants.appsflyerSdk = AppsflyerSdk(options);
+    Constants.appsflyerSdk.initSdk(
         registerConversionDataCallback: true,
         registerOnAppOpenAttributionCallback: true,
         registerOnDeepLinkingCallback: true);
+
+    try {
+      Constants.appsflyerSdk.onAppOpenAttribution((res) {
+        debugPrint("onAppOpenAttribution res: " + res.toString());
+        log("onAppOpenAttribution res: " + res.toString());
+        setState(() {});
+      });
+    } catch (e) {
+      debugPrint("onAppOpenAttribution-->>$e");
+    }
+
+    try {
+      Constants.appsflyerSdk.onInstallConversionData((res) {
+        debugPrint("onInstallConversionData res: " + res.toString());
+        log("onInstallConversionData res:" + res.toString());
+        setState(() {});
+      });
+    } catch (e) {
+      debugPrint("onInstallConversionData-->>$e");
+    }
+
+    try {
+      Constants.appsflyerSdk.onDeepLinking((onDp) => print("onDp-->$onDp"));
+      Constants.appsflyerSdk.setIsUpdate(true);
+    } catch (e) {
+      debugPrint("onDeepLinking-->>$e");
+    }
+    try {
+      Constants.appsflyerSdk.useReceiptValidationSandbox(true);
+      Constants.appsflyerSdk.onPurchaseValidation(((purchaseValue) {
+        debugPrint("purchaseValue-$purchaseValue");
+      }));
+      // _appsflyerSdk.validateAndLogInAppAndroidPurchase(
+      //     "publicKey", "signature", "purchaseData", "price", "currency", {});
+    } catch (e) {
+      debugPrint("onDeepLinking-->>$e");
+    }
   }
 
   @override
@@ -67,7 +102,6 @@ class _SplashScreenState extends State<SplashScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Colors.white,
-        // child: const InApp(),
       ),
     );
   }
