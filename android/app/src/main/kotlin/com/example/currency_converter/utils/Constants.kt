@@ -5,6 +5,7 @@ class Constants {
     companion object {
 
         const val baseCurrency = "base_currency"
+        const val languageCode = "languageCode"
         const val monetaryFormat = "monetaryFormat";
         const val decimalFormat = "decimalFormat";
         const val baseAmount = "base_amount"

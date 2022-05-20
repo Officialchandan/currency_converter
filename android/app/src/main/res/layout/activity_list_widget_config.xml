@@ -34,7 +34,9 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
-			android:padding="@dimen/_15sdp">
+			android:paddingRight="@dimen/_15sdp"
+			android:paddingTop="@dimen/_15sdp"
+			android:paddingLeft="@dimen/_15sdp">
 
 			<TextView
 				android:id="@+id/txtTitleBaseCurrency"
@@ -42,8 +44,8 @@
 				android:layout_height="wrap_content"
 				android:text="@string/title_select_base_currency"
 				android:textColor="#FFFFFF"
-				android:textSize="@dimen/_16sdp"
-				android:textStyle="bold"
+				android:textSize="@dimen/_17sdp"
+				android:fontFamily="@font/roboto_medium"
 				/>
 
 			<RelativeLayout
@@ -67,16 +69,17 @@
 
 				<TextView
 					android:id="@+id/tv_base_currency"
-					android:layout_width="match_parent"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_centerVertical="true"
 					android:layout_marginLeft="@dimen/_6sdp"
 					android:layout_marginRight="@dimen/_6sdp"
 					android:layout_toLeftOf="@+id/img_arrow_down"
 					android:layout_toRightOf="@+id/img_flag"
+					android:fontFamily="@font/roboto_medium"
 					android:text="@string/usd"
 					android:textColor="#000000"
-					android:textSize="@dimen/_16sdp" />
+					android:textSize="@dimen/_17sdp" />
 
 				<ImageView
 					android:id="@+id/img_arrow_down"
@@ -102,7 +105,7 @@
 				android:layout_height="match_parent"
 				android:background="@drawable/currency_widget_background"
 				android:orientation="vertical"
-				android:visibility="visible"
+				android:visibility="gone"
 				android:padding="@dimen/_10sdp">
 
 				<RelativeLayout
@@ -120,10 +123,11 @@
 						android:backgroundTint="#88ffffff"
 						android:drawableLeft="@drawable/search"
 						android:drawablePadding="10dp"
+						android:fontFamily="@font/roboto_medium"
 						android:hint="@string/search"
 						android:padding="5dp"
 						android:textColor="#000000"
-						android:textColorHint="#6A6A6A"
+						android:textColorHint="@color/gray"
 						android:textSize="@dimen/_15sdp"
 						/>
 
@@ -139,9 +143,10 @@
 				</RelativeLayout>
 
 				<View
+					android:layout_marginTop="@dimen/_5sdp"
 					android:layout_width="match_parent"
-					android:layout_height="1px"
-					android:background="#000000"
+					android:layout_height="1.2dp"
+					android:background="@color/gray"
 					/>
 
 				<androidx.recyclerview.widget.RecyclerView
@@ -157,9 +162,9 @@
 				android:layout_marginTop="@dimen/_12sdp"
 				android:text="@string/amount"
 				android:textColor="#FFFFFF"
-				android:textSize="@dimen/_16sdp"
-				android:textStyle="bold"
-				/>
+				android:textSize="@dimen/_17sdp"
+				android:fontFamily="@font/roboto_medium"
+				 />
 
 			<androidx.appcompat.widget.AppCompatEditText
 				android:id="@+id/editAmount"
@@ -173,21 +178,21 @@
 				android:paddingBottom="@dimen/_10sdp"
 				android:text="1"
 				android:textColor="@color/black"
-
-				android:textSize="@dimen/_16sdp"
+				android:fontFamily="@font/roboto_medium"
+				android:textSize="@dimen/_17sdp"
 				/>
 
-			<androidx.appcompat.widget.AppCompatButton
+			<Button
 				android:id="@+id/btnNext"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="right"
 				android:layout_marginTop="@dimen/_12sdp"
 				android:background="@drawable/white_round"
-				android:paddingHorizontal="@dimen/_18sdp"
-				android:paddingVertical="@dimen/_4sdp"
+				android:paddingHorizontal="@dimen/_10sdp"
 				android:text="@string/next"
 				android:textColor="@color/black"
+				android:fontFamily="@font/roboto_bold"
 				android:textSize="@dimen/_18sdp"
 				/>
 
@@ -197,11 +202,12 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="@dimen/_8sdp"
-				android:layout_marginTop="@dimen/_22sdp"
+				android:layout_marginTop="@dimen/_20sdp"
 				android:text="@string/visual_size"
 				android:textColor="#FFFFFF"
-				android:textSize="@dimen/_16sdp"
-				android:textStyle="bold"
+				android:fontFamily="@font/roboto_medium"
+				android:textSize="@dimen/_17sdp"
+
 				/>
 
 			<LinearLayout
@@ -215,60 +221,79 @@
 				android:padding="@dimen/_10sdp"
 				>
 
-				<RadioGroup
-					android:id="@+id/radioGroup"
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/sizeView"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:gravity="center"
-					android:orientation="horizontal"
-					android:weightSum="5">
+					app:layout_constraintEnd_toStartOf="@+id/guideline1"
+					app:layout_constraintStart_toEndOf="@+id/guideline0"
+					app:layout_constraintTop_toBottomOf="@+id/textSize">
 
-					<androidx.appcompat.widget.AppCompatRadioButton
+					<RadioButton
 						android:id="@+id/radio_small"
-						android:layout_width="0dp"
+						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_weight="1"
 						android:button="@drawable/radio_button_light"
 						android:checked="true"
-						android:text="A"
-						style="@style/radioButtonLight"
-						android:drawablePadding="@dimen/_3sdp"
 						android:fontFamily="@font/roboto_medium"
+						android:text=" A"
 						android:textColor="#FFFFFF"
-						android:textSize="@dimen/font_size_small"
+						android:textSize="@dimen/_15sdp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/radio_medium"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
 
 						/>
 
 					<RadioButton
 						android:id="@+id/radio_medium"
-						android:layout_width="0dp"
+						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
 						android:button="@drawable/radio_button_light"
-						android:text="A"
-						android:layout_marginLeft="@dimen/_20sdp"
-						style="@style/radioButtonLight"
+						android:fontFamily="@font/roboto_medium"
+						android:text=" A"
 						android:textColor="#FFFFFF"
-						android:textSize="@dimen/font_size_medium"
-
+						android:textSize="@dimen/_17sdp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toStartOf="@+id/radio_large"
+						app:layout_constraintStart_toEndOf="@+id/radio_small"
+						app:layout_constraintTop_toTopOf="parent"
 						/>
 
 					<RadioButton
 						android:id="@+id/radio_large"
-						android:layout_width="0dp"
+						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
-						android:layout_marginLeft="@dimen/_20sdp"
 						android:button="@drawable/radio_button_light"
-						android:text="A"
-						style="@style/radioButtonLight"
+						android:fontFamily="@font/roboto_medium"
+						android:text=" A"
 						android:textColor="#FFFFFF"
-						android:textSize="@dimen/font_size_large"
-
+						android:textSize="@dimen/_19sdp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toEndOf="@+id/radio_medium"
+						app:layout_constraintTop_toTopOf="parent"
 						/>
 
-				</RadioGroup>
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.Guideline
+					android:id="@+id/guideline0"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					app:layout_constraintGuide_percent="0.03" />
+
+				<androidx.constraintlayout.widget.Guideline
+					android:id="@+id/guideline1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					app:layout_constraintGuide_percent="0.97" />
 			</LinearLayout>
 
 			<androidx.appcompat.widget.AppCompatTextView
@@ -279,8 +304,9 @@
 				android:layout_marginTop="@dimen/_12sdp"
 				android:text="@string/widget_transparency"
 				android:textColor="#FFFFFF"
-				android:textSize="@dimen/_16sdp"
-				android:textStyle="bold"
+				android:fontFamily="@font/roboto_medium"
+				android:textSize="@dimen/_17sdp"
+
 				/>
 
 			<LinearLayout
@@ -321,6 +347,7 @@
 						android:layout_centerVertical="true"
 						android:layout_gravity="center_vertical"
 						android:text="100"
+						android:fontFamily="@font/roboto_medium"
 						android:textColor="@color/white"
 						android:textSize="@dimen/_12sdp"
 
@@ -346,7 +373,9 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:background="@drawable/widget_background"
-						android:padding="@dimen/_4sdp"
+						android:paddingRight="@dimen/_8sdp"
+						android:paddingLeft="@dimen/_4sdp"
+						android:paddingVertical="@dimen/_4sdp"
 						>
 
 						<androidx.appcompat.widget.AppCompatTextView
@@ -356,30 +385,19 @@
 							android:layout_alignParentTop="true"
 							android:layout_alignParentRight="true"
 							android:layout_marginTop="@dimen/_6sdp"
-							android:layout_marginEnd="@dimen/_6sdp"
+							android:fontFamily="@font/roboto_medium"
 							android:gravity="center_vertical"
+							android:paddingHorizontal="@dimen/_2sdp"
 							android:text="@string/_1_usd"
-							android:textColor="@color/white"
+							android:textColor="@color/black"
 							android:textSize="@dimen/_12sdp"
-							android:textStyle="bold"
-							tools:ignore="SpUsage" />
-
-						<View
-							android:id="@+id/view1"
-							android:layout_width="@dimen/weight0"
-							android:layout_height="1dp"
-							android:layout_below="@+id/txtUSD"
-							android:layout_alignParentRight="true"
-							android:background="#FFFFFF"
-							app:layout_constraintEnd_toEndOf="@+id/txtUSD"
-							app:layout_constraintStart_toStartOf="@+id/txtUSD"
-							app:layout_constraintTop_toBottomOf="@+id/txtUSD" />
+							/>
 
 						<androidx.appcompat.widget.AppCompatTextView
 							android:id="@+id/txtEUR"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:layout_below="@+id/view1"
+							android:layout_below="@+id/txtUSD"
 							android:layout_alignParentLeft="true"
 							android:layout_marginStart="@dimen/_6sdp"
 							android:layout_marginTop="@dimen/_3sdp"
@@ -387,6 +405,7 @@
 							android:drawablePadding="@dimen/_4sdp"
 							android:gravity="center_vertical"
 							android:text="EUR"
+							android:fontFamily="@font/roboto_medium"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_12sdp"
 							android:textStyle="bold"
@@ -396,11 +415,11 @@
 							android:id="@+id/txtExchange"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:layout_below="@+id/view1"
+							android:layout_below="@+id/txtUSD"
 							android:layout_alignParentRight="true"
 							android:layout_marginTop="@dimen/_3sdp"
-							android:layout_marginEnd="@dimen/_6sdp"
 							android:text="0.8541"
+							android:fontFamily="@font/roboto_medium"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_12sdp"
 							android:textStyle="bold"
@@ -412,6 +431,7 @@
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/txtExchange"
 							android:layout_alignParentRight="true"
+							android:fontFamily="@font/roboto_medium"
 							android:text="+0.0310"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_7sdp"
@@ -430,6 +450,7 @@
 							android:drawablePadding="@dimen/_4sdp"
 							android:gravity="center_vertical"
 							android:text="GBP"
+							android:fontFamily="@font/roboto_medium"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_12sdp"
 
@@ -443,7 +464,7 @@
 							android:layout_below="@+id/txtEUR"
 							android:layout_alignParentRight="true"
 							android:layout_marginTop="@dimen/_3sdp"
-							android:layout_marginEnd="@dimen/_6sdp"
+							android:fontFamily="@font/roboto_medium"
 							android:text="0.7748"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_12sdp"
@@ -458,6 +479,7 @@
 							android:layout_alignParentRight="true"
 							android:text="+0.0800"
 							android:textColor="@color/white"
+							android:fontFamily="@font/roboto_medium"
 							android:textSize="@dimen/_7sdp"
 							android:textStyle="bold"
 							/>
@@ -473,6 +495,7 @@
 							android:drawableStart="@drawable/ic_canada"
 							android:drawablePadding="@dimen/_4sdp"
 							android:gravity="center_vertical"
+							android:fontFamily="@font/roboto_medium"
 							android:text="CAD"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_12sdp"
@@ -486,8 +509,8 @@
 							android:layout_below="@+id/txtGbp"
 							android:layout_alignParentRight="true"
 							android:layout_marginTop="@dimen/_3sdp"
-							android:layout_marginEnd="@dimen/_6sdp"
 							android:text="1.3295"
+							android:fontFamily="@font/roboto_medium"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_12sdp"
 							android:textStyle="bold"
@@ -501,6 +524,7 @@
 							android:layout_alignParentRight="true"
 							android:text="+0.0540"
 							android:textColor="@color/white"
+							android:fontFamily="@font/roboto_medium"
 							android:textSize="@dimen/_7sdp"
 							android:textStyle="bold"
 							/>
@@ -516,6 +540,7 @@
 							android:drawableStart="@drawable/ic_bitcoin_flag"
 							android:drawablePadding="@dimen/_4sdp"
 							android:gravity="center_vertical"
+							android:fontFamily="@font/roboto_medium"
 							android:text="BTC"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_12sdp"
@@ -529,7 +554,7 @@
 							android:layout_below="@+id/txtCad"
 							android:layout_alignParentRight="true"
 							android:layout_marginTop="@dimen/_3sdp"
-							android:layout_marginEnd="@dimen/_6sdp"
+							android:fontFamily="@font/roboto_medium"
 							android:text="0.0001"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_12sdp"
@@ -542,10 +567,10 @@
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/txtExchange3"
 							android:layout_alignParentRight="true"
+							android:fontFamily="@font/roboto_medium"
 							android:text="-0.0590"
 							android:textColor="@color/white"
 							android:textSize="@dimen/_7sdp"
-							android:textStyle="bold"
 							/>
 
 						<androidx.appcompat.widget.AppCompatTextView
@@ -558,8 +583,8 @@
 							android:layout_marginTop="@dimen/_6sdp"
 							android:text="@string/by_currency_wiki"
 							android:textColor="@color/white"
+							android:fontFamily="@font/roboto_regular"
 							android:textSize="@dimen/_12sdp"
-							android:textStyle="bold"
 
 							/>
 

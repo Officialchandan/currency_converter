@@ -22,6 +22,7 @@
 		android:layout_centerVertical="true"
 		android:layout_marginLeft="@dimen/_5sdp"
 		android:layout_toRightOf="@+id/img_flag"
+		android:fontFamily="@font/roboto_medium"
 		android:text="@string/usd"
 		android:textSize="@dimen/_16sdp" />
 
@@ -32,6 +33,7 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentRight="true"
+		android:fontFamily="@font/roboto_bold"
 		android:text="254.55"
 		android:textSize="@dimen/_13sdp"
 		/>
@@ -40,6 +42,7 @@
 		android:id="@+id/txtPercent"
 		style="@style/boldTextView"
 		android:layout_width="wrap_content"
+		android:fontFamily="@font/roboto_medium"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/txtRate"
 		android:layout_alignParentRight="true"

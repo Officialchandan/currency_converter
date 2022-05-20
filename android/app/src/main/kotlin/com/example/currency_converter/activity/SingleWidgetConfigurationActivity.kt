@@ -29,8 +29,8 @@ import com.example.currency_converter.databinding.SingleConvertorConfigActivityB
 import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.SingleConvertorProvider
-import com.example.interfaces.ItemClickListener
-import com.example.model.Country
+import com.example.currency_converter.interfaces.ItemClickListener
+import com.example.currency_converter.model.Country
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -56,7 +56,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
 
         Log.e(javaClass.name, "appWidgetId-->$appWidgetId")
-
+        Utility.setAppLanguage(this)
         getCurrencyList()
 
         init()
@@ -113,23 +113,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         binding.appBar.setStatusBarForegroundColor(getColorWithAlpha(color, 0.8f))
         binding.toolbar.setBackgroundColor(color)
 
-        var gd = GradientDrawable(
-            GradientDrawable.Orientation.TOP_BOTTOM,
-            intArrayOf(getColorWithAlpha(color, 1f), getColorWithAlpha(color, 0.8f))
-        )
-        gd.cornerRadius = 0f
-        binding.parentLayout.background = gd
-
-
-        var gd1 = GradientDrawable(
-            GradientDrawable.Orientation.TOP_BOTTOM,
-            intArrayOf(getColorWithAlpha(color, 1f), getColorWithAlpha(color, 0.8f))
-        )
-
-
-        gd1.cornerRadius = 16.0f
-        binding.widgetTransparency.background = gd1
-
+        binding.parentLayout.background = SingleConvertorProvider.getWidgetGradientDrawable(color, 0, 0, this.resources.getDimension(R.dimen._0sdp))
 
         val from: String = Utility.getCurrencyCode1(this, appWidgetId)
         val to: String = Utility.getCurrencyCode2(this, appWidgetId)
@@ -207,43 +191,46 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         }
 
         when (fontSize) {
-
             1 -> {
 
                 binding.radioSmall.isChecked = true
+                binding.radioLarge.isChecked =false
+                binding.radioMedium.isChecked =false
                 Utility.setTextViewSize(
                     binding.tvFromWidget,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._14sdp)
                 )
                 Utility.setTextViewSize(
                     binding.tvToWidget,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._14sdp)
                 )
                 Utility.setTextViewSize(
                     binding.tvRateWidget,
                     this.resources.getDimension(R.dimen._16sdp)
                 )
-
-                Utility.setTextViewSize(
-                    binding.currencyWiki,
-                    this.resources.getDimension(R.dimen._12sdp)
-                )
                 Utility.setTextViewSize(
                     binding.tvDiffWidget,
+                    this.resources.getDimension(R.dimen._13sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.currencyWiki,
                     this.resources.getDimension(R.dimen._10sdp)
                 )
+
 
 
             }
             2 -> {
                 binding.radioMedium.isChecked = true
+                binding.radioLarge.isChecked =false
+                binding.radioSmall.isChecked = false
                 Utility.setTextViewSize(
                     binding.tvFromWidget,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._15sdp)
                 )
                 Utility.setTextViewSize(
                     binding.tvToWidget,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._15sdp)
                 )
                 Utility.setTextViewSize(
                     binding.tvRateWidget,
@@ -251,22 +238,24 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                 )
                 Utility.setTextViewSize(
                     binding.tvDiffWidget,
-                    this.resources.getDimension(R.dimen._11sdp)
+                    this.resources.getDimension(R.dimen._14sdp)
                 )
                 Utility.setTextViewSize(
                     binding.currencyWiki,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._11sdp)
                 )
             }
             3 -> {
                 binding.radioLarge.isChecked = true
+                binding.radioSmall.isChecked= false
+                binding.radioMedium.isChecked = false
                 Utility.setTextViewSize(
                     binding.tvFromWidget,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._16sdp)
                 )
                 Utility.setTextViewSize(
                     binding.tvToWidget,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._16sdp)
                 )
                 Utility.setTextViewSize(
                     binding.tvRateWidget,
@@ -274,15 +263,13 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                 )
                 Utility.setTextViewSize(
                     binding.tvDiffWidget,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._15sdp)
                 )
                 Utility.setTextViewSize(
                     binding.currencyWiki,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._12sdp)
                 )
             }
-
-
         }
 
         val textColor: Int
@@ -434,89 +421,186 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
     }
 
     private fun setRadio() {
-        var radioGroup: RadioGroup = findViewById(R.id.radio_group_visual)
 
-        binding.radioGroupVisual.setOnCheckedChangeListener { p0, id ->
-            when (id) {
-                R.id.radio_small -> {
-                    Utility.setIntegerPref(Constants.fontSize, 1, this)
-                    Utility.setTextViewSize(
-                        binding.tvFromWidget,
-                        this.resources.getDimension(R.dimen._12sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvToWidget,
-                        this.resources.getDimension(R.dimen._12sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvRateWidget,
-                        this.resources.getDimension(R.dimen._16sdp)
-                    )
+        binding.radioSmall.setOnCheckedChangeListener { compoundButton, check ->
 
-                    Utility.setTextViewSize(
-                        binding.currencyWiki,
-                        this.resources.getDimension(R.dimen._12sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvDiffWidget,
-                        this.resources.getDimension(R.dimen._10sdp)
-                    )
+            if(check){
+                binding.radioLarge.isChecked = false
+                binding.radioMedium.isChecked = false
+                binding.radioSmall.isChecked = true
+                Utility.setIntegerPref(Constants.fontSize, 1, this)
+                Utility.setTextViewSize(
+                    binding.tvFromWidget,
+                    this.resources.getDimension(R.dimen._14sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvToWidget,
+                    this.resources.getDimension(R.dimen._14sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvRateWidget,
+                    this.resources.getDimension(R.dimen._16sdp)
+                )
+
+                Utility.setTextViewSize(
+                    binding.currencyWiki,
+                    this.resources.getDimension(R.dimen._10sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvDiffWidget,
+                    this.resources.getDimension(R.dimen._13sdp)
+                )
 
 
-                }
-                R.id.radio_medium -> {
-                    Utility.setIntegerPref(Constants.fontSize, 2, this)
-                    Utility.setTextViewSize(
-                        binding.tvFromWidget,
-                        this.resources.getDimension(R.dimen._13sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvToWidget,
-                        this.resources.getDimension(R.dimen._13sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvRateWidget,
-                        this.resources.getDimension(R.dimen._17sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvDiffWidget,
-                        this.resources.getDimension(R.dimen._11sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.currencyWiki,
-                        this.resources.getDimension(R.dimen._13sdp)
-                    )
 
-                }
-                R.id.radio_large -> {
-                    Utility.setIntegerPref(Constants.fontSize, 3, this)
-                    Utility.setTextViewSize(
-                        binding.tvFromWidget,
-                        this.resources.getDimension(R.dimen._14sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvToWidget,
-                        this.resources.getDimension(R.dimen._14sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvRateWidget,
-                        this.resources.getDimension(R.dimen._18sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.tvDiffWidget,
-                        this.resources.getDimension(R.dimen._12sdp)
-                    )
-                    Utility.setTextViewSize(
-                        binding.currencyWiki,
-                        this.resources.getDimension(R.dimen._14sdp)
-                    )
+            }
 
-                }
-                else -> { // Note the block
-                    print("x is neither 1 nor 2")
-                }
+         }
+
+
+        binding.radioMedium.setOnCheckedChangeListener { compoundButton, check ->
+            if(check){
+                binding.radioLarge.isChecked = false
+                binding.radioMedium.isChecked = true
+                binding.radioSmall.isChecked = false
+                Utility.setIntegerPref(Constants.fontSize, 2, this)
+                Utility.setTextViewSize(
+                    binding.tvFromWidget,
+                    this.resources.getDimension(R.dimen._15sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvToWidget,
+                    this.resources.getDimension(R.dimen._15sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvRateWidget,
+                    this.resources.getDimension(R.dimen._17sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvDiffWidget,
+                    this.resources.getDimension(R.dimen._14sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.currencyWiki,
+                    this.resources.getDimension(R.dimen._11sdp)
+                )
             }
         }
+
+        binding.radioLarge.setOnCheckedChangeListener { compoundButton, check ->
+            if(check){
+                binding.radioLarge.isChecked = true
+                binding.radioMedium.isChecked = false
+                binding.radioSmall.isChecked = false
+                Utility.setIntegerPref(Constants.fontSize, 3, this)
+                Utility.setTextViewSize(
+                    binding.tvFromWidget,
+                    this.resources.getDimension(R.dimen._16sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvToWidget,
+                    this.resources.getDimension(R.dimen._16sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvRateWidget,
+                    this.resources.getDimension(R.dimen._18sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.tvDiffWidget,
+                    this.resources.getDimension(R.dimen._15sdp)
+                )
+                Utility.setTextViewSize(
+                    binding.currencyWiki,
+                    this.resources.getDimension(R.dimen._12sdp)
+                )
+
+            }
+        }
+
+
+//        var radioGroup: RadioGroup = findViewById(R.id.radio_group_visual)
+//
+//        binding.radioGroupVisual.setOnCheckedChangeListener { p0, id ->
+//            when (id) {
+//                R.id.radio_small -> {
+//                    Utility.setIntegerPref(Constants.fontSize, 1, this)
+//                    Utility.setTextViewSize(
+//                        binding.tvFromWidget,
+//                        this.resources.getDimension(R.dimen._14sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvToWidget,
+//                        this.resources.getDimension(R.dimen._14sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvRateWidget,
+//                        this.resources.getDimension(R.dimen._16sdp)
+//                    )
+//
+//                    Utility.setTextViewSize(
+//                        binding.currencyWiki,
+//                        this.resources.getDimension(R.dimen._10sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvDiffWidget,
+//                        this.resources.getDimension(R.dimen._13sdp)
+//                    )
+//
+//
+//                }
+//                R.id.radio_medium -> {
+//                    Utility.setIntegerPref(Constants.fontSize, 2, this)
+//                    Utility.setTextViewSize(
+//                        binding.tvFromWidget,
+//                        this.resources.getDimension(R.dimen._15sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvToWidget,
+//                        this.resources.getDimension(R.dimen._15sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvRateWidget,
+//                        this.resources.getDimension(R.dimen._17sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvDiffWidget,
+//                        this.resources.getDimension(R.dimen._14sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.currencyWiki,
+//                        this.resources.getDimension(R.dimen._11sdp)
+//                    )
+//
+//                }
+//                R.id.radio_large -> {
+//                    Utility.setIntegerPref(Constants.fontSize, 3, this)
+//                    Utility.setTextViewSize(
+//                        binding.tvFromWidget,
+//                        this.resources.getDimension(R.dimen._16sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvToWidget,
+//                        this.resources.getDimension(R.dimen._16sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvRateWidget,
+//                        this.resources.getDimension(R.dimen._18sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.tvDiffWidget,
+//                        this.resources.getDimension(R.dimen._15sdp)
+//                    )
+//                    Utility.setTextViewSize(
+//                        binding.currencyWiki,
+//                        this.resources.getDimension(R.dimen._12sdp)
+//                    )
+//
+//                }
+//                else -> { // Note the block
+//                    print("x is neither 1 nor 2")
+//                }
+//            }
+//        }
 
 
     }
@@ -545,13 +629,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         val startColor = getColorWithAlpha(color, 1f)
         val endColor = getColorWithAlpha(color, 0.8f)
 
-        val gradientDrawable = GradientDrawable(
-            GradientDrawable.Orientation.TOP_BOTTOM,
-            intArrayOf(
-                getColorWithAlpha(startColor, transparancy),
-                getColorWithAlpha(endColor, transparancy)
-            )
-        )
+
 
         Utility.setIntegerPref(
             Constants.colorCodeStart,
@@ -564,8 +642,9 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             applicationContext
         )
 
-        gradientDrawable.cornerRadius = 16.0f
-        binding.widgetTransparency.background = gradientDrawable
+
+        binding.widgetTransparency.background = SingleConvertorProvider.getWidgetGradientDrawable(getColorWithAlpha(color, transparancy), 0, 0, this.resources.getDimension(R.dimen._8sdp))
+
         binding.tvSliderValue.text = trans.toString()
     }
 
@@ -659,6 +738,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
                             val yesterdayRate1 = yesterday.get(from.uppercase()).toString()
                             val yesterdayRate2 = yesterday.get(to.uppercase()).toString()
+
                             val yesterdayRate =
                                 (yesterdayRate1.toDouble() * 100) / (yesterdayRate2.toDouble() * 100)
                             Log.e(
@@ -667,7 +747,11 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                             )
 
                             var diff = todayRate - yesterdayRate
-                            Utility.setStringPref("difference", diff.toString(), context);
+
+
+                            val per = (diff*100 )/todayRate
+
+                            Utility.setStringPref("difference", per.toString(), context);
 
                             Utility.setExchangeValue(
                                 context,

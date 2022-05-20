@@ -26,7 +26,8 @@
 		android:layout_centerVertical="true"
 		android:layout_marginLeft="@dimen/_5sdp"
 		android:layout_toRightOf="@+id/img_flag"
-		android:text="USD"
+		android:text="@string/usd"
+		android:fontFamily="@font/roboto_medium"
 		android:textColor="@color/black"
 		android:textSize="@dimen/_13sdp"
 
@@ -41,8 +42,9 @@
 		android:layout_marginLeft="@dimen/_5sdp"
 		android:layout_toLeftOf="@+id/img_cancel"
 		android:layout_toRightOf="@+id/txt_code"
-		android:text="@string/united_states_dollar"
+		android:text="@string/USD"
 		android:textColor="@color/black"
+		android:fontFamily="@font/roboto_medium"
 		android:textSize="@dimen/_12sdp"
 
 		/>

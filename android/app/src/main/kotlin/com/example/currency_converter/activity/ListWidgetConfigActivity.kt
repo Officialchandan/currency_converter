@@ -15,7 +15,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.RadioGroup
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,11 +26,11 @@ import com.example.currency_converter.activity.SelectCurrencyActivity
 import com.example.currency_converter.adapter.CurrencyCodeAdapter
 import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.databinding.ActivityListWidgetConfigBinding
+import com.example.currency_converter.interfaces.ItemClickListener
+import com.example.currency_converter.model.Country
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.utils.Utility.Companion.getColorWithAlpha
 import com.example.currency_converter.widget.ListWidgetKt
-import com.example.interfaces.ItemClickListener
-import com.example.model.Country
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -59,6 +58,8 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
             AppWidgetManager.INVALID_APPWIDGET_ID
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
 
+        Utility.setAppLanguage(this)
+
         Log.e(javaClass.name, "appWidgetId-->$appWidgetId")
 
         initView(appWidgetId)
@@ -82,9 +83,9 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
         })
 
-        if(!Utility.isSubscriptionPurchased(this)){
+        if (!Utility.isSubscriptionPurchased(this)) {
             val application = application as? MyApplication
-            if(application?.appOpenAdManager!=null ){
+            if (application?.appOpenAdManager != null) {
                 Log.e(javaClass.name, "appOpenAdManager---")
                 application.appOpenAdManager?.showAdIfAvailable()
             }
@@ -193,6 +194,7 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
         val textColor: Int = if (Utility.isDarkTheme(this)) {
             binding.tvBaseCurrency.setTextColor(this.resources.getColor(R.color.textLight))
+            binding.txtUSD.background = this.resources.getDrawable(R.drawable.bg_bottom_dark)
             binding.editAmount.setTextColor(this.resources.getColor(R.color.textLight))
             binding.editAmount.setBackgroundResource(R.drawable.dartk_round)
             binding.layoutBaseCurrency.setBackgroundResource(R.drawable.dartk_round)
@@ -206,6 +208,7 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
             this.resources.getColor(R.color.textDark)
 
         } else {
+            binding.txtUSD.background = this.resources.getDrawable(R.drawable.bg_bottom_light)
             binding.tvBaseCurrency.setTextColor(this.resources.getColor(R.color.textDark))
             binding.editAmount.setTextColor(this.resources.getColor(R.color.textDark))
             binding.editAmount.setBackgroundResource(R.drawable.white_round)
@@ -231,7 +234,6 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         binding.txtCad.setTextColor(textColor)
         binding.txtBtc.setTextColor(textColor)
         binding.txtUSD.setTextColor(textColor)
-        binding.view1.setBackgroundColor(textColor)
         binding.txtExchange.setTextColor(textColor)
         binding.txtExchange1.setTextColor(textColor)
         binding.txtExchange2.setTextColor(textColor)
@@ -281,13 +283,13 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         )
 
 
-        if(Utility.isDarkTheme(this)){
+        if (Utility.isDarkTheme(this)) {
             getDrawable(R.drawable.line_divider_dark)?.let {
                 divider.setDrawable(
                     it
                 )
             }
-        }else{
+        } else {
             getDrawable(R.drawable.line_divider)?.let {
                 divider.setDrawable(
                     it
@@ -348,31 +350,32 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         })
     }
 
-    fun setTextViewFontSize(fontSize: Int) {
+    private fun setTextViewFontSize(fontSize: Int) {
         when (fontSize) {
 
             1 -> {
-
+                binding.radioLarge.isChecked = false
+                binding.radioMedium.isChecked = false
                 binding.radioSmall.isChecked = true
                 Utility.setTextViewSize(
                     binding.txtUSD,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._14sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtEUR,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._13sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtGbp,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._13sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtCad,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._13sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtBtc,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._13sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtExchange,
@@ -392,48 +395,50 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange,
-                    this.resources.getDimension(R.dimen._7sdp)
+                    this.resources.getDimension(R.dimen._8sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange1,
-                    this.resources.getDimension(R.dimen._7sdp)
+                    this.resources.getDimension(R.dimen._8sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange2,
-                    this.resources.getDimension(R.dimen._7sdp)
+                    this.resources.getDimension(R.dimen._8sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange3,
-                    this.resources.getDimension(R.dimen._7sdp)
+                    this.resources.getDimension(R.dimen._8sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtBy,
-                    this.resources.getDimension(R.dimen._12sdp)
+                    this.resources.getDimension(R.dimen._10sdp)
                 )
 
 
             }
             2 -> {
+                binding.radioLarge.isChecked = false
+                binding.radioSmall.isChecked = false
                 binding.radioMedium.isChecked = true
                 Utility.setTextViewSize(
                     binding.txtUSD,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._15sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtEUR,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._14sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtGbp,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._14sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtCad,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._14sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtBtc,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._14sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtExchange,
@@ -453,46 +458,48 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange,
-                    this.resources.getDimension(R.dimen._8sdp)
+                    this.resources.getDimension(R.dimen._9sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange1,
-                    this.resources.getDimension(R.dimen._8sdp)
+                    this.resources.getDimension(R.dimen._9sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange2,
-                    this.resources.getDimension(R.dimen._8sdp)
+                    this.resources.getDimension(R.dimen._9sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange3,
-                    this.resources.getDimension(R.dimen._8sdp)
+                    this.resources.getDimension(R.dimen._9sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtBy,
-                    this.resources.getDimension(R.dimen._13sdp)
+                    this.resources.getDimension(R.dimen._11sdp)
                 )
             }
             3 -> {
                 binding.radioLarge.isChecked = true
+                binding.radioMedium.isChecked = false
+                binding.radioSmall.isChecked = false
                 Utility.setTextViewSize(
                     binding.txtUSD,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._16sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtEUR,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._15sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtGbp,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._15sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtCad,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._15sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtBtc,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._15sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtExchange,
@@ -512,23 +519,23 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange,
-                    this.resources.getDimension(R.dimen._9sdp)
+                    this.resources.getDimension(R.dimen._10sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange1,
-                    this.resources.getDimension(R.dimen._9sdp)
+                    this.resources.getDimension(R.dimen._10sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange2,
-                    this.resources.getDimension(R.dimen._9sdp)
+                    this.resources.getDimension(R.dimen._10sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtRateExchange3,
-                    this.resources.getDimension(R.dimen._9sdp)
+                    this.resources.getDimension(R.dimen._10sdp)
                 )
                 Utility.setTextViewSize(
                     binding.txtBy,
-                    this.resources.getDimension(R.dimen._14sdp)
+                    this.resources.getDimension(R.dimen._12sdp)
                 )
             }
 
@@ -538,37 +545,25 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
     private fun setupRadio(context: Context, appWidgetId: Int) {
 
-
-        binding.radioGroup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
-            override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
-                when (p1) {
-
-
-                    R.id.radio_small -> {
-                        Utility.saveVisual(context, 1, appWidgetId)
-                        setTextViewFontSize(1)
-
-
-                    }
-                    R.id.radio_medium -> {
-                        Utility.saveVisual(context, 2, appWidgetId)
-                        setTextViewFontSize(2)
-                        binding.radioMedium.isChecked = true
-
-                    }
-                    R.id.radio_large -> {
-                        Utility.saveVisual(context, 3, appWidgetId)
-                        setTextViewFontSize(3)
-                        binding.radioLarge.isChecked = true
-
-                    }
-
-
-                }
+        binding.radioSmall.setOnCheckedChangeListener { compoundButton, check ->
+            if (check) {
+                Utility.saveVisual(context, 1, appWidgetId)
+                setTextViewFontSize(1)
             }
+        }
+        binding.radioMedium.setOnCheckedChangeListener { compoundButton, check ->
+            if (check) {
+                Utility.saveVisual(context, 2, appWidgetId)
+                setTextViewFontSize(2)
+            }
+        }
+        binding.radioLarge.setOnCheckedChangeListener { compoundButton, check ->
+            if (check) {
+                Utility.saveVisual(context, 3, appWidgetId)
+                setTextViewFontSize(3)
+            }
+        }
 
-
-        })
 
     }
 
@@ -673,6 +668,7 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
 
                                 var diff = todayRate - yesterdayRate
+                                val per = (diff * 100) / todayRate
 
                                 val i = codeList.indexOf(to)
 

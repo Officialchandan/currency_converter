@@ -74,7 +74,8 @@ class ListWidgetKt {
             val listWidgetProviderHeight =
                 appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMaxHeight", 0)
 
-            val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparency), 0, 0, 20f)
+            val gradientDrawable = Utility.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom,transparency), 0, 0, context.resources.getDimension(R
+                .dimen._16sdp));
             val bitmap =
                 SingleConvertorProvider.drawableToBitmap(
                     gradientDrawable,
@@ -114,14 +115,17 @@ class ListWidgetKt {
 //
 
             symbolTextSize = when (visualSize) {
-                1 -> context.resources.getDimension(R.dimen._13sdp)
-                2 -> context.resources.getDimension(R.dimen._14sdp)
-                else -> context.resources.getDimension(R.dimen._15sdp)
+                1 -> context.resources.getDimension(R.dimen._16sdp)
+                2 -> context.resources.getDimension(R.dimen._17sdp)
+                else -> context.resources.getDimension(R.dimen._18sdp)
             }
+
+
+
             updateDateTextSize = when (visualSize) {
-                1 -> context.resources.getDimension(R.dimen._9sdp)
-                2 -> context.resources.getDimension(R.dimen._10sdp)
-                else -> context.resources.getDimension(R.dimen._11sdp)
+                1 -> context.resources.getDimension(R.dimen._10sdp)
+                2 -> context.resources.getDimension(R.dimen._11sdp)
+                else -> context.resources.getDimension(R.dimen._12sdp)
             }
             views.setTextViewTextSize(R.id.txtSymbolLight, 0, symbolTextSize)
             views.setTextViewTextSize(R.id.txtSymbolDark, 0, symbolTextSize)
@@ -225,7 +229,6 @@ class ListWidgetKt {
                     appWidgetId
                 )
             )
-
             views.setOnClickPendingIntent(
                 R.id.btnSettings, getPendingSelfIntentForConvertList(
                     context,
@@ -240,16 +243,31 @@ class ListWidgetKt {
                     appWidgetId
                 )
             )
+
+
+            val toastIntent = Intent(context, ListWidgetProvider::class.java)
+            toastIntent.action = Constants.TOAST_ACTION
+            toastIntent.putExtra("appWidgetId", appWidgetId)
+            toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
+
+
+            views.setPendingIntentTemplate(
+                R.id.listCurrency,
+                PendingIntent.getBroadcast(
+                    context,
+                    0,
+                    toastIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
+
 //            val pendingIntent = context.let {
 //                HomeWidgetLaunchIntent.getActivity(
 //                    it,
 //                    MainActivity::class.java
 //                )
 //            }
-//
-
 //           views.setOnClickPendingIntent(R.id.listCurrency, pendingIntent)
-
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
@@ -274,29 +292,26 @@ class ListWidgetKt {
             intent.putExtra("amount", amount)
             intent.putExtra("visualSize", visualSize)
             intent.putExtra("appWidgetId", appWidgetId)
-
-
             views.setRemoteAdapter(R.id.listCurrency, intent)
 
             val toastIntent = Intent(context, ListWidgetProvider::class.java)
-
-
             toastIntent.action = Constants.TOAST_ACTION
             toastIntent.putExtra("appWidgetId", appWidgetId)
             intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
+            toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
 
 
             views.setPendingIntentTemplate(
                 R.id.listCurrency,
                 PendingIntent.getBroadcast(
                     context,
-                    appWidgetId,
+                    0,
                     toastIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
 
-            appWidgetManager.updateAppWidget(appWidgetId, views)
+//            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
 

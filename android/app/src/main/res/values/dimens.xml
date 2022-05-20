@@ -50,5 +50,9 @@
 	<dimen name="_1sdp">1dp</dimen>
 	<dimen name="_20sdp">20dp</dimen>
 	<dimen name="_24sdp">24dp</dimen>
+	<dimen name="_19sdp">19dp</dimen>
+	<dimen name="_0sdp">0dp</dimen>
+	<dimen name="_21sdp">21dp</dimen>
+	<dimen name="_25sdp">25dp</dimen>
 
 </resources>

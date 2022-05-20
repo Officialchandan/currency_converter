@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currency_converter.R
 import com.example.currency_converter.utils.Utility
-import com.example.interfaces.ItemClickListener
-import com.example.model.Country
+import com.example.currency_converter.interfaces.ItemClickListener
+import com.example.currency_converter.model.Country
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -109,7 +110,7 @@ class CurrencyCodeAdapter(
         val tvCode: TextView = itemView.findViewById(R.id.tv_currency_code)
         val tvName: TextView = itemView.findViewById(R.id.tv_country_name)
         val imgStar: ImageView = itemView.findViewById(R.id.img_star)
-        val itemLayout: RelativeLayout = itemView.findViewById(R.id.item_layout)
+        val itemLayout: ConstraintLayout = itemView.findViewById(R.id.item_layout)
     }
 
 

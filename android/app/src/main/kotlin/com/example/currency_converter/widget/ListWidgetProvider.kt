@@ -2,9 +2,9 @@ package com.example.currency_converter.widget
 
 import android.annotation.SuppressLint
 import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -15,7 +15,6 @@ import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.ListWidgetKt.Companion.ACTION_LIST_UPDATE_SETTINGS
 import com.example.currency_converter.widget.ListWidgetKt.Companion.MyOnClick
 import com.google.gson.JsonObject
-import es.antonborri.home_widget.HomeWidgetProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -24,7 +23,7 @@ import org.json.JSONObject
 import retrofit2.Response
 import kotlin.jvm.internal.Intrinsics
 
-class ListWidgetProvider : HomeWidgetProvider() {
+class ListWidgetProvider : AppWidgetProvider() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
@@ -40,17 +39,14 @@ class ListWidgetProvider : HomeWidgetProvider() {
             val amount = Utility.loadAmount(context, widgetId)
 
             val jsonString = Utility.loadItemsPref(context, widgetId)
-            if(Utility.isOnline(context)){
+            if (Utility.isOnline(context)) {
                 if (jsonString.isNotEmpty()) {
                     getRate(context, JSONArray(jsonString), baseCurrency, amount.toDouble(), widgetId, appWidgetManager)
                 }
-            }else{
-                Toast.makeText(context, "Please connect to the internet",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Please connect to the internet", Toast.LENGTH_SHORT).show()
                 ListWidgetKt.updateAppWidget(context, appWidgetManager, widgetId, false)
             }
-
-
-
         } else if (Intrinsics.areEqual(intent?.action.toString(), ACTION_LIST_UPDATE_SETTINGS)) {
             val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
             val intentOpenConfigurationActivity = Intent(context, ListWidgetConfigActivity::class.java)
@@ -58,8 +54,6 @@ class ListWidgetProvider : HomeWidgetProvider() {
             intentOpenConfigurationActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context?.startActivity(intentOpenConfigurationActivity)
         }
-
-
         super.onReceive(context, intent)
     }
 
@@ -80,18 +74,13 @@ class ListWidgetProvider : HomeWidgetProvider() {
 
     override fun onRestored(context: Context?, oldWidgetIds: IntArray?, newWidgetIds: IntArray?) {
         Log.e(javaClass.simpleName, "onRestored--> newWidgetIds - $newWidgetIds ,oldWidgetIds - $oldWidgetIds  ")
-
         super.onRestored(context, oldWidgetIds, newWidgetIds)
     }
 
-    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray, widgetData: SharedPreferences) {
-        Log.e(javaClass.simpleName, "onUpdate--> appWidgetIds - $appWidgetIds ,appWidgetManager - $widgetData  ")
+     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+        Log.e(javaClass.simpleName, "onUpdate--> appWidgetIds - $appWidgetIds ,appWidgetManager - ")
         for (widgetId in appWidgetIds) {
-
-
             ListWidgetKt.updateAppWidget(context, appWidgetManager, widgetId, false)
-
-
         }
     }
 

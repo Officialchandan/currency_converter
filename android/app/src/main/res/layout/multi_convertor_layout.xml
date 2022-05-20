@@ -27,13 +27,14 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="end"
+			android:fontFamily="@font/roboto_bold"
 			android:background="@drawable/bg_bottom_light"
 			android:paddingStart="@dimen/_1sdp"
 			android:paddingTop="@dimen/_2sdp"
 			android:text="@string/_1_usd"
 			android:paddingEnd="@dimen/_1sdp"
 			android:textColor="@color/white"
-			android:textSize="@dimen/_12sdp"
+			android:textSize="@dimen/_13sdp"
 			android:visibility="gone" />
 
 		<TextView
@@ -42,19 +43,21 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="end"
+			android:fontFamily="@font/roboto_bold"
 			android:text="@string/_1_usd"
 			android:background="@drawable/bg_bottom_dark"
 			android:paddingStart="@dimen/_1sdp"
 			android:paddingTop="@dimen/_2sdp"
 			android:paddingEnd="@dimen/_1sdp"
 			android:textColor="@color/black"
-			android:textSize="@dimen/_12sdp" />
+			android:textSize="@dimen/_13sdp" />
 
 		<ListView
 			android:id="@+id/listCurrency"
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
 			android:layout_weight="1"
+
 			android:animateLayoutChanges="false"
 			android:clipToPadding="false"
 			android:divider="@null"
@@ -75,6 +78,7 @@
 				android:layout_marginStart="@dimen/_6sdp"
 				android:layout_marginTop="@dimen/_5sdp"
 				android:layout_weight="1"
+				android:fontFamily="@font/roboto_medium"
 				android:text="@string/by_currency_wiki"
 				android:textColor="@color/white"
 				android:textSize="@dimen/_10sdp" />
@@ -107,6 +111,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="@dimen/_3sdp"
+				android:fontFamily="@font/roboto_medium"
 				android:layout_marginTop="@dimen/_5sdp"
 				android:layout_marginRight="@dimen/_3sdp"
 				android:padding="@dimen/_2sdp"

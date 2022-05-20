@@ -47,6 +47,7 @@
 					android:layout_height="wrap_content"
 					android:maxLines="1"
 					android:text="@string/inr"
+					android:fontFamily="@font/roboto_medium"
 					android:textColor="#ffffff"
 					android:textSize="@dimen/_15sdp"
 					android:textStyle="bold" />
@@ -76,6 +77,7 @@
 					android:text="@string/usd"
 					android:textColor="#ffffff"
 					android:textSize="@dimen/_15sdp"
+					android:fontFamily="@font/roboto_medium"
 					android:textStyle="bold" />
 			</LinearLayout>
 
@@ -97,6 +99,7 @@
 				android:text="@string/_0_00"
 				android:textColor="#FFFFFF"
 				android:textSize="@dimen/_18sdp"
+				android:fontFamily="@font/roboto_medium"
 				android:textStyle="bold" />
 
 			<ImageView
@@ -115,6 +118,7 @@
 				android:layout_below="@+id/img_arrow"
 				android:layout_alignParentRight="true"
 				android:text="@string/_0_0400"
+				android:fontFamily="@font/roboto_medium"
 				android:textColor="#FFFFFF"
 				android:textSize="@dimen/_14sdp" />
 
@@ -136,6 +140,7 @@
 				android:layout_marginTop="@dimen/_5sdp"
 				android:layout_weight="1"
 				android:textColor="@color/white"
+				android:fontFamily="@font/roboto_regular"
 				android:text="@string/currency_wiki"
 				android:textSize="@dimen/_10sdp" />
 
@@ -170,6 +175,7 @@
 				android:layout_marginTop="@dimen/_5sdp"
 				android:layout_marginRight="@dimen/_3sdp"
 				android:padding="@dimen/_2sdp"
+				android:fontFamily="@font/roboto_medium"
 				android:textColor="@color/white"
 				android:text="|" />
 

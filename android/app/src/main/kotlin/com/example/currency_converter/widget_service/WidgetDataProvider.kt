@@ -1,17 +1,21 @@
 package com.example.currency_converter.widget_service
 
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
+import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
+import com.example.currency_converter.widget.ListWidgetProvider
 import com.example.currency_converter.widget.SingleConvertorProvider
 import es.antonborri.home_widget.HomeWidgetLaunchIntent
 import org.json.JSONArray
@@ -30,6 +34,7 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
     private var flag = ArrayList<Drawable>()
     private var visualSize = 1
     private var decimalFormat = "2"
+    var widgetId  = 0
 
     var currencyList = ArrayList<String>()
 
@@ -52,7 +57,6 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
     }
 
     override fun onDestroy() {}
-
     /* JADX WARNING: Removed duplicated region for block: B:32:0x01c6  */ /* JADX WARNING: Removed duplicated region for block: B:33:0x01dc  */ /* Code decompiled incorrectly, please refer to instructions dump. */
     override fun getViewAt(position: Int): RemoteViews {
         val view = RemoteViews(context.packageName, R.layout.layout_widget_currency)
@@ -62,16 +66,11 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
             (flag[position] as BitmapDrawable).bitmap
         view.setImageViewBitmap(R.id.img_flag, SingleConvertorProvider.getCircularBitmapFrom(img))
 
-
         view.setTextViewText(
             R.id.txt_code,
             codeList[position]
         )
-
-
-        val amount = Utility.currencyFormatter(exchangeRate[position], context)
-
-
+       val amount = Utility.currencyFormatter(exchangeRate[position], context)
 
         view.setTextViewText(
             R.id.txtRate,
@@ -99,15 +98,30 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
             view.setTextColor(R.id.txtPercent, context.resources.getColor(R.color.white))
         }
 
-        val pendingIntent = context.let {
-            HomeWidgetLaunchIntent.getActivity(
-                it,
-                MainActivity::class.java
-            )
-        }
+//        val pendingIntent = context.let {
+//            HomeWidgetLaunchIntent.getActivity(
+//                it,
+//                MainActivity::class.java
+//            )
+//        }
+//
+//
+//        view.setOnClickPendingIntent(R.id.widget_item, pendingIntent)
 
-
-        view.setOnClickPendingIntent(R.id.widget_item, pendingIntent)
+//        val toastIntent = Intent(context, ListWidgetProvider::class.java)
+//        toastIntent.action = Constants.TOAST_ACTION
+//        toastIntent.putExtra("appWidgetId", widgetId)
+//
+//
+//        view.setOnClickPendingIntent(
+//            R.id.widget_item,
+//            PendingIntent.getBroadcast(
+//                context,
+//                0,
+//                toastIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT
+//            )
+//        )
 
 
 
@@ -116,12 +130,12 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
                 view.setTextViewTextSize(
                     R.id.txt_code,
                     0,
-                    context.resources.getDimension(R.dimen._16sdp)
+                    context.resources.getDimension(R.dimen._15sdp)
                 )
                 view.setTextViewTextSize(
                     R.id.txtRate,
                     0,
-                    context.resources.getDimension(R.dimen._13sdp)
+                    context.resources.getDimension(R.dimen._14sdp)
                 )
                 view.setTextViewTextSize(
                     R.id.txtPercent,
@@ -135,12 +149,12 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
                 view.setTextViewTextSize(
                     R.id.txt_code,
                     0,
-                    context.resources.getDimension(R.dimen._17sdp)
+                    context.resources.getDimension(R.dimen._16sdp)
                 )
                 view.setTextViewTextSize(
                     R.id.txtRate,
                     0,
-                    context.resources.getDimension(R.dimen._14sdp)
+                    context.resources.getDimension(R.dimen._15sdp)
                 )
                 view.setTextViewTextSize(
                     R.id.txtPercent,
@@ -152,12 +166,12 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
                 view.setTextViewTextSize(
                     R.id.txt_code,
                     0,
-                    context.resources.getDimension(R.dimen._18sdp)
+                    context.resources.getDimension(R.dimen._17sdp)
                 )
                 view.setTextViewTextSize(
                     R.id.txtRate,
                     0,
-                    context.resources.getDimension(R.dimen._15sdp)
+                    context.resources.getDimension(R.dimen._16sdp)
                 )
                 view.setTextViewTextSize(
                     R.id.txtPercent,
@@ -244,7 +258,7 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
         Log.e(javaClass.simpleName, "exchangeRate->$exchangeRate")
         Log.e(javaClass.simpleName, "diffrence->$diffrence")
 
-        val widgetId = intent.getIntExtra("appWidgetId", 100)
+         widgetId = intent.getIntExtra("appWidgetId", 100)
         Log.e(javaClass.simpleName, "widgetId->$widgetId")
 
 

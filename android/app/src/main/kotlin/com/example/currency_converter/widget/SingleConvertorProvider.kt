@@ -236,7 +236,8 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                 val listWidgetProviderHeight =
                     appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMaxHeight", 0)
 
-                val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparency), 0, 0, 20f)
+                val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparency), 0, 0,
+                    context.resources.getDimension(R.dimen._16sdp))
                 val bitmap =
                     SingleConvertorProvider.drawableToBitmap(
                         gradientDrawable,
@@ -266,17 +267,17 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                 )
 
 
-                var d: Double = diff.toDouble();
+                val d: Double = diff.toDouble();
 
                 if (d < 0) {
                     setImageViewResource(R.id.img_arrow, R.drawable.ic_arrow_down)
                     setTextViewText(
-                        R.id.tv_change_rate, "" + "%.4f".format(diff.toDouble() * 100) + "%"
+                        R.id.tv_change_rate, "" + "%.4f".format(diff.toDouble()) + "%"
                     )
                 } else {
                     setImageViewResource(R.id.img_arrow, R.drawable.arrow_up)
                     setTextViewText(
-                        R.id.tv_change_rate, "+" + "%.4f".format(diff.toDouble() * 100) + "%"
+                        R.id.tv_change_rate, "+" + "%.4f".format(diff.toDouble()) + "%"
                     )
                 }
 
@@ -325,7 +326,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                         setTextViewTextSize(
                             R.id.tv_value,
                             0,
-                            context.resources.getDimension(R.dimen._16sdp)
+                            context.resources.getDimension(R.dimen._20sdp)
                         )
                         setTextViewTextSize(
                             R.id.tv_change_rate,
@@ -355,7 +356,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                         setTextViewTextSize(
                             R.id.tv_value,
                             0,
-                            context.resources.getDimension(R.dimen._17sdp)
+                            context.resources.getDimension(R.dimen._21sdp)
                         )
                         setTextViewTextSize(
                             R.id.tv_change_rate,
@@ -382,7 +383,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                         setTextViewTextSize(
                             R.id.tv_value,
                             0,
-                            context.resources.getDimension(R.dimen._18sdp)
+                            context.resources.getDimension(R.dimen._22sdp)
                         )
                         setTextViewTextSize(
                             R.id.tv_change_rate,
@@ -553,7 +554,10 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                                     (yesterdayRate1.toDouble() * 100) / (yesterdayRate2.toDouble() * 100)
 
                                 val diff = todayRate - yesterdayRate
-                                Utility.setStringPref("difference", diff.toString(), context);
+
+                                val per = (diff*100 )/todayRate
+
+                                Utility.setStringPref("difference", per.toString(), context);
 
                                 Utility.setExchangeValue(
                                     context,

@@ -16,8 +16,8 @@ import com.example.currency_converter.R
 import com.example.currency_converter.adapter.CurrencyListAdapter
 import com.example.currency_converter.databinding.ActivitySelectCurrencyBinding
 import com.example.currency_converter.utils.Utility
-import com.example.interfaces.CurrencySelectListener
-import com.example.model.Country
+import com.example.currency_converter.interfaces.CurrencySelectListener
+import com.example.currency_converter.model.Country
 import org.json.JSONArray
 
 class SelectCurrencyActivity : AppCompatActivity() {
@@ -34,9 +34,7 @@ class SelectCurrencyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_currency)
-
         widgetId = intent.extras!!.getInt("appWidgetId")
-
         initView(widgetId)
     }
 
@@ -56,8 +54,7 @@ class SelectCurrencyActivity : AppCompatActivity() {
         binding.appBar.setBackgroundColor(color)
         binding.toolbar.setBackgroundColor(color)
 
-
-        var strSelected = Utility.loadItemsPref(this, widgetId)
+        val strSelected = Utility.loadItemsPref(this, widgetId)
         Log.e(javaClass.simpleName, "strSelected-->$strSelected")
         var jsonArray: JSONArray = JSONArray()
         if (strSelected.isNotEmpty()) {
@@ -90,21 +87,15 @@ class SelectCurrencyActivity : AppCompatActivity() {
         })
 
         binding.btnAddWidget.setOnClickListener(View.OnClickListener {
-            var jsonArray = JSONArray()
+            val jsonArray = JSONArray()
             for (item in selected) {
                 jsonArray.put(item.code)
             }
-
             Utility.saveItemsPref(this, jsonArray.toString(), widgetId)
-            var data = Intent()
-
+            val data = Intent()
             data.putExtra("data", jsonArray.toString())
-
-
             setResult(Activity.RESULT_OK, data)
             finish()
-
-
         })
 
 

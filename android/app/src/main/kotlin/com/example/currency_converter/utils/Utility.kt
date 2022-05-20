@@ -2,6 +2,8 @@ package com.example.currency_converter.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
@@ -9,11 +11,15 @@ import android.graphics.drawable.PictureDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.TextView
+import java.lang.Exception
+import java.security.AccessController.getContext
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
+import java.util.*
 import kotlin.jvm.internal.Intrinsics
 
 class Utility {
@@ -369,6 +375,16 @@ class Utility {
                 "USD"
             )!!
         }
+        fun getLanguage(context: Context): String {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            )
+            return prefs.getString(
+                "flutter." + Constants.languageCode ,
+                "en"
+            )!!
+        }
 
         fun saveBaseCurrency(context: Context, currency: String, appWidgetId: Int): Boolean {
             val prefs = context.getSharedPreferences(
@@ -567,7 +583,9 @@ class Utility {
             val orgHsv = FloatArray(3)
             Color.RGBToHSV(r, g, b, hsv)
             Color.RGBToHSV(r, g, b, orgHsv)
+
             val startSaturation = hsv[1] - 0.37f
+
             if (startSaturation.toDouble() >= 0.2) {
                 hsv[1] = startSaturation
             } else if (hsv[2].toDouble() < 0.25) {
@@ -726,6 +744,8 @@ class Utility {
         }
 
 
+
+
         fun isOnline(context: Context): Boolean {
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -750,6 +770,19 @@ class Utility {
                 }
             }
             return false
+        }
+
+
+         fun setAppLanguage(context: Context) {
+            try {
+                val res: Resources = context.resources
+                val dm: DisplayMetrics = res.displayMetrics
+                val conf: Configuration = res.getConfiguration()
+                conf.setLocale(Locale(getLanguage(context).toLowerCase())) // API 17+ only.
+                res.updateConfiguration(conf, dm)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
     }

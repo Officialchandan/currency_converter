@@ -13,8 +13,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currency_converter.R
 import com.example.currency_converter.utils.Utility
-import com.example.interfaces.CurrencySelectListener
-import com.example.model.Country
+import com.example.currency_converter.interfaces.CurrencySelectListener
+import com.example.currency_converter.model.Country
 import java.util.*
 
 class CurrencyListAdapter(
