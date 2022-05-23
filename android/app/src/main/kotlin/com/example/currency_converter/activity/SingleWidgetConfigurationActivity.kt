@@ -2,10 +2,12 @@ package com.example.currency_converter.activity
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.res.TypedArray
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -14,26 +16,29 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
-import android.widget.RadioGroup
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
+import androidx.core.database.sqlite.transaction
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
 import com.example.currency_converter.adapter.CurrencyCodeAdapter
 import com.example.currency_converter.ads.AppOpenManager
 import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.databinding.SingleConvertorConfigActivityBinding
+import com.example.currency_converter.interfaces.ItemClickListener
+import com.example.currency_converter.model.Country
 import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.SingleConvertorProvider
-import com.example.currency_converter.interfaces.ItemClickListener
-import com.example.currency_converter.model.Country
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 
@@ -45,18 +50,28 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
     var showCurrencyList2: Boolean = false
     var showCurrencyList1: Boolean = false
     var countryList = ArrayList<Country>()
+    var adapter: CurrencyCodeAdapter? = null
 
+    lateinit var currencyCode: Array<String>
+    lateinit var currencyName: Array<String>
+    lateinit var currencyFlag: TypedArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Utility.setAppLanguage(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.single_convertor_config_activity)
+
+        currencyCode = this.resources.getStringArray(R.array.currency_code)
+        currencyName = this.resources.getStringArray(R.array.currency_name)
+        currencyFlag = this.resources.obtainTypedArray(R.array.country_flag)
+
         appWidgetId = intent?.extras?.getInt(
             AppWidgetManager.EXTRA_APPWIDGET_ID,
             AppWidgetManager.INVALID_APPWIDGET_ID
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
 
         Log.e(javaClass.name, "appWidgetId-->$appWidgetId")
-        Utility.setAppLanguage(this)
+//        Utility.setAppLanguage(this)
         getCurrencyList()
 
         init()
@@ -89,8 +104,6 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
     private fun init() {
 
-        val flagArray = this.resources.obtainTypedArray(R.array.country_flag)
-        val currencyList = this.resources.getStringArray(R.array.currency_code)
 
         binding.arrowLayout.visibility = View.GONE
         binding.layoutCountries.visibility = View.GONE
@@ -118,11 +131,11 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         val from: String = Utility.getCurrencyCode1(this, appWidgetId)
         val to: String = Utility.getCurrencyCode2(this, appWidgetId)
 
-        val index: Int = currencyList.indexOf(from)
-        val index1: Int = currencyList.indexOf(to)
+        val index: Int = currencyCode.indexOf(from)
+        val index1: Int = currencyCode.indexOf(to)
 
-        val imgFrom = flagArray.getDrawable(index)
-        val imgTo = flagArray.getDrawable(index1)
+        val imgFrom = currencyFlag.getDrawable(index)
+        val imgTo = currencyFlag.getDrawable(index1)
 
         binding.flagImgFrom.setImageDrawable(imgFrom)
         binding.flagImgTo.setImageDrawable(imgTo)
@@ -146,7 +159,6 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
 
         binding.layoutForm.setOnClickListener(View.OnClickListener {
-
 
             if (showCurrencyList1) {
                 showCurrencyList1 = false
@@ -183,6 +195,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         })
 
+
         var fontSize = Utility.getIntegerPref(Constants.fontSize, this)
 
         if (fontSize == 0) {
@@ -194,8 +207,8 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             1 -> {
 
                 binding.radioSmall.isChecked = true
-                binding.radioLarge.isChecked =false
-                binding.radioMedium.isChecked =false
+                binding.radioLarge.isChecked = false
+                binding.radioMedium.isChecked = false
                 Utility.setTextViewSize(
                     binding.tvFromWidget,
                     this.resources.getDimension(R.dimen._14sdp)
@@ -218,11 +231,10 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                 )
 
 
-
             }
             2 -> {
                 binding.radioMedium.isChecked = true
-                binding.radioLarge.isChecked =false
+                binding.radioLarge.isChecked = false
                 binding.radioSmall.isChecked = false
                 Utility.setTextViewSize(
                     binding.tvFromWidget,
@@ -247,7 +259,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             }
             3 -> {
                 binding.radioLarge.isChecked = true
-                binding.radioSmall.isChecked= false
+                binding.radioSmall.isChecked = false
                 binding.radioMedium.isChecked = false
                 Utility.setTextViewSize(
                     binding.tvFromWidget,
@@ -321,7 +333,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
     }
 
-    private fun setAdapter(countryList: List<Country>, type: Int) {
+    private fun setAdapter(countryList: ArrayList<Country>, type: Int) {
 
 //        countryList.sortedBy { it.code }
 //        countryList.sortedByDescending { it.favorite }
@@ -346,7 +358,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
 
         binding.rvCurrency.layoutManager = LinearLayoutManager(this)
-        val adapter = CurrencyCodeAdapter(countryList, type, this, this)
+        adapter = CurrencyCodeAdapter(countryList, type, this, this)
         val divider = DividerItemDecoration(
             binding.rvCurrency.context,
             DividerItemDecoration.VERTICAL
@@ -374,49 +386,50 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
             override fun afterTextChanged(p0: Editable?) {
                 Log.e(javaClass.name, "afterTextChanged" + p0.toString())
-                adapter.filter.filter(p0.toString())
-                adapter.notifyDataSetChanged()
+                adapter!!.filter.filter(p0.toString())
+                adapter!!.notifyDataSetChanged()
 
             }
 
         })
         binding.rvCurrency.adapter = adapter
-        adapter.notifyDataSetChanged()
+        adapter!!.notifyDataSetChanged()
 
 
     }
 
     private fun getCurrencyList() {
-        val codeArray = this.resources.getStringArray(R.array.currency_code)
-        val nameArray = this.resources.getStringArray(R.array.currency_name)
-        val flagArray = this.resources.obtainTypedArray(R.array.country_flag)
-
-        var fabList = ArrayList<Country>()
-        var list = ArrayList<Country>()
-
-
-        for (i in codeArray.indices) {
-
-            if (codeArray[i] == "USD" ||
-                codeArray[i] == "BTC" ||
-                codeArray[i] == "CAD" ||
-                codeArray[i] == "EUR" ||
-                codeArray[i] == "MXN" ||
-                codeArray[i] == "GBP" ||
-                codeArray[i] == "INR"
-            ) {
-                val country =
-                    Country(flagArray.getDrawable(i)!!, codeArray[i], nameArray[i], "0", favorite = 1, selected = 0)
-                fabList.add(country)
-            } else {
-                val country =
-                    Country(flagArray.getDrawable(i)!!, codeArray[i], nameArray[i], "0", favorite = 0, selected = 0)
-                list.add(country)
-            }
-        }
-
-        countryList.addAll(fabList)
-        countryList.addAll(list)
+        accessDB(this)
+//        val codeArray = this.resources.getStringArray(R.array.currency_code)
+//        val nameArray = this.resources.getStringArray(R.array.currency_name)
+//        val flagArray = this.resources.obtainTypedArray(R.array.country_flag)
+//
+//        var fabList = ArrayList<Country>()
+//        var list = ArrayList<Country>()
+//
+//
+//        for (i in codeArray.indices) {
+//
+//            if (codeArray[i] == "USD" ||
+//                codeArray[i] == "BTC" ||
+//                codeArray[i] == "CAD" ||
+//                codeArray[i] == "EUR" ||
+//                codeArray[i] == "MXN" ||
+//                codeArray[i] == "GBP" ||
+//                codeArray[i] == "INR"
+//            ) {
+//                val country =
+//                    Country(flagArray.getDrawable(i)!!, codeArray[i], nameArray[i], "0", favorite = 1, selected = 0)
+//                fabList.add(country)
+//            } else {
+//                val country =
+//                    Country(flagArray.getDrawable(i)!!, codeArray[i], nameArray[i], "0", favorite = 0, selected = 0)
+//                list.add(country)
+//            }
+//        }
+//
+//        countryList.addAll(fabList)
+//        countryList.addAll(list)
 
     }
 
@@ -424,7 +437,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
         binding.radioSmall.setOnCheckedChangeListener { compoundButton, check ->
 
-            if(check){
+            if (check) {
                 binding.radioLarge.isChecked = false
                 binding.radioMedium.isChecked = false
                 binding.radioSmall.isChecked = true
@@ -452,14 +465,13 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                 )
 
 
-
             }
 
-         }
+        }
 
 
         binding.radioMedium.setOnCheckedChangeListener { compoundButton, check ->
-            if(check){
+            if (check) {
                 binding.radioLarge.isChecked = false
                 binding.radioMedium.isChecked = true
                 binding.radioSmall.isChecked = false
@@ -488,7 +500,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         }
 
         binding.radioLarge.setOnCheckedChangeListener { compoundButton, check ->
-            if(check){
+            if (check) {
                 binding.radioLarge.isChecked = true
                 binding.radioMedium.isChecked = false
                 binding.radioSmall.isChecked = false
@@ -625,7 +637,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
     }
 
     private fun setupWidgetTransparency(trans: Int, color: Int) {
-        var transparancy: Float = 1f - (trans.toFloat() / 100)
+        val transparancy: Float = 1f - (trans.toFloat() / 100)
         val startColor = getColorWithAlpha(color, 1f)
         val endColor = getColorWithAlpha(color, 0.8f)
 
@@ -643,7 +655,12 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         )
 
 
-        binding.widgetTransparency.background = SingleConvertorProvider.getWidgetGradientDrawable(getColorWithAlpha(color, transparancy), 0, 0, this.resources.getDimension(R.dimen._8sdp))
+        binding.widgetTransparency.background = SingleConvertorProvider.getWidgetGradientDrawable(
+            getColorWithAlpha(color, transparancy),
+            0,
+            0,
+            this.resources.getDimension(R.dimen._8sdp)
+        )
 
         binding.tvSliderValue.text = trans.toString()
     }
@@ -674,7 +691,6 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
         showCurrencyList2 = false
 
         if (type == 1) {
-
 //            Utility.setCurrencyCode1(this, country.code, appWidgetId)
             binding.tvCurrencyCodeFrom.text = country.code
             binding.flagImgFrom.setImageDrawable(country.flag)
@@ -686,6 +702,22 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             binding.flagImgTo.setImageDrawable(country.flag)
             binding.flagImgTo.scaleType = ImageView.ScaleType.CENTER_CROP
         }
+
+
+    }
+
+    override fun onItemFavorite(country: Country, position: Int, fav: Int) {
+
+//        countryList[position].favorite = fav
+//        countryList.sortBy { it.code }
+//        countryList.sortByDescending { it.favorite }
+
+        adapter!!.currencyList[position].favorite = fav
+        adapter!!.currencyList.sortBy { it.code }
+        adapter!!.currencyList.sortByDescending { it.favorite }
+
+        updateFavorite(adapter!!.currencyList[position])
+        adapter!!.notifyDataSetChanged()
 
 
     }
@@ -749,7 +781,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
                             var diff = todayRate - yesterdayRate
 
 
-                            val per = (diff*100 )/todayRate
+                            val per = (diff * 100) / todayRate
 
                             Utility.setStringPref("difference", per.toString(), context);
 
@@ -784,5 +816,94 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
     }
 
+    fun accessDB(context: Context) {
+
+        try {
+            GlobalScope.launch {
+                val db: SQLiteDatabase = SQLiteDatabase.openDatabase(
+                    Constants.DB_PATH, null,
+                    SQLiteDatabase
+                        .OPEN_READWRITE
+                );
+
+                Log.d(javaClass.name, "Database Path " + db.path.toString())
+                Log.d("", "Database version " + db.version.toString())
+
+//                val query = "SELECT * FROM conversion ORDER BY favCountry DESC"
+
+                val cursor = db.query("conversion", null, null, null, null, null, "favCountry DESC")
+
+                cursor?.let {
+                    while (cursor.moveToNext()) {
+
+                        var columnNames = cursor.columnNames
+
+                        val i = cursor.getColumnIndex("countryCode")
+                        val favIndex = cursor.getColumnIndex("favCountry")
+
+                        val index = currencyCode.indexOf(cursor.getString(i))
+
+                        if (index > -1) {
+                            if (cursor.getString(favIndex) == "1") {
+                                countryList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 1, 0))
+                            } else {
+                                countryList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 0, 0))
+                            }
+                        }
+
+
+
+                        Log.e(
+                            javaClass.name,
+                            columnNames.toString()
+                        )
+
+
+
+
+                        columnNames.forEach {
+
+                            val i = cursor.getColumnIndex(it)
+
+//                            val index = currencyCode.indexOf(cursor.getString())
+//                            currencyList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 1, 0))
+
+                            Log.e(
+                                MainActivity::class.java.name,
+                                "$it " + cursor.getString(i)
+                            )
+
+                        }
+
+                    }
+                }
+                db.close()
+
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace();
+        }
+    }
+
+    fun updateFavorite(country: Country) {
+        try {
+            GlobalScope.launch {
+                val db: SQLiteDatabase = SQLiteDatabase.openDatabase(
+                    Constants.DB_PATH, null,
+                    SQLiteDatabase
+                        .OPEN_READWRITE
+                );
+
+                val query = "UPDATE conversion SET favCountry = ${country.favorite} WHERE countryCode = '${country.code}'";
+                val v = db.execSQL(query);
+                Log.e(javaClass.name, "update-> " + v.toString())
+                db.close()
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace();
+        }
+    }
 
 }

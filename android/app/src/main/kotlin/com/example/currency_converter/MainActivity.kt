@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.util.Log
 import androidx.annotation.NonNull
+import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.ListWidgetProvider
 import com.example.currency_converter.widget.SingleConvertorProvider
 import io.flutter.embedding.android.FlutterActivity
@@ -59,7 +60,12 @@ class MainActivity : FlutterActivity() {
 //                    myListWidget.onUpdate(this, instance3, listWidgetIds)
 
 
-                } else {
+                } else if(call.method=="notifyLanguageChange"){
+
+
+                    Utility.setAppLanguage(this);
+
+                }else  {
                     result.notImplemented()
                 }
             })

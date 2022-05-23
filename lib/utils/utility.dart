@@ -487,4 +487,14 @@ class Utility {
       debugPrint("exception--->$e");
     }
   }
+
+  static notifyLanguageChange() async {
+    const platform = MethodChannel('com.example.currency_converter/notifyThemeChange');
+    try {
+      final result = await platform.invokeMethod('notifyLanguageChange');
+      debugPrint("exception--->$result");
+    } on PlatformException catch (e) {
+      debugPrint("exception--->$e");
+    }
+  }
 }

@@ -3,9 +3,11 @@ package com.example.currency_converter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.appwidget.AppWidgetManager
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.TypedArray
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -28,6 +30,7 @@ import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.databinding.ActivityListWidgetConfigBinding
 import com.example.currency_converter.interfaces.ItemClickListener
 import com.example.currency_converter.model.Country
+import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.utils.Utility.Companion.getColorWithAlpha
 import com.example.currency_converter.widget.ListWidgetKt
@@ -35,6 +38,8 @@ import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Response
@@ -45,12 +50,13 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
     var appWidgetId = 0
     var showCurrencyPicker = false
     var currencyList = ArrayList<Country>()
-
+    var adapter : CurrencyCodeAdapter?=null
     lateinit var currencyCode: Array<String>
     lateinit var currencyName: Array<String>
     lateinit var currencyFlag: TypedArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Utility.setAppLanguage(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_list_widget_config)
         appWidgetId = intent?.extras?.getInt(
@@ -58,7 +64,7 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
             AppWidgetManager.INVALID_APPWIDGET_ID
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
 
-        Utility.setAppLanguage(this)
+//
 
         Log.e(javaClass.name, "appWidgetId-->$appWidgetId")
 
@@ -90,6 +96,8 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
                 application.appOpenAdManager?.showAdIfAvailable()
             }
         }
+
+        accessDB(this);
 
     }
 
@@ -174,7 +182,8 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         setupWidgetTransparency(trans, color);
         setupRadio(this, appWidgetId)
         setupSeekbar(this, color)
-        setupCurrencyAdapter(this)
+//        setupCurrencyAdapter(this)
+
         binding.layoutBaseCurrency.setOnClickListener(View.OnClickListener {
 
 
@@ -252,29 +261,29 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
     private fun setupCurrencyAdapter(context: Context) {
 
-        val fabList = ArrayList<Country>()
-        val list = ArrayList<Country>()
-
-        for (index in currencyCode.indices) {
-            if (currencyCode[index] == "USD" ||
-                currencyCode[index] == "BTC" ||
-                currencyCode[index] == "CAD" ||
-                currencyCode[index] == "EUR" ||
-                currencyCode[index] == "GBP" ||
-                currencyCode[index] == "MXN" ||
-                currencyCode[index] == "INR"
-            ) {
-                fabList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 1, 0))
-            } else {
-                list.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 0, 0))
-            }
-        }
-
-        currencyList.addAll(fabList)
-        currencyList.addAll(list)
+//        val fabList = ArrayList<Country>()
+//        val list = ArrayList<Country>()
+//
+//        for (index in currencyCode.indices) {
+//            if (currencyCode[index] == "USD" ||
+//                currencyCode[index] == "BTC" ||
+//                currencyCode[index] == "CAD" ||
+//                currencyCode[index] == "EUR" ||
+//                currencyCode[index] == "GBP" ||
+//                currencyCode[index] == "MXN" ||
+//                currencyCode[index] == "INR"
+//            ) {
+//                fabList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 1, 0))
+//            } else {
+//                list.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 0, 0))
+//            }
+//        }
+//
+//        currencyList.addAll(fabList)
+//        currencyList.addAll(list)
 
         binding.rvCurrency.layoutManager = LinearLayoutManager(this)
-        val adapter = CurrencyCodeAdapter(currencyList, 1, this, this)
+         adapter = CurrencyCodeAdapter(currencyList, 1, this, this)
         binding.rvCurrency.adapter = adapter
 
         val divider = DividerItemDecoration(
@@ -313,8 +322,8 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
             override fun afterTextChanged(p0: Editable?) {
                 Log.e(javaClass.name, "afterTextChanged" + p0.toString())
-                adapter.filter.filter(p0.toString())
-                adapter.notifyDataSetChanged()
+                adapter!!.filter.filter(p0.toString())
+                adapter!!.notifyDataSetChanged()
 
             }
 
@@ -597,6 +606,20 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
     }
 
+    override fun onItemFavorite(country: Country, position: Int, fav: Int) {
+//        currencyList[position].favorite = fav
+//        currencyList.sortBy { it.code }
+//        currencyList.sortByDescending { it.favorite }
+
+        adapter!!.currencyList[position].favorite = fav
+        adapter!!.currencyList.sortBy { it.code }
+        adapter!!.currencyList.sortByDescending { it.favorite }
+
+        updateFavorite( adapter!!.currencyList[position])
+
+        adapter!!.notifyDataSetChanged()
+    }
+
 
     @SuppressLint("CheckResult")
     fun getRate(
@@ -704,5 +727,112 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
 
     }
+
+    fun accessDB(context: Context) {
+
+        try {
+            GlobalScope.launch {
+                var db: SQLiteDatabase = SQLiteDatabase.openDatabase(
+                    Constants.DB_PATH, null,
+                    SQLiteDatabase
+                        .OPEN_READWRITE
+                );
+
+                Log.d(javaClass.name, "Database Path " + db.path.toString())
+                Log.d("", "Database version " + db.version.toString())
+
+//                val query = "SELECT * FROM conversion ORDER BY favCountry DESC"
+
+                val cursor = db.query("conversion", null, null, null, null, null, "favCountry DESC")
+
+                cursor?.let {
+                    while (cursor.moveToNext()) {
+
+                        var columnNames = cursor.columnNames
+
+                        val i = cursor.getColumnIndex("countryCode")
+                        val favIndex = cursor.getColumnIndex("favCountry")
+
+                        val index = currencyCode.indexOf(cursor.getString(i))
+
+                        if(index>-1){
+                            if (cursor.getString(favIndex) == "1") {
+                                currencyList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 1, 0))
+                            } else {
+                                currencyList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 0, 0))
+                            }
+                        }
+
+
+
+                        Log.e(
+                            javaClass.name,
+                            columnNames.toString()
+                        )
+
+
+
+
+                        columnNames.forEach {
+
+                            val i = cursor.getColumnIndex(it)
+
+//                            val index = currencyCode.indexOf(cursor.getString())
+//                            currencyList.add(Country(currencyFlag.getDrawable(index)!!, currencyCode[index], currencyName[index], "", 1, 0))
+
+                            Log.e(
+                                MainActivity::class.java.name,
+                                "$it " + cursor.getString(i)
+                            )
+
+                        }
+
+                    }
+                }
+
+                if(currencyList.isNotEmpty()){
+                    setupCurrencyAdapter(context)
+                }
+
+
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace();
+        }
+    }
+
+    fun updateFavorite(country: Country) {
+        try {
+            GlobalScope.launch {
+                val db: SQLiteDatabase = SQLiteDatabase.openDatabase(
+                    Constants.DB_PATH, null,
+                    SQLiteDatabase
+                        .OPEN_READWRITE
+                );
+
+                val query = "UPDATE conversion SET favCountry = ${country.favorite} WHERE countryCode = '${country.code}'";
+
+
+
+                val contentValue  = ContentValues()
+                contentValue.put("favCountry",country.favorite)
+                contentValue.put("countryCode",country.code)
+
+
+                val v= db.execSQL(query);
+//                val i = db.update("conversion",contentValue,"countryCode = ${country.code}",  null  )
+
+                Log.e(javaClass.name, "update-> " + v.toString())
+
+
+
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
