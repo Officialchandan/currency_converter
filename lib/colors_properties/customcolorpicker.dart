@@ -159,7 +159,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                             provider.logEvent(
                                 eventName: "CustomColorEvent",
                                 eventValues: eventValues);
-                            print("productItem>>>>>>>");
+                            debugPrint("productItem>>>>>>>");
                             MyColors.lockColorfordefault = currentColor;
                             MyColors.colorPrimary = currentColor;
                             Utility.setStringPreference(

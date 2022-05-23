@@ -335,7 +335,7 @@ class _CalculatorState extends State<Calculator> {
             exp += element;
           }
 
-          print("exp-->$exp");
+          debugPrint("exp-->$exp");
           expression = exp;
           expression = expression.replaceAll('×', '*');
           expression = expression.replaceAll('÷', '/');
@@ -380,7 +380,7 @@ class _CalculatorState extends State<Calculator> {
         // isbool = true;
       });
     }
-    print("####################$equation");
+    debugPrint("####################$equation");
   }
 
   void _insertText(String myText) {
@@ -416,7 +416,7 @@ class _CalculatorState extends State<Calculator> {
     debugPrint("cursor position->${textSelection.start}");
 
     // if (text.length > textSelection.start) {
-    //   print(text.length >= textSelection.start);
+    //   debugPrint(text.length >= textSelection.start);
     //   if (myText == "+" || myText == "-" || myText == "×" || myText == "÷" || myText == "/" || myText == "*" || myText == "%") {
     //     debugPrint("myText contain operator");
     //     String previousText = text[textSelection.start];

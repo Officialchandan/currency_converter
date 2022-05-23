@@ -1,9 +1,0 @@
-<network-security-config>
-	<domain-config cleartextTrafficPermitted="true">
-
-		<domain includeSubdomains="true">dmsapp.tekzee.in</domain>
-		<domain includeSubdomains="true">sfa.vyapaar-vistaar.in</domain>
-
-	</domain-config>
-</network-security-config>
-

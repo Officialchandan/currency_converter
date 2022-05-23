@@ -166,11 +166,11 @@ class _SettingScreenState extends State<SettingScreen>
                                           await provider.requestSubscription(
                                               subItem.productId!))
                                       .toString();
-                                  print("getSubscription->$getSubscription");
+                                  debugPrint("getSubscription->$getSubscription");
                                   provider.purchaseUpdatedSubscription =
                                       FlutterInappPurchase.purchaseUpdated
                                           .listen((purchase) {
-                                    print("purchaseEvent-->$purchase");
+                                    debugPrint("purchaseEvent-->$purchase");
 
                                     final Map eventValues = {
                                       "af_content_id": uuid.v1(),
@@ -182,7 +182,7 @@ class _SettingScreenState extends State<SettingScreen>
                                     provider.logEvent(
                                         eventName: "ADEvent",
                                         eventValues: eventValues);
-                                    print("event-->$purchase");
+                                    debugPrint("event-->$purchase");
                                   });
                                 }
                               }

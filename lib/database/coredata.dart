@@ -91,7 +91,7 @@ class DatabaseHelper {
   }
 
   Future<int> insert(Map<String, dynamic> row) async {
-    //print("data->$row");
+    //debugPrint("data->$row");
     Database db = await instance.database;
 
     Map<String, dynamic> existData = await isExist(row["countryCode"]);
@@ -108,7 +108,7 @@ class DatabaseHelper {
     Database db = await instance.database;
     List<Map<String, dynamic>> data = await db.query(tableName);
 
-    print("data  --->$data");
+    debugPrint("data  --->$data");
 
     return data;
   }
@@ -148,7 +148,7 @@ class DatabaseHelper {
     Database db = await instance.database;
     List<Map<String, dynamic>> data = await db.query(tableName, where: '$countryCode =  ?', whereArgs: [conCode]);
 
-    print("data--->${data.first.values.toList()}");
+    debugPrint("data--->${data.first.values.toList()}");
 
     return data;
   }

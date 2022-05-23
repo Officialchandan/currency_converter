@@ -31,7 +31,7 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   void initAds() async {
     Constants.isPurchaseOfAds =
         await Utility.getIntPreference(Constants.yearCheckTimeCons);
-    print('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
+    debugPrint('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
 
     if (Constants.isPurchaseOfAds == 0) {
       await Utility.setBooleanPreference(
@@ -44,11 +44,11 @@ class _AddScreenWidget extends State<AddScreenWidget> {
       DateTime yearCheckTime = DateTime(
           purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
       if (dayTimeNow.microsecond <= yearCheckTime.microsecond) {
-        print("dayTimeNowdayTimeNow");
+        debugPrint("dayTimeNowdayTimeNow");
         getAppPurchase = await Utility.setBooleanPreference(
             Constants.checkWidgetPurchaseAds, true);
       } else {
-        print("falseFalseFalse");
+        debugPrint("falseFalseFalse");
         getAppPurchase = await Utility.setBooleanPreference(
             Constants.checkWidgetPurchaseAds, false);
         addMob();
@@ -69,7 +69,7 @@ class _AddScreenWidget extends State<AddScreenWidget> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
+          debugPrint('Failed to load a banner ad: ${err.message}');
           isBannerAdReady = false;
           ad.dispose();
         },
