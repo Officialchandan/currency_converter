@@ -162,9 +162,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                             debugPrint("productItem>>>>>>>");
                             MyColors.lockColorfordefault = currentColor;
                             MyColors.colorPrimary = currentColor;
-                            Utility.setStringPreference(
-                                Constants.selectedLockedColor,
-                                currentColor.value.toRadixString(16));
+
                             int red = MyColors.colorPrimary.red;
                             int blue = MyColors.colorPrimary.blue;
                             int green = MyColors.colorPrimary.green;
@@ -244,14 +242,21 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                                   parentColorCode: code,
                                 ));
                               }
+                              await Utility.setStringPreference(
+                                  Constants.primaryColorCode,
+                                  currentColor.value.toRadixString(16));
+                              Utility.notifyThemeChange();
+                              await Utility.setStringPreference(
+                                  Constants.selectedLockedColor,
+                                  currentColor.value.toRadixString(16));
                             }
-
                             widget.onThemeChange();
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
                                     builder: (_) => MyTabBarWidget()),
                                 (route) => true);
+                            setState(() {});
                           }
                         });
                         setState(() {});
@@ -266,7 +271,6 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           GestureDetector(
             onTap: () {
               Navigator.pop(context);
-
               setState(() {});
             },
             child: Padding(

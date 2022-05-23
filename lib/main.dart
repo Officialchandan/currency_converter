@@ -58,10 +58,20 @@ void backgroundCallback(Uri? data) async {
   debugPrint("backgroundCallback--->$data");
 
   if (data!.host == 'titleclicked') {
-    final greetings = ['Hello', 'Hallo', 'Bonjour', 'Hola', 'Ciao', '哈洛', '안녕하세요', 'xin chào'];
+    final greetings = [
+      'Hello',
+      'Hallo',
+      'Bonjour',
+      'Hola',
+      'Ciao',
+      '哈洛',
+      '안녕하세요',
+      'xin chào'
+    ];
     final selectedGreeting = greetings[Random().nextInt(greetings.length)];
     await HomeWidget.saveWidgetData<String>('title', selectedGreeting);
-    await HomeWidget.updateWidget(name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
+    await HomeWidget.updateWidget(
+        name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
   }
 }
 
@@ -129,24 +139,30 @@ class _MyAppState extends State<MyApp> {
     print('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
 
     if (Constants.isPurchaseOfAds == 0) {
-      await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, false);
+      await Utility.setBooleanPreference(
+          Constants.checkWidgetPurchaseAds, false);
     } else {
-      DateTime purchaseTime = DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+      DateTime purchaseTime =
+          DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
       DateTime timeNow = DateTime.now();
       DateTime dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
-      DateTime yearCheckTime = DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+      DateTime yearCheckTime = DateTime(
+          purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
       if (dayTimeNow.millisecond <= yearCheckTime.microsecond) {
         print("dayTimeNowdayTimeNow");
-        await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, true);
+        await Utility.setBooleanPreference(
+            Constants.checkWidgetPurchaseAds, true);
       } else {
         print("falseFalseFalse");
-        await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, false);
+        await Utility.setBooleanPreference(
+            Constants.checkWidgetPurchaseAds, false);
         Future.delayed(const Duration(seconds: 7), () {
           isFirstTime();
         });
       }
     }
-    bool myValue = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    bool myValue =
+        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
     print('myValue->$myValue');
   }
 
@@ -369,7 +385,8 @@ Future<void> insertData() async {
       Map<String, dynamic> quotes = res["quotes"];
 
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
+        Map<String, dynamic> map = Constants.countryList
+            .singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
           return {};

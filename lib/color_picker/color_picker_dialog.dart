@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../in_app_parchase/product_provider.dart';
+import '../pages/home/home_page.dart';
 
 enum _TypeInApp { inapp, subs }
 // String describeEnum(Object enumEntry) {
@@ -264,7 +265,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             onPressed: () async {
                               MyColors.lockColorfordefault = lockSelectdColor;
                               MyColors.colorPrimary = colorSelection!;
-
                               Utility.setStringPreference(
                                   Constants.selectedLockedColor,
                                   lockSelectdColor.value.toRadixString(16));
@@ -336,12 +336,88 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   provider.logEvent(
                                       eventName: "colorEvent",
                                       eventValues: eventValues);
-                                  MyColors.lockColorfordefault =
-                                      lockSelectdColor;
-                                  MyColors.colorPrimary = colorSelection!;
-                                  Utility.setStringPreference(
-                                      Constants.selectedLockedColor,
-                                      lockSelectdColor.value.toRadixString(16));
+
+                                  if (colorSelection != null) {
+                                    MyColors.lockColorfordefault =
+                                        lockSelectdColor;
+                                    MyColors.colorPrimary = colorSelection!;
+                                    String code = lockSelectdColor.value
+                                        .toRadixString(16);
+                                    await dbHelper.deSelectColor();
+                                    await dbHelper.insertColor(ColorTable(
+                                      previousColor: 0,
+                                      colorCode: code,
+                                      selected: 1,
+                                      isLocked: ColorsConst.unLockedColor,
+                                    ));
+
+                                    await dbHelper.removeColor(ColorTable(
+                                        colorCode: code,
+                                        selected: 1,
+                                        previousColor: 0,
+                                        isLocked: ColorsConst.lockedColor));
+
+                                    if (densitySelectedColor != null) {
+                                      Set<Color> densityColorList = {
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade50,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade100,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade200,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade300,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade400,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade500,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade600,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade700,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade800,
+                                        ColorTools.createPrimarySwatch(
+                                                densitySelectedColor!)
+                                            .shade900,
+                                      };
+
+                                      for (var dencityColor
+                                          in densityColorList) {
+                                        String code1 = dencityColor.value
+                                            .toRadixString(16);
+                                        await dbHelper
+                                            .insertDensityColor(DensityColor(
+                                          previousColor: "0",
+                                          colorCode: code1,
+                                          selected: "0",
+                                          parentColorCode: code,
+                                        ));
+                                      }
+                                    }
+                                  } else if (lockSelectdColor != null) {
+                                    await dbHelper.deSelectColor();
+                                    String colorCode = lockSelectdColor.value
+                                        .toRadixString(16);
+                                    await dbHelper.selectColor(ColorTable(
+                                      previousColor: 0,
+                                      colorCode: colorCode,
+                                      selected: 1,
+                                      isLocked: ColorsConst.lockedColor,
+                                    ));
+
+                                    MyColors.colorPrimary = lockSelectdColor;
+                                  }
+
                                   int red = MyColors.colorPrimary.red;
                                   int blue = MyColors.colorPrimary.blue;
                                   int green = MyColors.colorPrimary.green;
@@ -372,69 +448,25 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     statusBarColor: MyColors
                                         .colorPrimary, // status bar color
                                   ));
-                                  String code =
-                                      lockSelectdColor.value.toRadixString(16);
-                                  await dbHelper.deSelectColor();
-                                  await dbHelper.insertColor(ColorTable(
-                                    previousColor: 0,
-                                    colorCode: code,
-                                    selected: 1,
-                                    isLocked: ColorsConst.unLockedColor,
-                                  ));
-                                  if (densitySelectedColor != null) {
-                                    Set<Color> densityColorList = {
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade50,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade100,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade200,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade300,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade400,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade500,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade600,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade700,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade800,
-                                      ColorTools.createPrimarySwatch(
-                                              densitySelectedColor!)
-                                          .shade900,
-                                    };
 
-                                    for (var dencityColor in densityColorList) {
-                                      String code1 =
-                                          dencityColor.value.toRadixString(16);
-                                      await dbHelper
-                                          .insertDensityColor(DensityColor(
-                                        previousColor: "0",
-                                        colorCode: code1,
-                                        selected: "0",
-                                        parentColorCode: code,
-                                      ));
-                                    }
-                                  }
-                                  await dbHelper.removeColor(ColorTable(
-                                      colorCode: code,
-                                      selected: 1,
-                                      previousColor: 0,
-                                      isLocked: ColorsConst.lockedColor));
+                                  await Utility.setStringPreference(
+                                      Constants.primaryColorCode,
+                                      colorSelection!.value.toString());
 
+                                  Utility.setStringPreference(
+                                      Constants.selectedLockedColor,
+                                      colorSelection!.value.toRadixString(16));
+
+                                  Utility.notifyThemeChange();
                                   widget.onThemeChange();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => MyTabBarWidget()),
+                                      (route) => true);
                                   Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  setState(() {});
                                 }
                               });
                               setState(() {});

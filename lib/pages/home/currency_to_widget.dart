@@ -95,7 +95,6 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
                           TextField(
                             onChanged: (String text) {
                               List<DataModel> searchList = [];
-
                               for (var element in countrycode) {
                                 if (element.code
                                         .toString()

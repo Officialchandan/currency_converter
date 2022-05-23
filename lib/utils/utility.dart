@@ -477,6 +477,7 @@ class Utility {
   }
 
   static notifyThemeChange() async {
+    debugPrint("notifyThemeChange--->");
     const platform =
         MethodChannel('com.example.currency_converter/notifyThemeChange');
     try {

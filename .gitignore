@@ -29,6 +29,8 @@
 .packages
 .pub-cache/
 .pub/
+pubspec.yaml
+pubspec.lock
 /build/
 
 # Web related
@@ -44,5 +46,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/android/app/build
+/android/app/build/
 /build
