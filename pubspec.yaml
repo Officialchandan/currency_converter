@@ -55,7 +55,7 @@ dependencies:
   fluttertoast:
   flutter_widget_from_html_core:
   basic_utils:
-  flutter_reorderable_list: ^1.2.0
+  flutter_reorderable_list: 1.1.0
   syncfusion_flutter_sliders:
   intl:
   flutter_svg: any
@@ -68,7 +68,9 @@ dependencies:
   get: any
   bot_toast: ^4.0.1
   flutter_inapp_purchase: 5.0.0
-
+  appsflyer_sdk: 6.4.0
+  device_info_plus:
+  uuid:
 
 
   #For App widget

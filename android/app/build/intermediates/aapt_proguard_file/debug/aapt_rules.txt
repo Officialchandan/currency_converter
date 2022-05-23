@@ -15,6 +15,7 @@
 -keep class com.android.billingclient.api.ProxyBillingActivity { <init>(); }
 -keep class com.example.currency_converter.ListWidgetConfigActivity { <init>(); }
 -keep class com.example.currency_converter.MainActivity { <init>(); }
+-keep class com.example.currency_converter.activity.MyApplication { <init>(); }
 -keep class com.example.currency_converter.activity.SelectCurrencyActivity { <init>(); }
 -keep class com.example.currency_converter.activity.SingleWidgetConfigurationActivity { <init>(); }
 -keep class com.example.currency_converter.widget.ListWidgetProvider { <init>(); }

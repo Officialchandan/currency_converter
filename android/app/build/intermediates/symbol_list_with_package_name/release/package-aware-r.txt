@@ -2703,8 +2703,12 @@ drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_radio_check
 drawable ic_refresh
+drawable ic_refresh_dark
 drawable ic_settings
 drawable ic_settings_dark
+drawable ic_star
+drawable ic_star_border
+drawable ic_star_rate
 drawable ic_united_kingdom
 drawable ic_united_states_of_america
 drawable idr
@@ -3156,6 +3160,7 @@ id layout
 id layout_base_currency
 id layout_container
 id layout_countries
+id layout_currency_list
 id layout_form
 id layout_select_currency
 id layout_to
@@ -4136,6 +4141,7 @@ string s4
 string s5
 string s6
 string s7
+string search
 string search_menu_title
 string selected
 string status_bar_notification_info_overflow

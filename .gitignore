@@ -29,7 +29,10 @@
 .packages
 .pub-cache/
 .pub/
+pubspec.lock
+pubspec.yaml
 /build/
+/android/app/build
 
 # Web related
 lib/generated_plugin_registrant.dart

@@ -2337,6 +2337,7 @@
     <string name="s5">Create calendar event</string>
     <string name="s6">Allow Ad to create a calendar event?</string>
     <string name="s7">Test Ad</string>
+    <string name="search">Search</string>
     <string name="search_menu_title">Search</string>
     <string name="selected">SELECTED</string>
     <string name="status_bar_notification_info_overflow">999+</string>
