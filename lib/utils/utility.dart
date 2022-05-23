@@ -489,7 +489,8 @@ class Utility {
   }
 
   static notifyLanguageChange() async {
-    const platform = MethodChannel('com.example.currency_converter/notifyThemeChange');
+    const platform =
+        MethodChannel('com.example.currency_converter/notifyThemeChange');
     try {
       final result = await platform.invokeMethod('notifyLanguageChange');
       debugPrint("exception--->$result");
