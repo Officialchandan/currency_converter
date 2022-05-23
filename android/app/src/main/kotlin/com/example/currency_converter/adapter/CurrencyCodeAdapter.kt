@@ -16,14 +16,14 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class CurrencyCodeAdapter(
-    currencyList: List<Country>,
+    currencyList: ArrayList<Country>,
     type: Int,
     context: Context,
     listener: ItemClickListener
 ) :
     RecyclerView.Adapter<CurrencyCodeAdapter.ViewHolder>(), Filterable {
-    val currencyList: List<Country> = currencyList
-    var currencyFilterList: List<Country> = currencyList
+    val currencyList: ArrayList<Country> = currencyList
+    var currencyFilterList: ArrayList<Country> = currencyList
     var type: Int = type
     val listener: ItemClickListener = listener
     var context: Context = context
@@ -68,11 +68,25 @@ class CurrencyCodeAdapter(
             holder.tvName.setTextColor(context.resources.getColor(R.color.black))
             holder.itemLayout.setBackgroundResource(R.drawable.white_round)
         }
+
+        holder.imgStar.setOnClickListener(View.OnClickListener {
+            if(model.favorite==1){
+                listener.onItemFavorite(model,position,0)
+
+            }else{
+                listener.onItemFavorite(model,position,1)
+
+            }
+
+
+        })
     }
 
     override fun getItemCount(): Int {
         return currencyFilterList.size
     }
+
+
 
     override fun getFilter(): Filter {
         return object : Filter() {

@@ -32,6 +32,7 @@ class SelectCurrencyActivity : AppCompatActivity() {
     var widgetId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Utility.setAppLanguage(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_currency)
         widgetId = intent.extras!!.getInt("appWidgetId")

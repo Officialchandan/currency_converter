@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
@@ -14,6 +15,9 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.TextView
+import androidx.work.impl.WorkDatabasePathHelper.getDatabasePath
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.security.AccessController.getContext
 import java.text.DecimalFormat
@@ -784,6 +788,8 @@ class Utility {
                 e.printStackTrace()
             }
         }
+
+
 
     }
 

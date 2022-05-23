@@ -3,7 +3,7 @@ package com.example.currency_converter.utils
 class Constants {
 
     companion object {
-
+        const val DB_PATH = "/data/user/0/com.currencywiki.currencyconverter/app_flutter/currencyconverter4.db"
         const val baseCurrency = "base_currency"
         const val languageCode = "languageCode"
         const val monetaryFormat = "monetaryFormat";

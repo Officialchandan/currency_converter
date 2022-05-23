@@ -66,6 +66,7 @@ class _LanguageState extends State<Language> {
                   print("lanugate--->${name}");
 
                   await Utility.setStringPreference("languageCode", name);
+                  Utility.notifyLanguageChange();
 
                   await context.setLocale(Locals.language[index].values.first);
 

@@ -50,8 +50,7 @@ class Utility {
     return prefs.getString(key) ?? "0xff4e7dcb";
   }
 
-  static Future<bool> setStringPreferenceForDensityColor(
-      String key, String value) async {
+  static Future<bool> setStringPreferenceForDensityColor(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
   }
@@ -141,8 +140,7 @@ class Utility {
     return prefs.getString(key) ?? "123456.02";
   }
 
-  static Future<bool> setFormatExmaplePreference(
-      String key, String value) async {
+  static Future<bool> setFormatExmaplePreference(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
   }
@@ -152,8 +150,7 @@ class Utility {
     return prefs.getBool(key) ?? true;
   }
 
-  static Future<bool> setBoolDisplayCodePreference(
-      String key, bool value) async {
+  static Future<bool> setBoolDisplayCodePreference(String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
   }
@@ -163,8 +160,7 @@ class Utility {
     return prefs.getBool(key) ?? false;
   }
 
-  static Future<bool> setBoolDisplayflagPreference(
-      String key, bool value) async {
+  static Future<bool> setBoolDisplayflagPreference(String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
   }
@@ -174,16 +170,14 @@ class Utility {
     return prefs.getBool(key) ?? false;
   }
 
-  static Future<bool> setBoolDisplaysymbolPreference(
-      String key, bool value) async {
+  static Future<bool> setBoolDisplaysymbolPreference(String key, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.setBool(key, value);
   }
 
   static Future getColorTheme() async {
     String colorCode = await getStringPreference(Constants.themeColor);
-    String colorCode1 =
-        await getStringPreference(Constants.themeofDensityColor);
+    String colorCode1 = await getStringPreference(Constants.themeofDensityColor);
 
     debugPrint("color->>>> $colorCode");
     debugPrint("color->>>> $colorCode1");
@@ -206,8 +200,7 @@ class Utility {
     } else {
       debugPrint("color is empty");
     }
-    setStringPreference(Constants.primaryColorCode,
-        MyColors.colorPrimary.value.toRadixString(16));
+    setStringPreference(Constants.primaryColorCode, MyColors.colorPrimary.value.toRadixString(16));
   }
 
   static void check() async {
@@ -217,10 +210,8 @@ class Utility {
 
   static String getEn() {
     var now = DateTime.now();
-    var formatterEn =
-        DateFormat.d('en').addPattern('/').add_M().addPattern('/').add_y();
-    var formatterEn1 =
-        DateFormat.M('en').addPattern('/').add_d().addPattern('/').add_y();
+    var formatterEn = DateFormat.d('en').addPattern('/').add_M().addPattern('/').add_y();
+    var formatterEn1 = DateFormat.M('en').addPattern('/').add_d().addPattern('/').add_y();
 
     String formatted = formatterEn.format(now);
     String formatted1 = formatterEn1.format(now);
@@ -243,11 +234,9 @@ class Utility {
 
   static String getAr() {
     var now = DateTime.now();
-    var formatterAr =
-        DateFormat.d('ar').addPattern('/').add_M().addPattern('/').add_y();
+    var formatterAr = DateFormat.d('ar').addPattern('/').add_M().addPattern('/').add_y();
 
-    var formatterAr1 =
-        DateFormat.M('ar').addPattern('/').add_d().addPattern('/').add_y();
+    var formatterAr1 = DateFormat.M('ar').addPattern('/').add_d().addPattern('/').add_y();
 
     String formattedAr = formatterAr.format(now);
     String formattedAr1 = formatterAr1.format(now);
@@ -270,11 +259,9 @@ class Utility {
 
   static String getBn() {
     var now = DateTime.now();
-    var formatterBn =
-        DateFormat.d('bn').addPattern('/').add_M().addPattern('/').add_y();
+    var formatterBn = DateFormat.d('bn').addPattern('/').add_M().addPattern('/').add_y();
 
-    var formatterBn1 =
-        DateFormat.M('bn').addPattern('/').add_d().addPattern('/').add_y();
+    var formatterBn1 = DateFormat.M('bn').addPattern('/').add_d().addPattern('/').add_y();
 
     String formattedBn = formatterBn.format(now);
     String formattedBn1 = formatterBn1.format(now);
@@ -297,11 +284,9 @@ class Utility {
 
   static String getMr() {
     var now = DateTime.now();
-    var formatterMr =
-        DateFormat.d('mr').addPattern('/').add_M().addPattern('/').add_y();
+    var formatterMr = DateFormat.d('mr').addPattern('/').add_M().addPattern('/').add_y();
 
-    var formatterMr1 =
-        DateFormat.M('mr').addPattern('/').add_d().addPattern('/').add_y();
+    var formatterMr1 = DateFormat.M('mr').addPattern('/').add_d().addPattern('/').add_y();
 
     String formattedMr = formatterMr.format(now);
     String formattedMr1 = formatterMr1.format(now);
@@ -324,11 +309,9 @@ class Utility {
 
   static String getNe() {
     var now = DateTime.now();
-    var formatterNe =
-        DateFormat.d('ne_Np').addPattern('/').add_M().addPattern('/').add_y();
+    var formatterNe = DateFormat.d('ne_Np').addPattern('/').add_M().addPattern('/').add_y();
 
-    var formatterNe1 =
-        DateFormat.M('ne_Np').addPattern('/').add_d().addPattern('/').add_y();
+    var formatterNe1 = DateFormat.M('ne_Np').addPattern('/').add_d().addPattern('/').add_y();
 
     String formattedNe = formatterNe.format(now);
     String formattedNe1 = formatterNe1.format(now);
@@ -461,8 +444,7 @@ class Utility {
 
     final hsl = HSLColor.fromColor(color);
 
-    final hslLight =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
 
     return hslLight.toColor();
   }
@@ -477,10 +459,19 @@ class Utility {
   }
 
   static notifyThemeChange() async {
-    const platform =
-        MethodChannel('com.example.currency_converter/notifyThemeChange');
+    const platform = MethodChannel('com.example.currency_converter/notifyThemeChange');
     try {
       final result = await platform.invokeMethod('notifyThemeChange');
+      debugPrint("exception--->$result");
+    } on PlatformException catch (e) {
+      debugPrint("exception--->$e");
+    }
+  }
+
+  static notifyLanguageChange() async {
+    const platform = MethodChannel('com.example.currency_converter/notifyThemeChange');
+    try {
+      final result = await platform.invokeMethod('notifyLanguageChange');
       debugPrint("exception--->$result");
     } on PlatformException catch (e) {
       debugPrint("exception--->$e");
