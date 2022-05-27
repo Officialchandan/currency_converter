@@ -178,6 +178,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                         fontSize: 16.5,
                       ),
                     ),
+                    leading: Container(),
                     actions: [
                       InkWell(
                         onTap: () {

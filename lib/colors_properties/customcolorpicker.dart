@@ -91,11 +91,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                     textScaleFactor: Constants.textScaleFactor,
                     style: const TextStyle(fontSize: 16),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     MyColors.lockColorfordefault = currentColor;
                     Utility.setStringPreference(Constants.selectedLockedColor,
                         currentColor.value.toRadixString(16));
-
                     int red = currentColor.red;
                     int blue = currentColor.blue;
                     int green = currentColor.green;
@@ -114,21 +113,22 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                       MyColors.insideTextFieldColor = Colors.black;
                       MyColors.isDarkMode = false;
                     }
-
                     MyColors.colorPrimary = currentColor;
-
                     MyColors.calcuColor = currentColor;
                     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                       systemNavigationBarIconBrightness: !MyColors.isDarkMode
                           ? Brightness.light
                           : Brightness.dark,
-
                       systemNavigationBarColor:
                           MyColors.colorPrimary, // navigation bar color
                       statusBarColor: MyColors.colorPrimary, // status bar color
                     ));
+                    await Utility.setStringPreference(
+                        Constants.primaryColorCode,
+                        currentColor.value.toRadixString(16));
+                    Utility.notifyThemeChange();
                     widget.onThemeChange();
-
+                    setState(() {});
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (_) => MyTabBarWidget()),
@@ -245,10 +245,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               await Utility.setStringPreference(
                                   Constants.primaryColorCode,
                                   currentColor.value.toRadixString(16));
-                              Utility.notifyThemeChange();
                               await Utility.setStringPreference(
                                   Constants.selectedLockedColor,
                                   currentColor.value.toRadixString(16));
+                              Utility.notifyThemeChange();
                             }
                             widget.onThemeChange();
                             Navigator.pushAndRemoveUntil(

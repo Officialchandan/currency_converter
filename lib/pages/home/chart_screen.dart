@@ -32,11 +32,11 @@ class _ChartScreenState extends State<ChartScreen> {
   double maxValue = 0.0;
   double minValue = 0.0;
   bool true24Hours = false;
-  bool true7Day = false;
+  bool true7Day = true;
   bool true30Day = false;
   bool true90Day = false;
   bool true1Year = false;
-  bool trueAll = true;
+  bool trueAll = false;
 
   @override
   void initState() {
@@ -52,7 +52,7 @@ class _ChartScreenState extends State<ChartScreen> {
   }
 
   init() async {
-    chartDataAll(edtFrom: widget.textFrom, edtTo: widget.textTo);
+    chartData7Day(edtFrom: widget.textFrom, edtTo: widget.textTo);
   }
 
   @override

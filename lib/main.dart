@@ -115,6 +115,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _inAppProvider = provider;
+    SystemChannels.restoration;
     getTheme();
     initAdd();
     HomeWidget.setAppGroupId('YOUR_GROUP_ID');
@@ -125,6 +126,9 @@ class _MyAppState extends State<MyApp> {
   initAdd() async {
     await getHistory();
     await getAds();
+    await Utility.getSelectedColorForUnlock();
+    setState(() {});
+    Utility.notifyThemeChange();
   }
 
   getHistory() async {
@@ -327,7 +331,6 @@ class _MyAppState extends State<MyApp> {
 
   void getTheme() async {
     await Utility.getColorTheme();
-
     int red = MyColors.colorPrimary.red;
     int blue = MyColors.colorPrimary.blue;
     int green = MyColors.colorPrimary.green;
@@ -349,7 +352,6 @@ class _MyAppState extends State<MyApp> {
       debugPrint("Hello Dark Mode Colors");
       MyColors.textColor = Colors.grey.shade700;
       MyColors.insideTextFieldColor = Colors.white;
-
       MyColors.isDarkMode = true;
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         // statusBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
@@ -362,13 +364,13 @@ class _MyAppState extends State<MyApp> {
       MyColors.textColor = Colors.white;
       MyColors.insideTextFieldColor = Colors.black;
       MyColors.isDarkMode = false;
-
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarIconBrightness: Brightness.light,
         systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
         statusBarColor: MyColors.colorPrimary, // status bar color
       ));
     }
+    setState(() {});
   }
 }
 

@@ -166,7 +166,8 @@ class _SettingScreenState extends State<SettingScreen>
                                           await provider.requestSubscription(
                                               subItem.productId!))
                                       .toString();
-                                  debugPrint("getSubscription->$getSubscription");
+                                  debugPrint(
+                                      "getSubscription->$getSubscription");
                                   provider.purchaseUpdatedSubscription =
                                       FlutterInappPurchase.purchaseUpdated
                                           .listen((purchase) {
@@ -419,7 +420,6 @@ class _SettingScreenState extends State<SettingScreen>
                                     onTap: () async {
                                       if (!MyColors.isDarkMode) {
                                         MyColors.isDarkMode = true;
-
                                         // MyColors.lightModeCheck = !MyColors.lightModeCheck;
                                         MyColors.textColor =
                                             const Color(0xff333333);
@@ -1414,7 +1414,6 @@ class _SettingScreenState extends State<SettingScreen>
   void unlockChangeColor(Color color) {
     var code = (color.value.toRadixString(16));
     MyColors.colorPrimary = Color(int.parse("0x$code"));
-
     setState(
       () => unlockCurrentColor = color,
     );
