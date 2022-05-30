@@ -48,7 +48,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   bool isCalculatorVisible = false;
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
-  TextEditingController calculateCurrency = TextEditingController(text: "1");
+  TextEditingController calculateCurrency =
+      TextEditingController(text: Constants.inputValue);
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
   String currencyCodeFrom = "USD";
@@ -82,29 +83,34 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   @override
   void onTabChange() async {
-    calculateCurrency.text = Constants.inputValue;
-    print("calculateCurrency-->${Constants.inputValue}");
     await Utility.getBooleanPreference(Constants.REMOVE_AD);
-    debugPrint("onTabChange");
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-    text = await getConverterAPI(
-        currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     setStateIfMounted();
   }
 
   getValue() async {
     Constants.inputValue =
         await Utility.getStringPreference(Constants.currencyInputValue);
-    calculateCurrency.text = Constants.inputValue;
+    print("Constants.inputValue-->${Constants.inputValue}");
+    if (Constants.inputValue.isEmpty) {
+      calculateCurrency.text = "1";
+      text = await getConverterAPI(
+          currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+    } else if (Constants.inputValue == "0") {
+      calculateCurrency.text = "1";
+      text = await getConverterAPI(
+          currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+    } else {
+      calculateCurrency.text = Constants.inputValue;
+      text = await getConverterAPI(
+          currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+    }
     await Utility.getBooleanPreference(Constants.REMOVE_AD);
-    debugPrint("onTabChange");
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
-    text = await getConverterAPI(
-        currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
     setState(() {});
   }
 
