@@ -48,8 +48,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   bool isCalculatorVisible = false;
   bool _isContainerVisible = false;
   bool _isContainerVisibleTwo = false;
-  TextEditingController calculateCurrency =
-      TextEditingController(text: MyColors.equationForCopy);
+  TextEditingController calculateCurrency = TextEditingController(text: "1");
   TextEditingController edtFrom = TextEditingController(text: "USD");
   TextEditingController edtTo = TextEditingController(text: "EUR");
   String currencyCodeFrom = "USD";
@@ -57,6 +56,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   late InAppProvider _inAppProvider;
   @override
   void initState() {
+    getValue();
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _inAppProvider = provider;
     _isContainerVisible = false;
@@ -82,6 +82,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   @override
   void onTabChange() async {
+    calculateCurrency.text = Constants.inputValue;
+    print("calculateCurrency-->${Constants.inputValue}");
     await Utility.getBooleanPreference(Constants.REMOVE_AD);
     debugPrint("onTabChange");
     isCalculatorVisible = false;
@@ -89,6 +91,21 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     _isContainerVisibleTwo = false;
     text = await getConverterAPI(
         currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+    setStateIfMounted();
+  }
+
+  getValue() async {
+    Constants.inputValue =
+        await Utility.getStringPreference(Constants.currencyInputValue);
+    calculateCurrency.text = Constants.inputValue;
+    await Utility.getBooleanPreference(Constants.REMOVE_AD);
+    debugPrint("onTabChange");
+    isCalculatorVisible = false;
+    _isContainerVisible = false;
+    _isContainerVisibleTwo = false;
+    text = await getConverterAPI(
+        currencyCodeFrom, currencyCodeTo, calculateCurrency.text);
+    setState(() {});
   }
 
   getCurrencyCode() async {
@@ -301,15 +318,19 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                                   _isContainerVisibleTwo = false;
                                   setState(() {});
                                 },
-                                onChanged: (text) {
-                                  debugPrint("onchange---------> $text");
+                                onChanged: (text) async {
+                                  print("onchange>$text");
 
                                   if (text.isEmpty) {
                                     text = "0";
                                   }
                                   text = text.replaceAll(RegExp(r'[^0-9]'), '');
                                   debugPrint("aStr---------> $text");
-                                  MyColors.equationForCopy = text;
+
+                                  // Constants.inputValue = text;
+                                  await Utility.setStringPreference(
+                                      Constants.currencyInputValue,
+                                      text.trim());
                                   getConverterAPI(
                                       currencyCodeFrom, currencyCodeTo, text);
                                   calculateCurrency.text = text;
@@ -736,7 +757,9 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   ? Calculator(
                       txtController: calculateCurrency,
                       onChange: (text) async {
-                        MyColors.equationForCopy = text;
+                        // Constants.inputValue = text;
+                        await Utility.setStringPreference(
+                            Constants.currencyInputValue, text.trim());
                         this.text = await getConverterAPI(
                             currencyCodeFrom, currencyCodeTo, text);
                         setState(() {});
@@ -760,7 +783,8 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
 
   Future<String> getConverterAPI(String form, String to, String rate) async {
     debugPrint("rate--->$rate");
-
+    await Utility.setStringPreference(
+        Constants.currencyInputValue, rate.trim());
     List<Map<String, dynamic>> formRow = await dbHelper.particular_row(form);
     List<Map<String, dynamic>> toRow = await dbHelper.particular_row(to);
 

@@ -50,8 +50,6 @@ class MyColors {
   static String text = "123456.02";
   static bool lastTimeCheck = false;
 
-  static String equationForCopy = "1";
-
   static Color lockColorfordefault = Color(0xff4e7dcb);
 
   static bool eyeIconSetup = true;
