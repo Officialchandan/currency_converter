@@ -95,11 +95,11 @@
 				android:id="@+id/tv_value"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_alignParentLeft="true"
+				android:layout_centerHorizontal="true"
+				android:fontFamily="@font/roboto_medium"
 				android:text="@string/_0_00"
 				android:textColor="#FFFFFF"
 				android:textSize="@dimen/_18sdp"
-				android:fontFamily="@font/roboto_medium"
 				android:textStyle="bold" />
 
 			<ImageView
@@ -108,7 +108,6 @@
 				android:layout_height="13dp"
 				android:layout_below="@+id/tv_value"
 				android:layout_alignParentRight="true"
-				android:layout_marginTop="@dimen/_5sdp"
 				android:src="@drawable/arrow_up" />
 
 			<TextView

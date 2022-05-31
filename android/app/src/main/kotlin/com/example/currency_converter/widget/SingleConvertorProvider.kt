@@ -76,6 +76,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             javaClass.simpleName,
             "onAppWidgetOptionsChanged-->\n${appWidgetId} ${appWidgetManager.toString()}"
         )
+        updateWidget(context!!,appWidgetManager!!,appWidgetId,false );
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
     }
 

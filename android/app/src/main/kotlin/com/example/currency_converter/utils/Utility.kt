@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.database.sqlite.SQLiteDatabase
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
@@ -15,11 +14,6 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.TextView
-import androidx.work.impl.WorkDatabasePathHelper.getDatabasePath
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.lang.Exception
-import java.security.AccessController.getContext
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
@@ -30,6 +24,37 @@ class Utility {
 
 
     companion object {
+
+
+        fun setCurrencyCodeFrom(
+            context: Context,
+            value: String,
+
+            ): Boolean {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putString("flutter." + Constants.currencyFrom, value)
+            editor.apply()
+            return editor.commit()
+        }
+
+        fun setCurrencyCodeTo(
+            context: Context,
+            value: String,
+
+            ): Boolean {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putString("flutter." + Constants.currencyTo, value)
+            editor.apply()
+            return editor.commit()
+        }
 
         fun setCurrencyCode1(
             context: Context,
@@ -379,13 +404,14 @@ class Utility {
                 "USD"
             )!!
         }
+
         fun getLanguage(context: Context): String {
             val prefs = context.getSharedPreferences(
                 "FlutterSharedPreferences",
                 Context.MODE_PRIVATE
             )
             return prefs.getString(
-                "flutter." + Constants.languageCode ,
+                "flutter." + Constants.languageCode,
                 "en"
             )!!
         }
@@ -748,8 +774,6 @@ class Utility {
         }
 
 
-
-
         fun isOnline(context: Context): Boolean {
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -757,7 +781,7 @@ class Utility {
                 val capabilities =
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-                    } else{
+                    } else {
                         connectivityManager.getNetworkCapabilities(connectivityManager.allNetworks[0])
                     }
                 if (capabilities != null) {
@@ -777,7 +801,7 @@ class Utility {
         }
 
 
-         fun setAppLanguage(context: Context) {
+        fun setAppLanguage(context: Context) {
             try {
                 val res: Resources = context.resources
                 val dm: DisplayMetrics = res.displayMetrics
@@ -788,7 +812,6 @@ class Utility {
                 e.printStackTrace()
             }
         }
-
 
 
     }

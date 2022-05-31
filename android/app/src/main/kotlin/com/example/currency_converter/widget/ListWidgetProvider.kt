@@ -78,6 +78,7 @@ class ListWidgetProvider : AppWidgetProvider() {
         newOptions: Bundle?
     ) {
         Log.e(javaClass.simpleName, "onAppWidgetOptionsChanged-->\n${appWidgetId} ${appWidgetManager.toString()}")
+        ListWidgetKt.updateAppWidget(context!!, appWidgetManager!!, appWidgetId, false)
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
     }
 
