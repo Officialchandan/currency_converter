@@ -49,7 +49,6 @@ class _SplashScreenState extends State<SplashScreen> {
     AppsFlyerOptions options = AppsFlyerOptions(
         afDevKey: "sSciSETKRuU6a8cqCETSSJ",
         appId: "com.currencywiki.currencyconverter",
-        disableAdvertisingIdentifier: true,
         showDebug: true);
     Constants.appsflyerSdk = AppsflyerSdk(options);
     Constants.appsflyerSdk.initSdk(
@@ -81,16 +80,6 @@ class _SplashScreenState extends State<SplashScreen> {
       Constants.appsflyerSdk
           .onDeepLinking((onDp) => debugPrint("onDp-->$onDp"));
       Constants.appsflyerSdk.setIsUpdate(true);
-    } catch (e) {
-      debugPrint("onDeepLinking-->>$e");
-    }
-    try {
-      Constants.appsflyerSdk.useReceiptValidationSandbox(true);
-      Constants.appsflyerSdk.onPurchaseValidation(((purchaseValue) {
-        debugPrint("purchaseValue-$purchaseValue");
-      }));
-      // _appsflyerSdk.validateAndLogInAppAndroidPurchase(
-      //     "publicKey", "signature", "purchaseData", "price", "currency", {});
     } catch (e) {
       debugPrint("onDeepLinking-->>$e");
     }

@@ -14,8 +14,7 @@ class AddScreenWidget extends StatefulWidget {
 }
 
 class _AddScreenWidget extends State<AddScreenWidget> {
-  late BannerAd _bannerAd;
-  late NativeAd? _nativeAd;
+  BannerAd? _bannerAd;
   final Completer<NativeAd> nativeAdCompleter = Completer<NativeAd>();
   bool isBannerAdReady = false;
   DateTime? dayTimeNow;
@@ -75,16 +74,16 @@ class _AddScreenWidget extends State<AddScreenWidget> {
         },
       ),
     );
-    Future<void>.delayed(const Duration(seconds: 1), () => _bannerAd.load());
+    Future<void>.delayed(const Duration(seconds: 1), () => _bannerAd!.load());
   }
 
   @override
   Widget build(BuildContext context) {
     return isBannerAdReady
         ? SizedBox(
-            height: _bannerAd.size.height.toDouble(),
-            width: _bannerAd.size.width.toDouble(),
-            child: AdWidget(ad: _bannerAd),
+            height: _bannerAd!.size.height.toDouble(),
+            width: _bannerAd!.size.width.toDouble(),
+            child: AdWidget(ad: _bannerAd!),
           )
         : const SizedBox(
             height: 0.0,
@@ -95,7 +94,7 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   @override
   void dispose() {
     if (!getAppPurchase) {
-      _bannerAd.dispose();
+      _bannerAd!.dispose();
     }
     super.dispose();
   }
