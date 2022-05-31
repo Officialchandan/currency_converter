@@ -10,6 +10,9 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../database/color_data.dart';
+import '../main.dart';
+
 class Utility {
   static int? checkOfValue;
 
@@ -489,12 +492,93 @@ class Utility {
   }
 
   static notifyLanguageChange() async {
-    const platform = MethodChannel('com.example.currency_converter/notifyThemeChange');
+    const platform =
+        MethodChannel('com.example.currency_converter/notifyThemeChange');
     try {
       final result = await platform.invokeMethod('notifyLanguageChange');
       debugPrint("exception--->$result");
     } on PlatformException catch (e) {
       debugPrint("exception--->$e");
+    }
+  }
+
+  static getSelectedColorForUnlock() async {
+    print("getThemeColor-->");
+    List<ColorTable> selectedColor = await dbHelper.getSelectedColor();
+
+    if (selectedColor.isNotEmpty) {
+      ColorTable colorTable = selectedColor.first;
+
+      if (colorTable.isLocked == ColorsConst.lockedColor) {
+        await dbHelper.selectColor(ColorTable(
+          previousColor: 0,
+          colorCode: colorTable.colorCode,
+          selected: 1,
+          isLocked: ColorsConst.lockedColor,
+        ));
+        String colorCode =
+            Constants.unlockColors.first.mainColor.value.toRadixString(16);
+        await Utility.setStringPreference(
+            Constants.primaryColorCode, colorCode);
+        await dbHelper.selectColor(ColorTable(
+          previousColor: 0,
+          colorCode: colorCode,
+          selected: 0,
+          isLocked: ColorsConst.unLockedColor,
+        ));
+        MyColors.colorPrimary = Constants.unlockColors.first.mainColor;
+      } else {
+        int code = int.parse("0x" + colorTable.colorCode);
+        Color c = Color(code);
+        MyColors.colorPrimary = c;
+        print("printOnMyColor");
+        await Utility.setStringPreference(
+            Constants.primaryColorCode, c.value.toRadixString(16));
+        Utility.notifyThemeChange();
+      }
+      await Utility.getColorTheme();
+      int red = MyColors.colorPrimary.red;
+      int blue = MyColors.colorPrimary.blue;
+      int green = MyColors.colorPrimary.green;
+      var grayscale = (0.299 * red) + (0.587 * green) + (0.114 * blue);
+      print("************************-> $grayscale");
+      if (await Utility.getBooleanPreference(Constants.isDarkMode)) {
+        MyColors.isDarkMode = true;
+        // MyColors.lightModeCheck = !MyColors.lightModeCheck;
+        MyColors.textColor = const Color(0xff333333);
+        MyColors.insideTextFieldColor = Colors.white;
+        MyColors.calcuColor = const Color(0xff333333);
+
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          systemNavigationBarColor:
+              MyColors.colorPrimary, // navigation bar color
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarColor: MyColors.colorPrimary, // status bar color
+        ));
+      } else if (grayscale > 200) {
+        debugPrint("Hello Dark Mode Colors");
+        MyColors.textColor = Colors.grey.shade700;
+        MyColors.insideTextFieldColor = Colors.white;
+        MyColors.isDarkMode = true;
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          // statusBarIconBrightness: !MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor:
+              MyColors.colorPrimary, // navigation bar color
+          statusBarColor: MyColors.colorPrimary, // status bar color
+        ));
+      } else {
+        debugPrint("grayscale > 1 $grayscale");
+        MyColors.textColor = Colors.white;
+        MyColors.insideTextFieldColor = Colors.black;
+        MyColors.isDarkMode = false;
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          systemNavigationBarIconBrightness: Brightness.light,
+          systemNavigationBarColor:
+              MyColors.colorPrimary, // navigation bar color
+          statusBarColor: MyColors.colorPrimary, // status bar color
+        ));
+      }
     }
   }
 }

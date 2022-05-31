@@ -99,6 +99,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                               backgroundColor: Colors.transparent,
                               elevation: 0,
                               centerTitle: true,
+                              leading: Container(),
                               toolbarHeight: 50,
                               title: Text(
                                 "updated_date".tr().toString() +

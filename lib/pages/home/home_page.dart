@@ -9,6 +9,7 @@ import 'package:currency_converter/pages/my_currency.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
 import 'package:currency_converter/utils/constants.dart';
+import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     debugPrint("didChangeAppLifecycleState $state");
@@ -82,10 +83,12 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       }
     } else if (state == AppLifecycleState.resumed) {
       try {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance!.addPostFrameCallback((_) async {
           _tabController.animateTo(
             0,
           );
+          await Utility.getSelectedColorForUnlock();
+          setState(() {});
         });
       } catch (e) {
         debugPrint("exception in navigation to my currency-->$e");
@@ -107,6 +110,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       appBar: AppBar(
         backgroundColor: MyColors.colorPrimary,
         elevation: 0,
+        leading: Container(),
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

@@ -12,6 +12,8 @@ class Constants {
   static bool removeAdsTrue = false;
   static bool removeAd = false;
   static int isPurchaseOfAds = 0;
+  static String inputValue = "1";
+  static const String currencyInputValue = "1";
   static const String checkWidgetPurchaseAds = 'checkWidgetPurchaseAds';
   static const String yearCheckTimeCons = "yearCheckTimeCons";
   static String isPurchaseOfColors = "[]";

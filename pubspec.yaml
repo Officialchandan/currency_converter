@@ -55,7 +55,7 @@ dependencies:
   fluttertoast:
   flutter_widget_from_html_core:
   basic_utils:
-  flutter_reorderable_list: 1.1.0
+  flutter_reorderable_list: ^1.2.0
   syncfusion_flutter_sliders:
   intl:
   flutter_svg: any
