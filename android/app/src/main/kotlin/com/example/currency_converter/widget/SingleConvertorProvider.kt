@@ -65,18 +65,17 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             val from: String = Utility.getCurrencyCode1(context!!, widgetId)
             val to: String = Utility.getCurrencyCode2(context, widgetId)
 
-
             Utility.setCurrencyCodeFrom(context,from)
             Utility.setCurrencyCodeTo(context, to)
             Utility.setCurrencyInputValue(context, "1")
 
-
             val mainActivity = Intent(context, MainActivity::class.java)
 
-
             mainActivity.putExtra("appWidgetId", widgetId)
-            mainActivity.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-            mainActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(mainActivity)
         }
         super.onReceive(context, intent)

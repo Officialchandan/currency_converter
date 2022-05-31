@@ -74,8 +74,9 @@ class ListWidgetProvider : AppWidgetProvider() {
 
 
             mainActivity.putExtra("appWidgetId", widgetId2)
-            mainActivity.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-            mainActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(mainActivity)
         }
         super.onReceive(context, intent)
