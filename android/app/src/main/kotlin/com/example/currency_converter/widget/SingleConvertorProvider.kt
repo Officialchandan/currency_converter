@@ -55,6 +55,29 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                Toast.makeText(context,"Please connect to internet",Toast.LENGTH_SHORT).show()
                updateWidget(context, appWidgetManager, widgetId, false)
            }
+        }else if(intent.action.toString() == ACTION_OPEN_APP_WIDGET){
+
+            val extras = intent.extras
+            val widgetId = extras!!.getInt("appWidgetId", 0)
+
+
+            Log.e(javaClass.simpleName, "widgetId-->$widgetId")
+            val from: String = Utility.getCurrencyCode1(context!!, widgetId)
+            val to: String = Utility.getCurrencyCode2(context, widgetId)
+
+
+            Utility.setCurrencyCodeFrom(context,from)
+            Utility.setCurrencyCodeTo(context, to)
+            Utility.setCurrencyInputValue(context, "1")
+
+
+            val mainActivity = Intent(context, MainActivity::class.java)
+
+
+            mainActivity.putExtra("appWidgetId", widgetId)
+            mainActivity.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            mainActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(mainActivity)
         }
         super.onReceive(context, intent)
     }
@@ -109,6 +132,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
     companion object {
         val ACTION_WIDGET_CONFIGURE = "ConfigureWidget"
         val ACTION_REFRESH_WIDGET = "RefereshSingleWidget"
+        val ACTION_OPEN_APP_WIDGET = "ACTION_OPEN_APP_WIDGET"
 
 
 
@@ -464,7 +488,9 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                 }
 
 
-                setOnClickPendingIntent(R.id.widget_container, pendingIntent)
+
+
+                setOnClickPendingIntent(R.id.widget_container, getPendingSelfIntentForConvertList(context,ACTION_OPEN_APP_WIDGET,widgetId))
                 setOnClickPendingIntent(R.id.btnSettings, getConfigurePendingIntent(context, widgetId))
                 setOnClickPendingIntent(R.id.btnSettingsDark, getConfigurePendingIntent(context, widgetId))
                 setOnClickPendingIntent(R.id.btnRefresh, getRefreshPendingIntent(context, widgetId, ACTION_REFRESH_WIDGET))
@@ -512,7 +538,21 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
         }
-
+        private fun getPendingSelfIntentForConvertList(
+            context: Context?,
+            action: String?,
+            widgetId: Int
+        ): PendingIntent {
+            val intent = Intent(context, SingleConvertorProvider::class.java)
+            intent.action = action
+            intent.putExtra("appWidgetId", widgetId)
+            return PendingIntent.getBroadcast(
+                context,
+                widgetId,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
 
         @SuppressLint("CheckResult")
         fun converotRate(

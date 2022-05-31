@@ -27,7 +27,7 @@ class ListWidgetKt {
         const val MyOnClick = "myOnClickTag"
 
 
-        private fun getPendingSelfIntentForConvertList(
+         fun getPendingSelfIntentForConvertList(
             context: Context?,
             action: String?,
             widgetId: Int

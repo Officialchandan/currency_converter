@@ -6,6 +6,7 @@ class Constants {
         const val DB_PATH = "/data/user/0/com.currencywiki.currencyconverter/app_flutter/currencyconverter4.db"
         const val baseCurrency = "base_currency"
         const val languageCode = "languageCode"
+        const val currencyInputValue = "currencyInputValue"
         const val monetaryFormat = "monetaryFormat";
         const val decimalFormat = "decimalFormat";
         const val baseAmount = "base_amount"

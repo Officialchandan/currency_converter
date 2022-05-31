@@ -57,11 +57,26 @@ class ListWidgetProvider : AppWidgetProvider() {
             context?.startActivity(intentOpenConfigurationActivity)
         } else if (Intrinsics.areEqual(intent?.action.toString(), TOAST_ACTION)) {
             val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
+            val currencyCode = intent.getStringExtra("currencyCode")
+            val baseCurrency = Utility.loadBaseCurrency(context!!, widgetId2)
+            val amount = Utility.loadAmount(context, widgetId2)
+            Log.e(javaClass.simpleName, "currencyCode--> $currencyCode")
+            Log.e(javaClass.simpleName, "baseCurrency--> $baseCurrency")
+            Log.e(javaClass.simpleName, "amount--> $amount")
+
+            Utility.setCurrencyCodeFrom(context,baseCurrency)
+            Utility.setCurrencyCodeTo(context, currencyCode!!)
+            Utility.setCurrencyInputValue(context, amount)
+
+
+
             val mainActivity = Intent(context, MainActivity::class.java)
+
+
             mainActivity.putExtra("appWidgetId", widgetId2)
             mainActivity.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             mainActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            context?.startActivity(mainActivity)
+            context.startActivity(mainActivity)
         }
         super.onReceive(context, intent)
     }

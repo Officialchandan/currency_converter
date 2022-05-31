@@ -190,10 +190,14 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
         //onclick item listview
         //onclick item listview
 
+
+
         val toastIntent = Intent(context, MainActivity::class.java)
         toastIntent.action = Constants.TOAST_ACTION
         toastIntent.putExtra("position", position)
         toastIntent.putExtra("appWidgetId", widgetId)
+        toastIntent.putExtra("currencyCode", codeList[position])
+
         toastIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         toastIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 //        context.startActivity(toastIntent)

@@ -26,7 +26,21 @@ class Utility {
     companion object {
 
 
-        fun setCurrencyCodeFrom(
+        fun setCurrencyInputValue(
+            context: Context,
+            value: String,
+
+            ): Boolean {
+            val prefs = context.getSharedPreferences(
+                "FlutterSharedPreferences",
+                Context.MODE_PRIVATE
+            );
+            val editor: SharedPreferences.Editor = prefs.edit()
+            editor.putString("flutter." + Constants.currencyInputValue, value)
+            editor.apply()
+            return editor.commit()
+        }
+ fun setCurrencyCodeFrom(
             context: Context,
             value: String,
 
