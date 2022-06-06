@@ -4,7 +4,6 @@ import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,24 +24,23 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _inAppProvider = provider;
-    info();
     getHistory();
     init();
     appsFlyer();
     super.initState();
   }
 
-  void info() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
-    debugPrint("androidDeviceInfo-->>${androidDeviceInfo.androidId}");
-    debugPrint("androidDeviceInfo-->>${androidDeviceInfo.model}");
-  }
+  // void info() async {
+  //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  //   AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
+  //   debugPrint("androidDeviceInfo-->>${androidDeviceInfo.androidId}");
+  //   debugPrint("androidDeviceInfo-->>${androidDeviceInfo.model}");
+  // }
 
   getHistory() async {
-    await _inAppProvider.initPlatformState();
-    await _inAppProvider.getPurchaseHistoryOfAds();
-    await _inAppProvider.getPurchaseHistoryOfColors();
+    _inAppProvider.initPlatformState();
+    _inAppProvider.getPurchaseHistoryOfAds();
+    _inAppProvider.getPurchaseHistoryOfColors();
   }
 
   appsFlyer() {

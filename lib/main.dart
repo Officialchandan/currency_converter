@@ -84,8 +84,8 @@ void main() async {
   await MobileAds.initialize();
   MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
   await EasyLocalization.ensureInitialized();
-  await insertData();
-  await insertion();
+  insertData();
+  insertion();
   await insertColors();
   runApp(ChangeNotifierProvider<InAppProvider>(
     create: (_) => InAppProvider(),
@@ -124,16 +124,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   initAdd() async {
-    await getHistory();
-    await getAds();
+    getHistory();
+    getAds();
     await Utility.getSelectedColorForUnlock();
     setState(() {});
     Utility.notifyThemeChange();
   }
 
   getHistory() async {
-    await _inAppProvider.initPlatformState();
-    await _inAppProvider.getPurchaseHistoryOfAds();
+    _inAppProvider.initPlatformState();
+    _inAppProvider.getPurchaseHistoryOfAds();
     print("IN_Main");
   }
 
@@ -375,7 +375,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 Future<void> insertData() async {
-  await insertDefaultData();
+  insertDefaultData();
 
   Dio _dio = Dio();
   try {
