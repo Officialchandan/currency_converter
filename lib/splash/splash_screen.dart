@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
@@ -6,6 +7,7 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../in_app_parchase/product_provider.dart';
@@ -22,11 +24,30 @@ class _SplashScreenState extends State<SplashScreen> {
   String logEventResponse = "No event have been sent";
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.white, // navigation bar color
+      systemNavigationBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.transparent, // status bar color
+    ));
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _inAppProvider = provider;
+    Timer(
+      const Duration(seconds: 1),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: Constants.textScaleFactor,
+            ),
+            child: const MyTabBarWidget(),
+          ),
+        ),
+      ),
+    );
     getHistory();
-    init();
     appsFlyer();
+    init();
     super.initState();
   }
 
@@ -90,6 +111,14 @@ class _SplashScreenState extends State<SplashScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Colors.white,
+        child: Center(
+          child: Image.asset(
+            'assets/images/splash.png',
+            width: 250,
+            height: 250,
+            fit: BoxFit.cover,
+          ),
+        ),
       ),
     );
   }
@@ -108,13 +137,5 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       Constants.selectedFontSize = Constants.fontSmall;
     }
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  textScaleFactor: Constants.textScaleFactor,
-                ),
-                child: const MyTabBarWidget())));
   }
 }

@@ -1,9 +1,9 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:advertising_id/advertising_id.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:currency_converter/Themes/colors.dart';
-import 'package:currency_converter/database/color_data.dart';
 import 'package:currency_converter/database/coredata.dart';
 import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/splash/splash_screen.dart';
@@ -16,6 +16,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
@@ -24,6 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:workmanager/workmanager.dart';
 
+import 'database/color_data.dart';
 import 'in_app_parchase/product_provider.dart';
 
 final dbHelper = DatabaseHelper.instance;
@@ -77,16 +79,31 @@ void backgroundCallback(Uri? data) async {
 
 Uuid uuid = const Uuid();
 
+void isolate1(String arg) async {
+  insertData();
+  insertion();
+  await insertColors();
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final isolate = await FlutterIsolate.spawn(isolate1, "Db");
+  Timer(const Duration(seconds: 29), () {
+    isolate.pause();
+  });
+  Timer(const Duration(seconds: 30), () {
+    isolate.kill();
+  });
+  Timer(const Duration(seconds: 32), () {
+    FlutterIsolate.killAll();
+  });
+  print("isolate--");
   workmanager.initialize(callbackDispatcher, isInDebugMode: kDebugMode);
   await Utility.getBooleanPreference(Constants.isDarkMode);
   await MobileAds.initialize();
   MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
   await EasyLocalization.ensureInitialized();
-  insertData();
-  insertion();
-  await insertColors();
+
   runApp(ChangeNotifierProvider<InAppProvider>(
     create: (_) => InAppProvider(),
     child: EasyLocalization(
@@ -374,6 +391,89 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+insertColors() async {
+  if (await dbHelper.isColorsExist()) {
+    for (var color in Constants.unlockColors) {
+      String colorCode = color.mainColor.value.toRadixString(16);
+
+      await dbHelper.insertColor(ColorTable(
+        previousColor: 0,
+        colorCode: colorCode,
+        selected: 0,
+        isLocked: ColorsConst.unLockedColor,
+      ));
+
+      for (var dencityColor in color.densityColors) {
+        String code = dencityColor.value.toRadixString(16);
+        await dbHelper.insertDensityColor(DensityColor(
+          previousColor: "0",
+          colorCode: code,
+          selected: "0",
+          parentColorCode: colorCode,
+        ));
+      }
+    }
+
+    for (var color in Constants.lockedColors) {
+      String colorCode = color.lmainColor.value.toRadixString(16);
+
+      await dbHelper.insertColor(ColorTable(
+        previousColor: 0,
+        colorCode: colorCode,
+        selected: 1,
+        isLocked: ColorsConst.lockedColor,
+      ));
+
+      for (var dencityColor in color.ldensityColors) {
+        String code = dencityColor.value.toRadixString(16);
+        await dbHelper.insertDensityColor(DensityColor(
+          previousColor: "0",
+          colorCode: code,
+          selected: "0",
+          parentColorCode: colorCode,
+        ));
+      }
+    }
+
+    String colorCode =
+        Constants.unlockColors.first.mainColor.value.toRadixString(16);
+    await dbHelper.selectColor(ColorTable(
+      previousColor: 0,
+      colorCode: colorCode,
+      selected: 1,
+      isLocked: ColorsConst.unLockedColor,
+    ));
+  }
+
+  List<ColorTable> selectedColor = await dbHelper.getSelectedColor();
+
+  if (selectedColor.isNotEmpty) {
+    ColorTable colorTable = selectedColor.first;
+
+    if (colorTable.isLocked == ColorsConst.lockedColor) {
+      await dbHelper.selectColor(ColorTable(
+        previousColor: 0,
+        colorCode: colorTable.colorCode,
+        selected: 1,
+        isLocked: ColorsConst.lockedColor,
+      ));
+      String colorCode =
+          Constants.unlockColors.first.mainColor.value.toRadixString(16);
+      await dbHelper.selectColor(ColorTable(
+        previousColor: 0,
+        colorCode: colorCode,
+        selected: 0,
+        isLocked: ColorsConst.unLockedColor,
+      ));
+      MyColors.colorPrimary = Constants.unlockColors.first.mainColor;
+    } else {
+      int code = int.parse("0x" + colorTable.colorCode);
+      Color c = Color(code);
+      MyColors.colorPrimary = c;
+    }
+  }
+}
+
 Future<void> insertData() async {
   insertDefaultData();
 
@@ -525,87 +625,4 @@ insertion() async {
   decimal = decimal == "" ? "2" : decimal;
   MyColors.monetaryFormat = int.parse(monetary);
   MyColors.decimalFormat = int.parse(decimal);
-}
-
-insertColors() async {
-  if (await dbHelper.isColorsExist()) {
-    for (var color in Constants.unlockColors) {
-      String colorCode = color.mainColor.value.toRadixString(16);
-
-      await dbHelper.insertColor(ColorTable(
-        previousColor: 0,
-        colorCode: colorCode,
-        selected: 0,
-        isLocked: ColorsConst.unLockedColor,
-      ));
-
-      for (var dencityColor in color.densityColors) {
-        String code = dencityColor.value.toRadixString(16);
-        await dbHelper.insertDensityColor(DensityColor(
-          previousColor: "0",
-          colorCode: code,
-          selected: "0",
-          parentColorCode: colorCode,
-        ));
-      }
-    }
-
-    for (var color in Constants.lockedColors) {
-      String colorCode = color.lmainColor.value.toRadixString(16);
-
-      await dbHelper.insertColor(ColorTable(
-        previousColor: 0,
-        colorCode: colorCode,
-        selected: 1,
-        isLocked: ColorsConst.lockedColor,
-      ));
-
-      for (var dencityColor in color.ldensityColors) {
-        String code = dencityColor.value.toRadixString(16);
-        await dbHelper.insertDensityColor(DensityColor(
-          previousColor: "0",
-          colorCode: code,
-          selected: "0",
-          parentColorCode: colorCode,
-        ));
-      }
-    }
-
-    String colorCode =
-        Constants.unlockColors.first.mainColor.value.toRadixString(16);
-    await dbHelper.selectColor(ColorTable(
-      previousColor: 0,
-      colorCode: colorCode,
-      selected: 1,
-      isLocked: ColorsConst.unLockedColor,
-    ));
-  }
-
-  List<ColorTable> selectedColor = await dbHelper.getSelectedColor();
-
-  if (selectedColor.isNotEmpty) {
-    ColorTable colorTable = selectedColor.first;
-
-    if (colorTable.isLocked == ColorsConst.lockedColor) {
-      await dbHelper.selectColor(ColorTable(
-        previousColor: 0,
-        colorCode: colorTable.colorCode,
-        selected: 1,
-        isLocked: ColorsConst.lockedColor,
-      ));
-      String colorCode =
-          Constants.unlockColors.first.mainColor.value.toRadixString(16);
-      await dbHelper.selectColor(ColorTable(
-        previousColor: 0,
-        colorCode: colorCode,
-        selected: 0,
-        isLocked: ColorsConst.unLockedColor,
-      ));
-      MyColors.colorPrimary = Constants.unlockColors.first.mainColor;
-    } else {
-      int code = int.parse("0x" + colorTable.colorCode);
-      Color c = Color(code);
-      MyColors.colorPrimary = c;
-    }
-  }
 }

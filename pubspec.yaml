@@ -71,6 +71,7 @@ dependencies:
   appsflyer_sdk: 6.4.0
   device_info_plus:
   uuid:
+  flutter_isolate:
 
 
   #For App widget
