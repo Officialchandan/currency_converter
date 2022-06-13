@@ -5,8 +5,10 @@
 	android:initialKeyguardLayout="@layout/single_converter_layout"
 	android:minWidth="150dp"
 	android:minHeight="120dp"
+	android:minResizeWidth="@dimen/_122sdp"
+	android:minResizeHeight="@dimen/_64sdp"
 	android:previewImage="@drawable/widget_single_preview"
-	android:resizeMode="none|horizontal|vertical"
+	android:resizeMode="horizontal|vertical"
 	android:updatePeriodMillis="800000"
 	android:widgetCategory="home_screen">
 

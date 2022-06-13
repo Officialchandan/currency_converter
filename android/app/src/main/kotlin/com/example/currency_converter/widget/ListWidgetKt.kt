@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
@@ -35,12 +36,23 @@ class ListWidgetKt {
             val intent = Intent(context, ListWidgetProvider::class.java)
             intent.action = action
             intent.putExtra("appWidgetId", widgetId)
-            return PendingIntent.getBroadcast(
-                context,
-                widgetId,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT
-            )
+
+             return  if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+                 PendingIntent.getBroadcast(
+                     context,
+                     widgetId,
+                     intent,
+                     PendingIntent.FLAG_IMMUTABLE
+                 )
+             }else{
+                 PendingIntent.getBroadcast(
+                     context,
+                     widgetId,
+                     intent,
+                     PendingIntent.FLAG_UPDATE_CURRENT
+                 )
+             }
+
         }
 
         fun updateAppWidget(
@@ -264,15 +276,30 @@ class ListWidgetKt {
             toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
 
 
-            views.setPendingIntentTemplate(
-                R.id.listCurrency,
-                PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    toastIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S){
+                views.setPendingIntentTemplate(
+                    R.id.listCurrency,
+                    PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        toastIntent,
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
                 )
-            )
+            }else{
+                views.setPendingIntentTemplate(
+                    R.id.listCurrency,
+                    PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        toastIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                )
+            }
+
+
+
 
 //            val pendingIntent = context.let {
 //                HomeWidgetLaunchIntent.getActivity(
