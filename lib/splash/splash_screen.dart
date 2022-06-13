@@ -46,6 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
     getHistory();
+
     appsFlyer();
     init();
     super.initState();
