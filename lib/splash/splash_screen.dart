@@ -1,12 +1,13 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../in_app_parchase/product_provider.dart';
@@ -23,33 +24,51 @@ class _SplashScreenState extends State<SplashScreen> {
   String logEventResponse = "No event have been sent";
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.white, // navigation bar color
+      systemNavigationBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.transparent, // status bar color
+    ));
     final provider = Provider.of<InAppProvider>(context, listen: false);
     _inAppProvider = provider;
-    info();
+    Timer(
+      const Duration(seconds: 1),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: Constants.textScaleFactor,
+            ),
+            child: const MyTabBarWidget(),
+          ),
+        ),
+      ),
+    );
     getHistory();
-    init();
+
     appsFlyer();
+    init();
     super.initState();
   }
 
-  void info() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
-    debugPrint("androidDeviceInfo-->>${androidDeviceInfo.androidId}");
-    debugPrint("androidDeviceInfo-->>${androidDeviceInfo.model}");
-  }
+  // void info() async {
+  //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  //   AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
+  //   debugPrint("androidDeviceInfo-->>${androidDeviceInfo.androidId}");
+  //   debugPrint("androidDeviceInfo-->>${androidDeviceInfo.model}");
+  // }
 
   getHistory() async {
-    await _inAppProvider.initPlatformState();
-    await _inAppProvider.getPurchaseHistoryOfAds();
-    await _inAppProvider.getPurchaseHistoryOfColors();
+    _inAppProvider.initPlatformState();
+    _inAppProvider.getPurchaseHistoryOfAds();
+    _inAppProvider.getPurchaseHistoryOfColors();
   }
 
   appsFlyer() {
     AppsFlyerOptions options = AppsFlyerOptions(
         afDevKey: "sSciSETKRuU6a8cqCETSSJ",
         appId: "com.currencywiki.currencyconverter",
-        disableAdvertisingIdentifier: true,
         showDebug: true);
     Constants.appsflyerSdk = AppsflyerSdk(options);
     Constants.appsflyerSdk.initSdk(
@@ -84,16 +103,6 @@ class _SplashScreenState extends State<SplashScreen> {
     } catch (e) {
       debugPrint("onDeepLinking-->>$e");
     }
-    try {
-      Constants.appsflyerSdk.useReceiptValidationSandbox(true);
-      Constants.appsflyerSdk.onPurchaseValidation(((purchaseValue) {
-        debugPrint("purchaseValue-$purchaseValue");
-      }));
-      // _appsflyerSdk.validateAndLogInAppAndroidPurchase(
-      //     "publicKey", "signature", "purchaseData", "price", "currency", {});
-    } catch (e) {
-      debugPrint("onDeepLinking-->>$e");
-    }
   }
 
   @override
@@ -103,6 +112,14 @@ class _SplashScreenState extends State<SplashScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Colors.white,
+        child: Center(
+          child: Image.asset(
+            'assets/images/splash.png',
+            width: 250,
+            height: 250,
+            fit: BoxFit.cover,
+          ),
+        ),
       ),
     );
   }
@@ -121,13 +138,5 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       Constants.selectedFontSize = Constants.fontSmall;
     }
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  textScaleFactor: Constants.textScaleFactor,
-                ),
-                child: const MyTabBarWidget())));
   }
 }

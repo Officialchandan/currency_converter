@@ -184,22 +184,6 @@ class InAppProvider with ChangeNotifier {
         "getAvailablePurchase4-->${FlutterInappPurchase.instance.consumeAllItems.toString()}");
   }
 
-  Future validateReceipt() async {
-    debugPrint("validateReceipt");
-    try {
-      var isValid = await FlutterInappPurchase.instance.validateReceiptAndroid(
-          packageName: "com.example.currency_converter",
-          productId: "currency.app_no_ads",
-          productToken:
-              "cmoplgpnmdggnbbapbjdbjdp.AO-J1Ox8HO07vAQs3Okd-2zeEimZytu0e38aUdmFplPeTDdPZiCsBR-pVT2IcL41Ol8kyO06-llTpWDJA8A",
-          accessToken:
-              "cmoplgpnmdggnbbapbjdbjdp.AO-J1Ox8HO07vAQs3Okd-2zeEimZytu0e38aUdmFplPeTDdPZiCsBR-pVT2IcL41Ol8kyO06-llTpWDJA8A");
-      debugPrint("isValid-->$isValid");
-    } catch (e) {
-      debugPrint("e---->$e");
-    }
-  }
-
   Future getPurchaseHistoryOfColors() async {
     debugPrint("getPurchaseHistoryOfColors");
     try {
