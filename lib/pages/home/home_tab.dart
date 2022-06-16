@@ -68,8 +68,39 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     initializeDateFormatting();
     Utility.getFormatDate();
     Utility.check();
+    getAds();
     SchedulerBinding.instance!.addPostFrameCallback((_) {});
     super.initState();
+  }
+
+  getAds() async {
+    Constants.isPurchaseOfAds =
+        await Utility.getIntPreference(Constants.yearCheckTimeCons);
+    print('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
+
+    if (Constants.isPurchaseOfAds == 0) {
+      await Utility.setBooleanPreference(
+          Constants.checkWidgetPurchaseAds, false);
+    } else {
+      DateTime purchaseTime =
+          DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+      DateTime dayTimeNow = DateTime(Constants.timeNow.year,
+          Constants.timeNow.month, Constants.timeNow.day);
+      DateTime yearCheckTime = DateTime(
+          purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+      if (dayTimeNow.millisecond <= yearCheckTime.microsecond) {
+        print("dayTimeNowdayTimeNow");
+        await Utility.setBooleanPreference(
+            Constants.checkWidgetPurchaseAds, true);
+      } else {
+        print("falseFalseFalse");
+        await Utility.setBooleanPreference(
+            Constants.checkWidgetPurchaseAds, false);
+      }
+    }
+    bool myValue =
+        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    print('myValue->$myValue');
   }
 
   getHistory() async {
