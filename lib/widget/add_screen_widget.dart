@@ -23,58 +23,43 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   @override
   void initState() {
     log("AddScreenWidget--->");
-    initAds();
+    init();
     super.initState();
   }
 
-  void initAds() async {
-    Constants.isPurchaseOfAds =
-        await Utility.getIntPreference(Constants.yearCheckTimeCons);
-    debugPrint('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
-
-    if (Constants.isPurchaseOfAds == 0) {
-      await Utility.setBooleanPreference(
-          Constants.checkWidgetPurchaseAds, false);
-    } else {
-      DateTime purchaseTime =
-          DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
-      DateTime timeNow = DateTime.now();
-      DateTime dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
-      DateTime yearCheckTime = DateTime(
-          purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
-      if (dayTimeNow.microsecond <= yearCheckTime.microsecond) {
-        debugPrint("dayTimeNowdayTimeNow");
-        getAppPurchase = await Utility.setBooleanPreference(
-            Constants.checkWidgetPurchaseAds, true);
-      } else {
-        debugPrint("falseFalseFalse");
-        getAppPurchase = await Utility.setBooleanPreference(
-            Constants.checkWidgetPurchaseAds, false);
-        addMob();
-      }
+  void init() async {
+    getAppPurchase =
+        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    if (!getAppPurchase) {
+      addMob();
     }
   }
 
   void addMob() {
-    _bannerAd = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.largeBanner,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          log("onAdLoaded--->");
-          setState(() {
-            isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          debugPrint('Failed to load a banner ad: ${err.message}');
-          isBannerAdReady = false;
-          ad.dispose();
-        },
-      ),
-    );
-    Future<void>.delayed(const Duration(seconds: 1), () => _bannerAd!.load());
+    try {
+      _bannerAd = BannerAd(
+        adUnitId: AdHelper.bannerAdUnitId,
+        request: const AdRequest(),
+        size: AdSize.largeBanner,
+        listener: BannerAdListener(
+          onAdLoaded: (_) {
+            log("onAdLoaded--->");
+            setState(() {
+              isBannerAdReady = true;
+            });
+          },
+          onAdFailedToLoad: (ad, err) {
+            debugPrint('Failed to load a banner ad: ${err.message}');
+            isBannerAdReady = false;
+            ad.dispose();
+          },
+        ),
+      );
+      Future<void>.delayed(const Duration(seconds: 1), () => _bannerAd!.load());
+    } catch (e) {
+      debugPrint('E=----$e');
+    }
+    setState(() {});
   }
 
   @override

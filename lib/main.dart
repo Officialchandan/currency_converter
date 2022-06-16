@@ -165,8 +165,9 @@ class _MyAppState extends State<MyApp> {
     } else {
       DateTime purchaseTime =
           DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
-      DateTime timeNow = DateTime.now();
-      DateTime dayTimeNow = DateTime(timeNow.year, timeNow.month, timeNow.day);
+
+      DateTime dayTimeNow = DateTime(Constants.timeNow.year,
+          Constants.timeNow.month, Constants.timeNow.day);
       DateTime yearCheckTime = DateTime(
           purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
       if (dayTimeNow.millisecond <= yearCheckTime.microsecond) {
@@ -177,7 +178,7 @@ class _MyAppState extends State<MyApp> {
         print("falseFalseFalse");
         await Utility.setBooleanPreference(
             Constants.checkWidgetPurchaseAds, false);
-        Future.delayed(const Duration(seconds: 7), () {
+        Future.delayed(const Duration(seconds: 4), () {
           isFirstTime();
         });
       }
@@ -311,11 +312,15 @@ class _MyAppState extends State<MyApp> {
   void getOpenAd() async {
     const appOpenAdTestUnitId = 'ca-app-pub-3940256099942544/3419835294';
     final AppOpenAd appOpenAd = AppOpenAd();
-    if (!appOpenAd.isAvailable) {
-      await appOpenAd.load(unitId: appOpenAdTestUnitId);
-    }
-    if (appOpenAd.isAvailable) {
-      await appOpenAd.show();
+    try {
+      if (!appOpenAd.isAvailable) {
+        await appOpenAd.load(unitId: appOpenAdTestUnitId);
+      }
+      if (appOpenAd.isAvailable) {
+        await appOpenAd.show();
+      }
+    } catch (e) {
+      debugPrint("e--$e");
     }
   }
 

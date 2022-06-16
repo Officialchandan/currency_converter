@@ -33,26 +33,30 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
   }
 
   Future<void> addMobMulticonverter() async {
-    _bannerAd = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          debugPrint('Failed to load a banner ad: ${err.message}');
-          isBannerAdReady = false;
-          setState(() {});
-          ad.dispose();
-        },
-      ),
-    );
+    try {
+      _bannerAd = BannerAd(
+        adUnitId: AdHelper.bannerAdUnitId,
+        request: const AdRequest(),
+        size: AdSize.banner,
+        listener: BannerAdListener(
+          onAdLoaded: (_) {
+            setState(() {
+              isBannerAdReady = true;
+            });
+          },
+          onAdFailedToLoad: (ad, err) {
+            debugPrint('Failed to load a banner ad: ${err.message}');
+            isBannerAdReady = false;
+            setState(() {});
+            ad.dispose();
+          },
+        ),
+      );
 
-    _bannerAd!.load();
+      _bannerAd!.load();
+    } catch (e) {
+      debugPrint('e----$e');
+    }
   }
 
   @override
