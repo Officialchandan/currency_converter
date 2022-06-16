@@ -273,6 +273,7 @@ class ListWidgetKt {
             val toastIntent = Intent(context, ListWidgetProvider::class.java)
             toastIntent.action = Constants.TOAST_ACTION
             toastIntent.putExtra("appWidgetId", appWidgetId)
+//            toastIntent.putExtra("currencyCode", baseCurrency)
             toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
 
 

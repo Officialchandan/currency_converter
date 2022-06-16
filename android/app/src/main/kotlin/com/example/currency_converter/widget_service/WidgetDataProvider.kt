@@ -100,30 +100,6 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
             view.setTextColor(R.id.txtPercent, context.resources.getColor(R.color.white))
         }
 
-//        val pendingIntent = context.let {
-//            HomeWidgetLaunchIntent.getActivity(
-//                it,
-//                MainActivity::class.java
-//            )
-//        }
-//
-//
-//        view.setOnClickPendingIntent(R.id.widget_item, pendingIntent)
-
-//        val toastIntent = Intent(context, ListWidgetProvider::class.java)
-//        toastIntent.action = Constants.TOAST_ACTION
-//        toastIntent.putExtra("appWidgetId", widgetId)
-//
-//        view.setOnClickPendingIntent(
-//            R.id.widget_item,
-//            PendingIntent.getBroadcast(
-//                context,
-//                0,
-//                toastIntent,
-//                PendingIntent.FLAG_UPDATE_CURRENT
-//            )
-//        )
-
 
 
         when (visualSize) {
@@ -183,68 +159,17 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
 
         }
 
-
-//        view.setOnClickResponse()
-
-
-        //onclick item listview
-        //onclick item listview
-
-
-
         val toastIntent = Intent(context, MainActivity::class.java)
         toastIntent.action = Constants.TOAST_ACTION
         toastIntent.putExtra("position", position)
         toastIntent.putExtra("appWidgetId", widgetId)
         toastIntent.putExtra("currencyCode", codeList[position])
 
+
         toastIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         toastIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//        context.startActivity(toastIntent)
 
-//        val intent = Intent(context, ListWidgetProvider::class.java)
-//        intent.action = ACTION_WIDGET_CONFIGURE
-//        intent.putExtra("appWidgetId", widgetId)
-//        val pandingIntent =  PendingIntent.getBroadcast(
-//            context,
-//            widgetId,
-//            intent,
-//            PendingIntent.FLAG_UPDATE_CURRENT
-//        )
-//        view.setOnClickPendingIntent(R.id.widget_item,pandingIntent)
-
-//        val fillInIntent = Intent()
-//        fillInIntent.putExtra("sdf", position)
         view.setOnClickFillInIntent(R.id.widget_item, toastIntent)
-
-//            val toastIntent = Intent(context, ListWidgetProvider::class.java)
-//            toastIntent.action = Constants.TOAST_ACTION
-//            toastIntent.putExtra("appWidgetId", widgetId)
-//            toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
-//
-//
-//            view.setPendingIntentTemplate(
-//                R.id.widget_item,
-//                PendingIntent.getBroadcast(
-//                    context,
-//                    0,
-//                    toastIntent,
-//                    PendingIntent.FLAG_UPDATE_CURRENT
-//                )
-//            )
-
-
-//        // Open App on Widget Click
-//        val pendingIntent = context.let {
-//            HomeWidgetLaunchIntent.getActivity(
-//                it,
-//                MainActivity::class.java
-//            )
-//        }
-//
-//
-//        view.setOnClickPendingIntent(R.id.widget_item, pendingIntent)
-
         return view
     }
 

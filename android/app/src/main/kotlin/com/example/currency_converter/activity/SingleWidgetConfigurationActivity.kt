@@ -96,6 +96,7 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
 
             if (application?.appOpenAdManager != null) {
                 Log.e(javaClass.name, "appOpenAdManager---")
+                application.appOpenAdManager?.onActivityResumed(this)
                 application.appOpenAdManager?.showAdIfAvailable()
             }
         }

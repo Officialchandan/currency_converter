@@ -839,4 +839,5 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
     }
 
 
+
 }
