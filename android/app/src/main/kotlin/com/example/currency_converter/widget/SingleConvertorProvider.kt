@@ -9,6 +9,7 @@ import android.content.SharedPreferences
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -504,12 +505,24 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             val intent = Intent(context, SingleConvertorProvider::class.java)
             intent.action = action
             intent.putExtra("appWidgetId", widgetId)
-            return PendingIntent.getBroadcast(
-                context,
-                widgetId,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT
-            )
+            return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+                 PendingIntent.getBroadcast(
+                    context,
+                    widgetId,
+                    intent,
+                    PendingIntent.FLAG_IMMUTABLE
+                )
+            }else{
+                 PendingIntent.getBroadcast(
+                    context,
+                    widgetId,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            }
+
+
+
 
 //            val intentUpdate = Intent(
 //                context,
@@ -530,13 +543,25 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             val configIntent = Intent(context, SingleWidgetConfigurationActivity::class.java)
             configIntent.action = ACTION_WIDGET_CONFIGURE
             configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-            return PendingIntent.getActivity(
-                context,
-                widgetId,
-                configIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
-            )
+
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+                PendingIntent.getActivity(
+                    context,
+                    widgetId,
+                    configIntent,
+                    PendingIntent.FLAG_IMMUTABLE
+                )
+            }else{
+                PendingIntent.getActivity(
+                    context,
+                    widgetId,
+                    configIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            }
+
         }
+        @SuppressLint("WrongConstant")
         private fun getPendingSelfIntentForConvertList(
             context: Context?,
             action: String?,
@@ -545,12 +570,24 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             val intent = Intent(context, SingleConvertorProvider::class.java)
             intent.action = action
             intent.putExtra("appWidgetId", widgetId)
-            return PendingIntent.getBroadcast(
-                context,
-                widgetId,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT
-            )
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                return PendingIntent.getBroadcast(
+                    context,
+                    widgetId,
+                    intent,
+                    PendingIntent.FLAG_IMMUTABLE
+                )
+
+            } else {
+                return PendingIntent.getBroadcast(
+                    context,
+                    widgetId,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            }
+
         }
 
         @SuppressLint("CheckResult")
