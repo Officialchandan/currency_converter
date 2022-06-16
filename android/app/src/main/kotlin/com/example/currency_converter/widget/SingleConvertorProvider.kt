@@ -257,14 +257,15 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                 val transparency: Float = 1f - (trans.toFloat() / 100)
 
                 val listWidgetProviderWidth =
-                    appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMinWidth", 0)
+                    appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMinWidth", 150)
                 val listWidgetProviderHeight =
-                    appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMaxHeight", 0)
+                    appWidgetManager.getAppWidgetOptions(widgetId).getInt("appWidgetMaxHeight", 120)
 
-                val gradientDrawable = SingleConvertorProvider.getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparency), 0, 0,
+                val gradientDrawable = getWidgetGradientDrawable(Utility.getColorWithAlpha(colorFrom, transparency), 0, 0,
                     context.resources.getDimension(R.dimen._16sdp))
+
                 val bitmap =
-                    SingleConvertorProvider.drawableToBitmap(
+                    drawableToBitmap(
                         gradientDrawable,
                         listWidgetProviderWidth*3,
                         listWidgetProviderHeight*3

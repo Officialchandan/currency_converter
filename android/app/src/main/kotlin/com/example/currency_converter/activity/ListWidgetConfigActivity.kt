@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.currency_converter.activity.MyApplication
 import com.example.currency_converter.activity.SelectCurrencyActivity
 import com.example.currency_converter.adapter.CurrencyCodeAdapter
+import com.example.currency_converter.ads.AppOpenManager
 import com.example.currency_converter.api.ApiClient
 import com.example.currency_converter.databinding.ActivityListWidgetConfigBinding
 import com.example.currency_converter.interfaces.ItemClickListener
@@ -64,7 +65,6 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
             AppWidgetManager.INVALID_APPWIDGET_ID
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
 
-//
 
         Log.e(javaClass.name, "appWidgetId-->$appWidgetId")
 
@@ -90,9 +90,13 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
         })
 
         if (!Utility.isSubscriptionPurchased(this)) {
+
+            var appOpenAdManager: AppOpenManager?=null
+
             val application = application as? MyApplication
             if (application?.appOpenAdManager != null) {
                 Log.e(javaClass.name, "appOpenAdManager---")
+                application.appOpenAdManager?.onActivityResumed(this)
                 application.appOpenAdManager?.showAdIfAvailable()
             }
         }

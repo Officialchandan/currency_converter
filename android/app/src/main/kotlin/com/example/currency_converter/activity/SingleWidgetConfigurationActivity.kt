@@ -100,6 +100,17 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             }
         }
 
+//        if (!Utility.isSubscriptionPurchased(this)) {
+//
+//            var appOpenAdManager: AppOpenManager?=null
+//            appOpenAdManager = AppOpenManager(this.application);
+////            val application = application as? MyApplication
+//            if (appOpenAdManager != null) {
+//                Log.e(javaClass.name, "appOpenAdManager---")
+//                appOpenAdManager?.showAdIfAvailable()
+//            }
+//        }
+
     }
 
     private fun init() {

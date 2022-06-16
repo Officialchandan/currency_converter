@@ -82,9 +82,9 @@ class ListWidgetKt {
             val transparency: Float = 1f - (trans.toFloat() / 100)
 
             val listWidgetProviderWidth =
-                appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMinWidth", 0)
+                appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMinWidth", 150)
             val listWidgetProviderHeight =
-                appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMaxHeight", 0)
+                appWidgetManager.getAppWidgetOptions(appWidgetId).getInt("appWidgetMaxHeight", 120)
 
             val gradientDrawable = Utility.getWidgetGradientDrawable(
                 Utility.getColorWithAlpha(colorFrom, transparency), 0, 0, context.resources.getDimension(

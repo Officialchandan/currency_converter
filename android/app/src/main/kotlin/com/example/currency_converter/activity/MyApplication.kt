@@ -10,7 +10,7 @@ import com.google.android.gms.ads.MobileAds
 class MyApplication : Application() {
 
     var appOpenAdManager: AppOpenManager?=null
-    private var currentActivity: Activity? = null
+
 
     override fun onCreate() {
         super.onCreate()
