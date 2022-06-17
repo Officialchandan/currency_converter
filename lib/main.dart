@@ -183,9 +183,10 @@ class _MyAppState extends State<MyApp> {
         });
       }
     }
-    bool myValue =
+    Constants.getAppPurchase =
         await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
-    print('myValue->$myValue');
+    print('myValue->${Constants.getAppPurchase}');
+    setState(() {});
   }
 
   @override
