@@ -11,7 +11,6 @@ import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,7 +50,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       tabChangeListener(_tabController.index);
       debugPrint("index1->${_tabController.index}");
     });
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     if (MyColors.muliConverter) {
       try {
         _tabController.animateTo(
@@ -71,7 +70,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     debugPrint("didChangeAppLifecycleState $state");
     if (MyColors.muliConverter) {
       if (state == AppLifecycleState.resumed) {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           try {
             _tabController.animateTo(
               1,
@@ -83,7 +82,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       }
     } else if (state == AppLifecycleState.resumed) {
       try {
-        WidgetsBinding.instance!.addPostFrameCallback((_) async {
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
           _tabController.animateTo(
             0,
           );
@@ -98,7 +97,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -128,7 +127,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               },
               physics: const BouncingScrollPhysics(parent: ScrollPhysics()),
               indicatorColor: Colors.white,
-              labelPadding: EdgeInsets.all(0),
+              labelPadding: const EdgeInsets.all(0),
               tabs: <Widget>[
                 Tab(
                   child: SvgPicture.asset(
@@ -217,7 +216,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
               data: MediaQuery.of(context).copyWith(
                 textScaleFactor: Constants.textScaleFactor,
               ),
-              child: MyCurrency(),
+              child: const MyCurrency(),
             ),
             const DecimalScreens(),
             const InkWell(),
@@ -300,7 +299,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     height: 8,
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
+                    margin: const EdgeInsets.only(left: 20, right: 20),
                     child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [

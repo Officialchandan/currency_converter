@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyColors {
   static Color colorPrimary =
-      Color(0xff4e7dcb); //{ this is a color ,which change whole theme }
+      const Color(0xff4e7dcb); //{ this is a color ,which change whole theme }
   static Color firstthemecolorgr1 = colorPrimary.withOpacity(0.5);
   static Color colorPrimary1 = const Color(
       0xFF6289D3); //{ this is a gradient color of theme which is always with  'firstthemecolorgr' }
@@ -50,7 +50,7 @@ class MyColors {
   static String text = "123456.02";
   static bool lastTimeCheck = false;
 
-  static Color lockColorfordefault = Color(0xff4e7dcb);
+  static Color lockColorfordefault = const Color(0xff4e7dcb);
 
   static bool eyeIconSetup = true;
 }

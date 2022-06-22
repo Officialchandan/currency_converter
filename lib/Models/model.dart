@@ -22,7 +22,7 @@ class DataClass {
   String toJson() => json.encode(toMap());
 
   factory DataClass.fromMap(Map<String, dynamic> json) => DataClass(
-        timestamp: json["timestamp"] == null ? null : json["timestamp"],
+        timestamp: json["timestamp"],
         quotes: json["quotes"] == null
             ? null
             : Map.from(json["quotes"])
@@ -38,7 +38,7 @@ class DataClass {
       );
 
   Map<String, dynamic> toMap() => {
-        "timestamp": timestamp == null ? null : timestamp,
+        "timestamp": timestamp,
         "quotes": quotes == null
             ? null
             : Map.from(quotes!).map((k, v) => MapEntry<String, dynamic>(k, v)),

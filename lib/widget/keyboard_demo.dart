@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class KeyboardDemo extends StatefulWidget {
@@ -7,7 +6,7 @@ class KeyboardDemo extends StatefulWidget {
 }
 
 class _KeyboardDemoState extends State<KeyboardDemo> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   bool _readOnly = true;
 
   @override
@@ -16,7 +15,7 @@ class _KeyboardDemoState extends State<KeyboardDemo> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           TextField(
             controller: _controller,
             decoration: InputDecoration(
@@ -24,20 +23,20 @@ class _KeyboardDemoState extends State<KeyboardDemo> {
                 borderRadius: BorderRadius.circular(3),
               ),
             ),
-            style: TextStyle(fontSize: 24),
+            style: const TextStyle(fontSize: 24),
             autofocus: true,
             showCursor: true,
             readOnly: _readOnly,
           ),
           IconButton(
-            icon: Icon(Icons.keyboard),
+            icon: const Icon(Icons.keyboard),
             onPressed: () {
               setState(() {
                 _readOnly = !_readOnly;
               });
             },
           ),
-          Spacer(),
+          const Spacer(),
           CustomKeyboard(
             onTextInput: (myText) {
               _insertText(myText);
@@ -121,7 +120,7 @@ class _KeyboardDemoState extends State<KeyboardDemo> {
 }
 
 class CustomKeyboard extends StatelessWidget {
-  CustomKeyboard({
+  const CustomKeyboard({
     Key? key,
     required this.onTextInput,
     required this.onBackspace,
@@ -282,7 +281,7 @@ class BackspaceKey extends StatelessWidget {
               onBackspace.call();
             },
             child: Container(
-              child: Center(
+              child: const Center(
                 child: Icon(Icons.backspace),
               ),
             ),

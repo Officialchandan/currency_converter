@@ -18,8 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:home_widget/home_widget.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -100,14 +100,14 @@ void main() async {
   print("isolate--");
   workmanager.initialize(callbackDispatcher, isInDebugMode: kDebugMode);
   await Utility.getBooleanPreference(Constants.isDarkMode);
-  await MobileAds.initialize();
-  MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
+  await MobileAds.instance.initialize();
+  // MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
   await EasyLocalization.ensureInitialized();
 
   runApp(ChangeNotifierProvider<InAppProvider>(
     create: (_) => InAppProvider(),
     child: EasyLocalization(
-        child: MyApp(),
+        child: const MyApp(),
         path: "assets/language",
         fallbackLocale: const Locale('en'),
         useFallbackTranslations: true,
@@ -174,6 +174,9 @@ class _MyAppState extends State<MyApp> {
         print("dayTimeNowdayTimeNow");
         await Utility.setBooleanPreference(
             Constants.checkWidgetPurchaseAds, true);
+        Future.delayed(const Duration(seconds: 4), () {
+          isFirstTime();
+        });
       } else {
         print("falseFalseFalse");
         await Utility.setBooleanPreference(
@@ -198,8 +201,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    getOpenAd();
-
     super.dispose();
   }
 
@@ -266,7 +267,7 @@ class _MyAppState extends State<MyApp> {
   void _startBackgroundUpdate() {
     debugPrint("_startBackgroundUpdate--->");
     workmanager.registerPeriodicTask('1', 'widgetBackgroundUpdate',
-        frequency: Duration(minutes: 15));
+        frequency: const Duration(minutes: 15));
   }
 
   void _stopBackgroundUpdate() {
@@ -280,7 +281,7 @@ class _MyAppState extends State<MyApp> {
     var isFirstTime = prefs.getBool('first_time');
     if (isFirstTime != null && !isFirstTime) {
       prefs.setBool('first_time', false);
-      getOpenAd();
+      loadAppOpenAd();
       return false;
     } else {
       prefs.setBool('first_time', false);
@@ -309,19 +310,36 @@ class _MyAppState extends State<MyApp> {
     await Utility.setAdId(Constants.GET_ID, advertisingIds.toString());
   }
 
-  void getOpenAd() async {
+  // void getOpenAd() async {
+  //   const appOpenAdTestUnitId = 'ca-app-pub-3940256099942544/3419835294';
+  //   final AppOpenAd appOpenAd = AppOpenAd();
+  //   try {
+  //     if (!appOpenAd.isAvailable) {
+  //       await appOpenAd.load(unitId: appOpenAdTestUnitId);
+  //     }
+  //     if (appOpenAd.isAvailable) {
+  //       await appOpenAd.show();
+  //     }
+  //   } catch (e) {
+  //     debugPrint("e--$e");
+  //   }
+  // }
+
+  AppOpenAd? myAppOpenAd;
+
+  loadAppOpenAd() {
+    print("loadAppOpenAd-->");
     const appOpenAdTestUnitId = 'ca-app-pub-3940256099942544/3419835294';
-    final AppOpenAd appOpenAd = AppOpenAd();
-    try {
-      if (!appOpenAd.isAvailable) {
-        await appOpenAd.load(unitId: appOpenAdTestUnitId);
-      }
-      if (appOpenAd.isAvailable) {
-        await appOpenAd.show();
-      }
-    } catch (e) {
-      debugPrint("e--$e");
-    }
+    AppOpenAd.load(
+        adUnitId: appOpenAdTestUnitId,
+        request: const AdRequest(),
+        adLoadCallback: AppOpenAdLoadCallback(
+            onAdLoaded: (ad) {
+              myAppOpenAd = ad;
+              myAppOpenAd!.show();
+            },
+            onAdFailedToLoad: (error) {}),
+        orientation: AppOpenAd.orientationPortrait);
   }
 
   final botToastBuilder = BotToastInit();

@@ -11,7 +11,6 @@ import 'package:currency_converter/widget/banner_add_widget.dart';
 import 'package:currency_converter/widget/calculator.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart' hide ReorderableList;
 import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +22,7 @@ import 'package:share/share.dart';
 import 'add_currency_screen.dart';
 
 class MyCurrency extends StatefulWidget {
-  MyCurrency({
+  const MyCurrency({
     Key? key,
   }) : super(key: key);
 
@@ -51,7 +50,7 @@ class _MyCurrencyState extends State<MyCurrency> {
 
   @override
   void initState() {
-    SchedulerBinding.instance!.addPostFrameCallback((_) {});
+    SchedulerBinding.instance.addPostFrameCallback((_) {});
     getSelectedList();
     super.initState();
   }
@@ -198,8 +197,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                                               text, index, selectedList[index]);
                                         },
                                         onTap: () {
-                                          SchedulerBinding.instance!
-                                              .addPostFrameCallback((_) {
+                                          SchedulerBinding.instance.addPostFrameCallback((_) {
                                             isCalculatorVisible = true;
                                             setState(() {});
                                           });
@@ -429,7 +427,7 @@ class _MyCurrencyState extends State<MyCurrency> {
     //   return false;
 
     final draggedItem = selectedList[draggingIndex];
-    SchedulerBinding.instance!.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(() {
         debugPrint("Reordering $item -> $newPosition");
         selectedList.removeAt(draggingIndex);
@@ -626,11 +624,11 @@ class Item extends StatelessWidget {
               children: [
                 MyColors.displayflag && MyColors.displaycode
                     ? DelayedReorderableListener(
-                        delay: Duration(seconds: 1),
+                        delay: const Duration(seconds: 1),
                         canStart: () {
                           return false;
                         },
-                        child: Container(
+                        child: SizedBox(
                             width: 40,
                             height: 40,
                             child: ClipRRect(
@@ -647,7 +645,7 @@ class Item extends StatelessWidget {
 
                 MyColors.displaycode
                     ? DelayedReorderableListener(
-                        delay: Duration(seconds: 1),
+                        delay: const Duration(seconds: 1),
                         child: Container(
                           margin: const EdgeInsets.only(left: 3.0),
                           height: 35.0,
@@ -685,7 +683,7 @@ class Item extends StatelessWidget {
                     : //Currency Code
                     MyColors.displayflag
                         ? DelayedReorderableListener(
-                            delay: Duration(seconds: 1),
+                            delay: const Duration(seconds: 1),
                             child: SizedBox(
                                 width: 40,
                                 height: 40,
@@ -698,7 +696,7 @@ class Item extends StatelessWidget {
                           )
                         : //flag
                         DelayedReorderableListener(
-                            delay: Duration(seconds: 1),
+                            delay: const Duration(seconds: 1),
                             child: Container(
                               margin: const EdgeInsets.only(left: 3.0),
                               height: 35.0,
@@ -732,7 +730,7 @@ class Item extends StatelessWidget {
                 ),
                 MyColors.displayflag && MyColors.displaysymbol
                     ? DelayedReorderableListener(
-                        delay: Duration(seconds: 1),
+                        delay: const Duration(seconds: 1),
                         child: Container(
                           margin: const EdgeInsets.only(left: 3.0),
                           height: 35.0,
@@ -833,8 +831,8 @@ class Item extends StatelessWidget {
                   ),
                 ),
                 DelayedReorderableListener(
-                  delay: Duration(seconds: 1),
-                  child: Container(
+                  delay: const Duration(seconds: 1),
+                  child: SizedBox(
                     width: 50,
                     child: Row(
                       children: [

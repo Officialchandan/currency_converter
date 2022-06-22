@@ -6,9 +6,7 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share/share.dart';
 

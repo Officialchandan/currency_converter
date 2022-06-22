@@ -5,7 +5,6 @@ import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
@@ -10,9 +9,7 @@ import 'package:currency_converter/main.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -1038,9 +1035,9 @@ class _SettingScreenState extends State<SettingScreen>
                   _isContainerVisible
                       ? Container()
                       : Container(
-                          margin: EdgeInsets.only(right: 0, top: 8, bottom: 5),
+                          margin: const EdgeInsets.only(right: 0, top: 8, bottom: 5),
                           width: width * .945,
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               top: 0, left: 15, right: 5, bottom: 5),
                           decoration: BoxDecoration(
                               color: Colors.black26,
@@ -1232,7 +1229,7 @@ class _SettingScreenState extends State<SettingScreen>
 
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsets.only(top: 12),
+                                      padding: const EdgeInsets.only(top: 12),
                                       child: RichText(
                                           textScaleFactor:
                                               Constants.textScaleFactor,
@@ -1441,7 +1438,7 @@ class _SettingScreenState extends State<SettingScreen>
     widget.onThemeChange;
 
     Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (_) => MyTabBarWidget()), (route) => false);
+        MaterialPageRoute(builder: (_) => const MyTabBarWidget()), (route) => false);
   }
 
   showColorPickerDialog(BuildContext context) async {
