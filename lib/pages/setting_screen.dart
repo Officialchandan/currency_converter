@@ -55,7 +55,7 @@ class _SettingScreenState extends State<SettingScreen>
   getPurchase() async {
     getAppPurchase =
         await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
-    if (!getAppPurchase) {
+    if (!Constants.getAppPurchase) {
       Constants.removeAd = false;
     } else {
       Constants.removeAd = true;
@@ -152,7 +152,7 @@ class _SettingScreenState extends State<SettingScreen>
                             inactiveThumbColor: MyColors.textColor,
                             value: Constants.removeAd,
                             onChanged: (value) async {
-                              if (!getAppPurchase) {
+                              if (!Constants.getAppPurchase) {
                                 Constants.removeAd = value;
                                 if (Constants.removeAd) {
                                   await provider
