@@ -8,6 +8,7 @@ class Constants {
   static LColor? isdensityColor;
   // static Map<String, PurchaseDetails>? purchase;
   // static PurchaseDetails? previousPurchase;
+  static bool getAppPurchase = false;
   static late AppsflyerSdk appsflyerSdk;
   static bool removeAdsTrue = false;
   static bool removeAd = false;

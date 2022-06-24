@@ -68,14 +68,14 @@ class InAppProvider with ChangeNotifier {
       this.items.add(item);
     }
     this.items = items;
-    items.forEach((element) {
+    for (var element in items) {
       String currencyPriceData = element.originalJson!;
       var stringDecode = json.decode(currencyPriceData);
       getProductPrice = stringDecode['price'];
       getProductCurrencyCode = stringDecode['price_currency_code'];
       debugPrint("getSubCurrency-${stringDecode['price_currency_code']}");
       debugPrint("getSubCurrency-${stringDecode['price']}");
-    });
+    }
     purchases = [];
     getProductItems = items;
     notifyListeners();
@@ -104,17 +104,17 @@ class InAppProvider with ChangeNotifier {
         await FlutterInappPurchase.instance.getSubscriptions(skus);
     getSubscriptionItems = subItemList;
     purchases = [];
-    subItemList.forEach((element) {
+    for (var element in subItemList) {
       String currencyPriceData = element.originalJson!;
       var stringDecode = json.decode(currencyPriceData);
       getSubscriptionPrice = stringDecode['price'];
       getSubscriptionCurrencyCode = stringDecode['price_currency_code'];
       debugPrint("getSubCurrency-${stringDecode['price_currency_code']}");
       debugPrint("getSubCurrency-${stringDecode['price']}");
-    });
+    }
 
     notifyListeners();
-    debugPrint("subItemList-->${subItemList}");
+    debugPrint("subItemList-->$subItemList");
     return subItemList;
   }
 
@@ -128,7 +128,7 @@ class InAppProvider with ChangeNotifier {
         logEventResponse = onValue.toString();
         notifyListeners();
       }).catchError((onError) {});
-    } on Exception catch (e) {
+    } on Exception {
       debugPrint("ExLogEvent");
     }
     debugPrint("Result logEvent: $result");
@@ -179,7 +179,7 @@ class InAppProvider with ChangeNotifier {
     } catch (err) {
       debugPrint('getAvailablePurchase2: $err');
     }
-    debugPrint("getAvailablePurchase3-->${msg}");
+    debugPrint("getAvailablePurchase3-->$msg");
     debugPrint(
         "getAvailablePurchase4-->${FlutterInappPurchase.instance.consumeAllItems.toString()}");
   }

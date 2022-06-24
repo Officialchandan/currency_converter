@@ -127,8 +127,8 @@ class _LinearGraphScreenState extends State<LinearGraphScreen> {
     if (to.isEmpty) {
       from = "EUR";
     }
-    log("from-->${from}");
-    log("to-->${to}");
+    log("from-->$from");
+    log("to-->$to");
     Response res = await Dio().get("https://www.currency.wiki/api/currency/quotes/$from/$to/784565d2-9c14-4b25-8235-06f6c5029b15");
 
     ConverterData data = ConverterData.fromJson(res.toString());

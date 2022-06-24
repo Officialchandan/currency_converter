@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:native_admob_flutter/native_admob_flutter.dart';
 
 class AdHelper {
   static String get bannerAdUnitId {

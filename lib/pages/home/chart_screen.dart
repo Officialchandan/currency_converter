@@ -1,10 +1,8 @@
 import 'package:currency_converter/widget/add_screen_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -122,7 +120,7 @@ class _ChartScreenState extends State<ChartScreen> {
             top: appHeight * 0.1,
             right: 12,
             left: 12,
-            child: Container(
+            child: SizedBox(
               height: appWidth * 0.75,
               child: SfCartesianChart(
                 backgroundColor: MyColors.isDarkMode

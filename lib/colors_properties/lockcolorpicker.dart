@@ -41,7 +41,7 @@ typedef PickerItemBuilder = Widget Function(
     LColor color, bool isCurrentColor, void Function() changeColor);
 
 class LockColorPicker extends StatefulWidget {
-  LockColorPicker({
+  const LockColorPicker({
     required this.pickerColor,
     required this.onColorChanged,
     required this.availableColors,

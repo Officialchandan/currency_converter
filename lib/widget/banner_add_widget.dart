@@ -27,7 +27,7 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
   void init() async {
     getAppPurchase =
         await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
-    if (!getAppPurchase) {
+    if (!Constants.getAppPurchase) {
       addMobMulticonverter();
     }
   }
@@ -61,7 +61,7 @@ class _BannerAddWidgetState extends State<BannerAddWidget> {
 
   @override
   void dispose() {
-    if (!getAppPurchase) {
+    if (!Constants.getAppPurchase) {
       _bannerAd!.dispose();
     }
     super.dispose();

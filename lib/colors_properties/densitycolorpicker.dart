@@ -7,7 +7,6 @@ import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/src/utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 late Color _currentColor;
 

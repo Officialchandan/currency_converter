@@ -18,8 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:home_widget/home_widget.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -56,13 +56,24 @@ void callbackDispatcher() {
 }
 
 void backgroundCallback(Uri? data) async {
+  print("data--->$data");
   debugPrint("backgroundCallback--->$data");
 
   if (data!.host == 'titleclicked') {
-    final greetings = ['Hello', 'Hallo', 'Bonjour', 'Hola', 'Ciao', '哈洛', '안녕하세요', 'xin chào'];
+    final greetings = [
+      'Hello',
+      'Hallo',
+      'Bonjour',
+      'Hola',
+      'Ciao',
+      '哈洛',
+      '안녕하세요',
+      'xin chào'
+    ];
     final selectedGreeting = greetings[Random().nextInt(greetings.length)];
     await HomeWidget.saveWidgetData<String>('title', selectedGreeting);
-    await HomeWidget.updateWidget(name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
+    await HomeWidget.updateWidget(
+        name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
   }
 }
 
@@ -89,14 +100,14 @@ void main() async {
   print("isolate--");
   workmanager.initialize(callbackDispatcher, isInDebugMode: kDebugMode);
   await Utility.getBooleanPreference(Constants.isDarkMode);
-  await MobileAds.initialize();
-  MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
+  await MobileAds.instance.initialize();
+  // MobileAds.setTestDeviceIds([await Utility.getAdId(Constants.GET_ID)]);
   await EasyLocalization.ensureInitialized();
 
   runApp(ChangeNotifierProvider<InAppProvider>(
     create: (_) => InAppProvider(),
     child: EasyLocalization(
-        child: MyApp(),
+        child: const MyApp(),
         path: "assets/language",
         fallbackLocale: const Locale('en'),
         useFallbackTranslations: true,
@@ -144,27 +155,41 @@ class _MyAppState extends State<MyApp> {
   }
 
   getAds() async {
-    Constants.isPurchaseOfAds = await Utility.getIntPreference(Constants.yearCheckTimeCons);
+    Constants.isPurchaseOfAds =
+        await Utility.getIntPreference(Constants.yearCheckTimeCons);
     print('isPurchaseOfAds->${Constants.isPurchaseOfAds}');
 
     if (Constants.isPurchaseOfAds == 0) {
-      await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, false);
+      await Utility.setBooleanPreference(
+          Constants.checkWidgetPurchaseAds, false);
     } else {
-      DateTime purchaseTime = DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
+      DateTime purchaseTime =
+          DateTime.fromMillisecondsSinceEpoch(Constants.isPurchaseOfAds);
 
-      DateTime dayTimeNow = DateTime(Constants.timeNow.year, Constants.timeNow.month, Constants.timeNow.day);
-      DateTime yearCheckTime = DateTime(purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
+      DateTime dayTimeNow = DateTime(Constants.timeNow.year,
+          Constants.timeNow.month, Constants.timeNow.day);
+      DateTime yearCheckTime = DateTime(
+          purchaseTime.year, purchaseTime.month, purchaseTime.day + 365);
       if (dayTimeNow.millisecond <= yearCheckTime.microsecond) {
         print("dayTimeNowdayTimeNow");
-        await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, true);
+        await Utility.setBooleanPreference(
+            Constants.checkWidgetPurchaseAds, true);
+        Future.delayed(const Duration(seconds: 4), () {
+          isFirstTime();
+        });
       } else {
         print("falseFalseFalse");
-        await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, false);
+        await Utility.setBooleanPreference(
+            Constants.checkWidgetPurchaseAds, false);
         Future.delayed(const Duration(seconds: 4), () {
           isFirstTime();
         });
       }
     }
+    Constants.getAppPurchase =
+        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    print('myValue->${Constants.getAppPurchase}');
+    setState(() {});
     bool myValue = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
     print('myValue->$myValue');
   }
@@ -179,8 +204,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    getOpenAd();
-
     super.dispose();
   }
 
@@ -199,7 +222,8 @@ class _MyAppState extends State<MyApp> {
   _updateWidget() async {
     debugPrint("_updateWidget--->");
     try {
-      return HomeWidget.updateWidget(name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
+      return HomeWidget.updateWidget(
+          name: 'HomeWidgetExampleProvider', iOSName: 'HomeWidgetExample');
     } on PlatformException catch (exception) {
       debugPrint('Error Updating Widget. $exception');
     }
@@ -209,8 +233,11 @@ class _MyAppState extends State<MyApp> {
     debugPrint("_loadData--->");
     try {
       return Future.wait([
-        HomeWidget.getWidgetData<String>('title', defaultValue: 'Default Title').then((value) => debugPrint("title-->$value")),
-        HomeWidget.getWidgetData<String>('message', defaultValue: 'Default Message').then((value) => debugPrint("message-->$value")),
+        HomeWidget.getWidgetData<String>('title', defaultValue: 'Default Title')
+            .then((value) => debugPrint("title-->$value")),
+        HomeWidget.getWidgetData<String>('message',
+                defaultValue: 'Default Message')
+            .then((value) => debugPrint("message-->$value")),
       ]);
     } on PlatformException catch (exception) {
       debugPrint('Error Getting Data. $exception');
@@ -242,7 +269,8 @@ class _MyAppState extends State<MyApp> {
 
   void _startBackgroundUpdate() {
     debugPrint("_startBackgroundUpdate--->");
-    workmanager.registerPeriodicTask('1', 'widgetBackgroundUpdate', frequency: Duration(minutes: 15));
+    workmanager.registerPeriodicTask('1', 'widgetBackgroundUpdate',
+        frequency: const Duration(minutes: 15));
   }
 
   void _stopBackgroundUpdate() {
@@ -256,7 +284,7 @@ class _MyAppState extends State<MyApp> {
     var isFirstTime = prefs.getBool('first_time');
     if (isFirstTime != null && !isFirstTime) {
       prefs.setBool('first_time', false);
-      getOpenAd();
+      loadAppOpenAd();
       return false;
     } else {
       prefs.setBool('first_time', false);
@@ -285,19 +313,36 @@ class _MyAppState extends State<MyApp> {
     await Utility.setAdId(Constants.GET_ID, advertisingIds.toString());
   }
 
-  void getOpenAd() async {
+  // void getOpenAd() async {
+  //   const appOpenAdTestUnitId = 'ca-app-pub-3940256099942544/3419835294';
+  //   final AppOpenAd appOpenAd = AppOpenAd();
+  //   try {
+  //     if (!appOpenAd.isAvailable) {
+  //       await appOpenAd.load(unitId: appOpenAdTestUnitId);
+  //     }
+  //     if (appOpenAd.isAvailable) {
+  //       await appOpenAd.show();
+  //     }
+  //   } catch (e) {
+  //     debugPrint("e--$e");
+  //   }
+  // }
+
+  AppOpenAd? myAppOpenAd;
+
+  loadAppOpenAd() {
+    print("loadAppOpenAd-->");
     const appOpenAdTestUnitId = 'ca-app-pub-3940256099942544/3419835294';
-    final AppOpenAd appOpenAd = AppOpenAd();
-    try {
-      if (!appOpenAd.isAvailable) {
-        await appOpenAd.load(unitId: appOpenAdTestUnitId);
-      }
-      if (appOpenAd.isAvailable) {
-        await appOpenAd.show();
-      }
-    } catch (e) {
-      debugPrint("e--$e");
-    }
+    AppOpenAd.load(
+        adUnitId: appOpenAdTestUnitId,
+        request: const AdRequest(),
+        adLoadCallback: AppOpenAdLoadCallback(
+            onAdLoaded: (ad) {
+              myAppOpenAd = ad;
+              myAppOpenAd!.show();
+            },
+            onAdFailedToLoad: (error) {}),
+        orientation: AppOpenAd.orientationPortrait);
   }
 
   final botToastBuilder = BotToastInit();
@@ -309,7 +354,8 @@ class _MyAppState extends State<MyApp> {
         child = botToastBuilder(context, child);
 
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: Constants.textScaleFactor),
+          data: MediaQuery.of(context)
+              .copyWith(textScaleFactor: Constants.textScaleFactor),
           child: child,
         );
       },
@@ -415,7 +461,8 @@ insertColors() async {
       }
     }
 
-    String colorCode = Constants.unlockColors.first.mainColor.value.toRadixString(16);
+    String colorCode =
+        Constants.unlockColors.first.mainColor.value.toRadixString(16);
     await dbHelper.selectColor(ColorTable(
       previousColor: 0,
       colorCode: colorCode,
@@ -436,7 +483,8 @@ insertColors() async {
         selected: 1,
         isLocked: ColorsConst.lockedColor,
       ));
-      String colorCode = Constants.unlockColors.first.mainColor.value.toRadixString(16);
+      String colorCode =
+          Constants.unlockColors.first.mainColor.value.toRadixString(16);
       await dbHelper.selectColor(ColorTable(
         previousColor: 0,
         colorCode: colorCode,
@@ -457,14 +505,16 @@ Future<void> insertData() async {
 
   Dio _dio = Dio();
   try {
-    String url = "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
+    String url =
+        "https://www.currency.wiki/api/currency/quotes/784565d2-9c14-4b25-8235-06f6c5029b15";
     Response response = await _dio.get(url);
     if (response.statusCode == 200) {
       Map res = response.data!;
       Map<String, dynamic> quotes = res["quotes"];
 
       quotes.forEach((key, value) async {
-        Map<String, dynamic> map = Constants.countryList.singleWhere((element) => element["code"] == key, orElse: () {
+        Map<String, dynamic> map = Constants.countryList
+            .singleWhere((element) => element["code"] == key, orElse: () {
           print("database data ->$key");
 
           return {};
@@ -475,9 +525,23 @@ Future<void> insertData() async {
             code: key,
             image: map["image"],
             name: map["country_name"],
-            fav:
-                (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN" || key == "BTC") ? 1 : 0,
-            selected: (key == "USD" || key == "EUR" || key == "GBP" || key == "CAD" || key == "INR" || key == "MXN") ? 1 : 0,
+            fav: (key == "USD" ||
+                    key == "EUR" ||
+                    key == "GBP" ||
+                    key == "CAD" ||
+                    key == "INR" ||
+                    key == "MXN" ||
+                    key == "BTC")
+                ? 1
+                : 0,
+            selected: (key == "USD" ||
+                    key == "EUR" ||
+                    key == "GBP" ||
+                    key == "CAD" ||
+                    key == "INR" ||
+                    key == "MXN")
+                ? 1
+                : 0,
             symbol: map["Symbol"]);
         int id = await dbHelper.insert(currencyData.toMap());
       });
@@ -570,12 +634,16 @@ Future insertDefaultData() async {
 }
 
 insertion() async {
-  MyColors.displaycode = await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
+  MyColors.displaycode =
+      await Utility.getBoolDisplayCodePreference(Constants.SELECTED_CODE);
 
-  MyColors.muliConverter = await Utility.getMulticonverter(Constants.MultiConverter);
+  MyColors.muliConverter =
+      await Utility.getMulticonverter(Constants.MultiConverter);
 
-  MyColors.displayflag = await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
-  MyColors.displaysymbol = await Utility.getBoolDisplaysymbolPreference(Constants.SELECTED_SYMBOL);
+  MyColors.displayflag =
+      await Utility.getBoolDisplayflagPreference(Constants.SELECTED_FLAG);
+  MyColors.displaysymbol =
+      await Utility.getBoolDisplaysymbolPreference(Constants.SELECTED_SYMBOL);
 
   String monetary = await Utility.getStringPreference(Constants.monetaryFormat);
   String decimal = await Utility.getStringPreference(Constants.decimalFormat);

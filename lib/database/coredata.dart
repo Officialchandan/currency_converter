@@ -11,17 +11,17 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static const _dbName = 'currencyconverter4.db'; //database Name
-  static final _dbVersion = 1; // database Version
-  static final tableName = "conversion"; // table Name
-  static final ColumnId = "id"; //Id
-  static final countryCode = "countryCode";
-  static final countryImage = "countryImage";
-  static final currencyValue = "currencyValue";
-  static final favCountry = "favCountry";
-  static final timeStamp = "timeStamp";
-  static final selectedCountry = "selectedCountry";
-  static final countryName = "countryName";
-  static final symbol = "symbol";
+  static const _dbVersion = 1; // database Version
+  static const tableName = "conversion"; // table Name
+  static const ColumnId = "id"; //Id
+  static const countryCode = "countryCode";
+  static const countryImage = "countryImage";
+  static const currencyValue = "currencyValue";
+  static const favCountry = "favCountry";
+  static const timeStamp = "timeStamp";
+  static const selectedCountry = "selectedCountry";
+  static const countryName = "countryName";
+  static const symbol = "symbol";
 
   DatabaseHelper._p();
 
@@ -200,7 +200,7 @@ class DatabaseHelper {
     try {
       Database db = await instance.database;
       List<Map<String, dynamic>> data = await db.query(tableName,
-          where: "$selectedCountry = ?", whereArgs: [0], orderBy: "$countryCode ASC", groupBy: "$countryCode");
+          where: "$selectedCountry = ?", whereArgs: [0], orderBy: "$countryCode ASC", groupBy: countryCode);
 
       if (data.isNotEmpty) {
         for (var element in data) {
@@ -345,10 +345,10 @@ class DatabaseHelper {
       List<Map<String, dynamic>> result =
           await db.rawQuery("SELECT * FROM ${ColorsConst.colorTable} WHERE ${ColorsConst.selected} = ?", [1]);
       debugPrint("result-->$result");
-      result.forEach((element) {
+      for (var element in result) {
         ColorTable unlockColor = ColorTable.fromMap(element);
         selsctedColors.add(unlockColor);
-      });
+      }
 
       debugPrint("selsctedColors-->$selsctedColors");
     } catch (exception) {

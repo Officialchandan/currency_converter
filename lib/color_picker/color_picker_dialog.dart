@@ -68,7 +68,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   LColor lockCurrentColor =
       LColor(lmainColor: Colors.white, ldensityColors: []);
   Color densityCurrentColor = Colors.blue;
-  String _platformVersion = 'Unknown';
+  final String _platformVersion = 'Unknown';
   MColor selectedColor =
       MColor(mainColor: MyColors.colorPrimary, densityColors: []);
   LColor lselectedColor = LColor(lmainColor: Colors.white, ldensityColors: []);
@@ -410,19 +410,20 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                         ));
                                       }
                                     }
-                                  } else if (lockSelectdColor != null) {
+                                  } else {
                                     await dbHelper.deSelectColor();
-                                    String colorCode = lockSelectdColor.value
-                                        .toRadixString(16);
-                                    await dbHelper.selectColor(ColorTable(
-                                      previousColor: 0,
-                                      colorCode: colorCode,
-                                      selected: 1,
-                                      isLocked: ColorsConst.lockedColor,
-                                    ));
-
-                                    MyColors.colorPrimary = lockSelectdColor;
                                   }
+                                  String colorCode = lockSelectdColor.value
+                                      .toRadixString(16);
+                                  await dbHelper.selectColor(ColorTable(
+                                    previousColor: 0,
+                                    colorCode: colorCode,
+                                    selected: 1,
+                                    isLocked: ColorsConst.lockedColor,
+                                  ));
+
+                                  MyColors.colorPrimary = lockSelectdColor;
+
 
                                   int red = MyColors.colorPrimary.red;
                                   int blue = MyColors.colorPrimary.blue;
@@ -466,7 +467,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) => MyTabBarWidget()),
+                                          builder: (_) => const MyTabBarWidget()),
                                       (route) => true);
                                   Navigator.pop(context);
                                   Navigator.pop(context);

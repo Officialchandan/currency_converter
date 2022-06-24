@@ -6,10 +6,7 @@ import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CurrencyFromWidget extends StatefulWidget {
@@ -31,8 +28,8 @@ class _CurrencyFromWidgetState extends State<CurrencyFromWidget> {
   final StreamController<List<DataModel>> streamController = StreamController();
   TextEditingController edtCurrencyCode = TextEditingController();
   bool starIndex = false;
-  bool _isDisposed = false;
-  bool _isExpanded = false;
+  final bool _isDisposed = false;
+  final bool _isExpanded = false;
   Map<String, double> from = {};
   Map<String, double> to = {};
   Map<String, double> currencyMap = {};

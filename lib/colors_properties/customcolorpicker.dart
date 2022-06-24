@@ -56,7 +56,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
     final provider = Provider.of<InAppProvider>(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height * 0.695,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
@@ -80,7 +80,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
+              SizedBox(
                 width: 150,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -131,7 +131,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                     setState(() {});
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (_) => MyTabBarWidget()),
+                        MaterialPageRoute(builder: (_) => const MyTabBarWidget()),
                         (route) => false);
                   },
                 ),
@@ -199,62 +199,60 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               isLocked: ColorsConst.unLockedColor,
                             ));
 
-                            if (currentColor != null) {
-                              List<Color> densityColorList = [
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade50,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade100,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade200,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade300,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade400,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade500,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade600,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade700,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade800,
-                                flex.ColorTools.createPrimarySwatch(
-                                        currentColor)
-                                    .shade900,
-                              ];
-                              for (var dencityColor in densityColorList) {
-                                String code1 =
-                                    dencityColor.value.toRadixString(16);
-                                await dbHelper.insertDensityColor(DensityColor(
-                                  previousColor: "0",
-                                  colorCode: code1,
-                                  selected: "0",
-                                  parentColorCode: code,
-                                ));
-                              }
-                              await Utility.setStringPreference(
-                                  Constants.primaryColorCode,
-                                  currentColor.value.toRadixString(16));
-                              await Utility.setStringPreference(
-                                  Constants.selectedLockedColor,
-                                  currentColor.value.toRadixString(16));
-                              Utility.notifyThemeChange();
+                            List<Color> densityColorList = [
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade50,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade100,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade200,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade300,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade400,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade500,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade600,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade700,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade800,
+                              flex.ColorTools.createPrimarySwatch(
+                                      currentColor)
+                                  .shade900,
+                            ];
+                            for (var dencityColor in densityColorList) {
+                              String code1 =
+                                  dencityColor.value.toRadixString(16);
+                              await dbHelper.insertDensityColor(DensityColor(
+                                previousColor: "0",
+                                colorCode: code1,
+                                selected: "0",
+                                parentColorCode: code,
+                              ));
                             }
+                            await Utility.setStringPreference(
+                                Constants.primaryColorCode,
+                                currentColor.value.toRadixString(16));
+                            await Utility.setStringPreference(
+                                Constants.selectedLockedColor,
+                                currentColor.value.toRadixString(16));
+                            Utility.notifyThemeChange();
                             widget.onThemeChange();
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => MyTabBarWidget()),
+                                    builder: (_) => const MyTabBarWidget()),
                                 (route) => true);
                             setState(() {});
                           }

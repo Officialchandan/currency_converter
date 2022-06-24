@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:currency_converter/google_admob/ad_helper.dart';
-import 'package:currency_converter/utils/constants.dart';
-import 'package:currency_converter/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+import '../utils/constants.dart';
 
 class AddScreenWidget extends StatefulWidget {
   const AddScreenWidget({Key? key}) : super(key: key);
@@ -19,7 +19,6 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   bool isBannerAdReady = false;
   DateTime? dayTimeNow;
   DateTime? yearCheckTime;
-  bool getAppPurchase = false;
   @override
   void initState() {
     log("AddScreenWidget--->");
@@ -28,11 +27,10 @@ class _AddScreenWidget extends State<AddScreenWidget> {
   }
 
   void init() async {
-    getAppPurchase =
-        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
-    if (!getAppPurchase) {
+    if (!Constants.getAppPurchase) {
       addMob();
     }
+    setState(() {});
   }
 
   void addMob() {
@@ -78,7 +76,7 @@ class _AddScreenWidget extends State<AddScreenWidget> {
 
   @override
   void dispose() {
-    if (!getAppPurchase) {
+    if (!Constants.getAppPurchase) {
       _bannerAd!.dispose();
     }
     super.dispose();

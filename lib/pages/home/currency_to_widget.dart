@@ -6,9 +6,7 @@ import 'package:currency_converter/database/currencydata.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CurrencyToWidget extends StatefulWidget {
@@ -29,7 +27,7 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
   TextEditingController countryNameControllerTwo = TextEditingController();
   StreamController<List<DataModel>> streamController = StreamController();
   bool starIndex = false;
-  bool _isDisposed = false;
+  final bool _isDisposed = false;
   Map<String, double> currencyMap = {};
   List<CurrencyData> currencyList = [];
 
@@ -285,11 +283,11 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
 
   void orderedData() async {
     List<Map<String, dynamic>> orderableData = await dbHelper.order();
-    orderableData.forEach((element) {
+    for (var element in orderableData) {
       DataModel currencyData = DataModel.fromMap(element);
       countrycode.add(currencyData);
       // log("${countrycode.last}");
-    });
+    }
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);
     }
@@ -301,11 +299,11 @@ class _CurrencyToWidgetState extends State<CurrencyToWidget> {
 
   void showAll() async {
     List<Map<String, dynamic>> allRows = await dbHelper.queryAll();
-    allRows.forEach((element) {
+    for (var element in allRows) {
       debugPrint("element-->$element");
       DataModel currencyData = DataModel.fromMap(element);
       countrycode.add(currencyData);
-    });
+    }
     if (!streamController.isClosed) {
       streamController.sink.add(countrycode);
     }

@@ -4,7 +4,6 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/locals.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Language extends StatefulWidget {
@@ -69,7 +68,7 @@ class _LanguageState extends State<Language> {
 
                   String name =
                       Locals.language[index].values.first.languageCode;
-                  debugPrint("lanugate--->${name}");
+                  debugPrint("lanugate--->$name");
 
                   await Utility.setStringPreference("languageCode", name);
                   Utility.notifyLanguageChange();

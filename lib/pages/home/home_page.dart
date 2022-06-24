@@ -11,7 +11,6 @@ import 'package:currency_converter/tramandconditions/teram_and_condition.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -126,7 +125,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
               },
               physics: const BouncingScrollPhysics(parent: ScrollPhysics()),
               indicatorColor: Colors.white,
-              labelPadding: EdgeInsets.all(0),
+              labelPadding: const EdgeInsets.all(0),
               tabs: <Widget>[
                 Tab(
                   child: SvgPicture.asset(
@@ -214,7 +213,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
               data: MediaQuery.of(context).copyWith(
                 textScaleFactor: Constants.textScaleFactor,
               ),
-              child: MyCurrency(),
+              child: const MyCurrency(),
             ),
             const DecimalScreens(),
             const InkWell(),
@@ -289,7 +288,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
                     height: 8,
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
+                    margin: const EdgeInsets.only(left: 20, right: 20),
                     child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(children: [

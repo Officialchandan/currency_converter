@@ -7,7 +7,7 @@ class Calculator extends StatefulWidget {
   final TextEditingController txtController;
   final Function(String text) onChange;
 
-  Calculator({required this.txtController, required this.onChange, Key? key})
+  const Calculator({required this.txtController, required this.onChange, Key? key})
       : super(key: key);
 
   @override
