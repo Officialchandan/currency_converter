@@ -216,10 +216,10 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
         Log.e(javaClass.simpleName, "valueOf->$valueOf")
 
 
-        num = Integer.valueOf(intent.getIntExtra("visualSize", 1))
-        Intrinsics.checkNotNull(num)
-        visualSize = num!!.toInt()
-        Log.e(javaClass.simpleName, "visualSize->$visualSize")
+//        num = Integer.valueOf(intent.getIntExtra("visualSize", 1))
+//        Intrinsics.checkNotNull(num)
+//        visualSize = num!!.toInt()
+
 
         val jsonString = intent.getStringExtra("jsonItems")
         Log.e(javaClass.simpleName, "jsonString->$jsonString")
@@ -248,6 +248,9 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
         Log.e(javaClass.simpleName, "diffrence->$diffrence")
 
          widgetId = intent.getIntExtra("appWidgetId", 100)
+
+        visualSize = Utility.loadVisual(context, widgetId)
+        Log.e(javaClass.simpleName, "visualSize->$visualSize")
         Log.e(javaClass.simpleName, "widgetId->$widgetId")
 
 

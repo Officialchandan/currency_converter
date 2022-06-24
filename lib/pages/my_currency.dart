@@ -83,8 +83,7 @@ class _MyCurrencyState extends State<MyCurrency> {
               Positioned(
                 top: 0,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(12, 0, 12,
-                      isCalculatorVisible == true ? appheight * convertH : 10),
+                  padding: EdgeInsets.fromLTRB(12, 0, 12, isCalculatorVisible == true ? appheight * convertH : 10),
                   height: appheight * 0.898,
                   width: appwidth,
                   child: ReorderableList(
@@ -101,9 +100,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                               leading: Container(),
                               toolbarHeight: 50,
                               title: Text(
-                                "updated_date".tr().toString() +
-                                    " " +
-                                    Utility.getFormatDate().toString(),
+                                "updated_date".tr().toString() + " " + Utility.getFormatDate().toString(),
                                 textScaleFactor: Constants.textScaleFactor,
                                 // textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -136,56 +133,37 @@ class _MyCurrencyState extends State<MyCurrency> {
                                     (BuildContext context, int index) {
                                       if (index == 0 && firstTime) {
                                         debugPrint("firstTime$firstTime");
-                                        selectedList[index].controller.text =
-                                            "1";
-                                        calculateExchangeRate(
-                                            "1", 0, selectedList[index]);
+                                        selectedList[index].controller.text = "1";
+                                        calculateExchangeRate("1", 0, selectedList[index]);
                                         firstTime = false;
                                       }
 
                                       return Item(
                                         data: selectedList[index],
                                         isFirst: index == 0,
-                                        isLast:
-                                            index == selectedList.length - 1,
+                                        isLast: index == selectedList.length - 1,
                                         draggingMode: _draggingMode,
                                         onItemRemove: () async {
-                                          if (selectedList[index].code ==
-                                              await Utility.getStringPreference(
-                                                  "code")) {
-                                            await Utility.setStringPreference(
-                                                "value", "1");
-                                            await Utility.setStringPreference(
-                                                "code", "");
+                                          if (selectedList[index].code == await Utility.getStringPreference("code")) {
+                                            await Utility.setStringPreference("value", "1");
+                                            await Utility.setStringPreference("code", "");
                                           }
 
                                           selectedList.removeAt(index);
 
                                           if (selectedList.isNotEmpty) {
-                                            String s = selectedList.first.value
-                                                .replaceAll(
-                                                    RegExp(r'[^0-9]'), '');
+                                            String s = selectedList.first.value.replaceAll(RegExp(r'[^0-9]'), '');
                                             List<String> str = s.split("");
-                                            if ((str.length -
-                                                        MyColors
-                                                            .decimalFormat) >
-                                                    0 &&
-                                                MyColors.decimalFormat > 0) {
-                                              str.insert(
-                                                  str.length -
-                                                      MyColors.decimalFormat,
-                                                  ".");
+                                            if ((str.length - MyColors.decimalFormat) > 0 && MyColors.decimalFormat > 0) {
+                                              str.insert(str.length - MyColors.decimalFormat, ".");
                                             }
                                             s = "";
                                             for (var element in str) {
                                               s += element;
                                             }
 
-                                            await Utility.setStringPreference(
-                                                "value", s);
-                                            await Utility.setStringPreference(
-                                                "code",
-                                                selectedList.first.code);
+                                            await Utility.setStringPreference("value", s);
+                                            await Utility.setStringPreference("code", selectedList.first.code);
                                             selectedList.first.value = s;
                                             selectedData = selectedList.first;
                                           }
@@ -193,8 +171,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                                           streamController.add(selectedList);
                                         },
                                         onChange: (text) {
-                                          calculateExchangeRate(
-                                              text, index, selectedList[index]);
+                                          calculateExchangeRate(text, index, selectedList[index]);
                                         },
                                         onTap: () {
                                           SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -203,8 +180,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                                           });
 
                                           debugPrint("index------->$index");
-                                          dataController
-                                              .add(selectedList[index]);
+                                          dataController.add(selectedList[index]);
                                         },
                                       );
                                     },
@@ -291,9 +267,7 @@ class _MyCurrencyState extends State<MyCurrency> {
               stream: dataController.stream,
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data != null) {
-                  if ((selectedData != null &&
-                          selectedData!.code != snapshot.data!.code) ||
-                      firstTime) {
+                  if ((selectedData != null && selectedData!.code != snapshot.data!.code) || firstTime) {
                     String s = snapshot.data!.controller.text;
 
                     debugPrint("s--->$s");
@@ -304,8 +278,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                     debugPrint("str--->$str");
                     debugPrint("decimalFormat--->${MyColors.decimalFormat}");
                     debugPrint("${str.length - MyColors.decimalFormat}");
-                    if ((str.length - MyColors.decimalFormat) > 0 &&
-                        MyColors.decimalFormat > 0) {
+                    if ((str.length - MyColors.decimalFormat) > 0 && MyColors.decimalFormat > 0) {
                       str.insert(str.length - MyColors.decimalFormat, ".");
                     }
                     s = "";
@@ -314,16 +287,12 @@ class _MyCurrencyState extends State<MyCurrency> {
                       s += element;
                     }
                     snapshot.data!.controller.text = s;
-                    snapshot.data!.controller.selection = TextSelection(
-                        baseOffset: 0,
-                        extentOffset:
-                            snapshot.data!.controller.value.text.length);
+                    snapshot.data!.controller.selection =
+                        TextSelection(baseOffset: 0, extentOffset: snapshot.data!.controller.value.text.length);
 
-                    int i = selectedList.indexWhere(
-                        (element) => element.code == snapshot.data!.code);
+                    int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
                     if (i != -1) {
-                      calculateExchangeRate(
-                          snapshot.data!.controller.text, i, snapshot.data!);
+                      calculateExchangeRate(snapshot.data!.controller.text, i, snapshot.data!);
                     }
                   }
 
@@ -333,14 +302,11 @@ class _MyCurrencyState extends State<MyCurrency> {
                     txtController: snapshot.data!.controller,
                     onChange: (text) async {
                       await Utility.setStringPreference("value", text);
-                      await Utility.setStringPreference(
-                          "code", snapshot.data!.code);
-                      Constants.selectedEditableCurrencyCode =
-                          snapshot.data!.code;
+                      await Utility.setStringPreference("code", snapshot.data!.code);
+                      Constants.selectedEditableCurrencyCode = snapshot.data!.code;
                       Constants.selectedEditableCurrencyValue = text;
 
-                      int i = selectedList.indexWhere(
-                          (element) => element.code == snapshot.data!.code);
+                      int i = selectedList.indexWhere((element) => element.code == snapshot.data!.code);
                       if (i != -1) {
                         calculateExchangeRate(text, i, snapshot.data!);
                       }
@@ -363,8 +329,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                 appheight - convertH;
               }
               streamController.add([]);
-              await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AddCurrency()));
+              await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddCurrency()));
 
               selectedList.clear();
               selectedList = await dbHelper.getSelectedData();
@@ -377,12 +342,10 @@ class _MyCurrencyState extends State<MyCurrency> {
               debugPrint("code-->$code");
               dataController.addError("error");
               if (value.isNotEmpty && code.isNotEmpty) {
-                int index =
-                    selectedList.indexWhere((element) => element.code == code);
+                int index = selectedList.indexWhere((element) => element.code == code);
                 if (index != -1) {
                   selectedList[index].controller.text = value;
-                  calculateExchangeRate(selectedList[index].controller.text,
-                      index, selectedList[index]);
+                  calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
                 }
               } else {
                 debugPrint("savedvalueisnothere");
@@ -391,8 +354,7 @@ class _MyCurrencyState extends State<MyCurrency> {
 
               streamController.add(selectedList);
             },
-            child: SvgPicture.asset("assets/images/plus-icon.svg",
-                color: MyColors.colorPrimary)),
+            child: SvgPicture.asset("assets/images/plus-icon.svg", color: MyColors.colorPrimary)),
       ),
     );
   }
@@ -462,16 +424,12 @@ class _MyCurrencyState extends State<MyCurrency> {
       debugPrint("d$d");
       for (DataModel element in selectedList) {
         if (element.code != model.code) {
-          double conversionRate = ((double.parse(model.value) * 100) /
-                  (double.parse(element.value) * 100)) *
-              (d);
+          double conversionRate = ((double.parse(model.value) * 100) / (double.parse(element.value) * 100)) * (d);
 
           debugPrint("conversionRate->$conversionRate");
-          String m = getFormatText(
-              conversionRate.toStringAsFixed(MyColors.decimalFormat));
+          String m = getFormatText(conversionRate.toStringAsFixed(MyColors.decimalFormat));
           element.controller.text = m;
-          element.controller.selection = TextSelection.fromPosition(
-              TextPosition(offset: element.controller.text.length));
+          element.controller.selection = TextSelection.fromPosition(TextPosition(offset: element.controller.text.length));
           element.exchangeValue = m;
         }
       }
@@ -564,8 +522,7 @@ class _MyCurrencyState extends State<MyCurrency> {
       int index = selectedList.indexWhere((element) => element.code == code);
       if (index != -1) {
         selectedList[index].controller.text = value;
-        calculateExchangeRate(
-            selectedList[index].controller.text, index, selectedList[index]);
+        calculateExchangeRate(selectedList[index].controller.text, index, selectedList[index]);
       }
     }
     if (mounted) {
@@ -599,8 +556,7 @@ class Item extends StatelessWidget {
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == ReorderableItemState.dragProxy ||
-        state == ReorderableItemState.dragProxyFinished) {
+    if (state == ReorderableItemState.dragProxy || state == ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
       decoration = BoxDecoration(
         color: MyColors.textColor,
@@ -794,8 +750,7 @@ class Item extends StatelessWidget {
                         showCursor: true,
                         readOnly: false,
                         decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                                left: 1.0, right: 1.0, bottom: 15.0),
+                            contentPadding: EdgeInsets.only(left: 1.0, right: 1.0, bottom: 15.0),
                             counterText: "",
                             border: InputBorder.none),
                         onChanged: (String text) async {
@@ -811,16 +766,12 @@ class Item extends StatelessWidget {
                           data.controller.text = text;
 
                           // text = data.controller.text;
-                          data.controller.selection =
-                              TextSelection.fromPosition(TextPosition(
-                                  offset: data.controller.text.length));
+                          data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
                           onChange(text);
                           // calculateExchangeRate(text);
                         },
                         onTap: () async {
-                          data.controller.selection =
-                              TextSelection.fromPosition(TextPosition(
-                                  offset: data.controller.text.length));
+                          data.controller.selection = TextSelection.fromPosition(TextPosition(offset: data.controller.text.length));
                           // isCalculatorVisible = true;
                           // dataController.add(data);
 

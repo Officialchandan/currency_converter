@@ -60,7 +60,6 @@ dependencies:
   flutter_svg: any
   flex_color_picker:
   google_mobile_ads: any
-#  native_admob_flutter: 1.5.0
   provider: any
   flutter_advertising_id: any 
   advertising_id: ^2.1.1
