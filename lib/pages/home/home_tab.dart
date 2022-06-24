@@ -68,7 +68,7 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     Utility.getFormatDate();
     Utility.check();
     getAds();
-    SchedulerBinding.instance!.addPostFrameCallback((_) {});
+    SchedulerBinding.instance.addPostFrameCallback((_) {});
     super.initState();
   }
 
