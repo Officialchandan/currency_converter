@@ -558,6 +558,9 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
     private fun setupRadio(context: Context, appWidgetId: Int) {
 
+
+
+
         binding.radioSmall.setOnCheckedChangeListener { compoundButton, check ->
             if (check) {
                 Utility.saveVisual(context, 1, appWidgetId)

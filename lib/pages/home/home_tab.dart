@@ -90,12 +90,10 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
         await Utility.setBooleanPreference(Constants.checkWidgetPurchaseAds, false);
       }
     }
-    Constants.getAppPurchase =
-        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    Constants.getAppPurchase = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
     print('myValue->${Constants.getAppPurchase}');
     setState(() {});
-    bool myValue =
-        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    bool myValue = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
     print('myValue->$myValue');
   }
 
@@ -708,7 +706,11 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
                   SizedBox(
                     height: appheight * 0.03,
                   ),
-                  _isContainerVisible || _isContainerVisibleTwo ? const SizedBox() : const Center(child: AddScreenWidget())
+                  _isContainerVisible || _isContainerVisibleTwo
+                      ? const SizedBox()
+                      : Constants.getAppPurchase
+                          ? const SizedBox()
+                          : const Center(child: AddScreenWidget())
                 ],
               ),
             ),

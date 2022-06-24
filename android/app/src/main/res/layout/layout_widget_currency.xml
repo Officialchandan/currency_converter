@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/widget_item"
 	android:layout_width="match_parent"
-	android:padding="@dimen/_4sdp"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content"
+	android:padding="@dimen/_4sdp">
 
 	<ImageView
 		android:id="@+id/img_flag"
@@ -19,19 +19,19 @@
 		android:id="@+id/headView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
 		android:layout_marginTop="@dimen/_6sdp"
 		android:layout_toEndOf="@+id/img_flag">
-
 
 		<TextView
 			android:id="@+id/txt_code"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-
+			android:layout_centerVertical="true"
 			android:layout_marginLeft="@dimen/_5sdp"
-
 			android:fontFamily="@font/roboto_medium"
 			android:text="@string/usd"
+
 			android:textSize="@dimen/_16sdp" />
 
 		<TextView
@@ -40,22 +40,21 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
 			android:fontFamily="@font/roboto_bold"
 			android:text="254.55"
 			android:textSize="@dimen/_13sdp"
 			/>
 	</RelativeLayout>
 
-
-
 	<TextView
 		android:id="@+id/txtPercent"
 		style="@style/boldTextView"
 		android:layout_width="wrap_content"
-		android:fontFamily="@font/roboto_medium"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/headView"
 		android:layout_alignParentEnd="true"
+		android:fontFamily="@font/roboto_medium"
 		android:text="+155.5555"
 		android:textSize="@dimen/_10sdp"
 		/>

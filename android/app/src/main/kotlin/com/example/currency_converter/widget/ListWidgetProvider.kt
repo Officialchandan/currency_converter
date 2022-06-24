@@ -53,7 +53,10 @@ class ListWidgetProvider : AppWidgetProvider() {
             val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
             val intentOpenConfigurationActivity = Intent(context, ListWidgetConfigActivity::class.java)
             intentOpenConfigurationActivity.putExtra("appWidgetId", widgetId2)
-            intentOpenConfigurationActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            intentOpenConfigurationActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK)
+            intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK)
             context?.startActivity(intentOpenConfigurationActivity)
         } else if (Intrinsics.areEqual(intent?.action.toString(), TOAST_ACTION)) {
             val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
@@ -71,7 +74,6 @@ class ListWidgetProvider : AppWidgetProvider() {
 
 
             val mainActivity = Intent(context, MainActivity::class.java)
-
 
             mainActivity.putExtra("appWidgetId", widgetId2)
             mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

@@ -476,10 +476,13 @@ class Utility {
                 "FlutterSharedPreferences",
                 Context.MODE_PRIVATE
             )
-            return prefs.getInt(
+            val v =   prefs.getInt(
                 "flutter." + Constants.fontSizeListWidget + "$appWidgetId",
                 1
             )
+            Log.e("loadVisual-->","$v")
+
+            return v
         }
 
         fun saveVisual(context: Context, size: Int, appWidgetId: Int): Boolean {
@@ -487,6 +490,8 @@ class Utility {
                 "FlutterSharedPreferences",
                 Context.MODE_PRIVATE
             )
+            Log.e("saveVisual-->","$size")
+
 
             val editor = prefs.edit()
 

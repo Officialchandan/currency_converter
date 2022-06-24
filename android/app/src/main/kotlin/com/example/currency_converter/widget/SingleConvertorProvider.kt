@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
+import com.example.currency_converter.ListWidgetConfigActivity
 import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
 import com.example.currency_converter.activity.SingleWidgetConfigurationActivity
@@ -78,7 +79,19 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(mainActivity)
+        }else if (Intrinsics.areEqual(intent?.action.toString(), ACTION_UPDATE_WIDGET)) {
+            val extras = intent.extras
+            val widgetId = extras!!.getInt("appWidgetId", 0)
+            val intentOpenConfigurationActivity = Intent(context, SingleWidgetConfigurationActivity::class.java)
+            intentOpenConfigurationActivity.putExtra("appWidgetId", widgetId)
+//            intentOpenConfigurationActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK)
+            intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            context?.startActivity(intentOpenConfigurationActivity)
         }
+
+        //ACTION_UPDATE_WIDGET
         super.onReceive(context, intent)
     }
 
@@ -132,6 +145,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
     companion object {
         val ACTION_WIDGET_CONFIGURE = "ConfigureWidget"
         val ACTION_REFRESH_WIDGET = "RefereshSingleWidget"
+        val ACTION_UPDATE_WIDGET = "ACTION_UPDATE_WIDGET"
         val ACTION_OPEN_APP_WIDGET = "ACTION_OPEN_APP_WIDGET"
 
 
@@ -480,20 +494,10 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                 }
 
 
-                // Open App on Widget Click
-                val pendingIntent = context.let {
-                    HomeWidgetLaunchIntent.getActivity(
-                        it,
-                        MainActivity::class.java
-                    )
-                }
-
-
-
 
                 setOnClickPendingIntent(R.id.widget_container, getPendingSelfIntentForConvertList(context,ACTION_OPEN_APP_WIDGET,widgetId))
-                setOnClickPendingIntent(R.id.btnSettings, getConfigurePendingIntent(context, widgetId))
-                setOnClickPendingIntent(R.id.btnSettingsDark, getConfigurePendingIntent(context, widgetId))
+                setOnClickPendingIntent(R.id.btnSettings, getRefreshPendingIntent(context, widgetId, ACTION_UPDATE_WIDGET))
+                setOnClickPendingIntent(R.id.btnSettingsDark, getRefreshPendingIntent(context, widgetId, ACTION_UPDATE_WIDGET))
                 setOnClickPendingIntent(R.id.btnRefresh, getRefreshPendingIntent(context, widgetId, ACTION_REFRESH_WIDGET))
                 setOnClickPendingIntent(R.id.btnRefreshDark, getRefreshPendingIntent(context, widgetId, ACTION_REFRESH_WIDGET))
 
