@@ -72,6 +72,8 @@ dependencies:
   device_info_plus:
   uuid:
   flutter_isolate:
+  firebase_core:
+  firebase_crashlytics:
   #For App widget
   home_widget:
   workmanager:

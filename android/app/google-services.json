@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "617254065690",
+    "project_id": "new-currency-wiki",
+    "storage_bucket": "new-currency-wiki.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617254065690:android:3ee8eda1aab6ea8e8d23a3",
+        "android_client_info": {
+          "package_name": "com.currencywiki.currencyconverter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617254065690-eobom6fht1cebjukrkg21h63m61rdk7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhnJls6lTTjZXzftas37bNwtIV0CBDP8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617254065690-eobom6fht1cebjukrkg21h63m61rdk7h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
