@@ -150,6 +150,9 @@ class _MyAppState extends State<MyApp> {
     await Utility.getSelectedColorForUnlock();
     setState(() {});
     Utility.notifyThemeChange();
+    if (kDebugMode) {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    } else {}
     // FirebaseCrashlytics.instance.crash();
   }
 
