@@ -12,10 +12,10 @@ import com.example.currency_converter.ListWidgetConfigActivity
 import com.example.currency_converter.MainActivity
 import com.example.currency_converter.R
 import com.example.currency_converter.api.ApiClient
+import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget.ListWidgetKt.Companion.ACTION_LIST_UPDATE_SETTINGS
 import com.example.currency_converter.widget.ListWidgetKt.Companion.MyOnClick
-import com.example.currency_converter.widget.ListWidgetKt.Companion.TOAST_ACTION
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -53,25 +53,30 @@ class ListWidgetProvider : AppWidgetProvider() {
             val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
             val intentOpenConfigurationActivity = Intent(context, ListWidgetConfigActivity::class.java)
             intentOpenConfigurationActivity.putExtra("appWidgetId", widgetId2)
-//            intentOpenConfigurationActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK)
             intentOpenConfigurationActivity.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK)
             context?.startActivity(intentOpenConfigurationActivity)
-        } else if (Intrinsics.areEqual(intent?.action.toString(), TOAST_ACTION)) {
+        } else if (Intrinsics.areEqual(intent?.action.toString(), Constants.TOAST_ACTION)) {
+
             val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
-            val currencyCode = intent.getStringExtra("currencyCode")
+            var currencyCode = intent.getStringExtra("currencyCode")
+
             val baseCurrency = Utility.loadBaseCurrency(context!!, widgetId2)
             val amount = Utility.loadAmount(context, widgetId2)
+
+            Log.e(javaClass.simpleName, "widgetId2--> $widgetId2")
             Log.e(javaClass.simpleName, "currencyCode--> $currencyCode")
             Log.e(javaClass.simpleName, "baseCurrency--> $baseCurrency")
             Log.e(javaClass.simpleName, "amount--> $amount")
 
             Utility.setCurrencyCodeFrom(context,baseCurrency)
-            Utility.setCurrencyCodeTo(context, currencyCode!!)
+            if(currencyCode==null){
+                Utility.setCurrencyCodeTo(context, "EUR")
+            }else{
+                Utility.setCurrencyCodeTo(context, currencyCode)
+            }
             Utility.setCurrencyInputValue(context, amount)
-
-
 
             val mainActivity = Intent(context, MainActivity::class.java)
 

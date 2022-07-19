@@ -24,7 +24,6 @@ class ListWidgetKt {
 
         const val ACTION_LIST_UPDATE_SETTINGS = "intent.action.update_list_widget_settings"
         const val ACTION_WIDGET_CONFIGURE = "ConfigureWidget"
-        const val TOAST_ACTION = "com.currency.android.listWidget.TOAST_ACTION"
         const val MyOnClick = "myOnClickTag"
 
 
@@ -273,11 +272,11 @@ class ListWidgetKt {
             val toastIntent = Intent(context, ListWidgetProvider::class.java)
             toastIntent.action = Constants.TOAST_ACTION
             toastIntent.putExtra("appWidgetId", appWidgetId)
-//            toastIntent.putExtra("currencyCode", baseCurrency)
+//             toastIntent.putExtra("currencyCode", baseCurrency)
             toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
 
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
                 views.setPendingIntentTemplate(
                     R.id.listCurrency,
                     PendingIntent.getBroadcast(
@@ -334,25 +333,7 @@ class ListWidgetKt {
             intent.putExtra("visualSize", visualSize)
             intent.putExtra("appWidgetId", appWidgetId)
             views.setRemoteAdapter(R.id.listCurrency, intent)
-//
-//            val toastIntent = Intent(context, ListWidgetProvider::class.java)
-//            toastIntent.action = Constants.TOAST_ACTION
-//            toastIntent.putExtra("appWidgetId", appWidgetId)
-//            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
-////            toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
-//
-//
-//            views.setPendingIntentTemplate(
-//                R.id.listCurrency,
-//                PendingIntent.getBroadcast(
-//                    context,
-//                    0,
-//                    toastIntent,
-//                    PendingIntent.FLAG_UPDATE_CURRENT
-//                )
-//            )
 
-//            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
 

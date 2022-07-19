@@ -60,6 +60,7 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
 
     override fun onDestroy() {}
     /* JADX WARNING: Removed duplicated region for block: B:32:0x01c6  */ /* JADX WARNING: Removed duplicated region for block: B:33:0x01dc  */ /* Code decompiled incorrectly, please refer to instructions dump. */
+
     override fun getViewAt(position: Int): RemoteViews {
         val view = RemoteViews(context.packageName, R.layout.layout_widget_currency)
         val bitmapOptions = BitmapFactory.Options()
@@ -159,17 +160,16 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
 
         }
 
-        val toastIntent = Intent(context, MainActivity::class.java)
+        val toastIntent = Intent(context, ListWidgetProvider::class.java)
         toastIntent.action = Constants.TOAST_ACTION
         toastIntent.putExtra("position", position)
         toastIntent.putExtra("appWidgetId", widgetId)
+        toastIntent.putExtra("appWidgetId1", widgetId)
         toastIntent.putExtra("currencyCode", codeList[position])
 
 
-        toastIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        toastIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
         view.setOnClickFillInIntent(R.id.widget_item, toastIntent)
+
         return view
     }
 
