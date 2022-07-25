@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,7 +26,8 @@ class MyTabBarWidget extends StatefulWidget {
   State<MyTabBarWidget> createState() => _MyTabBarWidgetState();
 }
 
-class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+class _MyTabBarWidgetState extends State<MyTabBarWidget>
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   List<int> index = [0];
   int escapeIndex = 0;
   int previousIndex = 0;
@@ -39,7 +41,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarIconBrightness: !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
+      systemNavigationBarIconBrightness:
+          !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
       systemNavigationBarColor: MyColors.colorPrimary, // navigation bar color
       statusBarColor: MyColors.colorPrimary, // status bar color
     ));
@@ -181,7 +184,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
         ),
         systemOverlayStyle: SystemUiOverlayStyle(
           // statusBarBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-          statusBarIconBrightness: !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
+          statusBarIconBrightness:
+              !MyColors.isDarkMode ? Brightness.light : Brightness.dark,
 
           // sys
         ),
@@ -246,7 +250,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
     return showModalBottomSheet(
         isDismissible: false,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         ),
 
         //backgroundColor: Colors.transparent,
@@ -255,7 +260,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
           return IntrinsicHeight(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
                 gradient: LinearGradient(
                   colors: [
                     MyColors.colorPrimary.withOpacity(0.5),
@@ -268,7 +275,9 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
                     width: 60,
                     height: 60,
                     margin: const EdgeInsets.only(top: 15, bottom: 8),
@@ -282,7 +291,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
                   Text(
                     "rate_the_app".tr().toString(),
                     textScaleFactor: Constants.textScaleFactor,
-                    style: GoogleFonts.roboto(fontSize: 17, color: MyColors.textColor, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.roboto(
+                        fontSize: 17,
+                        color: MyColors.textColor,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 8,
@@ -305,9 +317,21 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
                     height: 15,
                   ),
                   InkWell(
-                    onTap: () {
-                      _launchURL(
-                          "https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
+                    onTap: () async {
+                      PackageInfo packageInfo =
+                          await PackageInfo.fromPlatform();
+                      try {
+                        _launchURL(
+                            "market://details?id=${packageInfo.packageName}");
+                      } on PlatformException catch (e) {
+                        _launchURL(
+                            "https://play.google.com/store/apps/details?id=${packageInfo.packageName}");
+                      } finally {
+                        _launchURL(
+                            "https://play.google.com/store/apps/details?id=${packageInfo.packageName}");
+                      }
+                      // _launchURL(
+                      //     "https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -348,7 +372,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
                     ),
                   ),
                   Container(
-                      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 30),
                       child: Divider(
                         color: MyColors.textColor,
                         height: 22.2,
@@ -359,17 +384,23 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget> with SingleTickerProvid
                     height: 40,
                     margin: const EdgeInsets.only(top: 5),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: MyColors.textColor),
+                      style:
+                          ElevatedButton.styleFrom(primary: MyColors.textColor),
                       onPressed: () {
                         Navigator.pop(context);
-                        if (_tabController.previousIndex == 2 || _tabController.previousIndex == 4) {
-                          _tabController.animateTo(_tabController.previousIndex);
+                        if (_tabController.previousIndex == 2 ||
+                            _tabController.previousIndex == 4) {
+                          _tabController
+                              .animateTo(_tabController.previousIndex);
                         }
                       },
                       child: AutoSizeText(
                         "not_now".tr().toString(),
                         textScaleFactor: Constants.textScaleFactor,
-                        style: TextStyle(fontSize: 18, color: MyColors.colorPrimary, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: MyColors.colorPrimary,
+                            fontWeight: FontWeight.bold),
                         maxLines: 1,
                       ),
                     ),
@@ -424,7 +455,11 @@ class CurrencyData {
   bool changeIcon = false;
   TextEditingController controller = TextEditingController();
 
-  CurrencyData({required this.key, required this.value, this.favorite = false, this.changeIcon = false});
+  CurrencyData(
+      {required this.key,
+      required this.value,
+      this.favorite = false,
+      this.changeIcon = false});
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
@@ -441,7 +476,10 @@ class CurrencyData {
     Map map = jsonDecode(data);
 
     return CurrencyData(
-        key: map["key"] ?? "", value: map["value"] ?? "", favorite: map["favorite"] ?? false, changeIcon: map["changeIcon"] ?? false);
+        key: map["key"] ?? "",
+        value: map["value"] ?? "",
+        favorite: map["favorite"] ?? false,
+        changeIcon: map["changeIcon"] ?? false);
   }
 
   @override
