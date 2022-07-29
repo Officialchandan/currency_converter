@@ -24,7 +24,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -186,9 +185,9 @@ class _MyAppState extends State<MyApp> {
         print("falseFalseFalse");
         await Utility.setBooleanPreference(
             Constants.checkWidgetPurchaseAds, false);
-        Future.delayed(const Duration(seconds: 4), () {
-          isFirstTime();
-        });
+        // Future.delayed(const Duration(seconds: 4), () {
+        //   isFirstTime();
+        // });
       }
     }
     Constants.getAppPurchase =
@@ -284,19 +283,19 @@ class _MyAppState extends State<MyApp> {
     workmanager.cancelByUniqueName('1');
   }
 
-  Future<bool> isFirstTime() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? firstTime = prefs.getBool('first_time');
-    var isFirstTime = prefs.getBool('first_time');
-    if (isFirstTime != null && !isFirstTime) {
-      prefs.setBool('first_time', false);
-      loadAppOpenAd();
-      return false;
-    } else {
-      prefs.setBool('first_time', false);
-      return true;
-    }
-  }
+  // Future<bool> isFirstTime() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool? firstTime = prefs.getBool('first_time');
+  //   var isFirstTime = prefs.getBool('first_time');
+  //   if (isFirstTime != null && !isFirstTime) {
+  //     prefs.setBool('first_time', false);
+  //     loadAppOpenAd();
+  //     return false;
+  //   } else {
+  //     prefs.setBool('first_time', false);
+  //     return true;
+  //   }
+  // }
 
   initPlatformState() async {
     await Utility.getBooleanPreference(Constants.REMOVE_AD);
@@ -334,22 +333,22 @@ class _MyAppState extends State<MyApp> {
   //   }
   // }
 
-  AppOpenAd? myAppOpenAd;
-
-  loadAppOpenAd() {
-    print("loadAppOpenAd-->");
-    const appOpenAdTestUnitId = 'ca-app-pub-3940256099942544/3419835294';
-    AppOpenAd.load(
-        adUnitId: appOpenAdTestUnitId,
-        request: const AdRequest(),
-        adLoadCallback: AppOpenAdLoadCallback(
-            onAdLoaded: (ad) {
-              myAppOpenAd = ad;
-              myAppOpenAd!.show();
-            },
-            onAdFailedToLoad: (error) {}),
-        orientation: AppOpenAd.orientationPortrait);
-  }
+  // AppOpenAd? myAppOpenAd;
+  //
+  // loadAppOpenAd() {
+  //   print("loadAppOpenAd-->");
+  //   const appOpenAdTestUnitId = 'ca-app-pub-3096560792937908/2624180523';
+  //   AppOpenAd.load(
+  //       adUnitId: appOpenAdTestUnitId,
+  //       request: const AdRequest(),
+  //       adLoadCallback: AppOpenAdLoadCallback(
+  //           onAdLoaded: (ad) {
+  //             myAppOpenAd = ad;
+  //             myAppOpenAd!.show();
+  //           },
+  //           onAdFailedToLoad: (error) {}),
+  //       orientation: AppOpenAd.orientationPortrait);
+  // }
 
   final botToastBuilder = BotToastInit();
   @override

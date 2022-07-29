@@ -321,12 +321,15 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                       PackageInfo packageInfo =
                           await PackageInfo.fromPlatform();
                       try {
+                        print("market");
                         _launchURL(
                             "market://details?id=${packageInfo.packageName}");
                       } on PlatformException catch (e) {
+                        print("https://play.google.com--$e");
                         _launchURL(
                             "https://play.google.com/store/apps/details?id=${packageInfo.packageName}");
                       } finally {
+                        print("market");
                         _launchURL(
                             "https://play.google.com/store/apps/details?id=${packageInfo.packageName}");
                       }
