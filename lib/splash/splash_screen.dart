@@ -7,6 +7,7 @@ import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../in_app_parchase/product_provider.dart';
@@ -21,8 +22,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   late InAppProvider _inAppProvider;
   String logEventResponse = "No event have been sent";
+  String version = "1.0.0";
   @override
   void initState() {
+    getPackage();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.white, // navigation bar color
       systemNavigationBarIconBrightness: Brightness.dark,
@@ -65,15 +68,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   appsFlyer() {
-    AppsFlyerOptions options = AppsFlyerOptions(
-        afDevKey: "sSciSETKRuU6a8cqCETSSJ",
-        appId: "com.currencywiki.currencyconverter",
-        showDebug: true);
+    AppsFlyerOptions options =
+        AppsFlyerOptions(afDevKey: "sSciSETKRuU6a8cqCETSSJ", appId: "com.currencywiki.currencyconverter", showDebug: true);
     Constants.appsflyerSdk = AppsflyerSdk(options);
     Constants.appsflyerSdk.initSdk(
-        registerConversionDataCallback: true,
-        registerOnAppOpenAttributionCallback: true,
-        registerOnDeepLinkingCallback: true);
+        registerConversionDataCallback: true, registerOnAppOpenAttributionCallback: true, registerOnDeepLinkingCallback: true);
 
     try {
       Constants.appsflyerSdk.onAppOpenAttribution((res) {
@@ -96,8 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     try {
-      Constants.appsflyerSdk
-          .onDeepLinking((onDp) => debugPrint("onDp-->$onDp"));
+      Constants.appsflyerSdk.onDeepLinking((onDp) => debugPrint("onDp-->$onDp"));
       Constants.appsflyerSdk.setIsUpdate(true);
     } catch (e) {
       debugPrint("onDeepLinking-->>$e");
@@ -120,12 +118,18 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: Container(
+        height: 50,
+        width: MediaQuery.of(context).size.width,
+        child: Center(
+          child: Text("app version : $version"),
+        ),
+      ),
     );
   }
 
   void init() async {
-    String dateFormat =
-        await Utility.getStringPreference(Constants.DATE_FROMAT);
+    String dateFormat = await Utility.getStringPreference(Constants.DATE_FROMAT);
     if (dateFormat.isNotEmpty) {
       Constants.dateFormat = dateFormat;
     } else {
@@ -137,5 +141,16 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       Constants.selectedFontSize = Constants.fontSmall;
     }
+  }
+
+  void getPackage() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String appName = packageInfo.appName;
+    String packageName = packageInfo.packageName;
+    version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+
+    setState(() {});
   }
 }

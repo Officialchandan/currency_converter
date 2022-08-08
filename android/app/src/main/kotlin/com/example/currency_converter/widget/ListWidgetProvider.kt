@@ -60,19 +60,21 @@ class ListWidgetProvider : AppWidgetProvider() {
         } else if (Intrinsics.areEqual(intent?.action.toString(), Constants.TOAST_ACTION)) {
 
             val widgetId2 = intent!!.getIntExtra("appWidgetId", 0)
+            val widgetId3 = intent!!.getIntExtra("appWidgetId1", 0)
             var currencyCode = intent.getStringExtra("currencyCode")
 
             val baseCurrency = Utility.loadBaseCurrency(context!!, widgetId2)
             val amount = Utility.loadAmount(context, widgetId2)
 
             Log.e(javaClass.simpleName, "widgetId2--> $widgetId2")
+            Log.e(javaClass.simpleName, "widgetId3--> $widgetId3")
             Log.e(javaClass.simpleName, "currencyCode--> $currencyCode")
             Log.e(javaClass.simpleName, "baseCurrency--> $baseCurrency")
             Log.e(javaClass.simpleName, "amount--> $amount")
 
             Utility.setCurrencyCodeFrom(context,baseCurrency)
             if(currencyCode==null){
-                Utility.setCurrencyCodeTo(context, "EUR")
+                Utility.setCurrencyCodeTo(context, baseCurrency)
             }else{
                 Utility.setCurrencyCodeTo(context, currencyCode)
             }

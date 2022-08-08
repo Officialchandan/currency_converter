@@ -515,7 +515,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                     context,
                     widgetId,
                     intent,
-                    PendingIntent.FLAG_IMMUTABLE
+                    PendingIntent.FLAG_MUTABLE
                 )
             }else{
                  PendingIntent.getBroadcast(
@@ -554,7 +554,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                     context,
                     widgetId,
                     configIntent,
-                    PendingIntent.FLAG_IMMUTABLE
+                    PendingIntent.FLAG_MUTABLE
                 )
             }else{
                 PendingIntent.getActivity(
@@ -581,7 +581,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
                     context,
                     widgetId,
                     intent,
-                    PendingIntent.FLAG_IMMUTABLE
+                    PendingIntent.FLAG_MUTABLE
                 )
 
             } else {

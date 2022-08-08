@@ -1,6 +1,7 @@
 package com.example.currency_converter.widget_service
 
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_MUTABLE
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,6 +9,8 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
@@ -161,14 +164,50 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
         }
 
         val toastIntent = Intent(context, ListWidgetProvider::class.java)
+
+        val appWidgetId = widgetId
+        val currencyCode = codeList[position]
+//        val bundle = Bundle()
+//        bundle.putInt("position", position)
+//        bundle.putString("currencyCode",currencyCode)
+//        bundle.putInt("appWidgetId", appWidgetId)
+//        toastIntent.putExtras(bundle)
+
         toastIntent.action = Constants.TOAST_ACTION
         toastIntent.putExtra("position", position)
-        toastIntent.putExtra("appWidgetId", widgetId)
-        toastIntent.putExtra("appWidgetId1", widgetId)
-        toastIntent.putExtra("currencyCode", codeList[position])
-
-
+        toastIntent.putExtra("appWidgetId", appWidgetId)
+        toastIntent.putExtra("currencyCode", currencyCode)
         view.setOnClickFillInIntent(R.id.widget_item, toastIntent)
+
+
+//        val toastIntent = Intent(context, ListWidgetProvider::class.java)
+//        toastIntent.action = Constants.TOAST_ACTION
+//        toastIntent.putExtra("appWidgetId", appWidgetId)
+////             toastIntent.putExtra("currencyCode", baseCurrency)
+//        toastIntent.data = Uri.parse(toastIntent.toUri(Intent.URI_INTENT_SCHEME))
+//
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+//            views.setPendingIntentTemplate(
+//                R.id.listCurrency,
+//                PendingIntent.getBroadcast(
+//                    context,
+//                    0,
+//                    toastIntent,
+//                    PendingIntent.FLAG_MUTABLE
+//                )
+//            )
+//        }else{
+//            views.setPendingIntentTemplate(
+//                R.id.listCurrency,
+//                PendingIntent.getBroadcast(
+//                    context,
+//                    0,
+//                    toastIntent,
+//                    PendingIntent.FLAG_UPDATE_CURRENT
+//                )
+//            )
+//        }
 
         return view
     }
@@ -221,7 +260,7 @@ class WidgetDataProvider(val context: Context, val mIntent: Intent) :
 //        visualSize = num!!.toInt()
 
 
-        val jsonString = intent.getStringExtra("jsonItems")
+        var jsonString = intent.getStringExtra("jsonItems")
         Log.e(javaClass.simpleName, "jsonString->$jsonString")
 
         if (jsonString!!.isNotEmpty()) {

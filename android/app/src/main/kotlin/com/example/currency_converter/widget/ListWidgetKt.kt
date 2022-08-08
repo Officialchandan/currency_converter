@@ -15,6 +15,7 @@ import com.example.currency_converter.R
 import com.example.currency_converter.utils.Constants
 import com.example.currency_converter.utils.Utility
 import com.example.currency_converter.widget_service.ListWidgetService
+import okhttp3.internal.notify
 import kotlin.jvm.internal.Intrinsics
 
 class ListWidgetKt {
@@ -228,6 +229,8 @@ class ListWidgetKt {
             }
 
 
+
+
             val str2: String = MyOnClick
 
             views.setOnClickPendingIntent(
@@ -283,7 +286,7 @@ class ListWidgetKt {
                         context,
                         0,
                         toastIntent,
-                        PendingIntent.FLAG_IMMUTABLE
+                        PendingIntent.FLAG_MUTABLE
                     )
                 )
             }else{
@@ -326,12 +329,15 @@ class ListWidgetKt {
             Intrinsics.checkNotNullParameter(context, "context")
             Intrinsics.checkNotNullParameter(views, "views")
             Intrinsics.checkNotNullParameter(baseCurrency, "baseCurrency")
+
+            Log.e(javaClass.simpleName,"setRemoteAdapter - json->$json")
             val intent = Intent(context, ListWidgetService::class.java)
             intent.putExtra("jsonItems", json)
             intent.putExtra("baseCurrency", baseCurrency)
             intent.putExtra("amount", amount)
             intent.putExtra("visualSize", visualSize)
             intent.putExtra("appWidgetId", appWidgetId)
+
             views.setRemoteAdapter(R.id.listCurrency, intent)
 
         }
