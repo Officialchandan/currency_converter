@@ -89,17 +89,17 @@ class ListWidgetConfigActivity : AppCompatActivity(), ItemClickListener {
 
         })
 
-        if (!Utility.isSubscriptionPurchased(this)) {
-
-            var appOpenAdManager: AppOpenManager?=null
-
-            val application = application as? MyApplication
-            if (application?.appOpenAdManager != null) {
-                Log.e(javaClass.name, "appOpenAdManager---")
-                application.appOpenAdManager?.onActivityResumed(this)
-                application.appOpenAdManager?.showAdIfAvailable()
-            }
-        }
+//        if (!Utility.isSubscriptionPurchased(this)) {
+//
+//            var appOpenAdManager: AppOpenManager?=null
+//
+//            val application = application as? MyApplication
+//            if (application?.appOpenAdManager != null) {
+//                Log.e(javaClass.name, "appOpenAdManager---")
+//                application.appOpenAdManager?.onActivityResumed(this)
+//                application.appOpenAdManager?.showAdIfAvailable()
+//            }
+//        }
 
         accessDB(this);
 

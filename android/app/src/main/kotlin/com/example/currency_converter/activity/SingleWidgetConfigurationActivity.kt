@@ -90,16 +90,16 @@ class SingleWidgetConfigurationActivity : Activity(), ItemClickListener {
             }
         }
 
-        if (!Utility.isSubscriptionPurchased(this)) {
-            Log.e(javaClass.name, "isSubscriptionPurchased")
-            val application = application as? MyApplication
-
-            if (application?.appOpenAdManager != null) {
-                Log.e(javaClass.name, "appOpenAdManager---")
-                application.appOpenAdManager?.onActivityResumed(this)
-                application.appOpenAdManager?.showAdIfAvailable()
-            }
-        }
+//        if (!Utility.isSubscriptionPurchased(this)) {
+//            Log.e(javaClass.name, "isSubscriptionPurchased")
+//            val application = application as? MyApplication
+//
+//            if (application?.appOpenAdManager != null) {
+//                Log.e(javaClass.name, "appOpenAdManager---")
+//                application.appOpenAdManager?.onActivityResumed(this)
+//                application.appOpenAdManager?.showAdIfAvailable()
+//            }
+//        }
 
 //        if (!Utility.isSubscriptionPurchased(this)) {
 //
