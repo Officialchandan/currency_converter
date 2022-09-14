@@ -1035,7 +1035,8 @@ class _SettingScreenState extends State<SettingScreen>
                   _isContainerVisible
                       ? Container()
                       : Container(
-                          margin: const EdgeInsets.only(right: 0, top: 8, bottom: 5),
+                          margin: const EdgeInsets.only(
+                              right: 0, top: 8, bottom: 5),
                           width: width * .945,
                           padding: const EdgeInsets.only(
                               top: 0, left: 15, right: 5, bottom: 5),
@@ -1437,8 +1438,10 @@ class _SettingScreenState extends State<SettingScreen>
     debugPrint("OnColorSelect-->");
     widget.onThemeChange;
 
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (_) => const MyTabBarWidget()), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const MyTabBarWidget()),
+        (route) => false);
   }
 
   showColorPickerDialog(BuildContext context) async {

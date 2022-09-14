@@ -322,17 +322,170 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                             style: ElevatedButton.styleFrom(
                                 primary: Colors.indigoAccent),
                             onPressed: () async {
-                              await provider.getProduct();
+                              print("colorsd-->${colorSelection}");
+                              // await provider.getProduct();
+                              //
+                              // provider.items
+                              //     .map((item) => provider.requestPurchase(item))
+                              //     .toList();
+                              //
+                              // provider.purchaseUpdatedSubscription =
+                              //     FlutterInappPurchase.purchaseUpdated
+                              //         .listen((productItem) async {
+                              //   if (productItem!.productId!.isNotEmpty) {
+                              //     debugPrint("colorEvent");
+                              //     final Map eventValues = {
+                              //       "af_content_id": uuid.v1(),
+                              //       "af_currency":
+                              //           provider.getProductCurrencyCode,
+                              //       "af_revenue": provider.getProductPrice
+                              //     };
+                              //     // provider.logEvent(
+                              //     //     eventName: "colorEvent",
+                              //     //     eventValues: eventValues);
+                              //
+                              //     if (colorSelection != null) {
+                              //       MyColors.lockColorfordefault =
+                              //           lockSelectdColor;
+                              //       MyColors.colorPrimary = colorSelection!;
+                              //       String code = lockSelectdColor.value
+                              //           .toRadixString(16);
+                              //       await dbHelper.deSelectColor();
+                              //       await dbHelper.insertColor(ColorTable(
+                              //         previousColor: 0,
+                              //         colorCode: code,
+                              //         selected: 1,
+                              //         isLocked: ColorsConst.unLockedColor,
+                              //       ));
+                              //
+                              //       await dbHelper.removeColor(ColorTable(
+                              //           colorCode: code,
+                              //           selected: 1,
+                              //           previousColor: 0,
+                              //           isLocked: ColorsConst.lockedColor));
+                              //
+                              //       if (densitySelectedColor != null) {
+                              //         Set<Color> densityColorList = {
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade50,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade100,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade200,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade300,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade400,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade500,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade600,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade700,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade800,
+                              //           ColorTools.createPrimarySwatch(
+                              //                   densitySelectedColor!)
+                              //               .shade900,
+                              //         };
+                              //
+                              //         for (var dencityColor
+                              //             in densityColorList) {
+                              //           String code1 = dencityColor.value
+                              //               .toRadixString(16);
+                              //           await dbHelper
+                              //               .insertDensityColor(DensityColor(
+                              //             previousColor: "0",
+                              //             colorCode: code1,
+                              //             selected: "0",
+                              //             parentColorCode: code,
+                              //           ));
+                              //         }
+                              //       }
+                              //     } else {
+                              //       await dbHelper.deSelectColor();
+                              //     }
+                              //     String colorCode =
+                              //         lockSelectdColor.value.toRadixString(16);
+                              //     await dbHelper.selectColor(ColorTable(
+                              //       previousColor: 0,
+                              //       colorCode: colorCode,
+                              //       selected: 1,
+                              //       isLocked: ColorsConst.lockedColor,
+                              //     ));
+                              //
+                              //     MyColors.colorPrimary = lockSelectdColor;
+                              //
+                              //     int red = MyColors.colorPrimary.red;
+                              //     int blue = MyColors.colorPrimary.blue;
+                              //     int green = MyColors.colorPrimary.green;
+                              //     var grayscale = (0.299 * red) +
+                              //         (0.587 * green) +
+                              //         (0.114 * blue);
+                              //
+                              //     if (grayscale > 200) {
+                              //       MyColors.textColor = Colors.grey.shade700;
+                              //       MyColors.insideTextFieldColor =
+                              //           Colors.white;
+                              //       MyColors.isDarkMode = true;
+                              //     } else {
+                              //       MyColors.textColor = Colors.white;
+                              //       MyColors.insideTextFieldColor =
+                              //           Colors.black;
+                              //       MyColors.isDarkMode = false;
+                              //     }
+                              //     SystemChrome.setSystemUIOverlayStyle(
+                              //         SystemUiOverlayStyle(
+                              //       // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
+                              //       systemNavigationBarIconBrightness:
+                              //           !MyColors.isDarkMode
+                              //               ? Brightness.light
+                              //               : Brightness.dark,
+                              //       systemNavigationBarColor: MyColors
+                              //           .colorPrimary, // navigation bar color
+                              //       statusBarColor: MyColors
+                              //           .colorPrimary, // status bar color
+                              //     ));
+                              //
+                              //     await Utility.setStringPreference(
+                              //         Constants.primaryColorCode,
+                              //         colorSelection!.value.toRadixString(16));
+                              //     Utility.setStringPreference(
+                              //         Constants.selectedLockedColor,
+                              //         colorSelection!.value.toRadixString(16));
+                              //     Utility.notifyThemeChange();
+                              //     widget.onThemeChange();
+                              //     Navigator.pushAndRemoveUntil(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (_) =>
+                              //                 const MyTabBarWidget()),
+                              //         (route) => true);
+                              //     Navigator.pop(context);
+                              //     Navigator.pop(context);
+                              //     setState(() {});
+                              //   }
+                              // });
+                              //
+                              // setState(() {});
 
+                              await provider.getProduct();
                               provider.items
                                   .map((item) => provider.requestPurchase(item))
                                   .toList();
-
                               provider.purchaseUpdatedSubscription =
                                   FlutterInappPurchase.purchaseUpdated
                                       .listen((productItem) async {
                                 if (productItem!.productId!.isNotEmpty) {
-                                  debugPrint("colorEvent");
                                   final Map eventValues = {
                                     "af_content_id": uuid.v1(),
                                     "af_currency":
@@ -340,90 +493,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     "af_revenue": provider.getProductPrice
                                   };
                                   provider.logEvent(
-                                      eventName: "colorEvent",
+                                      eventName: "CustomColorEvent",
                                       eventValues: eventValues);
-
-                                  if (colorSelection != null) {
-                                    MyColors.lockColorfordefault =
-                                        lockSelectdColor;
-                                    MyColors.colorPrimary = colorSelection!;
-                                    String code = lockSelectdColor.value
-                                        .toRadixString(16);
-                                    await dbHelper.deSelectColor();
-                                    await dbHelper.insertColor(ColorTable(
-                                      previousColor: 0,
-                                      colorCode: code,
-                                      selected: 1,
-                                      isLocked: ColorsConst.unLockedColor,
-                                    ));
-
-                                    await dbHelper.removeColor(ColorTable(
-                                        colorCode: code,
-                                        selected: 1,
-                                        previousColor: 0,
-                                        isLocked: ColorsConst.lockedColor));
-
-                                    if (densitySelectedColor != null) {
-                                      Set<Color> densityColorList = {
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade50,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade100,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade200,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade300,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade400,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade500,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade600,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade700,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade800,
-                                        ColorTools.createPrimarySwatch(
-                                                densitySelectedColor!)
-                                            .shade900,
-                                      };
-
-                                      for (var dencityColor
-                                          in densityColorList) {
-                                        String code1 = dencityColor.value
-                                            .toRadixString(16);
-                                        await dbHelper
-                                            .insertDensityColor(DensityColor(
-                                          previousColor: "0",
-                                          colorCode: code1,
-                                          selected: "0",
-                                          parentColorCode: code,
-                                        ));
-                                      }
-                                    }
-                                  } else {
-                                    await dbHelper.deSelectColor();
-                                  }
-                                  String colorCode = lockSelectdColor.value
-                                      .toRadixString(16);
-                                  await dbHelper.selectColor(ColorTable(
-                                    previousColor: 0,
-                                    colorCode: colorCode,
-                                    selected: 1,
-                                    isLocked: ColorsConst.lockedColor,
-                                  ));
-
-                                  MyColors.colorPrimary = lockSelectdColor;
-
+                                  debugPrint("productItem>>>>>>>");
+                                  MyColors.lockColorfordefault =
+                                      colorSelection!;
+                                  MyColors.colorPrimary = colorSelection!;
 
                                   int red = MyColors.colorPrimary.red;
                                   int blue = MyColors.colorPrimary.blue;
@@ -431,7 +506,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   var grayscale = (0.299 * red) +
                                       (0.587 * green) +
                                       (0.114 * blue);
-
                                   if (grayscale > 200) {
                                     MyColors.textColor = Colors.grey.shade700;
                                     MyColors.insideTextFieldColor =
@@ -455,11 +529,72 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     statusBarColor: MyColors
                                         .colorPrimary, // status bar color
                                   ));
+                                  String code =
+                                      colorSelection!.value.toRadixString(16);
+                                  await dbHelper.deSelectColor();
+                                  await dbHelper.insertColor(ColorTable(
+                                    previousColor: 0,
+                                    colorCode: code,
+                                    selected: 0,
+                                    isLocked: ColorsConst.unLockedColor,
+                                  ));
 
+                                  if (densitySelectedColor != null) {
+                                    List<Color> densityColorList = [
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade50,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade100,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade200,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade300,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade400,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade500,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade600,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade700,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade800,
+                                      ColorTools.createPrimarySwatch(
+                                              colorSelection!)
+                                          .shade900,
+                                    ];
+                                    for (var dencityColor in densityColorList) {
+                                      String code1 =
+                                          dencityColor.value.toRadixString(16);
+                                      await dbHelper
+                                          .insertDensityColor(DensityColor(
+                                        previousColor: "0",
+                                        colorCode: code1,
+                                        selected: "0",
+                                        parentColorCode: code,
+                                      ));
+                                    }
+                                  } else {
+                                    await dbHelper.deSelectColor();
+                                  }
                                   await Utility.setStringPreference(
                                       Constants.primaryColorCode,
                                       colorSelection!.value.toRadixString(16));
-                                  Utility.setStringPreference(
+
+                                  await Utility.setStringPreference(
+                                      Constants.themeColor,
+                                      colorSelection!.value.toRadixString(16));
+
+                                  await Utility.setStringPreference(
                                       Constants.selectedLockedColor,
                                       colorSelection!.value.toRadixString(16));
                                   Utility.notifyThemeChange();
@@ -467,14 +602,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) => const MyTabBarWidget()),
+                                          builder: (_) =>
+                                              const MyTabBarWidget()),
                                       (route) => true);
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
                                   setState(() {});
                                 }
                               });
-
                               setState(() {});
                             },
                             child: Text(
@@ -663,6 +796,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       Constants.primaryColorCode,
                                       unlockSelectdColor!.value
                                           .toRadixString(16));
+                                  await Utility.setStringPreference(
+                                      Constants.themeColor,
+                                      unlockSelectdColor!.value
+                                          .toRadixString(16));
                                   Utility.notifyThemeChange();
                                   // Utility.setStringPreference(Constants.themeColor,
                                   //     unlockSelectdColor!.value.toString());
@@ -763,6 +900,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
     lockSelectdColor = color.lmainColor;
     colorSelection = lockSelectdColor;
+    print("HEY_>${colorSelection.toString()}");
     lselectedColor = color;
 
     densitySelectedColor = null;

@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
 
-import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:currency_converter/pages/home/home_page.dart';
 import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
@@ -23,6 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
   late InAppProvider _inAppProvider;
   String logEventResponse = "No event have been sent";
   String version = "1.0.0";
+  Map? _deepLinkData;
+  Map? _gcd;
   @override
   void initState() {
     getPackage();
@@ -48,8 +48,6 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
     getHistory();
-
-    appsFlyer();
     init();
     super.initState();
   }
@@ -65,41 +63,6 @@ class _SplashScreenState extends State<SplashScreen> {
     _inAppProvider.initPlatformState();
     _inAppProvider.getPurchaseHistoryOfAds();
     _inAppProvider.getPurchaseHistoryOfColors();
-  }
-
-  appsFlyer() {
-    AppsFlyerOptions options =
-        AppsFlyerOptions(afDevKey: "sSciSETKRuU6a8cqCETSSJ", appId: "com.currencywiki.currencyconverter", showDebug: true);
-    Constants.appsflyerSdk = AppsflyerSdk(options);
-    Constants.appsflyerSdk.initSdk(
-        registerConversionDataCallback: true, registerOnAppOpenAttributionCallback: true, registerOnDeepLinkingCallback: true);
-
-    try {
-      Constants.appsflyerSdk.onAppOpenAttribution((res) {
-        debugPrint("onAppOpenAttribution res: " + res.toString());
-        log("onAppOpenAttribution res: " + res.toString());
-        setState(() {});
-      });
-    } catch (e) {
-      debugPrint("onAppOpenAttribution-->>$e");
-    }
-
-    try {
-      Constants.appsflyerSdk.onInstallConversionData((res) {
-        debugPrint("onInstallConversionData res: " + res.toString());
-        log("onInstallConversionData res:" + res.toString());
-        setState(() {});
-      });
-    } catch (e) {
-      debugPrint("onInstallConversionData-->>$e");
-    }
-
-    try {
-      Constants.appsflyerSdk.onDeepLinking((onDp) => debugPrint("onDp-->$onDp"));
-      Constants.appsflyerSdk.setIsUpdate(true);
-    } catch (e) {
-      debugPrint("onDeepLinking-->>$e");
-    }
   }
 
   @override
@@ -129,7 +92,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void init() async {
-    String dateFormat = await Utility.getStringPreference(Constants.DATE_FROMAT);
+    String dateFormat =
+        await Utility.getStringPreference(Constants.DATE_FROMAT);
     if (dateFormat.isNotEmpty) {
       Constants.dateFormat = dateFormat;
     } else {

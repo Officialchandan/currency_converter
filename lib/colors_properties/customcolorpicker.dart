@@ -131,7 +131,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                     setState(() {});
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (_) => const MyTabBarWidget()),
+                        MaterialPageRoute(
+                            builder: (_) => const MyTabBarWidget()),
                         (route) => false);
                   },
                 ),
@@ -156,10 +157,10 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                               "af_currency": provider.getProductCurrencyCode,
                               "af_revenue": provider.getProductPrice
                             };
-                            provider.logEvent(
-                                eventName: "CustomColorEvent",
-                                eventValues: eventValues);
-                            debugPrint("productItem>>>>>>>");
+                            // provider.logEvent(
+                            //     eventName: "CustomColorEvent",
+                            //     eventValues: eventValues);
+                            // debugPrint("productItem>>>>>>>");
                             MyColors.lockColorfordefault = currentColor;
                             MyColors.colorPrimary = currentColor;
 
@@ -195,40 +196,30 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                             await dbHelper.insertColor(ColorTable(
                               previousColor: 0,
                               colorCode: code,
-                              selected: 1,
+                              selected: 0,
                               isLocked: ColorsConst.unLockedColor,
                             ));
 
                             List<Color> densityColorList = [
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade50,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade100,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade200,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade300,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade400,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade500,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade600,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade700,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade800,
-                              flex.ColorTools.createPrimarySwatch(
-                                      currentColor)
+                              flex.ColorTools.createPrimarySwatch(currentColor)
                                   .shade900,
                             ];
                             for (var dencityColor in densityColorList) {

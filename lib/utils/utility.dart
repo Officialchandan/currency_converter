@@ -191,20 +191,24 @@ class Utility {
     debugPrint("color->>>> $colorCode");
     debugPrint("color->>>> $colorCode1");
     if (colorCode.isNotEmpty) {
-      int value = int.parse(colorCode);
+      int value = int.parse("0x" + "$colorCode");
+      // int value = int.parse(colorCode);
       var code = (value.toRadixString(16));
       debugPrint("color code ->>>>$code");
-      MyColors.colorPrimary = Color(int.parse("0x$code"));
+      MyColors.colorPrimary = Color(value);
+      // MyColors.colorPrimary = Color(int.parse("0x$code"));
+      // MyColors.colorPrimary = Color(int.parse("0xffff5722"));
       MyColors.calcuColor = MyColors.colorPrimary;
     } else {
       debugPrint("color is empty");
     }
 
     if (colorCode1.isNotEmpty) {
-      int value = int.parse(colorCode1);
-      var code = (value.toRadixString(16));
-      debugPrint("color code ->>>>$code");
-      MyColors.colorPrimary = Color(int.parse("0x$code"));
+      // int value = int.parse(colorCode1);
+      int value = int.parse("0x" + "$colorCode");
+      // var code = (value.toRadixString(16));
+      debugPrint("color code ->>>>$value");
+      MyColors.colorPrimary = Color(value);
       MyColors.calcuColor = MyColors.colorPrimary;
     } else {
       debugPrint("color is empty");
