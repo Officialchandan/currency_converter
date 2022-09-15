@@ -68,8 +68,8 @@ dependencies:
   get: any
   bot_toast: ^4.0.1
   flutter_inapp_purchase: 5.0.0
-#  appsflyer_sdk: ^6.5.2+2
-  appsflyer_sdk: 6.8.2
+  appsflyer_sdk: 6.5.2+2
+#  appsflyer_sdk: 6.8.2
   package_info_plus:
   uuid:
   flutter_isolate:
@@ -78,6 +78,7 @@ dependencies:
   #For App widget
   home_widget:
   workmanager:
+  in_app_review:
 
 
 

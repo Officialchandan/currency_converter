@@ -177,10 +177,18 @@ class _SettingScreenState extends State<SettingScreen>
                                       "af_revenue":
                                           provider.getSubscriptionPrice
                                     };
+
+                                    ///this line for appsFlayer event please remove comment
                                     provider.logEvent(
                                         eventName: "ADEvent",
                                         eventValues: eventValues);
                                     debugPrint("event-->$purchase");
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const MyTabBarWidget()),
+                                        (route) => true);
                                   });
                                 }
                               }

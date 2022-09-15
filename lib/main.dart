@@ -187,6 +187,7 @@ class _MyAppState extends State<MyApp> {
         _gcd = res;
       });
     });
+
     Constants.appsflyerSdk.onDeepLinking((DeepLinkResult dp) {
       switch (dp.status) {
         case Status.FOUND:
@@ -405,9 +406,16 @@ class _MyAppState extends State<MyApp> {
   //       orientation: AppOpenAd.orientationPortrait);
   // }
 
+  @override
+  void didUpdateWidget(covariant MyApp oldWidget) {
+    print("didUpdate---");
+    super.didUpdateWidget(oldWidget);
+  }
+
   final botToastBuilder = BotToastInit();
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<InAppProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
@@ -420,11 +428,13 @@ class _MyAppState extends State<MyApp> {
         );
       },
       theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          fontFamily: GoogleFonts.roboto().fontFamily,
-          primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          primaryColor: MyColors.colorPrimary),
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: GoogleFonts.roboto().fontFamily,
+        primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: MyColors.colorPrimary,
+        textSelectionTheme: provider.handlesColors(),
+      ),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

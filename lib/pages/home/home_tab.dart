@@ -98,10 +98,12 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
             Constants.checkWidgetPurchaseAds, false);
       }
     }
-    Constants.getAppPurchase = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    Constants.getAppPurchase =
+        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
     print('myValue->${Constants.getAppPurchase}');
     setState(() {});
-    bool myValue = await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
+    bool myValue =
+        await Utility.getBooleanPreference(Constants.checkWidgetPurchaseAds);
     print('myValue->$myValue');
   }
 

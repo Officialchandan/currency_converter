@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -116,6 +117,16 @@ class InAppProvider with ChangeNotifier {
     notifyListeners();
     debugPrint("subItemList-->$subItemList");
     return subItemList;
+  }
+
+  TextSelectionThemeData handlesColors() {
+    TextSelectionThemeData textSelectionThemeData = TextSelectionThemeData(
+        selectionHandleColor: MyColors.colorPrimary,
+        cursorColor: MyColors.colorPrimary,
+        selectionColor: MyColors.colorPrimary.withOpacity(0.4));
+    notifyListeners();
+    notifyListeners();
+    return textSelectionThemeData;
   }
 
   Future<bool?> logEvent({required String eventName, Map? eventValues}) async {

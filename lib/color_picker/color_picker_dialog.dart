@@ -800,6 +800,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       Constants.themeColor,
                                       unlockSelectdColor!.value
                                           .toRadixString(16));
+
                                   Utility.notifyThemeChange();
                                   // Utility.setStringPreference(Constants.themeColor,
                                   //     unlockSelectdColor!.value.toString());
@@ -811,7 +812,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       .add(widget.isUnlockColorSelect);
                                   // themepicker(densitySelectedColor.value.toString());
                                   // themepicker(unlockSelectdColor!.value.toString());
-
+                                  setState(() {
+                                    provider.handlesColors();
+                                  });
                                   widget.onThemeChange();
                                   Navigator.pop(context);
                                 },
