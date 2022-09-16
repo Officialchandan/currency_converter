@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-	android:configure="com.example.currency_converter.activity.SingleWidgetConfigurationActivity"
+	android:configure="com.currencywiki.currencyconverter.activity.SingleWidgetConfigurationActivity"
 	android:initialLayout="@layout/single_converter_layout"
 	android:initialKeyguardLayout="@layout/single_converter_layout"
 	android:minWidth="150dp"

@@ -25,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Map? _gcd;
   @override
   void initState() {
+    init();
     getPackage();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.white, // navigation bar color
@@ -48,7 +49,6 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
     getHistory();
-    init();
     super.initState();
   }
 
@@ -102,9 +102,24 @@ class _SplashScreenState extends State<SplashScreen> {
     String fonts = await Utility.getStringPreference(Constants.fontSize);
     if (fonts.isNotEmpty) {
       Constants.selectedFontSize = fonts;
+      print("font-->$fonts");
+      if (Constants.selectedFontSize == 'fontLarge') {
+        Constants.textScaleFactor = 1;
+      } else if (Constants.selectedFontSize == "fontMedium") {
+        Constants.textScaleFactor = .95;
+      } else if (Constants.selectedFontSize == "fontSmall") {
+        Constants.textScaleFactor = 0.9;
+      } else {
+        Constants.textScaleFactor = 0.9;
+        Constants.selectedFontSize = Constants.fontSmall;
+      }
+      // Constants.textScaleFactor = 1;
     } else {
+      print("print_on_else");
+      Constants.textScaleFactor = 0.9;
       Constants.selectedFontSize = Constants.fontSmall;
     }
+    setState(() {});
   }
 
   void getPackage() async {

@@ -84,12 +84,13 @@ Uuid uuid = const Uuid();
 
 void isolate1(String arg) async {
   insertData();
-  insertion();
+
   await insertColors();
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await insertion();
   final isolate = await FlutterIsolate.spawn(isolate1, "Db");
   Timer(const Duration(seconds: 29), () {
     isolate.pause();
@@ -146,10 +147,10 @@ class _MyAppState extends State<MyApp> {
     HomeWidget.setAppGroupId('YOUR_GROUP_ID');
     HomeWidget.registerBackgroundCallback(backgroundCallback);
     super.initState();
+    appsFlyer();
   }
 
   initAdd() async {
-    appsFlyer();
     getHistory();
     getAds();
     await Utility.getSelectedColorForUnlock();
@@ -164,10 +165,11 @@ class _MyAppState extends State<MyApp> {
   appsFlyer() {
     print("appsFLyer-->");
     AppsFlyerOptions options = AppsFlyerOptions(
-        afDevKey: "sSciSETKRuU6a8cqCETSSJ",
-        appId: "com.currencywiki.currencyconverter",
-        showDebug: true,
-        timeToWaitForATTUserAuthorization: 25.0);
+      afDevKey: "sSciSETKRuU6a8cqCETSSJ",
+      appId: "com.currencywiki.currencyconverter",
+      showDebug: true,
+      timeToWaitForATTUserAuthorization: 80,
+    );
     Constants.appsflyerSdk = AppsflyerSdk(options);
     Constants.appsflyerSdk.initSdk(
       registerConversionDataCallback: true,
@@ -188,27 +190,27 @@ class _MyAppState extends State<MyApp> {
       });
     });
 
-    Constants.appsflyerSdk.onDeepLinking((DeepLinkResult dp) {
-      switch (dp.status) {
-        case Status.FOUND:
-          print(dp.deepLink?.toString());
-          print("deep link value: ${dp.deepLink?.deepLinkValue}");
-          break;
-        case Status.NOT_FOUND:
-          print("deep link not found");
-          break;
-        case Status.ERROR:
-          print("deep link error: ${dp.error}");
-          break;
-        case Status.PARSE_ERROR:
-          print("deep link status parsing error");
-          break;
-      }
-      print("onDeepLinking res: " + dp.toString());
-      setState(() {
-        _deepLinkData = dp.toJson();
-      });
-    });
+    // Constants.appsflyerSdk.onDeepLinking((DeepLinkResult dp) {
+    //   switch (dp.status) {
+    //     case Status.FOUND:
+    //       print(dp.deepLink?.toString());
+    //       print("deep link value: ${dp.deepLink?.deepLinkValue}");
+    //       break;
+    //     case Status.NOT_FOUND:
+    //       print("deep link not found");
+    //       break;
+    //     case Status.ERROR:
+    //       print("deep link error: ${dp.error}");
+    //       break;
+    //     case Status.PARSE_ERROR:
+    //       print("deep link status parsing error");
+    //       break;
+    //   }
+    //   print("onDeepLinking res: " + dp.toString());
+    //   setState(() {
+    //     _deepLinkData = dp.toJson();
+    //   });
+    // });
   }
 
   getHistory() async {

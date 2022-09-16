@@ -1003,8 +1003,7 @@ class _SettingScreenState extends State<SettingScreen>
                                         setState(() {
                                           MyColors.muliConverter = value;
                                           Utility.setMulticonverter(
-                                              Constants.MultiConverter,
-                                              MyColors.muliConverter);
+                                              Constants.MultiConverter, value);
                                         });
                                       },
                                     ),

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.example.currency_converter">
+	package="com.currencywiki.currencyconverter">
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="com.android.vending.BILLING" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
@@ -18,7 +19,7 @@
 		>
 
 		<activity
-			android:name=".MainActivity"
+			android:name="com.currencywiki.currencyconverter.MainActivity"
 			android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
 			android:exported="true"
 			android:hardwareAccelerated="true"
@@ -52,7 +53,7 @@
 			android:exported="false"
 			android:theme="@style/MyTheme" />
 		<activity
-			android:name=".ListWidgetConfigActivity"
+			android:name=".activity.ListWidgetConfigActivity"
 			android:exported="true"
 			android:theme="@style/MyTheme">
 			<intent-filter>
@@ -133,6 +134,7 @@
 		<meta-data
 			android:name="com.google.android.gms.ads.APPLICATION_ID"
 			android:value="ca-app-pub-3096560792937908~8277815192" />
+		<meta-data android:name="CHANNEL" android:value="standalone"/>
 	</application>
 
 </manifest>
