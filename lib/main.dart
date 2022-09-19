@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:advertising_id/advertising_id.dart';
-import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/database/coredata.dart';
@@ -147,7 +146,7 @@ class _MyAppState extends State<MyApp> {
     HomeWidget.setAppGroupId('YOUR_GROUP_ID');
     HomeWidget.registerBackgroundCallback(backgroundCallback);
     super.initState();
-    appsFlyer();
+    // appsFlyer();
   }
 
   initAdd() async {
@@ -162,56 +161,56 @@ class _MyAppState extends State<MyApp> {
     // FirebaseCrashlytics.instance.crash();
   }
 
-  appsFlyer() {
-    print("appsFLyer-->");
-    AppsFlyerOptions options = AppsFlyerOptions(
-      afDevKey: "sSciSETKRuU6a8cqCETSSJ",
-      appId: "com.currencywiki.currencyconverter",
-      showDebug: true,
-      timeToWaitForATTUserAuthorization: 80,
-    );
-    Constants.appsflyerSdk = AppsflyerSdk(options);
-    Constants.appsflyerSdk.initSdk(
-      registerConversionDataCallback: true,
-      registerOnAppOpenAttributionCallback: true,
-      registerOnDeepLinkingCallback: true,
-    );
-
-    Constants.appsflyerSdk.onAppOpenAttribution((res) {
-      print("onAppOpenAttribution res: " + res.toString());
-      setState(() {
-        _deepLinkData = res;
-      });
-    });
-    Constants.appsflyerSdk.onInstallConversionData((res) {
-      print("onInstallConversionData res: " + res.toString());
-      setState(() {
-        _gcd = res;
-      });
-    });
-
-    // Constants.appsflyerSdk.onDeepLinking((DeepLinkResult dp) {
-    //   switch (dp.status) {
-    //     case Status.FOUND:
-    //       print(dp.deepLink?.toString());
-    //       print("deep link value: ${dp.deepLink?.deepLinkValue}");
-    //       break;
-    //     case Status.NOT_FOUND:
-    //       print("deep link not found");
-    //       break;
-    //     case Status.ERROR:
-    //       print("deep link error: ${dp.error}");
-    //       break;
-    //     case Status.PARSE_ERROR:
-    //       print("deep link status parsing error");
-    //       break;
-    //   }
-    //   print("onDeepLinking res: " + dp.toString());
-    //   setState(() {
-    //     _deepLinkData = dp.toJson();
-    //   });
-    // });
-  }
+  // appsFlyer() {
+  //   print("appsFLyer-->");
+  //   AppsFlyerOptions options = AppsFlyerOptions(
+  //     afDevKey: "sSciSETKRuU6a8cqCETSSJ",
+  //     appId: "com.currencywiki.currencyconverter",
+  //     showDebug: true,
+  //     timeToWaitForATTUserAuthorization: 80,
+  //   );
+  //   Constants.appsflyerSdk = AppsflyerSdk(options);
+  //   Constants.appsflyerSdk.initSdk(
+  //     registerConversionDataCallback: true,
+  //     registerOnAppOpenAttributionCallback: true,
+  //     registerOnDeepLinkingCallback: true,
+  //   );
+  //
+  //   Constants.appsflyerSdk.onAppOpenAttribution((res) {
+  //     print("onAppOpenAttribution res: " + res.toString());
+  //     setState(() {
+  //       _deepLinkData = res;
+  //     });
+  //   });
+  //   Constants.appsflyerSdk.onInstallConversionData((res) {
+  //     print("onInstallConversionData res: " + res.toString());
+  //     setState(() {
+  //       _gcd = res;
+  //     });
+  //   });
+  //
+  //   // Constants.appsflyerSdk.onDeepLinking((DeepLinkResult dp) {
+  //   //   switch (dp.status) {
+  //   //     case Status.FOUND:
+  //   //       print(dp.deepLink?.toString());
+  //   //       print("deep link value: ${dp.deepLink?.deepLinkValue}");
+  //   //       break;
+  //   //     case Status.NOT_FOUND:
+  //   //       print("deep link not found");
+  //   //       break;
+  //   //     case Status.ERROR:
+  //   //       print("deep link error: ${dp.error}");
+  //   //       break;
+  //   //     case Status.PARSE_ERROR:
+  //   //       print("deep link status parsing error");
+  //   //       break;
+  //   //   }
+  //   //   print("onDeepLinking res: " + dp.toString());
+  //   //   setState(() {
+  //   //     _deepLinkData = dp.toJson();
+  //   //   });
+  //   // });
+  // }
 
   getHistory() async {
     _inAppProvider.initPlatformState();
@@ -259,7 +258,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void didChangeDependencies() {
-    debugPrint("didChangeDependencies--->");
+    // debugPrint("didChangeDependencies--->");
     super.didChangeDependencies();
     _checkForWidgetLaunch();
     HomeWidget.widgetClicked.listen(_launchedFromWidget);
@@ -314,12 +313,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _checkForWidgetLaunch() {
-    debugPrint("_checkForWidgetLaunch--->");
+    // debugPrint("_checkForWidgetLaunch--->");
     HomeWidget.initiallyLaunchedFromHomeWidget().then(_launchedFromWidget);
   }
 
   void _launchedFromWidget(Uri? uri) {
-    debugPrint("_launchedFromWidget--->$uri");
+    // debugPrint("_launchedFromWidget--->$uri");
     if (uri != null) {
       showDialog(
           context: context,
@@ -417,7 +416,7 @@ class _MyAppState extends State<MyApp> {
   final botToastBuilder = BotToastInit();
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<InAppProvider>(context);
+    final provider = Provider.of<InAppProvider>(context, listen: true);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
@@ -435,7 +434,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primaryColor: MyColors.colorPrimary,
-        textSelectionTheme: provider.handlesColors(),
+        textSelectionTheme: hadls(provider),
       ),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -485,6 +484,12 @@ class _MyAppState extends State<MyApp> {
         statusBarColor: MyColors.colorPrimary, // status bar color
       ));
     }
+    setState(() {});
+  }
+
+  hadls(InAppProvider provider) {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => provider.handlesColors());
     setState(() {});
   }
 }

@@ -4,9 +4,6 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/color_picker/color_picker_dialog.dart';
 import 'package:currency_converter/in_app_parchase/product_provider.dart';
-import 'package:currency_converter/language/language.dart';
-import 'package:currency_converter/main.dart';
-import 'package:currency_converter/utils/constants.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../language/language.dart';
+import '../utils/constants.dart';
 import 'home/home_page.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -40,7 +39,7 @@ class _SettingScreenState extends State<SettingScreen>
   bool removeAd = false;
   late InAppProvider _appProvider;
   bool getAppPurchase = false;
-  String logEventResponse = "No event have been sent";
+  // String logEventResponse = "No event have been sent";
 
   @override
   void initState() {
@@ -170,18 +169,17 @@ class _SettingScreenState extends State<SettingScreen>
                                           .listen((purchase) {
                                     debugPrint("purchaseEvent-->$purchase");
 
-                                    final Map eventValues = {
-                                      "af_content_id": uuid.v1(),
-                                      "af_currency":
-                                          provider.getSubscriptionCurrencyCode,
-                                      "af_revenue":
-                                          provider.getSubscriptionPrice
-                                    };
+                                    // final Map eventValues = {
+                                    //   "af_content_id": uuid.v1(),
+                                    //   "af_currency":
+                                    //       provider.getSubscriptionCurrencyCode,
+                                    //   "af_revenue":
+                                    //       provider.getSubscriptionPrice
+                                    // };
 
-                                    ///this line for appsFlayer event please remove comment
-                                    provider.logEvent(
-                                        eventName: "ADEvent",
-                                        eventValues: eventValues);
+                                    // provider.logEvent(
+                                    //     eventName: "ADEvent",
+                                    //     eventValues: eventValues);
                                     debugPrint("event-->$purchase");
                                     Navigator.pushAndRemoveUntil(
                                         context,

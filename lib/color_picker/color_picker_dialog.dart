@@ -14,6 +14,7 @@ import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:provider/provider.dart';
@@ -271,7 +272,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                               await Utility.setStringPreference(
                                   Constants.primaryColorCode,
                                   lockSelectdColor.value.toRadixString(16));
-                              Utility.notifyThemeChange();
                               int red = MyColors.colorPrimary.red;
                               int blue = MyColors.colorPrimary.blue;
                               int green = MyColors.colorPrimary.green;
@@ -303,6 +303,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 statusBarColor:
                                     MyColors.colorPrimary, // status bar color
                               ));
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((_) {
+                                provider.handlesColors();
+                                setState(() {});
+                              });
+                              Utility.notifyThemeChange();
                               widget.onThemeChange();
                               setState(() {});
                               Navigator.pop(context);
@@ -323,161 +329,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 primary: Colors.indigoAccent),
                             onPressed: () async {
                               print("colorsd-->${colorSelection}");
-                              // await provider.getProduct();
-                              //
-                              // provider.items
-                              //     .map((item) => provider.requestPurchase(item))
-                              //     .toList();
-                              //
-                              // provider.purchaseUpdatedSubscription =
-                              //     FlutterInappPurchase.purchaseUpdated
-                              //         .listen((productItem) async {
-                              //   if (productItem!.productId!.isNotEmpty) {
-                              //     debugPrint("colorEvent");
-                              //     final Map eventValues = {
-                              //       "af_content_id": uuid.v1(),
-                              //       "af_currency":
-                              //           provider.getProductCurrencyCode,
-                              //       "af_revenue": provider.getProductPrice
-                              //     };
-                              //     // provider.logEvent(
-                              //     //     eventName: "colorEvent",
-                              //     //     eventValues: eventValues);
-                              //
-                              //     if (colorSelection != null) {
-                              //       MyColors.lockColorfordefault =
-                              //           lockSelectdColor;
-                              //       MyColors.colorPrimary = colorSelection!;
-                              //       String code = lockSelectdColor.value
-                              //           .toRadixString(16);
-                              //       await dbHelper.deSelectColor();
-                              //       await dbHelper.insertColor(ColorTable(
-                              //         previousColor: 0,
-                              //         colorCode: code,
-                              //         selected: 1,
-                              //         isLocked: ColorsConst.unLockedColor,
-                              //       ));
-                              //
-                              //       await dbHelper.removeColor(ColorTable(
-                              //           colorCode: code,
-                              //           selected: 1,
-                              //           previousColor: 0,
-                              //           isLocked: ColorsConst.lockedColor));
-                              //
-                              //       if (densitySelectedColor != null) {
-                              //         Set<Color> densityColorList = {
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade50,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade100,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade200,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade300,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade400,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade500,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade600,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade700,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade800,
-                              //           ColorTools.createPrimarySwatch(
-                              //                   densitySelectedColor!)
-                              //               .shade900,
-                              //         };
-                              //
-                              //         for (var dencityColor
-                              //             in densityColorList) {
-                              //           String code1 = dencityColor.value
-                              //               .toRadixString(16);
-                              //           await dbHelper
-                              //               .insertDensityColor(DensityColor(
-                              //             previousColor: "0",
-                              //             colorCode: code1,
-                              //             selected: "0",
-                              //             parentColorCode: code,
-                              //           ));
-                              //         }
-                              //       }
-                              //     } else {
-                              //       await dbHelper.deSelectColor();
-                              //     }
-                              //     String colorCode =
-                              //         lockSelectdColor.value.toRadixString(16);
-                              //     await dbHelper.selectColor(ColorTable(
-                              //       previousColor: 0,
-                              //       colorCode: colorCode,
-                              //       selected: 1,
-                              //       isLocked: ColorsConst.lockedColor,
-                              //     ));
-                              //
-                              //     MyColors.colorPrimary = lockSelectdColor;
-                              //
-                              //     int red = MyColors.colorPrimary.red;
-                              //     int blue = MyColors.colorPrimary.blue;
-                              //     int green = MyColors.colorPrimary.green;
-                              //     var grayscale = (0.299 * red) +
-                              //         (0.587 * green) +
-                              //         (0.114 * blue);
-                              //
-                              //     if (grayscale > 200) {
-                              //       MyColors.textColor = Colors.grey.shade700;
-                              //       MyColors.insideTextFieldColor =
-                              //           Colors.white;
-                              //       MyColors.isDarkMode = true;
-                              //     } else {
-                              //       MyColors.textColor = Colors.white;
-                              //       MyColors.insideTextFieldColor =
-                              //           Colors.black;
-                              //       MyColors.isDarkMode = false;
-                              //     }
-                              //     SystemChrome.setSystemUIOverlayStyle(
-                              //         SystemUiOverlayStyle(
-                              //       // statusBarIconBrightness: MyColors.lightModeCheck ? Brightness.light : Brightness.dark,
-                              //       systemNavigationBarIconBrightness:
-                              //           !MyColors.isDarkMode
-                              //               ? Brightness.light
-                              //               : Brightness.dark,
-                              //       systemNavigationBarColor: MyColors
-                              //           .colorPrimary, // navigation bar color
-                              //       statusBarColor: MyColors
-                              //           .colorPrimary, // status bar color
-                              //     ));
-                              //
-                              //     await Utility.setStringPreference(
-                              //         Constants.primaryColorCode,
-                              //         colorSelection!.value.toRadixString(16));
-                              //     Utility.setStringPreference(
-                              //         Constants.selectedLockedColor,
-                              //         colorSelection!.value.toRadixString(16));
-                              //     Utility.notifyThemeChange();
-                              //     widget.onThemeChange();
-                              //     Navigator.pushAndRemoveUntil(
-                              //         context,
-                              //         MaterialPageRoute(
-                              //             builder: (_) =>
-                              //                 const MyTabBarWidget()),
-                              //         (route) => true);
-                              //     Navigator.pop(context);
-                              //     Navigator.pop(context);
-                              //     setState(() {});
-                              //   }
-                              // });
-                              //
-                              // setState(() {});
-
                               await provider.getProduct();
                               provider.items
                                   .map((item) => provider.requestPurchase(item))
@@ -486,15 +337,15 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   FlutterInappPurchase.purchaseUpdated
                                       .listen((productItem) async {
                                 if (productItem!.productId!.isNotEmpty) {
-                                  final Map eventValues = {
-                                    "af_content_id": uuid.v1(),
-                                    "af_currency":
-                                        provider.getProductCurrencyCode,
-                                    "af_revenue": provider.getProductPrice
-                                  };
-                                  provider.logEvent(
-                                      eventName: "CustomColorEvent",
-                                      eventValues: eventValues);
+                                  // final Map eventValues = {
+                                  //   "af_content_id": uuid.v1(),
+                                  //   "af_currency":
+                                  //       provider.getProductCurrencyCode,
+                                  //   "af_revenue": provider.getProductPrice
+                                  // };
+                                  // provider.logEvent(
+                                  //     eventName: "CustomColorEvent",
+                                  //     eventValues: eventValues);
                                   debugPrint("productItem>>>>>>>");
                                   MyColors.lockColorfordefault =
                                       colorSelection!;
@@ -597,6 +448,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   await Utility.setStringPreference(
                                       Constants.selectedLockedColor,
                                       colorSelection!.value.toRadixString(16));
+                                  SchedulerBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    provider.handlesColors();
+                                    setState(() {});
+                                  });
                                   Utility.notifyThemeChange();
                                   widget.onThemeChange();
                                   Navigator.pushAndRemoveUntil(
@@ -800,8 +656,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       Constants.themeColor,
                                       unlockSelectdColor!.value
                                           .toRadixString(16));
-
-                                  Utility.notifyThemeChange();
                                   // Utility.setStringPreference(Constants.themeColor,
                                   //     unlockSelectdColor!.value.toString());
 
@@ -815,6 +669,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   setState(() {
                                     provider.handlesColors();
                                   });
+                                  Utility.notifyThemeChange();
                                   widget.onThemeChange();
                                   Navigator.pop(context);
                                 },

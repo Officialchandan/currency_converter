@@ -94,27 +94,27 @@
 				<action android:name="es.antonborri.home_widget.action.BACKGROUND" />
 			</intent-filter>
 		</receiver>
-
-		<receiver android:name="com.appsflyer.SingleInstallBroadcastReceiver" android:exported="true">
-			<intent-filter>
-				<action android:name="com.android.vending.INSTALL_REFERRER" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="your unique scheme" />
-			</intent-filter>
-			<intent-filter android:autoVerify="true">
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="your unique scheme" />
-				<data android:scheme="https"
-					android:host="yourcompany.onelink.me"
-					android:pathPrefix="your path prefix" />
-			</intent-filter>
-		</receiver>
+<!--this code for AppsFlyer-->
+<!--		<receiver android:name="com.appsflyer.SingleInstallBroadcastReceiver" android:exported="true">-->
+<!--			<intent-filter>-->
+<!--				<action android:name="com.android.vending.INSTALL_REFERRER" />-->
+<!--			</intent-filter>-->
+<!--			<intent-filter>-->
+<!--				<action android:name="android.intent.action.VIEW" />-->
+<!--				<category android:name="android.intent.category.DEFAULT" />-->
+<!--				<category android:name="android.intent.category.BROWSABLE" />-->
+<!--				<data android:scheme="your unique scheme" />-->
+<!--			</intent-filter>-->
+<!--			<intent-filter android:autoVerify="true">-->
+<!--				<action android:name="android.intent.action.VIEW" />-->
+<!--				<category android:name="android.intent.category.DEFAULT" />-->
+<!--				<category android:name="android.intent.category.BROWSABLE" />-->
+<!--				<data android:scheme="your unique scheme" />-->
+<!--				<data android:scheme="https"-->
+<!--					android:host="yourcompany.onelink.me"-->
+<!--					android:pathPrefix="your path prefix" />-->
+<!--			</intent-filter>-->
+<!--		</receiver>-->
 
 		<service
 			android:name="es.antonborri.home_widget.HomeWidgetBackgroundService"

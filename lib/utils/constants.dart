@@ -1,4 +1,3 @@
-import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:currency_converter/pages/setting_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +8,7 @@ class Constants {
   // static Map<String, PurchaseDetails>? purchase;
   // static PurchaseDetails? previousPurchase;
   static bool getAppPurchase = false;
-  static late AppsflyerSdk appsflyerSdk;
+  // static late AppsflyerSdk appsflyerSdk;
   static bool removeAdsTrue = false;
   static bool removeAd = false;
   static int isPurchaseOfAds = 0;
