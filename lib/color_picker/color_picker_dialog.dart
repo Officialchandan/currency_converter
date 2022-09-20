@@ -14,7 +14,6 @@ import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:provider/provider.dart';
@@ -303,10 +302,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 statusBarColor:
                                     MyColors.colorPrimary, // status bar color
                               ));
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((_) {
+                              setState(() {
                                 provider.handlesColors();
-                                setState(() {});
                               });
                               Utility.notifyThemeChange();
                               widget.onThemeChange();
@@ -448,10 +445,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   await Utility.setStringPreference(
                                       Constants.selectedLockedColor,
                                       colorSelection!.value.toRadixString(16));
-                                  SchedulerBinding.instance
-                                      .addPostFrameCallback((_) {
+                                  setState(() {
                                     provider.handlesColors();
-                                    setState(() {});
                                   });
                                   Utility.notifyThemeChange();
                                   widget.onThemeChange();

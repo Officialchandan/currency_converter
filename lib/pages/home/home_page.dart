@@ -368,10 +368,10 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                       Navigator.pop(context);
                       if (_availability == Availability.available) {
                         print("HII_THERE");
-                        _inAppReview.requestReview();
+                        await _inAppReview.requestReview();
                       } else {
                         print("enrtttt");
-                        _inAppReview.openStoreListing();
+                        await _inAppReview.openStoreListing();
                       }
                       // if (await _inAppReview.isAvailable()) {
                       //   print("hii_there");

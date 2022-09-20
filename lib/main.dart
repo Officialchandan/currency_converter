@@ -416,7 +416,7 @@ class _MyAppState extends State<MyApp> {
   final botToastBuilder = BotToastInit();
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<InAppProvider>(context, listen: true);
+    final provider = Provider.of<InAppProvider>(context, listen: false);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
