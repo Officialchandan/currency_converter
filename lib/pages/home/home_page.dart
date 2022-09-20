@@ -365,7 +365,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                     onTap: () async {
                       // PackageInfo packageInfo =
                       //     await PackageInfo.fromPlatform();
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                       if (_availability == Availability.available) {
                         print("HII_THERE");
                         await _inAppReview.requestReview();

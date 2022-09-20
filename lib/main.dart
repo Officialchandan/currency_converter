@@ -158,7 +158,6 @@ class _MyAppState extends State<MyApp> {
     if (kDebugMode) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     } else {}
-    // FirebaseCrashlytics.instance.crash();
   }
 
   // appsFlyer() {
@@ -416,7 +415,7 @@ class _MyAppState extends State<MyApp> {
   final botToastBuilder = BotToastInit();
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<InAppProvider>(context, listen: false);
+    final provider = Provider.of<InAppProvider>(context, listen: true);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
@@ -433,7 +432,7 @@ class _MyAppState extends State<MyApp> {
         fontFamily: GoogleFonts.roboto().fontFamily,
         primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        primaryColor: MyColors.colorPrimary,
+        // primaryColor: MyColors.colorPrimary,
         textSelectionTheme: hadls(provider),
       ),
       localizationsDelegates: context.localizationDelegates,
@@ -488,9 +487,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   hadls(InAppProvider provider) {
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => provider.handlesColors());
-    setState(() {});
+    Future.delayed(const Duration(milliseconds: 200)).then((value) => {
+          setState(() {
+            provider.handlesColors();
+          })
+        });
   }
 }
 

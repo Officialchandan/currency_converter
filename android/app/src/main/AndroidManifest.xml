@@ -13,7 +13,9 @@
 		android:name=".activity.MyApplication"
 		android:allowBackup="false"
 		android:icon="@mipmap/app_icon"
-		android:label="CurrencyConverter"
+		android:requestLegacyExternalStorage="true"
+		android:hardwareAccelerated="true">
+	    android:label="CurrencyConverter"
 		android:roundIcon="@mipmap/app_icon"
 		android:supportsRtl="false"
 		>
