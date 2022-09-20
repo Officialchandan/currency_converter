@@ -420,7 +420,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         child = botToastBuilder(context, child);
-
         return MediaQuery(
           data: MediaQuery.of(context)
               .copyWith(textScaleFactor: Constants.textScaleFactor),

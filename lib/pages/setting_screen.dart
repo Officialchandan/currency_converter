@@ -4,6 +4,7 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/Themes/colors.dart';
 import 'package:currency_converter/color_picker/color_picker_dialog.dart';
 import 'package:currency_converter/in_app_parchase/product_provider.dart';
+import 'package:currency_converter/splash/splash_screen.dart';
 import 'package:currency_converter/utils/utility.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -185,7 +186,7 @@ class _SettingScreenState extends State<SettingScreen>
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) =>
-                                                const MyTabBarWidget()),
+                                                const SplashScreen()),
                                         (route) => true);
                                   });
                                 }
@@ -1459,6 +1460,8 @@ class _SettingScreenState extends State<SettingScreen>
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (BuildContext buildContext, Animation animation,
             Animation secondaryAnimation) {
+          double width = MediaQuery.of(context).size.width;
+
           return DefaultTextStyle(
             style: const TextStyle(decoration: TextDecoration.none),
             child: Center(
@@ -1466,23 +1469,24 @@ class _SettingScreenState extends State<SettingScreen>
                 child: Container(
                   margin: const EdgeInsets.only(
                       top: 15, right: 10, bottom: 0, left: 10),
-                  width: MediaQuery.of(context).size.width,
+                  width: width,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: ColorPickerDialog(
-                    isLockedColor: lockedcolortry,
-                    onColorSelect: onColorSelect,
-                    densitychangeColor: densityChangeColor,
-                    lockchangeColor: lockChangeColor,
-                    unlockchangeColor: unlockChangeColor,
-                    densityCurrentColor: densityCurrentColor,
-                    lockCurrentColor: lockCurrentColor,
-                    unlockCurrentColor: unlockCurrentColor,
-                    isUnlockColorSelect: lockedcolortry,
-                    onThemeChange: widget.onThemeChange,
-                  ),
+                  child:  ColorPickerDialog(
+                          isLockedColor: lockedcolortry,
+                          onColorSelect: onColorSelect,
+                          densitychangeColor: densityChangeColor,
+                          lockchangeColor: lockChangeColor,
+                          unlockchangeColor: unlockChangeColor,
+                          densityCurrentColor: densityCurrentColor,
+                          lockCurrentColor: lockCurrentColor,
+                          unlockCurrentColor: unlockCurrentColor,
+                          isUnlockColorSelect: lockedcolortry,
+                          onThemeChange: widget.onThemeChange,
+                        )
+                     ,
                 ),
               ),
             ),

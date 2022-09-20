@@ -715,7 +715,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               Container(
                 height: height * 0.695,
                 margin: const EdgeInsets.only(top: 100, right: 10, left: 10),
-                width: MediaQuery.of(context).size.width,
+                width: width,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
