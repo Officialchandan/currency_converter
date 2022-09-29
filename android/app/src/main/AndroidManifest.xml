@@ -14,7 +14,6 @@
 		android:allowBackup="false"
 		android:icon="@mipmap/app_icon"
 		android:requestLegacyExternalStorage="true"
-		android:hardwareAccelerated="true">
 	    android:label="CurrencyConverter"
 		android:roundIcon="@mipmap/app_icon"
 		android:supportsRtl="false"

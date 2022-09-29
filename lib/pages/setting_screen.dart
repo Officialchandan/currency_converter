@@ -1452,7 +1452,7 @@ class _SettingScreenState extends State<SettingScreen>
 
   showColorPickerDialog(BuildContext context) async {
     return showGeneralDialog(
-        context: context,
+        context: context,didChangeAppLifecycleState
         barrierDismissible: true,
         barrierLabel:
             MaterialLocalizations.of(context).modalBarrierDismissLabel,
@@ -1474,19 +1474,18 @@ class _SettingScreenState extends State<SettingScreen>
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child:  ColorPickerDialog(
-                          isLockedColor: lockedcolortry,
-                          onColorSelect: onColorSelect,
-                          densitychangeColor: densityChangeColor,
-                          lockchangeColor: lockChangeColor,
-                          unlockchangeColor: unlockChangeColor,
-                          densityCurrentColor: densityCurrentColor,
-                          lockCurrentColor: lockCurrentColor,
-                          unlockCurrentColor: unlockCurrentColor,
-                          isUnlockColorSelect: lockedcolortry,
-                          onThemeChange: widget.onThemeChange,
-                        )
-                     ,
+                  child: ColorPickerDialog(
+                    isLockedColor: lockedcolortry,
+                    onColorSelect: onColorSelect,
+                    densitychangeColor: densityChangeColor,
+                    lockchangeColor: lockChangeColor,
+                    unlockchangeColor: unlockChangeColor,
+                    densityCurrentColor: densityCurrentColor,
+                    lockCurrentColor: lockCurrentColor,
+                    unlockCurrentColor: unlockCurrentColor,
+                    isUnlockColorSelect: lockedcolortry,
+                    onThemeChange: widget.onThemeChange,
+                  ),
                 ),
               ),
             ),
