@@ -125,25 +125,26 @@ class InAppProvider with ChangeNotifier {
         cursorColor: MyColors.colorPrimary,
         selectionColor: MyColors.colorPrimary.withOpacity(0.4));
     notifyListeners();
+    notifyListeners();
     return textSelectionThemeData;
   }
 
-  // Future<bool?> logEvent({required String eventName, Map? eventValues}) async {
-  //   debugPrint("logEventResponse-->$logEventResponse");
-  //   bool? result;
-  //   try {
-  //     result = await Constants.appsflyerSdk
-  //         .logEvent(eventName, eventValues!)
-  //         .then((onValue) {
-  //       logEventResponse = onValue.toString();
-  //       notifyListeners();
-  //     }).catchError((onError) {});
-  //   } on Exception {
-  //     debugPrint("ExLogEvent");
-  //   }
-  //   debugPrint("Result logEvent: $result");
-  //   return null;
-  // }
+  Future<bool?> logEvent({required String eventName, Map? eventValues}) async {
+    // debugPrint("logEventResponse-->$logEventResponse");
+    // bool? result;
+    // try {
+    //   result = await Constants.appsflyerSdk
+    //       .logEvent(eventName, eventValues!)
+    //       .then((onValue) {
+    //     logEventResponse = onValue.toString();
+    //     notifyListeners();
+    //   }).catchError((onError) {});
+    // } on Exception {
+    //   debugPrint("ExLogEvent");
+    // }
+    // debugPrint("Result logEvent: $result");
+    return null;
+  }
 
   requestSubscription(String sku) async {
     debugPrint("requestSubscription");

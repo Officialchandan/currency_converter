@@ -1434,6 +1434,7 @@ class _SettingScreenState extends State<SettingScreen>
 
   void densityChangeColor(Color color) {
     widget.onThemeChange;
+    if (!mounted) return;
     setState(() => densityCurrentColor = color);
 
     debugPrint(
@@ -1452,7 +1453,7 @@ class _SettingScreenState extends State<SettingScreen>
 
   showColorPickerDialog(BuildContext context) async {
     return showGeneralDialog(
-        context: context,didChangeAppLifecycleState
+        context: context,
         barrierDismissible: true,
         barrierLabel:
             MaterialLocalizations.of(context).modalBarrierDismissLabel,
@@ -1460,7 +1461,7 @@ class _SettingScreenState extends State<SettingScreen>
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (BuildContext buildContext, Animation animation,
             Animation secondaryAnimation) {
-          double width = MediaQuery.of(context).size.width;
+          // double width = MediaQuery.of(context).size.width;
 
           return DefaultTextStyle(
             style: const TextStyle(decoration: TextDecoration.none),
@@ -1469,7 +1470,7 @@ class _SettingScreenState extends State<SettingScreen>
                 child: Container(
                   margin: const EdgeInsets.only(
                       top: 15, right: 10, bottom: 0, left: 10),
-                  width: width,
+                  // width: width,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),

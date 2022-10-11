@@ -59,15 +59,15 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
   void initState() {
     final provider = Provider.of<InAppProvider>(context, listen: false);
     getValue();
+    getCurrencyCode();
+    initializeDateFormatting();
+    Utility.getFormatDate();
+    Utility.check();
     _inAppProvider = provider;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
     getHistory();
     widget.onInitialize(this);
-    getCurrencyCode();
-    initializeDateFormatting();
-    Utility.getFormatDate();
-    Utility.check();
     getAds();
     SchedulerBinding.instance.addPostFrameCallback((_) {});
     super.initState();
@@ -122,13 +122,13 @@ class _TapHomeState extends State<TapHome> implements TabChangeListener {
     isCalculatorVisible = false;
     _isContainerVisible = false;
     _isContainerVisibleTwo = false;
+    getCurrencyCode();
     setStateIfMounted();
   }
 
   getValue() async {
     Constants.inputValue =
         await Utility.getStringPreference(Constants.currencyInputValue);
-    print("Constants.inputValue-->${Constants.inputValue}");
     if (Constants.inputValue.isEmpty) {
       calculateCurrency.text = "1";
       Constants.inputValue = "1";
