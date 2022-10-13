@@ -18,6 +18,7 @@ import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_currency_screen.dart';
 
@@ -44,22 +45,56 @@ class _MyCurrencyState extends State<MyCurrency> {
   StreamController<DataModel> dataController = StreamController();
   bool isCalculatorVisible = false;
   bool firstTime = true;
+  bool isCheckIndex = true;
   DataModel? selectedData;
   BannerAd? _bannerAd;
   bool isBannerAdReady = false;
 
   String value = "1";
+  int intByValue = 0;
+  int intByValueOnChange = 0;
+
+  SharedPreferences? prefs;
 
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {});
+    // config();
     getValue();
     getSelectedList();
     super.initState();
   }
 
+  // void config() async {
+  //   await SharedPreferences.getInstance().then((pref) {
+  //     prefs = pref;
+  //     List<String>? lst = pref.getStringList('indexList');
+  //
+  //     print("lst---->${lst!.toList()}");
+  //
+  //     List<DataModel> list = [];
+  //     if (lst != null && lst.isNotEmpty) {
+  //       list = lst
+  //           .map(
+  //             (String indx) => selectedList
+  //                 .where((DataModel item) => int.parse(indx) == item.itemIndex)
+  //                 .fzz,
+  //           )
+  //           .toList();
+  //       selectedList = list;
+  //     }
+  //     setState(() {});
+  //   });
+  // }
+
   getValue() async {
-    value = await Utility.getStringPreference("value").then((value) => value.isNotEmpty ? value : "1");
+    intByValue = await Utility.getIntPreference(Constants.indexByValue);
+    intByValueOnChange =
+        await Utility.getIntPreference(Constants.indexByValueOnChange);
+    value = await Utility.getStringPreference("value")
+        .then((value) => value.isNotEmpty ? value : "1");
+    print("inttttt_>$intByValue");
+    print("inttttt_>$intByValueOnChange");
     if (mounted) {
       setState(() {});
     }
@@ -144,15 +179,30 @@ class _MyCurrencyState extends State<MyCurrency> {
                                 sliver: SliverList(
                                   delegate: SliverChildBuilderDelegate(
                                     (BuildContext context, int index) {
-                                      if (index == 0 && firstTime) {
-                                        debugPrint("firstTime$firstTime");
+                                      if (intByValue != intByValueOnChange &&
+                                          (index == intByValueOnChange) &&
+                                          isCheckIndex) {
+                                        debugPrint("firstTime22$firstTime");
+                                        print("int--->$intByValue}");
+                                        print("int--->$intByValueOnChange");
                                         selectedList[index].controller.text =
                                             value;
                                         calculateExchangeRate(
                                             value, 0, selectedList[index]);
-                                        firstTime = false;
+                                        Future.delayed(
+                                            const Duration(seconds: 3), () {
+                                          isCheckIndex = false;
+                                        });
+                                      } else {
+                                        if (index == intByValue && firstTime) {
+                                          debugPrint("firstTime$firstTime");
+                                          selectedList[index].controller.text =
+                                              value;
+                                          calculateExchangeRate(
+                                              value, 0, selectedList[index]);
+                                          firstTime = false;
+                                        }
                                       }
-
                                       return Item(
                                         data: selectedList[index],
                                         isFirst: index == 0,
@@ -203,6 +253,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                                           streamController.add(selectedList);
                                         },
                                         onChange: (text) {
+                                          print("yeee11");
+
                                           calculateExchangeRate(
                                               text, index, selectedList[index]);
                                         },
@@ -343,6 +395,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                   return Calculator(
                     txtController: snapshot.data!.controller,
                     onChange: (text) async {
+                      print("yeee12");
                       await Utility.setStringPreference("value", text);
                       await Utility.setStringPreference(
                           "code", snapshot.data!.code);
@@ -353,6 +406,9 @@ class _MyCurrencyState extends State<MyCurrency> {
                       int i = selectedList.indexWhere(
                           (element) => element.code == snapshot.data!.code);
                       if (i != -1) {
+                        debugPrint("chandan_go_on_code--->$i");
+                        Utility.setIntPreference(
+                            Constants.indexByValueOnChange, i);
                         calculateExchangeRate(text, i, snapshot.data!);
                       }
                     },
@@ -457,12 +513,24 @@ class _MyCurrencyState extends State<MyCurrency> {
 
     if (selectedList.length == index + 1) {
       draggedItem.timeStamp = DateTime.now().millisecondsSinceEpoch;
-    } else {
-      debugPrint("draggedItem ${selectedList[index + 1]}");
-      draggedItem.timeStamp = selectedList[index + 1].timeStamp! - 1000;
-    }
 
+      debugPrint("draggedItem__>${draggedItem.timeStamp}");
+    } else {
+      draggedItem.timeStamp = selectedList[index + 1].timeStamp! - 1000;
+      debugPrint("draggedItem______${selectedList[index + 1]}");
+    }
+    Utility.setIntPreference(Constants.indexByValue, index);
+    int myValueIndex =
+        await Utility.getIntPreference(Constants.indexByValueOnChange);
+
+    ///this code check again on implement to the flutter app on client side
+    if (myValueIndex == index) {
+      Utility.setIntPreference(Constants.indexByValueOnChange, index);
+    }
+    // prefs!.setStringList(
+    //     'indexList', selectedList.map((m) => m.itemIndex.toString()).toList());
     await dbHelper.update(draggedItem.toMap());
+    setState(() {});
     debugPrint("Reordering finished for ${draggedItem.code}");
   }
 
@@ -810,6 +878,7 @@ class Item extends StatelessWidget {
                             counterText: "",
                             border: InputBorder.none),
                         onChanged: (String text) async {
+                          print("yeee13");
                           if (text.isEmpty) {
                             text = "0";
                           }
@@ -820,7 +889,6 @@ class Item extends StatelessWidget {
                           Constants.selectedEditableCurrencyCode = data.code;
                           Constants.selectedEditableCurrencyValue = text;
                           data.controller.text = text;
-
                           // text = data.controller.text;
                           data.controller.selection =
                               TextSelection.fromPosition(TextPosition(

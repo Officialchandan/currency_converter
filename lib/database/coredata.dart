@@ -22,6 +22,7 @@ class DatabaseHelper {
   static const selectedCountry = "selectedCountry";
   static const countryName = "countryName";
   static const symbol = "symbol";
+  static const itemIndex = "indexOfItem";
 
   DatabaseHelper._p();
 
@@ -57,7 +58,8 @@ class DatabaseHelper {
             $timeStamp INTEGER NOT NULL,
             $countryName TEXT NOT NULL,
             $selectedCountry INTEGER NOT NULL,
-            $symbol TEXT NOT NULL
+            $symbol TEXT NOT NULL,
+            $itemIndex INTEGER NOT NULL
             )''');
     await db.execute('''CREATE TABLE ${ColorsConst.colorTable} (
             ${ColorsConst.colorId} INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -119,7 +121,8 @@ class DatabaseHelper {
     Database db = await instance.database;
 
     // String query= "SELECT * FROM $"
-    List<Map<String, dynamic>> data = await db.query(tableName, where: '$countryCode =  ?', whereArgs: [code]);
+    List<Map<String, dynamic>> data = await db
+        .query(tableName, where: '$countryCode =  ?', whereArgs: [code]);
 
     // log("isExist - data -->$data");
 
@@ -132,23 +135,28 @@ class DatabaseHelper {
   Future<int> update(Map<String, dynamic> row) async {
     Database db = await instance.database;
     String code = row["countryCode"];
-    return await db.update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
+    return await db
+        .update(tableName, row, where: '$countryCode =  ?', whereArgs: [code]);
   }
 
   Future<List<Map<String, dynamic>>> order() async {
     Database db = await instance.database;
 
-    List<Map<String, dynamic>> data =
-        await db.rawQuery("SELECT * FROM " + tableName + " ORDER BY " + favCountry + " DESC, $countryCode ASC ");
+    List<Map<String, dynamic>> data = await db.rawQuery("SELECT * FROM " +
+        tableName +
+        " ORDER BY " +
+        favCountry +
+        " DESC, $countryCode ASC ");
     debugPrint("->>>$data");
     return data;
   }
 
   Future<List<Map<String, dynamic>>> particular_row(String conCode) async {
     Database db = await instance.database;
-    List<Map<String, dynamic>> data = await db.query(tableName, where: '$countryCode =  ?', whereArgs: [conCode]);
+    List<Map<String, dynamic>> data = await db
+        .query(tableName, where: '$countryCode =  ?', whereArgs: [conCode]);
 
-    debugPrint("data--->${data.first.values.toList()}");
+    // debugPrint("data--->${data.first.values.toList()}");
 
     return data;
   }
@@ -182,7 +190,8 @@ class DatabaseHelper {
               selected: model.selected,
               symbol: model.symbol,
               timeStamp: model.timeStamp,
-              key: ValueKey(model.code));
+              key: ValueKey(model.code),
+              itemIndex: model.itemIndex);
 
           dataList.add(dataModel);
         }
@@ -200,7 +209,10 @@ class DatabaseHelper {
     try {
       Database db = await instance.database;
       List<Map<String, dynamic>> data = await db.query(tableName,
-          where: "$selectedCountry = ?", whereArgs: [0], orderBy: "$countryCode ASC", groupBy: countryCode);
+          where: "$selectedCountry = ?",
+          whereArgs: [0],
+          orderBy: "$countryCode ASC",
+          groupBy: countryCode);
 
       if (data.isNotEmpty) {
         for (var element in data) {
@@ -241,7 +253,8 @@ class DatabaseHelper {
     int i = 0;
     try {
       Database db = await instance.database;
-      i = await db.delete(ColorsConst.colorTable, where: '$color', whereArgs: [color]);
+      i = await db
+          .delete(ColorsConst.colorTable, where: '$color', whereArgs: [color]);
     } catch (e) {
       debugPrint("excption--->$e");
     }
@@ -254,8 +267,8 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> result =
-          await db.query(ColorsConst.colorTable, where: "${ColorsConst.colorCode}=?", whereArgs: [color.colorCode]);
+      List<Map<String, dynamic>> result = await db.query(ColorsConst.colorTable,
+          where: "${ColorsConst.colorCode}=?", whereArgs: [color.colorCode]);
 
       debugPrint("result-->$result");
 
@@ -274,7 +287,8 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      i = await db.update(ColorsConst.colorTable, color.toMap(), where: "${ColorsConst.colorCode} = ?", whereArgs: [color.colorCode]);
+      i = await db.update(ColorsConst.colorTable, color.toMap(),
+          where: "${ColorsConst.colorCode} = ?", whereArgs: [color.colorCode]);
       debugPrint("i-->$i");
     } catch (exception) {
       debugPrint("exception--->$exception");
@@ -290,8 +304,9 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      i = await db
-          .rawUpdate("UPDATE ${ColorsConst.colorTable} SET ${ColorsConst.selected} = 0 WHERE ${ColorsConst.selected} = ?", [1]);
+      i = await db.rawUpdate(
+          "UPDATE ${ColorsConst.colorTable} SET ${ColorsConst.selected} = 0 WHERE ${ColorsConst.selected} = ?",
+          [1]);
       debugPrint("i-->$i");
       db.getVersion();
     } catch (exception) {
@@ -323,7 +338,8 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> result = await db.rawQuery("SELECT * FROM ${ColorsConst.colorTable}");
+      List<Map<String, dynamic>> result =
+          await db.rawQuery("SELECT * FROM ${ColorsConst.colorTable}");
 
       debugPrint("result-->$result");
 
@@ -342,8 +358,9 @@ class DatabaseHelper {
 
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> result =
-          await db.rawQuery("SELECT * FROM ${ColorsConst.colorTable} WHERE ${ColorsConst.selected} = ?", [1]);
+      List<Map<String, dynamic>> result = await db.rawQuery(
+          "SELECT * FROM ${ColorsConst.colorTable} WHERE ${ColorsConst.selected} = ?",
+          [1]);
       debugPrint("result-->$result");
       for (var element in result) {
         ColorTable unlockColor = ColorTable.fromMap(element);
@@ -364,7 +381,8 @@ class DatabaseHelper {
     List<ColorTable> colors = [];
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> result = await db.rawQuery("SELECT * FROM ${ColorsConst.colorTable}");
+      List<Map<String, dynamic>> result =
+          await db.rawQuery("SELECT * FROM ${ColorsConst.colorTable}");
       debugPrint("result-->$result");
       for (var element in result) {
         ColorTable color = ColorTable.fromMap(element);
@@ -383,8 +401,9 @@ class DatabaseHelper {
     List<DensityColor> colors = [];
     try {
       Database db = await instance.database;
-      List<Map<String, dynamic>> result =
-          await db.rawQuery("SELECT * FROM ${ColorsConst.densityColorTable} WHERE ${ColorsConst.parentColorCode} = ?", [colorCode]);
+      List<Map<String, dynamic>> result = await db.rawQuery(
+          "SELECT * FROM ${ColorsConst.densityColorTable} WHERE ${ColorsConst.parentColorCode} = ?",
+          [colorCode]);
       debugPrint("result-->$result");
       for (var element in result) {
         DensityColor color = DensityColor.fromMap(element);

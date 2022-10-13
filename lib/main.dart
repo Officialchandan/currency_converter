@@ -598,28 +598,30 @@ Future<void> insertData() async {
         });
 
         DataModel currencyData = DataModel(
-            value: value.toString(),
-            code: key,
-            image: map["image"],
-            name: map["country_name"],
-            fav: (key == "USD" ||
-                    key == "EUR" ||
-                    key == "GBP" ||
-                    key == "CAD" ||
-                    key == "INR" ||
-                    key == "MXN" ||
-                    key == "BTC")
-                ? 1
-                : 0,
-            selected: (key == "USD" ||
-                    key == "EUR" ||
-                    key == "GBP" ||
-                    key == "CAD" ||
-                    key == "INR" ||
-                    key == "MXN")
-                ? 1
-                : 0,
-            symbol: map["Symbol"]);
+          value: value.toString(),
+          code: key,
+          image: map["image"],
+          name: map["country_name"],
+          fav: (key == "USD" ||
+                  key == "EUR" ||
+                  key == "GBP" ||
+                  key == "CAD" ||
+                  key == "INR" ||
+                  key == "MXN" ||
+                  key == "BTC")
+              ? 1
+              : 0,
+          selected: (key == "USD" ||
+                  key == "EUR" ||
+                  key == "GBP" ||
+                  key == "CAD" ||
+                  key == "INR" ||
+                  key == "MXN")
+              ? 1
+              : 0,
+          symbol: map["Symbol"],
+          itemIndex: (key.length + 1),
+        );
         int id = await dbHelper.insert(currencyData.toMap());
       });
     } else {
@@ -635,75 +637,75 @@ Future insertDefaultData() async {
 
   if (!firstTime) {
     DataModel currencyUSD = DataModel(
-      value: "0",
-      code: "USD",
-      image: "assets/pngCountryImages/USD.png",
-      name: "United States Dollar",
-      fav: 1,
-      selected: 1,
-      symbol: "\$",
-      timeStamp: DateTime.now().millisecondsSinceEpoch,
-    );
+        value: "0",
+        code: "USD",
+        image: "assets/pngCountryImages/USD.png",
+        name: "United States Dollar",
+        fav: 1,
+        selected: 1,
+        symbol: "\$",
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
+        itemIndex: 1);
     await dbHelper.insert(currencyUSD.toMap());
 
     DataModel currencyEUR = DataModel(
-      value: "0",
-      code: "EUR",
-      image: "assets/pngCountryImages/EUR.png",
-      name: "Euro",
-      fav: 1,
-      selected: 1,
-      symbol: "€",
-      timeStamp: DateTime.now().millisecondsSinceEpoch,
-    );
+        value: "0",
+        code: "EUR",
+        image: "assets/pngCountryImages/EUR.png",
+        name: "Euro",
+        fav: 1,
+        selected: 1,
+        symbol: "€",
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
+        itemIndex: 2);
     await dbHelper.insert(currencyEUR.toMap());
 
     DataModel currencyGBP = DataModel(
-      value: "0",
-      code: "GBP",
-      image: "assets/pngCountryImages/GBP.png",
-      name: "British Pound Sterling",
-      fav: 1,
-      selected: 1,
-      symbol: "£",
-      timeStamp: DateTime.now().millisecondsSinceEpoch,
-    );
+        value: "0",
+        code: "GBP",
+        image: "assets/pngCountryImages/GBP.png",
+        name: "British Pound Sterling",
+        fav: 1,
+        selected: 1,
+        symbol: "£",
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
+        itemIndex: 3);
     await dbHelper.insert(currencyGBP.toMap());
 
     DataModel currencyCAD = DataModel(
-      value: "0",
-      code: "CAD",
-      image: "assets/pngCountryImages/CAD.png",
-      name: "Canadian Dollar",
-      fav: 1,
-      selected: 1,
-      symbol: "Can\$",
-      timeStamp: DateTime.now().millisecondsSinceEpoch,
-    );
+        value: "0",
+        code: "CAD",
+        image: "assets/pngCountryImages/CAD.png",
+        name: "Canadian Dollar",
+        fav: 1,
+        selected: 1,
+        symbol: "Can\$",
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
+        itemIndex: 4);
     await dbHelper.insert(currencyCAD.toMap());
 
     DataModel currencyINR = DataModel(
-      value: "0",
-      code: "INR",
-      image: "assets/pngCountryImages/INR.png",
-      name: "Indian Rupee",
-      fav: 1,
-      selected: 1,
-      symbol: "₹",
-      timeStamp: DateTime.now().millisecondsSinceEpoch,
-    );
+        value: "0",
+        code: "INR",
+        image: "assets/pngCountryImages/INR.png",
+        name: "Indian Rupee",
+        fav: 1,
+        selected: 1,
+        symbol: "₹",
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
+        itemIndex: 5);
     await dbHelper.insert(currencyINR.toMap());
 
     DataModel currencyMXN = DataModel(
-      value: "0",
-      code: "MXN",
-      image: "assets/pngCountryImages/MXN.png",
-      name: "Mexican Peso",
-      fav: 1,
-      selected: 1,
-      symbol: "Mex\$",
-      timeStamp: DateTime.now().millisecondsSinceEpoch,
-    );
+        value: "0",
+        code: "MXN",
+        image: "assets/pngCountryImages/MXN.png",
+        name: "Mexican Peso",
+        fav: 1,
+        selected: 1,
+        symbol: "Mex\$",
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
+        itemIndex: 5);
     await dbHelper.insert(currencyMXN.toMap());
 
     await Utility.setBooleanPreference("firstTime", true);

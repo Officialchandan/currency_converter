@@ -13,7 +13,7 @@ class DataModel {
   String exchangeValue = "0";
   String? symbol;
   final Key? key;
-
+  int? itemIndex;
   DataModel(
       {required this.value,
       required this.code,
@@ -24,7 +24,8 @@ class DataModel {
       this.selected = 0,
       this.iconForSelection = false,
       this.symbol = "",
-      this.key = const ValueKey("0")});
+      this.key = const ValueKey("0"),
+      this.itemIndex = 0});
 
   factory DataModel.fromMap(Map<String, dynamic> json) => DataModel(
         name: json["countryName"] ?? "",
@@ -35,6 +36,7 @@ class DataModel {
         fav: json["favCountry"] ?? 0,
         timeStamp: json["timeStamp"] ?? 0,
         symbol: json["symbol"] ?? "",
+        itemIndex: json["indexOfItem"] ?? 0,
       );
   Map<String, dynamic> toMap() => {
         "countryName": name ?? "",
@@ -45,10 +47,11 @@ class DataModel {
         "favCountry": fav ?? 0,
         "timeStamp": timeStamp ?? 0,
         "symbol": symbol ?? "",
+        "indexOfItem": itemIndex ?? 0,
       };
 
   @override
   String toString() {
-    return 'DataModel{name: $name, image: $image, code: $code, value: $value, selected: $selected, fav: $fav, timeStamp: $timeStamp, iconForSelection: $iconForSelection, exchangeValue: $exchangeValue, symbol: $symbol}';
+    return 'DataModel{name: $name, image: $image, code: $code, value: $value, selected: $selected, fav: $fav, timeStamp: $timeStamp, iconForSelection: $iconForSelection, exchangeValue: $exchangeValue, symbol: $symbol,indexOfItem: $itemIndex}';
   }
 }

@@ -1461,8 +1461,6 @@ class _SettingScreenState extends State<SettingScreen>
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (BuildContext buildContext, Animation animation,
             Animation secondaryAnimation) {
-          // double width = MediaQuery.of(context).size.width;
-
           return DefaultTextStyle(
             style: const TextStyle(decoration: TextDecoration.none),
             child: Center(
@@ -1470,7 +1468,6 @@ class _SettingScreenState extends State<SettingScreen>
                 child: Container(
                   margin: const EdgeInsets.only(
                       top: 15, right: 10, bottom: 0, left: 10),
-                  // width: width,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
