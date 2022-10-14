@@ -30,7 +30,7 @@ class _DecimalScreensState extends State<DecimalScreens> {
   String demoText = "";
 
   List<Map<String, dynamic>> monetaryFormat = [
-    {"format": "1234.56", "id": "1", "check": false},
+    {"format": "1,234.56", "id": "1", "check": false},
     {"format": "1.234,56", "id": "2", "check": false},
     {"format": "1 234.56", "id": "3", "check": false},
     {"format": "1 234,56", "id": "4", "check": false},
@@ -85,10 +85,13 @@ class _DecimalScreensState extends State<DecimalScreens> {
     monetary = monetary == "" ? "1" : monetary;
     decimal = decimal == "" ? "2" : decimal;
 
-    monetaryFormat.singleWhere((element) => element["id"] == monetary)["check"] = true;
-    decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] = true;
+    monetaryFormat
+        .singleWhere((element) => element["id"] == monetary)["check"] = true;
+    decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] =
+        true;
 
-    Map<String, dynamic> f = demoString.singleWhere((element) => element.containsKey("$monetary" "_" + decimal));
+    Map<String, dynamic> f = demoString.singleWhere(
+        (element) => element.containsKey("$monetary" "_" + decimal));
 
     demoText = f[monetary + "_" + decimal];
 
@@ -138,7 +141,10 @@ class _DecimalScreensState extends State<DecimalScreens> {
                         child: Text(
                           "monetary_format".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
-                          style: TextStyle(color: MyColors.textColor, fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(
@@ -157,11 +163,14 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                 for (var element in monetaryFormat) {
                                   element["check"] = false;
                                 }
-                                monetaryFormat.singleWhere((element) => element["id"] == monetary)["check"] = true;
-                                await Utility.setStringPreference(Constants.monetaryFormat, monetary);
+                                monetaryFormat.singleWhere((element) =>
+                                    element["id"] == monetary)["check"] = true;
+                                await Utility.setStringPreference(
+                                    Constants.monetaryFormat, monetary);
                                 MyColors.monetaryFormat = int.parse(monetary);
-                                Map<String, dynamic> f =
-                                    demoString.singleWhere((element) => element.containsKey("$monetary" "_" + decimal));
+                                Map<String, dynamic> f = demoString.singleWhere(
+                                    (element) => element.containsKey(
+                                        "$monetary" "_" + decimal));
                                 demoText = f[monetary + "_" + decimal];
                                 setState(() {});
                                 Utility.notifyThemeChange();
@@ -180,14 +189,18 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                           width: 17,
                                           height: 17,
                                           fit: BoxFit.fill,
-                                          color: MyColors.isDarkMode ? const Color(0xff333333) : Colors.white,
+                                          color: MyColors.isDarkMode
+                                              ? const Color(0xff333333)
+                                              : Colors.white,
                                         )
                                       : SvgPicture.asset(
                                           "assets/images/check-blank.svg",
                                           width: 17,
                                           height: 17,
                                           fit: BoxFit.fill,
-                                          color: MyColors.isDarkMode ? const Color(0xff333333) : Colors.white,
+                                          color: MyColors.isDarkMode
+                                              ? const Color(0xff333333)
+                                              : Colors.white,
                                         ),
                                   const SizedBox(
                                     width: 10,
@@ -230,8 +243,12 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                     width: 84,
                                     child: AutoSizeText(
                                       "${monetaryFormat[index]["format"]}",
-                                      textScaleFactor: Constants.textScaleFactor,
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: MyColors.textColor),
+                                      textScaleFactor:
+                                          Constants.textScaleFactor,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17,
+                                          color: MyColors.textColor),
                                     ),
                                   ),
                                   // Text("${monetaryFormat[index]["format"]}",
@@ -258,7 +275,10 @@ class _DecimalScreensState extends State<DecimalScreens> {
                         child: Text(
                           "decimal_format".tr().toString(),
                           textScaleFactor: Constants.textScaleFactor,
-                          style: TextStyle(color: MyColors.textColor, fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: MyColors.textColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(
@@ -279,16 +299,24 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                   element["check"] = false;
                                 }
 
-                                decimalFormat.singleWhere((element) => element["id"] == decimal)["check"] = true;
+                                decimalFormat.singleWhere((element) =>
+                                    element["id"] == decimal)["check"] = true;
 
-                                Utility.setStringPreference(Constants.decimalFormat, decimal);
+                                Utility.setStringPreference(
+                                    Constants.decimalFormat, decimal);
 
                                 MyColors.decimalFormat = int.parse(decimal);
 
-                                Map<String, dynamic> f =
-                                    demoString.singleWhere((element) => element.containsKey("$monetary" "_" + decimal));
+                                Map<String, dynamic> f = demoString.singleWhere(
+                                    (element) => element.containsKey(
+                                        "$monetary" "_" + decimal));
 
                                 demoText = f[monetary + "_" + decimal];
+                                debugPrint("demoText-->$demoText");
+                                debugPrint("demoText-->$decimal");
+                                debugPrint(
+                                    "demoText-->${MyColors.decimalFormat}");
+
                                 Utility.notifyThemeChange();
 
                                 setState(() {});
@@ -306,14 +334,18 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                           width: 17,
                                           height: 17,
                                           fit: BoxFit.fill,
-                                          color: MyColors.isDarkMode ? const Color(0xff333333) : Colors.white,
+                                          color: MyColors.isDarkMode
+                                              ? const Color(0xff333333)
+                                              : Colors.white,
                                         )
                                       : SvgPicture.asset(
                                           "assets/images/check-blank.svg",
                                           width: 17,
                                           height: 17,
                                           fit: BoxFit.fill,
-                                          color: MyColors.isDarkMode ? const Color(0xff333333) : Colors.white,
+                                          color: MyColors.isDarkMode
+                                              ? const Color(0xff333333)
+                                              : Colors.white,
                                         ),
                                   const SizedBox(
                                     width: 10,
@@ -352,9 +384,13 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                     width: 130,
                                     child: AutoSizeText(
                                       "${decimalFormat[index]["format"]}",
-                                      textScaleFactor: Constants.textScaleFactor,
+                                      textScaleFactor:
+                                          Constants.textScaleFactor,
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold, fontSize: 17, letterSpacing: 0.6, color: MyColors.textColor),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17,
+                                          letterSpacing: 0.6,
+                                          color: MyColors.textColor),
                                       maxLines: 1,
                                     ),
                                   ),

@@ -50,6 +50,8 @@ class _MyCurrencyState extends State<MyCurrency> {
   BannerAd? _bannerAd;
   bool isBannerAdReady = false;
 
+  bool isCheckingBuild = true;
+
   String value = "1";
   int intByValue = 0;
   int intByValueOnChange = 0;
@@ -59,33 +61,11 @@ class _MyCurrencyState extends State<MyCurrency> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((_) {});
-    // config();
     getValue();
     getSelectedList();
     super.initState();
+    isCheckingBuild = true;
   }
-
-  // void config() async {
-  //   await SharedPreferences.getInstance().then((pref) {
-  //     prefs = pref;
-  //     List<String>? lst = pref.getStringList('indexList');
-  //
-  //     print("lst---->${lst!.toList()}");
-  //
-  //     List<DataModel> list = [];
-  //     if (lst != null && lst.isNotEmpty) {
-  //       list = lst
-  //           .map(
-  //             (String indx) => selectedList
-  //                 .where((DataModel item) => int.parse(indx) == item.itemIndex)
-  //                 .fzz,
-  //           )
-  //           .toList();
-  //       selectedList = list;
-  //     }
-  //     setState(() {});
-  //   });
-  // }
 
   getValue() async {
     intByValue = await Utility.getIntPreference(Constants.indexByValue);
@@ -93,8 +73,6 @@ class _MyCurrencyState extends State<MyCurrency> {
         await Utility.getIntPreference(Constants.indexByValueOnChange);
     value = await Utility.getStringPreference("value")
         .then((value) => value.isNotEmpty ? value : "1");
-    print("inttttt_>$intByValue");
-    print("inttttt_>$intByValueOnChange");
     if (mounted) {
       setState(() {});
     }
@@ -105,7 +83,6 @@ class _MyCurrencyState extends State<MyCurrency> {
     var appheight = MediaQuery.of(context).size.height;
     var appwidth = MediaQuery.of(context).size.width;
     double convertH = 0.310;
-
     return WillPopScope(
       onWillPop: () async {
         if (isCalculatorVisible) {
@@ -182,9 +159,6 @@ class _MyCurrencyState extends State<MyCurrency> {
                                       if (intByValue != intByValueOnChange &&
                                           (index == intByValueOnChange) &&
                                           isCheckIndex) {
-                                        debugPrint("firstTime22$firstTime");
-                                        print("int--->$intByValue}");
-                                        print("int--->$intByValueOnChange");
                                         selectedList[index].controller.text =
                                             value;
                                         calculateExchangeRate(
@@ -195,6 +169,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                                         });
                                       } else {
                                         if (index == intByValue && firstTime) {
+                                          debugPrint("hey--${intByValue}");
                                           debugPrint("firstTime$firstTime");
                                           selectedList[index].controller.text =
                                               value;
@@ -203,6 +178,7 @@ class _MyCurrencyState extends State<MyCurrency> {
                                           firstTime = false;
                                         }
                                       }
+
                                       return Item(
                                         data: selectedList[index],
                                         isFirst: index == 0,
@@ -259,12 +235,11 @@ class _MyCurrencyState extends State<MyCurrency> {
                                               text, index, selectedList[index]);
                                         },
                                         onTap: () {
-                                          SchedulerBinding.instance
-                                              .addPostFrameCallback((_) {
+                                          Future.delayed(Duration.zero,
+                                              () async {
                                             isCalculatorVisible = true;
                                             setState(() {});
                                           });
-
                                           debugPrint("index------->$index");
                                           dataController
                                               .add(selectedList[index]);
@@ -516,17 +491,23 @@ class _MyCurrencyState extends State<MyCurrency> {
 
       debugPrint("draggedItem__>${draggedItem.timeStamp}");
     } else {
-      draggedItem.timeStamp = selectedList[index + 1].timeStamp! - 1000;
+      draggedItem.timeStamp = selectedList[index + 1].timeStamp! - 10;
+
       debugPrint("draggedItem______${selectedList[index + 1]}");
+      debugPrint("draggedItem______${draggedItem.timeStamp}");
     }
     Utility.setIntPreference(Constants.indexByValue, index);
-    int myValueIndex =
-        await Utility.getIntPreference(Constants.indexByValueOnChange);
+    // int myValueIndex =
+    //     await Utility.getIntPreference(Constants.indexByValueOnChange);
+    // Utility.setIntPreference(Constants.indexByValueOnChange, index);
+    // debugPrint("myValueIndex--${myValueIndex}");
+    debugPrint("setin----->${index}");
 
-    ///this code check again on implement to the flutter app on client side
-    if (myValueIndex == index) {
-      Utility.setIntPreference(Constants.indexByValueOnChange, index);
-    }
+    // if (myValueIndex == index) {
+    //
+    // } else {
+    //   // Utility.setIntPreference(Constants.indexByValueOnChange, );
+    // }
     // prefs!.setStringList(
     //     'indexList', selectedList.map((m) => m.itemIndex.toString()).toList());
     await dbHelper.update(draggedItem.toMap());
@@ -653,7 +634,7 @@ class _MyCurrencyState extends State<MyCurrency> {
   }
 }
 
-class Item extends StatelessWidget {
+class Item extends StatefulWidget {
   Item({
     required this.data,
     required this.isFirst,
@@ -671,9 +652,20 @@ class Item extends StatelessWidget {
   final Function onItemRemove;
   final Function(String text) onChange;
   final Function onTap;
-  bool isbool = true;
 
+  @override
+  State<Item> createState() => _ItemState();
+}
+
+class _ItemState extends State<Item> {
+  bool isbool = true;
   final dbHelper = DatabaseHelper.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    getDecimalFormat();
+  }
 
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
     BoxDecoration decoration;
@@ -692,10 +684,9 @@ class Item extends StatelessWidget {
         borderRadius: BorderRadius.circular(7.0),
       );
     }
-
     // For iOS dragging mode, there will be drag handle on the right that triggers
     // reordering; For android mode it will be just an empty container
-    Widget dragHandle = draggingMode == DraggingMode.iOS
+    Widget dragHandle = widget.draggingMode == DraggingMode.iOS
         ? IntrinsicHeight(
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -713,7 +704,7 @@ class Item extends StatelessWidget {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
                                 child: Image.asset(
-                                  data.image!,
+                                  widget.data.image!,
                                   fit: BoxFit.cover,
                                 ))),
                       )
@@ -747,7 +738,7 @@ class Item extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                data.code,
+                                widget.data.code,
                                 textScaleFactor: Constants.textScaleFactor,
                                 style: TextStyle(
                                   color: MyColors.textColor,
@@ -769,7 +760,7 @@ class Item extends StatelessWidget {
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
                                     child: Image.asset(
-                                      data.image!,
+                                      widget.data.image!,
                                       fit: BoxFit.cover,
                                     ))),
                           )
@@ -793,7 +784,7 @@ class Item extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  data.symbol!,
+                                  widget.data.symbol!,
                                   textScaleFactor: Constants.textScaleFactor,
                                   style: TextStyle(
                                     color: MyColors.textColor,
@@ -827,7 +818,7 @@ class Item extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              data.symbol!,
+                              widget.data.symbol!,
                               textScaleFactor: Constants.textScaleFactor,
                               style: TextStyle(
                                 color: MyColors.textColor,
@@ -853,9 +844,9 @@ class Item extends StatelessWidget {
                       canStart: () {
                         return true;
                       },
-                      key: key,
+                      key: widget.key,
                       child: AutoSizeTextField(
-                        controller: data.controller,
+                        controller: widget.data.controller,
                         cursorColor: MyColors.colorPrimary,
                         textAlignVertical: TextAlignVertical.center,
                         autocorrect: true,
@@ -885,25 +876,28 @@ class Item extends StatelessWidget {
 
                           text = text.replaceAll(RegExp(r'[^0-9]'), '');
                           await Utility.setStringPreference("value", text);
-                          await Utility.setStringPreference("code", data.code);
-                          Constants.selectedEditableCurrencyCode = data.code;
+                          await Utility.setStringPreference(
+                              "code", widget.data.code);
+                          Constants.selectedEditableCurrencyCode =
+                              widget.data.code;
                           Constants.selectedEditableCurrencyValue = text;
-                          data.controller.text = text;
+                          widget.data.controller.text = text;
                           // text = data.controller.text;
-                          data.controller.selection =
+                          widget.data.controller.selection =
                               TextSelection.fromPosition(TextPosition(
-                                  offset: data.controller.text.length));
-                          onChange(text);
+                                  offset: widget.data.controller.text.length));
+                          widget.onChange(text);
                           // calculateExchangeRate(text);
                         },
                         onTap: () async {
-                          data.controller.selection =
+                          debugPrint("hello_chandan");
+                          widget.data.controller.selection =
                               TextSelection.fromPosition(TextPosition(
-                                  offset: data.controller.text.length));
+                                  offset: widget.data.controller.text.length));
                           // isCalculatorVisible = true;
                           // dataController.add(data);
 
-                          onTap();
+                          widget.onTap();
                         },
                       ),
                     ),
@@ -923,10 +917,10 @@ class Item extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            data.selected = 0;
-                            data.timeStamp = 0;
-                            dbHelper.update(data.toMap());
-                            onItemRemove();
+                            widget.data.selected = 0;
+                            widget.data.timeStamp = 0;
+                            dbHelper.update(widget.data.toMap());
+                            widget.onItemRemove();
                           },
                           child: SvgPicture.asset(
                             "assets/images/close-red.svg",
@@ -951,7 +945,7 @@ class Item extends StatelessWidget {
     );
 
     // For android dragging mode, wrap the entire content in DelayedReorderableListener
-    if (draggingMode == DraggingMode.android) {
+    if (widget.draggingMode == DraggingMode.android) {
       content = DelayedReorderableListener(
         child: content,
       );
@@ -960,10 +954,26 @@ class Item extends StatelessWidget {
     return content;
   }
 
+  getDecimalFormat() async {
+    String monetary =
+        await Utility.getStringPreference(Constants.monetaryFormat);
+    String decimal = await Utility.getStringPreference(Constants.decimalFormat);
+    debugPrint("myyy$monetary");
+    debugPrint("myyy-->$decimal");
+    monetary = monetary == "" ? "1" : monetary;
+    decimal = decimal == "" ? "2" : decimal;
+
+    ///this problem solve this implementing in valueNotifireLisners
+    MyColors.monetaryFormat = int.parse(monetary);
+    MyColors.decimalFormat = int.parse(decimal);
+    if (!mounted) return;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return ReorderableItem(
-        key: data.key!, //
+        key: widget.data.key!, //
         childBuilder: _buildChild);
   }
 }
