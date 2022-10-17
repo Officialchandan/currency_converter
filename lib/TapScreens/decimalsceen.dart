@@ -317,9 +317,8 @@ class _DecimalScreensState extends State<DecimalScreens> {
                                 debugPrint(
                                     "demoText-->${MyColors.decimalFormat}");
 
-                                Utility.notifyThemeChange();
-
                                 setState(() {});
+                                Utility.notifyThemeChange();
                               }
                             },
                             child: Container(

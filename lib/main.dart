@@ -416,28 +416,37 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<InAppProvider>(context, listen: true);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      builder: (context, child) {
-        child = botToastBuilder(context, child);
-        return MediaQuery(
-          data: MediaQuery.of(context)
-              .copyWith(textScaleFactor: Constants.textScaleFactor),
-          child: child,
-        );
+    return Listener(
+      onPointerDown: (_) {
+        debugPrint("yes-->click}");
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.focusedChild?.unfocus();
+        }
       },
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        fontFamily: GoogleFonts.roboto().fontFamily,
-        primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        // primaryColor: MyColors.colorPrimary,
-        textSelectionTheme: hadls(provider),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (context, child) {
+          child = botToastBuilder(context, child);
+          return MediaQuery(
+            data: MediaQuery.of(context)
+                .copyWith(textScaleFactor: Constants.textScaleFactor),
+            child: child,
+          );
+        },
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          fontFamily: GoogleFonts.roboto().fontFamily,
+          primarySwatch: ColorTools.createPrimarySwatch(MyColors.colorPrimary),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          // primaryColor: MyColors.colorPrimary,
+          textSelectionTheme: hadls(provider),
+        ),
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        home: const SplashScreen(),
       ),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      home: const SplashScreen(),
     );
   }
 
