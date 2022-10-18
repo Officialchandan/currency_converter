@@ -399,26 +399,8 @@ class _MyCurrencyState extends State<MyCurrency> {
                   int index = selectedList
                       .indexWhere((element) => element.code == code);
                   if (index != -1) {
-                    // {
-                    //   String value = await Utility.getStringPreference("value");
-                    //   String code = await Utility.getStringPreference("code");
-                    //   dataController.addError("error");
-                    //   if (value.isNotEmpty && code.isNotEmpty) {
-                    //     int index =
-                    //     selectedList.indexWhere((element) => element.code == code);
-                    //     debugPrint("ListenerIndex-->$index");
-                    //     if (index != -1) {
-                    //       double v2 = double.parse(value);
-                    //       selectedList[index].controller.text =
-                    //           getFormatText(v2.toStringAsFixed(MyColors.decimalFormat));
-                    //       if (!mounted) return;
-                    //       setState(() {});
-                    //     }
-                    //   }
-                    // },
-
-                    print("helle->${value}");
                     double v2 = double.parse(value);
+                    selectedList[index].controller.text = value;
                     calculateExchangeRate(selectedList[index].controller.text,
                         index, selectedList[index]);
                     selectedList[index].controller.text = getFormatText(
@@ -484,6 +466,10 @@ class _MyCurrencyState extends State<MyCurrency> {
     debugPrint("_indexOfKey $index");
     final draggedItem = selectedList[_indexOfKey(item)];
     debugPrint("draggedItem $draggedItem");
+    FocusScope.of(context).unfocus();
+    String value = await Utility.getStringPreference("value");
+    String code = await Utility.getStringPreference("code");
+    dataController.addError("error");
 
     if (selectedList.length == index + 1) {
       draggedItem.timeStamp = DateTime.now().millisecondsSinceEpoch;
@@ -496,19 +482,15 @@ class _MyCurrencyState extends State<MyCurrency> {
       debugPrint("draggedItem______${draggedItem.timeStamp}");
     }
     Utility.setIntPreference(Constants.indexByValue, index);
-    // int myValueIndex =
-    //     await Utility.getIntPreference(Constants.indexByValueOnChange);
-    // Utility.setIntPreference(Constants.indexByValueOnChange, index);
-    // debugPrint("myValueIndex--${myValueIndex}");
     debugPrint("setin----->${index}");
-
-    // if (myValueIndex == index) {
-    //
-    // } else {
-    //   // Utility.setIntPreference(Constants.indexByValueOnChange, );
-    // }
-    // prefs!.setStringList(
-    //     'indexList', selectedList.map((m) => m.itemIndex.toString()).toList());
+    if (value.isNotEmpty && code.isNotEmpty) {
+      int index = selectedList.indexWhere((element) => element.code == code);
+      if (index != -1) {
+        double v2 = double.parse(value);
+        selectedList[index].controller.text =
+            getFormatText(v2.toStringAsFixed(MyColors.decimalFormat));
+      }
+    }
     await dbHelper.update(draggedItem.toMap());
     setState(() {});
     debugPrint("Reordering finished for ${draggedItem.code}");
@@ -1062,9 +1044,3 @@ class _ItemState extends State<Item> {
         childBuilder: _buildChild);
   }
 }
-
-/// this code for testing only this coding
-// double v1 = double.parse(text);
-// snapshot.data!.controller.text =
-// getFormatText(
-// v1.toStringAsFixed(MyColors.decimalFormat));

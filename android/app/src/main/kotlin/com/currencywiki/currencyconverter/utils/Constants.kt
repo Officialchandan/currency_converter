@@ -7,6 +7,7 @@ class Constants {
         const val baseCurrency = "base_currency"
         const val languageCode = "languageCode"
         const val currencyInputValue = "currencyInputValue"
+        const val openViaWidgetStatus = "openViaWidgetStatus"
         const val monetaryFormat = "monetaryFormat";
         const val decimalFormat = "decimalFormat";
         const val baseAmount = "base_amount"

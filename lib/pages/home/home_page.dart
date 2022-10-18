@@ -39,7 +39,7 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   TabChangeListener? listener;
   String theme = "";
   String theme1 = "";
-
+  String checkStatusCodeViaWidget = '0';
   int _isAppCount = 0;
 
   final InAppReview _inAppReview = InAppReview.instance;
@@ -62,18 +62,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       debugPrint("index1->${_tabController.index}");
     });
     WidgetsBinding.instance.addObserver(this);
-    if (MyColors.muliConverter) {
-      try {
-        _tabController.animateTo(
-          1,
-        );
-      } catch (e) {
-        debugPrint("exception in navigation to my currency-->$e");
-      }
-    }
-
     super.initState();
-
+    getStatusCodeOnOpenWidget();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
         final isAvailable = await _inAppReview.isAvailable();
@@ -90,6 +80,41 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
         setState(() => _availability = Availability.unavailable);
       }
     });
+  }
+
+  saveStatusCode() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constants.openViaWidgetStatus, '0');
+    debugPrint("Yes_I_AM");
+  }
+
+  getStatusCodeOnOpenWidget() async {
+    checkStatusCodeViaWidget = '0';
+    final prefs = await SharedPreferences.getInstance();
+    checkStatusCodeViaWidget =
+        prefs.getString(Constants.openViaWidgetStatus) ?? "0";
+    debugPrint("checkStatusCodeViaWidget---->$checkStatusCodeViaWidget");
+    if (MyColors.muliConverter) {
+      if (checkStatusCodeViaWidget == '1') {
+        debugPrint("dddddddddddd--->${checkStatusCodeViaWidget}");
+        try {
+          _tabController.animateTo(
+            0,
+          );
+        } catch (e) {
+          debugPrint("exception in navigation to my currency-->$e");
+        }
+      } else {
+        debugPrint("dddddddddddd2--->${checkStatusCodeViaWidget}");
+        try {
+          _tabController.animateTo(
+            1,
+          );
+        } catch (e) {
+          debugPrint("exception in navigation to my currency-->$e");
+        }
+      }
+    }
   }
 
   @override
@@ -138,6 +163,11 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
       } catch (e) {
         debugPrint("exception in navigation to my currency-->$e");
       }
+    }
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
+      saveStatusCode();
+      setState(() {});
     }
   }
 

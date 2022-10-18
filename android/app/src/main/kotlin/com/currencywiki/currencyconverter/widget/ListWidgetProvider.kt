@@ -73,6 +73,10 @@ class ListWidgetProvider : AppWidgetProvider() {
             Log.e(javaClass.simpleName, "amount--> $amount")
 
             Utility.setCurrencyCodeFrom(context,baseCurrency)
+
+            //save status via open app widget
+            Utility.setOpenStatusCode(context,"1")
+
             if(currencyCode==null){
                 Utility.setCurrencyCodeTo(context, baseCurrency)
             }else{

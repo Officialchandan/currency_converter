@@ -119,6 +119,17 @@ class Utility {
             return editor.commit()
         }
 
+        fun setOpenStatusCode(context: Context,value: String) : Boolean {
+                val prefs = context.getSharedPreferences(
+                    "FlutterSharedPreferences",
+                    Context.MODE_PRIVATE
+                );
+                val editor: SharedPreferences.Editor = prefs.edit()
+                editor.putString("flutter." + Constants.openViaWidgetStatus, value)
+                editor.apply()
+                return editor.commit()
+        }
+
         fun getCurrencyCode2(context: Context, widgetId: Int): String {
 
             val prefs = context.getSharedPreferences(
@@ -138,7 +149,7 @@ class Utility {
         }
 
         fun setExchangeValue(context: Context, value: String, widgetId: Int): Boolean {
-            val prefs = context.getSharedPreferences(
+             val prefs = context.getSharedPreferences(
                 "FlutterSharedPreferences",
                 Context.MODE_PRIVATE
             );

@@ -67,7 +67,7 @@ class SingleConvertorProvider : HomeWidgetProvider() {
             Utility.setCurrencyCodeFrom(context,from)
             Utility.setCurrencyCodeTo(context, to)
             Utility.setCurrencyInputValue(context, "1")
-
+            Utility.setOpenStatusCode(context,"1")
             val mainActivity = Intent(context, com.currencywiki.currencyconverter.MainActivity::class.java)
 
             mainActivity.putExtra("appWidgetId", widgetId)
