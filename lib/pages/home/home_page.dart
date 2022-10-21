@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:core';
-import 'dart:io';
 
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:currency_converter/TapScreens/decimalsceen.dart';
@@ -16,11 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:in_app_review/in_app_review.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-enum Availability { loading, available, unavailable }
 
 class MyTabBarWidget extends StatefulWidget {
   const MyTabBarWidget({Key? key}) : super(key: key);
@@ -42,12 +39,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   String checkStatusCodeViaWidget = '0';
   int _isAppCount = 0;
 
-  final InAppReview _inAppReview = InAppReview.instance;
-
-  String _appStoreId = '';
-  String _microsoftStoreId = '';
-  Availability _availability = Availability.loading;
-
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -64,22 +55,6 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     getStatusCodeOnOpenWidget();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      try {
-        final isAvailable = await _inAppReview.isAvailable();
-
-        print("isAvailable-->${isAvailable}");
-
-        setState(() {
-          _availability = isAvailable && Platform.isAndroid
-              ? Availability.available
-              : Availability.unavailable;
-          print("_availability-->${_availability}");
-        });
-      } catch (_) {
-        setState(() => _availability = Availability.unavailable);
-      }
-    });
   }
 
   saveStatusCode() async {
@@ -121,21 +96,15 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    debugPrint("didChangeAppLifecycleState $state");
-
     if (state == AppLifecycleState.resumed) {
       _isAppCount += 1;
-      print("iiii->$_isAppCount");
       if (_isAppCount == 5) {
-        if (_availability == Availability.available) {
-          _inAppReview.requestReview();
-        }
-        print("_isAppCount00-->$_isAppCount");
+        await LaunchReview.launch(
+            androidAppId: "com.currencywiki.currencyconverter");
       }
       if (_isAppCount > 5) {
         _isAppCount = 0;
       }
-      print("_isAppCount-->$_isAppCount");
       setState(() {});
     }
 
@@ -393,36 +362,8 @@ class _MyTabBarWidgetState extends State<MyTabBarWidget>
                   ),
                   InkWell(
                     onTap: () async {
-                      // PackageInfo packageInfo =
-                      //     await PackageInfo.fromPlatform();
-                      // Navigator.pop(context);
-                      if (_availability == Availability.available) {
-                        print("HII_THERE");
-                        await _inAppReview.requestReview();
-                      } else {
-                        print("enrtttt");
-                        await _inAppReview.openStoreListing();
-                      }
-                      // if (await _inAppReview.isAvailable()) {
-                      //   print("hii_there");
-                      // } else {
-                      //   await _inAppReview.openStoreListing();
-                      // }
-                      // try {
-                      //   print("market");
-                      //   _launchURL(
-                      //       "market://details?id=${packageInfo.packageName}");
-                      // } on PlatformException catch (e) {
-                      //   print("https://play.google.com--$e");
-                      //   _launchURL(
-                      //       "https://play.google.com/store/apps/details?id=${packageInfo.packageName}");
-                      // } finally {
-                      //   print("market");
-                      //   _launchURL(
-                      //       "https://play.google.com/store/apps/details?id=${packageInfo.packageName}");
-                      // }
-                      // _launchURL(
-                      //     "https://play.google.com/store/apps?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-ap-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7cONSEM_kwid_43700064490253526_creativeid_480912223122_device_c&gclid=CjwKCAjw7--KBhAMEiwAxfpkWKQxO989RVc1NUOy0A3km9V2HeHxoiIcDUM4CFT1AO2Aul2mPkJpCBoCGP0QAvD_BwE&gclsrc=aw.ds");
+                      await LaunchReview.launch(
+                          androidAppId: "com.currencywiki.currencyconverter");
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

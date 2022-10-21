@@ -15,6 +15,7 @@ class Constants {
   static DateTime timeNow = DateTime.now();
   static String inputValue = "1";
   static const String currencyInputValue = "currencyInputValue";
+  static const String newInputValue = "newInputValue";
   static const String indexByValue = "indexByValue";
   static const String indexByValueOnChange = "indexByValueOnChange";
   static const String checkWidgetPurchaseAds = 'checkWidgetPurchaseAds';

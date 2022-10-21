@@ -157,6 +157,12 @@ class _DecimalScreensState extends State<DecimalScreens> {
                           return InkWell(
                             splashColor: Colors.transparent,
                             onTap: () async {
+                              // FocusScopeNode currentFocus =
+                              //     FocusScope.of(context);
+                              // if (!currentFocus.hasPrimaryFocus) {
+                              //   currentFocus.focusedChild?.unfocus();
+                              // }
+                              FocusScope.of(context).unfocus();
                               if (!monetaryFormat[index]["check"]) {
                                 monetaryFormat[index]["check"] = true;
                                 monetary = monetaryFormat[index]["id"];
@@ -291,6 +297,12 @@ class _DecimalScreensState extends State<DecimalScreens> {
                           return InkWell(
                             splashColor: Colors.transparent,
                             onTap: () {
+                              // FocusScopeNode currentFocus =
+                              //     FocusScope.of(context);
+                              // if (!currentFocus.hasPrimaryFocus) {
+                              //   currentFocus.focusedChild?.unfocus();
+                              // }
+                              FocusScope.of(context).unfocus();
                               if (!decimalFormat[index]["check"]) {
                                 decimalFormat[index]["check"] = true;
                                 decimal = decimalFormat[index]["id"];

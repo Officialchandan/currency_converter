@@ -78,7 +78,7 @@ dependencies:
   #For App widget
   home_widget:
   workmanager:
-  in_app_review:
+  launch_review:
 
 
 
